@@ -1,0 +1,9 @@
+{
+  "accentColor": "",
+  "theme": "system",
+  "textFontFamily": "Helvetica",
+  "baseFontSize": 18,
+  "enabledCssSnippets": [
+    "stylesheet"
+  ]
+}
