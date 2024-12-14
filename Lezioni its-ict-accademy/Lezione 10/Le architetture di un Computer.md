@@ -136,9 +136,8 @@ Convertiamo **13** in binario:
 Risultato in binario: **1101₂**.
 
 > [!NOTE] NOTA
-> Si parte dal basso verso l'alto per capire il senso del numero binario difatti il risultato è 1101 
-
-
+> Si parte dal basso verso l'alto per leggere il numero binario, difatti il risultato è 1101
+ 
 ### Conversione Binario in decimale 
 
 Per convertire un numero binario (base 2) in un numero decimale (base 10), segui questi passaggi:
@@ -246,7 +245,7 @@ Step-by-step subtraction with borrow:
 
 ---
 
-# Algebra Booleana 
+# L'algebra Booleana 
 
 L'Algebra Booleana è un ramo dell'algebra che si occupa di valori veri o falsi, tipicamente denotati come 1 e 0, rispettivamente. È fondamentale nel campo dell'informatica e dell'elettronica digitale perché viene utilizzata per progettare e analizzare il comportamento di circuiti digitali e porte logiche.
 
@@ -257,4 +256,48 @@ Rappresentate come 1 (vero) e 0 (falso).
 - Operazioni logiche:  
 AND (⋅): Restituisce vero se entrambi gli operandi sono veri (1 ⋅ 1 = 1).  
 OR (+): Restituisce vero se almeno uno degli operandi è vero (1 + 0 = 1).  
-NOT (¬): Restituisce l'inverso dell'operando (¬1 = 0).
+NOT (¬): Restituisce l'inverso dell'operando (¬1 = 0) (è il segno meno).
+
+### Tabelle di verità 
+ 
+|  A  |  B  | A  AND  B |
+| :-: | :-: | :-------: |
+|  0  |  0  |     0     |
+|  0  |  1  |     0     |
+|  1  |  0  |     0     |
+|  1  |  1  |     1     |
+
+|  A  |  B  | A OR B |
+|:---:|:---:|:------:|
+|  0  |  0  |   0    |
+|  0  |  1  |   1    |
+|  1  |  0  |   1    |
+|  1  |  1  |   1    |
+
+| A   | NOT A |
+| --- | ----- |
+| 0   | 1     |
+| 1   | 0     |
+
+• Commutative:
+A OR B = B OR A
+A AND B = B AND A
+• Distributive:
+A OR (B AND C) = (A OR B) AND (A OR C)
+A AND (B OR C) = (A AND B) OR (A AND C)
+• De Morgan’s Law:
+NOT (A AND B) = (NOT A) OR (NOT B)
+NOT (A OR B) = (NOT A) AND (NOT B)
+
+
+> [!attention] Le regole di precedenza
+> 1. NOT ha la precedenza più alta su tutti gli altri operatori
+>  2. Segue AND  
+> 
+>3. Per ultimo c'è OR
+>Per alternare la precedenza si usano le parentesi, ovvero l'operatore dentro la parentesi ha la precedenza su tutti gli altri.
+
+
+
+
+
