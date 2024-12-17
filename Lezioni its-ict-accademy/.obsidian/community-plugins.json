@@ -13,5 +13,9 @@
   "docxer",
   "marker-api",
   "obsidian-topic-linking",
-  "obsidian-style-settings"
+  "obsidian-style-settings",
+  "obsidian-linter",
+  "language-translator",
+  "obsidian42-text-transporter",
+  "obsidian-minimal-settings"
 ]

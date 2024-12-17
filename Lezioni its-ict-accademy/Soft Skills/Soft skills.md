@@ -1,0 +1,1 @@
+Attitudine positiva: mettersi ad imparare cose nuove con una mentalità e un attitudine positiva, cioè prenderla come sfida con noi stessi e tramite il piacere della scoperta e di conoscere cose nuove, imparare qualcosa che non conoscevamo a mettersi di impegno ad impararla anche se magari non ci fa impazzire o non ci piace per niente. 

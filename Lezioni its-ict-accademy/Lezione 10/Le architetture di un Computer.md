@@ -254,7 +254,7 @@ Concetti chiave:
 - Variabili binarie:   
 Rappresentate come 1 (vero) e 0 (falso).
 - Operazioni logiche:  
-AND (⋅): Restituisce vero se entrambi gli operandi sono veri (1 ⋅ 1 = 1).  
+AND (\*): Restituisce vero se entrambi gli operandi sono veri (1 \* 1 = 1).  
 OR (+): Restituisce vero se almeno uno degli operandi è vero (1 + 0 = 1).  
 NOT (¬): Restituisce l'inverso dell'operando (¬1 = 0) (è il segno meno).
 

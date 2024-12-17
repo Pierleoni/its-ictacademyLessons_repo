@@ -17,12 +17,12 @@ Ecco, ad esempio, un'istruzione in un linguaggio di alto livello che calcola l'a
 ==Le istruzioni sono sotto forma di codice binario.== Ad esempio, per sommare due numeri, potresti dover scrivere un'istruzione in codice binario, come questa:  
 `1101101010011010`.  
 **La Programmazione Orientata agli Oggetti (OOP):**   
-è un paradigma di programmazione che organizza il codice in oggetti, che sono entità che combinano dati (chiamati attributi) e comportamenti (chiamati metodi), semplificando l'organizzazione del codice e rendendolo più modulare e riutilizzabile.  
+==è un paradigma di programmazione che organizza il codice in oggetti, che sono entità che combinano dati (chiamati attributi) e comportamenti (chiamati metodi), semplificando l'organizzazione del codice e rendendolo più modulare e riutilizzabile.==  
 **Le principali caratteristiche di Python includono:** 
-- Sintassi semplice e intuitiva:   
+- **Sintassi semplice e intuitiva:**   
  facilita lo sviluppo rapido del codice. 
 -  Supporto per i paradigmi di programmazione imperativa, funzionale e orientata agli oggetti. 
-- Ampie librerie standard:   
+- **Ampie librerie standard:**   
 che offrono moduli e funzioni per operazioni comuni, come la gestione dei file, la rete, l'elaborazione dei dati e molto altro.   
 Grazie alla sua versatilità, Python è utilizzato in vari settori, tra cui lo sviluppo web, l'analisi dei dati, l'intelligenza artificiale, la cybersecurity, la scienza computazionale e l'automazione.
 
@@ -46,24 +46,27 @@ In Python, i commenti sono preceduti da:
 `'''this program displays the message: Hello World!''`.   
 
 
-# Data types
+## Data types
 
-### Cosa sono i data types:   
+### Cosa sono i data types
+Quando ci approciamo a un qualsiasi ling di prog ci approcciamo a dei dati primitivi 
 Un programma deve rappresentare diversi tipi di valori con cui lavorare. Iniziamo con i più semplici: i tipi primitivi.  
 Ce ne sono di diversi tipi:  
-- Intero (int)  
-Numeri senza decimali. Possono essere positivi o negativi.  
-- Flottante (float)  
-Numeri con decimali. Possono essere positivi o negativi.  
-- Stringa (str)  
-Dati testuali, ma in realtà possono essere qualsiasi simbolo purché siano racchiusi tra virgolette (“ ” o ‘ ’).  
-- Booleano (bool)  
-Valore restituito dalle operazioni logiche. Può essere solo True o False (attenzione alla sensibilità delle maiuscole!).
+- **Intero (int):**  
+==Numeri senza decimali. Possono essere positivi o negativi.==  
+- **Flottante (float):**  
+==Numeri con decimali. Possono essere positivi o negativi.==  
+- **Stringa (str):**  
+==Dati testuali, ma in realtà possono essere qualsiasi simbolo purché siano racchiusi tra virgolette (“ ” o ‘ ’).==  
+- **Booleano (bool):**  
+==Valore restituito dalle operazioni logiche. Può essere solo True o False (attenzione alla sensibilità delle maiuscole!).== 
 
 ![[Data types.png]]
 
-
+I numeri possono avere qualsiasi valore come le stringhe, i valori booleani posso avere 2 valori `True` o `false`
 ### Variabili  
+Una volta compreso i dati devi sapperli usare, le variabili sono dei modi per slavare questi valori di dati e li puoi richiamare richiamando la variabile a cui hai assegnato quel valore (dato).
+A una variabile posso dargli qualsiasi nome e valore, i nomi devono descrivere al meglio il tipo di dato che state usando (es: name, age). 
 Consideriamo prima il semplice problema di calcolare l'area di un cerchio.  
 Come scriviamo un programma per risolvere questo problema?  
 Scrivere un programma implica progettare algoritmi e poi tradurli in istruzioni di programmazione, ovvero codice.  
@@ -77,10 +80,10 @@ L'algoritmo per calcolare l'area di un cerchio può essere descritto come segue:
 In questo problema, il programma deve ottenere il valore del raggio.  
 Il valore del raggio può essere memorizzato nella memoria del computer. Per accedervi, il programma deve usare una variabile.  
 Una variabile è un nome che fa riferimento a un valore memorizzato nella memoria del computer.  
-Invece di usare x e y come nomi di variabili, è meglio scegliere nomi descrittivi:  
+==**Invece di usare x e y come nomi di variabili, è meglio scegliere nomi descrittivi**==:  
 In questo caso, ad esempio, puoi usare il nome "raggio" per la variabile che fa riferimento al valore del raggio del cerchio e "area" per la variabile che fa riferimento al valore dell'area del cerchio.  
 Quindi possiamo scrivere nel nostro programma computeArea.py 
-```
+```python
 #Assign a value to radius
 radius=20
 #compute area
@@ -91,25 +94,25 @@ print(area)
 
 Vogliamo rappresentare nel nostro programma quanto siamo vecchi:    
 Es:
-```
+```python
  gianpino = 27
  print (gianpino)
 ```
 
-Supponiamo che ci sia un altra persona con un'età differente con lo stesso nome, basterà solo assegnare un nuovo valore alla variabile gianpino. 
-```
+Supponiamo che ci sia un altra persona con un'età differente con lo stesso nome, basterà solo assegnare un nuovo valore alla variabile `gianpino`. 
+```python
 gianpino = 30 
 print(gianpino)
 ```
 
 Possiamo anche modificare il data type alla nostra variabile:  
-```
+```python
 type (gianpino)
 >>> <class `int`>
 ```
 
 Mentre se vogliamo assegnargli un valore con la virgola:  
-```
+```python
 gianpino = 27.5
 type (gianpino)
 >>> <class `float`> 
@@ -119,7 +122,7 @@ type (gianpino)
 
 > [!warning] Overwriting: Fate attenzione!
 > L'overwriting è semplice, ma proprio per questo è anche semplice commettere errori. 
-> ```
+> ```python
 > age =30 
 > name = "Bob"
 > ...
@@ -128,7 +131,7 @@ type (gianpino)
 
 In Python, quando una variabile viene dichiarata, il suo tipo viene determinato automaticamente in base al valore che le viene assegnato.  
 Una variabile può avere una sequenza di caratteri come valore:  
-```
+```python
 #stringa  
 stringa = "Questa è una stringa"  
 print(stringa)  
@@ -137,15 +140,15 @@ print(type(stringa))
 ```
 
 Una variabile può avere un valore booleano:  
-```
+```python
 #booleano  
 bln = True  
 print(bln)  
 print(type(bln))
 ```
 
-In Python, quando una variabile viene dichiarata, il suo tipo viene determinato automaticamente in base al valore che le viene assegnato.
-```
+==In Python, quando una variabile viene dichiarata, il suo tipo viene determinato automaticamente in base al valore che le viene assegnato.==
+```python
 a = 2.3  
 print(a)  
 print(type(a))
@@ -181,8 +184,8 @@ In generale:
 
 
 ## Strings 
-
-```
+Una stringa è una sequenza di caratteri, quindi è possibile accedere a ogni carattere della stringa utilizzando un indice che indica la posizione di quel carattere all'interno della stringa data.
+```python
 Strings
 #single line string
 strA="Hello World«
