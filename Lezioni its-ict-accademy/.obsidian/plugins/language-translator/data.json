@@ -9,7 +9,7 @@
   },
   "translateApiUrl": "https://api.cognitive.microsofttranslator.com/translate?api-version=3.0",
   "maxCharacters": 2000,
-  "token": "global",
+  "token": "",
   "region": {
     "text": "Global",
     "code": "global"

@@ -1,4 +1,9 @@
 
+:root{
+    --text-color: #fff;
+    --bold-font: bold;
+
+}
 
 body {
     margin: 0;
@@ -14,11 +19,11 @@ h6 {
     text-align: center;
 }
 
-h1,h2 {
+h1,h2, h3 {
     color: red !important;
 }
 
-h3,h4 {
+h4 {
     color: rgb(235, 104, 11) !important;
 }
 
@@ -31,6 +36,36 @@ th {
     padding: 0px;
     
 }
+
+span.cm-inline-code {
+    background-color: rgb(54, 47, 47) !important; 
+    border-radius : 5px;
+    font-weight: var(--bold-font);
+    color: var(--text-color) !important; 
+    
+}
+
+
+/* Mostra sempre l'icona di copia accanto ai blocchi di codice*/
+.markdown-preview-view .code-block-header .copy-icon {
+    display: inline-block !important; /* Assicurati che sia visibile */
+    opacity: 1 !important; /* Imposta piena visibilità */
+    visibility: visible !important; /* Garantisci la visibilità */
+    transition: opacity 0.3s; /* Transizione per un effetto più elegante */
+}
+
+/* Specifico per blocchi di codice con linguaggio */
+.markdown-preview-view pre[data-lang] .copy-icon {
+    display: inline-block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Se desideri l'icona sempre visibile, anche senza hover */
+.markdown-preview-view pre .copy-icon {
+    opacity: 1 !important;
+    visibility: visible !important;
+} 
 
 
 

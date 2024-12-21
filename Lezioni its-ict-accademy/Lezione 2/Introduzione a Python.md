@@ -64,9 +64,9 @@ Ce ne sono di diversi tipi:
 ![[Data types.png]]
 
 I numeri possono avere qualsiasi valore come le stringhe, i valori booleani posso avere 2 valori `True` o `false`
-### Variabili  
+### Variabili
 Una volta compreso i dati devi sapperli usare, le variabili sono dei modi per slavare questi valori di dati e li puoi richiamare richiamando la variabile a cui hai assegnato quel valore (dato).
-A una variabile posso dargli qualsiasi nome e valore, i nomi devono descrivere al meglio il tipo di dato che state usando (es: name, age). 
+A una[[Spiegazione esercizi Lezione 1 Python#Introduzione a Python Variabili| variabile]] posso dargli qualsiasi nome e valore, i nomi devono descrivere al meglio il tipo di dato che state usando (es: name, age). 
 Consideriamo prima il semplice problema di calcolare l'area di un cerchio.  
 Come scriviamo un programma per risolvere questo problema?  
 Scrivere un programma implica progettare algoritmi e poi tradurli in istruzioni di programmazione, ovvero codice.  

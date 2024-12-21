@@ -1,8 +1,8 @@
-
+## 
 # Modificare i dati in [[Introduzione a Python#Cosa sono i data types|Python]] 
 
 ## Cosa sono gli operatori?
-Gli operatori sono usati per eseguire operazioni su variabili e valori.
+==Gli operatori sono usati per eseguire operazioni su variabili e valori.==
 Python supporta vari tipi di operazioni, includendo operazioni aritmetiche, comparazioni, logiche e gli operatori di assegnazione
 ![[Operatori.png]]
 
@@ -66,65 +66,66 @@ risultato = 10 % 3  # 10 diviso 3 dà resto 1
 print(risultato)  # Output: 1
 ```
 
-### Esempio Pratico
-```python
-a = 15
-b = 4
-
-somma = a + b          # 15 + 4 = 19
-sottrazione = a - b     # 15 - 4 = 11
-moltiplicazione = a * b # 15 * 4 = 60
-divisione = a / b       # 15 / 4 = 3.75
-div_intera = a // b     # 15 // 4 = 3 (parte intera)
-resto = a % b           # 15 % 4 = 3
-potenza = a ** 2        # 15 ** 2 = 225
-
-print("Somma:", somma)
-print("Sottrazione:", sottrazione)
-print("Moltiplicazione:", moltiplicazione)
-print("Divisione:", divisione)
-print("Divisione intera:", div_intera)
-print("Resto della divisione:", resto)
-print("Potenza:", potenza)
-```
-
-**Output:**
-```yaml
-Somma: 19
-Sottrazione: 11
-Moltiplicazione: 60
-Divisione: 3.75
-Divisione intera: 3
-Resto della divisione: 3
-Potenza: 225
-```
+> [!Example] Esempio Pratico
+>  
+> ```python
+> a = 15
+> b = 4
+> 
+> somma = a + b          # 15 + 4 = 19
+> sottrazione = a - b     # 15 - 4 = 11
+> moltiplicazione = a * b # 15 * 4 = 60
+> divisione = a / b       # 15 / 4 = 3.75
+> div_intera = a // b     # 15 // 4 = 3 (parte intera)
+> resto = a % b           # 15 % 4 = 3
+> potenza = a ** 2        # 15 ** 2 = 225
+> 
+> print("Somma:", somma)
+> print("Sottrazione:", sottrazione)
+> print("Moltiplicazione:", moltiplicazione)
+> print("Divisione:", divisione)
+> print("Divisione intera:", div_intera)
+> print("Resto della divisione:", resto)
+> print("Potenza:", potenza)
+> ```
+> 
+> **Output:**
+> ```yaml
+> Somma: 19
+> Sottrazione: 11
+> Moltiplicazione: 60
+> Divisione: 3.75
+> Divisione intera: 3
+> Resto della divisione: 3
+> Potenza: 225
+> ```
 
 ### Utilizzo degli operatori logici 
 Questi operatori sono usati spesso per eseguire calcoli all'interno dei programmi, come:
-- Sommare valori inseriti dall'utente.
-- Calcolare sconti, tasse o percentuali.
-- Gestire contatori nei loop (es. `x += 1`).
-- Effettuare operazioni matematiche complesse, come potenze ed espressioni.
+- ==Sommare valori inseriti dall'utente.==
+- ==Calcolare sconti, tasse o percentuali.==
+- ==Gestire contatori nei loop (es. `x += 1`).==
+- ==Effettuare operazioni matematiche complesse, come potenze ed espressioni.==
 
 ## Operatori di confronto (Comparison Operators)
 Gli operatori di confronto sono utilizzati per confrontare 2 valori. 
 Servono per compare i valori [[Le architetture di un Computer#L'algebra Booleana|booleani]]. 
 Di conseguenza il risultato di un confronto è un valore booleano:
-- `True` (vero): 
-  se la condizione è soddisfatta 
-- `False`(Falso):
-  Se la condizione non è soddisfatta
+- **`True` (vero):** 
+  ==se la condizione è soddisfatta== 
+- **`False`(Falso):**
+  ==Se la condizione non è soddisfatta==
 
 #### Lista operatori di confronto
 
-| Operatore | Significato         | Esempio (x=10, y=5) | Risultato |
-| --------- | ------------------- | ------------------- | --------- |
-| ==        | Uguale a            | x==y                | False     |
-| !=        | Diverso da          | x != y              | true      |
-| >         | Maggiore di         | x > y               | true      |
-| <         | Minore di           | x < y               | False     |
-| >=        | Maggiore o uguale a | x >= y              | True      |
-| <=        | Minore o uguale a   | x <= y              | False     |
+| Operatore |     Significato     | Esempio (x=10, y=5) | Risultato |
+|:---------:|:-------------------:|:-------------------:|:---------:|
+|    ==     |      Uguale a       |       x\=\= y       |   False   |
+|    !=     |     Diverso da      |       x != y        |   true    |
+|     >     |     Maggiore di     |        x > y        |   true    |
+|     <     |      Minore di      |        x < y        |   False   |
+|    >=     | Maggiore o uguale a |       x >= y        |   True    |
+|    <=     |  Minore o uguale a  |       x <= y        |   False   |
 In questa tabella sono riportati tutti gli operatori di confronto con gli esempi relativi.
 1. **`x == y`** → verifica se 10 è uguale a 5.
 	- in questo caso il risultato è `false` poiché 10 non è uguale a 5
@@ -139,92 +140,96 @@ In questa tabella sono riportati tutti gli operatori di confronto con gli esempi
 6. **`x <= y`** → Verifica se **10 è minore o uguale a 5**.
     - Questo è **falso**, quindi il risultato è `False`.
 
-## **Casi d'uso degli operatori di confronto** 
+### **Casi d'uso degli operatori di confronto** 
 
 Gli operatori di confronto sono utilizzati:
 
-- Nelle **istruzioni condizionali** come `if` per prendere decisioni.
-- Nei **loop** per controllare quando terminare un ciclo.
-- Per confrontare dati e variabili all'interno di calcoli e algoritmi.
+- ==Nelle **istruzioni condizionali** come `if` per prendere decisioni.==
+- ==Nei **loop** per controllare quando terminare un ciclo.==
+- ==Per confrontare dati e variabili all'interno di calcoli e algoritmi.==
 
-### Esempio con `if`:
-```python
-x = 10
-y = 5
-
-if x > y:
-    print("x è maggiore di y")  # Questa frase viene stampata
-else:
-    print("x non è maggiore di y")
-```
-
-Output:
-```
-x è maggiore di y
-```
+> [!example] Esempio con `if`
+>  
+> ```python
+> x = 10
+> y = 5
+> 
+> if x > y:
+>     print("x è maggiore di y")  # Questa frase viene stampata
+> else:
+>     print("x non è maggiore di y")
+> ```
+> 
+> Output:
+> ```python
+> x è maggiore di y
+> ```
+> 
 
 ## Gli operatori logici
-Gli **operatori logici** vengono utilizzati per combinare condizioni che restituiscono valori **booleani** (`True` o `False`).§
+==Gli **operatori logici** vengono utilizzati per combinare condizioni che restituiscono valori **booleani**== (`True` o `False`).
 In Python ci sono tre principali operatori logici:
 
-|   and   | restituisce vero se entrambi gli operatori sono veroi    |
-| :-----: | -------------------------------------------------------- |
+|   and   |  restituisce vero se entrambi gli operatori sono veroi   |
+|:-------:|:--------------------------------------------------------:|
 | **or**  | **restituisce vero se entrmabi gli operatori sono vero** |
-| **not** | **restituisce vero se l'operatore è falso**              |
+| **not** |       **restituisce vero se l'operatore è falso**        |
 ![[Operatori Logici.png]]
 
-#### Esempio Pratico 
-Prendiamo ad esempio; `x = True` e `y = False`: 
-```python
-x = True
-y = False
+> [!example] Esempio Pratico
+>   
+> Prendiamo ad esempio; `x = True` e `y = False`: 
+> ```python
+> x = True
+> y = False
+> 
+> print(x and y)   # Entrambi devono essere True -> False
+> print(x or y)    # Almeno uno deve essere True -> True
+> print(not x)     # Inverte il valore di x -> False
+> print(x and not y)  # x è True e not y è True -> True.
+> ```
+> 
+> Spiegazione dettagliata dell'esempio
+> 1. **`x and y` → `True and False`:**
+>     - La condizione richiede che **entrambi** i valori siano `True`.
+>     - Siccome `y` è `False`, il risultato è **`False`**.
+> 2. **`x or y` → `True or False`:**
+>     - La condizione richiede che **almeno uno** dei valori sia `True`.
+>     - Siccome `x` è `True`, il risultato è **`True`**.
+> 3. **`not x` → `not True`:**
+>     - L'operatore `not` inverte il valore booleano di `x`.
+>     - Siccome `x` è `True`, il risultato è **`False`**.
+> 4. **`x and not y` → `True and not False`:**
+>     - Prima viene calcolato `not y`, che diventa **`True`** (perché `y` è `False`).
+>     - Quindi la condizione diventa **`True and True`**, che restituisce **`True`**.
 
-print(x and y)   # Entrambi devono essere True -> False
-print(x or y)    # Almeno uno deve essere True -> True
-print(not x)     # Inverte il valore di x -> False
-print(x and not y)  # x è True e not y è True -> True.
-```
-
-#### Spiegazione dettagliata dell'esempio
-1. **`x and y` → `True and False`:**
-    - La condizione richiede che **entrambi** i valori siano `True`.
-    - Siccome `y` è `False`, il risultato è **`False`**.
-2. **`x or y` → `True or False`:**
-    - La condizione richiede che **almeno uno** dei valori sia `True`.
-    - Siccome `x` è `True`, il risultato è **`True`**.
-3. **`not x` → `not True`:**
-    - L'operatore `not` inverte il valore booleano di `x`.
-    - Siccome `x` è `True`, il risultato è **`False`**.
-4. **`x and not y` → `True and not False`:**
-    - Prima viene calcolato `not y`, che diventa **`True`** (perché `y` è `False`).
-    - Quindi la condizione diventa **`True and True`**, che restituisce **`True`**.
-
-### Esempio con condizioni pratiche
-```python
-eta = 20
-cittadino = True
-
-# Verifica se una persona può votare
-puo_votare = (eta >= 18) and cittadino
-print(puo_votare)  # Output: True
-```
-
-**Spiegazione:**
-- `eta >= 18` → `True` (perché 20 >= 18).
-- `cittadino` → `True`.
-- **`True and True`** → `True`, quindi la persona può votare.
+> [!example]- Esempio con condizioni pratiche
+>  
+> ```python
+> eta = 20
+> cittadino = True
+> 
+> # Verifica se una persona può votare
+> puo_votare = (eta >= 18) and cittadino
+> print(puo_votare)  # Output: True
+> ```
+> 
+> **Spiegazione:**
+> - `eta >= 18` → `True` (perché 20 >= 18).
+> - `cittadino` → `True`.
+> - **`True and True`** → `True`, quindi la persona può votare.
 
 ### **Quando si usano gli operatori logici?**
 Gli operatori logici sono molto utili quando devi:
 
-- Combinare **più condizioni** in un'istruzione `if`.
-- Controllare più **casi** all'interno di un programma.
-- Negare (invertire) condizioni con l'operatore `not`.
+- ==Combinare **più condizioni** in un'istruzione `if`.==
+- ==Controllare più **casi** all'interno di un programma.==
+- ==Negare (invertire) condizioni con l'operatore `not`==.
 
 
 
 ## Gli operatori di assegnazione
-Gli operatori di assegnazione vengono usati per **modificare** il valore di una variabile. Ad esempio:
+==Gli operatori di assegnazione vengono usati per **modificare** il valore di una variabile.== Ad esempio:
 - `x += 5` significa **aggiungere 5** al valore corrente di `x` e assegnare il risultato di nuovo a `x`.
 - Lo stesso principio si applica con `-=`, `*=`, `/=`, ecc.
 
@@ -278,28 +283,30 @@ cosa significa `x = x //1`
 Quando un'espressione contiene più operatori, Python segue un ordine di precedenza specifico per determinare quali operazioni vengono eseguite per prime.
 2 + (3 \* 4)        2 +( (3\*\*2) / 3).
 In altre parole, segue la regola **PEMDAS!** 
-* Parentesi, Esponente, Moltiplica/Dividi, Aggiungi/Sottrai
+* ==Parentesi, Esponente, Moltiplica/Dividi, Aggiungi/Sottrai==
+### Tabella delle precedenze degli operatori
 
+|             ()              |                        Parentesi                         |
+|:---------------------------:|:--------------------------------------------------------:|
+|            \*\*             |                         Potenza                          |
+|         +x, -x, ~x          |     segno più (più unario), segno meno (meno unario)     |
+|       \*,  /,  //,  %       | Moltiplicazione, divisione, divisione del piano e modulo |
+|            +;  -            |                 Addizione e sottrazione                  |
+| \=\=;  !=;  >;  >=;  <;  <= |     Operatori di confronto, identità e appartenenza      |
+|             not             |                       Logical NOT                        |
+|             and             |                           AND                            |
+|             or              |                            OR                            |
 
-| ()                          | Parentesi                                                |
-| --------------------------- | -------------------------------------------------------- |
-| \*\*                        | Potenza                                                  |
-| +x, -x, ~x                  | segno più (più unario), segno meno (meno unario)         |
-| \*,  /,  //,  %             | Moltiplicazione, divisione, divisione del piano e modulo |
-| +;  -                       | Addizione e sottrazione                                  |
-| \=\=;  !=;  >;  >=;  <;  <= | Operatori di confronto, identità e appartenenza          |
-| not                         | Logical NOT                                              |
-| and                         | AND                                                      |
-| or                          | OR                                                       |
-Es: 
-```python
-print(10 - 4 * 2) → 2
-print ((10-4)* 2) → 12
-```
-
+> [!Example] Esempio Pratico
+> 
+> ```python
+> print(10 - 4 * 2) → 2
+> print ((10-4)* 2) → 12
+> ```
+> 
 
 ## L'associatività degli operatori 
-L'**associatività** indica **l'ordine** in cui vengono valutati gli operatori quando più operatori della **stessa precedenza** compaiono in un'espressione.
+==L'**associatività** indica **l'ordine** in cui vengono valutati gli operatori quando più operatori della **stessa precedenza** compaiono in un'espressione.== 
 In Python:
 
 - **Quasi tutti gli operatori** seguono ==**l'associatività da sinistra a destra** (**left-to-right associativity**).==
@@ -307,16 +314,14 @@ In Python:
 
 ### **Esempi con associatività da sinistra a destra**
 
-Quando più operatori con **la stessa precedenza** compaiono, l'espressione viene valutata da sinistra verso destra.
-
+==Quando più operatori con **la stessa precedenza** compaiono, l'espressione viene valutata da sinistra verso destra.== 
 #### Esempio 1: Moltiplicazione e Divisione
 ```python
 print(5 * 2 // 3)
 ```
 
 - Gli operatori `*` (moltiplicazione) e `//` (divisione intera) hanno **la stessa precedenza**.
-- Poiché seguono l'associatività da sinistra a destra:
-
+- ==Poiché seguono l'associatività da sinistra a destra:==
 1. Calcoliamo **`5 * 2`** → `10`.
 2. Poi dividiamo **`10 // 3`** → `3` (divisione intera).
 
@@ -330,7 +335,7 @@ Output:
 print(5 * (2 // 3))
 ```
 
-- Le **parentesi** hanno la precedenza più alta e forzano la valutazione di **`2 // 3`** per primo.
+- ==Le **parentesi** hanno la precedenza più alta e forzano la valutazione di== **`2 // 3`** ==per primo.==
 - **`2 // 3`** → `0` (divisione intera).
 - Poi moltiplichiamo **`5 * 0`** → `0`.
   Output: 
@@ -338,17 +343,16 @@ print(5 * (2 // 3))
   0
 ```
 
-
 ### Esempi con associatività da destra a sinistra (Esponenziale)
-L'operatore **esponenziale `**`** segue l'associatività da **destra a sinistra**.
+==L'operatore **esponenziale== `**`** ==segue l'associatività da **destra a sinistra**==.
 #### Esempio 1: Senza parentesi
 ```python
 print(2 ** 3 ** 2)
 ```
 - Seguiamo l'associatività da **destra a sinistra**:
 
-1. Calcoliamo **`3 ** 2`** → `9`.
-2. Poi calcoliamo **`2 ** 9`** → `512`.
+1. Calcoliamo `3 ** 2` → `9`.
+2. Poi calcoliamo `2 ** 9` → `512`.
 
 **Output:**
 ```
@@ -359,10 +363,9 @@ print(2 ** 3 ** 2)
 ```python
 print((2 ** 3) ** 2)
 ```
-- Le **parentesi** forzano la valutazione di **`2 ** 3`** per primo:
-
-1. Calcoliamo **`2 ** 3`** → `8`.
-2. Poi calcoliamo **`8 ** 2`** → `64`.
+- Le **parentesi** forzano la valutazione di `2 ** 3` per primo:
+1. Calcoliamo `2 ** 3` → `8`.
+2. Poi calcoliamo `8 ** 2` → `64`.====
 
 **Output:**
 ```
@@ -372,11 +375,15 @@ print((2 ** 3) ** 2)
 > [!NOTE] Suggerimento pratico
 > Quando hai dubbi su come vengono valutati gli operatori, **usa le parentesi** per rendere chiaro l'ordine delle operazioni!
 
-#### In sintesi 
-1. **Quasi tutti gli operatori** in Python seguono **l'associatività da sinistra a destra**.
-    - Esempi: `+`, `-`, `*`, `/`, `//`, `%`.
-2. L'**operatore esponenziale `**`** segue **l'associatività da destra a sinistra**.
-3. Per **evitare confusione**, usa sempre le **parentesi `()`** per controllare l'ordine di valutazione e migliorare la leggibilità del codice.
+
+> [!example] Per ricapitolare
+> 1. **==Quasi tutti gli operatori** in Python seguono **l'associatività da sinistra a destra**==.
+ >- Esempi: `+`, `-`, `*`, `/`, `//`, `%`.
+>2. ==L'**operatore esponenziale `**`** segue **l'associatività da destra a sinistra**==.
+>3. ==Per **evitare confusione**, usa sempre le **parentesi `()`** per controllare l'ordine di valutazione e migliorare la leggibilità del codice.==
+
+
+
 
 
 ## Altri operatori 
@@ -403,86 +410,90 @@ print(a is not c)  # True: a e c sono oggetti diversi
 - `a` e `c` hanno **valori diversi** → `a is c` restituisce `False`.
 
 ### 2. Bitwise Operators
-Gli **operatori bitwise** lavorano a livello di **bit** (il sistema binario). Questi operatori manipolano i bit individuali dei numeri interi.
+==Gli **operatori bitwise** lavorano a livello di **bit** (il sistema binario). Questi operatori manipolano i bit individuali dei numeri inter==i.
 
 #### Tabella operatori Bitwise
 
-| Operatore | Operatore 2 |                     Significato                      |
-|:---------:|:-----------:|:----------------------------------------------------:|
-|    `&`    |     AND     |      Restituisce `1` se entrmabi i bit sono `1`      |
-|    \|     |     OR      |     Restituisce `1` se almeno uno dei bit è `1`      |
-|    `^`    |     XOR     |        Restituisce `1` se i bit sono diversi         |
-|    `~`    |     NOT     |    Inverte i bit (negazione a complemento a due)     |
-|   `<<`    | Left Shift  |  sposta i bit a sinistra, aggiungendo zeri a destra  |
-|   `>>`    | Right Shift | Sposta i bit a destra, eliminando i bit più a destra |
+| Operatore | Operatore 2 |                       Significato                        |
+| :-------: | :---------: | :------------------------------------------------------: |
+|    `&`    |     AND     |      ==Restituisce `1` se entrmabi i bit sono `1`==      |
+|    \|     |     OR      |     ==Restituisce `1` se almeno uno dei bit è `1`==      |
+|    `^`    |     XOR     |        ==Restituisce `1` se i bit sono diversi==         |
+|    `~`    |     NOT     |    ==Inverte i bit (negazione a complemento a due)==     |
+|   `<<`    | Left Shift  |  ==sposta i bit a sinistra, aggiungendo zeri a destra==  |
+|   `>>`    | Right Shift | ==Sposta i bit a destra, eliminando i bit più a destra== |
 
-#### **Esempi:**
-1. AND (`&`): 
-```python
-5 & 3
-```
-
-- **5 in binario**: `101`
-- **3 in binario**: `011`
-- AND a livello di bit → `001` (solo il primo bit è `1`).
-- **Risultato**: `1`.
-
-2. **OR (`|`):**
-```python
-5 | 3
-```
-
-- **5 in binario**: `101`
-- **3 in binario**: `011`
-- OR a livello di bit → `111` (almeno un bit è `1`).
-- **Risultato**: `7`.
-
-3. **XOR (`^`):**
-```python
-5 ^ 3
-```
-
-- **5 in binario**: `101`
-- **3 in binario**: `011`
-- XOR a livello di bit → `110` (bit diversi restituiscono `1`).
-- **Risultato**: `6`.
-
-4. **NOT (`~`):**
-```python
-~5
-```
-
-- **5 in binario**: `101`.
-- Inversione dei bit (complemento a due): `...11111010`.
-- In Python, questo rappresenta **-6**.
-
-**Spiegazione:** In un complemento a due, invertire i bit e aggiungere `1` porta al numero negativo.
-
-5. **Left Shift (`<<`):**
-```python
-5 << 2
-```
-
-- **5 in binario**: `101`.
-- Spostiamo i bit **2 posizioni a sinistra**, aggiungendo zeri a destra → `10100`.
-- **Risultato**: `20`.
-
-6. **Right Shift (`>>`):**
-```python
-5 >> 2
-```
-
-- **5 in binario**: `101`.
-- Spostiamo i bit **2 posizioni a destra**, eliminando i bit più a destra → `001`.
-- **Risultato**: `1`.
+> [!example] **Esempi**
+> 
+> 1. AND (`&`): 
+> ```python
+> 5 & 3
+> ```
+> 
+> - **5 in binario**: `101`
+> - **3 in binario**: `011`
+> - AND a livello di bit → `001` (solo il primo bit è `1`).
+> - **Risultato**: `1`.
+> 
+> 2. **OR (`|`):**
+> ```python
+> 5 | 3
+> ```
+> 
+> - **5 in binario**: `101`
+> - **3 in binario**: `011`
+> - OR a livello di bit → `111` (almeno un bit è `1`).
+> - **Risultato**: `7`.
+> 
+> 3. **XOR (`^`):**
+> ```python
+> 5 ^ 3
+> ```
+> 
+> - **5 in binario**: `101`
+> - **3 in binario**: `011`
+> - XOR a livello di bit → `110` (bit diversi restituiscono `1`).
+> - **Risultato**: `6`.
+> 
+> 4. **NOT (`~`):**
+> ```python
+> ~5
+> ```
+> 
+> - **5 in binario**: `101`.
+> - Inversione dei bit (complemento a due): `...11111010`.
+> - In Python, questo rappresenta **-6**.
+> 
+> **Spiegazione:** In un complemento a due, invertire i bit e aggiungere `1` porta al numero negativo.
+> 
+> 5. **Left Shift (`<<`):**
+> ```python
+> 5 << 2
+> ```
+> 
+> - **5 in binario**: `101`.
+> - Spostiamo i bit **2 posizioni a sinistra**, aggiungendo zeri a destra → `10100`.
+> - **Risultato**: `20`.
+> 
+> 6. **Right Shift (`>>`):**
+> ```python
+> 5 >> 2
+> ```
+> 
+> - **5 in binario**: `101`.
+> - Spostiamo i bit **2 posizioni a destra**, eliminando i bit più a destra → `001`.
+> - **Risultato**: `1`.
+> 
 
 ### 3.List Operators 
 ==Gli **operatori per le liste** servono a controllare la **presenza** o **assenza** di un elemento in una lista, stringa o sequenza.==
 **Operatori:**
+1. [[Collections#Le liste##]]
+2. not in
 
-| Operatori | Spiegazione                                                                 |
-| --------- | --------------------------------------------------------------------------- |
-| `in`      | ==Restituisce== `True` ==se un elemento è presente nella sequenza==         |
+| Operatori |                                 Spiegazione                                 |
+| :-------: | :-------------------------------------------------------------------------: |
+|    in     |     ==Restituisce== `True` ==se un elemento è presente nella sequenza==     |
 | `not in`  | ==Restituisce== `True` ==se un elemento **non è presente** nella sequenza== |
 
 ##### **Esempio:**
@@ -515,20 +526,20 @@ print('c' not in string1)   # True: 'c' non è presente nella stringa
 Gli **operatori per le stringhe** funzionano in modo simile a quelli utilizzati per i numeri, ma con alcune differenze specifiche.
 
 ### 1. Concatenazione di stringhe (`+`) 
-L'operatore **`+`** permette di **concatenare** due stringhe, ossia unire le due stringhe in una sola.
+==L'operatore== `+` ==permette di **concatenare** due stringhe, ossia unire le due stringhe in una sola.==
 ```python
 print("My name is " + "Alice") #output: "My name is Alice"
 ```
 
 ### 2. Ripetizione (`*`)
-L'operatore **`*`** permette di ripetere una stringa un certo numero di volte.
+==L'operatore== **`*`** ==permette di ripetere una stringa un certo numero di volte.==
 ```python
 print("Blah " * 3) #output: Blah Blah Blah
 ```
 
 ### 3. Confronto 
-Gli operatori == e `!=` permettono di confrontare due stringhe
-- == restituisce `True` se le due stringhe sono uguali 
+==Gli operatori== \=\= e `!=` ==permettono di confrontare due stringhe==
+- \=\= restituisce `True` se le due stringhe sono uguali 
 - `!=` restituisce `True` se le due stringhe sono diverse
 **Esempio:**
 ```python
@@ -548,7 +559,8 @@ Definiamo le seguenti variabili:
 Ora vediamo cosa succede con queste espressioni:
 1. `x / y`
 - **Cosa succede?** 
-  Se proviamo a fare la divisione di `x` per `y` dove `y = 0`, otteniamo un errore perché **non è possibile dividere per zero**. Questo è un errore di **ZeroDivisionError**.
+  ==Se proviamo a fare la divisione di== `x` ==per== `y` ==dove== `y = 0`, ==otteniamo un errore perché **non è possibile dividere per zero**.== 
+  Questo è un errore di **ZeroDivisionError**.
 ```python
 x = 5
 y = 0

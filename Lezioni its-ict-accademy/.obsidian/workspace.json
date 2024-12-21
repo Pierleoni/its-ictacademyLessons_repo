@@ -8,34 +8,52 @@
         "type": "tabs",
         "children": [
           {
-            "id": "bed4a521414bc398",
-            "type": "leaf",
-            "state": {
-              "type": "video",
-              "state": {
-                "file": "Recording 20241217113337.webm"
-              },
-              "icon": "lucide-file",
-              "title": "Recording 20241217113337"
-            }
-          },
-          {
-            "id": "71d900091778c9a0",
+            "id": "2d45423a3daed01d",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Lezione 2/I modificatori.md",
+                "file": "Lezione 2/Gli Operatori.md",
                 "mode": "source",
                 "backlinks": false,
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "I modificatori"
+              "title": "Gli Operatori"
+            }
+          },
+          {
+            "id": "901aee50935bc01c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Lezione 2/Collections.md",
+                "mode": "source",
+                "backlinks": false,
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Collections"
+            }
+          },
+          {
+            "id": "a1fc8a96f8099bdb",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Lezione 3/Cicli e condizionali.md",
+                "mode": "source",
+                "backlinks": false,
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Cicli e condizionali"
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -66,7 +84,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "call",
+                "query": "tag:#in",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -209,8 +227,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -232,40 +249,44 @@
       "canvas:Create new canvas": false
     }
   },
-  "active": "71d900091778c9a0",
+  "active": "a1fc8a96f8099bdb",
   "lastOpenFiles": [
-    "Recording 20241217113337.webm",
-    "Lezione 2/I modificatori.md",
-    "Lezione 2/Gli Operatori.md",
     "Lezione 2/Collections.md",
+    "Immagini/F di x.svg",
+    "Lezione 2/Gli Operatori.md",
+    "Immagini/F di x.svg.xml",
+    "Lezione 2/I modificatori.md",
+    "Lezione 1/Algoritmi e Diagrammi a blocchi.md",
+    "Immagini/Control block.png",
+    "Immagini/Selection block.png",
+    "Immagini/Block sequence.png",
+    "Lezione 3/Cicli e condizionali.md",
+    "Lezione 7/Spiegazione per i vantaggi e svantaggi dei modelli Client server e P2P, spiegazione delle tre entità di spotify..md",
+    "Immagini/Struttura diagramma a blocchi.png",
+    "Diagram/Assign Block.svg",
+    "Diagram/Assign Block.svg.xml",
+    "Diagram/Wrtite block.svg",
+    "Diagram/Wrtite block.svg.xml",
+    "Diagram/Read Block.svg",
+    "Diagram/Read Block.svg.xml",
+    "Diagram/End Block.svg",
+    "Diagram/End Block.svg.xml",
+    "Diagram/Start Block 1.svg",
+    "Diagram/Start Block 1.svg.xml",
+    "Diagram/Start block.svg.xml",
+    "Audio Recoder/Recording 20241217113337.webm",
+    "Audio Recoder",
+    "Diagram",
+    "Untitled.md",
     "Lezione 2/Introduzione a Python.md",
-    "Recording 20241217135846.webm",
+    "Lezione 2/Spiegazione esercizi Lezione 1 Python.md",
     "Recording 20241217120107.webm.md",
     "Lezione 10/Le architetture di un Computer.md",
-    "Immagini/Gli operatori di assegnazione .png",
-    "Immagini/Screenshot 2024-12-17 at 17-42-00 5. Collections - Operators(Operatori).pdf.png",
-    "Immagini/Operatori Logici.png",
-    "Immagini/Screenshot 2024-12-17 at 17-28-50 5. Collections - Operators(Operatori).pdf.png",
     "Lezione 7/Complemento a 2 e Reti di calcolatori.md",
     "Soft Skills/Soft skills.md",
-    "Immagini/Operatori.png",
-    "Immagini/Screenshot 2024-12-17 at 16-30-15 5. Collections - Operators(Operatori).pdf.png",
     "Lezione 1/Introduzione generale.md",
-    "Lezione 7/Spiegazione per i vantaggi e svantaggi dei modelli Client server e P2P, spiegazione delle tre entità di spotify..md",
     "Lezione 7/Appunti 16 dicembre.md",
-    "Recording 20241217103836.webm",
-    "Recording 20241217120107.webm",
     "2024-12-17.md",
-    "Immagini/Point to point.png",
-    "Recording 20241217100718.webm",
-    "Soft Skills",
-    "Lezione 7",
-    "Lezione 10/Immagini/Bin sub.png.~tmp",
-    "Immagini/Bin sub.png",
-    "Lezione 10/Immagini/Bin add.png.~tmp",
-    "Immagini/Bin add.png",
-    "Lezione 10/Immagini/Tab bit.png.~tmp",
-    "Immagini/Tab bit.png",
     "Lezione 1/Welcome.md",
     "Obsidian.md",
     "Vedere la sintassi di ricerca per le proprietà.md",
@@ -275,10 +296,6 @@
     "Internal link.md",
     "Excalidraw.md",
     "Draw.io.md",
-    "Mermaid.md",
-    "h1.md",
-    "Chemistry.md",
-    "john Grubber.md",
     "Untitled.canvas"
   ]
 }

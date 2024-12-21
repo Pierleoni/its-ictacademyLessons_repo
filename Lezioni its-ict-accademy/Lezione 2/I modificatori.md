@@ -6,16 +6,16 @@ name:str = "marco"
 age:int = "29"
 ```
 Per stampare un messaggio si può fare in 2 modi 
-1. concatenazione di stringhe: 
+1. **concatenazione di stringhe:** 
 ```python
 Print ("ciao io sono " + name + "!Ho" + age + "anni")
 ```
-E mi da un errore alla linea 5 perché posso cocatenare valori di stringhe non numeri e a python non piace, quindi uso: 
+E mi da un errore alla linea 5 perché posso concatenare valori di stringhe non numeri e a python non piace, quindi uso: 
 ```python
    Print ("ciao io sono " + name + "!Ho" + str(age) + "anni")
 ```
-Python definisce automaticamente definisce la variabile age e la variabile age come intero e la variabile name come stringa, in alcuni linguaggi di programmazione ciò non si può fare perché devi definire di che tipo è la variabile. 
-Se io cambio nome alla variabile name me lo stampa comunque in output.
+==Python definisce automaticamente definisce la variabile `age` come intero e la variabile `name` come stringa,== in alcuni linguaggi di programmazione ciò non si può fare perché devi definire di che tipo è la variabile. 
+Se io cambio nome alla variabile `name` me lo stampa comunque in output.
 Voglio stampare in output che tipo di valore è associato alla variabile age
 ```python
  print(type(age))
@@ -27,18 +27,18 @@ verrà fuori che age è un intero perché cosi facendo non ho sovrascritto il va
 age=str(age)
 print(type(age))
 ```
-In questo modo ho sovrascritto il valore di age come stringa e quindi l'output me lo farà visualizzare
-![[Recording 20241217120107.webm]]
- come tale. 
-QUESTO È IL PRIMO MODO. 
-Tuttavia questo modo porta a fare un sacco di errori, perciò si ha la possibilità di formattare l'output
+In questo modo ho sovrascritto il valore di age come stringa e quindi l'output me lo farà visualizzare come tale.
+![[AudRecording 20241217120107.webm]]
+
+2. **Formattare l'output:** 
+Tuttavia questo modo porta a fare un sacco di errori, ==perciò si ha la possibilità di formattare l'output==.
 ```python
 #output formattato
 print(f"Ciao! Io sono {name}! Ho {age} anni")
 ```
 Se mando in output ottengo lo stesso risultato:
-la `f` serve per formattare l'output in questo modo (se non si mette la f all'inizio python darà errore), tra le parentesi graffe renderizza il valore name e age in output e lo stampa in output.
-Se io analogalmente cambio il valore di age o name cambia i  valori in output.
+==la `f` serve per formattare l'output in questo modo (se non si mette la f all'inizio python darà errore), tra le parentesi graffe renderizza il valore name e age in output e lo stampa in output.==
+==Se io analogalmente cambio il valore di age o name cambia i  valori in output.==
 
 ---
 ## Numeri in virgola mobile
