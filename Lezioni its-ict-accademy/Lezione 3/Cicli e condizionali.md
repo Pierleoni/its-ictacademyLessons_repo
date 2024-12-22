@@ -170,7 +170,7 @@ else:
 ## Loops
 Fare i cicli in python.
 I `for` in python è utile quando abbiamo a che fare con le collections, in particolare quando dobbiamo scorrere liste o dizionari.
-Sintassi:
+### Sintassi
 ```python
 for + variabile in sequence(lista, dizionario, tupla):
 
@@ -189,7 +189,7 @@ lista_2 =["a","b","c" ]
 for lettera in lista_2
 	print(lettera)
 ```
-il for legge `lista_2` e prende il primo elemento della lista e lo mette dentro  la variabile `lettera`, di conseguenza quando prendiamo la prima iterazione (cioè l'iterazione 0) stiamo stampando `a`.
+Il for legge `lista_2` e prende il primo elemento della lista e lo mette dentro  la variabile `lettera`, di conseguenza quando prendiamo la prima iterazione (cioè l'iterazione 0) stiamo stampando `a`.
 Dopodiché, non avendo più istruzioni da eseguire e passa a `b`, ora l'iterazione 1 contiene `b` quindi quando faccio il `print` stampa `b`. 
 Dopo aver fatto ciò, non ho più istruzioni da eseguire e passo a `c`, ora `lettera` contiene `c`, quindi l'iterazione 2 contiene `c`. 
 Quando raggiunge la fine della lista esce dalla lista e il flusso continua con il altre righe di codice.
@@ -198,148 +198,323 @@ Possiamo annidare i for:
 ```python
 lista_1 = [1,2,3]
 lista_2 =["a","b","c" ]
-for lettera in lista_2
-	for numero in lista_1
+for lettera in lista_2:
+	for numero in lista_1:
 		print(lettera,numero)
-#il primo print sara a,1.
-#torno al for perché ho ancora elemtni da numerare dentro la lista.
-#Lettera è ancora a ma il numero lo devo fare diventare 2 perché deve\ #eseguire la seconda iterazione,
-#il secondo print sarà a,3
-#stessa cosa per a,3
-#Non avendo da eseguire altri elementi il secondo for si torna al for #pricipale che esgue b e si torna al secondo for che ricomincia la lista,
-#quindi il print sarà b,1 
-#Di ocnseguenza sara 
-#b,2
-#b,3
-#Avendo altri elementi stampa 
-#c,1
-#c,2
-#c,3
-#Una volta finite le liste continua a lavorare altro codice 
-#Ho printato 9 volte, cioè 3^2 
+
 
 ```
-immagniamo che sia una matrice 
+Per comprendere esattamente cosa fa un `for` e come processa le iterazioni, analizziamo passo dopo passo:
+1. **Inizio del ciclo:**
+- Il ciclo esterno inizia con la variabile `lettera` che assume il valore del primo elemento di `lista_2`, ovvero `"a"`.
+- Il ciclo interno prende il primo elemento di `lista_1`, che è `1`, e stampa: `a,1`.
+2. **Iterazioni successive del ciclo interno**:
+ - La variabile `lettera` rimane `"a"`, mentre il ciclo interno procede con il successivo elemento di `lista_1`, ovvero `2`. Stampa: `a,2`.    
+ - Il ciclo esterno ritorna alla variabile `lettera` che rimane `"a"`, e il ciclo interno prosegue con il successivo elemento di `lista_1`, ovvero `3`. Stampa: `a,3`.
+torno al for perché ho ancora elementi da numerare dentro la lista.
+3. **Fine del ciclo interno**:
+- Dopo aver iterato su tutti gli elementi di `lista_1`, il ciclo interno termina.
+  
+Non avendo da eseguire altri elementi il secondo `for` (`for numero in lista_1:`) torna al `for` principale (`for lettera in lista_2:`) che esegue `b` e si torna al secondo `for` che ricomincia la lista.
 
-| a1  | a2  | a3  | 0   |
-| --- | --- | --- | --- |
-| b1  | b2  | b3  | 1   |
-| c1  | c2  | c3  | 2   |
+4. **Ritorno al ciclo esterno**:
+  - Il ciclo esterno avanza, assegnando a `lettera` il valore successivo di `lista_2`, ovvero `"b"`. Il ciclo interno si resetta e riparte con `1`.
+  - Stampa i valori: `b 1`, `b 2`, `b 3`.
+  - 
+Finito quest'altro ciclo il secondo `for` torna un'altra volta al `for` principale che esegue l'ultima iterazione, cioè `c`, e si torna al secondo `for` che ricomincia la lista. 
 
-Mettiamo caso ho una lista di liste e voglio estrare gli elementi singoli all'intenro, ad esempio voglio estrare b2.
+5. **Ultima iterazione del ciclo esterno**:
+- La variabile `lettera` assume l'ultimo valore di `lista_2`, ovvero `"c"`. Il ciclo interno riparte nuovamente, iterando su tutti gli elementi di `lista_1`.        
+- Stampa i valori: `c 1`, `c 2`, `c 3`.
+Una volta finite le liste continua a lavorare altro codice 
+In totale vengono printate 9 righe, cioè 3 elementi in `lista_1` moltiplicati per 3 elementi in `lista_2` (3^2=9). 
+L'output è:
+```python
+a 1
+a 2
+a 3
+b 1
+b 2
+b 3
+c 1
+c 2
+c 3
+```
+
+
+> [!NOTE] Nota
+> Ogni iterazione del ciclo interno si completa completamente prima che il ciclo esterno avanzi al successivo elemento. 
+> Questo comportamento è fondamentale per comprendere l'esecuzione dei cicli annidati in Python.
+
+
+Immaginiamo che tutto questo sia una matrice:
+
+|     Iterazione     | indici | Colonna 1 | Colonna 2 | Colonna 3 |
+|:------------------:|:------:|:---------:|:---------:|:---------:|
+|  prima iterazione  |   0    |    a1     |    a2     |    a3     |
+| seconda iterazione |   1    |    b1     |    b2     |    b3     |
+|  terza iterazione  |   2    |    c1     |    c2     |    c3     |
+
+Mettiamo caso ho una lista di liste e voglio estrare gli elementi singoli all'interno, ad esempio `b2`.
 Io posso accedere ai valori di una lista di liste tramite indici, per fare ciò:
-```python
-l[0][1]
-```
-posso usare anche i for
-```python
-for i in range: (len(lista_2))
-#for i che varia nel range che da 0 fino alla lunghezza della lista 2
-	for j in range:(len(lista_1))
-	#in questo modo qualsiais la lunghezza della lista lui mi metta 
-	il primo eleemento fino alla lunghezza della lista
-	print (L[i][j])
-	alla prima iterazione i=0 e j=0 quindi a1 e cosi via 
-```
-si consiglia di usare lettere singole quando si a che fare con indici (la convenzione prevede i e j)
-i in range va da 0 a 3 stessa cosa per `j in range`.
-Ora mettiamo caso io abbia diciharato la lista L:
+Dichiarare la lista `L`:
 ```python
 L=[[(a1), (a,2), (a,3)], 
 [(b,1), (b,2), (b,3)];
 [(c,1),(c,2), (c,3)]] 
-Questa lista di liste che contiene tuple fa riferimento alla matrice a tabella sopra 
+#Questa lista di liste che contiene tuple fa riferimento alla tabella di matrice che si trova poco sopra 
 ```
-Se io ho una lista del genere e voglio accedere a tutti gli elementi, posso usare gli indici come visto sopra, io uso allora i for perché io voglio crearimi le coordinate (i e j) per prendermi tutti gli elementi, cioe sto facendo una enumerazione: cioè generare, in questo caso, tutte le combinazioni della matrice. 
-Per prendere tutti gli eleemnti al suo intenro uso il for:
+
 ```python
-for i in range (3):
-	for j in range(3):
+l[1][1] #Accede all'elemento b2
 ```
-io ho messo 3,3 perche so che questa lista contiene 3 sottoliste con 3 elementi.
-la funzione `range`: ritorna un range di una lista di intenri che va da 0 a 2 che sono esattemente gli indici.
-Io poi mi volgio stampare 
+possiamo anche usare anche i cicli `for` per accedere agli elementi:
 ```python
-for i in range (3):
-	for j in range(3):
-print(L[i][j])
-#prima iterazione i=0 j=0 quindi a,1
-#seconda iterazione i=0 j=1 quindi a,2 
-#terza iterazione del ciclo interno i=0 j=2 quindi a,3
-#Torno al for principale
-# i=1
-#torno al secondo for
-#j=0 quindi si risetta e si ri-esegue da capo
-#prima iterazione i=1 j=0 b,1
-#seconda iterazionwe i=1 j=1 b,2
-#terza iterazione i=1 j=2 b,3
-#torno al for principale
-#i=2 
-#torno al for secondario che si risetta
-#Prima iterazione i=2 j=0 c,1 
-#seconda iterazione i=2 j=1 c,2
-#terza iterazione i=2 j=2 c,3
+for i in range: (len(lista_2))
+#for i che varia nel range che va d 0 fino alla lunghezza della lista 2
+	for j in range:(len(lista_1))
+	#j varia nel range da 0 fino alla lunghezza della lista_1
+	print (L[i][j])
+	
 ```
-Se io volessi stmapare tutti gli elementi che ho nella tupla in pari:
+Alla prima iterazione:
+- `i = 0`, `j = 0` → stampa `a1`
+    
+- `i = 0`, `j = 1` → stampa `a2`
+    
+- `i = 0`, `j = 2` → stampa `a3`
+
+Dopo aver terminato il ciclo interno:
+- Torniamo al ciclo esterno: `i = 1`
+- Il ciclo interno si resetta:
+    - `j = 0` → stampa `b1`
+        
+    - `j = 1` → stampa `b2`
+        
+    - `j = 2` → stampa `b3`
+        
+
+Infine:
+- Torniamo al ciclo esterno: `i = 2`
+- Il ciclo interno si resetta di nuovo:
+    - `j = 0` → stampa `c1`
+        
+    - `j = 1` → stampa `c2`
+        
+    - `j = 2` → stampa `c3`
+
+> [!NOTE] Nota
+> Si consiglia di usare lettere singole quando si a che fare con indici (la convenzione prevede i e j)
+
+### Collegamento con l'esempio iniziale
+ `i in range` va da 0 a 3 stessa cosa per `j in range`.
+ Se io ho una lista del genere e voglio accedere a tutti gli elementi, posso usare gli indici come visto sopra, io uso allora i `for` perché io voglio crearmi le coordinate (`i` e `j`) per prendermi tutti gli elementi, cioè sto facendo una enumerazione: 
+ ==cioè generare, in questo caso, tutte le combinazioni della matrice==. 
+ ``` python
+L = [[("a", 1), ("a", 2), ("a", 3)],
+     [("b", 1), ("b", 2), ("b", 3)],
+     [("c", 1), ("c", 2), ("c", 3)]]
+ 
+```
+ Per prendere tutti gli elementi al suo interno uso il `for`:
+ ```python
+ for i in range (3):
+>	for j in range(3):
+ ```
+Abbiamo messo come argomento dei due `in range()` `3,3` perché so che questa lista contiene 3 sotto-liste con 3 elementi.
+ la funzione `range`: 
+ ==ritorna un range di una lista di interi che va da 0 a 2 che sono esattamente gli indici==.
+ Adesso stampiamo quanto fatto finora 
+ ```python
+ `for i in range (3)`:
+ 	for j in range(3):
+ print(L[i][j])
+ 
+ ```
+ prima iterazione `i=0` `j=0` quindi `a,1`
+ seconda iterazione `i=0` `j=1` quindi `a,2` 
+ terza iterazione del ciclo interno `i=0` `j=2` quindi `a,3`
+ Torno al `for` principale(`for j in range(3)`)
+  `i=1`
+ torno al secondo `for`(`for j in range(3)`)
+ `j=0` quindi si resetta e si ri-esegue da capo
+ prima iterazione `i=1` `j=0`: `b,1`
+ seconda iterazione `i=1` `j=1`: `b,2`
+ terza iterazione `i=1` `j=2`: `b,3`
+ torno al `for` principale
+ `i=2` 
+ torno al for secondario che si resetta
+ Prima iterazione `i=2` `j=0`: `c,1` 
+ seconda iterazione `i=2` `j=1`: `c,2`
+ terza iterazione `i=2` `j=2`: `c,3`
+ Quindi l'output  stampato sarà:
+ ```python
+("a", 1)
+("a", 2)
+("a", 3)
+("b", 1)
+("b", 2)
+("b", 3)
+("c", 1)
+("c", 2)
+("c", 3)
+```
+Il ciclo `for` crea le coordinate (`i`, `j`) necessarie per accedere a tutti gli elementi, generando tutte le combinazioni possibili degli indici. 
+Questo approccio è utile per scansionare matrici o strutture annidate in Python.
+
+### Filtrare elementi specifici con cicli annidati
+Supponiamo di voler stampare solo gli elementi delle tuple che contengono numeri pari:
 ```python
 for i in range (3)
 	for j in range(3)
-		if(L[i][j][1]%2)==0
+		if(L[i][j][1]%2)==0: #controlla se il numero è pari
+		print(L[i][j])
+ 
 ```
-Questo stmapa elementi della tupla che sono pari:
-Sappaimo che abbiamo tuple e che possono essere indicizzate
-l'1 rappresenta il numero accanto alla lettera perché prende la prima colonna e del contentuto della prima riga e colonna mi prende il numero 1, se dovessi prendere la lettera dovre mettere 0 nella parentesi quadra dove è posto l'1.
-Prende quell numero e calcola il modulo 2, e 1%2=1 perché è dispari e quindi da 1 e 1 non è uguale 0 quindi vado oltre.
-Selezione la tupla a2 e la stampa perché 2/2 da 0.
-Passando alla prossima colona c'è a3 ma non me lo stampa perché 3/2 = 1.
-Quindi insitesi l'operazione modulo è vera solo quando stmapa a,2 b,2 c,2
-Voglio stmapare solo i numeri pari di una lista:
+#### Spiegazione
+
+1. **Condizione** `L[i][j][1] % 2 == 0`:
+    
+    - `L[i][j]` accede alla tupla nella posizione `i, j` della matrice.
+        
+    - `[1]` accede al secondo elemento della tupla (il numero accanto alla lettera).
+        
+    - Il modulo `% 2` verifica se il numero è divisibile per 2 (pari).
+        
+2. **Esempio di iterazione**:
+    
+    - Alla prima iterazione, `i = 0`, `j = 0`, la tupla è `("a", 1)`. Il numero `1` non è pari, quindi non viene stampato.
+        
+    - Alla seconda iterazione, `i = 0`, `j = 1`, la tupla è `("a", 2)`. Il numero `2` è pari, quindi viene stampato.
+        
+    - Questo processo si ripete, stampando solo le tuple con numeri pari: `("a", 2)`, `("b", 2)`, `("c", 2)`.
+
+L'output quindi sarà: 
+```python
+("a", 2)
+("b", 2)
+("c", 2)
+```
+
+### ### Filtrare numeri pari in una singola lista
+Per stampare solo i numeri pari in una lista:
+**Soluzione con indice**
 ```python
 lista_1 = [1,2,3]
 for num in range (len(lista_1)):
 	if lista_1[num]/2==0 
 		print (lista_1[num])
 ```
-Posso anche usare un altra soluzione: 
-```
+**Soluzione più semplice**
+```python
 for num lista_1:
 	if num /2==0
 	print(num)
 ```
-Questo metodo è più veloce,
+La seconda soluzione è più concisa e preferibile quando non è necessario accedere agli indici direttamente. 
+In entrambi i casi, l'output sarà:
+```python
+2
+```
 
-> [!attention]
-> Se usiamo la funzione range mi restituisce solo gli indici
+> [!attention] Attenzione!
+> ==Se usiamo la funzione range mi restituisce solo gli indici==
 
 ### La funzione `range`
-E come se restiuisse una lista, quindi se io scrivo 
+E come se restituisce una sequenza di numeri interi
 ```python
-range[3] #restituisce una lista che va da 0 a 2
+range[3] #restituisce una lista che va da 0 a 2, cioè va dall indice 0 all'indice 2
 ```
-Io in questo caso ho pero ho
+Possiamo specificare i parametri di inizio (`start`), fine (`end`) e passo (`step`)
 ```python
-range[10] #il range va da 0 a 10
+range[10] #
 range[5,10]#quindi va dal quinto indice al nono
-range[1(start),10(end), 2(steps)] #che fa? Stampa tutti i dispari e salta un solo numero 
+range[1(start),10(end), 2(steps)] #che fa? Stampa tutti i dispari e saltando un solo numero 
 #possiamo far variare i numeri come ci pare 
 ```
+Nel primo caso(`range[10]`): stampa tutti gli indici della lista
+Nel secondo caso(`range[5,10]`): va dal quinto indice al nono indice
+Nel terzo caso(`range[1(start),10(end), 2(steps)]`):  Genera 1, 3, 5, 7, 9
 
+###  List comprehension
+ La **list comprehension** è una sintassi compatta e più efficiente di Python per creare liste: 
+ ==invece di usare un ciclo `for` tradizionale per aggiungere elementi a una lista, la list comprehension ti permette di fare tutto in una sola riga di codice, rendendo il processo più conciso e leggibile.== 
+#### Sintassi 
+La sintassi di base della list comprehension è:
+```python
+[espressione for elemento in iterabile]
 
-> [!NOTE] Title
-> Contents
-List comprenesion: se abbiamo una lista e la vogliamo riepire con un inseme di intenri orndinati
->```python
+```
+- **`espressione`**: 
+  ==è l'operazione o il valore che vuoi inserire nella lista.==
+- **`elemento`**: 
+  ==è ogni singolo elemento dell'iterabile (come una lista o un range) su cui stai iterando.==
+- **`iterabile`**: 
+  ==è l'oggetto su cui iteri (ad esempio, un `range`, una lista, un dizionario, ecc.).==
+
+###### **Creazione di una lista con valori interi ordinati**
+Abbiamo bisogno di creare una lista con un insieme di interi ordinati:
+```python
 lista_1=[i for i in range(10)]
->```
->utile per riempire una lista in maniera rapida, lo posso utilizzare pure per i dizionari
->```python
+print(lista_1) 
+```
+
+L'output sarà:
+```python
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+
+###### **Creazione rapida di dizionari** 
+Si posso applicare pure per creare i dizionari:
+```python
 dict_1={i: i for i in range(10)}
-print(lista_1)
+print(dict_1)
+```
+
+L'output sarà:
+```python
+{0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9}
+```
+
+###### Esempio con passo specifico nel range
+Anche qui, come per il range, possiamo specificare un passo:
+```python
+lista_1={i: i for i in range (0,10,2)}
+print(lista_2)
+```
+
+L'output sarà:
+```python
+[0, 2, 4, 6, 8]
+```
+
+
+
+> [!example ]+ **Per Ricapitolare le caratteristiche della List Comprehension**
+> 1. **Funziona sia su liste ordinate che disordinate.**
+>2. È utile per semplificare la creazione di liste o dizionari.
+>
+> Esempio: creazione di una lista con un ciclo tradizionale
+>
+>Vediamo ora come creare una lista con un ciclo for tradizionale:
 >```
->Anche qui il range funziona in questo caso
->```python
->lista_1={i: i for i in range (0,10,2)}
+>length = 5  
+>numbers = []  
+>for i in range(1, length + 1):  # Range parte da 1 e include length (grazie a `+1`)
+ >   numbers.append(i)
+>print(numbers)  # Output: [1, 2, 3, 4, 5]
+>
 >```
+>Spiegazione passo per passo:
+>- **Inizializzazione:** La lista `numbers` è vuota all’inizio.
+>- **Iterazione:**
+  >  - Al primo ciclo, `i = 1`. Viene aggiunto `1` alla lista, che diventa `[1]`.
+ >   - Al secondo ciclo, `i = 2`. Ora la lista diventa `[1, 2]`.
+  >  - Questo processo si ripete fino a che `i` raggiunge `length + 1`.
+>- **Risultato finale:** La lista `numbers` contiene tutti i numeri da `1` a `5`.
+
+
+
 
 List compresion: 
 funziona sia su liste disordinate o ordinate 
