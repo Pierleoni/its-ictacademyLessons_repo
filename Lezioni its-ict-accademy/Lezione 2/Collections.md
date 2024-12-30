@@ -443,7 +443,7 @@ key error: key
 Come aggiungere cose all'interno inserendo chiavi che non esistono?
 nel modo ; **`m[key1]`** ==posso aggiungere cose nel dizionario== ad esempio:
 ```python
-m: dict {} #dizionario vuoto, se la stampio ci apprarià {}
+m: dict {} #dizionario vuoto, se la stampo ci apparirà {}
 m["key"] = 1 # aggiungo un valore alla chiave "key"
 ```
 ==Questo è solo un secondo metodo per inserire valori dentro al dizionario, ma questo modo si differenzia dal primo perché posso aggiungere valori e chiavi anche dopo la dichiarazione:==
@@ -456,8 +456,8 @@ La ricerca tramite hash e per trovare valori all'interno del dizionario in manie
 Devo trovare dei valori dentro una lista disordinata, come si fa?
 Da un punto di vista astratto per trovare un valore, devo scorrere tutti gli elementi.
 Es:
-```
-[1,3,2,5,7] #devo trovare il valore dieici e per farlo devo scorrere tutti gli elementi della lista
+```python
+[1,3,2,5,7] #devo trovare il valore dieci e per farlo devo scorrere tutti gli elementi della lista
 ```
 Se ho un miliardo di valori in una lista la verifica che devo fare è direttamente proporzionale ai valori presenti nelle lista:
 Se ho un miliardo di elementi nella lista e io ho il valore interessato alla posizione 500 il computer scorrerà fino dalla posizione 1 alla posizione 500 per trovare quell'elemento.

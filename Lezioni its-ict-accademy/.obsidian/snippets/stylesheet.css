@@ -10,6 +10,7 @@ body {
     padding: 0; 
 }
 
+/* Per allineare tutti gli header al centro */
 h1,
 h2,
 h3,
@@ -24,7 +25,7 @@ h1,h2, h3 {
 }
 
 h4 {
-    color: rgb(235, 104, 11) !important;
+    color: rgb(3, 52, 200) !important;
 }
 
 table,
@@ -37,6 +38,7 @@ th {
     
 }
 
+/* Per il codice inline */
 span.cm-inline-code {
     background-color: rgb(54, 47, 47) !important; 
     border-radius : 5px;
@@ -44,7 +46,23 @@ span.cm-inline-code {
     color: var(--text-color) !important; 
     
 }
+/* Codice inline nelle tabelle (Markdown renderizzato) */
+/* table span.cm-inline-code,
+.markdown-preview-view table code {
+    background-color: rgb(54, 47, 47) !important; 
+    border-radius: 5px;
+    font-weight: var(--bold-font);
+    color: var(--text-color) !important; 
+} */
 
+/* Codice inline nei callout (Markdown renderizzato) */
+/* .callout span.cm-inline-code,
+.markdown-preview-view .callout code {
+    background-color: rgb(54, 47, 47) !important; 
+    border-radius: 5px;
+    font-weight: var(--bold-font);
+    color: var(--text-color) !important;
+}  */
 
 /* Mostra sempre l'icona di copia accanto ai blocchi di codice*/
 .markdown-preview-view .code-block-header .copy-icon {

@@ -17,5 +17,8 @@
   "obsidian-linter",
   "language-translator",
   "obsidian42-text-transporter",
-  "obsidian-minimal-settings"
+  "obsidian-minimal-settings",
+  "drawio-obsidian",
+  "editing-toolbar",
+  "templater-obsidian"
 ]

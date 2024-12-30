@@ -170,9 +170,9 @@ Gli operatori di confronto sono utilizzati:
 ==Gli **operatori logici** vengono utilizzati per combinare condizioni che restituiscono valori **booleani**== (`True` o `False`).
 In Python ci sono tre principali operatori logici:
 
-|   and   |  restituisce vero se entrambi gli operatori sono veroi   |
-|:-------:|:--------------------------------------------------------:|
-| **or**  | **restituisce vero se entrmabi gli operatori sono vero** |
+|   and   |   restituisce vero se entrambi gli operatori sono vero   |
+| :-----: | :------------------------------------------------------: |
+| **or**  | **restituisce vero se entrambi gli operatori sono vero** |
 | **not** |       **restituisce vero se l'operatore è falso**        |
 ![[Operatori Logici.png]]
 
@@ -488,7 +488,7 @@ print(a is not c)  # True: a e c sono oggetti diversi
 ### 3.List Operators 
 ==Gli **operatori per le liste** servono a controllare la **presenza** o **assenza** di un elemento in una lista, stringa o sequenza.==
 **Operatori:**
-1. [[Collections#Le liste##]]
+1. [[Collections#Le liste|in]] 
 2. not in
 
 | Operatori |                                 Spiegazione                                 |

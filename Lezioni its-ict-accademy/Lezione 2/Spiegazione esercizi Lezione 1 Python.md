@@ -200,7 +200,7 @@ print(a)
 ### Cosa sono le funzioni?
 
 `.append()` e `.extend()` sono funzioni, una funzione può essere immaginata come una scatola:
-![[Diagram 1.svg]]
+![[Esercizio 1.svg]]
 Come ci mostra questa immagine;
 1. **Input :** 
    Riceve uno o più valori in ingresso (parametri o argomenti, in questo caso una variabile chiamata "a").

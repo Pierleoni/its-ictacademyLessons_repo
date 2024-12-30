@@ -2,19 +2,31 @@
 ## if Statements
 Per scrivere i cicli e le condizioni in python.
 Python ci mette a disposizione delle strutture per tradurre i diagrammi a blocchi.
-La sintassi è 
+La sintassi è:
+1. `if`: esprime l'istruzione condizionale (significa "se" in inglese) 
+2. `condizione` (es: `x<0`, etc.): è la condizione che segue subito dopo l'istruzione `if`, se è `True` verrà eseguita l'istruzione indentata sulla riga successiva (se è presente), altrimenti non succederà nulla .
 ```python
 if condizione: #premere tab 
 	print (10)
 ```
 ==detto ciò si consiglia di usare le parentesi tonde per indicare la condizione.== 
+Quindi, la struttura dell'istruzione `if` è un intestazione seguita da un corpo indentato.
+Le istruzioni come queste vengono chiamate **istruzioni composte**. 
+Le istruzioni presenti nel corpo non hanno limite, posso metterne quante mi pare ma deve esserci almeno una istruzione. 
+
+> [!tip]+ L'istruzione `pass`
+>  Talvolta può servire che il corpo sia privo di istruzioni (di solito
+>   quando c’è del codice ancora da scrivere); in questo caso potete usare l’istruzione `pass`.
+>   In python questo comando è una **istruzione nulla:**
+>   Non fa assolutamente nulla e viene usata come segnaposto(placeholder) per mantenere la struttura sintattica valida, evitando errori.
+
 
 ```python
 (a <3 or b>10 and (c!=20))
 ```
 Python ci mette a disposizione alte 2 cose oltre l'`if`:
 1. `elif`:
-   sta per **else if** ed esprime un altra condizione dopo la condizione uno (cioè l'`if`); quindi,  se la condizione 1 è vera fai altro se non è vera fai quello che ti dice `elif`. 
+   ==sta per **else if** ed esprime un altra condizione dopo la condizione uno (cioè l'`if`)==; quindi,  se la condizione 1 è vera fai altro se non è vera fai quello che ti dice `elif`. 
    Posso usare quanti `elif` voglio.
 ```python
 if condizione: #premere tab 
@@ -56,9 +68,9 @@ In questo caso non è presente nessun `else` perciò non verrà stampato nulla i
 >elif -10 < a < 0:
 >    print("Il valore di a è tra -10 e 0")
 >else:
->    print("Nessuna condizione soddisfatta")
+>    print("Nessuna condizione è soddisfatta")
 > ```
-> Quindi se entrambi i blocchi `if` e `elif` sono falsi, il programma eseguirà il blocco sotto l'`else` cioè `print("Nessuna condizione soddisfatta")`.
+> Quindi se entrambi i blocchi `if` e `elif` sono falsi, il programma eseguirà il blocco sotto l'`else` cioè `print("Nessuna condizione è soddisfatta")`.
 > In conclusione possiamo dire che:
 > 1. senza `else` il programma non esegue nulla se nessuna delle condizioni è vera
 > 2. **Con `else`**, il programma esegue il blocco sotto l'`else` quando nessuna delle condizioni `if` o `elif` è vera.
@@ -72,6 +84,8 @@ In questo caso non è presente nessun `else` perciò non verrà stampato nulla i
 > > elif -10 < a < 0: print("Il valore di a è tra -10 e 0")
 >> ``` 
 
+
+---
 
 
 ### Annidare gli `If` 
@@ -98,7 +112,7 @@ else: #riferito all'if esterno
 >- Capire quale parte del codice sta causando un errore o un comportamento imprevisto.
 >
 >**Relazione con il codice poco sopra**
->```
+>```python
 >if cond1:
  >   if cond1:
   >      # codice
@@ -149,6 +163,8 @@ In questo caso, Python si aspetta che il secondo `if` sia indentato sotto il pri
 >- L'indentazione è fondamentale per mantenere il flusso logico del programma.
 >- Ogni `else` si riferisce all'`if` immediatamente precedente al quale è associato.
 
+---
+
 
 2. `else`: 
    ==va a catturare tutto quello che sfugge alla prima condizione e va a chiudere lo  statements; è lo statement di chiusura.== 
@@ -167,7 +183,8 @@ else:
 ---
 
 
-## Loops
+# Loops
+## For Loops
 Fare i cicli in python.
 I `for` in python è utile quando abbiamo a che fare con le collections, in particolare quando dobbiamo scorrere liste o dizionari.
 ### Sintassi
@@ -396,7 +413,7 @@ L'output quindi sarà:
 ("c", 2)
 ```
 
-### ### Filtrare numeri pari in una singola lista
+### Filtrare numeri pari in una singola lista
 Per stampare solo i numeri pari in una lista:
 **Soluzione con indice**
 ```python
@@ -492,12 +509,12 @@ L'output sarà:
 
 > [!example ]+ **Per Ricapitolare le caratteristiche della List Comprehension**
 > 1. **Funziona sia su liste ordinate che disordinate.**
->2. È utile per semplificare la creazione di liste o dizionari.
+>2. **È utile per semplificare la creazione di liste o dizionari**.
 >
 > Esempio: creazione di una lista con un ciclo tradizionale
 >
 >Vediamo ora come creare una lista con un ciclo for tradizionale:
->```
+>```python
 >length = 5  
 >numbers = []  
 >for i in range(1, length + 1):  # Range parte da 1 e include length (grazie a `+1`)
@@ -513,22 +530,518 @@ L'output sarà:
   >  - Questo processo si ripete fino a che `i` raggiunge `length + 1`.
 >- **Risultato finale:** La lista `numbers` contiene tutti i numeri da `1` a `5`.
 
+---
 
-
-
-List compresion: 
-funziona sia su liste disordinate o ordinate 
-Mettiamo caso
+## While Loops
+==Il ciclo `while` esegue un blocco di codice fintanto che una condizione specificata è vera.==
+Quindi in altre parole ==è usato per ripetere un blocco di codice== fintanto che una condizione è vera
+## Sintassi 
+Per dichiarare un `while` devo scrivere:
 ```python
-lenght =5 
-numbers[]
-for i in range(1, lenght +1) #se metto solo lenght mi da i numeri da uno fino a 4 cosi gli devo dire di aumentarli di 1 
-numbers.append(i)
-#il primo valore che assume i è i=1 la i è una lista vuota e con l'append io sto aggiungendo una lista vuota che adesso i è diventanto 1.
-#tornando al for adesso i=2 e così numbers diventa numbers[1,2].
-#torno al for la i=3
-#numbers[1,2,3]
-#e cosi via fino al che si è inserito sul terminale.
-#Cosi posso crearmi 
+while condizione:
+	#blocco di codice da eseguire 
 ```
 
+
+> [!example] Esempio
+>```python
+>x = int(input("Inserisci un numero: "))
+>while x <= 5:
+ >>   print(x)
+ >>   x += 1
+>```
+> - L'utente inserisce un valore per `x`
+> - Il ciclo continua fintanto che `x è minore o uguale a 5`.
+> - Ad ogni iterazione, `x` viene incrementato di 1 e il valore di `x` viene stampato .
+> 
+> Per cui se `x=3`, l'output sarà:
+>```python
+> 3
+> 4
+> 5
+>```
+>In questo caso se si inserisce un numero maggiore di `5`, ad esempio `6`, l'output non sarà stampato.
+
+
+### `Break` e `Continue` nei cicli
+Queste due parole chiave modificano il comportamento dei cicli.
+1. `Break`:
+==Interrompe il ciclo in corso, terminandolo immediatamente.== 
+
+> [!example] Esempio Pratico  
+>```python
+>for i in range (10):
+>    if i \=\=2:
+>     break
+>    print(i)
+>```
+>L'output sarà 
+>```python
+>0
+>1
+>```
+>In questo caso il ciclo si ferma quando `i` è uguale a 2.
+
+2. `Continue`:
+   Salta l'iterazione corrente e passa direttamente alla successiva.
+   
+   
+> [!example] Esempio Pratico
+>```python
+> for i in range (10):
+>    if i \=\=2:
+>     continue
+> print(i)
+>```
+>L'output sarà:
+>```python
+>0
+>1
+>2
+>3
+>4
+>5
+>6
+>7
+>8
+>9
+>```
+>In questo caso quando `i` è uguale a 2, il ciclo salta direttamente alla prossima iterazione senza eseguire il `print()`.
+
+### Applicazione di `Break` e `Continue` con i cicli del `While`
+Anche con il ciclo di `while` è possibile utilizzare `break` e `continue`:
+
+> [!example] **Esempio con  `Break`** 
+>```python
+>x=0
+>while x <10:
+>	if x\=\=5:
+> 	 break
+>  print(x)
+>  x += 1
+>```
+>L'output sarà:
+>```python
+>0
+>1
+>2
+>3
+>4
+>
+>```
+
+
+> [!example] Esempio con `Continue`
+>```python
+> x = 0
+> while x < 5:
+> 	x += 1
+> 	if x \=\= 3:
+> 	   continue
+>    print(x)
+>```
+>Output:
+>```python
+>1
+>2
+>4
+>5
+>```
+
+## Confronto con gli if statements e for loops
+### Cicli `for` e confronto con `while`
+ ==Come detto prima un ciclo [[Cicli e condizionali#For Loops|for]] è utilizzato per iterare su una sequenza ([[Collections#Le liste|liste]], stringa, range, intervallo di numeri, etc.).==
+ ====
+```python
+ for variabile in sequenza:
+	 #blocco di codice
+```
+
+```python
+for i in range (5): #itera su [0, 1, 2, 3, 4]
+	print(i)
+```
+
+Output:
+```python
+0
+1
+2
+3
+4
+```
+
+### Differenza con il while
+- `while`:
+  ==è utile quando non si conosce in anticipo il numero di iterazioni.==
+- `for`: 
+  ==è ideale quando si conosce l'intervallo o la sequenza da iterare.== 
+
+### If Statement 
+==Le strutture condizionali permettono di eseguire diverse istruzioni in base a determinate condizione==.
+```python
+if condizione:
+	# Codice da eseguire se la condzione è vera
+elif condizione_2:
+	#Codice da eseguire se l'altra condizione è vera
+else:
+	#Codice da eseguire se nessuna condizione è vera 
+```
+  
+##### Casi d'esempio:
+```python
+x = int(input("inserisce un numero:"))
+if x > 0:
+	print("Positivo")
+elif x == 0:
+	print("Zero")
+else:
+	print("Negativo")
+```
+
+1. Se si inserisce `5`, l'output sarà:
+```python
+Positivo
+```
+
+2. Se l'utente inserisce `0`, l'output sarà:
+```python
+Zero
+```
+
+3. Se l'utente inserisce `-3`, l'output sarà:
+```python
+Negativo
+```
+
+
+
+> [!example] Per Ricapitolare
+> - **Ciclo** `while`: 
+>   ==**utile per eseguire ripetizioni basate su condizioni.**==
+ >   
+>- **Ciclo** `for`: 
+>  ==**ideale per iterare su sequenze.**==
+>    
+>- `break`: 
+>  ==**termina un ciclo**==.
+ >   
+>- `continue`: 
+>  ==salta un'iterazione==.
+>    
+>- **Condizioni**: 
+>  ==**permettono decisioni logiche nel codice**==.
+
+### Annidare i while 
+È possibile annidare un ciclo `while` all'interno di un altro ciclo `while` per creare iterazioni multiple.
+
+##### Esempio della tabella dei numeri
+```python 
+i = 1
+while i <= 3:  # Ciclo esterno
+    j = 1
+    while j <= 3:  # Ciclo interno
+        print(f"i={i}, j={j}")
+        j += 1
+    i += 1
+
+```
+
+**Output:**
+```python
+i=1, j=1
+i=1, j=2
+i=1, j=3
+i=2, j=1
+i=2, j=2
+i=2, j=3
+i=3, j=1
+i=3, j=2
+i=3, j=3
+
+```
+
+**Spiegazione:**
+1. **Ciclo Esterno (`i`)**:
+    - ==Il ciclo esterno controlla la variabile `i`, che inizia con valore `1` e incrementa di `1` ad ogni iterazione.==
+    - ==La condizione `i <= 3` mantiene attivo il ciclo fintanto che `i` è minore o uguale a `3`.==
+2. **Ciclo Interno (`j`)**:
+    - ==Ad ogni iterazione del ciclo esterno, viene eseguito il ciclo interno.==
+    - ==La variabile `j` viene inizializzata a `1` per ogni iterazione del ciclo esterno e incrementa di `1` finché `j <= 3`.==
+3. **Stampa dei valori**:
+    - ==Per ogni combinazione di `i` e `j`, il programma stampa i valori correnti delle due variabili.==
+4. **Incrementi**:
+    - ==Una volta completato il ciclo interno (quando `j` supera `3`), il controllo ritorna al ciclo esterno, che incrementa `i` e riavvia il ciclo interno con una nuova inizializzazione di `j`.==
+
+| Iterazioni Ciclo Esterno(`i`) | Iterazioni ciclo Interno (`j`) | Output Stampato |
+| ----------------------------- | ------------------------------ | --------------- |
+| `i = 1`                       | `j = 1,2,3`                    | `i = 1, j = 1`  |
+|                               |                                | `i=1, j=2`      |
+|                               |                                | `i=1, j=3`      |
+| `i = 2`                       | `i = 2`                        | `i=2, j=1`      |
+|                               |                                | `i=2, j=2`      |
+|                               |                                | `i=2, j=3`      |
+| `i = 3`                       | `j = 1,2,3`                    | `i=3, j=1`      |
+|                               |                                | `i=3, j=2`      |
+|                               |                                | `i = 3, j = 3`  |
+|                               |                                |                 |
+
+### While annidato nei for
+Un ciclo di `while` può essere utilizzato all'interno di un ciclo `for`.
+
+##### Esempio: Contare fino a un limite per ogni elemento di una lista 
+```python
+for x in [2, 4, 6]:
+    print(f"Tabella di {x}:")
+    count = 1
+    while count <= 3:
+        print(f"{x} x {count} = {x * count}")
+        count += 1
+```
+**Output:**
+```python
+Tabella di 2:
+2 x 1 = 2
+2 x 2 = 4
+2 x 3 = 6
+Tabella di 4:
+4 x 1 = 4
+4 x 2 = 8
+4 x 3 = 12
+Tabella di 6:
+6 x 1 = 6
+6 x 2 = 12
+6 x 3 = 18
+```
+
+**Spiegazione:**
+1. **Il Ciclo `for` (Iterazione sugli elementi della lista):**
+    - Il ciclo `for` itera sugli elementi della lista `[2, 4, 6]`.
+    - Ad ogni iterazione, il valore corrente dell'elemento viene assegnato alla variabile `x`.
+
+- Esecuzione del ciclo `for`:
+	- **Prima iterazione:** `x = 2`
+	- **Seconda iterazione:** `x = 4`
+	- **Terza iterazione:** `x = 6`
+
+2. **Stampa del messaggio iniziale per ogni valore di `x`:**
+    - Ad ogni iterazione del ciclo `for`, viene stampata una riga che annuncia la "tabella" per il numero `x`.
+    **Esempio:**
+    - Quando `x = 2`, viene stampato: `Tabella di 2:`.
+    - Quando `x = 4`, viene stampato: `Tabella di 4:`.
+    - Quando `x = 6`, viene stampato: `Tabella di 6:`.
+
+3. **Ciclo `while` Annidato:**
+    - All'interno del ciclo `for`, è presente un ciclo `while` che genera i valori della tabella di moltiplicazione per il numero `x`.
+
+Dettaglio del ciclo `while`:
+
+- La variabile `count` viene inizializzata a `1` all'inizio di ogni iterazione del ciclo `for`.
+- Il ciclo `while` esegue iterazioni finché `count <= 3`.
+- Ad ogni iterazione:
+    - Viene calcolato il prodotto tra `x` e `count`: `x * count`.
+    - Viene stampata la riga corrispondente della tabella.
+    - La variabile `count` viene incrementata di `1`.
+
+
+4. **Comportamento completo del programma:**
+    - Per ogni valore di `x` nella lista `[2, 4, 6]`, il ciclo `while` calcola e stampa tre righe della tabella di moltiplicazione per quel numero.
+
+
+
+#### **Esecuzione Dettagliata**
+
+###### **Prima iterazione del ciclo `for` (x = 2):**
+
+- `print(f"Tabella di 2:")` stampa: `Tabella di 2:`.
+- **Ciclo `while`:**
+    - `count = 1`: Stampa `2 x 1 = 2`.
+    - `count = 2`: Stampa `2 x 2 = 4`.
+    - `count = 3`: Stampa `2 x 3 = 6`.
+
+###### **Seconda iterazione del ciclo `for` (x = 4):**
+
+- `print(f"Tabella di 4:")` stampa: `Tabella di 4:`.
+- **Ciclo `while`:**
+    - `count = 1`: Stampa `4 x 1 = 4`.
+    - `count = 2`: Stampa `4 x 2 = 8`.
+    - `count = 3`: Stampa `4 x 3 = 12`.
+
+###### **Terza iterazione del ciclo `for` (x = 6):**
+
+- `print(f"Tabella di 6:")` stampa: `Tabella di 6:`.
+- **Ciclo `while`:**
+    - `count = 1`: Stampa `6 x 1 = 6`.
+    - `count = 2`: Stampa `6 x 2 = 12`.
+    - `count = 3`: Stampa `6 x 3 = 18`.
+
+### If annidato in un while
+==Un'istruzione condizionale `if` può essere usata all'interno di un ciclo `while` per controllare condizioni specifiche.== 
+**Esempio: Sommare solo i numeri pari fino a un limite:**
+```python
+limite = 10 
+x = 1
+somma = 0
+while x <= limite:
+    if x % 2 == 0:  # Verifica se il numero è pari
+        somma += x
+    x += 1
+print(f"La somma dei numeri pari da 1 a 10 è {somma}.")
+
+```
+
+**Output:**
+```python
+La somma dei numeri pari da 1 a 10 è 30.
+```
+
+##### **Spiegazione dettagliata**
+
+**1. Inizializzazione delle variabili:**
+- **`limite`**: 
+  ==Imposta il valore massimo fino a cui iterare (incluso). In questo caso, il limite è `10`.==
+- **`x`**: 
+  ==È inizializzato a `1` ed è il contatore usato per iterare nel ciclo `while`.==
+- **`somma`**: 
+  ==Parte da `0` ed è la variabile che accumula la somma dei numeri pari.== 
+
+**2. Ciclo `while`:**
+
+==Il ciclo `while` esegue iterazioni finché la condizione `x <= limite` è vera==:
+
+- ==Quando `x` supera il valore di `limite` (cioè `10`), il ciclo si interrompe.==
+
+ **3. Condizione `if` annidata:**
+All'interno del ciclo `while`, c'è una ==condizione `if` che controlla se il numero corrente (`x`) è pari==:
+
+- ==La condizione `x % 2 == 0` verifica se il resto della divisione di `x` per `2` è uguale a `0`.==
+    - Se vero, `x` è pari e viene aggiunto alla variabile `somma`.
+    - Se falso, non accade nulla, e il ciclo passa all'iterazione successiva.
+
+
+**4. Incremento di `x`**
+==Alla fine di ogni iterazione del ciclo `while`, il valore di `x` viene incrementato di `1` con `x += 1` per passare al numero successivo.==
+
+**5. Stampa del risultato**
+Dopo che il ciclo si è concluso, il programma stampa il valore accumulato in `somma`, mostrando la somma di tutti i numeri pari fino al limite specificato.
+
+#### Esecuzione dettagliata
+Vediamo passo passo cosa succede durante l'esecuzione:
+
+| Iterazione | **`x`** | **`x%2\=\= 0`** | Azione                       | Risultato |
+| ---------- | ------- | --------------- | ---------------------------- | --------- |
+| 1          | 2       | False           | `x` è dispari, salta l'`if`  | 0         |
+| 2          | 2       | True            | aggiunge `2`a `somma`        | 2         |
+| 3          | 3       | False           | `x` è dispari, salta `if`    | 2         |
+| 4          | 4       | True            | aggiunge `4` a `somma`       | 6         |
+| 5          | 5       | False           | `x` è dispari, salta l'`if`  | 6         |
+| 6          | 6       | True            | Aggiunge `6` a `somma`       | 12        |
+| 7          | 7       | False           | `x` è dispari, salta il `if` | 12        |
+| 8          | 8       | True            | Aggiunge `8` a `somma`       | 20        |
+| 9          | 9       | False           | `x` è dispari, salta il `if` | 20        |
+| 10         | 10      | True            | Aggiunge `10` a `somma`      | 30        |
+| Fine       | 11      | -               | il ciclo si interrompe       | 30        |
+
+
+> [!important] Concetti chiave
+>  - **Ciclo `while`:** Usato per iterare fino a un certo limite.
+>- **Condizione `if`:** Annidata per filtrare solo i numeri pari.
+>- **Operatore `%`:** Il modulo `%` è usato per verificare se un numero è pari o dispari.
+>- **Accumulatore (`somma`):** Una variabile che raccoglie valori incrementali.
+
+
+### Combinazioni complesse
+Si possono creare annidazioni complesse: ad esempio un ciclo di `for` dentro un `while` e includere condizioni if.
+
+**Esempio: Stampare i valori di una matrice**
+```python
+matrice = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+riga = 0
+while riga < len(matrice):
+    for colonna in matrice[riga]:
+        if colonna % 2 == 0:
+            print(f"Numero pari: {colonna}")
+    riga += 1
+
+```
+
+**Output:**
+```python
+Numero pari: 2
+Numero pari: 4
+Numero pari: 6
+Numero pari: 8
+```
+
+
+> [!faq]+ Linee guida logiche nel uso combinato di **`for`**, **`while`**, **`if`**, **`elif`**, **`else`**, **`break`**, e **`continue`**
+> Non esiste una gerarchia rigida di utilizzo o obbligatoria nell'uso combinato di **`for`**, **`while`**, **`if`**, **`elif`**, **`else`**, **`break`**, e **`continue`**. 
+> Tuttavia ci sono delle **linee guida logiche** e delle buone pratiche che determinano come strutturare il codice per ottenere il comportamento desiderato. 
+> 1. **Gerarchia Logica**
+> La combinazione di questi costrutti dipende dalla logica del problema che si sta risolvendo. 
+> 	1. I cicli (`for` e `while`):
+>		- I cicli sono usati per iterare su una sequenza (`for`) o per ripetere un'azione fino a una condizione (`while`).
+>		- All'interno dei cicli puoi usare condizioni (`if`, `elif`, `else`) per decidere cosa fare in base a determinati criteri.
+>	2. Le condizioni (`if`, `elif`, `else`):
+>		 - Queste sono usate per il controllo del flusso logico.
+>		- Possono essere annidate all'interno dei cicli per verificare criteri specifici in ogni iterazione.
+>	 3. `break` e `continue`:
+>	    - **`break`**:1 
+>	      Uscire immediatamente dal ciclo in cui si trova.
+>		- **`continue`**: 
+>		  Saltare l'iterazione corrente e passare alla successiva.
+>		- Si usano **all'interno di cicli**, spesso combinati con condizioni (`if`), per modificare il flusso.  
+> 2. **Linee guida pratiche**
+>  **Quando usare i cicli:**
+>
+>- Usa un **`for`** quando sai in anticipo quante iterazioni eseguire (es.: iterare su una lista, su un range di numeri).
+>- Usa un **`while`** quando la condizione di uscita non è determinata a priori o dipende da una variabile che cambia durante l'esecuzione.
+>**Condizioni (`if`, `elif`, `else`):**
+>
+>- Puoi annidarle ovunque sia necessario, ma evita annidamenti troppo profondi per mantenere il codice leggibile.
+>- Ogni ciclo può contenere condizioni per verificare criteri specifici.
+>
+>**`break` e `continue`:**
+>
+>- **`break`**: Usalo quando sai che non c'è più bisogno di continuare l'iterazione (es.: hai trovato il valore cercato in un ciclo di ricerca).
+>- **`continue`**: Usalo per saltare iterazioni inutili (es.: evitare calcoli per numeri dispari in un ciclo che processa solo numeri pari).
+>
+> >[!tip]+ Tips & Ticks
+> > Una gerarchia tipo in uno scenario complesso potrebbe essere:
+> > - Un **ciclo esterno** (`for` o `while`) per gestire le iterazioni principali.
+>>- All'interno, una o più condizioni (`if`, `elif`, `else`) per il controllo logico.
+>>- Opzionalmente, **`break`** o **`continue`** per gestire casi particolari.
+>>- Possibili cicli annidati se il problema richiede operazioni gerarchiche.
+>>  >[!example]- Trovare e sommare i numeri pari in una sequenza fino a un limite
+>>  >```python
+>>  >limite = 20
+>>>numeri = [3, 7, 8, 12, 15, 18, 21, 24]
+>>>somma = 0
+>>>   
+>>>   for numero in numeri:
+ >>>  if numero > limite:  # Se il numero supera il limite, interrompi il ciclo
+ >>>       break
+ >>>   if numero % 2 != 0:  # Se il numero è dispari, salta questa iterazione
+ >>>     continue
+>>>    somma += numero  # Aggiungi il numero pari alla somma
+>>>
+>>>print(f"La somma dei numeri pari sotto {limite} è {somma}")
+>>>
+>>  > 
+>>  >```
+>>  > **Esecuzione:**
+>>>
+>>>1. Il ciclo **`for`** itera su ogni elemento della lista `numeri`.
+>>>2. La condizione **`if numero > limite`** interrompe il ciclo se un numero supera il limite.
+>>>3. La condizione **`if numero % 2 != 0`** salta i numeri dispari.
+>>>4. Se entrambe le condizioni sono false, il numero viene aggiunto alla somma.
+>>
+>>**Cosa evitare**
+>>- **Annidamenti eccessivi**: Troppi cicli e condizioni annidati rendono il codice difficile da leggere. Se necessario, usa funzioni per semplificare.
+>>- **Abuso di `break` e `continue`**: Usali solo se migliorano la chiarezza logica del codice.
+>>- **Cicli infiniti non controllati**: Quando usi `while`, assicurati che la condizione diventi falsa a un certo punto.
