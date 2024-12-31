@@ -612,3 +612,6 @@ Questo torna utile se si vuole "annullare" una stringa, cioè ripeterla 0 volte
 >- **Confronto (\==\, `!=`)** confronta due stringhe.
 >- Con l'operatore **`/`** non possiamo dividere per zero, e con **`+`** non possiamo unire una stringa e un numero senza fare la conversione esplicita.
 >- L'operatore **`*`** con `0` ripete la stringa 0 volte, producendo una stringa vuota.
+
+
+![[Gli Operatori]]

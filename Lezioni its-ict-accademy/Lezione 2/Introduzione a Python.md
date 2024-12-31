@@ -65,7 +65,7 @@ Ce ne sono di diversi tipi:
 
 I numeri possono avere qualsiasi valore come le stringhe, i valori booleani posso avere 2 valori `True` o `false`
 ### Variabili
-Una volta compreso i dati devi sapperli usare, le variabili sono dei modi per slavare questi valori di dati e li puoi richiamare richiamando la variabile a cui hai assegnato quel valore (dato).
+==Una volta compreso i dati devi saperli usare, le variabili sono dei modi per salvare questi valori di dati e li puoi richiamare richiamando la variabile a cui hai assegnato quel valore (dato)==.
 A una[[Spiegazione esercizi Lezione 1 Python#Introduzione a Python Variabili| variabile]] posso dargli qualsiasi nome e valore, i nomi devono descrivere al meglio il tipo di dato che state usando (es: name, age). 
 Consideriamo prima il semplice problema di calcolare l'area di un cerchio.  
 Come scriviamo un programma per risolvere questo problema?  
@@ -105,29 +105,91 @@ gianpino = 30
 print(gianpino)
 ```
 
-Possiamo anche modificare il data type alla nostra variabile:  
+==Possiamo anche modificare il data type alla nostra variabile:==  
 ```python
 type (gianpino)
 >>> <class `int`>
 ```
 
-Mentre se vogliamo assegnargli un valore con la virgola:  
+==Mentre se vogliamo assegnargli un valore con la virgola:==  
 ```python
 gianpino = 27.5
 type (gianpino)
 >>> <class `float`> 
 ```
 
-### Overwriting delle variabili
 
-> [!warning] Overwriting: Fate attenzione!
-> L'overwriting è semplice, ma proprio per questo è anche semplice commettere errori. 
-> ```python
-> age =30 
-> name = "Bob"
-> ...
-> name = 31 ←  Qui ad esempio volevamo aggiornare l'età ma abbiamo accidentalmente codificato il nome. In questo caso Python non genera nessun errore! Altri linguaggi, come Java o C++ sono tipizzati: per ogni variabile, devi predefinire il suo tipo di dato.
-> ```
+> [!faq] Le variabili di python sono dei pointers
+> In molti linguaggi di programmazione, le variabili sono come contenitori o secchi (buckets) nei quali inserisci dati. 
+> Ad esempio in ***C***:
+>```C
+> int x = 4; 
+>```
+>In questo caso vado a definire un "memory bucket" chiamato `x`: a cui sto inserendo   dentro il valore `4`.
+>In python, invece, le variabili bisogna pensarle non come dei contenitori ma come dei pointers.
+>Es:
+>```python
+>x = 4
+>```
+>In questo caso ho definito un pointer chiamato `x` che punta ad altri bucket contenenti il valore `4`.
+>Una conseguenza di ciò è che, poiché le variabili in Python puntano semplicemente a vari oggetti, non è necessario "dichiarare" la variabile, né richiedere che la variabile punti sempre a informazioni dello stesso tipo.
+>Per questo che python viene classificato come linguaggio [[dinamically-typed (tipizzato dinamicamente) o Statically-typed#Tipizzazione Dinamica (Dynamically-Typed)|dinamically-typed(tipizzato dinamicamente)]]: 
+>i nomi delle variabili possono puntare a ogni tipo di oggetti.
+>Per fare un esempio pratico:
+>```python
+>  x = 1          # x è un integer
+>  x = "hello"  # x è una stringa
+>  x =[1,2,3]    # x è una lista
+>```
+> Mentre se si utilizzassero dei linguaggi *[[dinamically-typed (tipizzato dinamicamente) o Statically-typed#Statically-typed (Tipizzazione statica)|statically-typed(tipizzati staticamente)]]* potrebbe mancare la *type-safety (sicurezza sui tipi)* offerta da dichiarazioni come quelle presenti in ***C***. 
+> Questo typing dinamico è una delle carte vincenti di Python, che lo hanno reso fin da subito un linguaggio veloce sia da scrivere che da leggere 
+> > [!warning] Overwriting: Fate attenzione!
+>> Proprio per questo motivo è semplice cadere nell'overwriting e commettere degli errori. 
+>> ```python
+>> age =30 
+>> name = "Bob"
+>> ...
+>> name = 31 ←  Qui ad esempio volevamo aggiornare l'età ma abbiamo accidentalmente codificato il nome. In questo caso Python non genera nessun errore! 
+> Altri linguaggi, come Java o C++ sono tipizzati: per ogni variabile, devi predefinire il suo tipo di dato.
+>> ```
+
+ 
+> [!faq]+ Type or not Type
+> Come è stato accennato nel file "Spiegazione esercizi Lezione 1 Python" alla sezione  [[Spiegazione esercizi Lezione 1 Python# Le Variabili|Le Variabili]], quando si dichiara la variabile bisogna mettergli accanto la seguente annotazione di tipo (es: `:int`, `:float`, `list`,etc ).
+> Tuttavia essendo python un linguaggio tipizzato dinamicamente, in realtà questo non è una regola che va ad influire sull'esecuzione del codice ma più per rendere il codice chiaro agli strumenti di analisi ed a eventuali sviluppatori che stanno collaborando al progetto. 
+> Nello specifico questo metodo presenta alcuni vantaggi e differenze con il metodo classico di assegnazione dei valori alla variabili:
+> Prendiamo ad esempio due variabili con due valori integer
+>```python
+>x=4
+>y:int=5
+> 
+>```
+>Alla prima variabile `x` sto assegnando il valore `4` e in questo caso il tipo di `x` verrà automaticamente dedotto come `int`. 
+>Mentre alla seconda variabile `y`, sto assegnando  il valore `5` e sto dicendo a python, tramite l'annotazione di tipo, che `y` dovrebbe essere un intero (`:int`). 
+>Questa annotazione in realtà non cambia il comportamento del codice runtime, ma migliora la leggibilità e la documentazione. 
+>Quindi in pratica entrambe le versioni funzionano allo stesso modo a runtime. 
+>La differenza tra i due è che la seconda (`y:int=5`) è utile per documentare il tipo previsto della variabile, migliorando la comprensione del codice e aiutando gli strumenti di analisi.
+>Es:
+>```python
+>x = 4          # Assegnazione semplice
+>y: int = 4     # Assegnazione con annotazione di tipo
+>
+>print(type(x)) # Output: <class 'int'>
+>print(type(y)) # Output: <class 'int'>>
+>```
+>
+> >[!Example]- Per ricapitolare
+> >I motivi principali per cui vengono usati le annotazioni di tipo sono:
+> > - **Migliorare la leggibilità del codice**:  
+ >>   Le annotazioni di tipo aiutano a capire subito quale tipo di dato ci si aspetta per una variabile o una funzione, senza dover indovinare o eseguire il codice per verificarlo.
+>>    
+>>- **Supporto agli strumenti di analisi statica**:  
+ >>   Strumenti come **mypy**, **PyCharm**, o **VS Code** con Python linting attivato possono analizzare il codice e segnalare potenziali errori di tipo prima che il codice venga eseguito, migliorando la qualità del codice e riducendo gli errori.
+>>- **Documentazione automatica**:  
+ >>   Le annotazioni di tipo servono anche come una forma di documentazione **auto-descrittiva**. Un altro sviluppatore che legge il codice può capire rapidamente che tipo di dati sono previsti senza dover esaminare tutto il contesto.
+>>- **Migliorare l'autocompletamento**:  
+ >>   Gli editor di codice e gli IDE moderni (come PyCharm o VS Code) possono usare le annotazioni di tipo per migliorare le funzionalità di **autocompletamento** e suggerire i metodi disponibili per un determinato tipo.
+
 
 In Python, quando una variabile viene dichiarata, il suo tipo viene determinato automaticamente in base al valore che le viene assegnato.  
 Una variabile può avere una sequenza di caratteri come valore:  
@@ -184,7 +246,8 @@ In generale:
 
 
 ## Strings 
-Una stringa è una sequenza di caratteri, quindi è possibile accedere a ogni carattere della stringa utilizzando un indice che indica la posizione di quel carattere all'interno della stringa data.
+==Una stringa è una sequenza di caratteri.== 
+Quindi è possibile accedere a ogni carattere della stringa utilizzando un indice che indica la posizione di quel carattere all'interno della stringa data.
 ```python
 Strings
 #single line string

@@ -4,8 +4,8 @@ Ripartendo dalla funzione `.append` che aggiungeva un elemento in ultima posizio
 
 ### [[Introduzione a Python#Variabili|Le Variabili]] 
 
-Le variabili quando si dichiarano su python, gli si deve sempre mettere il tipo di variabile.
-Es:
+Le variabili quando si dichiarano su python, gli si deve sempre mettere il tipo di variabile. 
+Es:  ^kg0sz0
 ```python
 list_1:list = [1,2,3,4,5]
 a:str = "Ciao"
@@ -262,7 +262,7 @@ print(h)
 
 
 ### Concetto di assegnazione e mutabilità in Python
-In Python, le variabili non "contengono" direttamente i valori, ma fungono da **riferimenti** (o "puntatori") a oggetti in memoria. Questo significa che assegnare una variabile ad un'altra non copia il valore, ma crea un nuovo riferimento allo stesso oggetto.
+==In Python, le variabili non "contengono" direttamente i valori, ma fungono da **riferimenti** (o "puntatori") a oggetti in memoria==. Questo significa che assegnare una variabile ad un'altra non copia il valore, ma crea un nuovo riferimento allo stesso oggetto.
 Vediamo nel dettaglio cosa accade nel codice.
 #### Passaggio 1: Creazione della lista `a` e assegnazione a `h`
 Creiamo una lista
@@ -294,11 +294,12 @@ Sto semplicemente dicendo che `h` ora deve puntare a un nuovo oggetto (un numero
 > [!important] L'assegnazione non influenza `a`
 > L'assegnazione non influenza `a`, che continua a puntare alla lista originale.
 > 
-```python
+>```python
 print(a)  # Output: [10, 2, 3]
 print(h)  # Output: 6
-```
+>```
 
+Viceversa se noi assegniamo un nuovo valore a `a` questo punterà a il nuovo valore assegnato 
 #### Passaggio 3: Creazione di copie
 Se vuoi creare una **copia indipendente** della lista, puoi utilizzare vari metodi, come lo slicing o la funzione `list()`.
 Es: 
@@ -311,6 +312,7 @@ print(h)  # Output: [10, 2, 3]
 ```
 
 Con `h = a[:]`, crei una **nuova lista** in memoria, indipendente da `a`. Modificare `h` non avrà effetto su `a`.
+
 
 ### Errore nell'indicizzazione
 Il commento nel codice sottolinea un errore comune:

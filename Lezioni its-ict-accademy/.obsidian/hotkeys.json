@@ -390,14 +390,6 @@
       "key": "N"
     }
   ],
-  "editing-toolbar:right": [
-    {
-      "modifiers": [
-        "Mod"
-      ],
-      "key": "ArrowLeft"
-    }
-  ],
   "editing-toolbar:center": [
     {
       "modifiers": [

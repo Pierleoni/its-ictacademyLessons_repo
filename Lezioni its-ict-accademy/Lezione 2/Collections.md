@@ -136,7 +136,7 @@ print(myList)
 myList.append("Davide")
 print(myList)
 ```
-Quindi la funzione **`.append`** aggiunge un elemento a in fondo alla lista.
+==Quindi la funzione **`.append`** aggiunge un elemento a in fondo alla lista==.
 Se ad esempio voglio aggiungere `Erald` alla lista:
 ```python
 myList=["Andrea", "Benedetta", "Camilla",]
@@ -176,7 +176,7 @@ print(myList)
 ```
 
 #### Funzione `pop()`
-- rimuove l'elemento in una determinata posizione (indice)
+- ==rimuove l'elemento in una determinata posizione (indice)==.  
  basta dargli come argomento un determinato indice (sia negativo che positivo).
 ```python
 myList.pop(3)
