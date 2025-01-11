@@ -1,7 +1,7 @@
 # Python  
 
-==Python è un **linguaggio di programmazione di alto livello, interpretato e orientato** agli oggetti,== noto per la sua semplicità e leggibilità.  
-Per queste ragioni, Python è un linguaggio di programmazione ideale sia per principianti che per sviluppatori esperti.
+==Python è un **linguaggio di programmazione di alto livello, interpretato e orientato agli oggetti**,== noto per la sua semplicità e leggibilità.  ^object-oriented
+Per queste ragioni, Python è un linguaggio di programmazione ideale sia per principianti che per sviluppatori esperti. ^e4a02c
 
 **Linguaggio di alto livello**: I linguaggi di alto livello sono simili all'inglese e facili da apprendere e utilizzare.  
 Le istruzioni in un linguaggio di programmazione di alto livello sono chiamate _istruzioni_ (statements).
@@ -20,7 +20,7 @@ Ecco, ad esempio, un'istruzione in un linguaggio di alto livello che calcola l'a
 ==è un paradigma di programmazione che organizza il codice in oggetti, che sono entità che combinano dati (chiamati attributi) e comportamenti (chiamati metodi), semplificando l'organizzazione del codice e rendendolo più modulare e riutilizzabile.==  
 **Le principali caratteristiche di Python includono:** 
 - **Sintassi semplice e intuitiva:**   
- facilita lo sviluppo rapido del codice. 
+ - facilita lo sviluppo rapido del codice. 
 -  Supporto per i paradigmi di programmazione imperativa, funzionale e orientata agli oggetti. 
 - **Ampie librerie standard:**   
 che offrono moduli e funzioni per operazioni comuni, come la gestione dei file, la rete, l'elaborazione dei dati e molto altro.   
@@ -118,7 +118,7 @@ type (gianpino)
 >>> <class `float`> 
 ```
 
-
+## Le variabili di python sono dei puntatori non dei recipienti!
 > [!faq] Le variabili di python sono dei pointers
 > In molti linguaggi di programmazione, le variabili sono come contenitori o secchi (buckets) nei quali inserisci dati. 
 > Ad esempio in ***C***:
@@ -155,13 +155,13 @@ type (gianpino)
 
  
 > [!faq]+ Type or not Type
-> Come è stato accennato nel file "Spiegazione esercizi Lezione 1 Python" alla sezione  [[Spiegazione esercizi Lezione 1 Python# Le Variabili|Le Variabili]], quando si dichiara la variabile bisogna mettergli accanto la seguente annotazione di tipo (es: `:int`, `:float`, `list`,etc ).
-> Tuttavia essendo python un linguaggio tipizzato dinamicamente, in realtà questo non è una regola che va ad influire sull'esecuzione del codice ma più per rendere il codice chiaro agli strumenti di analisi ed a eventuali sviluppatori che stanno collaborando al progetto. 
+> Come è stato accennato nel file "Spiegazione esercizi Lezione 1 Python" (vedi la sezione  [[Spiegazione esercizi Lezione 1 Python# Le Variabili|Le Variabili]]), quando si dichiara la variabile bisogna mettergli accanto la seguente annotazione di tipo (es: `:int`, `:float`, `list`,etc ).
+> Tuttavia essendo python un linguaggio tipizzato dinamicamente, in realtà questo non è una regola che va ad influire sull'esecuzione del codicem, ma più per rendere il codice chiaro agli strumenti di analisi ed a eventuali sviluppatori che stanno collaborando al progetto. 
 > Nello specifico questo metodo presenta alcuni vantaggi e differenze con il metodo classico di assegnazione dei valori alla variabili:
 > Prendiamo ad esempio due variabili con due valori integer
 >```python
->x=4
->y:int=5
+>x = 4
+>y:int = 5
 > 
 >```
 >Alla prima variabile `x` sto assegnando il valore `4` e in questo caso il tipo di `x` verrà automaticamente dedotto come `int`. 
@@ -181,17 +181,16 @@ type (gianpino)
 > >[!Example]- Per ricapitolare
 > >I motivi principali per cui vengono usati le annotazioni di tipo sono:
 > > - **Migliorare la leggibilità del codice**:  
- >>   Le annotazioni di tipo aiutano a capire subito quale tipo di dato ci si aspetta per una variabile o una funzione, senza dover indovinare o eseguire il codice per verificarlo.
->>    
+ >>   ==Le annotazioni di tipo aiutano a capire subito quale tipo di dato ci si aspetta per una variabile o una funzione, senza dover indovinare o eseguire il codice per verificarlo.==   
 >>- **Supporto agli strumenti di analisi statica**:  
- >>   Strumenti come **mypy**, **PyCharm**, o **VS Code** con Python linting attivato possono analizzare il codice e segnalare potenziali errori di tipo prima che il codice venga eseguito, migliorando la qualità del codice e riducendo gli errori.
+ >>   ==Strumenti come **mypy**, **PyCharm**, o **VS Code** con Python linting attivato possono analizzare il codice e segnalare potenziali errori di tipo prima che il codice venga eseguito, migliorando la qualità del codice e riducendo gli errori.==
 >>- **Documentazione automatica**:  
- >>   Le annotazioni di tipo servono anche come una forma di documentazione **auto-descrittiva**. Un altro sviluppatore che legge il codice può capire rapidamente che tipo di dati sono previsti senza dover esaminare tutto il contesto.
->>- **Migliorare l'autocompletamento**:  
- >>   Gli editor di codice e gli IDE moderni (come PyCharm o VS Code) possono usare le annotazioni di tipo per migliorare le funzionalità di **autocompletamento** e suggerire i metodi disponibili per un determinato tipo.
+ >>   ==Le annotazioni di tipo servono anche come una forma di documentazione **auto-descrittiva**. Un altro sviluppatore che legge il codice può capire rapidamente che tipo di dati sono previsti senza dover esaminare tutto il contesto.==
+>>- **Migliorare l'auto completamento**:  
+ >>   ==Gli editor di codice e gli IDE moderni (come PyCharm o VS Code) possono usare le annotazioni di tipo per migliorare le funzionalità di **auto completamento** e suggerire i metodi disponibili per un determinato tipo.==
 
 
-In Python, quando una variabile viene dichiarata, il suo tipo viene determinato automaticamente in base al valore che le viene assegnato.  
+!!!N.B:==In Python, quando una variabile viene dichiarata, il suo tipo viene determinato automaticamente in base al valore che le viene assegnato.==!!!  
 Una variabile può avere una sequenza di caratteri come valore:  
 ```python
 #stringa  
@@ -228,6 +227,68 @@ c1 = "io sono anche una stringa"
 print(c1)  
 print(type(c1))
 ```
+
+Quindi, in realtà, Python ha i suoi types, tuttavia sono collegati non ai nomi delle variabili ma agli oggetti stessi.
+
+
+> [!faq]+ La funzione `type()`
+> La funzione type è una funzione integrata che serve per diversi scopi:
+> 1. **Determinare il tipo di un oggetto:**
+>    se passi un oggetto come argomento, `type()` restituisce la classe a cui l'oggetto appartiene.
+>```python
+>x = 5
+> print(type(x))  # output:  <class 'int'>
+>```
+> 2. **Creare dinamicamente una nuova classe:**
+> Se viene chiamata con tre argomenti, `type()` è utilizzato per creare una nuova classe. 
+> La sintassi è:
+>```python
+>type(name, bases, dict)
+>```
+>- **`name`**: Nome della nuova classe (stringa).
+>- **`bases`**: Tupla delle classi base da cui ereditare.
+>- **`dict`**: Dizionario che contiene gli attributi e i metodi della classe.
+
+### Object-Oriented
+[[Introduzione a Python#^e4a02c|Come accennato sopra]],  in python è tutto un oggetto. 
+Per capire meglio questo concetto riprendiamo dalla spiegazione che le variabili sono semplicemente dei puntatori e i nomi delle variabili stessi non hanno informazioni di tipo associate. 
+Ovviamente ciò porta l'utenza meno esperta a pensare che Python sia un linguaggio type-free, cosa che ovviamente non è e porta a numerosi errori. 
+Prendendo ad esempio i seguenti casi: 
+```python 
+x = 4
+print(type (x))
+```
+Output
+```python
+<class 'int'>
+```
+
+
+
+```python
+x = 'hello'
+print(type(x))
+```
+Output
+```python
+<class 'str'>
+```
+
+
+```python 
+x = 3.14 
+print(type (x))
+```
+Output 
+```python
+<class 'float'>
+```
+
+Come si può notare, Python ha dei tipi; tuttavia, i types non sono collegati ai nomi delle variabili, ma agli oggetti stessi.
+==Nei linguaggi di programmazione orientati agli oggetti come Python, un oggetto è un'entità che contiene dati insieme a metadati e/o funzionalità associati.== 
+In Python tutto è un oggetto, il che significa che ogni entità possiede alcuni metadati (chiamati attributi) e funzionalità associate (chiamate metodi). 
+Questi attributi e metodi sono accessibili tramite la sintassi del punto (`.`) ([[Spiegazione esercizi Lezione 1 Python#Le funzioni di python|Vedi le funzioni di python]]).
+
 
 
 ## Convenzioni di denominazione 

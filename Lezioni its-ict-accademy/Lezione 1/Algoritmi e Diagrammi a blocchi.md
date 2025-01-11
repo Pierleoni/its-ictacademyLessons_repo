@@ -24,7 +24,47 @@ Questo tipo di diagramma lo si scrive seguendo un ordine e una struttura precisa
 
 ![[Struttura diagramma a blocchi.png]]
 
-Un diagramma a blocchi è un modo visivo di rappresentare il flusso di un programma. Esso mostra i vari passaggi (o istruzioni) e come vengono eseguiti in sequenza, selezione o iterazione. Ecco come potremmo strutturare un diagramma a blocchi che somma i numeri in una lista:
+Un diagramma a blocchi è un modo visivo di rappresentare il flusso di un programma. Esso mostra i vari passaggi (o istruzioni) e come vengono eseguiti in sequenza, selezione o iterazione. 
+
+### Struttura 
+#### 1. Elisse 
+==È utilizzata per indicare l'**inizio** o la **fine** di un diagramma a blocchi.== 
+Quindi ciascun diagramma inizierà con il blocco **inizio** e terminerà, dopo aver risolto il compito assegnato, con il blocco **fine**
+![[Blocchi di inizio_fine.png]]
+
+#### 2. Parallelogramma 
+==È utilizzato per prendere dei dati in input o per visualizzare dei dati in output.==  
+La nomenclatura prevede di scrivere per l'input ***"Read"*** (scrivere accanto la variabile da mettere in input)
+e per l'output ***"Write"*** (scrivere accanto l'output che si vuole visualizzare), oppure è consigliabile inserire una **I** in alto a sinistra, seguita dai due punti. Similmente per l’output, che si è soliti indicare con una **O** in alto a sinistra, sempre seguita dai due punti.
+###### Primo esempio di I/O:
+![[I_O.png|300]]
+
+###### Secondo esempio di I/O:
+![[I_O2.png|300]]
+
+#### 3. Rettangolo:
+==Il rettangolo è utilizzato per eseguire dei calcoli, ovvero per elaborare dei dati.== 
+Ad esempio per calcolare la somma tra due numeri o l’area di un rettangolo o ancora la media fra tre numeri, ecc…
+![[Rettangolo Block Diagram.png]]
+
+#### 4. Rombo:
+==Il rombo è utilizzato per le **istruzioni condizionali**,== ==ovvero per porre una domanda.== 
+All’interno dunque viene fatto un **test**, per cui si valuta una condizione che può essere o vera o falsa, quindi si sceglie tra due strade diverse. Un esempio di semplice test potrebbe essere quello di vedere se un numero è positivo o negativo
+![[Rombo Block Diagram.png]]
+
+Come vedremo più avanti, il rombo viene spesso utilizzato per i cicli `if`, `elif`, `else`, `while` e `do-while`. 
+
+
+> [!faq]- Cosa sono i cicli 
+> I **cicli** sono delle **strutture iterative** che hanno lo scopo di ripetere più volte una o più istruzioni contenute al loro interno.
+>
+>> [!example] 
+> > ![[Cicli while Block Diagram.png]]
+> 
+
+
+
+Ecco come potremmo strutturare un diagramma a blocchi che somma i numeri in una lista:
 
 ### 1. **Sequenza**
 

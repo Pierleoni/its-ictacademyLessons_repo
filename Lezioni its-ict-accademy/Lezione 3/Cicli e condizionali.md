@@ -571,7 +571,7 @@ Queste due parole chiave modificano il comportamento dei cicli.
 > [!example] Esempio Pratico  
 >```python
 >for i in range (10):
->    if i \=\=2:
+>    if i == 2:
 >     break
 >    print(i)
 >```
@@ -583,13 +583,13 @@ Queste due parole chiave modificano il comportamento dei cicli.
 >In questo caso il ciclo si ferma quando `i` è uguale a 2.
 
 2. `Continue`:
-   Salta l'iterazione corrente e passa direttamente alla successiva.
+   ==Salta l'iterazione corrente e passa direttamente alla successiva.== 
    
    
 > [!example] Esempio Pratico
 >```python
 > for i in range (10):
->    if i \=\=2:
+>    if i == 2:
 >     continue
 > print(i)
 >```

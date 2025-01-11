@@ -8,46 +8,37 @@
         "type": "tabs",
         "children": [
           {
-            "id": "fd2ba1bd9e53c19e",
+            "id": "025c2b316b9e6c2f",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Lezione 2/Spiegazione esercizi Lezione 1 Python.md",
+                "file": "Lezione 2/Gli Operatori.md",
                 "mode": "source",
                 "backlinks": false,
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Spiegazione esercizi Lezione 1 Python"
+              "title": "Gli Operatori"
             }
           },
           {
-            "id": "1f7d64f5c64f1916",
+            "id": "0a9711ad10329676",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Lezione 2/Spiegazione esercizi Lezione 1 Python.md",
+                "file": "numero complesso.md",
                 "mode": "source",
                 "backlinks": false,
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Spiegazione esercizi Lezione 1 Python"
-            }
-          },
-          {
-            "id": "a8fb5732d5609e35",
-            "type": "leaf",
-            "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph view"
+              "title": "numero complesso"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -97,6 +88,16 @@
               "state": {},
               "icon": "lucide-bookmark",
               "title": "Bookmarks"
+            }
+          },
+          {
+            "id": "439729a7365528c0",
+            "type": "leaf",
+            "state": {
+              "type": "mindmap",
+              "state": {},
+              "icon": "dot-network",
+              "title": "Mind Map of numero complesso"
             }
           }
         ]
@@ -245,42 +246,43 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "fd2ba1bd9e53c19e",
+  "active": "a3c89a053243abbf",
   "lastOpenFiles": [
-    "Lezione 2/Collections.md",
-    "Lezione 2/Introduzione a Python.md",
-    "Lezione 2/Spiegazione esercizi Lezione 1 Python.md",
-    "Lezione 2/dinamically-typed (tipizzato dinamicamente) o Statically-typed.md",
-    "statically-typed (tipizzato staticamente).md",
     "Lezione 2/Gli Operatori.md",
-    "Lezione 1/Algoritmi e Diagrammi a blocchi.md",
+    "Lezione 2/Spiegazione esercizi Lezione 1 Python.md",
+    "numero complesso.md",
+    "Lezione 2/Introduzione a Python.md",
     "Lezione 2/I modificatori.md",
+    "Lezione 2/dinamically-typed (tipizzato dinamicamente) o Statically-typed.md",
+    "Lezione 2/Collections.md",
+    "Diagram/Diagram 1.svg",
+    "Diagram/Assign Block.svg",
+    "Diagram/Diagram.svg",
+    "Diagram/Untitled Diagram.svg",
+    "Lezione 1/Introduzione generale.md",
+    "Lezione 1/Esercizio Diagrammi a blocchi.md",
+    "Lezione 1/Algoritmi e Diagrammi a blocchi.md",
     "Lezione 3/Cicli e condizionali.md",
+    "Immagini/Cicli while Block Diagram.png",
+    "Immagini/Rombo Block Diagram.png",
+    "Immagini/Rettangolo Block Diagram.png",
+    "Immagini/I_O2.png",
+    "Immagini/Struttura diagramma a blocchi.png",
+    "Immagini/I_O.png.~tmp",
+    "Immagini/I_O.png",
+    "Lezione 2/Presentazione su le buone pratiche di programmazione e applicazioni reali di python.md",
+    "statically-typed (tipizzato staticamente).md",
     "Lezione 10/Le architetture di un Computer.md",
     "Lezione 7/Spiegazione per i vantaggi e svantaggi dei modelli Client server e P2P, spiegazione delle tre entità di spotify..md",
-    "Diagram/Untitled Diagram.svg",
     "Diagram/esercizio 2.svg.xml",
-    "Diagram/esercizio 2.svg",
-    "Lezione 1/Esercizio Diagrammi a blocchi.md",
-    "Untitled Diagram.svg",
-    "Diagram/Soluzione Alt Ex 2.svg",
     "Diagram/Soluzione Alt Ex 2.svg.xml",
-    "esercizio 2.svg",
     "esercizio 2.svg.xml",
-    "Untitled Diagram 2.svg",
-    "Untitled Diagram 1.svg",
-    "Diagram/Esercizio 1.svg",
     "Diagram/Esercizio 1.svg.xml",
-    "Lezione 1/Introduzione generale.md",
-    "Immagini/F di x.svg",
     "Immagini/F di x.svg.xml",
-    "Immagini/Control block.png",
     "Diagram/Assign Block.svg.xml",
     "Diagram/Wrtite block.svg.xml",
     "Diagram/Read Block.svg.xml",
     "Diagram/End Block.svg.xml",
-    "Diagram/Start Block 1.svg.xml",
-    "Untitled.md",
     "Recording 20241217120107.webm.md",
     "Lezione 7/Complemento a 2 e Reti di calcolatori.md",
     "Soft Skills/Soft skills.md",
@@ -292,7 +294,6 @@
     "sintassi di ricerca.md",
     "Obsidian URI.md",
     "Proprietà di[[Vedere la sintassi di ricerca per le proprietà.md",
-    "Internal link.md",
     "Untitled.canvas"
   ]
 }

@@ -23,6 +23,8 @@ list_1:list =[1,2,3,4,5]
 > [!warning] Indicizzazione degli elementi nelle liste 
 > Gli indici di una lista sono zero-based, cioè il primo elemento sta all'indice 0, il secondo sta all'indice 1 e cosi via
 
+
+## Le funzioni di python 
 ### La funzione `append`
 Come detto sui gli altri appunti, questa funzione permette di aggiungere un elemento in fondo alla lista, per fare un esempio: 
 ```python
@@ -200,7 +202,7 @@ print(a)
 ### Cosa sono le funzioni?
 
 `.append()` e `.extend()` sono funzioni, una funzione può essere immaginata come una scatola:
-![[Esercizio 1.svg]]
+![[Diagram 1.svg]]
 Come ci mostra questa immagine;
 1. **Input :** 
    Riceve uno o più valori in ingresso (parametri o argomenti, in questo caso una variabile chiamata "a").
@@ -226,12 +228,69 @@ a.extend(b)
 print(a)
 ```
 
+### La proprietà `.real`
+Restituisce solo la parte reale di un [[numero complesso]].   ^numero-complesso
+##### Esempio Pratico
+```python
+z = 3 + 4j
+print(z.real)
+```
+Output
+```python
+3.0
+```
+In python in numeri complessi sono rappresentati utilizzando la sintassi `a + bj`:
+- `a`: 
+  è la parte reale 
+- `b`: 
+  è la parte immaginaria 
+Di conseguenza questa proprietà restituisce la parte reale del numero complesso.
+#### Caratteristiche della proprietà `.real`
+1. Restituisce un valore di tipo float 
+2. È una proprietà di sola lettura, quindi non può essere modificata direttamente 
+
+
+> [!NOTE] Nota
+> Se usata con un numero reale (`.real`), restituisce semplicemente il numero stesso 
+>```python
+>x = 5
+>print(x.real)
+>```
+>Output:
+>```python
+>5
+>```
+
+### La proprietà `.imag`
+Restituisce la parte immaginaria di un numero complesso.
+```python
+z = 3 + 4j
+print(z.imag) #output: 4.0
+```
+Quando hai un numero complesso nella forma `a + bj`, la proprietà `.imag` restituisce il valore della **parte immaginaria** `b`.
+
+```python
+# Numero complesso con parte immaginaria negativa
+z2 = 5 - 2j
+print(z2.imag)  # Output: -2.0
+
+# Numero reale (parte immaginaria è zero)
+z3 = 7
+print(z3.imag)  # Output: 0.0
+
+```
+
+#### Dettagli importanti:
+
+- La proprietà `.imag` restituisce sempre un **numero float**.
+- È **di sola lettura**, quindi non può essere modificata direttamente.
+- Se il numero è un numero reale, `.imag` restituirà `0.0`.
 
 > [!example] Per ricapitolare
 > - `.extend()` aggiunge i singoli elementi dell'iterabile
 > - `.append()` aggiunge l'intero oggetto come unico elemento
 
-
+## Concatenazione con gli operatori
 ### Concatenazione con l'operatore `+`
 L'operatore `+` consente di concatenare due liste creando una **nuova lista**. A differenza di `append` ed `extend`, non modifica gli oggetti originali.
 ```python
@@ -299,7 +358,30 @@ print(a)  # Output: [10, 2, 3]
 print(h)  # Output: 6
 >```
 
-Viceversa se noi assegniamo un nuovo valore a `a` questo punterà a il nuovo valore assegnato 
+Viceversa se noi assegniamo un nuovo valore a `a` questo punterà al il nuovo valore assegnato mentre il valore di `h` rimane invariato 
+```python
+a=[1,2,3]
+h=a
+a=6
+print(a) #output: 6
+print(h) #output: [1,2,3]
+```
+
+Ci si potrebbe chiedere se questa idea del puntatore renda difficile tenere traccia delle operazioni aritmetiche in Python, ma Python è impostato in modo che questo non sia un problema. Numeri, stringhe e altre _simple types_ sono immutabili: ==non è possibile modificarne il valore, ma è possibile modificare solo i valori a cui puntano le variabili==. 
+Per questo è sicuro fare operazioni del genere:
+```python
+x = 10
+y = x
+x += 5 #aggiunge 5 al valore di x e lo assegna a x
+print ("x =", x)
+print ("y =", y)
+```
+
+```python
+x = 15 
+y = 10
+```
+Quando chiamiamo `x += 5`, non stiamo modificando il valore dell'oggetto `10` puntato da `x`; Stiamo piuttosto modificando la variabile `x` in modo che punti a un nuovo oggetto intero con valore `15`. Per questo motivo, il valore di `y` non è influenzato dall'operazione.
 #### Passaggio 3: Creazione di copie
 Se vuoi creare una **copia indipendente** della lista, puoi utilizzare vari metodi, come lo slicing o la funzione `list()`.
 Es: 

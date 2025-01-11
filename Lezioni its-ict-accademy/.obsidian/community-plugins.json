@@ -18,8 +18,10 @@
   "language-translator",
   "obsidian42-text-transporter",
   "obsidian-minimal-settings",
-  "drawio-obsidian",
   "editing-toolbar",
   "templater-obsidian",
-  "obsidian-copy-block-link"
+  "obsidian-copy-block-link",
+  "obsidian-mind-map",
+  "obsidian-icon-folder",
+  "obsidian-enhancing-mindmap"
 ]
