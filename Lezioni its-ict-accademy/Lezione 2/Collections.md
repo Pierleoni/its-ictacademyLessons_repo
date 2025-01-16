@@ -1,5 +1,5 @@
 ## Altri tipi [[I modificatori#Modificare i dati|dati]] 
-In [[Introduzione a Python#Variabili|Python]], ==sono delle strutture dei dati più complesse delle variabili==, nelle variabili fino ad adesso abbiamo salvato solo un tipo di dati contenuti e per salvare due valori interi devo scrivere 2 variabili per salvare due valori.
+In [[Introduzione a Python#Variabili|Python]], ==ci sono delle strutture dei dati più complesse delle variabili==, nelle variabili fino ad adesso abbiamo salvato solo un tipo di dati contenuti e per salvare due valori interi devo scrivere 2 variabili per salvare due valori.
 Nelle collection possiamo salvare più valori nella stessa struttura.
 Se noi vogliamo tenere traccia di tutti i valori assegnati, devo usare la collection: 
 ==le collection ci permettono di memorizzare tanti tipi di dati nella stessa struttura==.
@@ -33,17 +33,19 @@ Per stampare gli elementi di una lista
 list1=[1,2,3,4]
 print(list1)
 ```
-Se vogli stampare gli elementi ella lista senza parentesi scriverò
+
+==Se vogli stampare gli elementi ella lista senza parentesi scriverò==
 ```python
 print(*list1)
 ```
-Se voglio separare gli elementi della lista tra loro con un carattere preciso:
+
+==Se voglio separare gli elementi della lista tra loro con un carattere preciso:== 
 ```python
 print="*list1, sep=*,/,|, etc.
 ```
 
 La cosa importante è **sequenza ordinata di elementi:** 
-==io posso accedere agli elementi o singolo elemento attraverso degli indici, una struttura non ordinata non me lo fa fare.== 
+==io posso accedere agli elementi o singolo elemento attraverso degli indici, questa cosa non è possibile tramite una struttura non ordinata.==  
 ```python
 indexing
 mylist= ["Alice", "Bob", "Charlie"]
@@ -58,7 +60,7 @@ Es:
 print=(mylist[0])
 >>> "Alice"
 ```
-Io sto chiendendo l'elemento alla posizione 0 della mia lista.
+Io sto chiedendo l'elemento alla posizione 0 della mia lista.
 ==Le liste possono sia avere indici positivi che negativi==, perché si possono leggere in 2 modi diversi:
 1.  da sinistra verso destra (classico): 
    quindi il primo elemento ha l'indice 0, il secondo l'indice 1 e cosi via
@@ -195,8 +197,8 @@ myList.extend = ["Robert", "Karl","Kate"]
 
 ### Modo di scorrere delle liste (Slicing)
 Dove si scrive gli indici per accedere agli elementi si scrive invece `print(myList[0:2])`
-- il primo indice è quello di partenza
-- l'ultimo è quello di arrivo 
+- ==il primo indice è quello di partenza==
+- ==l'ultimo è quello di arrivo== 
 Quindi significa che parto dal primo elemento al secondo mi stamperà solo l'indice 0 e l'indice 1, escludendo l'indice 2 .
 Se cambia la posizione del nostro indice
 ```python
@@ -205,7 +207,8 @@ print (myList[1:1])
 print(myList[:1]) 
 
 ```
-Nel primo caso, lo slicing viene effettuato con un indice di partenza e un indice di arrivo entrambi uguali, ovvero `1:1`. In Python, quando usi una sintassi di slicing con gli indici di partenza e di arrivo uguali, il risultato sarà una **lista vuota**, perché non c'è alcun elemento tra l'indice di partenza e quello di arrivo.
+Nel primo caso, lo slicing viene effettuato con un indice di partenza e un indice di arrivo entrambi uguali, ovvero `1:1`. 
+==In Python, quando usi una sintassi di slicing con gli indici di partenza e di arrivo uguali, il risultato sarà una **lista vuota**, perché non c'è alcun elemento tra l'indice di partenza e quello di arrivo.==
 Nell'ultimo caso sto utilizzando un slicing che parte dall'inizio della lista (poiché il primo indice è omesso) e si estende fino all'indice 1, **escluso**. Quindi, l'elemento che viene selezionato è quello all'indice 0 (il primo elemento della lista).
 
 
@@ -219,12 +222,12 @@ print(myList[-2:]) #viene visualizzato gli ultimi due elementi della lista
 ---
 
 # I set 
-**==Sono una collezione non ordinata di elementi unici==**, che non hanno un ordine fisso e prevedibile  Sono gli insiemi (diagrammi di Vern), 
+**==Sono una collezione non ordinata di elementi unici==**, che non hanno un ordine fisso e prevedibile. Possono essere pensati come  i diagrammi di Vern 
 ### Caratteristiche dei set
 1. **Unicità:** 
    ==ogni elemento di un set è unico==, il che significa che ==i duplicati vengono automaticamente rimossi.==
 2. **Non ordinato:** 
-   ==l'ordine degli elementi in un set non è garantito, quindi non è possibile accedere agli elementi tramite un indice (come con le liste).== 
+   ==l'ordine degli elementi in un set non è garantito, quindi non è possibile accedere agli elementi tramite un indice (a differenza delle liste).== 
 3. **mutabili:** 
    i set sono mutabili, quindi puoi aggiungere o rimuovere elementi da un set dopo la sua creazione. 
    ==cioè posso modificare i valori all'interno levandoli e aggiungendoli (come le liste )==.
@@ -234,7 +237,8 @@ m: set = {"ciao",1,1,1,1}
 print(m)  
 >>> {ciao, 1}
 ```
-Quando stampi o osservi gli elementi di un set, **l'ordine potrebbe sembrare casuale**, ma non lo è realmente. Python utilizza una struttura chiamata **hash table** per gestire i set. ==Gli elementi sono archiviati in base al loro **hash**, che è una funzione che calcola un valore numerico unico per ciascun elemento.== 
+Quando stampi o osservi gli elementi di un set, **l'ordine potrebbe sembrare casuale**, ma non lo è realmente. Python utilizza una struttura chiamata **hash table** per gestire i set. 
+==Gli elementi sono archiviati in base al loro **hash**, che è una funzione che calcola un valore numerico unico per ciascun elemento.== 
 **Hash e memoria**:
 - ==La posizione degli elementi in un set dipende dall'hash e dall'implementazione interna di Python, che varia anche a seconda della memoria disponibile o della versione di Python.== 
 - ==Non dipende né dall'ordine di inserimento né dall'ordine alfabetico/lessicografico.==
@@ -259,7 +263,7 @@ Quando stampi o osservi gli elementi di un set, **l'ordine potrebbe sembrare cas
 Tornando al concetto di **hasher:**
 ==Un **hasher** è una funzione che calcola un valore numerico (hash) per un oggetto.==
 ==Gli hasher sono dei numeri che vengono generati, sono una funzione che prende in input un elemento e restituisce un numero,== le liste non sono "hashable" perché sono un tipo di strutture dati mutabili(cioè i loro contenuti possono essere modificati).
-Di conseguenza, la lista non è "hashable" perché essendo il suo valore mutabile renderebbe l'hash incoerente e ciò creerebbe dei problemi in strutture dati come ad esempio i dizionari, che fanno affidamento sugli hash per cercare velocemente i valori.
+Di conseguenza, la lista non è "hashable" perché, essendo il suo valore mutabile, renderebbe l'hash incoerente e ciò creerebbe dei problemi in strutture dati come ad esempio i dizionari, che fanno affidamento sugli hash per cercare velocemente i valori.
 Per gestire situazioni in cui è necessario utilizzare oggetti mutabili come le liste in contesti che richiedono l'uso di hash (ad esempio come chiavi in un dizionario o in un set), possiamo utilizzare un **wrapper:** 
 ==è una classe che incapsula l'oggetto mutabile (come la lista) e fornisce una versione immutabile dell'oggetto, che è hashable.== 
 Sostanzialmente coprono la lista e così si può calcolare il tipo di hasher. 
@@ -290,7 +294,7 @@ print(p[0])
     ~^^^
 TypeError: 'set' object is not subscriptable
 ```
- come si vede mi da errore perché i set non hanno l'indexing poiché i set non sono ordinati. §
+ come si vede mi da errore perché i set non hanno l'indexing poiché i set non sono ordinati. 
  Questo perché come abbiamo detto [[Collections#Caratteristiche dei set|prima]] un set è una collezione non ordinata di elementi unici che non hanno un ordine fisso e prevedibile, ciò significa che non si può accedere a un elemento di un set utilizzando un indice. 
  Quindi fare `print[p0]`, è un errore perché non c'è nessun primo elemento in un set, visto che il loro ordine potrebbe cambiare ogni vola che accedi al set. 
 ### Funzioni dei set
@@ -312,7 +316,7 @@ print(s)  # Output: {1, 2, 3, 4}
 >```
 
 #### 2. La funzione `remove`: 
-rimuove un singolo elemento specifico dal set.
+==rimuove un singolo elemento specifico dal set.== 
 Se l'elemento non è presente, solleva un errore `keyError`.
 
 
@@ -411,7 +415,7 @@ mydict = {ke1:value1, key:value2, key3:value}
 
 ==Non è possibile avere chiavi duplicate ma i valori invece si.==
 ### La sintassi  
-Un dizionario viene creato utilizzando il tipo `:dict` e  con le parentesi graffe (`{}`), con ciascuna coppia chiave-valore separata da due punti (`:`), e le coppie separate da una virgola.
+==Un dizionario viene creato utilizzando il tipo `:dict` e  con le parentesi graffe (`{}`), con ciascuna coppia chiave-valore separata da due punti (`:`), e le coppie separate da una virgola.== 
 ### Annidare i dizionari
  Posso annidare atri dizionari dentro i dizionari.
 ```python

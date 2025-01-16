@@ -614,4 +614,3 @@ Questo torna utile se si vuole "annullare" una stringa, cioè ripeterla 0 volte
 >- L'operatore **`*`** con `0` ripete la stringa 0 volte, producendo una stringa vuota.
 
 
-![[Gli Operatori]]

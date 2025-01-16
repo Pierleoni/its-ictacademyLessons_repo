@@ -1,20 +1,174 @@
-# Control Statements 
-## if Statements
-Per scrivere i cicli e le condizioni in python.
+# Control Flow Statements 
+Per **_Control flow (flusso di controllo)_** si intende:
+==un concetto fondamentale in programmazione, dove si verifica effettivamente l'esecuzione logica e pratica del codice, determinando come e quando le istruzioni vengono eseguite.== ^definizione-control-flow
+
+Senza di esso, un programma è semplicemente un elenco di istruzioni che vengono eseguite in sequenza. Con il flusso di controllo, è possibile eseguire determinati blocchi di codice in modo condizionale e/o ripetuto: questi blocchi di base possono essere combinati per creare programmi sorprendentemente sofisticati!
+Nel contesto di Python, **_il control flow_** riguarda come gli staments (istruzioni) vengono eseguiti in base a condizioni o loop.
+Gli statement di **_Control Flow_**, in Python, sono:
+1. `if`, `elif`, `else` - Controllo condizionale:
+   - Permette di eseguire blocchi di codice diversi in base a condizione booleane
+> [!example] Esempio
+> ```python
+> x = 10
+> if x > 0:
+>     print("Positive")
+> elif x == 0:
+>     print("Zero")
+> else:
+>     print("Negative")
+> 
+> ```
+> 
+
+2. `for` loop - Ciclo con condizione
+   - Itera su una sequenza o una collezione
+> [!example] Esempio
+> ```python
+> for i in range(5):
+>     print(i)
+> 
+> ```
+> 
+
+3. `while` loop - Ciclo con condizione
+   - Esegue un blocco di codice finché una condizione è vera 
+> [!example] Esempio
+> ```python
+> count = 0
+> while count < 5:
+>     print(count)
+>     count += 1
+> 
+> ```
+
+4. `break`, `continue`, `pass` - Controllo del flusso all'interno dei loop
+   - `break`: interrompe un loop immediatamente 
+   - `continue`: salta all'iterazione successiva
+   - `pass`: [[#^pass|segnaposto che non fa nulla]] 
+> [!example] Esempio
+> ```python
+> for i in range(5):
+>     if i == 3:
+>         break  # interrompe il loop quando i è 3
+>     print(i)
+> 
+> ```
+>  
+
+5. `try`, `except`, `finally` - Gestione delle eccezioni
+   - Consente di gestire errori senza interrompere il programma
+> [!example] Esempio
+> ```python
+> try:
+>     x = int("abc")
+> except ValueError:
+>     print("Conversion failed!")
+> 
+> ```
+> 
+
+6. `match` (Python 3.10+) - Pattern Matching 
+   - Consente un controllo avanzato delle condizioni, simile a `switch` di altri linguaggi.
+> [!example] Esempio
+> ```python
+> command = "start"
+> match command:
+>     case "start":
+>         print("Starting...")
+>     case "stop":
+>         print("Stopping...")
+>     case _:
+>         print("Unknown command.")
+> 
+> ```
+> 
+
+> [!done] In sintesi
+> il _control flow_ è ciò che permette di definire _come_ il programma prende decisioni e ripete operazioni, rendendo il codice effettivamente utile e dinamico.
+
+
+> [!info] Control Flow Statements 
+> I **Control Flow Statements** sono una categoria più ampia che include **qualsiasi istruzione che controlla l'ordine di esecuzione** del codice. Questo comprende sia le istruzioni condizionali (`if`, `elif`, `else`), sia altri costrutti come:
+>- **Loop Statements:** `for`, `while`
+>- **Interruption Statements:** `break`, `continue`, `pass`
+>- **Exception Handling:** `try`, `except`, `finally`
+>- **Pattern Matching:** `match`
+
+
+Detto ciò andiamo a vedere nel dettaglio i _conditional statements_ (inclusi `if`, `elif` e `else`), _loop statements_ (inclusi `for` e `while` e i relativi `break`, `continue` e `pass`).
+
+## Conditional Statements
+Sono spesso indicato come dichiarazione `if-then`, permettono al programmatore di eseguire certi punti del codice che dipendono da alcune condizioni booleane.
 Python ci mette a disposizione delle strutture per tradurre i diagrammi a blocchi.
 La sintassi è:
-1. `if`: esprime l'istruzione condizionale (significa "se" in inglese) 
-2. `condizione` (es: `x<0`, etc.): è la condizione che segue subito dopo l'istruzione `if`, se è `True` verrà eseguita l'istruzione indentata sulla riga successiva (se è presente), altrimenti non succederà nulla .
+1. `if`: 
+   ==esprime l'istruzione condizionale (significa "se" in inglese)== 
+2. `condizione:` (es: `x<0`, etc.): 
+   ==è la condizione che segue subito dopo l'istruzione `if`, se è `True` verrà eseguita l'istruzione indentata sulla riga successiva (se è presente), altrimenti non succederà nulla==.  ^code-block-if-syntax
+   
 ```python
 if condizione: #premere tab 
 	print (10)
-```
-==detto ciò si consiglia di usare le parentesi tonde per indicare la condizione.== 
-Quindi, la struttura dell'istruzione `if` è un intestazione seguita da un corpo indentato.
-Le istruzioni come queste vengono chiamate **istruzioni composte**. 
+``` 
+
+
+
+
+> [!info] Utilizzo delle parentesi tonde intorno alla condizione negli statements condizionali
+> non è necessario né obbligatorio usare le parentesi tonde intorno alla condizione negli statement condizionali, siccome la sintassi di python è progettata per essere pulita è leggibile le parentesi tonde sono omesse per convenzione. 
+>> [!example]- Esempio sintassi senza parentesi
+> > 
+>>```python
+>>x = 10
+>>>>if x > 0:
+>>    print("Positive")
+>>elif x == 0:
+>>    print("Zero")
+>>else:
+>>    print("Negative")
+>>```
+>    
+>>[!example]- Esempio sintassi con parentesi (non necessaria, ma valida)
+>>```python
+>>x = 10
+>>if (x > 0):  
+ >>   print("Positive")
+>>
+>>```
+>>Le parentesi non aggiungono nulla qui
+>
+> Quindi le parentesi tonde per le condizioni in Python vengono usate in contesti specifici:
+>1. **Raggruppare espressioni complesse per chiarezza:**
+>```python
+>if (x > 0 and (y < 5 or z == 10)):
+ >   print("Complex condition met")
+>```
+>2. **Evitare errori di precedenza negli operatori:**
+>```python
+>if (a + b) * c > 10:
+ >   print("Condition met")   
+>```
+> 3. **Evitare un'espressione su più righe:** 
+>```python 
+>if (
+ >   x > 0
+ >   and y < 5
+ >   and z == 10
+>):
+ >   print("Condition met")
+>   
+>```
+
+
+> [!done] In sintesi 
+> Per convenzione di linguaggio non si usano le parentesi tonde nelle condizioni semplici, tuttavia usarle migliora la chiarezza e la gestibilità delle espressioni più complesse benché non cambi nulla a livello di esecuzione del codice
+
+Quindi, [[Cicli e condizionali#^code-block-if-syntax|seguendo l'esempio sopra]], la struttura dell'istruzione `if` è un intestazione seguita da un corpo indentato.
+Da notare come dopo la condizione vadano scritti i due punti(`:`) e vada aggiunto uno spazio bianco per denotare blocchi di codice separati.
+==Le istruzioni come queste vengono chiamate **istruzioni composte**.== 
 Le istruzioni presenti nel corpo non hanno limite, posso metterne quante mi pare ma deve esserci almeno una istruzione. 
 
-> [!tip]+ L'istruzione `pass`
+> [!tip]+ L'istruzione `pass` ^pass
 >  Talvolta può servire che il corpo sia privo di istruzioni (di solito
 >   quando c’è del codice ancora da scrivere); in questo caso potete usare l’istruzione `pass`.
 >   In python questo comando è una **istruzione nulla:**
@@ -24,26 +178,39 @@ Le istruzioni presenti nel corpo non hanno limite, posso metterne quante mi pare
 ```python
 (a <3 or b>10 and (c!=20))
 ```
-Python ci mette a disposizione alte 2 cose oltre l'`if`:
+Python ci mette a disposizione alte 2 conditional statements oltre l'`if`:
 1. `elif`:
    ==sta per **else if** ed esprime un altra condizione dopo la condizione uno (cioè l'`if`)==; quindi,  se la condizione 1 è vera fai altro se non è vera fai quello che ti dice `elif`. 
-   Posso usare quanti `elif` voglio.
+
+> [!info] Posso usare un numero imprecisato di `elif` dopo lo statement `if` 
+>
+>```python
+>if condizione: #premere tab 
+>	print (10)
+>elif condizione 2 : 
+>	print()
+>elif condizione 3:
+>elif condizione 4:
+>...
+>else
+>```
+
+2. `else`: 
+   viene utilizzato per eseguire un blocco di codice **solo se** tutte le condizioni precedenti (`if` e `elif`) risultano **false**.  ^else
+
+Quindi:
 ```python
-if condizione: #premere tab 
-	print (10)
-elif condizione 2 : 
-	print()
-elif condizione 3:
-elif condizione 4:
-...
-else
+x = -5
+if (x > 0): 
+	print("Positivo")
+elif (x == 0) :
+	print ("Zero")
+else:
+	print("Negativo")
 ```
-Se io scrivo:
-```python 
-	if a>o: print(10)
-		else:
-```
-questa condizione dice che se è vera per qualsiasi cosa stampa 10 ma se mettiamo `else` implichiamo che se non è vero fa qualcos'altro.
+In questo caso questo blocco si esegue poiché x non è né > 0 né == 0. 
+Tant'è vero che questo statement ==**non ha bisogno di una condizione** poiché viene eseguito solo quando tutte le condizioni precedenti sono false.== 
+Inoltre ==**deve sempre essere preceduto da un `if` o da un `elif`.**== 
 Diverso  se mettiamo `elif`.
 ```python
 if condizione: #premere tab 
@@ -76,14 +243,18 @@ In questo caso non è presente nessun `else` perciò non verrà stampato nulla i
 > 2. **Con `else`**, il programma esegue il blocco sotto l'`else` quando nessuna delle condizioni `if` o `elif` è vera.
 
 
-> [!attention]- `elif` non va in solitaria 
-> `elif` da solo non ha senso.
+> [!attention]- `elif` ed `else` non va in solitaria 
+> `elif` e `else` da soli non hanno senso.
 >
->> [!error]  
-> > ```
+>> [!bug]  
+> > ```python
 > > elif -10 < a < 0: print("Il valore di a è tra -10 e 0")
 >> ``` 
+>>```python
+>> else: print("Nessuna condizione è soddisfatta")
+>>```
 
+Bisogna aggiungere che sia `elif` che `else` sono blocchi opzionali che si aggiungono allo statement `if`. 
 
 ---
 
@@ -103,13 +274,14 @@ else: #riferito all'if esterno
 
 
 > [!faq]- "Il modo per fare debugging in questo caso è usare il debugger" Debugging?
-> si riferisce all'uso di strumenti di debug per analizzare l'esecuzione del codice e individuare eventuali errori o problemi. In particolare, l'uso di un **debugger** aiuta a monitorare l'andamento del programma durante la sua esecuzione, in modo da capire perché una determinata condizione è vera o falsa e come il flusso del programma si sviluppa attraverso i vari blocchi `if`, `elif`, `else` annidati.
+> si riferisce all'uso di strumenti di debug per analizzare l'esecuzione del codice e individuare eventuali errori o problemi. 
+> In particolare, l'uso di un **debugger** aiuta a monitorare l'andamento del programma durante la sua esecuzione, in modo da capire perché una determinata condizione è vera o falsa e come il flusso del programma si sviluppa attraverso i vari blocchi `if`, `elif`, `else` annidati.
 >  **Cosa significa "debugging"?** 
 >==Il **debugging** è il processo di identificazione, diagnostica e correzione degli errori nel codice.== 
 >Un **debugger** è uno strumento che permette di:
->- Esaminare il flusso di esecuzione di un programma riga per riga.
->- Monitorare i valori delle variabili in tempo reale.
->- Capire quale parte del codice sta causando un errore o un comportamento imprevisto.
+>- ==Esaminare il flusso di esecuzione di un programma riga per riga.==
+>- ==Monitorare i valori delle variabili in tempo reale.==
+>- ==Capire quale parte del codice sta causando un errore o un comportamento imprevisto.==
 >
 >**Relazione con il codice poco sopra**
 >```python
@@ -124,9 +296,12 @@ else: #riferito all'if esterno
 >```
 >Immagina che `cond1` sia una variabile booleana che può essere vera o falsa. Potresti non essere sicuro di come il flusso del programma stia seguendo questa logica a causa di un errore nelle condizioni. Il debugger ti permette di:
 >
->1. **Eseguire il programma passo per passo**: Puoi eseguire il codice riga per riga per vedere se le condizioni `if` sono valutate correttamente.
->2. **Monitorare il valore delle variabili**: Durante l'esecuzione del programma, puoi osservare come il valore di `cond1` cambia e come viene trattato nelle varie condizioni annidate.
->3. **Verificare il flusso di esecuzione**: Puoi verificare se il flusso entra nel primo `if`, nel secondo `if`, o nell'`else`, e se le azioni vengono eseguite come previsto.
+>1. **Eseguire il programma passo per passo**: 
+>   Puoi eseguire il codice riga per riga per vedere se le condizioni `if` sono valutate correttamente.
+>2. **Monitorare il valore delle variabili**: 
+>   Durante l'esecuzione del programma, puoi osservare come il valore di `cond1` cambia e come viene trattato nelle varie condizioni annidate.
+>3. **Verificare il flusso di esecuzione**: 
+>   Puoi verificare se il flusso entra nel primo `if`, nel secondo `if`, o nell'`else`, e se le azioni vengono eseguite come previsto.
 >
 >> [!example] Per Ricapitolare
 > >   - **Analizzare il flusso di esecuzione** per capire quale parte del codice venga eseguita.
@@ -165,25 +340,9 @@ In questo caso, Python si aspetta che il secondo `if` sia indentato sotto il pri
 
 ---
 
-
-2. `else`: 
-   ==va a catturare tutto quello che sfugge alla prima condizione e va a chiudere lo  statements; è lo statement di chiusura.== 
-Es:
-```python
-x=10
-if x>5:
-	print("x is greater than 5")
-elif x == 5:
-	print ("x is equal to 5")
-else:
-	print ("x is less than 5")
-```
-
-
----
-
-
 # Loops
+==I cicli (loops) in Python sono un modo per eseguire ripetutamente alcune istruzioni di codice, o un blocco specifico, finché una condizione risulti vera o per iterare su una sequenza di elementi.== 
+==Risultano fondamentali per automatizzare operazioni ripetitive.==
 ## For Loops
 Fare i cicli in python.
 I `for` in python è utile quando abbiamo a che fare con le collections, in particolare quando dobbiamo scorrere liste o dizionari.
@@ -192,6 +351,19 @@ I `for` in python è utile quando abbiamo a che fare con le collections, in part
 for + variabile in sequence(lista, dizionario, tupla):
 
 ```
+Quindi:
+- `for`: 
+  parola chiave che indica l'inizio di un ciclo
+- `variabile`: 
+  una variabile temporanea che assume il valore di ciascun elemento della sequenza durante ogni iterazione del ciclo.
+- `in`: 
+  operatore che collega la variabile alla sequenza, indicando che si sta iterando attraverso di essa.
+- `sequence`: qualsiasi oggetto iterabile, come:
+	 - [[Collections#Le liste|lista]] : `["a", "b", "c"]`
+	 - [[Collections#I dictionaries|Dizionario]]: `{ "key1": "value1", "key2": "value2" }`
+	 - [[Collections#Tuple|Tupla]]: `(1,2,3)`
+	 -  [[Introduzione a Python#Strings|Stringa]]: `"ciao"`
+	 - [[Cicli e condizionali#La funzione `range`|Range]]: `range(5)`
 
 Scorrere una lista:
 ```python
@@ -206,9 +378,10 @@ lista_2 =["a","b","c" ]
 for lettera in lista_2
 	print(lettera)
 ```
-Il for legge `lista_2` e prende il primo elemento della lista e lo mette dentro  la variabile `lettera`, di conseguenza quando prendiamo la prima iterazione (cioè l'iterazione 0) stiamo stampando `a`.
-Dopodiché, non avendo più istruzioni da eseguire e passa a `b`, ora l'iterazione 1 contiene `b` quindi quando faccio il `print` stampa `b`. 
-Dopo aver fatto ciò, non ho più istruzioni da eseguire e passo a `c`, ora `lettera` contiene `c`, quindi l'iterazione 2 contiene `c`. 
+Il for legge `lista_2` e prende il primo elemento della lista e lo mette dentro  la variabile `lettera`, 
+di conseguenza quando prendiamo la prima iterazione (cioè l'iterazione 0) stiamo stampando `a`.
+Dopodiché, non avendo più istruzioni da eseguire e passa a `b`: ora l'iterazione 1 contiene `b` quindi quando faccio il `print` stampa `b`. 
+Dopo aver fatto ciò, non ho più istruzioni da eseguire e passo a `c`: ora `lettera` contiene `c`, quindi l'iterazione 2 contiene `c`. 
 Quando raggiunge la fine della lista esce dalla lista e il flusso continua con il altre righe di codice.
 ### Annidare i for
 Possiamo annidare i for:
@@ -438,7 +611,8 @@ In entrambi i casi, l'output sarà:
 > ==Se usiamo la funzione range mi restituisce solo gli indici==
 
 ### La funzione `range`
-E come se restituisce una sequenza di numeri interi
+==Restituisce una sequenza di numeri.==
+Particolarmente utile quando vuoi ripetere un'operazione un numero specifico di volte o iterare su una sequenza numerica.
 ```python
 range[3] #restituisce una lista che va da 0 a 2, cioè va dall indice 0 all'indice 2
 ```
@@ -449,9 +623,31 @@ range[5,10]#quindi va dal quinto indice al nono
 range[1(start),10(end), 2(steps)] #che fa? Stampa tutti i dispari e saltando un solo numero 
 #possiamo far variare i numeri come ci pare 
 ```
-Nel primo caso(`range[10]`): stampa tutti gli indici della lista
-Nel secondo caso(`range[5,10]`): va dal quinto indice al nono indice
-Nel terzo caso(`range[1(start),10(end), 2(steps)]`):  Genera 1, 3, 5, 7, 9
+Nel primo caso(`range[10]`): 
+stampa tutti gli indici della lista
+Nel secondo caso(`range[5,10]`): 
+va dal quinto indice al nono indice
+Nel terzo caso(`range[1(start),10(end), 2(steps)]`):  
+Genera 1, 3, 5, 7, 9
+
+
+> [!tip] Tips & Tricks: Usare `range()` con [[Spiegazione esercizi Lezione 1 Python#La funzione di `len()`|`len()` ]]iterare su una lista con indici
+>```python
+> frutti = ["mela", "banana", "ciliegia"]
+>for i in range(len(frutti)):
+  >  print(f"L'indice {i} contiene {frutti[i]}")
+>```
+>Output:
+>```python
+>L'indice 0 contiene mela
+>L'indice 1 contiene banana
+>L'indice 2 contiene ciliegia
+>```
+
+
+> [!info] Curioso notare che il significato degli argomenti di `range` è molto simile alla sintassi di [[Collections#Modo di scorrere delle liste (Slicing)|slicing]] che abbiamo trattato nella lezione sulle Collections.
+> 
+
 
 ###  List comprehension
  La **list comprehension** è una sintassi compatta e più efficiente di Python per creare liste: 
@@ -650,8 +846,8 @@ Anche con il ciclo di `while` è possibile utilizzare `break` e `continue`:
 
 ## Confronto con gli if statements e for loops
 ### Cicli `for` e confronto con `while`
- ==Come detto prima un ciclo [[Cicli e condizionali#For Loops|for]] è utilizzato per iterare su una sequenza ([[Collections#Le liste|liste]], stringa, range, intervallo di numeri, etc.).==
- ====
+ ==Come detto prima un ciclo [[Cicli e condizionali#For Loops|for]] è utilizzato per iterare su una sequenza ([[Collections#Le liste|liste]], [[Introduzione a Python#Strings|stringa]], [[Cicli e condizionali#La funzione `range`|range]], intervallo di numeri, etc.).==
+ 
 ```python
  for variabile in sequenza:
 	 #blocco di codice
@@ -733,7 +929,7 @@ Negativo
 >  ==**permettono decisioni logiche nel codice**==.
 
 ### Annidare i while 
-È possibile annidare un ciclo `while` all'interno di un altro ciclo `while` per creare iterazioni multiple.
+==È possibile annidare un ciclo `while` all'interno di un altro ciclo `while` per creare iterazioni multiple.==
 
 ##### Esempio della tabella dei numeri
 ```python 
@@ -787,7 +983,7 @@ i=3, j=3
 |                               |                                |                 |
 
 ### While annidato nei for
-Un ciclo di `while` può essere utilizzato all'interno di un ciclo `for`.
+==Un ciclo di `while` può essere utilizzato all'interno di un ciclo `for`.==
 
 ##### Esempio: Contare fino a un limite per ogni elemento di una lista 
 ```python
@@ -944,14 +1140,18 @@ Vediamo passo passo cosa succede durante l'esecuzione:
 
 
 > [!important] Concetti chiave
->  - **Ciclo `while`:** Usato per iterare fino a un certo limite.
->- **Condizione `if`:** Annidata per filtrare solo i numeri pari.
->- **Operatore `%`:** Il modulo `%` è usato per verificare se un numero è pari o dispari.
->- **Accumulatore (`somma`):** Una variabile che raccoglie valori incrementali.
+>  - **Ciclo `while`:** 
+>    ==Usato per iterare fino a un certo limite.==
+>- **Condizione `if`:** 
+>  ==Annidata per filtrare solo i numeri pari==.
+>- **Operatore `%`:**
+>  ==Il modulo `%` è usato per verificare se un numero è pari o dispari.==
+>- **Accumulatore (`somma`):** 
+>  ==Una variabile che raccoglie valori incrementali.==
 
 
 ### Combinazioni complesse
-Si possono creare annidazioni complesse: ad esempio un ciclo di `for` dentro un `while` e includere condizioni if.
+Si possono creare annidazioni complesse: ad esempio un ciclo di `for` dentro un `while` e includere condizioni `if`.
 
 **Esempio: Stampare i valori di una matrice**
 ```python
@@ -983,33 +1183,34 @@ Numero pari: 8
 > Non esiste una gerarchia rigida di utilizzo o obbligatoria nell'uso combinato di **`for`**, **`while`**, **`if`**, **`elif`**, **`else`**, **`break`**, e **`continue`**. 
 > Tuttavia ci sono delle **linee guida logiche** e delle buone pratiche che determinano come strutturare il codice per ottenere il comportamento desiderato. 
 > 1. **Gerarchia Logica**
-> La combinazione di questi costrutti dipende dalla logica del problema che si sta risolvendo. 
-> 	1. I cicli (`for` e `while`):
+> ==La combinazione di questi costrutti dipende dalla logica del problema che si sta risolvendo.== 
+> 	I cicli (`for` e `while`):
 >		- I cicli sono usati per iterare su una sequenza (`for`) o per ripetere un'azione fino a una condizione (`while`).
 >		- All'interno dei cicli puoi usare condizioni (`if`, `elif`, `else`) per decidere cosa fare in base a determinati criteri.
->	2. Le condizioni (`if`, `elif`, `else`):
+>	Le condizioni (`if`, `elif`, `else`):
 >		 - Queste sono usate per il controllo del flusso logico.
 >		- Possono essere annidate all'interno dei cicli per verificare criteri specifici in ogni iterazione.
->	 3. `break` e `continue`:
->	    - **`break`**:1 
+>	`break` e `continue`:
+>	    - **`break`**:
 >	      Uscire immediatamente dal ciclo in cui si trova.
 >		- **`continue`**: 
 >		  Saltare l'iterazione corrente e passare alla successiva.
 >		- Si usano **all'interno di cicli**, spesso combinati con condizioni (`if`), per modificare il flusso.  
 > 2. **Linee guida pratiche**
 >  **Quando usare i cicli:**
->
->- Usa un **`for`** quando sai in anticipo quante iterazioni eseguire (es.: iterare su una lista, su un range di numeri).
->- Usa un **`while`** quando la condizione di uscita non è determinata a priori o dipende da una variabile che cambia durante l'esecuzione.
+>- ==Usa un **`for`** quando sai in anticipo quante iterazioni eseguire (es.: iterare su una lista, su un range di numeri).==
+>- ==Usa un **`while`** quando la condizione di uscita non è determinata a priori o dipende da una variabile che cambia durante l'esecuzione.==
+>  
 >**Condizioni (`if`, `elif`, `else`):**
->
->- Puoi annidarle ovunque sia necessario, ma evita annidamenti troppo profondi per mantenere il codice leggibile.
->- Ogni ciclo può contenere condizioni per verificare criteri specifici.
+>- ==Puoi annidarle ovunque sia necessario, ma evita annidamenti troppo profondi per mantenere il codice leggibile.==
+>- ==Ogni ciclo può contenere condizioni per verificare criteri specifici.==
 >
 >**`break` e `continue`:**
 >
->- **`break`**: Usalo quando sai che non c'è più bisogno di continuare l'iterazione (es.: hai trovato il valore cercato in un ciclo di ricerca).
->- **`continue`**: Usalo per saltare iterazioni inutili (es.: evitare calcoli per numeri dispari in un ciclo che processa solo numeri pari).
+>- **`break`**: 
+>  ==Usalo quando sai che non c'è più bisogno di continuare l'iterazione (es.: hai trovato il valore cercato in un ciclo di ricerca).==
+>- **`continue`**: 
+>  ==Usalo per saltare iterazioni inutili (es.: evitare calcoli per numeri dispari in un ciclo che processa solo numeri pari).==
 >
 > >[!tip]+ Tips & Ticks
 > > Una gerarchia tipo in uno scenario complesso potrebbe essere:
@@ -1041,7 +1242,64 @@ Numero pari: 8
 >>>3. La condizione **`if numero % 2 != 0`** salta i numeri dispari.
 >>>4. Se entrambe le condizioni sono false, il numero viene aggiunto alla somma.
 >>
->>**Cosa evitare**
->>- **Annidamenti eccessivi**: Troppi cicli e condizioni annidati rendono il codice difficile da leggere. Se necessario, usa funzioni per semplificare.
->>- **Abuso di `break` e `continue`**: Usali solo se migliorano la chiarezza logica del codice.
->>- **Cicli infiniti non controllati**: Quando usi `while`, assicurati che la condizione diventi falsa a un certo punto.
+>>> [!done] **Cosa evitare**
+>>>- **Annidamenti eccessivi**: Troppi cicli e condizioni annidati rendono il codice difficile da leggere. Se necessario, usa funzioni per semplificare.
+>>>- **Abuso di `break` e `continue`**: Usali solo se migliorano la chiarezza logica del codice.
+>>>- **Cicli infiniti non controllati**: Quando usi `while`, assicurati che la condizione diventi falsa a un certo punto.
+
+---
+## Loop con un blocco `else`
+Un modello raramente usato disponibile in Python è l'istruzione `else` come parte di un ciclo `for` o `while`. 
+[[#^else|Abbiamo discusso in precedenza del blocco]] `else`: 
+viene eseguito se tutte le istruzioni `if` ed `elif` restituiscono `False`. 
+Il loop-`else` è forse una delle affermazioni con nomi più confusi in Python:
+l'`else` viene eseguito **solo se il ciclo termina senza eseguire un'istruzione `break`**, ovvero quando nessuna condizione all'interno del ciclo ha richiesto l'interruzione anticipata.
+Quindi puoi pensarlo come un'istruzione `nobreak`: 
+cioè, ==il blocco `else` viene eseguito solo se il ciclo termina naturalmente, senza incontrare un'istruzione `break`.==
+
+Un esempio classico è l'algoritmo del Crivello di Eratostene per trovare numeri primi, nel codice seguente, il ciclo `else` viene eseguito solo quando il numero non è divisibile per nessun elemento già presente nella lista dei numeri primi trovati, indicando che il numero stesso è primo.
+```python
+L = []  # Lista vuota che conterrà i numeri primi trovati
+nmax = 30  # Limite massimo fino a cui cercare i numeri primi
+
+for n in range(2, nmax):  # Itera sui numeri da 2 a 29
+    for factor in L:  # Controlla i numeri già trovati (che sono primi)
+        if n % factor == 0:  # Se n è divisibile per un numero primo già trovato
+            break  # Esce dal ciclo interno, quindi n NON è primo
+    else:  # Eseguito solo se il ciclo interno termina senza trovare un divisore
+        L.append(n)  # Aggiunge il numero alla lista dei numeri primi
+print(L)  # Stampa la lista dei numeri primi trovati fino a nmax
+
+```
+Output:
+```python
+[2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+```
+L'istruzione `else` viene eseguita solo se nessuno dei fattori divide il numero dato. L'istruzione `else` funziona in modo simile con il ciclo `while`.
+### Come funziona il ciclo `for...else` in questo contesto? 
+1. **Ciclo esterno (`for n in range(2, nmax)`):**
+    - Scorre tutti i numeri da `2` fino a `nmax - 1`.
+2. **Ciclo interno (`for factor in L`):**
+    - Controlla tutti i numeri primi trovati finora (contenuti nella lista `L`).
+    - Se il numero `n` è divisibile per uno di questi numeri (`n % factor == 0`), allora **non è primo**.
+    - In questo caso, viene eseguita l'istruzione `break`, interrompendo il ciclo interno.
+3. **Blocco `else`:**
+    - L'`else` si esegue **solo** se il ciclo interno termina **senza eseguire il `break`**, cioè quando **nessun numero ha diviso** `n`.
+    - Questo significa che `n` **è primo** e quindi viene aggiunto alla lista `L`.
+
+### **Esempio passo-passo con `nmax = 10`:**
+
+- `n = 2`:
+    - Lista `L` è vuota → Nessun ciclo interno → **Else eseguito** → Aggiungi `2`.
+- `n = 3`:
+    - Controlla se è divisibile per `2` (non lo è) → **Else eseguito** → Aggiungi `3`.
+- `n = 4`:
+    - Controlla se è divisibile per `2` → **Sì**, esegue `break`.
+- `n = 5`:
+    - Controlla `2`, `3` → Nessun divisore → **Else eseguito** → Aggiungi `5`.
+- `n = 6`:
+    - Divisibile per `2` → `break`.
+- `n = 7`:
+    - Controlla `2`, `3` → Nessun divisore → **Else eseguito** → Aggiungi `7`.
+
+

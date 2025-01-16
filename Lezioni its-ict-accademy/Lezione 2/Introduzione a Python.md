@@ -40,7 +40,7 @@ Ora creeremo il nostro primo codice in Python: Crea un file chiamato helloWorld.
 ==I commenti aiutano i programmatori a comunicare e comprendere un programma. Non sono istruzioni di programmazione e quindi vengono ignorati dall'interprete.==
 
 In Python, i commenti sono preceduti da:  
-- un simbolo cancelletto (#) su una riga (chiamato line comment):  
+- ==un simbolo cancelletto (#) su una riga (chiamato line comment):==  
 `#My first Python code`  
 - Oppure racchiusi tra tre apici singoli consecutivi (''') su una o più righe (chiamato paragraph comment):   
 `'''this program displays the message: Hello World!''`.   
@@ -49,7 +49,7 @@ In Python, i commenti sono preceduti da:
 ## Data types
 
 ### Cosa sono i data types
-Quando ci approciamo a un qualsiasi ling di prog ci approcciamo a dei dati primitivi 
+Quando ci approcciammo a un qualsiasi linguaggio di programmazione ci approcciamo a dei dati primitivi 
 Un programma deve rappresentare diversi tipi di valori con cui lavorare. Iniziamo con i più semplici: i tipi primitivi.  
 Ce ne sono di diversi tipi:  
 - **Intero (int):**  
@@ -155,8 +155,8 @@ type (gianpino)
 
  
 > [!faq]+ Type or not Type
-> Come è stato accennato nel file "Spiegazione esercizi Lezione 1 Python" (vedi la sezione  [[Spiegazione esercizi Lezione 1 Python# Le Variabili|Le Variabili]]), quando si dichiara la variabile bisogna mettergli accanto la seguente annotazione di tipo (es: `:int`, `:float`, `list`,etc ).
-> Tuttavia essendo python un linguaggio tipizzato dinamicamente, in realtà questo non è una regola che va ad influire sull'esecuzione del codicem, ma più per rendere il codice chiaro agli strumenti di analisi ed a eventuali sviluppatori che stanno collaborando al progetto. 
+> Come è stato accennato nel file "Spiegazione esercizi Lezione 1 Python" (vedi la sezione  [[Spiegazione esercizi Lezione 1 Python#^kg0sz0|Le variabili]]), quando si dichiara la variabile bisogna mettergli accanto la seguente annotazione di tipo (es: `:int`, `:float`, `list`,etc ).
+> Tuttavia essendo python un linguaggio tipizzato dinamicamente, in realtà questo non è una regola che va ad influire sull'esecuzione del codice, ma più per rendere il codice chiaro agli strumenti di analisi ed a eventuali sviluppatori che stanno collaborando al progetto. 
 > Nello specifico questo metodo presenta alcuni vantaggi e differenze con il metodo classico di assegnazione dei valori alla variabili:
 > Prendiamo ad esempio due variabili con due valori integer
 >```python
