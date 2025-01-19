@@ -2,7 +2,10 @@
 :root{
     --text-color: #fff;
     --bold-font: bold;
-
+    --table-header-bg-color: red; 
+    --table-header-text-color: #000; 
+    --table-odd-row-bg-color: rgb(104, 95, 95); 
+    --table-oddText-color: black; 
 }
 
 body {
@@ -38,6 +41,26 @@ th {
     
 }
 
+/* Stile per le intestazioni della tabella */
+
+th {
+    background-color: var(--table-header-bg-color) !important; /* Red background */
+    color: var(--table-header-text-color) !important; /* Black text */
+}
+
+/* Stile per le righe dispari della tabella */
+
+tr:nth-child(odd) {
+    background-color: var(--table-odd-row-bg-color) !important; /* background color */
+    color: var(--table-oddText-color) !important ; /* Black text */
+}
+
+/* Assicurati che il testo delle celle sia nero per le righe dispari */
+
+table tr:nth-child(odd) td {
+    /* Black text for odd rows */
+    color: var(--table-oddText-color) !important; 
+}
 /* Per il codice inline */
 span.cm-inline-code {
     background-color: rgb(54, 47, 47) !important; 
@@ -46,23 +69,7 @@ span.cm-inline-code {
     color: var(--text-color) !important; 
     
 }
-/* Codice inline nelle tabelle (Markdown renderizzato) */
-/* table span.cm-inline-code,
-.markdown-preview-view table code {
-    background-color: rgb(54, 47, 47) !important; 
-    border-radius: 5px;
-    font-weight: var(--bold-font);
-    color: var(--text-color) !important; 
-} */
 
-/* Codice inline nei callout (Markdown renderizzato) */
-/* .callout span.cm-inline-code,
-.markdown-preview-view .callout code {
-    background-color: rgb(54, 47, 47) !important; 
-    border-radius: 5px;
-    font-weight: var(--bold-font);
-    color: var(--text-color) !important;
-}  */
 
 /* Mostra sempre l'icona di copia accanto ai blocchi di codice*/
 .markdown-preview-view .code-block-header .copy-icon {

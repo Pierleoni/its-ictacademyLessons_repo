@@ -28,13 +28,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Lezione 3/Cicli e condizionali.md",
+                "file": "Lezione 2/Collections.md",
                 "mode": "source",
                 "backlinks": false,
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Cicli e condizionali"
+              "title": "Collections"
             }
           },
           {
@@ -43,13 +43,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Lezione 2/Collections.md",
+                "file": "Lezione 2/Spiegazione esercizi Lezione 1 Python.md",
                 "mode": "source",
                 "backlinks": false,
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Collections"
+              "title": "Spiegazione esercizi Lezione 1 Python"
             }
           }
         ],
@@ -119,8 +119,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "8ef8bc59cd79fc10",
@@ -264,17 +263,17 @@
   },
   "active": "0a9711ad10329676",
   "lastOpenFiles": [
-    "Lezione 2/Collections.md",
-    "Lezione 3/Cicli e condizionali.md",
-    "Lezione 2/Introduzione a Python.md",
     "Lezione 2/Spiegazione esercizi Lezione 1 Python.md",
-    "Lezione 2/Presentazione su le buone pratiche di programmazione e applicazioni reali di python.md",
+    "Lezione 2/Introduzione a Python.md",
+    "Lezione 2/Collections.md",
+    "Numeri Complessi.md",
     "Lezione 2/Gli Operatori.md",
     "Lezione 2/I modificatori.md",
+    "Lezione 3/Cicli e condizionali.md",
+    "Lezione 2/Presentazione su le buone pratiche di programmazione e applicazioni reali di python.md",
     "Lezione 7/Complemento a 2 e Reti di calcolatori.md",
     "Lezione 7/Spiegazione per i vantaggi e svantaggi dei modelli Client server e P2P, spiegazione delle tre entità di spotify..md",
     "Lezione 1/Introduzione generale.md",
-    "numero complesso.md",
     "Lezione 2/dinamically-typed (tipizzato dinamicamente) o Statically-typed.md",
     "Diagram/Diagram 1.svg",
     "Diagram/Assign Block.svg",

@@ -53,13 +53,19 @@ Quando ci approcciammo a un qualsiasi linguaggio di programmazione ci approcciam
 Un programma deve rappresentare diversi tipi di valori con cui lavorare. Iniziamo con i più semplici: i tipi primitivi.  
 Ce ne sono di diversi tipi:  
 - **Intero (int):**  
-==Numeri senza decimali. Possono essere positivi o negativi.==  
+==Numeri senza decimali. Possono essere positivi o negativi.==   
+^myList-integer
 - **Flottante (float):**  
 ==Numeri con decimali. Possono essere positivi o negativi.==  
+^myList-float
 - **Stringa (str):**  
 ==Dati testuali, ma in realtà possono essere qualsiasi simbolo purché siano racchiusi tra virgolette (“ ” o ‘ ’).==  
+^myList-str
 - **Booleano (bool):**  
 ==Valore restituito dalle operazioni logiche. Può essere solo True o False (attenzione alla sensibilità delle maiuscole!).== 
+^myList-bool
+
+
 
 ![[Data types.png]]
 

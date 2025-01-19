@@ -1,9 +1,20 @@
-## Altri tipi [[I modificatori#Modificare i dati|dati]] 
+# Altri tipi [[I modificatori#Modificare i dati|dati]] 
 In [[Introduzione a Python#Variabili|Python]], ==ci sono delle strutture dei dati più complesse delle variabili==, nelle variabili fino ad adesso abbiamo salvato solo un tipo di dati contenuti e per salvare due valori interi devo scrivere 2 variabili per salvare due valori.
+Abbiamo visto i tipi semplici come [[Introduzione a Python#^myList-integer|i numeri interi]], [[Introduzione a Python#^myList-float|numeri con la virgola]], [[Introduzione a Python#^myList-str|stringhe]], [[Introduzione a Python#^myList-bool|booleani]] e i [[Numeri Complessi]] (vedi le proprietà [[Spiegazione esercizi Lezione 1 Python#La proprietà `.real`|.real]] e [[Spiegazione esercizi Lezione 1 Python#La proprietà `.imag`|.imag]]); tuttavia Python ha anche diversi tipi di composti incorporati, i quali agiscono come dei container per gli altri types. 
+Questi tipi di composti sono: 
+
+| Type name    | Esempio                                   | Descrizione                             |
+| ------------ | ----------------------------------------- | --------------------------------------- |
+| Liste        | `[1,2,3]`                                 | Collection ordinate                     |
+| Tuple        | `(1,2,3)`                                 | Raccolta ordinata immutabile            |
+| Dictionaries | `{'key1':'valore1', 'key2':2, "key3": 3}` | Mappatura non ordinata (chiave,valore)  |
+| Set          | `{1,2,3}`                                 | Raccolta non ordinata di valori univoci |
+e rientrano nella grande famiglie delle collections 
 Nelle collection possiamo salvare più valori nella stessa struttura.
 Se noi vogliamo tenere traccia di tutti i valori assegnati, devo usare la collection: 
 ==le collection ci permettono di memorizzare tanti tipi di dati nella stessa struttura==.
 
+ 
 ## Le liste 
 ==Sono una sequenza ordinata di elementi di valori, questi valori possono essere tutti dello stesso tipo o di tipo diversi, tutti i valori che si trovano nella lista si chiamano elementi della lista.== 
 

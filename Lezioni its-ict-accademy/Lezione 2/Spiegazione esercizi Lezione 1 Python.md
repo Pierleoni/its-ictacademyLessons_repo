@@ -229,7 +229,7 @@ print(a)
 ```
 
 ### La proprietà `.real`
-Restituisce solo la parte reale di un [[numero complesso]].   ^numero-complesso
+Restituisce solo la parte reale di un [[Numeri Complessi]].   ^numero-complesso
 ##### Esempio Pratico
 ```python
 z = 3 + 4j
