@@ -1,0 +1,26 @@
+{
+  "callouts": {
+    "custom": [],
+    "settings": {
+      "bug": [
+        {
+          "changes": {
+            "color": "255, 0, 8"
+          }
+        }
+      ],
+      "cite": [
+        {
+          "changes": {
+            "icon": "lucide-check"
+          }
+        }
+      ]
+    }
+  },
+  "calloutDetection": {
+    "obsidian": true,
+    "theme": true,
+    "snippet": true
+  }
+}

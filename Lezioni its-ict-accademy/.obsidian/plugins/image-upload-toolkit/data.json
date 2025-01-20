@@ -38,5 +38,12 @@
     "secretKey": "",
     "path": "",
     "customDomainName": ""
+  },
+  "kodoSetting": {
+    "accessKey": "",
+    "secretKey": "",
+    "bucket": "",
+    "customDomainName": "",
+    "path": ""
   }
 }
