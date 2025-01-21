@@ -37,7 +37,8 @@
               "title": "Esercizi su conversione e operazioni binarie"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -245,8 +246,9 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "43ac72139322e12e",
+  "active": "b62aa272630521ca",
   "lastOpenFiles": [
+    "Lezione 2/Collections.md",
     "Lezione 11/Esercizi su conversione e operazioni binarie.md",
     "Scripts/numberInput.js",
     "Lezione 11/conversion.md.md",
@@ -256,7 +258,6 @@
     "Lezione 10/Le architetture di un Computer.md",
     "Lezione 11/Modello Von Neumann.md",
     "Lezione 11",
-    "Lezione 2/Collections.md",
     "Lezione 2/Spiegazione esercizi Lezione 1 Python.md",
     "Lezione 2/Introduzione a Python.md",
     "Numeri Complessi.md",
