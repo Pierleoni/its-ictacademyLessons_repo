@@ -1,72 +1,84 @@
 ## [[Le architetture di un Computer#Conversione decimale in Binario|CONVERSIONE DECIMALE -> BINARIO]] 
 1. Converti il numero **25** in binario. Prova il risultato.
 
- 25
-
-25/2 = 12 resto = 1
-
-12/2 = 6 resto = 0 
-
-6/2 = 3   resto = 0
-
-3/2 = 1 resto = 1 
-1/2 = 0 resto = 1
-
-risultato = 11001 
+| Operazione | risultato | resto |
+| ---------- | --------- | ----- |
+| 25/2       | 12        | 1     |
+| 12/2       | 6         | 0     |
+| 6/2        | 3         | 0     |
+| 3/2        | 1         | 1     |
+| 1/2        | 0         | 1     |
+>[!done] risultato = 11001 
 
 2. Converti il numero **54** in binario. Prova il risultato.
 
-54/2 = 27    resto = 0
-27/2 = 13    resto = 1 
-13/2 = 6      resto = 1
-6/2  = 3       resto = 0 
-3/2 = 1         resto = 1
-1/2 = 0         resto = 1 
+| Operazione | risultato | resto |
+| ---------- | --------- | ----- |
+| 54/2       | 27        | 0     |
+| 27/2       | 13        | 1     |
+| 13/2       | 6         | 1     |
+| 6/2        | 3         | 0     |
+| 3/2        | 1         | 1     |
+| 1/2        | 0         | 1     |
 
-risultato = 110110
+>[!done] risultato = 110110
 
 3. Converti il numero **100** in binario. Prova il risultato.
 
-100/2 = 50  resto= 0
-50/2 = 25    resto = 0 
-25/2 = 12    resto = 1 
-12/2 = 6      resto = 0 
-6/2 = 3        resto = 0 
-3/2 = 1        resto = 1 
-1/2 = 0        resto = 1
-risultato = 1100100
+| Operazione | risultato | resto |
+| ---------- | --------- | ----- |
+| 100/2      | 50        | 0     |
+| 50/2       | 25        | 0     |
+| 25/2       | 12        | 1     |
+| 12/2       | 6         | 0     |
+| 6/2        | 3         | 0     |
+| 3/2        | 1         | 1     |
+| 1/2        | 0         | 1     |
+
+>[!done] risultato = 1100100
 
 4. Converti il numero **73** in binario. Prova il risultato.
-73/2 = 36  resto = 1
-36/2 = 18  resto = 0
-18/2 = 9    resto = 0
-9/2 = 4      resto = 1
-4/2 = 2      resto = 0 
-2/2 = 1      resto = 0
-1/2 = 0      resto = 1 
-risultato = 1001001
+
+| Operazione | risultato | resto |
+| ---------- | --------- | ----- |
+| 73/2       | 36        | 1     |
+| 36/2       | 18        | 0     |
+| 18/2       | 9         | 0     |
+| 9/2        | 4         | 1     |
+| 4/2        | 2         | 0     |
+| 2/2        | 1         | 0     |
+| 1/2        | 0         | 1     |
+
+>[!done] risultato = 1001001
 
 5. Converti il numero **89** in binario. Prova il risultato.
 
-89/2 = 44  resto = 1
-44/2 = 22  resto = 0
-22/2 = 11  resto = 0
-11/2 = 5    resto = 1 
-5/2 = 2      resto = 1
-2/2 = 1      resto = 0 
-1/2 = 0      resto = 1 
-Risultato = 1011001
+| Operazione | risultato | resto |
+| ---------- | --------- | ----- |
+| 89/2       | 44        | 1     |
+| 44/2       | 22        | 0     |
+| 22/2       | 11        | 0     |
+| 11/2       | 5         | 1     |
+| 5/2        | 2         | 1     |
+| 2/2        | 1         | 0     |
+| 1/2        | 0         | 1     |
+
+>[!done] Risultato = 1011001
 
 6. Converti il numero **155** in binario. Prova il risultato.
-155/2  = 77 resto = 1 
-77/2 = 38    resto = 1 
-38/2 = 19    resto = 0 
-19/2 = 9      resto = 1 
-9/2 = 4        resto= 1 
-4/2 = 2        resto = 0 
-2/2 = 1        resto = 0
-1/2 = 1        resto = 1 
-Risultato = 10011011
+
+| Operazione | risultato | resto |
+| ---------- | --------- | ----- |
+| 155/2      | 77        | 1     |
+| 77/2       | 38        | 1     |
+| 38/2       | 19        | 0     |
+| 19/2       | 9         | 1     |
+| 9/2        | 4         | 1     |
+| 4/2        | 2         | 0     |
+| 2/2        | 1         | 0     |
+| 1/2        | 1         | 1     |
+
+>[!done] Risultato = 10011011
 
 7. Converti il numero **243** in binario. Prova il risultato.
 243/2 = 121 resto = 1 
@@ -77,7 +89,7 @@ Risultato = 10011011
 7/2 = 3         resto = 1
 3/2 = 1         resto = 1
 1/2 = 0         Resto = 1 
-Risultato = 11110011
+>[!done] Risultato = 11110011
 
 8. Converti il numero **375** in binario. Prova il risultato.
 375/2 = 187  resto = 1
@@ -89,7 +101,12 @@ Risultato = 11110011
 5/2 = 2          resto = 1 
 2/2 = 1          resto = 0
 1/2 = 0          resto = 1
-Risultato = 101110111
+
+|     |     |     |
+| --- | --- | --- |
+|     |     |     |
+
+>[!done] Risultato = 101110111
 
 9. Converti il numero **158** in binario. Prova il risultato.
 158/2 = 79  resto = 0
@@ -100,7 +117,7 @@ Risultato = 101110111
 4/2 = 2        resto = 0
 2/2 = 1        resto = 0
 1/2 = 0        resto = 1 
-Risultato = 10011110
+>[!done] Risultato = 10011110
 
 10. Converti il numero **256** in binario. Prova il risultato.
 256/2 = 128 resto = 0 
@@ -111,7 +128,12 @@ Risultato = 10011110
 4/2 = 2         resto = 0
 2/2 = 1         resto = 0
 1/2 = 0         resto = 1 
-Risultato = 100000000
+
+|     |     |
+| --- | --- |
+|     |     |
+
+>[!done] Risultato = 100000000
 
 
 ### [[Le architetture di un Computer#Conversione Binario in decimale|CONVERSIONE BINARIO -> DECIMALE]] 

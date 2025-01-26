@@ -1,4 +1,5 @@
-## 
+
+
 # Modificare i dati in [[Introduzione a Python#Cosa sono i data types|Python]] 
 
 ## Cosa sono gli operatori?
@@ -170,11 +171,13 @@ Gli operatori di confronto sono utilizzati:
 ==Gli **operatori logici** vengono utilizzati per combinare condizioni che restituiscono valori **booleani**== (`True` o `False`).
 In Python ci sono tre principali operatori logici:
 
+
 |   and   |   restituisce vero se entrambi gli operatori sono vero   |
 | :-----: | :------------------------------------------------------: |
 | **or**  | **restituisce vero se entrambi gli operatori sono vero** |
 | **not** |       **restituisce vero se l'operatore è falso**        |
 ![[Operatori Logici.png]]
+^boolean-operator
 
 > [!example] Esempio Pratico
 >   
@@ -614,3 +617,5 @@ Questo torna utile se si vuole "annullare" una stringa, cioè ripeterla 0 volte
 >- L'operatore **`*`** con `0` ripete la stringa 0 volte, producendo una stringa vuota.
 
 
+
+ 

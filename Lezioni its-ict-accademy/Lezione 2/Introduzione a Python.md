@@ -237,7 +237,7 @@ print(type(c1))
 Quindi, in realtà, Python ha i suoi types, tuttavia sono collegati non ai nomi delle variabili ma agli oggetti stessi.
 
 
-> [!faq]+ La funzione `type()`
+> [!faq]+ La funzione `type()`: ^typeFun-def
 > La funzione type è una funzione integrata che serve per diversi scopi:
 > 1. **Determinare il tipo di un oggetto:**
 >    se passi un oggetto come argomento, `type()` restituisce la classe a cui l'oggetto appartiene.

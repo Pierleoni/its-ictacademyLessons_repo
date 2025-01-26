@@ -24,5 +24,13 @@
   "obsidian-mind-map",
   "obsidian-icon-folder",
   "obsidian-enhancing-mindmap",
-  "callout-manager"
+  "callout-manager",
+  "obsidian-format-code",
+  "quickadd",
+  "math-in-callout",
+  "solve",
+  "highlightr-plugin",
+  "code-emitter",
+  "omnisearch",
+  "obsidian-annotator"
 ]

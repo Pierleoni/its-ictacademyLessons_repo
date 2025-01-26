@@ -104,7 +104,8 @@ La sintassi è:
 1. `if`: 
    ==esprime l'istruzione condizionale (significa "se" in inglese)== 
 2. `condizione:` (es: `x<0`, etc.): 
-   ==è la condizione che segue subito dopo l'istruzione `if`, se è `True` verrà eseguita l'istruzione indentata sulla riga successiva (se è presente), altrimenti non succederà nulla==.  ^code-block-if-syntax
+   ==è la condizione che segue subito dopo l'istruzione `if`, se è `True` verrà eseguita l'istruzione indentata sulla riga successiva (se è presente), altrimenti non succederà nulla==.  
+   
    
 ```python
 if condizione: #premere tab 
@@ -346,6 +347,7 @@ In questo caso, Python si aspetta che il secondo `if` sia indentato sotto il pri
 ## For Loops
 Fare i cicli in python.
 I `for` in python è utile quando abbiamo a che fare con le collections, in particolare quando dobbiamo scorrere liste o dizionari.
+
 ### Sintassi
 ```python
 for + variabile in sequence(lista, dizionario, tupla):
@@ -725,6 +727,122 @@ L'output sarà:
  >   - Al secondo ciclo, `i = 2`. Ora la lista diventa `[1, 2]`.
   >  - Questo processo si ripete fino a che `i` raggiunge `length + 1`.
 >- **Risultato finale:** La lista `numbers` contiene tutti i numeri da `1` a `5`.
+
+
+
+> [!deep] 
+> Voglio iterare sugli indici della lista
+>```python
+>l = ['a', 5, '?', True, 5]
+> range(len(l))
+> range(0,5)
+> [x for x in range (len(l))]
+> for i in range (len(l)):
+> 	print(i)
+> 0
+> 1
+> 2
+> 3
+> 4
+>```
+>qui faccio
+>```python
+>for i in range (len(l)):
+>	print(i)
+>
+>a
+>5
+>?
+>True
+>5
+>
+>for i in range (len(l)):
+>	print (f"indice:{i} - valore{l[i]}")
+>	
+>indice : 0 - valore : a
+>indice :1 - valore :5 
+>indice: 2 - valore : ?
+>Indice : 3 - Valore :True 
+>Indice : 4 - Valore : 5
+>```
+>Qui invece:
+>```python
+>
+>\>\>\>l
+>['a', 5, '?', True, 5]
+>\>\>\> for ind in range (len(l)):
+>	el= l[ind]
+>	print(el* ind)
+>
+>5
+>??
+> 3
+> 20
+>
+>\>\>\>l 
+>['a', 5, 'formaggio', True, 5] 
+>\>\>\> for ind in range (len(l)):
+>	el = l[ind]
+>	print(f"{el} * {ind} = {el * ind}")
+>
+>a*0 = 
+>5*1 = 5
+>formaggio *2 = formaggioformaggio
+>True* 3 = 3
+>5\*4=20
+>```
+
+
+> [!deep] I [[Collections#I dictionaries|dizionari]] 
+> si dichiarano con le parentesi graffe e spno un insieme ordinato di chiavi-valori
+>```python
+>d = {0: "Andrea", 1:"Dioni", "Marco": True}
+> d[1]
+> \>\>\>d[" Andrea"]
+> d[0] = 'Gabriele'
+> \>\>\> {0: 'Gabriele', 1:'Dioni', 'Marco':True}
+> d[2] = 'Luca'
+> d.pop(2)
+> 'Luca'
+>```
+> Per accedwere a tutte le cghiavi di un dizionario usare la funzione `.keys()`
+>```python
+>d.keys()
+>dict_keys([0, 'Marco', 1])
+>
+> 
+>```
+> 
+> la funzione `.values()`:
+>```
+> d.values()
+> dict_values([Gabriele, True, 'Benedetta', 56, True])
+>```
+> Per iterare sui valori di un dizionario
+> 
+>```python
+>for value in d.values():
+>	print(value)
+>	
+>Gabriele
+>True 
+>Benedetta 
+>56
+>True
+>
+>for key in d: 
+>	print (f"Chiave: {key} - Valore{d[key]})
+>	
+>Chiave : 0 - Valore Gabriele
+>Chiave : Marco - Valore True 
+>Chiave : 1 - Valore Benedetta 
+>Chiave : Aldo - Valore 56
+>Chiave : 3 - Valore True
+>``` 
+
+
+
+
 
 ---
 

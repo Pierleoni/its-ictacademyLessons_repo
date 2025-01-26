@@ -247,16 +247,18 @@ Step-by-step subtraction with borrow:
 
 # L'algebra Booleana 
 
-L'Algebra Booleana è un ramo dell'algebra che si occupa di valori veri o falsi, tipicamente denotati come 1 e 0, rispettivamente. È fondamentale nel campo dell'informatica e dell'elettronica digitale perché viene utilizzata per progettare e analizzare il comportamento di circuiti digitali e porte logiche.
-
-Concetti chiave:  
-
-- Variabili binarie:   
-Rappresentate come 1 (vero) e 0 (falso).
-- Operazioni logiche:  
-AND (\*): Restituisce vero se entrambi gli operandi sono veri (1 \* 1 = 1).  
-OR (+): Restituisce vero se almeno uno degli operandi è vero (1 + 0 = 1).  
-NOT (¬): Restituisce l'inverso dell'operando (¬1 = 0) (è il segno meno).
+==L'Algebra Booleana è un ramo dell'algebra che si occupa di valori veri o falsi, tipicamente denotati come `1` e `0`, rispettivamente.== 
+È fondamentale nel campo dell'informatica e dell'elettronica digitale perché viene utilizzata per progettare e analizzare il comportamento di circuiti digitali e porte logiche.
+> [!info] Concetti chiave:  ^keyConc-alBool
+>  1. Variabili binarie:   
+>  Rappresentate come 1 (vero) e 0 (falso).
+>   2.  Operazioni logiche:  
+>  - [[Ripasso Python#L'operatore Le architetture di un Computer L'algebra Booleana AND|AND]] (\*): 
+>  Restituisce vero se entrambi gli operandi sono veri (1 \* 1 = 1).  ^andOp-Def
+> - [[Ripasso Python#^de8a18|OR]] (+): 
+>  Restituisce vero se almeno uno degli operandi è vero (1 + 0 = 1).  ^orOp-Def
+>  - [[Ripasso Python#^notOp-Py|NOT]] (¬): 
+>    Restituisce l'inverso dell'operando (¬1 = 0) (è il segno meno). ^notOp-Def
 
 ### Tabelle di verità 
  

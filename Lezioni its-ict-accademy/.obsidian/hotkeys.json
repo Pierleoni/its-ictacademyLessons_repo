@@ -293,14 +293,6 @@
       "key": "L"
     }
   ],
-  "editing-toolbar:header1-text": [
-    {
-      "modifiers": [
-        "Mod"
-      ],
-      "key": "End"
-    }
-  ],
   "editing-toolbar:header2-text": [
     {
       "modifiers": [
@@ -537,6 +529,66 @@
         "Mod"
       ],
       "key": "M"
+    }
+  ],
+  "editor:table-col-after": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "ArrowRight"
+    }
+  ],
+  "editor:table-col-before": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "ArrowLeft"
+    }
+  ],
+  "flashcards-llm:generate-flashcards-interactive": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "Q"
+    }
+  ],
+  "flashcards-llm:generate-inline-flashcards": [
+    {
+      "modifiers": [
+        "Alt",
+        "Mod",
+        "Shift"
+      ],
+      "key": "Q"
+    }
+  ],
+  "flashcards-llm:generate-long-flashcards": [
+    {
+      "modifiers": [
+        "Alt",
+        "Mod"
+      ],
+      "key": "Q"
+    }
+  ],
+  "omnisearch:show-modal-infile": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "F"
+    }
+  ],
+  "omnisearch:show-modal": [
+    {
+      "modifiers": [
+        "Alt",
+        "Shift"
+      ],
+      "key": "F"
     }
   ]
 }

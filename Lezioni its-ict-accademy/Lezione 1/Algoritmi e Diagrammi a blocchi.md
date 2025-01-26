@@ -1,6 +1,6 @@
 # Algoritmo 
 Prima di vedere i diagrammi a blocchi bisogna capire cosa si intende per algoritmo:
-Un algoritmo è una descrizione di un percorso di risoluzione di problemi (problem solving) per  raggiungere i risultati finali partendo da dati iniziali. 
+==Un algoritmo è una descrizione di un percorso di risoluzione di problemi (problem solving) per  raggiungere i risultati finali partendo da dati iniziali.==  
 Scriviamo l'algoritmo come se ci stessimo rivolgendo a un esecutore, in grado di eseguire azioni descritte come istruzioni, scritte in un linguaggio specifico.  
 Supponiamo che l'esecutore sia a disposizione di un utente (non necessariamente la persona che ha scritto l'algoritmo) che utilizza l'esecuzione dell'algoritmo.
 

@@ -1,3 +1,5 @@
+
+
 # Altri tipi [[I modificatori#Modificare i dati|dati]] 
 In [[Introduzione a Python#Variabili|Python]], ==ci sono delle strutture dei dati più complesse delle variabili==, nelle variabili fino ad adesso abbiamo salvato solo un tipo di dati contenuti e per salvare due valori interi devo scrivere 2 variabili per salvare due valori.
 Abbiamo visto i tipi semplici come [[Introduzione a Python#^myList-integer|i numeri interi]], [[Introduzione a Python#^myList-float|numeri con la virgola]], [[Introduzione a Python#^myList-str|stringhe]], [[Introduzione a Python#^myList-bool|booleani]] e i [[Numeri Complessi]] (vedi le proprietà [[Spiegazione esercizi Lezione 1 Python#La proprietà `.real`|.real]] e [[Spiegazione esercizi Lezione 1 Python#La proprietà `.imag`|.imag]]); tuttavia Python ha anche diversi tipi di composti incorporati, i quali agiscono come dei container per gli altri types. 
@@ -16,7 +18,7 @@ Se noi vogliamo tenere traccia di tutti i valori assegnati, devo usare la collec
 
  
 ## Le liste 
-==Sono una sequenza ordinata di elementi di valori, questi valori possono essere tutti dello stesso tipo o di tipo diversi, tutti i valori che si trovano nella lista si chiamano elementi della lista.== 
+==Sono una sequenza ordinata di elementi di valori, questi valori possono essere tutti dello stesso tipo o di tipo diversi, tutti i valori che si trovano nella lista si chiamano elementi della lista.==  ^ListsDef
 
 ### Caratteristiche delle Liste
 1. **Ordinate:** 
@@ -28,8 +30,11 @@ Se noi vogliamo tenere traccia di tutti i valori assegnati, devo usare la collec
 
 ```python
 list1=[1,2,3,4,5]
-list2=["A","B";"C"]
+list2=['A','B','C']
 list3= [7,8,9,"D","S","O"]
+print(list1)
+print(list2)
+print(list3)
 ```
 Nei primi due casi abbiamo due liste che contengono tutti elementi dello stesso tipo mentre nel terzo sono elementi di tipo diversi tra loro. 
 Può capitare che all'interno della lista, l'elemento è una lista anch'esso
@@ -52,7 +57,7 @@ print(*list1)
 
 ==Se voglio separare gli elementi della lista tra loro con un carattere preciso:== 
 ```python
-print="*list1, sep=*,/,|, etc.
+print(*list1), # sep=*,/,|, etc.
 ```
 
 La cosa importante è **sequenza ordinata di elementi:** 
@@ -68,8 +73,8 @@ Avendo una lista con N elementi, devo ricordare, come per le stringhe, che ==l'i
 In analogia con le stringhe noi possiamo accedere a un determinato elemento della lista.
 Es:
 ```python
-print=(mylist[0])
->>> "Alice"
+myList= ["Alice", "Bob", "Charlie"]
+print=(myList[0])
 ```
 Io sto chiedendo l'elemento alla posizione 0 della mia lista.
 ==Le liste possono sia avere indici positivi che negativi==, perché si possono leggere in 2 modi diversi:
@@ -90,25 +95,36 @@ print(mylist[-1])
 >>> Charlie
 ```
 
-> [!tip]+ [[Gli Operatori#3.List Operators|L'operatore in]] 
+> [!tip]+ [[Gli Operatori#3.List Operators|L'operatore in]]: ^inOp
+> 
 > ==Per individuare un determinato elemento in una lista usare l'operatore `in`==.
 >```python
 >frutti = ["mela", "banana", "ciliegia"]
 >#Controllare se un elemento è presente nella lista
 >if "banana" in frutti:
->print("La banana è nella lista!")
+>	print("La banana è nella lista!")
 >else:
->print("La banana non è nella lista.")
+>	print("La banana non è nella lista.")
 >#Controllare se un elemento NON è nella lista
 >if "pera" not in frutti:
->print("La pera non è nella lista.")
+>	print("La pera non è nella lista.")
 >```
 
-
+```python
+frutti = ["mela", "banana", "ciliegia"]
+#Controllare se un elemento è presente nella lista
+if "banana" in frutti:
+	print("La banana è nella lista!")
+else:
+	print("La banana non è nella lista.")
+#Controllare se un elemento NON è nella lista
+if "pera" not in frutti:
+	print("La pera non è nella lista.")
+```
 
 Es:
 ```python
-myList=["Andrea", "Benedetta", "Camilla",]
+myList=["Andrea","Benedetta","Camilla",]
 print(myList)
 myList[2]="Carlo"
 print(myList)
@@ -142,17 +158,17 @@ Utile nel caso in cui in  mi tornano elementi con lo stesso valore
 #### **Funzione `.append(element)`**
 Supponiamo di volere aggiungere l'elemento `Davide`
 ```python
-myList=["Andrea", "Benedetta", "Camilla",]
+myList=['Andrea', 'Benedetta', 'Camilla']
 print(myList)
-myList[-1]="Carolina"
+myList[-1]='Carolina'
 print(myList)
-myList.append("Davide")
+myList.append('Davide')
 print(myList)
 ```
 ==Quindi la funzione **`.append`** aggiunge un elemento a in fondo alla lista==.
 Se ad esempio voglio aggiungere `Erald` alla lista:
 ```python
-myList=["Andrea", "Benedetta", "Camilla",]
+myList=["Andrea", "Benedetta", "Camilla"]
 print(myList)
 myList[-1]="Carolina"
 print(myList)
@@ -172,9 +188,9 @@ vuole due valori in input:
 
 Es:
 ```python
-myList.insert(1, Andrea_2.0)
+myList.insert(1, 'Andrea_2.0')
 print(myList)
->>>[Andrea, Andrea_2.0, ...]
+>>>['Andrea', 'Andrea_2.0', ...]
 ```
 In questo caso aggiungo all'indice 1 `Andrea_2.0`. 
 
@@ -184,7 +200,8 @@ Adeso invece voglio rimuovere `Andrea_2.0` quindi farò
 ==toglie l'input che si vuole rimuovere.==
 Es:
 ```python
-myList.remove("Andrea_2.0")
+myList = ['Andrea', 'Andrea 2.0', 'Carolina', 'Erald']
+myList.remove("Andrea 2.0")  # Usa lo spazio corretto
 print(myList)
 ```
 
@@ -201,6 +218,7 @@ print(myList)
 ```python
 myList = ["Alice", "Bob", "Charlie"]
 myList.extend = ["Robert", "Karl","Kate"]
+print(myList)
 ```
 
 #### Funzione `.del`
@@ -241,7 +259,7 @@ print(myList[-2:]) #viene visualizzato gli ultimi due elementi della lista
    ==l'ordine degli elementi in un set non è garantito, quindi non è possibile accedere agli elementi tramite un indice (a differenza delle liste).== 
 3. **mutabili:** 
    i set sono mutabili, quindi puoi aggiungere o rimuovere elementi da un set dopo la sua creazione. 
-   ==cioè posso modificare i valori all'interno levandoli e aggiungendoli (come le liste )==.
+   ==cioè posso modificare i valori all'interno levandoli e aggiungendoli (come le [[#Le liste|liste]] )==.
 ```python
 m: set = {"ciao",1,1,1,1}
 
@@ -321,8 +339,8 @@ Ovviamente se l'elemento da aggiungere è gia presente nel set, il set non cambi
 s.add(4)  # Aggiunge 4 al set
 print(s)  # Output: {1, 2, 3, 4}
 >
->s.add(3)  # Non aggiunge nulla perché 3 è già presente
->print(s)  # Output: {1, 2, 3, 4}
+>#s.add(3)  # Non aggiunge nulla perché 3 è già presente
+>#print(s)  # Output: {1, 2, 3, 4}
 > 
 >```
 
@@ -408,7 +426,8 @@ print(z)  # Output: {4, 5}
 
 # I dictionaries
 ==Sono una collezione **non ordinata** di **coppie chiave-valore**.== 
-==Ogni elemento del dizionario è costituito da una **chiave unica** (un oggetto immutabile) e un **valore** che può essere di qualsiasi tipo di dato==. 
+==Ogni elemento del dizionario è costituito da una **chiave unica** (un oggetto immutabile) e un **valore** che può essere di qualsiasi tipo di dato==.   ^definizione-dict
+
 I dizionari sono molto utili per associare informazioni in modo rapido e per accedere ai dati tramite chiavi.
 (i file json sono un formato particolare che può essere letto in python e viene organizzato nei dictionaries e servono per la configurazione dove settiamo i valori dei parametri. 
 I json hanno delle chiavi-valori) 
@@ -430,7 +449,7 @@ mydict = {ke1:value1, key:value2, key3:value}
 ### Annidare i dizionari
  Posso annidare atri dizionari dentro i dizionari.
 ```python
-m:dict ={"key1":{"key1":"valore1"}}
+m:dict ={'key1':{"key1":"valore1"}}
 
 print(m)
 ```
@@ -442,10 +461,9 @@ Annidare cose dentro altre cose è una cosa comune, ma come inserire i valori e 
 ```python
 m:dict ={"key1":5}
 #per accedere al valore all'intenro del dizionario
->>>m 
-{key1:5}
->>>m[key1]
-5 
+m = {'key1':5}
+print(m['key1'])
+
 ```
 cosi facendo accedo al valore del dizionario, ma se mi sbaglio ed inserisco una chiave che non esiste mi da errore:
 ```python

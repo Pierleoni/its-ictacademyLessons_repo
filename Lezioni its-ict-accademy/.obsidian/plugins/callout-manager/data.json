@@ -1,7 +1,32 @@
 {
   "callouts": {
-    "custom": [],
-    "settings": {}
+    "custom": [
+      "deep"
+    ],
+    "settings": {
+      "deep": [
+        {
+          "changes": {
+            "icon": "lucide-award",
+            "color": "3, 88, 94"
+          }
+        }
+      ],
+      "danger": [
+        {
+          "changes": {
+            "icon": "lucide-bell-electric"
+          }
+        }
+      ],
+      "missing": [
+        {
+          "changes": {
+            "icon": "lucide-minus"
+          }
+        }
+      ]
+    }
   },
   "calloutDetection": {
     "obsidian": true,

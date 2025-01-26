@@ -1,4 +1,4 @@
-# [[Collections#Le liste|Lists]] 
+# [[Collections#Le liste|Lists]]
 
 Ripartendo dalla funzione `.append` che aggiungeva un elemento in ultima posizione all'interno della lista, torniamo a parlare delle variabili. 
 
@@ -149,7 +149,7 @@ print(len(B[0])) #su questa riga sto chiedendo di restituire la lunghezza del pr
 
 > [!tip] Tips & tricks
 > Dichiariamo 2 liste:
->```
+>```python
 >g:list = [7,8,9]
 >f:list = [10,11,12]
 >g.append(f)
@@ -217,7 +217,9 @@ Quindi, in questo senso, quello che fa la funzione `.append()`:
 arriva l'input, elabora il dato che gli è arrivato all'interno della scatola, ma non restituisce nulla in uscita.
 Difatti se scrivessi
 ```python
- print (a.append(b))
+a:list = [1,2]
+b:list = [3,4]
+ print(a.append(b))
 ```
 mi darebbe `none` sul terminale, tuttavia modifica direttamente la lista: io gli dico di prendere come ingresso la variabile "a", quindi la lista "a", e come argomento gli passo la lista b, cosi facendo appende la lista b all'ultima posizione. 
 Sempre in questo senso la funzione `.extend()` aggiunge ogni elemento di un'altra iterabile (come una lista, una stringa o una tupla) alla lista originale e la modifica §
@@ -256,10 +258,7 @@ Di conseguenza questa proprietà restituisce la parte reale del numero complesso
 >x = 5
 >print(x.real)
 >```
->Output:
->```python
->5
->```
+
 
 ### La proprietà `.imag`
 Restituisce la parte immaginaria di un numero complesso.
@@ -327,7 +326,7 @@ Vediamo nel dettaglio cosa accade nel codice.
 Creiamo una lista
 ```python
 a = [1,2,3] # Crea una lista in memoria 
-h=a         # `h` punta alla stessa lista a cui punta `a`
+h= a # `h` punta alla stessa lista a cui punta `a`
 ```
 nella prima riga ho creato una lista assegnandola alla variabile `a`
 dopodiché la variabile h lo assegnata alla lista "a", ==a questo punto sia== `a` ==che== `h` ==puntano alla **stessa area di memoria** dove è memorizzata la lista== `[1, 2, 3]`.
