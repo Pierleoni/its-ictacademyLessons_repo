@@ -557,8 +557,8 @@ Questo approccio è utile per scansionare matrici o strutture annidate in Python
 ### Filtrare elementi specifici con cicli annidati
 Supponiamo di voler stampare solo gli elementi delle tuple che contengono numeri pari:
 ```python
-for i in range (3)
-	for j in range(3)
+for i in range (3):
+	for j in range(3):
 		if(L[i][j][1]%2)==0: #controlla se il numero è pari
 		print(L[i][j])
  
@@ -645,7 +645,7 @@ Genera 1, 3, 5, 7, 9
 >L'indice 1 contiene banana
 >L'indice 2 contiene ciliegia
 >```
-
+ 
 
 > [!info] Curioso notare che il significato degli argomenti di `range` è molto simile alla sintassi di [[Collections#Modo di scorrere delle liste (Slicing)|slicing]] che abbiamo trattato nella lezione sulle Collections.
 > 

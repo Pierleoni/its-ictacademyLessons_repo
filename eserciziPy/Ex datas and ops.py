@@ -82,5 +82,4 @@ d:int=7
 f:int=9 
 posNum= a+b+c+d
 if posNum<=0:
-    
-
+    pass

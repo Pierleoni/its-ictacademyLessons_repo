@@ -137,4 +137,66 @@ aggiorno la i
 
 
 ### Esercizio 10 
+Progettare un algoritmo che richieda all’utente di inserire la sua età.  
+L'algoritmo deve:
+
+- controllare se l’età è compresa tra 18 e 65 anni. Se sì, mostrare un messaggio che indica che l’utente può partecipare all’attività;
+- se l’età non rientra nell’intervallo, verificare se è inferiore a 18 oppure maggiore di 65. Se sì, mostrare un messaggio che indica che l’utente non può partecipare perché ha superato l'età massima consentita o non ha raggiunto l'età minima consentita.
 ![[DiagramEx 10.svg]]
+
+
+
+### Esercizio 11
+Progettare un algoritmo che richieda all’utente di inserire un valore intero.  
+Il programma deve verificare:
+
+- se il numero è pari e maggiore di 10. Se sì, mostrare “Numero valido”;
+- se il numero è dispari o minore o uguale a 10. Se sì, mostrare “Numero non valido”.
+
+![[Diagram ex 11.svg]]
+
+### Esercizio 12 
+Progettare un algoritmo che richieda all’utente di inserire un numero variabile _n_ di valori _x_ e _y_. L'algoritmo deve:
+
+- calcolare il prodotto di x e y solo se entrambi i valori sono positivi;
+- calcolare la somma di x e y solo se uno dei due valori è negativo;
+- mostrare il risultato dell’operazione effettuata o un messaggio di errore se entrambe le condizioni falliscono.
+  
+ Expected Output:
+ n = 3
+
+prima coppia 
+x = 2
+y= 6 
+prodotto = 6*2 = 12
+
+seconda coppia 
+x = -13
+y= 12
+somma = -13+12= -1
+
+terza coppia 
+x = -13
+y = -12 
+Messaggio = "Errore" 
+
+ Ragionamento 
+ inserire n, 
+ contatore `i = 0` 
+ ciclo
+ per ogni iterazione:
+ -inserisco x 
+ inserisco y 
+ check se x > 0 ; y> 0 
+ check se x<0 or y<0 
+ aggiornare contatore `i` 
+![[Diagram Ex 12.svg]]
+
+### Esercizio 13
+Progettare un algoritmo che verifichi se tre numeri interi positivi _x_, _y_, _z_ rispettano le seguenti regole:
+
+- la somma di _x+y+z_ deve essere pari;
+- x deve essere divisibile per 3, y divisibile per 5 e z divisibile per 7;
+- se entrambe le condizioni sono vere, mostrare: “Regole rispettate”. Altrimenti, mostrare: “Regole non rispettate”.
+
+![[Diagram EX 13.svg]]
