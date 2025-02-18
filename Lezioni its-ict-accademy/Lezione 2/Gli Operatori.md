@@ -419,7 +419,7 @@ print(a is not c)  # True: a e c sono oggetti diversi
 
 | Operatore | Operatore 2 |                       Significato                        |
 | :-------: | :---------: | :------------------------------------------------------: |
-|    `&`    |     AND     |      ==Restituisce `1` se entrmabi i bit sono `1`==      |
+|    `&`    |     AND     |      ==Restituisce `1` se entrambi i bit sono `1`==      |
 |    \|     |     OR      |     ==Restituisce `1` se almeno uno dei bit è `1`==      |
 |    `^`    |     XOR     |        ==Restituisce `1` se i bit sono diversi==         |
 |    `~`    |     NOT     |    ==Inverte i bit (negazione a complemento a due)==     |

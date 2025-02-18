@@ -112,8 +112,8 @@ Quindi il risultato finale della moltiplicazione è:$$11−2i$$
 
 > [!example] Riepilogo passaggi
 > 1. Distribuiamo i termini: $$(3+4i)×(1−2i)=3+(−6i)+4i+(−8i^2)$$
->2. Sommiamo i termini immaginari: $$−6i+4i=−2i$$
->3. Sostituiamo $$i^2=−1$$ diventa $$−8i^2=8$$
->4. Sommiamo i termini reali: $$3+8=11$$
+>1. Sommiamo i termini immaginari: $$−6i+4i=−2i$$
+>2. Sostituiamo $$i^2=−1$$ diventa $$−8i^2=8$$
+>3. Sommiamo i termini reali: $$3+8=11$$
 >Il risultato finale è:
 >$$11−2i11 - 2i11−2i$$

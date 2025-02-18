@@ -1,4 +1,4 @@
-# Esercitazione [[Algoritmi e Diagrammi a blocchi|diagramma a blocchi]] 
+ # Esercitazione [[Algoritmi e Diagrammi a blocchi|diagramma a blocchi]] 
 
 ### Esercizio 1: Calcolare il cateto di un triangolo rettangolo
 ![[Esercizio 1.svg]]
@@ -81,7 +81,7 @@ Adesso sono nel ciclo:
 `i<=6` 
 `i = 1` 
 `n= 15`
-Adesso 15 è pari, ovviamente non pari quindi:
+Adesso 15 non è pari, ovviamente non pari quindi:
 `somma = 0` 
 
 2. [[#^second-ite|Seconda iterazione]] 
@@ -200,3 +200,19 @@ Progettare un algoritmo che verifichi se tre numeri interi positivi _x_, _y_,�
 - se entrambe le condizioni sono vere, mostrare: “Regole rispettate”. Altrimenti, mostrare: “Regole non rispettate”.
 
 ![[Diagram EX 13.svg]]
+
+
+### Ex 15
+Progettare un algoritmo che chieda all’utente di inserire un valore intero _n_.  
+L'algoritmo deve:
+
+- Verificare se _n_ è compreso tra 1 e 100:
+    - se sì, calcolare e mostrare la somma di tutti i numeri pari compresi tra 1 e _n_.
+- Verificare se _n_ è 0 o negativo:
+    - Se sì,  
+- contare quanti numeri sono positivi e quanti sono negativi,
+- verificare quanti numeri positivi sono pari e maggiori di 20,
+- verificare quanti numeri negativi sono dispari o minori di -10.
+
+Mostrare in output i conteggi distinti per ogni categoria.
+![[Esercizio 16.svg]]

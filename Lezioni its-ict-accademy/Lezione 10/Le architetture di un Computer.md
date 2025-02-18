@@ -142,10 +142,10 @@ Risultato in binario: **1101₂**.
 
 Per convertire un numero binario (base 2) in un numero decimale (base 10), segui questi passaggi:
 
-1. Scrivi il numero binario.
-2. Elenca le potenze di 2 da destra a sinistra, iniziando con 2^0 sotto il bit più a destra.
-3. Moltiplica ogni bit per la corrispondente potenza di 2.
-4. Somma i risultati per ottenere il numero decimale.
+6. Scrivi il numero binario.
+7. Elenca le potenze di 2 da destra a sinistra, iniziando con 2^0 sotto il bit più a destra.
+8. Moltiplica ogni bit per la corrispondente potenza di 2.
+9. Somma i risultati per ottenere il numero decimale.
 
 **Conversione da Binario a Decimale**  
 Convertiamo **1101₂** in decimale:  
@@ -159,11 +159,11 @@ Prendi i due numeri binari che vuoi sommare.
 >[!note] NOTA: Assicurati che entrambi i numeri abbiano la stessa lunghezza.
 >  Se non lo sono, aggiungi zeri iniziali al numero più corto fino a che non abbiano la stessa lunghezza.
 
-2. Inizia a sommare i bit dalla parte destra (bit meno significativo) dei due numeri binari, seguendo queste regole:  
+10. Inizia a sommare i bit dalla parte destra (bit meno significativo) dei due numeri binari, seguendo queste regole:  
 
 ![[Bin add.png]]
 
-3. Continua sommando i bit successivi e considerando eventuali riporto dalle colonne precedenti. Se dopo aver sommato l'ultimo bit rimane un riporto, scrivilo nella colonna più a sinistra del risultato.  
+11. Continua sommando i bit successivi e considerando eventuali riporto dalle colonne precedenti. Se dopo aver sommato l'ultimo bit rimane un riporto, scrivilo nella colonna più a sinistra del risultato.  
 Esempio dell'addizione binaria:  
 ```
 Binary Addition/2
@@ -206,10 +206,10 @@ Prendi i due numeri binari che vuoi sottrarre.
 > [!note] NOTA: Assicurati che entrambi i numeri abbiano la stessa lunghezza.  
 >Se non lo sono, aggiungi zeri iniziali al numero più corto fino a che non abbiano la stessa lunghezza.
 
-2. Inizia a sottrarre i bit dalla parte destra (bit meno significativo) dei due numeri binari, seguendo queste regole:  
+12. Inizia a sottrarre i bit dalla parte destra (bit meno significativo) dei due numeri binari, seguendo queste regole:  
 
 ![[Bin sub.png]]
-3. Continua sottraendo i bit successivi e considerando eventuali prestiti dalle colonne precedenti. Se dopo aver sottratto l'ultimo bit rimane un prestito, scrivilo nella colonna più a sinistra del risultato.  
+13. Continua sottraendo i bit successivi e considerando eventuali prestiti dalle colonne precedenti. Se dopo aver sottratto l'ultimo bit rimane un prestito, scrivilo nella colonna più a sinistra del risultato.  
 ```
 Example 1 (1110 – 1001):
 1110
@@ -252,7 +252,7 @@ Step-by-step subtraction with borrow:
 > [!info] Concetti chiave:  ^keyConc-alBool
 >  1. Variabili binarie:   
 >  Rappresentate come 1 (vero) e 0 (falso).
->   2.  Operazioni logiche:  
+>   1.  Operazioni logiche:  
 >  - [[Ripasso Python#L'operatore Le architetture di un Computer L'algebra Booleana AND|AND]] (\*): 
 >  Restituisce vero se entrambi gli operandi sono veri (1 \* 1 = 1).  ^andOp-Def
 > - [[Ripasso Python#^de8a18|OR]] (+): 
@@ -294,9 +294,9 @@ NOT (A OR B) = (NOT A) AND (NOT B)
 
 > [!attention] Le regole di precedenza
 > 1. NOT ha la precedenza più alta su tutti gli altri operatori
->  2. Segue AND  
+>  1. Segue AND  
 > 
->3. Per ultimo c'è OR
+>1. Per ultimo c'è OR
 >Per alternare la precedenza si usano le parentesi, ovvero l'operatore dentro la parentesi ha la precedenza su tutti gli altri.
 
 

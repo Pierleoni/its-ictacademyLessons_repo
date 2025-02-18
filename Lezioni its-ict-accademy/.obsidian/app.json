@@ -1,5 +1,35 @@
 {
-  "showRibbon": true,
   "strictLineBreaks": false,
-  "alwaysUpdateLinks": true
+  "alwaysUpdateLinks": true,
+  "spellcheckDictionary": [
+    "interrupt",
+    "Processing",
+    "Unit",
+    "Central",
+    "Processing",
+    "Unit o",
+    "Central",
+    "Arithmetic",
+    "Logic",
+    "Register",
+    "Temporary",
+    "Control",
+    "rogram ",
+    "ounter)",
+    "step",
+    "Fetch",
+    "Instruction",
+    "Decode",
+    "Program",
+    "Counter",
+    "Neumann",
+    "Memory",
+    "Access",
+    "device",
+    "Von",
+    "Memory",
+    "Access",
+    "tuple",
+    "Hello"
+  ]
 }

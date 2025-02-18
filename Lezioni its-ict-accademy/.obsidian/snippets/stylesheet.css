@@ -93,6 +93,13 @@ span.cm-inline-code {
 } 
 
 
+/* Cambia il colore dei commenti nei code blocks */
+pre code .token.comment {
+    color: #8f0ac8 !important; /* Cambia questo valore con il colore che preferisci */
+}
+
+
+
 
 
 

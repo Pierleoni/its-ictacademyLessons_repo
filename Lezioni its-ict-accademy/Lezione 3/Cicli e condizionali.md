@@ -141,16 +141,25 @@ if condizione: #premere tab
 > Quindi le parentesi tonde per le condizioni in Python vengono usate in contesti specifici:
 >1. **Raggruppare espressioni complesse per chiarezza:**
 >```python
+>x = 5
+>y = 4 
+>z = 10
 >if (x > 0 and (y < 5 or z == 10)):
  >   print("Complex condition met")
 >```
 >2. **Evitare errori di precedenza negli operatori:**
 >```python
+>a = 5
+>b= 1
+>c= 22
 >if (a + b) * c > 10:
  >   print("Condition met")   
 >```
 > 3. **Evitare un'espressione su più righe:** 
 >```python 
+>x = 4
+>y = 3
+>z =10
 >if (
  >   x > 0
  >   and y < 5
@@ -929,7 +938,7 @@ Anche con il ciclo di `while` è possibile utilizzare `break` e `continue`:
 >```python
 >x=0
 >while x <10:
->	if x\=\=5:
+>	if x==5:
 > 	 break
 >  print(x)
 >  x += 1

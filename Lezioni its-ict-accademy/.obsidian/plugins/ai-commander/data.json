@@ -1,0 +1,13 @@
+{
+  "model": "gpt-4o",
+  "apiKey": "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",
+  "imgSize": "256x256",
+  "saveImg": "attachment",
+  "useSearchEngine": false,
+  "searchEngine": "bing",
+  "bingSearchKey": "",
+  "promptPerfectKey": "",
+  "usePromptPerfect": false,
+  "promptsForSelected": "",
+  "promptsForPdf": ""
+}
