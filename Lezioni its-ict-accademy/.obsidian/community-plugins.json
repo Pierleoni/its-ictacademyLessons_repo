@@ -15,7 +15,6 @@
   "obsidian-topic-linking",
   "obsidian-style-settings",
   "obsidian-linter",
-  "language-translator",
   "obsidian42-text-transporter",
   "obsidian-minimal-settings",
   "editing-toolbar",
@@ -34,5 +33,6 @@
   "omnisearch",
   "obsidian-annotator",
   "ai-commander",
-  "obsidian-languagetool-plugin"
+  "obsidian-languagetool-plugin",
+  "language-translator"
 ]

@@ -31,7 +31,7 @@ Quindi siccome entrambi gli operandi sono veri e non ci sono valori falsi, `and`
    - `0` è valutato ed è "falso"
 Quindi l'operatore `and` restituisce il primo valore falso: `0`.  ^sec-ex
 
-2. Per quanto riguarda il terzo esempio: 
+1. Per quanto riguarda il terzo esempio: 
    Qui fa la stessa cosa del [[#^sec-ex|secondo esempio]] ma questa operazione è messa come argomento della [[Introduzione a Python#^typeFun-def|funzione type]], quindi dopo che l'espressione è stata valutata e ha restituito `0`, Python determina il tipo dell'oggetto tramite questa funzione:
    - Siccome `0` in Python è un oggetto del tipo `int`, restituisce `<class 'int'>` 
 
