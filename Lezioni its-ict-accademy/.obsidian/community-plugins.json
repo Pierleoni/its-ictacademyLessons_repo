@@ -31,8 +31,9 @@
   "highlightr-plugin",
   "code-emitter",
   "omnisearch",
-  "obsidian-annotator",
   "ai-commander",
   "obsidian-languagetool-plugin",
-  "language-translator"
+  "language-translator",
+  "obsidian-annotator",
+  "obsidian-wordnet-plugin"
 ]

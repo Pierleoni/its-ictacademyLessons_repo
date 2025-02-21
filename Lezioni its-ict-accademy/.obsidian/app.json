@@ -55,6 +55,12 @@
     "System",
     "Intterconnetcion",
     "delay",
-    "dB"
-  ]
+    "dB",
+    "service",
+    "addressing",
+    "forwarding",
+    "Routin",
+    "Routing"
+  ],
+  "spellcheck": false
 }

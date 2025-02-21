@@ -57,19 +57,21 @@ Come detto poco sopra, il modello **ISO/OSI** è strutturato in **sette livelli*
 Ogni livello svolge una funzione specifica e interagisce con il livello adiacente.
 ![[ISO-OSI Reference Model.png]]
 
-1. **Fisico(Physical):**
+1. **Livello Fisico(Physical):**
    Definisce le caratteristiche fisiche della rete, come cavi, segnali elettrici e trasmissione dei bit.
-2. **Data Link(Collegamento tra dati):**
+2. **Livello di Data Link(Collegamento tra dati):**
    Organizza i bit in **frame**, gestisce gli errori di trasmissione e controlla l'accesso al mezzo trasmissivo.
-3. **Rete (Network)**:
-   Si occupa dell'instradamento dei pacchetti e dell'indirizzamento logico, utilizzando protocolli come **IP**.
-4. **Trasporto (Transport)** :
+3. **[[Sistemi digitali/Lezione 16/Computer Networks#Network layer|Livello di Rete (Network)]]**:
+   Si occupa dell'instradamento dei pacchetti e dell'indirizzamento logico, utilizzando protocolli come **IP**.  ^networkLayer
+   
+   
+4. **Livello di Trasporto (Transport)**:
    Assicura la consegna affidabile dei dati tra i dispositivi, con protocolli come **TCP** e **UDP**.
-5. **Sessione (Session)**:
+5. **Livello di Sessione (Session)**:
    Gestisce l'avvio, il mantenimento e la chiusura delle sessioni di comunicazione tra applicazioni.
-6. **Presentazione (Presentation)**:
+6. **Livello di Presentazione (Presentation)**:
    Converte, comprime e cripta i dati per garantire compatibilità tra i diversi sistemi.
-7. **Applicazione (Application)**:
+7. **Livello di Applicazione (Application)**:
    Fornisce servizi di rete agli utenti e alle applicazioni, come **HTTP, FTP e SMTP**.
 
 Nei primi tre livelli (Fisico, Data Link e Rete), il dato viene generalmente chiamato **bit, frame o pacchetto**, mentre nei livelli superiori può essere chiamato **segmento, messaggio o dato** a seconda del contesto.
@@ -238,15 +240,6 @@ Il processo di framing nel sottolivello Logical Link Control (LLC) è fondamenta
 ![[LLC Framing.png]]
 ^frame-img
 
-Questo framing appartiene al sottolivello MAC poiché questo sottolivello crea il frame Ethernet qui mostrato, il sottolivello LLC (Logical Link Control), [[#^imgSublayers-Datalink|che dobbiamo ricordare che lavora sopra al sottolivello MAC]], e aggiunge la propria intestazione (o Header) all'interno del campo "Data" del frame Ethernet.
-Il processo di framing nel livello di Data Link coinvolge entrambi i suoi sottolivelli, il MAC (Media Access Control) e il LLC (Logical Link Control), ognuno con un ruolo specifico nella costruzione e gestione del frame.
-
-
-Quindi, in parole povere, in questo caso [[#^MAC-List|il sottolivello MAC]]:
-È responsabile della creazione del frame Ethernet, suddividendolo in diverse sezioni fondamentali: preambolo, header (con indirizzi MAC sorgente e destinazione), dati e trailer (con il checksum per il controllo degli errori). Questo livello gestisce anche l'accesso al mezzo trasmissivo e garantisce che i frame siano inviati e ricevuti correttamente a livello fisico. ^MAC-expl
-
-Mentre il [[#^LLC-List|sottolivello LLC]]: 
-Opera sopra il MAC e si occupa di fornire servizi di gestione della comunicazione tra il livello di Data Link e il livello di Rete. In particolare, aggiunge la propria intestazione (LLC Header) all'interno del campo Data del frame Ethernet, specificando il protocollo di livello superiore a cui appartengono i dati trasportati.  ^LLC-expl
 
 [[#^frame-img|Riprendendo l'immagine]] analizziamo la struttura del frame:
 #### Struttura del Frame

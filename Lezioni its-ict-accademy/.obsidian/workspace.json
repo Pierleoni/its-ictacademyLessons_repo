@@ -23,12 +23,12 @@
             }
           },
           {
-            "id": "fa77eb6dc71a2542",
+            "id": "2b2396cd631918e7",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Sistemi digitali/Lezione 11/Computer Networks.md",
+                "file": "Sistemi digitali/Lezione 16/Computer Networks.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
@@ -79,6 +79,18 @@
               },
               "icon": "lucide-search",
               "title": "Search"
+            }
+          },
+          {
+            "id": "522ece88da89b870",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "img/Stack of Layers.png"
+              },
+              "icon": "lucide-image",
+              "title": "Stack of Layers"
             }
           },
           {
@@ -252,21 +264,24 @@
   },
   "active": "a3c89a053243abbf",
   "lastOpenFiles": [
-    "img/Stack of Layers.png",
-    "img/Internetwork.png",
+    "img/Packet Header Structure.png",
     "Sistemi digitali/Lezione 12/ISO E OSI Model.md",
+    "Sistemi digitali/Lezione 16/Computer Networks.md",
+    "img/Network Layer.png",
+    "Untitled.canvas",
+    "img/Stack of Layers.png",
+    "img/Routing Process2.png",
+    "img/Struttura diagramma a blocchi.png",
+    "img/Routing Process.png",
     "Sistemi digitali/Lezione 11/Computer Networks.md",
+    "Sistemi digitali/Lezione 16",
+    "img/Internetwork.png",
     "img/Network Switch.png",
     "img/LLC Framing.png",
     "img/Sub-layers data link.png",
     "Python/Lezione 2/Collections.md",
     "img/Python program 2.png",
-    "img/Bandwidth delay Product2.png",
-    "img/Bandwidth delay.png",
     "Bandwidth (Larghezza di banda).md",
-    "img/Frequency.png",
-    "img/Cavo fibra ottica.png",
-    "img/ISO-OSI Reference Model.png",
     "Sistemi digitali/Lezione 11/Computer Architectures.md",
     "Python/Lezione 3/Match Statement.md",
     "Python/Lezione 2/Introduzione a Python.md",
@@ -295,9 +310,6 @@
     "Python/Lezione 1/Esercizio Diagrammi a blocchi.md",
     "Python/Lezione 2/I modificatori.md",
     "Sistemi digitali/Lezione 12/Computer Architectures.md",
-    "Sistemi digitali/Lezione 12",
-    "Diagram/Esercizio 16.svg.xml",
-    "Sistemi digitali/Lezione 11/Esercizi su conversione e operazioni binarie.md",
-    "Untitled.canvas"
+    "Sistemi digitali/Lezione 12"
   ]
 }

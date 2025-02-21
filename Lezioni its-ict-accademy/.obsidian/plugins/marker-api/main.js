@@ -21,17 +21,19 @@ var __copyProps = (to, from, except, desc) => {
 };
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-// main.ts
+// src/main.ts
 var main_exports = {};
 __export(main_exports, {
-  MarkerOkayCancelDialog: () => MarkerOkayCancelDialog,
-  MarkerSupportedLangsDialog: () => MarkerSupportedLangsDialog,
   default: () => Marker
 });
 module.exports = __toCommonJS(main_exports);
+var import_obsidian4 = require("obsidian");
+
+// src/settings.ts
 var import_obsidian = require("obsidian");
 var DEFAULT_SETTINGS = {
   markerEndpoint: "localhost:8000",
+  pythonEndpoint: "localhost:8001",
   createFolder: true,
   deleteOriginal: false,
   extractContent: "all",
@@ -44,723 +46,15 @@ var DEFAULT_SETTINGS = {
   forceOCR: false,
   paginate: false
 };
-var Marker = class extends import_obsidian.Plugin {
-  async onload() {
-    await this.loadSettings();
-    this.addCommands();
-    this.addSettingTab(new MarkerSettingTab(this.app, this));
-    this.registerEvent(
-      this.app.workspace.on("file-menu", (menu, file, source) => {
-        if (!file.name.endsWith(".pdf")) {
-          if (this.settings.apiEndpoint === "datalab") {
-            if (!file.name.endsWith(".docx") && !file.name.endsWith(".pptx") && !file.name.endsWith(".ppt") && !file.name.endsWith(".doc")) {
-              return;
-            }
-          } else
-            return;
-        }
-        menu.addItem((item) => {
-          item.setIcon("pdf-file");
-          switch (file.name.split(".").pop()) {
-            case "pdf":
-              item.setTitle("Convert PDF to MD");
-              break;
-            case "docx":
-              item.setTitle("Convert DOCX to MD");
-              break;
-            case "pptx":
-              item.setTitle("Convert PPTX to MD");
-              break;
-            case "ppt":
-              item.setTitle("Convert PPT to MD");
-              break;
-            case "doc":
-              item.setTitle("Convert DOC to MD");
-              break;
-          }
-          item.onClick(async () => {
-            if (file instanceof import_obsidian.TFile) {
-              if (this.settings.apiEndpoint === "datalab") {
-                await this.convertWithDatalab(file);
-              } else {
-                await this.convertPDFToMD(file);
-              }
-            }
-          });
-        });
-      })
-    );
-  }
-  addCommands() {
-    this.addCommand({
-      id: "marker-convert-to-md",
-      name: "Convert to MD",
-      checkCallback: (checking) => {
-        const activeFile = this.app.workspace.getActiveFile();
-        if (this.settings.apiEndpoint === "datalab") {
-          if ((activeFile == null ? void 0 : activeFile.extension) !== "pdf" && (activeFile == null ? void 0 : activeFile.extension) !== "docx" && (activeFile == null ? void 0 : activeFile.extension) !== "pptx" && (activeFile == null ? void 0 : activeFile.extension) !== "ppt" && (activeFile == null ? void 0 : activeFile.extension) !== "doc") {
-            return false;
-          }
-        } else if ((activeFile == null ? void 0 : activeFile.extension) !== "pdf") {
-          return false;
-        }
-        if (checking) {
-          return true;
-        }
-        if (this.settings.apiEndpoint === "datalab") {
-          this.convertWithDatalab(activeFile);
-        } else {
-          this.convertPDFToMD(activeFile);
-        }
-      }
-    });
-  }
-  async convertPDFToMD(file) {
-    const activeFile = file;
-    if (!activeFile) {
-      return false;
-    }
-    if (!this.checkSettings()) {
-      return false;
-    }
-    await this.testConnection(true).then(async (result) => {
-      if (!result) {
-        return false;
-      } else {
-        try {
-          const folderPath = await this.handleFolderCreation(activeFile);
-          if (!folderPath) {
-            return true;
-          }
-          if (this.settings.extractContent === "images" || this.settings.extractContent === "all") {
-            const shouldOverwrite = await this.checkForExistingFiles(
-              folderPath
-            );
-            if (!shouldOverwrite) {
-              return true;
-            }
-          }
-          const pdfContent = await this.app.vault.readBinary(activeFile);
-          if (this.settings.extractContent === "text" || this.settings.extractContent === "all") {
-            new import_obsidian.Notice(
-              "Converting PDF to Markdown, this can take a few seconds...",
-              1e4
-            );
-          } else {
-            new import_obsidian.Notice("Extracting images from PDF...", 1e4);
-          }
-          const conversionResult = await this.convertPDFContent(pdfContent);
-          await this.processConversionResult(
-            conversionResult,
-            folderPath,
-            activeFile
-          );
-          new import_obsidian.Notice("PDF conversion completed");
-        } catch (error) {
-          console.error("Error during PDF conversion:", error);
-          new import_obsidian.Notice(
-            "Error during PDF conversion. Check console for details."
-          );
-        }
-        return true;
-      }
-    }).catch((error) => {
-      console.error("Error during PDF conversion:", error);
-      new import_obsidian.Notice("Error during PDF conversion. Check console for details.");
-      return false;
-    });
-    return true;
-  }
-  createFormBody(formData) {
-    const boundary = "----WebKitFormBoundary" + Math.random().toString(36).substring(2);
-    let body = "";
-    formData.forEach((value, key) => {
-      body += `--${boundary}\r
-`;
-      body += `Content-Disposition: form-data; name="${key}"`;
-      if (value instanceof File) {
-        body += `; filename="${value.name}"\r
-`;
-        body += `Content-Type: ${value.type}\r
-\r
-`;
-        value.arrayBuffer().then((buffer) => {
-          body += (0, import_obsidian.arrayBufferToBase64)(buffer);
-        });
-      } else {
-        body += "\r\n\r\n" + value;
-      }
-      body += "\r\n";
-    });
-    body += `--${boundary}--\r
-`;
-    return { body, boundary };
-  }
-  async convertWithDatalab(file) {
-    const activeFile = file;
-    if (!activeFile) {
-      return false;
-    }
-    if (!this.checkSettings()) {
-      return false;
-    }
-    await this.testConnection(true).then(async (result) => {
-      var _a, _b;
-      if (!result) {
-        return false;
-      } else {
-        try {
-          const folderPath = await this.handleFolderCreation(activeFile);
-          if (!folderPath) {
-            return true;
-          }
-          if (this.settings.extractContent === "images" || this.settings.extractContent === "all") {
-            const shouldOverwrite = await this.checkForExistingFiles(
-              folderPath
-            );
-            if (!shouldOverwrite) {
-              return true;
-            }
-          }
-          const pdfContent = await this.app.vault.readBinary(activeFile);
-          if (this.settings.extractContent === "text" || this.settings.extractContent === "all") {
-            new import_obsidian.Notice(
-              "Converting file to Markdown, this can take a few seconds...",
-              1e4
-            );
-          } else {
-            new import_obsidian.Notice("Extracting images from file...", 1e4);
-          }
-          const boundary = "----WebKitFormBoundary" + Math.random().toString(36).substring(2);
-          const parts = [];
-          const fileFieldName = "file";
-          let contentType = "";
-          switch (activeFile.extension) {
-            case "pdf":
-              contentType = "application/pdf";
-              break;
-            case "docx":
-            case "doc":
-              contentType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-              break;
-            case "pptx":
-            case "ppt":
-              contentType = "application/vnd.openxmlformats-officedocument.presentationml.presentation";
-              break;
-          }
-          parts.push(
-            `--${boundary}\r
-Content-Disposition: form-data; name="${fileFieldName}"; filename="${activeFile.name}"\r
-Content-Type: ${contentType}\r
-\r
-`
-          );
-          parts.push(new Uint8Array(pdfContent));
-          parts.push("\r\n");
-          const addFormField = (name, value) => {
-            parts.push(
-              `--${boundary}\r
-Content-Disposition: form-data; name="${name}"\r
-\r
-${value}\r
-`
-            );
-          };
-          addFormField(
-            "extract_images",
-            this.settings.extractContent !== "text" ? "true" : "false"
-          );
-          addFormField("langs", (_a = this.settings.langs) != null ? _a : "en");
-          addFormField(
-            "force_ocr",
-            this.settings.forceOCR ? "true" : "false"
-          );
-          addFormField("paginate", this.settings.paginate ? "true" : "false");
-          parts.push(`--${boundary}--\r
-`);
-          const bodyParts = parts.map(
-            (part) => typeof part === "string" ? new TextEncoder().encode(part) : part
-          );
-          const bodyLength = bodyParts.reduce(
-            (acc, part) => acc + part.byteLength,
-            0
-          );
-          const body = new Uint8Array(bodyLength);
-          let offset = 0;
-          for (const part of bodyParts) {
-            body.set(part, offset);
-            offset += part.byteLength;
-          }
-          const requestParams = {
-            url: `https://www.datalab.to/api/v1/marker`,
-            method: "POST",
-            body: body.buffer,
-            headers: {
-              "Content-Type": `multipart/form-data; boundary=${boundary}`,
-              "X-Api-Key": (_b = this.settings.apiKey) != null ? _b : ""
-            },
-            throw: false
-            // Don't throw on non-200 status codes
-          };
-          try {
-            (0, import_obsidian.requestUrl)(requestParams).then(async (response) => {
-              const data = response.json;
-              if (response.status === 200) {
-                const result2 = await this.pollForConversionResult(
-                  data.request_check_url
-                );
-                await this.processConversionResult(
-                  result2,
-                  folderPath,
-                  activeFile
-                );
-                new import_obsidian.Notice("PDF conversion completed");
-              } else {
-                console.error("Error with datalab: ", data.detail);
-                if (typeof data.detail === "string") {
-                  new import_obsidian.Notice(
-                    `Error with Datalab Marker API: ${data.detail}`
-                  );
-                } else {
-                  new import_obsidian.Notice(
-                    `Error with Datalab Marker API, check console for details`
-                  );
-                }
-              }
-            }).catch((error) => {
-              console.error("Error in convertWithDatalab:", error);
-              throw new Error(`Error in convertWithDatalab: ${error}`);
-            });
-          } catch (error) {
-            console.error("Error in file conversion:", error);
-            new import_obsidian.Notice(
-              `An error occurred during file conversion: ${error.message}`
-            );
-            throw error;
-          }
-        } catch (error) {
-          console.error("Error during PDF conversion:", error);
-          new import_obsidian.Notice(
-            "Error during PDF conversion. Check console for details."
-          );
-        }
-      }
-    }).catch((error) => {
-      console.error("Error during PDF conversion:", error);
-      new import_obsidian.Notice("Error during PDF conversion. Check console for details.");
-    });
-    return true;
-  }
-  async handleFolderCreation(activeFile) {
-    var _a;
-    const folderName = (_a = activeFile.path.replace(/\.pdf(?=[^.]*$)/, "").split("/").pop()) == null ? void 0 : _a.replace(/\./g, "-");
-    if (!folderName) {
-      return null;
-    }
-    const folderPath = activeFile.path.replace(/\.pdf(?=[^.]*$)/, "/").split("/").slice(0, -1).join("/") + "/";
-    const folder = folderPath ? this.app.vault.getFolderByPath(folderPath.replace(/\/$/, "")) : void 0;
-    if (!this.settings.createFolder) {
-      return activeFile.path.replace(activeFile.name, "");
-    }
-    if (folder instanceof import_obsidian.TFolder) {
-      return new Promise((resolve) => {
-        new MarkerOkayCancelDialog(
-          this.app,
-          "Folder already exists!",
-          `The folder "${folderPath}" already exists. Do you want to integrate the files into this folder?`,
-          (result) => resolve(result ? folderPath : null)
-        ).open();
-      });
-    } else {
-      await this.app.vault.createFolder(folderPath);
-      return folderPath;
-    }
-  }
-  async checkForExistingFiles(folderPath) {
-    const existingFiles = this.app.vault.getFiles().filter((file) => file.path.startsWith(folderPath));
-    if (existingFiles.length > 0) {
-      return new Promise((resolve) => {
-        new MarkerOkayCancelDialog(
-          this.app,
-          "Existing files found",
-          "Some files already exist in the target folder. Do you want to overwrite them / integrate the new files into this folder?",
-          resolve
-        ).open();
-      });
-    }
-    return true;
-  }
-  async convertPDFContent(pdfContent) {
-    const boundary = "----WebKitFormBoundary" + Math.random().toString(36).substring(2);
-    const parts = [];
-    parts.push(
-      `--${boundary}\r
-Content-Disposition: form-data; name="pdf_file"; filename="document.pdf"\r
-Content-Type: application/pdf\r
-\r
-`
-    );
-    parts.push(new Uint8Array(pdfContent));
-    parts.push("\r\n");
-    parts.push(
-      `--${boundary}\r
-Content-Disposition: form-data; name="extract_images"\r
-\r
-${this.settings.extractContent !== "text" ? "true" : "false"}\r
-`
-    );
-    parts.push(`--${boundary}--\r
-`);
-    const bodyParts = parts.map(
-      (part) => typeof part === "string" ? new TextEncoder().encode(part) : part
-    );
-    const bodyLength = bodyParts.reduce(
-      (acc, part) => acc + part.byteLength,
-      0
-    );
-    const body = new Uint8Array(bodyLength);
-    let offset = 0;
-    for (const part of bodyParts) {
-      body.set(part, offset);
-      offset += part.byteLength;
-    }
-    const requestParams = {
-      url: `http://${this.settings.markerEndpoint}/convert`,
-      method: "POST",
-      body: body.buffer,
-      headers: {
-        "Content-Type": `multipart/form-data; boundary=${boundary}`
-      }
-    };
-    try {
-      const response = await (0, import_obsidian.requestUrl)(requestParams);
-      if (response.status >= 400) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json;
-    } catch (error) {
-      console.error("Error in convertPDFContent:", error);
-      throw error;
-    }
-  }
-  async pollForConversionResult(requestCheckUrl) {
-    var _a, _b;
-    let response = await (0, import_obsidian.requestUrl)({
-      url: requestCheckUrl,
-      method: "GET",
-      headers: {
-        "X-Api-Key": (_a = this.settings.apiKey) != null ? _a : ""
-      },
-      throw: false
-    });
-    let data = await response.json;
-    if (response.status >= 400) {
-      console.error(`Error while getting results, ${data.detail}`);
-    }
-    let maxRetries = 300;
-    while (data.status !== "complete" && maxRetries > 0) {
-      maxRetries--;
-      await new Promise((resolve) => setTimeout(resolve, 2e3));
-      response = await (0, import_obsidian.requestUrl)({
-        url: requestCheckUrl,
-        method: "GET",
-        headers: {
-          "X-Api-Key": (_b = this.settings.apiKey) != null ? _b : ""
-        },
-        throw: false
-      });
-      if (maxRetries % 10 === 0) {
-        new import_obsidian.Notice("Converting...");
-      }
-      data = await response.json;
-      if (response.status >= 400) {
-        console.error(`Error while getting results, ${data.detail}`);
-      }
-    }
-    return data;
-  }
-  async processConversionResult(data, folderPath, originalFile) {
-    if (Array.isArray(data) && data.length === 1 && data[0].result != void 0) {
-      data = data[0].result;
-    } else if (Array.isArray(data) && data.length > 1) {
-      new import_obsidian.Notice("Error, malformed data returned");
-      return;
-    } else if (data.result != void 0) {
-      data = data.result;
-    } else if (Array.isArray(data) && data.length === 1) {
-      data = data[0];
-    }
-    if (this.settings.extractContent !== "images") {
-      await this.createMarkdownFile(data.markdown, folderPath, originalFile);
-    }
-    if (this.settings.extractContent !== "text") {
-      let imageFolderPath = folderPath;
-      if (this.settings.createAssetSubfolder && data.images && Object.keys(data.images).length > 0) {
-        if (!(this.app.vault.getAbstractFileByPath(
-          folderPath + "assets"
-        ) instanceof import_obsidian.TFolder)) {
-          await this.app.vault.createFolder(folderPath + "assets/");
-        }
-        imageFolderPath += "assets/";
-      }
-      await this.createImageFiles(data.images, imageFolderPath, originalFile);
-    }
-    if (this.settings.writeMetadata) {
-      const metadata = data.meta || data.metadata;
-      await this.addMetadataToMarkdownFile(metadata, folderPath, originalFile);
-    }
-    if (this.settings.movePDFtoFolder) {
-      const newFilePath = folderPath + originalFile.name;
-      await this.app.vault.rename(originalFile, newFilePath);
-    }
-    if (this.settings.deleteOriginal) {
-      await this.deleteOriginalFile(originalFile);
-    }
-  }
-  async createMarkdownFile(markdown, folderPath, originalFile) {
-    const fileName = originalFile.name.split(".")[0] + ".md";
-    const filePath = folderPath + fileName;
-    let file;
-    if (this.settings.createAssetSubfolder) {
-      const cleanImagePath = originalFile.name.replace(/\.pdf(?=[^.]*$)/, "_").replace(/\s+/g, "%20");
-      markdown = markdown.replace(
-        /!\[.*\]\((.*)\)/g,
-        `![$1](assets/${cleanImagePath}$1)`
-      );
-    }
-    if (this.settings.extractContent === "text") {
-      markdown = markdown.replace(/!\[.*\]\(.*\)/g, "");
-    }
-    const existingFile = this.app.vault.getAbstractFileByPath(filePath);
-    if (existingFile instanceof import_obsidian.TFile) {
-      file = existingFile;
-      await this.app.vault.modify(file, markdown);
-    } else {
-      file = await this.app.vault.create(filePath, markdown);
-    }
-    new import_obsidian.Notice(`Markdown file created: ${fileName}`);
-    this.app.workspace.openLinkText(file.path, "", true);
-  }
-  async createImageFiles(images, folderPath, originalFile) {
-    for (const [imageName, imageBase64] of Object.entries(images)) {
-      let newImageName = imageName;
-      if (this.settings.createAssetSubfolder) {
-        newImageName = originalFile.name.replace(/\.pdf(?=[^.]*$)/, "_") + imageName;
-      }
-      const imageArrayBuffer = (0, import_obsidian.base64ToArrayBuffer)(imageBase64);
-      if (this.app.vault.getAbstractFileByPath(
-        folderPath + newImageName
-      ) instanceof import_obsidian.TFile) {
-        const file = this.app.vault.getAbstractFileByPath(
-          folderPath + newImageName
-        );
-        if (!(file instanceof import_obsidian.TFile)) {
-          console.error("Error with image: ", file);
-          continue;
-        }
-        await this.app.vault.modifyBinary(file, imageArrayBuffer);
-      } else {
-        await this.app.vault.createBinary(
-          folderPath + newImageName,
-          imageArrayBuffer
-        );
-      }
-    }
-    new import_obsidian.Notice(`Image files created successfully`);
-  }
-  async addMetadataToMarkdownFile(metadata, folderPath, originalFile) {
-    const fileName = originalFile.name.split(".")[0] + ".md";
-    const filePath = folderPath + fileName;
-    const file = this.app.vault.getAbstractFileByPath(filePath);
-    if (file instanceof import_obsidian.TFile) {
-      const frontmatter = this.generateFrontmatter(metadata);
-      await this.app.fileManager.processFrontMatter(file, (fm) => {
-        return frontmatter + fm;
-      }).catch((error) => {
-        console.error("Error adding metadata to markdown file:", error);
-      });
-    }
-  }
-  generateFrontmatter(metadata) {
-    let frontmatter = "---\n";
-    const frontmatterKeys = [
-      "languages",
-      "filetype",
-      "ocr_stats",
-      "block_stats"
-    ];
-    for (const [key, value] of Object.entries(metadata)) {
-      if (frontmatterKeys.includes(key)) {
-        if (key === "ocr_stats" || key === "block_stats") {
-          for (const [k, v] of Object.entries(value)) {
-            frontmatter += `${k}: ${k === "equations" ? JSON.stringify(v).slice(1, -1).replace(/"/g, "") : v}
-`;
-          }
-        } else {
-          frontmatter += `${key}: ${value}
-`;
-        }
-      }
-    }
-    frontmatter += "---\n";
-    return frontmatter;
-  }
-  async deleteOriginalFile(file) {
-    try {
-      await this.app.fileManager.trashFile(file);
-      new import_obsidian.Notice("Original PDF file deleted");
-    } catch (error) {
-      console.error("Error deleting original file:", error);
-    }
-  }
-  checkSettings() {
-    if (!this.settings.markerEndpoint) {
-      new import_obsidian.Notice("Err: Marker API endpoint not set");
-      return false;
-    }
-    if (this.settings.extractContent !== "text" && this.settings.extractContent !== "images" && this.settings.extractContent !== "all") {
-      new import_obsidian.Notice(
-        "Err: Invalid content extraction setting for Marker, check settings"
-      );
-      return false;
-    }
-    return true;
-  }
-  async testConnection(silent) {
-    if (this.settings.apiEndpoint === "datalab") {
-      if (!this.settings.apiKey) {
-        new import_obsidian.Notice("Err: Datalab API key not set");
-        return Promise.resolve(false);
-      } else {
-        try {
-          return (0, import_obsidian.requestUrl)({
-            url: "https://www.datalab.to/api/v1/user_health",
-            method: "GET",
-            headers: {
-              "X-Api-Key": this.settings.apiKey
-            }
-          }).then((response) => {
-            if (response.status !== 200) {
-              new import_obsidian.Notice(
-                `Error connecting to Datalab Marker API: ${response.status}`
-              );
-              console.error(
-                "Error connecting to Datalab Marker API:",
-                response.status
-              );
-              return false;
-            } else {
-              if (response.json.status === "ok") {
-                if (!silent)
-                  new import_obsidian.Notice("Connection successful!");
-                return true;
-              } else {
-                new import_obsidian.Notice("Error connecting to Datalab Marker API");
-                console.error(
-                  "Error connecting to Datalab Marker API:",
-                  response.json
-                );
-                return false;
-              }
-            }
-          }).catch((error) => {
-            new import_obsidian.Notice("Error connecting to Datalab Marker API");
-            console.error("Error connecting to Datalab Marker API:", error);
-            return false;
-          });
-        } catch (error) {
-          new import_obsidian.Notice("Error connecting t Datalabo Marker API");
-          console.error("Error connecting to Datalab Marker API:", error);
-          return Promise.resolve(false);
-        }
-      }
-    } else {
-      try {
-        const boundary = "----WebKitFormBoundary" + Math.random().toString(36).substring(2);
-        const parts = [];
-        parts.push(
-          `--${boundary}\r
-Content-Disposition: form-data; name="pdf_file"; filename="test.pdf"\r
-Content-Type: application/pdf\r
-\r
-`
-        );
-        parts.push(new Uint8Array(0));
-        parts.push("\r\n");
-        parts.push(
-          `--${boundary}\r
-Content-Disposition: form-data; name="extract_images"\r
-\r
-false\r
-`
-        );
-        parts.push(`--${boundary}--\r
-`);
-        const bodyParts = parts.map(
-          (part) => typeof part === "string" ? new TextEncoder().encode(part) : part
-        );
-        const bodyLength = bodyParts.reduce(
-          (acc, part) => acc + part.byteLength,
-          0
-        );
-        const body = new Uint8Array(bodyLength);
-        let offset = 0;
-        for (const part of bodyParts) {
-          body.set(part, offset);
-          offset += part.byteLength;
-        }
-        const requestParams = {
-          url: `http://${this.settings.markerEndpoint}/convert`,
-          method: "POST",
-          body: body.buffer,
-          headers: {
-            "Content-Type": `multipart/form-data; boundary=${boundary}`
-          },
-          throw: false
-          // Don't throw on non-200 status codes
-        };
-        try {
-          const response = await (0, import_obsidian.requestUrl)(requestParams);
-          if (response.status !== 200) {
-            new import_obsidian.Notice(`Error connecting to Marker API: ${response.status}`);
-            console.error("Error connecting to Marker API:", response.status);
-            return false;
-          } else {
-            if (!silent)
-              new import_obsidian.Notice("Connection successful!");
-            return true;
-          }
-        } catch (error) {
-          new import_obsidian.Notice("Error connecting to Marker API");
-          console.error("Error connecting to Marker API:", error);
-          return false;
-        }
-      } catch (error) {
-        new import_obsidian.Notice("Error connecting to Marker API");
-        console.error("Error connecting to Marker API:", error);
-        return Promise.resolve(false);
-      }
-    }
-  }
-  onunload() {
-  }
-  async loadSettings() {
-    this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
-  }
-  async saveSettings() {
-    await this.saveData(this.settings);
-  }
-};
 var MarkerSettingTab = class extends import_obsidian.PluginSettingTab {
   constructor(app, plugin) {
     super(app, plugin);
-    this.plugin = plugin;
   }
   display() {
     const { containerEl } = this;
     containerEl.empty();
     new import_obsidian.Setting(containerEl).setName("API endpoint").setDesc("Select the API endpoint to use").addDropdown(
-      (dropdown) => dropdown.addOption("datalab", "Datalab").addOption("selfhosted", "Selfhosted").setValue(this.plugin.settings.apiEndpoint).onChange(async (value) => {
+      (dropdown) => dropdown.addOption("datalab", "Datalab").addOption("selfhosted", "Selfhosted").addOption("python-api", "Python API").setValue(this.plugin.settings.apiEndpoint).onChange(async (value) => {
         this.plugin.settings.apiEndpoint = value;
         updateAPIKeySetting(value);
         await this.plugin.saveSettings();
@@ -776,6 +70,19 @@ var MarkerSettingTab = class extends import_obsidian.PluginSettingTab {
         await this.plugin.testConnection(false);
       })
     );
+    let pythonEndpointSetting = null;
+    if (this.plugin.settings.apiEndpoint === "python-api") {
+      pythonEndpointSetting = new import_obsidian.Setting(containerEl).setName("Python API address").setDesc("The endpoint to use for the Python API.").addText(
+        (text) => text.setPlaceholder("localhost:8001").setValue(this.plugin.settings.pythonEndpoint).onChange(async (value) => {
+          this.plugin.settings.pythonEndpoint = value;
+          await this.plugin.saveSettings();
+        })
+      ).addButton(
+        (button) => button.setButtonText("Test connection").onClick(async () => {
+          await this.plugin.testConnection(false);
+        })
+      );
+    }
     const apiKeyField = new import_obsidian.Setting(containerEl).setName("API Key").setDesc("Enter your Datalab API key").addText(
       (text) => {
         var _a;
@@ -876,50 +183,23 @@ var MarkerSettingTab = class extends import_obsidian.PluginSettingTab {
       langsField.settingEl.toggle(apiEndpoint === "datalab");
       forceOCRToggle.settingEl.toggle(apiEndpoint === "datalab");
       paginateToggle.settingEl.toggle(apiEndpoint === "datalab");
-      endpointField.settingEl.toggle(apiEndpoint === "selfhosted");
+      if (apiEndpoint === "datalab") {
+        endpointField.settingEl.hide();
+        if (pythonEndpointSetting)
+          pythonEndpointSetting.settingEl.hide();
+      } else if (apiEndpoint === "selfhosted") {
+        endpointField.settingEl.show();
+        if (pythonEndpointSetting)
+          pythonEndpointSetting.settingEl.hide();
+      } else if (apiEndpoint === "python-api") {
+        endpointField.settingEl.hide();
+        if (pythonEndpointSetting)
+          pythonEndpointSetting.settingEl.show();
+      }
     };
     updateAPIKeySetting(this.plugin.settings.apiEndpoint);
     updateMovePDFSetting(this.plugin.settings.createFolder);
     updateWriteMetadataSetting(this.plugin.settings.extractContent);
-  }
-};
-var MarkerOkayCancelDialog = class extends import_obsidian.Modal {
-  constructor(app, title, message, onSubmit) {
-    super(app);
-    this.onSubmit = onSubmit;
-    this.title = title;
-    this.message = message;
-  }
-  onOpen() {
-    const { contentEl } = this;
-    contentEl.createEl("h2", { text: this.title });
-    contentEl.createEl("p", {
-      text: this.message
-    });
-    const buttonContainer = contentEl.createEl("div", {
-      attr: { class: "modal-button-container" }
-    });
-    const yesButton = buttonContainer.createEl("button", {
-      text: "Okay",
-      attr: { class: "mod-cta" }
-    });
-    yesButton.addEventListener("click", () => {
-      this.result = true;
-      this.onSubmit(true);
-      this.close();
-    });
-    const noButton = buttonContainer.createEl("button", {
-      text: "Cancel"
-    });
-    noButton.addEventListener("click", () => {
-      this.result = false;
-      this.onSubmit(false);
-      this.close();
-    });
-  }
-  onClose() {
-    const { contentEl } = this;
-    contentEl.empty();
   }
 };
 var MarkerSupportedLangsDialog = class extends import_obsidian.Modal {
@@ -944,6 +224,875 @@ var MarkerSupportedLangsDialog = class extends import_obsidian.Modal {
   onClose() {
     const { contentEl } = this;
     contentEl.empty();
+  }
+};
+
+// src/conversion.ts
+var import_obsidian3 = require("obsidian");
+
+// src/utils.ts
+var import_obsidian2 = require("obsidian");
+var MarkerOkayCancelDialog = class extends import_obsidian2.Modal {
+  // flag to avoid duplicate resolution
+  constructor(app, title, message, onResolve) {
+    super(app);
+    this.result = null;
+    this.resolved = false;
+    this.titleEl.setText(title);
+    this.contentEl.createDiv({ text: message });
+    this.addButton("OK", () => {
+      if (!this.resolved) {
+        this.resolved = true;
+        this.result = true;
+        onResolve(true);
+        this.close();
+      }
+    });
+    this.addButton("Cancel", () => {
+      if (!this.resolved) {
+        this.resolved = true;
+        this.result = false;
+        onResolve(false);
+        this.close();
+      }
+    });
+  }
+  addButton(text, onClick) {
+    const btn = this.contentEl.createEl("button", { text });
+    btn.addEventListener("click", onClick);
+    return btn;
+  }
+  onClose() {
+    const { contentEl } = this;
+    contentEl.empty();
+    if (!this.resolved) {
+      this.resolved = true;
+    }
+  }
+};
+async function testConnection(app, settings, silent) {
+  var _a, _b, _c;
+  if (settings.apiEndpoint === "datalab") {
+    if (!settings.apiKey) {
+      new import_obsidian2.Notice("Err: Datalab API key not set");
+      return Promise.resolve(false);
+    } else {
+      try {
+        return (0, import_obsidian2.requestUrl)({
+          url: "https://www.datalab.to/api/v1/user_health",
+          method: "GET",
+          headers: {
+            "X-Api-Key": settings.apiKey
+          }
+        }).then((response) => {
+          if (response.status !== 200) {
+            new import_obsidian2.Notice(
+              `Error connecting to Datalab Marker API: ${response.status}`
+            );
+            console.error(
+              "Error connecting to Datalab Marker API:",
+              response.status
+            );
+            return false;
+          } else {
+            if (response.json.status === "ok") {
+              if (!silent)
+                new import_obsidian2.Notice("Connection successful!");
+              return true;
+            } else {
+              new import_obsidian2.Notice("Error connecting to Datalab Marker API");
+              console.error(
+                "Error connecting to Datalab Marker API:",
+                response.json
+              );
+              return false;
+            }
+          }
+        }).catch((error) => {
+          new import_obsidian2.Notice("Error connecting to Datalab Marker API");
+          console.error("Error connecting to Datalab Marker API:", error);
+          return false;
+        });
+      } catch (error) {
+        new import_obsidian2.Notice("Error connecting t Datalabo Marker API");
+        console.error("Error connecting to Datalab Marker API:", error);
+        return Promise.resolve(false);
+      }
+    }
+  } else if (settings.apiEndpoint === "selfhosted") {
+    try {
+      const boundary = "----WebKitFormBoundary" + Math.random().toString(36).substring(2);
+      const parts = [];
+      parts.push(
+        `--${boundary}\r
+Content-Disposition: form-data; name="pdf_file"; filename="test.pdf"\r
+Content-Type: application/pdf\r
+\r
+`
+      );
+      parts.push(new Uint8Array(0));
+      parts.push("\r\n");
+      parts.push(
+        `--${boundary}\r
+Content-Disposition: form-data; name="extract_images"\r
+\r
+false\r
+`
+      );
+      parts.push(`--${boundary}--\r
+`);
+      const bodyParts = parts.map(
+        (part) => typeof part === "string" ? new TextEncoder().encode(part) : part
+      );
+      const bodyLength = bodyParts.reduce(
+        (acc, part) => acc + part.byteLength,
+        0
+      );
+      const body = new Uint8Array(bodyLength);
+      let offset = 0;
+      for (const part of bodyParts) {
+        body.set(part, offset);
+        offset += part.byteLength;
+      }
+      const requestParams = {
+        url: `http://${settings.markerEndpoint}/convert`,
+        method: "POST",
+        body: body.buffer,
+        headers: {
+          "Content-Type": `multipart/form-data; boundary=${boundary}`
+        },
+        throw: false
+        // Don't throw on non-200 status codes
+      };
+      try {
+        const response = await (0, import_obsidian2.requestUrl)(requestParams);
+        if (response.status !== 200) {
+          new import_obsidian2.Notice(`Error connecting to Marker API: ${response.status}`);
+          console.error("Error connecting to Marker API:", response.status);
+          return false;
+        } else {
+          if (!silent)
+            new import_obsidian2.Notice("Connection successful!");
+          return true;
+        }
+      } catch (error) {
+        new import_obsidian2.Notice("Error connecting to Marker API");
+        console.error("Error connecting to Marker API:", error);
+        return false;
+      }
+    } catch (error) {
+      new import_obsidian2.Notice("Error connecting to Marker API");
+      console.error("Error connecting to Marker API:", error);
+      return Promise.resolve(false);
+    }
+  } else if (settings.apiEndpoint === "python-api") {
+    try {
+      const requestParams = {
+        url: `http://${settings.pythonEndpoint}/marker`,
+        method: "POST",
+        throw: false,
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          filepath: "test",
+          page_range: "",
+          languages: (_a = settings.langs) != null ? _a : "en",
+          force_ocr: (_b = settings.forceOCR) != null ? _b : false,
+          paginate_output: (_c = settings.paginate) != null ? _c : false,
+          output_format: "markdown"
+        })
+      };
+      const response = await (0, import_obsidian2.requestUrl)(requestParams);
+      if (response.status === 200) {
+        if (!silent)
+          new import_obsidian2.Notice("Connection successful!");
+        return true;
+      } else {
+        new import_obsidian2.Notice(`Error connecting to Python API: ${response.status}`);
+        return false;
+      }
+    } catch (error) {
+      new import_obsidian2.Notice("Error connecting to Python API");
+      console.error("Error connecting to Python API:", error);
+      return false;
+    }
+  } else {
+    new import_obsidian2.Notice("Err: Invalid API endpoint");
+    return false;
+  }
+}
+async function handleFolderCreation(app, settings, activeFile) {
+  var _a;
+  const folderName = (_a = activeFile.path.replace(/\.pdf(?=[^.]*$)/, "").split("/").pop()) == null ? void 0 : _a.replace(/\./g, "-");
+  if (!folderName) {
+    return null;
+  }
+  const folderPath = activeFile.path.replace(/\.pdf(?=[^.]*$)/, "/").split("/").slice(0, -1).join("/") + "/";
+  const folder = folderPath ? app.vault.getFolderByPath(folderPath.replace(/\/$/, "")) : void 0;
+  if (!settings.createFolder) {
+    let path = activeFile.path.replace(activeFile.name, "");
+    if (!path.endsWith("/")) {
+      path += "/";
+    }
+    return path;
+  }
+  if (folder instanceof import_obsidian2.TFolder) {
+    return new Promise((resolve) => {
+      new MarkerOkayCancelDialog(
+        app,
+        "Folder already exists!",
+        `The folder "${folderPath}" already exists. Do you want to integrate the files into this folder?`,
+        (result) => resolve(result ? folderPath : null)
+      ).open();
+    });
+  } else {
+    await app.vault.createFolder(folderPath);
+    return folderPath;
+  }
+}
+async function checkForExistingFiles(app, folderPath) {
+  const existingFiles = app.vault.getFiles().filter((file) => file.path.startsWith(folderPath));
+  if (existingFiles.length > 0) {
+    return new Promise((resolve) => {
+      new MarkerOkayCancelDialog(
+        app,
+        "Existing files found",
+        "Some files already exist in the target folder. Do you want to overwrite them / integrate the new files into this folder?",
+        resolve
+      ).open();
+    });
+  }
+  return true;
+}
+async function convertPDFContent(settings, pdfContent) {
+  const boundary = "----WebKitFormBoundary" + Math.random().toString(36).substring(2);
+  const parts = [];
+  parts.push(
+    `--${boundary}\r
+Content-Disposition: form-data; name="pdf_file"; filename="document.pdf"\r
+Content-Type: application/pdf\r
+\r
+`
+  );
+  parts.push(new Uint8Array(pdfContent));
+  parts.push("\r\n");
+  parts.push(
+    `--${boundary}\r
+Content-Disposition: form-data; name="extract_images"\r
+\r
+${settings.extractContent !== "text" ? "true" : "false"}\r
+`
+  );
+  parts.push(`--${boundary}--\r
+`);
+  const bodyParts = parts.map(
+    (part) => typeof part === "string" ? new TextEncoder().encode(part) : part
+  );
+  const bodyLength = bodyParts.reduce((acc, part) => acc + part.byteLength, 0);
+  const body = new Uint8Array(bodyLength);
+  let offset = 0;
+  for (const part of bodyParts) {
+    body.set(part, offset);
+    offset += part.byteLength;
+  }
+  const requestParams = {
+    url: `http://${settings.markerEndpoint}/convert`,
+    method: "POST",
+    body: body.buffer,
+    headers: {
+      "Content-Type": `multipart/form-data; boundary=${boundary}`
+    }
+  };
+  try {
+    const response = await (0, import_obsidian2.requestUrl)(requestParams);
+    if (response.status >= 400) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    if (!response.json || Object.keys(response.json).length === 0) {
+      throw new Error("No data returned from Marker API");
+    }
+    return response.json;
+  } catch (error) {
+    console.error("Error in convertPDFContent:", error);
+    throw error;
+  }
+}
+async function pollForConversionResult(settings, requestCheckUrl) {
+  var _a, _b;
+  let response = await (0, import_obsidian2.requestUrl)({
+    url: requestCheckUrl,
+    method: "GET",
+    headers: {
+      "X-Api-Key": (_a = settings.apiKey) != null ? _a : ""
+    },
+    throw: false
+  });
+  let data = await response.json;
+  if (response.status >= 400) {
+    console.error(`Error while getting results, ${data.detail}`);
+  }
+  let maxRetries = 300;
+  while (data.status !== "complete" && maxRetries > 0) {
+    maxRetries--;
+    await new Promise((resolve) => setTimeout(resolve, 2e3));
+    response = await (0, import_obsidian2.requestUrl)({
+      url: requestCheckUrl,
+      method: "GET",
+      headers: {
+        "X-Api-Key": (_b = settings.apiKey) != null ? _b : ""
+      },
+      throw: false
+    });
+    if (maxRetries % 10 === 0) {
+      new import_obsidian2.Notice("Converting...");
+    }
+    data = await response.json;
+    if (response.status >= 400) {
+      console.error(`Error while getting results, ${data.detail}`);
+    }
+  }
+  return data;
+}
+async function createImageFiles(app, settings, images, folderPath, originalFile) {
+  for (const [imageName, imageBase64] of Object.entries(images)) {
+    let newImageName = imageName;
+    if (settings.createAssetSubfolder) {
+      newImageName = originalFile.name.replace(/\.pdf(?=[^.]*$)/, "_") + imageName;
+    }
+    const imageArrayBuffer = (0, import_obsidian2.base64ToArrayBuffer)(imageBase64);
+    if (app.vault.getAbstractFileByPath(folderPath + newImageName) instanceof import_obsidian2.TFile) {
+      const file = app.vault.getAbstractFileByPath(folderPath + newImageName);
+      if (!(file instanceof import_obsidian2.TFile)) {
+        console.error("Error with image: ", file);
+        continue;
+      }
+      await app.vault.modifyBinary(file, imageArrayBuffer);
+    } else {
+      await app.vault.createBinary(folderPath + newImageName, imageArrayBuffer);
+    }
+  }
+  new import_obsidian2.Notice(`Image files created successfully`);
+}
+async function createMarkdownFile(app, settings, markdown, folderPath, originalFile) {
+  const fileName = originalFile.name.split(".")[0] + ".md";
+  const filePath = folderPath + fileName;
+  let file;
+  if (settings.createAssetSubfolder) {
+    const cleanImagePath = originalFile.name.replace(/\.pdf(?=[^.]*$)/, "_").replace(/\s+/g, "%20");
+    markdown = markdown.replace(
+      /!\[.*\]\((.*)\)/g,
+      `![$1](assets/${cleanImagePath}$1)`
+    );
+  }
+  if (settings.extractContent === "text") {
+    markdown = markdown.replace(/!\[.*\]\(.*\)/g, "");
+  }
+  const existingFile = app.vault.getAbstractFileByPath(filePath);
+  if (existingFile instanceof import_obsidian2.TFile) {
+    file = existingFile;
+    await app.vault.modify(file, markdown);
+  } else {
+    file = await app.vault.create(filePath, markdown);
+  }
+  new import_obsidian2.Notice(`Markdown file created: ${fileName}`);
+  app.workspace.openLinkText(file.path, "", true);
+}
+async function addMetadataToMarkdownFile(app, metadata, folderPath, originalFile) {
+  const fileName = originalFile.name.split(".")[0] + ".md";
+  const filePath = folderPath + fileName;
+  const file = app.vault.getAbstractFileByPath(filePath);
+  if (file instanceof import_obsidian2.TFile) {
+    const frontmatter = generateFrontmatter(metadata);
+    await app.fileManager.processFrontMatter(file, (fm) => {
+      return frontmatter + fm;
+    }).catch((error) => {
+      console.error("Error adding metadata to markdown file:", error);
+    });
+  }
+}
+async function deleteOriginalFile(app, file) {
+  try {
+    await app.fileManager.trashFile(file);
+    new import_obsidian2.Notice("Original PDF file deleted");
+  } catch (error) {
+    console.error("Error deleting original file:", error);
+  }
+}
+function generateFrontmatter(metadata) {
+  let frontmatter = "---\n";
+  const frontmatterKeys = ["languages", "filetype", "ocr_stats", "block_stats"];
+  for (const [key, value] of Object.entries(metadata)) {
+    if (frontmatterKeys.includes(key)) {
+      if (key === "ocr_stats" || key === "block_stats") {
+        for (const [k, v] of Object.entries(value)) {
+          frontmatter += `${k}: ${k === "equations" ? JSON.stringify(v).slice(1, -1).replace(/"/g, "") : v}
+`;
+        }
+      } else {
+        frontmatter += `${key}: ${value}
+`;
+      }
+    }
+  }
+  frontmatter += "---\n";
+  return frontmatter;
+}
+function checkSettings(settings) {
+  if (!settings.markerEndpoint) {
+    new import_obsidian2.Notice("Err: Marker API endpoint not set");
+    return false;
+  }
+  if (settings.extractContent !== "text" && settings.extractContent !== "images" && settings.extractContent !== "all") {
+    new import_obsidian2.Notice(
+      "Err: Invalid content extraction setting for Marker, check settings"
+    );
+    return false;
+  }
+  return true;
+}
+async function processConversionResult(app, settings, data, folderPath, originalFile) {
+  if (Array.isArray(data) && data.length === 1 && data[0].result != void 0) {
+    data = data[0].result;
+  } else if (Array.isArray(data) && data.length > 1) {
+    new import_obsidian2.Notice("Error, malformed data returned");
+    return;
+  } else if (data.result != void 0) {
+    data = data.result;
+  } else if (data.success && typeof data.output === "string") {
+    data.markdown = data.output;
+    if (data.metadata && !data.meta) {
+      data.meta = data.metadata;
+    }
+  } else if (Array.isArray(data) && data.length === 1) {
+    data = data[0];
+  } else {
+    console.error("Raw data before failing parse:", data);
+    new import_obsidian2.Notice("Error, parsing data failed");
+    return;
+  }
+  if (settings.extractContent !== "images") {
+    await createMarkdownFile(
+      app,
+      settings,
+      data.markdown,
+      folderPath,
+      originalFile
+    );
+  }
+  if (settings.extractContent !== "text") {
+    let imageFolderPath = folderPath;
+    if (settings.createAssetSubfolder && data.images && Object.keys(data.images).length > 0) {
+      if (!(app.vault.getAbstractFileByPath(folderPath + "assets") instanceof import_obsidian2.TFolder)) {
+        await app.vault.createFolder(folderPath + "assets/");
+      }
+      imageFolderPath += "assets/";
+    }
+    await createImageFiles(
+      app,
+      settings,
+      data.images,
+      imageFolderPath,
+      originalFile
+    );
+  }
+  if (settings.writeMetadata) {
+    const metadata = data.meta || data.metadata;
+    await addMetadataToMarkdownFile(app, metadata, folderPath, originalFile);
+  }
+  if (settings.movePDFtoFolder) {
+    const newFilePath = folderPath + originalFile.name;
+    await app.vault.rename(originalFile, newFilePath);
+  }
+  if (settings.deleteOriginal) {
+    await deleteOriginalFile(app, originalFile);
+  }
+}
+
+// src/conversion.ts
+async function convertPDFToMD(app, settings, file) {
+  const activeFile = file;
+  if (!activeFile) {
+    return false;
+  }
+  if (!checkSettings(settings)) {
+    return false;
+  }
+  await testConnection(app, settings, true).then(async (result) => {
+    if (!result) {
+      return false;
+    } else {
+      try {
+        const folderPath = await handleFolderCreation(
+          app,
+          settings,
+          activeFile
+        );
+        if (!folderPath) {
+          return true;
+        }
+        if (settings.extractContent === "images" || settings.extractContent === "all") {
+          const shouldOverwrite = await checkForExistingFiles(
+            app,
+            folderPath
+          );
+          if (!shouldOverwrite) {
+            return true;
+          }
+        }
+        const pdfContent = await app.vault.readBinary(activeFile);
+        if (settings.extractContent === "text" || settings.extractContent === "all") {
+          new import_obsidian3.Notice(
+            "Converting PDF to Markdown, this can take a few seconds...",
+            1e4
+          );
+        } else {
+          new import_obsidian3.Notice("Extracting images from PDF...", 1e4);
+        }
+        const conversionResult = await convertPDFContent(
+          settings,
+          pdfContent
+        );
+        await processConversionResult(
+          app,
+          settings,
+          conversionResult,
+          folderPath,
+          activeFile
+        );
+        new import_obsidian3.Notice("PDF conversion completed");
+      } catch (error) {
+        console.error("Error during PDF conversion:", error);
+        new import_obsidian3.Notice("Error during PDF conversion. Check console for details.");
+      }
+      return true;
+    }
+  }).catch((error) => {
+    console.error("Error during PDF conversion:", error);
+    new import_obsidian3.Notice("Error during PDF conversion. Check console for details.");
+    return false;
+  });
+  return true;
+}
+async function convertWithDatalab(app, settings, file) {
+  const activeFile = file;
+  if (!activeFile) {
+    return false;
+  }
+  if (!checkSettings(settings)) {
+    return false;
+  }
+  await testConnection(app, settings, true).then(async (result) => {
+    var _a, _b;
+    if (!result) {
+      return false;
+    } else {
+      try {
+        const folderPath = await handleFolderCreation(
+          app,
+          settings,
+          activeFile
+        );
+        if (!folderPath) {
+          return true;
+        }
+        if (settings.extractContent === "images" || settings.extractContent === "all") {
+          const shouldOverwrite = await checkForExistingFiles(
+            app,
+            folderPath
+          );
+          if (!shouldOverwrite) {
+            return true;
+          }
+        }
+        const pdfContent = await app.vault.readBinary(activeFile);
+        if (settings.extractContent === "text" || settings.extractContent === "all") {
+          new import_obsidian3.Notice(
+            "Converting file to Markdown, this can take a few seconds...",
+            1e4
+          );
+        } else {
+          new import_obsidian3.Notice("Extracting images from file...", 1e4);
+        }
+        const boundary = "----WebKitFormBoundary" + Math.random().toString(36).substring(2);
+        const parts = [];
+        const fileFieldName = "file";
+        let contentType = "";
+        switch (activeFile.extension) {
+          case "pdf":
+            contentType = "application/pdf";
+            break;
+          case "docx":
+          case "doc":
+            contentType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+            break;
+          case "pptx":
+          case "ppt":
+            contentType = "application/vnd.openxmlformats-officedocument.presentationml.presentation";
+            break;
+        }
+        parts.push(
+          `--${boundary}\r
+Content-Disposition: form-data; name="${fileFieldName}"; filename="${activeFile.name}"\r
+Content-Type: ${contentType}\r
+\r
+`
+        );
+        parts.push(new Uint8Array(pdfContent));
+        parts.push("\r\n");
+        const addFormField = (name, value) => {
+          parts.push(
+            `--${boundary}\r
+Content-Disposition: form-data; name="${name}"\r
+\r
+${value}\r
+`
+          );
+        };
+        addFormField(
+          "extract_images",
+          settings.extractContent !== "text" ? "true" : "false"
+        );
+        addFormField("langs", (_a = settings.langs) != null ? _a : "en");
+        addFormField("force_ocr", settings.forceOCR ? "true" : "false");
+        addFormField("paginate", settings.paginate ? "true" : "false");
+        parts.push(`--${boundary}--\r
+`);
+        const bodyParts = parts.map(
+          (part) => typeof part === "string" ? new TextEncoder().encode(part) : part
+        );
+        const bodyLength = bodyParts.reduce(
+          (acc, part) => acc + part.byteLength,
+          0
+        );
+        const body = new Uint8Array(bodyLength);
+        let offset = 0;
+        for (const part of bodyParts) {
+          body.set(part, offset);
+          offset += part.byteLength;
+        }
+        const requestParams = {
+          url: `https://www.datalab.to/api/v1/marker`,
+          method: "POST",
+          body: body.buffer,
+          headers: {
+            "Content-Type": `multipart/form-data; boundary=${boundary}`,
+            "X-Api-Key": (_b = settings.apiKey) != null ? _b : ""
+          },
+          throw: false
+          // Don't throw on non-200 status codes
+        };
+        try {
+          const response = await (0, import_obsidian3.requestUrl)(requestParams);
+          const data = response.json;
+          if (response.status === 200) {
+            const result2 = await pollForConversionResult(
+              settings,
+              data.request_check_url
+            );
+            await processConversionResult(
+              app,
+              settings,
+              result2,
+              folderPath,
+              activeFile
+            );
+            new import_obsidian3.Notice("PDF conversion completed");
+          } else {
+            console.error("Error with datalab: ", data.detail);
+            if (typeof data.detail === "string") {
+              new import_obsidian3.Notice(`Error with Datalab Marker API: ${data.detail}`);
+            } else {
+              new import_obsidian3.Notice(
+                `Error with Datalab Marker API, check console for details`
+              );
+            }
+          }
+        } catch (error) {
+          console.error("Error in convertWithDatalab:", error);
+          throw new Error(`Error in convertWithDatalab: ${error}`);
+        }
+      } catch (error) {
+        console.error("Error in file conversion:", error);
+        new import_obsidian3.Notice(
+          `An error occurred during file conversion: ${error.message}`
+        );
+        throw error;
+      }
+    }
+  }).catch((error) => {
+    console.error("Error during PDF conversion:", error);
+    new import_obsidian3.Notice("Error during PDF conversion. Check console for details.");
+  });
+  return true;
+}
+async function convertWithPythonAPI(app, settings, file) {
+  if (!checkSettings(settings)) {
+    return false;
+  }
+  await testConnection(app, settings, true).then(async (result) => {
+    var _a, _b, _c, _d, _e;
+    if (!result)
+      return false;
+    try {
+      const folderPath = await handleFolderCreation(app, settings, file);
+      if (!folderPath)
+        return true;
+      new import_obsidian3.Notice("Converting file with Python API...", 1e4);
+      const adapter = app.vault.adapter;
+      let realFilePath = file.path;
+      if (adapter instanceof import_obsidian3.FileSystemAdapter) {
+        realFilePath = adapter.getFullPath(file.path);
+      }
+      const requestParams = {
+        // Updated to use pythonEndpoint instead of markerEndpoint
+        url: `http://${settings.pythonEndpoint}/marker`,
+        method: "POST",
+        throw: false,
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          filepath: realFilePath,
+          page_range: "",
+          // or parse from user if needed
+          languages: (_a = settings.langs) != null ? _a : "en",
+          force_ocr: (_b = settings.forceOCR) != null ? _b : false,
+          paginate_output: (_c = settings.paginate) != null ? _c : false,
+          output_format: "markdown"
+        })
+      };
+      try {
+        const response = await (0, import_obsidian3.requestUrl)(requestParams);
+        if (response.status !== 200) {
+          try {
+            const errorMsg = (_e = (_d = response.json) == null ? void 0 : _d.error) != null ? _e : `HTTP ${response.status}`;
+            new import_obsidian3.Notice(`Error with Python API: ${errorMsg}`);
+          } catch (e) {
+            new import_obsidian3.Notice(`Error with Python API: ${response.status}`);
+          }
+          return true;
+        }
+        try {
+          const data = JSON.parse(response.text);
+          if (!data.success) {
+            new import_obsidian3.Notice(
+              `Error with Python API: ${data.error || "unknown error"}`
+            );
+            return true;
+          }
+          await processConversionResult(
+            app,
+            settings,
+            data,
+            folderPath,
+            file
+          );
+          new import_obsidian3.Notice("Conversion with Python API completed");
+          if (settings.movePDFtoFolder) {
+            const newFilePath = folderPath + file.name;
+            await app.vault.rename(file, newFilePath);
+          }
+          if (settings.deleteOriginal) {
+            await deleteOriginalFile(app, file);
+          }
+          return true;
+        } catch (parseError) {
+          console.error("Error parsing JSON:", parseError, response.text);
+          new import_obsidian3.Notice(
+            "Error parsing Python API response. Check console for details."
+          );
+          return true;
+        }
+      } catch (error) {
+        console.error("Error during file conversion with Python API:", error);
+        new import_obsidian3.Notice(
+          "Error during file conversion. Check console for details."
+        );
+        return false;
+      }
+    } catch (error) {
+      console.error("Error during file conversion with Python API:", error);
+      new import_obsidian3.Notice("Error during file conversion. Check console for details.");
+      return false;
+    }
+  }).catch((error) => {
+    console.error("Error during file conversion:", error);
+    new import_obsidian3.Notice("Error during file conversion. Check console for details.");
+  });
+  return true;
+}
+
+// src/main.ts
+var Marker = class extends import_obsidian4.Plugin {
+  async onload() {
+    await this.loadSettings();
+    this.addCommands();
+    this.addSettingTab(new MarkerSettingTab(this.app, this));
+    this.registerFileMenuEvent();
+  }
+  registerFileMenuEvent() {
+    this.registerEvent(
+      this.app.workspace.on("file-menu", (menu, file, source) => {
+        if (!(file instanceof import_obsidian4.TFile) || !this.isValidFile(file))
+          return;
+        menu.addItem((item) => {
+          item.setIcon("pdf-file");
+          item.setTitle(this.getMenuItemTitle(file));
+          item.onClick(async () => {
+            await this.convertFile(file);
+          });
+        });
+      })
+    );
+  }
+  isValidFile(file) {
+    const allowedExtensions = this.settings.apiEndpoint === "datalab" ? ["pdf", "docx", "pptx", "ppt", "doc"] : ["pdf"];
+    return allowedExtensions.includes(file.extension);
+  }
+  getMenuItemTitle(file) {
+    const titles = {
+      pdf: "Convert PDF to MD",
+      docx: "Convert DOCX to MD",
+      pptx: "Convert PPTX to MD",
+      ppt: "Convert PPT to MD",
+      doc: "Convert DOC to MD"
+    };
+    return titles[file.extension] || "Convert to MD";
+  }
+  async convertFile(file) {
+    if (this.settings.apiEndpoint === "datalab") {
+      await convertWithDatalab(this.app, this.settings, file);
+    } else if (this.settings.apiEndpoint === "selfhosted") {
+      await convertPDFToMD(this.app, this.settings, file);
+    } else if (this.settings.apiEndpoint === "python-api") {
+      await convertWithPythonAPI(this.app, this.settings, file);
+    }
+  }
+  addCommands() {
+    this.addCommand({
+      id: "marker-convert-to-md",
+      name: "Convert to MD",
+      checkCallback: (checking) => {
+        const activeFile = this.app.workspace.getActiveFile();
+        if (!activeFile || !this.isValidFile(activeFile))
+          return false;
+        if (checking)
+          return true;
+        this.convertFile(activeFile);
+      }
+    });
+  }
+  async onunload() {
+  }
+  async loadSettings() {
+    this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+  }
+  async saveSettings() {
+    await this.saveData(this.settings);
+  }
+  async testConnection(silent) {
+    return testConnection(this.app, this.settings, silent);
   }
 };
 
