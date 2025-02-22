@@ -65,14 +65,19 @@ Ogni livello svolge una funzione specifica e interagisce con il livello adiacent
    Si occupa dell'instradamento dei pacchetti e dell'indirizzamento logico, utilizzando protocolli come **IP**.  ^networkLayer
    
    
-4. **Livello di Trasporto (Transport)**:
-   Assicura la consegna affidabile dei dati tra i dispositivi, con protocolli come **TCP** e **UDP**.
-5. **Livello di Sessione (Session)**:
-   Gestisce l'avvio, il mantenimento e la chiusura delle sessioni di comunicazione tra applicazioni.
-6. **Livello di Presentazione (Presentation)**:
-   Converte, comprime e cripta i dati per garantire compatibilità tra i diversi sistemi.
-7. **Livello di Applicazione (Application)**:
-   Fornisce servizi di rete agli utenti e alle applicazioni, come **HTTP, FTP e SMTP**.
+4. **[[Sistemi digitali/Lezione 16/Computer Networks#Transport Layer|Livello di Trasporto (Transport)]]**:
+   Assicura la consegna affidabile dei dati tra i dispositivi, con protocolli come **TCP** e **UDP**.  ^transportLayer
+   
+5. **[[Sistemi digitali/Lezione 16/Computer Networks#Session Layer|Livello di Sessione (Session)]]**:
+   Gestisce l'avvio, il mantenimento e la chiusura delle sessioni di comunicazione tra applicazioni.  ^sessionLayer
+   
+   
+6. **[[Sistemi digitali/Lezione 16/Computer Networks#Presentation Layer|Livello di Presentazione (Presentation)]]**:
+   Converte, comprime e cripta i dati per garantire compatibilità tra i diversi sistemi.   ^presentationLayer
+   
+   
+7. **[[Sistemi digitali/Lezione 16/Computer Networks#Application Layer|Livello di Applicazione (Application)]]**:
+   Fornisce servizi di rete agli utenti e alle applicazioni, come **HTTP, FTP e SMTP**.  ^applicationLayer
 
 Nei primi tre livelli (Fisico, Data Link e Rete), il dato viene generalmente chiamato **bit, frame o pacchetto**, mentre nei livelli superiori può essere chiamato **segmento, messaggio o dato** a seconda del contesto.
 
