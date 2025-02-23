@@ -609,5 +609,14 @@
       ],
       "key": "G"
     }
+  ],
+  "open-with-default-app:show": [
+    {
+      "modifiers": [
+        "Alt",
+        "Meta"
+      ],
+      "key": "E"
+    }
   ]
 }

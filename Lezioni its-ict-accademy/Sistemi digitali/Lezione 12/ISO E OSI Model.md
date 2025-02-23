@@ -57,26 +57,30 @@ Come detto poco sopra, il modello **ISO/OSI** è strutturato in **sette livelli*
 Ogni livello svolge una funzione specifica e interagisce con il livello adiacente.
 ![[ISO-OSI Reference Model.png]]
 
-1. **Livello Fisico(Physical):**
-   Definisce le caratteristiche fisiche della rete, come cavi, segnali elettrici e trasmissione dei bit.
-2. **Livello di Data Link(Collegamento tra dati):**
-   Organizza i bit in **frame**, gestisce gli errori di trasmissione e controlla l'accesso al mezzo trasmissivo.
-3. **[[Sistemi digitali/Lezione 16/Computer Networks#Network layer|Livello di Rete (Network)]]**:
+1. **[[#livelloFisico Livello fisico|Livello Fisico(Physical)]]:** 
+   ==Definisce le caratteristiche fisiche della rete, come cavi, segnali elettrici e trasmissione dei bit==.  ^livelloFisico
+   
+   
+2. **[[#dataLink-layer Livello data link|Livello di Data Link(Collegamento tra dati)]]:** 
+   ==Organizza i bit in **frame**, gestisce gli errori di trasmissione e controlla l'accesso al mezzo trasmissivo.==  ^dataLink-layer
+   
+
+3. **[[Network, Transport, Session, Presentation, Application Layers#Network layer|Livello di Rete (Network)]]**:
    Si occupa dell'instradamento dei pacchetti e dell'indirizzamento logico, utilizzando protocolli come **IP**.  ^networkLayer
    
    
-4. **[[Sistemi digitali/Lezione 16/Computer Networks#Transport Layer|Livello di Trasporto (Transport)]]**:
+4. **[[Network, Transport, Session, Presentation, Application Layers#Transport Layer|Livello di Trasporto (Transport)]]**:
    Assicura la consegna affidabile dei dati tra i dispositivi, con protocolli come **TCP** e **UDP**.  ^transportLayer
    
-5. **[[Sistemi digitali/Lezione 16/Computer Networks#Session Layer|Livello di Sessione (Session)]]**:
+5. **[[Network, Transport, Session, Presentation, Application Layers#Session Layer|Livello di Sessione (Session)]]**:
    Gestisce l'avvio, il mantenimento e la chiusura delle sessioni di comunicazione tra applicazioni.  ^sessionLayer
    
    
-6. **[[Sistemi digitali/Lezione 16/Computer Networks#Presentation Layer|Livello di Presentazione (Presentation)]]**:
+6. **[[Network, Transport, Session, Presentation, Application Layers#Presentation Layer|Livello di Presentazione (Presentation)]]**:
    Converte, comprime e cripta i dati per garantire compatibilità tra i diversi sistemi.   ^presentationLayer
    
    
-7. **[[Sistemi digitali/Lezione 16/Computer Networks#Application Layer|Livello di Applicazione (Application)]]**:
+7. **[[Network, Transport, Session, Presentation, Application Layers#Application Layer|Livello di Applicazione (Application)]]**:
    Fornisce servizi di rete agli utenti e alle applicazioni, come **HTTP, FTP e SMTP**.  ^applicationLayer
 
 Nei primi tre livelli (Fisico, Data Link e Rete), il dato viene generalmente chiamato **bit, frame o pacchetto**, mentre nei livelli superiori può essere chiamato **segmento, messaggio o dato** a seconda del contesto.
@@ -85,7 +89,7 @@ I primi tre livelli sono spesso detti **"media layers"**, perché gestiscono il 
 Mentre gli ultimi 4 livelli sono detti **"Host Layers"** perché si occupano della elaborazione dei dati e del loro utilizzo delle applicazioni e dell'utente; in parole povere si lavorano a livello software per garantire che i dati vengano **trasferiti, elaborati e presentati correttamente** all'utente.
 I dispositivi finali, come **computer e smartphone**, operano su tutti e sette i livelli del modello.
 ## I primi 2 livelli del modello ISO/OSI
-### Livello fisico
+## [[#^livelloFisico|Livello fisico]] 
 Il **livello fisico** è responsabile della connessione fisica tra i dispositivi. Si occupa della trasmissione e della ricezione di **flussi di bit grezzi** su un mezzo fisico.
 
 **Principali mezzi fisici di trasmissione:**
@@ -203,7 +207,7 @@ In conclusione l'immagine dimostra che in una connessione con una certa larghezz
 
 In sintesi, questa immagine aiuta a visualizzare come **larghezza di banda e ritardo influenzano la quantità di dati che possono essere in transito contemporaneamente**.
 
-## Livello data link 
+## [[#^dataLink-layer|Livello data link ]] 
 Il livello di Data Link è il secondo strato del modello OSI e si occupa della connessione logica nodo a nodo, gestendo la trasmissione dei dati in forma di frame tra dispositivi all'interno di una rete. Questo livello è fondamentale per garantire che i dati vengano trasmessi in modo affidabile e ordinato tra i vari nodi della rete, che possono includere router, switch e altri dispositivi.
 
 #### Funzioni del Livello di Data Link

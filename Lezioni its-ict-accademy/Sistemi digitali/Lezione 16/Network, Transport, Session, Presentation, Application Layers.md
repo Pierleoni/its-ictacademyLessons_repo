@@ -27,7 +27,7 @@ Anche in questo livello abbiamo l'header del pachetto.
 
 ### [[#^routingProc|Routing Process]]
 Il processo di questo livello viene chiamato in processo di routing ed è diviso in 3 step:
-1. [[Sistemi digitali/Lezione 16/Computer Networks#Path determination|Determinazione del percorso]]: 
+1. [[Network, Transport, Session, Presentation, Application Layers#Path determination|Determinazione del percorso]]: 
    determina il percorso dei dati. 
    ==I routers usano delle [[#^tableRouting|tabelle di routing]] e [[#Algoritmi di routing|algoritmi]] al loro interno per decidere il percorso migliore per i data packets.==  ^pathDet
 
@@ -72,7 +72,7 @@ Gli algoritmi di routing per sceglier percorso migliore si basano su due algorit
 Andiamo a vedere nel dettaglio questi due algoritmi:
 Abbiamo detto che la metodologia SPF, che sfrutta la funzione cumulativa:
   determina una somma per calcolare il percorso più breve. 
-  Supponiamo di avere la [[Sistemi digitali/Lezione 16/Computer Networks#^img-pathRouting|topologia di rete dell'immagine sopra]]; in questo caso l'algoritmo somma i pesi delle connessioni nella rete e identica il percorso più breve. 
+  Supponiamo di avere la [[Network, Transport, Session, Presentation, Application Layers#^img-pathRouting|topologia di rete dell'immagine sopra]]; in questo caso l'algoritmo somma i pesi delle connessioni nella rete e identica il percorso più breve. 
   Quindi in parole povere, il percorso più breve è determinato sommando i vari pesi sulle connessioni, quella che restituisce il valore più basso è il percorso più breve.
   
 > [!done] Casi d'uso
