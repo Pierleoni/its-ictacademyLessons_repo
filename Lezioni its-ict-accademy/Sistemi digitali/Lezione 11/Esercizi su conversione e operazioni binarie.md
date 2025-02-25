@@ -10,7 +10,7 @@
 | 1/2        | 0         | 1     |
 >[!done] risultato = 11001 
 
-2. Converti il numero **54** in binario. Prova il risultato.
+1. Converti il numero **54** in binario. Prova il risultato.
 
 | Operazione | risultato | resto |
 | ---------- | --------- | ----- |
@@ -23,7 +23,7 @@
 
 >[!done] risultato = 110110
 
-3. Converti il numero **100** in binario. Prova il risultato.
+1. Converti il numero **100** in binario. Prova il risultato.
 
 | Operazione | risultato | resto |
 | ---------- | --------- | ----- |
@@ -37,7 +37,7 @@
 
 >[!done] risultato = 1100100
 
-4. Converti il numero **73** in binario. Prova il risultato.
+1. Converti il numero **73** in binario. Prova il risultato.
 
 | Operazione | risultato | resto |
 | ---------- | --------- | ----- |
@@ -51,7 +51,7 @@
 
 >[!done] risultato = 1001001
 
-5. Converti il numero **89** in binario. Prova il risultato.
+1. Converti il numero **89** in binario. Prova il risultato.
 
 | Operazione | risultato | resto |
 | ---------- | --------- | ----- |
@@ -65,7 +65,7 @@
 
 >[!done] Risultato = 1011001
 
-6. Converti il numero **155** in binario. Prova il risultato.
+1. Converti il numero **155** in binario. Prova il risultato.
 
 | Operazione | risultato | resto |
 | ---------- | --------- | ----- |
@@ -80,7 +80,7 @@
 
 >[!done] Risultato = 10011011
 
-7. Converti il numero **243** in binario. Prova il risultato.
+1. Converti il numero **243** in binario. Prova il risultato.
 243/2 = 121 resto = 1 
 121/2 = 60   resto = 1 
 60/2 = 30     resto = 0 
@@ -91,7 +91,7 @@
 1/2 = 0         Resto = 1 
 >[!done] Risultato = 11110011
 
-8. Converti il numero **375** in binario. Prova il risultato.
+1. Converti il numero **375** in binario. Prova il risultato.
 375/2 = 187  resto = 1
 187/2 = 93    resto = 1 
 93/2 = 46      resto = 1
@@ -108,7 +108,7 @@
 
 >[!done] Risultato = 101110111
 
-9. Converti il numero **158** in binario. Prova il risultato.
+1. Converti il numero **158** in binario. Prova il risultato.
 158/2 = 79  resto = 0
 79/2 = 39    resto = 1 
 39/2 = 19    resto = 1 
@@ -119,7 +119,7 @@
 1/2 = 0        resto = 1 
 >[!done] Risultato = 10011110
 
-10. Converti il numero **256** in binario. Prova il risultato.
+1. Converti il numero **256** in binario. Prova il risultato.
 256/2 = 128 resto = 0 
 128/2 = 64   resto = 0 
 64/2 = 32     resto = 0
@@ -146,7 +146,7 @@ $$ 1*2^3 + 1*2^2 + 0*2^1 + 1*2^0 = 8 + 4 + 0 + 1 = 13$$
 1/2 = 0   resto = 1 
 > [!check] Risultato = 1101
 
-2. Converti il numero **10110** in decimale. Prova il risultato.
+1. Converti il numero **10110** in decimale. Prova il risultato.
 $$1*2^4 + 0*2^3 + 1*2^2 + 1*2^1 + 0*2^0 = 16 + 0 + 4 + 2 + 0 = 22$$
 22/2 = 11 resto = 0 
 11/2 = 5   resto = 1 
@@ -155,7 +155,7 @@ $$1*2^4 + 0*2^3 + 1*2^2 + 1*2^1 + 0*2^0 = 16 + 0 + 4 + 2 + 0 = 22$$
 1/2 = 0     resto = 1
 > [!done] Risultato = 10110
 
-3. Converti il numero **100101** in decimale. Prova il risultato.
+1. Converti il numero **100101** in decimale. Prova il risultato.
 $$ 1*2^5 + 0*2^4 + 0*2^3 + 1*2^2 + 0*2^1 + 1*2^0 = 32 + 0 + 0 + 4 + 0 + 1 = 37$$
 37/2 = 18 resto = 1 
 18/2 = 9   resto = 0 
@@ -165,7 +165,7 @@ $$ 1*2^5 + 0*2^4 + 0*2^3 + 1*2^2 + 0*2^1 + 1*2^0 = 32 + 0 + 0 + 4 + 0 + 1 = 37$$
 1/2 = 0     resto = 1
 > [!done] Risultato = 100101
 
-4. Converti il numero **1100100** in decimale. Prova il risultato.
+1. Converti il numero **1100100** in decimale. Prova il risultato.
 $$ (1*2^6) + (1*2^5) + (0*2^4) + (0*2^3) + (1*2^2) + (0*2^1) + (0*2^0) = 64 + 32 + 0 + 0 + 4 + 0 = 100$$
 
 100/2 = 50 resto = 0 
@@ -177,7 +177,7 @@ $$ (1*2^6) + (1*2^5) + (0*2^4) + (0*2^3) + (1*2^2) + (0*2^1) + (0*2^0) = 64 + 32
 1/2 = 0       resto = 1 
 > [!done] Risultato = 1100100
 
-5. Converti il numero **101011** in decimale. Prova il risultato.
+1. Converti il numero **101011** in decimale. Prova il risultato.
 $$ (1*2^5) + (0*2^4) + (1*2^3) + (0*2^2) + (1*2^1) + (1*2^0) = 
 32 + 0 + 8 + 0 + 2 + 1 = 43$$
 43/2 = 21 resto = 1 
@@ -188,7 +188,7 @@ $$ (1*2^5) + (0*2^4) + (1*2^3) + (0*2^2) + (1*2^1) + (1*2^0) =
 1/2 = 0     resto = 1 
 > [!done] Risultato = 101011
 
-6. Converti il numero **11110** in decimale. Prova il risultato.
+1. Converti il numero **11110** in decimale. Prova il risultato.
 $$(1*2^4) + (1*2^3) + (1*2^2) + (1*2^1) + (0*2^0) = 16 + 8 + 4 + 2 + 0 = 30$$
 30/2 = 15  resto = 0
 15/2 = 7    resto = 1 
@@ -197,7 +197,7 @@ $$(1*2^4) + (1*2^3) + (1*2^2) + (1*2^1) + (0*2^0) = 16 + 8 + 4 + 2 + 0 = 30$$
 1/2 = 0      resto = 1 
 > [!done] Risultato = 11110
 
-7. Converti il numero **10101010** in decimale. Prova il risultato.
+1. Converti il numero **10101010** in decimale. Prova il risultato.
 $$(1*2^7) + (0*2^6) + (1*2^5) + (0*2^4) + (1*2^3) + (0*2^2) + (1*2^1) + (0*2^0) = 128 + 0 + 32 + 0 + 8 + 0 + 2 + 0 =  170$$
 170/2 = 85 resto = 0 
 85/2 = 42   resto = 1
@@ -209,7 +209,7 @@ $$(1*2^7) + (0*2^6) + (1*2^5) + (0*2^4) + (1*2^3) + (0*2^2) + (1*2^1) + (0*2^0) 
 1/2 = 0       resto = 1 
 > [!done] Risultato = 10101010
 
-8. Converti il numero **1010111110** in decimale. Prova il risultato.
+1. Converti il numero **1010111110** in decimale. Prova il risultato.
 $$
 (1*2^9) + (0*2^8) + (1*2^7) + (0*2^6) + (1*2^5) + (1*2^4) + (1*2^3) + (1*2^2) + (1*2^1) + (0*2^0) = 512 + 0 + 128 + 32 + 16 + 8 +4 +2 = 702
 $$

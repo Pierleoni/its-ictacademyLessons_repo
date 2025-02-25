@@ -160,21 +160,82 @@ In questo caso l'applicazione deve inviare il messaggio **M** alla sua **entità
    il livello fisico, trasferisce i dati alla macchina di destinazione.
 6. Nella macchina di destinazione, il messaggio risale attraverso ciascun livello, rimuovendo intestazioni e trailer ad ogni passaggio. Il messaggio viene completamente ricostruito e diventa leggibile una volta che raggiunge il livello 5.
 
-### Tipologie di rete offerti 
-Connectio Oriented services:
-Usiamo come analogia la linea telefonica; fanno la stessa cosa inizialnillazon la conessione che viene mantoeuta fino a che i due dispoitivi semttono di comunicare. 
-Questo tipo di servizi sono utilizzati quando l'affidabilita rispetto alla velocità, questi connessioni hanno meccanismi di controllo nell trasferiemto dell'informazione ma ciò li porta ad essere servizi più lenti.
-Quijdi qui garantisce l'ordine di invio: il primo pacchetto che parte è il primo ad essere inviato e l'ultimo pacchetto e l'ultima ad arrrviare anche perché quando invio un pacchetto devo riceve confemra, ciò avviene purequando ricevo un pacchetto (Questo tipo di servizio è molto utilizzato dalle banche). 
-Ciò che rallenta questi servizi è lo handshaking: cioè è un processo che va a rallentare la connessione perché l'apre la connessione in più bisonga tenere conto dell'invio. 
-L'handshaking serve per inizializzare la connessione tra un device A e un device B:
-A dice a B che deve inviargli i dati e li invia solo quando B gli invia il messaggio di OK,
-L'affidabilità è anche garantita con meccANISMI di controllo dell'erroe come gli ACK: 
-un esempio è quello di mandare un pachetto e aspetto la confemra di arrivo, se questo ACK non arrIVA per un toto di tempo devo presumere che quel pachhetto sia perso e devo considerare di inviarlo di nuovo.
-Il time to leave:
+# Tipologie di rete offerti 
+## Connection Oriented services:
+==I servizi orientati alla connessione sono quelli in cui viene stabilita una connessione dedicata tra i due nodi di comunicazione prima che inizi il trasferimento dei dati. Questo tipo di servizio garantisce che i dati vengano trasmessi in modo affidabile e nell'ordine corretto.== 
+
+![[Servizi orientati alla connessione.png]]
+Per usare un'analogia, immagina una linea telefonica: quando stabilisci una connessione, questa rimane attiva fino a che non si smette di parlare. 
+Lo stesso avviene con i servizi orientati alla connessione: ==una volta che i dispositivi si connettono, la connessione rimane aperta fino a quando non si completa la comunicazione.==  
+### **Caratteristiche principali dei servizi orientati alla connessione:**
+
+- **Affidabilità:** 
+  ==La trasmissione dei dati è garantita e gli errori di trasmissione vengono rilevati e corretti. Viene utilizzato in applicazioni in cui l'affidabilità è più importante della velocità, come le email e il banking online.==
+- **Ordinamento:** 
+  ==I dati arrivano nell'ordine in cui sono stati inviati.==
+- **Controllo del flusso:** 
+  ==Regola la quantità di dati inviati per evitare di sovraccaricare il ricevitore.==
+- **Establishing and Closing the Connection (Stabilire e chiudere la connessione):** 
+  ==Richiede un processo di **handshake** iniziale per stabilire la connessione e un processo di chiusura per terminarla.== 
+
+### Handshaking 
+==Il processo di handshaking serve per stabilire la connessione tra due o più dispositivi.==  
+#### Apertura la connessione
+1. **Richiesta di connessione:**
+   Il dispositivo A manda una richiesta al dispositivo B per iniziare la connessione 
+2. **Risposta:**
+   Il dispositivo B risponde al dispositivo A, confermando di aver ricevuto la richiesta ed essere pronto a comunicare.
+3. **Conferma:**
+   Il dispositivo A invia una conferma di ricezione della risposta di dispositivo B.
+
+#### Chiusura della connessione
+ 1. **Richiesta di terminazione:** 
+    Quando la comunicazione è terminata, il dispositivo A invia una richiesta di terminazione al dispositivo B.
+ 2. **Riconoscimento:** 
+    Il dispositivo B riconosce la richiesta di terminazione, indicando che è pronto per chiudere la connessione.
+ 3. **Conferma finale:** 
+    Il dispositivo A invia una conferma finale, completando il processo di terminazione.
+Tuttavia questo processo è anche responsabile del rallentamento della connessione nella rete. 
+
+Uno degli aspetti fondamentali di questi servizi è che garantiscono l'ordine dei pacchetti. 
+Il primo pacchetto che viene inviato sarà il primo a essere ricevuto, e l'ultimo sarà l'ultimo. 
+Questo accade anche grazie a meccanismi di controllo, come gli ACK (Acknowledgment)
+
+### Il servizio ACK (Acknowledgment)
+È un meccanismo utilizzato per garantire che i dati siano correttamente ricevuti dal destinatario.
+1. **Invio del pacchetto:** 
+   ==Il dispositivo A invia un pacchetto di dati al dispositivo B.== 
+2. **Ricezione e riconoscimento:** 
+   ==Quando il dispositivo B riceve il pacchetto, invia un messaggio di riconoscimento (ACK) al dispositivo A per indicare che il pacchetto è stato ricevuto correttamente.==
+3. **Ritrasmissione in caso di errore:** 
+   ==Se il dispositivo A non riceve l'ACK entro un certo periodo di tempo, ritrasmette il pacchetto, assumendo che sia stato perso o danneggiato durante la trasmissione.== 
+   Questo processo continua per ogni pacchetto di dati inviato, garantendo che tutti i pacchetti siano ricevuti correttamente e nell'ordine giusto.
+ 
+Oltre alla gestione dell'ordine e dell'affidabilità, il controllo del flusso è un'altra caratteristica importante. 
+Questo meccanismo regola la quantità di dati inviati, evitando di sovraccaricare il ricevente. La connessione viene anche chiusa tramite un processo simile all'handshaking, in cui il dispositivo A invia una richiesta di terminazione, e B risponde per confermare la chiusura.
+**Il Time To Live (TTL):**  
+Il TTL è un campo nei pacchetti che determina il numero massimo di salti che un pacchetto può fare sulla rete prima di essere scartato.
 
 ### Servizi non orientati alla connessione:
-QUesti sefvizi non è richiesta una conessione permanente tra idevice che comunicano, imessaggi vengono mandati in rete e prendono un altro percorso, questo tipo di servizio è preferibile quando si vuole la velocità anziché la velocità.
-Sono basati su questa connesione i servizi i streaming e sevizi di gaming online. 
+==In questi servizi non è richiesta una connessione permanente (o establishement di una connessione dedicata) tra i dispositivi che comunicano prima di inviare i dati.==  
 
+![[Servizi non orientati alla connessione.png]]
+Ogni pacchetto di dati viene trattato in modo indipendente e contiene tutte le informazioni necessarie per raggiungere la destinazione. 
+==**I pacchetti con la stessa sorgente e destinazione possono percorrere vie diverse e arrivare in tempi differenti.**== 
+==**Questi servizi sono preferibili quando si privilegia la velocità rispetto all'affidabilità**==, poiché ==non viene eseguito un processo di handshake, risultando in **una latenza inferiore rispetto ai servizi orientati alla connessione**==. 
+Sono utilizzati in applicazioni dove la velocità è più importante della garanzia di consegna, come nel caso dello **streaming e dei servizi di gaming online**.
+### **Caratteristiche principali dei servizi non orientati alla connessione:**
+
+- **Semplicità e velocità:**  
+    ==Non richiedono un processo di handshake, riducendo così la latenza rispetto ai servizi orientati alla connessione.==
+    
+- **Nessuna garanzia di consegna:**  
+    ==I pacchetti possono essere persi, duplicati o arrivare in ordine sbagliato.==
+    
+- **Indipendenza dei pacchetti:**  
+    ==Ogni pacchetto è trattato separatamente e contiene tutte le informazioni necessarie per raggiungere la destinazione, senza bisogno di stabilire una connessione persistente.==
+    
+- **Utilizzo in applicazioni specifiche:**  
+    ==Questo tipo di servizio è utilizzato in situazioni in cui la velocità è più importante dell'affidabilità, come nel caso dello streaming e nei giochi online==
 
 

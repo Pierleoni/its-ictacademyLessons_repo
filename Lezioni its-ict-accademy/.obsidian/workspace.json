@@ -13,13 +13,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Sistemi digitali/Lezione 11/Internetwork-Protocols.md",
+                "file": "Inglese/Riassunto dei 3 capitoli di inglese.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Internetwork-Protocols"
+              "title": "Riassunto dei 3 capitoli di inglese"
             }
           },
           {
@@ -28,13 +28,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Sistemi digitali/Lezione 12/ISO E OSI Model.md",
+                "file": "Sistemi digitali/Lezione 12/I fundamentals di un Sistema Operativo.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "ISO E OSI Model"
+              "title": "I fundamentals di un Sistema Operativo"
             }
           },
           {
@@ -52,7 +52,8 @@
               "title": "Network, Transport, Session, Presentation, Application Layers"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -265,26 +266,29 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "a3c89a053243abbf",
+  "active": "2b2396cd631918e7",
   "lastOpenFiles": [
+    "img/Motherboard.png",
+    "img/Firmware.png",
+    "Sistemi digitali/Lezione 11/Computer Architectures.md",
+    "Sistemi digitali/Lezione 11/Esercizi su conversione e operazioni binarie.md",
+    "Sistemi digitali/Lezione 10/Le architetture di un Computer.md",
+    "Sistemi digitali/Lezione 7/Spiegazione per i vantaggi e svantaggi dei modelli Client server e P2P, spiegazione delle tre entità di spotify..md",
+    "Sistemi digitali/Lezione 12/I fundamentals di un Sistema Operativo.md",
+    "Sistemi digitali/Lezione 11/Internetwork-Protocols.md",
+    "img/Servizi non orientati alla connessione.png",
+    "img/Servizi orientati alla connessione.png",
+    "Sistemi digitali/Lezione 12/ISO E OSI Model.md",
+    "Inglese/Riassunto dei 3 capitoli di inglese.md",
     "img/Network Communication Technical.png",
     "img/Network Communication2.png",
-    "Sistemi digitali/Lezione 12/ISO E OSI Model.md",
-    "Sistemi digitali/Lezione 11/Internetwork-Protocols.md",
     "Sistemi digitali/Lezione 16/Network, Transport, Session, Presentation, Application Layers.md",
     "img/Network communication.png",
     "img/Blocchi di inizio_fine.png",
-    "Sistemi digitali/Lezione 11/Computer Architectures.md",
-    "Sistemi digitali/Lezione 10/Le architetture di un Computer.md",
-    "Sistemi digitali/Lezione 12/Computer Architectures.md",
     "img/Full-duplex Mode.png",
     "img/Half-duplex.png",
     "img/Header del segmento.png",
-    "img/Sockets.png",
-    "img/Packet Header Structure.png",
-    "img/Network Layer.png",
     "Untitled.canvas",
-    "img/Stack of Layers.png",
     "Sistemi digitali/Lezione 16",
     "Python/Lezione 2/Collections.md",
     "Bandwidth (Larghezza di banda).md",
@@ -293,7 +297,6 @@
     "Ripasso Python.md",
     "Python",
     "Esercitazione su Python.md",
-    "Sistemi digitali/Lezione 7/Spiegazione per i vantaggi e svantaggi dei modelli Client server e P2P, spiegazione delle tre entità di spotify..md",
     "Sistemi digitali/Lezione 7/Complemento a 2 e Reti di calcolatori.md",
     "Sistemi digitali",
     "Python/Lezione 2/Gli Operatori.md",
@@ -311,8 +314,6 @@
     "Inglese/Logical and Algorithmic thinking part 1.pdf",
     "Inglese",
     "Nuova cartella",
-    "Python/Lezione 1/Esercizio Diagrammi a blocchi.md",
-    "Python/Lezione 2/I modificatori.md",
     "Sistemi digitali/Lezione 12"
   ]
 }
