@@ -58,6 +58,42 @@ img[alt*= "center"] {
     margin-left: auto;
 }
 
+img[alt*= "top-center"]{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+img[alt*="top-left"] {
+    position: absolute; /* Posiziona l'immagine in modo assoluto */
+    top: 0; /* Allinea l'immagine al bordo superiore del contenitore */
+    left: 0; /* Allinea l'immagine al bordo sinistro del contenitore */
+}
+
+img[alt*="top-right"] {
+    position: absolute; /* Posiziona l'immagine in modo assoluto */
+    top: 0; /* Allinea l'immagine al bordo superiore del contenitore */
+    right: 0; /* Allinea l'immagine al bordo destro del contenitore */
+}
+
+img [alt*= "bottom-right"] {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+img[alt*="bottom-center"]{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+img [alt*= "bottom-left"]{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
 /* Stile per le intestazioni della tabella */
 
 th {

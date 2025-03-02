@@ -2,10 +2,10 @@
   "choices": [],
   "macros": [
     {
-      "name": "Insert Block ID",
-      "id": "761dd52f-a077-4629-9aea-1188d2008e5d",
+      "name": "Translate Clipboard",
+      "id": "734417ec-1158-45c1-b7ed-50b1d9b7f650",
       "commands": [],
-      "runOnStartup": false
+      "runOnStartup": true
     }
   ],
   "inputPrompt": "single-line",

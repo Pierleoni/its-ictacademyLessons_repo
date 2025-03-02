@@ -1,13 +1,14 @@
 {
   "callouts": {
     "custom": [
-      "deep"
+      "deep",
+      "obs"
     ],
     "settings": {
       "deep": [
         {
           "changes": {
-            "icon": "lucide-award",
+            "icon": "lucide-user-search",
             "color": "6, 183, 148"
           }
         }
@@ -23,6 +24,14 @@
         {
           "changes": {
             "icon": "lucide-minus"
+          }
+        }
+      ],
+      "obs": [
+        {
+          "changes": {
+            "icon": "lucide-eye",
+            "color": "196, 134, 95"
           }
         }
       ]

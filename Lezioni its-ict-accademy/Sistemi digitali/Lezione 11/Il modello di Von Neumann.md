@@ -37,17 +37,21 @@ Come possiamo vedere dall'immagine sopra, la PU è a sua volta suddivisa in altr
 1. **ALU (Arithmetic Logic Unit):**
 	==L'ALU è un componente critico della CPU che esegue operazioni aritmetiche (come addizione, sottrazione, moltiplicazione e divisione) e operazioni logiche (come AND, OR, NOT e XOR).== 
 	==È essenziale per eseguire calcoli e prendere decisioni basate su confronti logici.==
+	
 2. TEMP (**Temporary** **Register**):
 	 ==I registri temporanei (TEMP) sono posizioni di archiviazione piccole e veloci all'interno della CPU utilizzate per contenere dati e risultati intermedi durante l'esecuzione delle istruzioni.== 
-	 ==Forniscono un accesso rapido ai valori utilizzati di frequente e aiutano a ottimizzare la velocità di elaborazione riducendo la necessità di accedere alla memoria principale più lenta.==
+	 ==Forniscono un accesso rapido ai valori utilizzati di frequente e aiutano a ottimizzare la velocità di elaborazione riducendo la necessità di accedere alla memoria principale più lenta.==  
+	  ^319a5c
 ### Control Unit (CU):
 Come per la PU, anche la CU è suddivisa in altre 2 unità: 
 1. **PC (Program Counter):**
 	==Il Program Counter (PC) è un registro all'interno dell'unità di controllo che contiene l'indirizzo dell'istruzione successiva da eseguire.== 
-	Incrementa dopo che ogni istruzione è stata recuperata, garantendo un flusso sequenziale di esecuzione del programma, a meno che un'istruzione di salto o di ramo non alteri il flusso.
+	Incrementa dopo che ogni istruzione è stata recuperata, garantendo un flusso sequenziale di esecuzione del programma, a meno che un'istruzione di salto o di ramo non alteri il flusso.   ^PC-register
+	
+	
 2. **IR(Instruction Register):**
-	==Il registro delle istruzioni (IR) è un componente dell'unità di controllo che contiene temporaneamente l'istruzione corrente in esecuzione.== 
-	Memorizza l'istruzione recuperata dalla memoria, consentendo all'unità di controllo di decodificarla ed elaborarla, indirizzando le azioni necessarie ad altre parti della CPU.
+	==Il registro delle istruzioni (IR) è un componente dell'unità di controllo che contiene temporaneamente l'istruzione corrente in esecuzione.==    
+	Memorizza l'istruzione recuperata dalla memoria, consentendo all'unità di controllo di decodificarla ed elaborarla, indirizzando le azioni necessarie ad altre parti della CPU.   ^IR-register
 
 ### Ciclo di vita dell'istruzione 
 Si suddivide in 3 step che si ripetono di continuo: 

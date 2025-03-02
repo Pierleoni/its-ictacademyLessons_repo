@@ -8,22 +8,7 @@
         "type": "tabs",
         "children": [
           {
-            "id": "b1aa422759ea3d1b",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Inglese/Riassunto dei 3 capitoli di inglese.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
-              },
-              "icon": "lucide-file",
-              "title": "Riassunto dei 3 capitoli di inglese"
-            }
-          },
-          {
-            "id": "2b2396cd631918e7",
+            "id": "a970c3afd4346135",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -38,18 +23,33 @@
             }
           },
           {
-            "id": "0166d23089105214",
+            "id": "9308882a456d2694",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Sistemi digitali/Lezione 16/Network, Transport, Session, Presentation, Application Layers.md",
+                "file": "Sistemi digitali/Lezione 17/Servizi e funzioni del Sistema Operativo.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Network, Transport, Session, Presentation, Application Layers"
+              "title": "Servizi e funzioni del Sistema Operativo"
+            }
+          },
+          {
+            "id": "ffb58886cec59e6e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Sistemi digitali/Lezione 11/Il modello di Von Neumann.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "Il modello di Von Neumann"
             }
           }
         ],
@@ -266,33 +266,39 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "2b2396cd631918e7",
+  "active": "a3c89a053243abbf",
   "lastOpenFiles": [
-    "img/Motherboard.png",
-    "img/Firmware.png",
-    "Sistemi digitali/Lezione 11/Computer Architectures.md",
+    "img/GUI.png",
+    "img/Interfaccia Alfanumerica.png",
+    "Sistemi digitali/Lezione 12/I fundamentals di un Sistema Operativo.md",
+    "Sistemi digitali/Lezione 17/Servizi e funzioni del Sistema Operativo.md",
+    "Sistemi digitali/Lezione 11/Il modello di Von Neumann.md",
+    "img/Process Life Cycle.png",
+    "img/Gestione dei dispositivi periferici.png",
+    "img/File System Management.png",
+    "^swap.md",
+    "Sistemi digitali/Lezione 12/ISO E OSI Model.md",
+    "Sistemi digitali/Lezione 11/Internetwork-Protocols.md",
     "Sistemi digitali/Lezione 11/Esercizi su conversione e operazioni binarie.md",
     "Sistemi digitali/Lezione 10/Le architetture di un Computer.md",
-    "Sistemi digitali/Lezione 7/Spiegazione per i vantaggi e svantaggi dei modelli Client server e P2P, spiegazione delle tre entità di spotify..md",
-    "Sistemi digitali/Lezione 12/I fundamentals di un Sistema Operativo.md",
-    "Sistemi digitali/Lezione 11/Internetwork-Protocols.md",
-    "img/Servizi non orientati alla connessione.png",
-    "img/Servizi orientati alla connessione.png",
-    "Sistemi digitali/Lezione 12/ISO E OSI Model.md",
+    "img/gestione dei processi e fork.png",
+    "Screenshot 2025-03-01 at 12-03-21 5. Collections - 04-SO.pdf.png",
+    "Python/Lezione 2/Collections.md",
+    "Python/Lezione 3/Estensioni delle collections in Python.md",
+    "Python/Lezione 3/Cicli e condizionali.md",
+    "img/Memory Hierarchy.png",
+    "Sistemi digitali/Lezione 17",
+    "Python/Lezione 3/Ripasso if, if else e Loops.md",
+    "Python/Lezione 3/Match Statement.md",
     "Inglese/Riassunto dei 3 capitoli di inglese.md",
-    "img/Network Communication Technical.png",
-    "img/Network Communication2.png",
+    "img/Motherboard.png",
+    "img/Firmware.png",
+    "Sistemi digitali/Lezione 7/Spiegazione per i vantaggi e svantaggi dei modelli Client server e P2P, spiegazione delle tre entità di spotify..md",
+    "img/Servizi non orientati alla connessione.png",
     "Sistemi digitali/Lezione 16/Network, Transport, Session, Presentation, Application Layers.md",
-    "img/Network communication.png",
-    "img/Blocchi di inizio_fine.png",
-    "img/Full-duplex Mode.png",
-    "img/Half-duplex.png",
-    "img/Header del segmento.png",
     "Untitled.canvas",
     "Sistemi digitali/Lezione 16",
-    "Python/Lezione 2/Collections.md",
     "Bandwidth (Larghezza di banda).md",
-    "Python/Lezione 3/Match Statement.md",
     "Python/Lezione 2/Introduzione a Python.md",
     "Ripasso Python.md",
     "Python",
@@ -301,19 +307,13 @@
     "Sistemi digitali",
     "Python/Lezione 2/Gli Operatori.md",
     "Clippings/ChatGPT.md",
-    "Python/Lezione 3/Cicli e condizionali.md",
     "Python/Lezione 2/dinamically-typed (tipizzato dinamicamente) o Statically-typed.md",
-    "Python/Lezione 3/Estensioni delle collections in Python.md",
     "Inglese/Lezione 3.md",
-    "Numeri Complessi.md",
-    "Lavorare su Vs Code.md",
     "Lezione 2/Collections_additional_resources.pdf",
-    "Python/Lezione 3/Ripasso if, if else e Loops.md",
     "Inglese/Translation second chapter (part 1).pdf",
     "Inglese/Chapter 2- part 1.pdf",
     "Inglese/Logical and Algorithmic thinking part 1.pdf",
     "Inglese",
-    "Nuova cartella",
-    "Sistemi digitali/Lezione 12"
+    "Nuova cartella"
   ]
 }

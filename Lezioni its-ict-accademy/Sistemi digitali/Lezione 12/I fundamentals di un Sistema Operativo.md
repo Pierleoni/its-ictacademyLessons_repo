@@ -89,31 +89,72 @@ Il driver quindi funge da intermediario perché va a tradurre le istruzioni ad a
 
 
 ### Diferenza tra firmware e driver
-La posizione: 
-Al firmware non possiamo accedervi ne modificarlo mentre con il dirver posso accedervi e modificarli 
-Le funzionalità: il firmware ha il compito di avviare il componente mentre il driver è un ponte tra hardware e software
-La frequenza di aggiornamento: i driver vengono aggiornati molto frequentemente, il firmware è aggiornato molto poco frequentemente e richiedono una procedura particolare.
+- **La posizione:** 
+Al firmware non possiamo accedervi ne modificarlo mentre con il driver posso accedervi e modificarli 
+- **Le funzionalità:** 
+il firmware ha il compito di avviare il componente mentre il driver è un ponte tra hardware e software
+- **La frequenza di aggiornamento:** 
+I drivers vengono aggiornati molto frequentemente, il firmware è aggiornato molto poco frequentemente e richiedono una procedura particolare.
 
 
-### Sistema operativo 
-Il sitema operativo è il software più importante del dispositivo: gestisce l'interazione con l'utente, gestice gli applicativi, interfacciamento con le periferiche e la gestione con l'interazione con l'utente. 
-Il SO definisce come deve lavorare con il dispositivo e definisce come l'utente può agire sulla macchina.
-Il SO è presenye in tutti i device elettronici, in alcuni casi non hanno un'interazione con i dispositivi elettronici. 
+## Sistema Operativo
 
-Il SO puo essere clasifficato in base all'elavborazione dei dati. 
-Batch Operating system: non c'è interazione con l'utente anche se quest'ultimo fornisce l'input e la macchina fornisce l'output
-Interactive Time-Sharing Operatign System: fanno correre in runtime diversi applicativi e condidono le risorse. 
-Real-Time Operating Systems:
-SO che devono lavorare in real time, è sono utilizzato nell'industria o nella robotica, qui il tempo è fisso e quindi non posso ritardare; hanno un timing ben predefiniti. 
-Embedded operating system: sono integrati nell'hardware e non hanno interfaccia grafica, sono utilizzati nell'aeroplano. 
-Hypervisor Operating System: SO che permette di installare diverse macchine virtuali e permette di condividere le risorse alla diverse macchine virtuali 
+Il sistema operativo (SO) è il software più importante di un dispositivo, in quanto gestisce l'intera operatività della macchina. 
+==Si colloca tra l'hardware (compreso il firmware) e il software applicativo, astrando la complessità del computer per gli utenti e i programmi.== 
+
+### Funzioni principali del sistema operativo
+
+Il S.O. si occupa di quattro compiti fondamentali:
+
+1. **Gestione dei componenti hardware**:
+    coordina CPU, memoria e dispositivi di I/O.
+2. **Esecuzione di applicazioni, programmi e servizi:** permette agli utenti di utilizzare il dispositivo.
+3. **Interfacciamento con le periferiche:** 
+   come tastiera, mouse, stampanti e dispositivi di archiviazione.
+4. **Facilitazione dell'interazione con l'utente:**
+    offre un'interfaccia grafica o a riga di comando.
+
+### Ruolo del sistema operativo
+
+Il sistema operativo definisce due aspetti chiave di un dispositivo:
+
+- **Modalità operativa**, determinando lo scopo e il funzionamento del dispositivo.
+- **Interazione con l'utente**, specificando come l'utente può gestire e controllare la macchina.
+
+Il SO è presente in tutti i dispositivi elettronici, inclusi computer, smartphone e sistemi embedded. In alcuni casi, il sistema operativo non prevede un'interfaccia diretta con l'utente, come accade nei dispositivi industriali o nei sistemi embedded.
+
+### Classificazione dei sistemi operativi
+
+I sistemi operativi possono essere classificati in base alla gestione dell'elaborazione dei dati:
+
+- **Batch Operating System**: Non c'è interazione diretta con l'utente. L'utente fornisce l'input, il sistema elabora i dati e restituisce l'output senza interventi intermedi.
+- **Interactive Time-Sharing Operating System**: Esegue più applicazioni contemporaneamente in runtime, condividendo le risorse tra i processi attivi.
+- **Real-Time Operating System (RTOS)**: Utilizzati in ambito industriale e nella robotica, devono operare con tempistiche rigide senza ritardi. Hanno un timing predefinito e non possono subire variazioni nei tempi di esecuzione.
+- **Embedded Operating System**: Integrati direttamente nell'hardware, spesso senza interfaccia grafica. Sono utilizzati in dispositivi come aerei, automobili e sistemi di controllo industriale.
+- **Hypervisor Operating System**: Permettono la gestione di macchine virtuali, distribuendo le risorse hardware tra i vari sistemi operativi installati.
+
+### Esempi di sistemi operativi
+
+I principali sistemi operativi in uso includono:
+
+- **Microsoft Windows**
+- **GNU/Linux**
+- **macOS**
+- **Android**
+- **iOS**
+- **Altri sistemi specifici per ambienti embedded e industriali**
 ### Caratteristiche funzionali
 Mono-Task Operating Systems: 
-esegunono un solo programma alla volta 
-Multi-Task Operating Systems: permette di eseguire più programmi alla volta 
+eseguono un solo programma alla volta 
+
+Multi-Task Operating Systems: 
+permette di eseguire più programmi alla volta.  ^multi-task-OS
+
+ 
 Multi-Threading Operating Systems: lo stesso programma che viene suddiviso in altri piccoli progrmami 
 Mono-User: un solo utente può interagire con il sistema 
-Multi-User: più utenti possono interagire con il sistema (Windows, etc. Sono multi-user ma sono usate come Mono-User).
+
+Multi-User: più utenti possono interagire con il sistema.(Windows, etc. Sono multi-user ma sono usate come Mono-User).   ^multi-user-OS
 
 
 ### Struttura del SO 

@@ -2,61 +2,61 @@
 ## What is Computational Thinking?
 
 **Definition and Origins**  
-Computational Thinking (CT) is a problem-solving approach rooted in principles from computer science, aimed at creating solutions that can be executed by computers. Despite its growing importance, defining CT has been a topic of debate. Some argue for a precise definition, while others, like Voogt et al. (2015), suggest a more flexible understanding, comparing it to defining something as broad as a "game." This flexibility reflects the interdisciplinary nature of CT, which draws from both abstract and concrete ideas.
+Computational Thinking (CT) is a way to solve problems using ideas from computer science, with the goal of creating solutions that computers can carry out. Defining CT has been tricky because it’s a broad concept. Some people want a clear definition, while others, like Voogt et al. (2015), think it should be more flexible, similar to how we define something as general as a "game." This flexibility shows that CT combines both abstract and practical ideas.
 
-The concept isn’t entirely new. Its foundations can be traced back to the 1980s, when Seymour Papert introduced "procedural thinking" using the Logo programming language. However, CT gained widespread attention in 2006 after Jeannette Wing’s influential talk, which sparked discussions about its role in education and beyond. Since then, various definitions have emerged, emphasizing problem formulation, abstraction, algorithmic thinking, and the integration of computational tools.
+The idea of CT isn’t brand new. It started in the 1980s when Seymour Papert introduced "procedural thinking" using the Logo programming language. However, CT became more popular in 2006 after Jeannette Wing gave a talk about it. Since then, people have been discussing its role in education and other areas. Different definitions have emerged, focusing on things like breaking down problems, finding patterns, and using computational tools.
 
 **Core and Peripheral Concepts**  
-Cynthia Selby (2013) helped clarify CT by categorizing its concepts into **core** and **peripheral** elements. The core concepts, essential to CT, include:
+Cynthia Selby (2013) helped make CT clearer by dividing its ideas into **core** and **peripheral** parts. The core concepts, which are the most important, include:
 
 - Logical thinking
     
-- Algorithmic thinking
+- Algorithmic thinking (step-by-step problem-solving)
     
-- Decomposition
+- Breaking problems into smaller parts (decomposition)
     
-- Generalization and pattern recognition
+- Finding patterns and generalizing
     
-- Modeling
+- Creating models
     
-- Abstraction
+- Simplifying problems (abstraction)
     
-- Evaluation
-    
-
-Peripheral concepts, while valuable, are not central to CT. These include data representation, critical thinking, automation, and simulation/visualization.
-
-**Applications Across Disciplines**  
-CT is not confined to computer science; it has practical applications in a wide range of fields. For example:
-
-- **Event organization**: Randy Bryant used CT to streamline a graduation ceremony by designing an efficient "pipeline" for diploma distribution (Wing, 2011).
-    
-- **Climate science**: Advanced computational models are essential for predicting global climate change (Furber, 2012).
-    
-- **Music performance**: A musician applied sorting algorithms to organize sheet music efficiently, saving time during a performance (Wing, 2011).
-    
-- **Legal reasoning**: Tools inspired by CT assist police and judges in constructing hypotheses for crime scene analysis (Bundy, 2007).
+- Evaluating solutions
     
 
-These examples highlight how CT transcends traditional boundaries, offering valuable problem-solving tools in diverse contexts.
+Peripheral concepts are useful but not central to CT. These include things like data representation, critical thinking, automation, and simulation/visualization.
 
-**Distinctions and Misconceptions**  
-CT is often confused with computer science or programming, but it is distinct. While computer science focuses on the principles of computation, and programming emphasizes writing high-quality software, CT is a broader approach to problem-solving. It assumes that a computer will execute the solution, but its principles—such as decomposition, abstraction, and algorithmic thinking—are applicable far beyond coding.
+**Applications Across Fields**  
+CT isn’t just for computer science; it’s useful in many areas. For example:
 
-As Barr and Stephenson (2011) note, the goal of CT is not to teach everyone to think like a computer scientist but to equip them with transferable skills for solving problems across disciplines.
+- **Event planning**: Randy Bryant used CT to organize a graduation ceremony more efficiently by creating a "pipeline" for handing out diplomas (Wing, 2011).
+    
+- **Climate science**: Scientists use computational models to predict climate change (Furber, 2012).
+    
+- **Music**: A musician used sorting algorithms to organize sheet music, saving time during a performance (Wing, 2011).
+    
+- **Law**: Tools inspired by CT help police and judges analyze crime scenes (Bundy, 2007).
+    
+
+These examples show how CT can be used in many different fields to solve problems.
+
+**Differences and Misunderstandings**  
+CT is often confused with computer science or programming, but it’s different. Computer science is about how computers work, and programming is about writing software. CT, on the other hand, is a way of thinking about problems. It assumes a computer will help solve the problem, but its ideas—like breaking problems into smaller parts or finding patterns—can be used in many areas, not just coding.
+
+As Barr and Stephenson (2011) point out, the goal of CT isn’t to make everyone think like a computer scientist but to give them tools to solve problems in any field.
 
 **Current Challenges**  
-Despite its potential, CT faces several challenges:
+CT still faces some challenges:
 
-1. **Maturity**: As a formal concept, CT is still relatively young. While its roots go back decades, it only gained widespread attention in the mid-2000s, and its definition continues to evolve.
+1. **It’s still developing**: CT is a relatively new idea, and its definition is still evolving.
     
-2. **Efficacy**: There is limited long-term evidence on how effectively CT education translates into practical skills. More research is needed to assess its impact.
+2. **Effectiveness**: We don’t yet have enough evidence to show how well CT education works in the long term.
     
-3. **Perceived Imperialism**: Some critics caution against framing CT as exclusive to computer science. Many of its principles, such as logic and algorithms, have been used in other fields for years. Proponents must avoid claiming ownership of these ideas simply because they are applied in computing.
+3. **Overclaiming**: Some people worry that CT is being presented as something only computer scientists can do. Many of its ideas, like logic and algorithms, have been used in other fields for a long time. It’s important not to act like computer science "owns" these ideas.
     
 
 **Conclusion**  
-Computational Thinking is a versatile and structured approach to problem-solving that integrates key principles from computer science. It is not limited to programmers or technologists but is applicable across a wide range of disciplines. As CT continues to mature, it has the potential to become a universal framework for tackling complex problems in an increasingly digital world.
+Computational Thinking is a flexible and structured way to solve problems using ideas from computer science. It’s not just for programmers or tech experts—it can be used in many fields. As CT continues to grow, it could become a universal way to tackle complex problems in our digital world.
 
 
 ---
@@ -66,9 +66,9 @@ Computational Thinking is a versatile and structured approach to problem-solving
 
 ### **Logical Thinking**
 
-At the heart of computational thinking lies **logic**, a system for distinguishing correct arguments from incorrect ones. An argument, in this context, is a chain of reasoning that leads to a conclusion. Logic provides the principles to determine whether an argument is valid or not, which is essential when working with computers, as they automate our reasoning processes.
+At the core of computational thinking is **logic**, which helps us tell the difference between good and bad reasoning. Logic is important because computers follow our instructions exactly, so we need to make sure our reasoning is correct.
 
-A **premise** is a statement that can be evaluated as either true or false. For example, in the classic argument:
+A **premise** is a statement that can be true or false. For example:
 
 1. Socrates is a man.
     
@@ -77,13 +77,13 @@ A **premise** is a statement that can be evaluated as either true or false. For 
 3. Therefore, Socrates is mortal.
     
 
-The first two statements are premises, and the third is the conclusion. Logical reasoning ensures that conclusions are sound, which is critical when programming, as computers rely on precise instructions to produce reliable results.
-
+Here, the first two statements are premises, and the third is the conclusion. Logic makes sure the conclusion makes sense, which is key when giving instructions to computers.
+The request is not authorized because credentials are missing or invalid.
 ### **Deductive vs. Inductive Arguments**
 
-Logical arguments can be categorized into two main types: **deductive** and **inductive**.
+There are two main types of logical arguments: **deductive** and **inductive**.
 
-- **Deductive arguments** are the strongest form of reasoning. If the premises are true and the structure is valid, the conclusion is guaranteed to be true. For example:
+- **Deductive arguments** are very strong. If the premises are true and the reasoning is correct, the conclusion must be true. For example:
     
     1. All dogs are mammals.
         
@@ -92,7 +92,7 @@ Logical arguments can be categorized into two main types: **deductive** and **in
     3. Therefore, Missie is a mammal.
         
     
-    However, deductive arguments can fail if one of the premises is false or if the reasoning is flawed. For instance:
+    But if a premise is wrong, the conclusion can be wrong too. For example:
     
     1. All birds can fly.
         
@@ -101,61 +101,59 @@ Logical arguments can be categorized into two main types: **deductive** and **in
     3. Therefore, a penguin can fly.
         
     
-    Here, the first premise is false, leading to an incorrect conclusion.
+    Here, the first premise is false, so the conclusion is wrong.
     
-- **Inductive arguments**, on the other hand, deal with probabilities rather than absolute truths. They are based on evidence that supports the conclusion but doesn’t guarantee it. For example:
+- **Inductive arguments** are based on probability, not certainty. They use evidence to support a conclusion, but it’s not guaranteed. For example:
     
-    1. A bag contains 99 red balls and 1 black ball.
+    1. A bag has 99 red balls and 1 black ball.
         
-    2. Sarah drew a ball from the bag.
+    2. Sarah picked a ball.
         
-    3. Therefore, Sarah probably drew a red ball.
+    3. Therefore, Sarah probably picked a red ball.
         
     
-    Inductive reasoning is useful in real-world scenarios where information is incomplete or uncertain.
+    Inductive reasoning is useful when we don’t have all the information.
     
 
 ### **Boolean Logic**
 
-Computers operate in a binary world, dealing with true/false or 1/0 values. **Boolean logic** is a system of logic that aligns with this binary nature, making it ideal for programming. In Boolean logic, statements (called **propositions**) can only be true or false, with no middle ground.
+Computers work with true/false or 1/0 values. **Boolean logic** is a system that fits this binary world, making it perfect for programming. In Boolean logic, statements (called **propositions**) can only be true or false.
 
 - **Properties of Propositions**:
     
-    - A proposition must have a single, unambiguous truth value at any given time.
+    - A proposition must be clear and specific. For example, "It is traveling fast" is too vague unless we define "fast" (e.g., over 70 mph).
         
-    - It must be clear and specific. For example, "It is traveling fast" is ambiguous unless defined further (e.g., "fast" means over 70 mph).
-        
-    - Propositions can be combined into **compound propositions** using logical operators like AND, OR, and NOT.
+    - Propositions can be combined using logical operators like AND, OR, and NOT.
         
 
 ### **Logical Operators**
 
-Logical operators are the building blocks of Boolean logic. They allow us to combine propositions and evaluate their truth values. The most common operators are:
+Logical operators help us combine propositions and figure out if they’re true or false. The main operators are:
 
-1. **AND (Conjunction)**: Both conditions must be true for the result to be true.
+1. **AND**: Both statements must be true for the result to be true.
     
     - _Example_: "The game continues if at least one square is empty AND no player has won."
         
-2. **OR (Disjunction)**: At least one condition must be true.
+2. **OR**: At least one statement must be true.
     
     - _Example_: "The game ends if Player 1 OR Player 2 wins."
         
-3. **NOT (Negation)**: Reverses the truth value of a proposition.
+3. **NOT**: Reverses the truth value of a statement.
     
     - _Example_: "If a square is NOT occupied, a player can place their symbol."
         
-4. **IMPLIES (Implication)**: If the first statement is true, the second must also be true.
+4. **IMPLIES**: If the first statement is true, the second must also be true.
     
-    - _Example_: "If a player wins, the game is over." However, the game could also end for other reasons, like a draw.
+    - _Example_: "If a player wins, the game is over."
         
-5. **IF AND ONLY IF (Biconditional)**: Both statements must always have the same truth value.
+5. **IF AND ONLY IF**: Both statements must always have the same truth value.
     
     - _Example_: "The game is over IF AND ONLY IF all squares are occupied."
         
 
 ### **Symbolic Logic**
 
-Natural language can often be ambiguous, making it difficult to express logical reasoning clearly. **Symbolic logic** solves this problem by replacing statements with symbols and logical operators with standardized notations. For example:
+Natural language can be unclear, so **symbolic logic** uses symbols to make reasoning easier. For example:
 
 - Let P = "At least one square is empty."
     
@@ -164,12 +162,12 @@ Natural language can often be ambiguous, making it difficult to express logical 
 - Let S = "The game continues."
     
 
-The statement "If P AND Q, then S" can be written symbolically as:  
+The statement "If P AND Q, then S" can be written as:  
 **P ∧ Q → S**
 
-This not only reduces clutter but also makes it easier to analyze complex arguments.
+This makes complex reasoning simpler and clearer.
 
-**Truth tables** are another tool in symbolic logic. They list all possible truth values of propositions and show the outcome of logical operations. For example, the truth table for the AND operator shows that the result is only true when both propositions are true:
+**Truth tables** are another tool in symbolic logic. They show all possible truth values of propositions and the results of logical operations. For example, the truth table for AND shows that the result is only true when both propositions are true:
 
 |P|Q|P AND Q|
 |---|---|---|
@@ -180,7 +178,7 @@ This not only reduces clutter but also makes it easier to analyze complex argume
 
 ### **Why This Matters**
 
-Logical thinking is the foundation of computational problem-solving. It ensures that the reasoning behind a solution is sound, which is crucial when programming computers. By understanding deductive and inductive reasoning, Boolean logic, and symbolic logic, we can create clear, precise, and reliable solutions to complex problems.
+Logical thinking is the foundation of solving problems with computers. It ensures our reasoning is clear and correct, which is crucial when programming. By understanding deductive and inductive reasoning, Boolean logic, and symbolic logic, we can create reliable solutions to complex problems.
 
 
 ---
