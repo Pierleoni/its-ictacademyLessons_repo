@@ -1,4 +1,4 @@
-<# Python  
+# Python  
 
 ==Python è un **linguaggio di programmazione di alto livello, interpretato e orientato agli oggetti**,== noto per la sua semplicità e leggibilità.  ^object-oriented
 Per queste ragioni, Python è un linguaggio di programmazione ideale sia per principianti che per sviluppatori esperti. ^e4a02c

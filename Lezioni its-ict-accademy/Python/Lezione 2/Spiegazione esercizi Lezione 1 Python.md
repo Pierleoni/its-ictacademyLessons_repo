@@ -1,4 +1,6 @@
+```
 # [[Collections#Le liste|Lists]]
+```
 
 Ripartendo dalla funzione `.append` che aggiungeva un elemento in ultima posizione all'interno della lista, torniamo a parlare delle variabili. 
 

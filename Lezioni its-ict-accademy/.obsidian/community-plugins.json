@@ -29,8 +29,8 @@
   "code-emitter",
   "omnisearch",
   "ai-commander",
-  "obsidian-languagetool-plugin",
   "language-translator",
   "obsidian-annotator",
-  "obsidian-wordnet-plugin"
+  "obsidian-wordnet-plugin",
+  "vscode-editor"
 ]
