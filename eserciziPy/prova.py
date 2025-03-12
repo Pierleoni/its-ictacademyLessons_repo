@@ -42,12 +42,25 @@ from typing import Any
 # show_completed_models(completed_models)
 
 
-def describe_person(name:str, age:int, city:str) ->Any:
-    greetings = f"Hello my name is {name}, I'm {age} years old and I live in {city}"
-    return greetings
+# def describe_person(name:str, age:int, city:str) ->Any:
+#     greetings = f"Hello my name is {name}, I'm {age} years old and I live in {city}"
+#     return greetings
 
 
-print(describe_person(age=25, city="Rome", name="Carlo"))
+# print(describe_person(age=25, city="Rome", name="Carlo"))
+
+def add(*args):
+    return args  # Restituisce tutti gli argomenti come una tupla
+
+print(add(2, 3))  # Output: (2, 3)
+
+valori = [1, 2, 4, 5, 10, 56, "Hello"]
+print(add(*valori))  # Output: (1, 2, 4, 5, 10, 56, 'Hello')
 
 
+# def stampa(*args):
+#     print(args)
 
+myList = [1,2,3,4,5,6,7,8,9]
+
+print(*myList)

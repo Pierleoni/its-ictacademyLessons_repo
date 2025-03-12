@@ -45,7 +45,8 @@ Come abbiamo visto nell'esempio, alle volte ci troviamo con la necessita di risc
 Grazie alle funzioni, possiamo definire un blocco di codice una sola volta e richiamarlo ogni volta che serve, rendendo il programma più organizzato e leggibile.
 ### **Cos'è una funzione?**
 
-Una **funzione** è un insieme di istruzioni progettato per eseguire una specifica operazione. A questo gruppo di istruzioni viene assegnato un **nome**, che ci permette di richiamarle all'interno del codice senza doverle riscrivere ogni volta.
+==Una **funzione** è un insieme di istruzioni progettato per eseguire una specifica operazione.== 
+A questo gruppo di istruzioni viene assegnato un **nome**, che ci permette di richiamarle all'interno del codice senza doverle riscrivere ogni volta.
 
 
 > [!done] Vantaggi delle funzioni
@@ -586,7 +587,7 @@ in base al loro ordine.
 Ovvero:
 - ==il primo argomento viene passato al primo parametro.==
 - ==il secondo argomento viene passato al secondo parametro e così via.== 
-#### Argomento passato per posizione
+### Argomento passato per posizione
 Quando chiami una funzione, Python deve abbinare ==ogni argomento della chiamata della funzione a un parametro nella definizione della funzione==.  
 Il modo più semplice per farlo è basato sull'ordine degli argomenti forniti.
 I valori che vengono matchati in questo modo sono chiamati argomenti posizionali (o passato per posizione).
@@ -627,7 +628,7 @@ greet("Angela", 13)
 ```
 in questo caso è giusto, ma se si invertisse l'ordine degli argomenti; ad esempio scrivo prima l'intero `13` e poi la stringa `"Angela"` mi darebbe errore perché non posso concatenare un intero con delle stringhe in Python.
 
-#### Argomento passato per keyword 
+### Argomento passato per keyword 
 ==Un argomento passato per keyword è una coppia nome-valore che viene passata a una funzione.==  
 Associando direttamente il nome al valore all'interno dell'argomento, si evita ogni possibile ambiguità.
 Questa tipologia è utile perché non c'è bisogno di ordinare correttamente gli argomenti nella chiamata della funzione e chiariscono il ruolo di ciascun valore all'interno della chiamata stessa. 
@@ -662,7 +663,7 @@ print(describe_person(age=25, city="Rome", name="Carlo"))
 print(describe_person("Alice", age=30, city="Milan"))
 
 ```
-#### Argomenti passati per valori di default
+### Argomenti passati per valori di default
 Quando si scrive una funzione, è possibile definire un valore di default per ogni parametro.  
 Se un argomento per un parametro viene fornito nella chiamata della funzione, Python utilizza il valore di quell'argomento.  
 Se l'argomento non viene fornito, Python usa il valore di default definito per quel parametro.  
@@ -717,40 +718,80 @@ In questo blocco di codice i primi due parametri (`w` e `x`) sono obbligatori, m
   `w = 2`,  `x = 3`,  `y = 4`, `z = 5`
   2^3 + 4 + 5 = 17.
 
-Nella definizione di una funzione parliamo di parametri obbligatori (posizionali e keyword) e opzionali (default).
+#### Ordine dei Parametri e degli Argomenti in una Funzione
 
+Nella definizione di una funzione in Python, i parametri possono essere **obbligatori([[#Argomento passato per posizione|posizionali]] e [[#Argomento passato per keyword|keyword]])** o **opzionali([[#Argomenti passati per valori di default|valori di default]])**.  
+Tra i parametri obbligatori troviamo quelli **posizionali** (che devono essere passati in base all'ordine) e quelli **keyword-only** (che devono essere passati con il nome esplicitato). I parametri opzionali, invece, hanno un valore di **default** e vengono usati solo se non viene fornito un argomento esplicito.
+
+#### **Ordine corretto dei parametri nella definizione di una funzione**
+
+1. **Parametri posizionali obbligatori**
+2. **Parametri opzionali con valore di default**
+3. **[[#Funzioni e `*args`|`*args`]] (per un numero variabile di argomenti posizionali)** 
+4. **Parametri keyword-only obbligatori** (definiti dopo `*`)
+5. **Parametri keyword con valore di default**
+6. **[[#Funzioni e `**kwargs`|`**kwargs`]] (per un numero variabile di argomenti passati per keyword)** 
+
+Quindi:
+- Gli **argomenti posizionali devono essere forniti per primi**, rispettando l'ordine dei parametri.
+- Gli **argomenti keyword possono essere usati dopo quelli posizionali**, specificando esplicitamente il nome del parametro.
+
+
+> [!example]- Esempio di una funzione che combina parametri posizionali, keyword e di defualt
+>```python
+>def descrivi_animale(nome, specie='cane'):
+ >   print(f"\nIl mio animale è un {specie}.")
+>    print(f"Si chiama {nome.title()}.")
+># Chiamate equivalenti della funzione:
+>descrivi_animale('willie')     # Output: cane di nome Willie
+>descrivi_animale(nome='willie')  # Stesso output
+>descrivi_animale('harry', 'criceto')  
+>descrivi_animale(nome='harry', specie='criceto')  # Stesso output
+>descrivi_animale(specie='criceto', nome='harry')  # Stesso output 
+>```
+>>[!note] Nota
+>>Le chiamate funzionano perché gli argomenti vengono passati rispettando la posizione o usando il nome del parametro.
+
+ 
 ### Funzioni senza parametri
-Ci sono funzioni senza paramentri in input:
+==In Python, una funzione può essere definita **senza parametri** se non ha bisogno di ricevere dati in ingresso per eseguire un'azione.== 
+Queste funzioni sono ==utili quando devono sempre svolgere un'operazione **fissa e indipendente dagli input esterni**.== 
 ```python
 def hello():
 print(‘‘Hello’’)
 hello()
 >>> Hello
 ```
-Alcune funzioni, in Python, possono essere definite ed eseguite senza ricevere alcun valore di ingresso o parametro.
-In Python, le funzioni non sempre richiedono argomenti per eseguire un'azione. Questi tipi di funzioni sono utili quando un'attività deve essere eseguito in modo standard, senza dipendere da input esterni.
-Questi tipi di funzioni non hanno parametri di input, questo perché non devono dipendere da parametri in input ma sono funzioni che lavorano a livello generale.
-Questo può essere utile quando devo lavorare con variabili globali, etc. 
-Stessa cosa:
-```python
-def get_pi():
-	return 3.14159
 
-pi_value:float = get_pi()
-print("The value of pi is:", pi_value)
->>> The value of pi is:3.14159
-```
+Quindi alcune funzioni possono essere definite ed eseguite senza ricevere alcun valore di ingresso o parametro.
+In Python, le funzioni non sempre richiedono argomenti per eseguire un'azione. 
+Questi tipi di funzioni sono utili quando un'attività deve essere eseguito in modo standard, senza dipendere da input esterni.
+Questo può essere utile quando devo lavorare con variabili globali o valori costanti. 
+
+> [!example] Esempio con un valore restituito
+>
+> ```python
+> def get_pi():
+> 	return 3.14159
+> 
+> pi_value:float = get_pi()
+> print("The value of pi is:", pi_value)
+>>>> The value of pi is:3.14159
+> ```
+> In questo caso la funzione `get_pi()` non ha bisogno di parametri perché restituisce sempre lo stesso valore costante
 
 
 ### Chiamare ed eseguire le funzioni
-Per usare una funzione devo chiamarla o invocarla.
-Quando un programma chiama una funzione, il controllo del programma viene trasferito alla funzione chiamata.
-Una funzione chiamata restituisce il controllo al chiamante quando la sua istruzione di ritorno viene eseguita o la funzione è terminata.
+Per usare una funzione, in python, è necessario **chiamarla o invocarla**.
+Quando un programma chiama una funzione:
+1. il controllo del programma viene trasferito alla funzione chiamata.
+2. La funzione viene eseguita fino alla fine o fino all'incontro di un'istruzione `return`. 
+3. Il controllo torna al chiamante. cioè alla riga da cui la funzione è stata chiamata. 
+
 Come viene eseguito questo programma?
 L'interprete legge lo script nel file, riga per riga, a partire dalla riga 1.
-Quando legge l'intestazione della funzione alla riga 1, memorizza la funzione con il suo corpo (righe 1-5).
-corpo (righe 1-5) in memoria.
-● Ricordate che la definizione di una funzione definisce la funzione, ma non ne determina l'esecuzione.
+Quando legge l'intestazione della funzione alla riga 1, memorizza la funzione con il suo corpo (righe 1-riga n) in memoria.
+● ==Ricordate che la definizione di una funzione definisce la funzione, ma non ne determina l'esecuzione.== 
 
 ```python
 def max(num1:int, num2:int)→int:
@@ -761,68 +802,238 @@ def max(num1:int, num2:int)→int:
 #chiama la funzione max
 numMax:int = max(3,4)
 print(numMax)
+
+>>>4
 ```
-Quando viene richiamata la funzione max , il valore 3 viene passato a num1 e il valore 4 a num2.
-valore 4 viene passato a num2.
-Il controllo viene trasferito alla funzione max e la funzione max viene eseguita.
-viene eseguita.
-Quando l'istruzione return della funzione max viene eseguita, la funzione max restituisce il controllo al chiamante.
-restituisce il controllo al chiamante.
-● Al termine della funzione max, il valore restituito dalla funzione max
-viene assegnato a numMax (riga 8).
-Il codice stampa il risultato (riga 9).
-Prima della chiamata a max(3,4) , il controllo si trova nel programma
-(nell'istruzione numMax = max(3,4) ).
-Durante l'esecuzione della funzione, il controllo passa alla funzione max.
-Quando la funzione max termina, il controllo torna al suo chiamante, che è l'istruzione numMax = max(3,4).
-istruzione numMax = max(3,4).
-In conclusione, il chiamante della funzione max è l'istruzione
-numMax = max(3,4), che fa parte del programma
+### Come viene eseguito il codice?
+1. **L'interprete legge il file Python riga per riga**, partendo dalla riga 1.  
+2.  Alla riga `def max(num1: int, num2: int)`, **Python definisce la funzione**, ma non la esegue.  
+ 3. La funzione `max(3,4)` viene chiamata alla riga `numMax = max(3, 4)`.  
+ 4. Il valore `3` viene passato a `num1` e il valore `4` a `num2`.  
+ 5. Il controllo passa alla funzione `max()`, che confronta i due numeri e restituisce `4`.  
+ 6. Il valore restituito viene assegnato alla variabile `numMax`.  
+ 7. Infine, `print(numMax)` stampa `4` a schermo.
 
 
-### Call Stacks
-Ogni volta che una funzione è invocata, il sistema crea un record di attivazione che memorizza gli argomenti e le variabili per la funzione e colloca il record di attivazione in un'area di memoria nota come **Call Stack(stack di chiamate)**.
-Quando una funzione chiama un'altra funzione, il record di attivazione del chiamante viene mantenuto intatto e viene creato un nuovo record di attivazione per la nuova chiamata di funzione.
+> [!info]+ Concetti chiave
+> - Prima della chiamata `max(3,4)`, il controllo si trova nel programma principale.
+>- Durante l'esecuzione della funzione, il controllo passa alla funzione `max()`.
+>- Quando la funzione termina, il controllo torna all'istruzione chiamante (`numMax = max(3,4)`).
 
+
+
+### Call Stacks(Pila di chiamate)
+Ogni volta che una funzione è invocata, ==il sistema crea un record di attivazione che memorizza gli **argomenti e le variabili** per la funzione e colloca il record di attivazione in un'area di memoria nota come **Call Stack(stack di chiamate)**.== 
+Quando una funzione chiama un'altra funzione: 
+- Il record di attivazione del chiamante viene mantenuto intatto 
+- Viene creato un nuovo record di attivazione per la nuova chiamata di funzione.
 Quando una funzione termina il suo lavoro e restituisce il controllo al chiamante, il suo record di attivazione viene rimosso dalla pila (stack) delle chiamate.
-Una pila di chiamate memorizza i record di attivazione in modo che siano l'ultimo ad entrare e il primo ad uscire.
-Il record di attivazione della funzione invocata per ultima viene rimosso per primo dallo stack.
-Supponiamo che la funzione m1 chiami la funzione m2 e poi m3.
-Il sistema di run-time inserisce nello stack il record di attivazione di m1, poi quello di m2 e infine quello di m3.
-Dopo che m3 ha finito, il suo record di attivazione viene rimosso dalla pila.
-Dopo che m2 ha finito, il suo record di attivazione viene rimosso dalla pila.
-● Dopo che m1 ha terminato, il suo record di attivazione viene rimosso dalla pila.
+#### Struttura e comportamento del Call Stack
+Il Call Stack segue una strategia **Last-In, First-Out (LIFO)**: 
+==ovvero l'ultimo record inserito è il primo a essere rimosso.==
 
-Per quanto rigurada i parametri il primo paramentro ad entrare è il primo ad uscire
+Esempio: Supponiamo che la funzione `m1` chiami la funzione `m2`, e successivamente `m3`:
 
-### Funzioni e `*args`
-Io posso avere più argomenti in una lista.
 ```python
-def add(a, b):
-return a + b
-print(add(2, 3))
+def m3:
+	print("Esecuzione di m3")
+
+def m2():
+	print("Esecuzione di m2")
+
+def m1():
+	print("Esecuzione di m1")
+	m2
+
+m1()
 ```
+^callStack-Codeblock
 
-se io scrivessi 
-`print(add(2,3,4))`, mi torna errore perché l'ultimo argomento è mancante nella definizione della funzione `add`, se voglio aggiungere altri argoment i devo scrivere `*args`:
+**[[#^execPass-1|Passaggi dell'esecuzione]]:**   
+1. ==Il sistema runtime inserisce nello stack il record di attivazione di `m1`.== 
+2. ==Poi inserisce quello di `m2`.==
+3. ==Infine, inserisce quello di `m3`.==   
+
+
+**L'ordine di rimozione sarà:**
+
+- ==Una volta che `m3` ha terminato la sua esecuzione, il suo record di attivazione viene rimosso dallo stack.==
+
+- ==Dopo che `m2` ha terminato, il suo record viene rimosso.==
+
+- ==Infine, quando `m1` termina, anche il suo record viene rimosso.==
+
+
+### Parametri e Call Stack
+
+Per quanto riguarda i parametri passati alle funzioni:
+
+- ==Il primo parametro inserito nel record di attivazione di una funzione è anche il primo a essere utilizzato dalla funzione stessa.==
+    
+- ==Tuttavia, i record di attivazione delle funzioni seguono il principio LIFO nel Call Stack.== 
+    
+
+Questa struttura è fondamentale per la gestione delle chiamate di funzione e consente il corretto flusso di esecuzione dei programmi.
+> [!example]- Esempi di [[#Call Stacks(Pila di chiamate)|Call Stack]] 
+>```python
+>def m3():
+ >   print("Esecuzione di m3")
+>
+>def m2():
+ >   print("Esecuzione di m2")
+ >   m3()
+>
+>def m1():
+ >   print("Esecuzione di m1")
+ >   m2()
+>
+>m1()
+>>>>"Esecuzione di m1
+>>>>Esecuzione di m2
+>>>>Esecuzione di m3
+>
+>```
+>
+>**Passaggi dell'esecuzione:**
+>   ^execPass-1
+>1. `m1()` viene chiamata e il suo record di attivazione viene aggiunto allo stack.
+ >   
+>2. `m1` chiama `m2()`, quindi il record di `m2` viene aggiunto sopra `m1`.
+  >  
+>3. `m2` chiama `m3()`, quindi il record di `m3` viene aggiunto sopra `m2`.
+  >  
+>4. `m3` termina, quindi il suo record viene rimosso.
+  >  
+>5. `m2` termina, quindi il suo record viene rimosso.
+ >   
+>6. `m1` termina, quindi il suo record viene rimosso.
+>
+>**Esempio 2: Passaggi dell'esecuzione:**
+>```python
+>def somma(a, b):
+ >   return a + b
+>
+>def moltiplica(x, y):
+ >   return somma(x, y) * 2
+>risultato = moltiplica(3, 4)
+>print(risultato)
+>
+>```
+>Spiegazione 
+> - `moltiplica(3,4)` viene chiamata e il suo record di attivazione viene aggiunto allo stack.
+> - `moltiplica` chiama `somma(3,4)`, quindi il record di `somma` viene aggiunto a sopra `moltiplica`.
+> - `somma` termina e restituisce 7, quindi il suo record viene rimosso
+> - `moltiplica` calcola `7*2` e restituisce 14, quindi il suo record viene rimosso.
+> - valore `14` viene stampato a schermo.
+
+Questa struttura è fondamentale per la gestione delle chiamate di funzione e consente il corretto flusso di esecuzione dei programmi.
+
+
+---
+
+## Funzioni e Argomenti variabili
+
+In alcuni casi, non sappiamo esattamente quanti argomenti una funzione dovrà accettare. Fortunatamente, Python permette di raccogliere un numero arbitrario di argomenti da una chiamata di funzione, utilizzando `*args` per gli argomenti posizionali e `**kwargs` per quelli con nome.
+### Funzioni e `*args`
+In Python io posso creare delle funzioni che accettano variabile di argomenti  
+Ad esempio immaginiamo di voler creare una funzione che somma due numeri:
 ```python
 def add(a, b):
-return a + b
+	return a + b
+	
+print(add(2, 3))
+print(add(2,3,4))
+```
+il primo print funziona poiche ho definito dei valori posizionali nella chiamata della funzione che he messa come argomento del `print()`, mentre   `print(add(2,3,4))`, ==mi torna errore perché l'ultimo argomento è mancante nella definizione della funzione `add`==. 
+Quindi se voglio aggiungere altri argomenti devo scrivere `*args`:
+```python
+def add(a, b):
+	return a + b
 print(add(2, 3))
 
 add(*args 1,2,4,5,10,56, "Hello")
 ```
-Quindi quando richiamo la funzione e gli do `*args` posso passargli quanti parametri in input voglio(o per lo meno fino a che la RAM regge) di qualsiasi valore. 
+Quando richiamo la funzione e le passo `*args`, posso fornirle un numero variabile di argomenti, compatibili con le operazioni svolte dalla funzione (fino al limite della memoria disponibile)
+Per dirla in modo tecnico:
+`*args` è una **==collezione arbitraria di argomenti posizionali:==**
+==cioè permette a una funzione di accettare un numero variabile di argomenti senza specificare quanti in anticipo.==
 
-Se faccio 
-```
-print(*myList)
-```
-Mi stampa gli elementi della lista senza le parentesi quadre 
+> [!done] Caraterristiche principali di `*args`:
+> - **Accetta un numero aribitario di arogmenti**
+> - **Gli arogmenti sono trattati come una tupla all'interno della funzione** 
+> - **Sono argomenti posizionali:**
+>   L'ordine con cui vengono passati è importante
+
+> [!failure] Limiti di `*args`
+> Non può gestire **argomenti con nome([[#Argomento passato per keyword|Keyword arguments]]).** 
+> In questo caso si deve usare il [[#^kwargs-Def|`**kwargs`]] che vedremo più avanti
+
+> [!deep]-  L'operatore `*`
+>
+> Tuttavia `*args` è un modo generico che permette a una funzione di accettare u numero variabile di argomenti. 
+> Quando si usa `*args` in una funzione, Python raccoglie tutti gli argomenti passati alla funzione e li inserisce in una tupla, permettendoti di trattare un numero indefinito di argomenti.
+> Ad esempio :
+> ```python
+> myList:list[int] = [1,2,3,4,5,6,7,8,9]
+> print(*myList)
+> ```
+> Mi stampa gli elementi della lista senza le parentesi quadre, questo perché quando si mette l'operatore `*` davanti a una lista (in questo caso `myList`,  ma funziona anche con le tuple) spacchetta la lista. 
+> Questo significa che invece di passare la lista come un singolo argomento alla funzione `print()`, gli elementi della lista vengono passati separatamente come argomenti distinti.
+> In sintesi, l'operatore `*` spacchetta la lista e la "espande" in singoli argomenti per la funzione `print()`, che li gestisce e li stampa separati da uno spazio per default.
+> 
+> Ma cosa succede se l'operatore `*` viene posto prima di un parametro nella definizione di una funzione in Python?
+> Prendiamo ad esempio questo blocco di codice:
+>```python
+>def make_pizza(size, *toppings):
+  >  """Summarize the pizza we are about to make."""
+  >  print(f"\nMaking a {size}-inch pizza with the following toppings:")
+  >  for topping in toppings:
+  >      print(f"- {topping}")
+>
+># Chiamate della funzione
+>make_pizza(16, 'pepperoni')
+>make_pizza(12, 'mushrooms', 'green peppers', 'extra cheese')
+>#Output
+>>>>Making a 16-inch pizza with the following toppings:
+>>> pepperoni
+>>>Making a 12-inch pizza with the following toppings:
+>>>>- mushrooms
+>>>>- green peppers
+>>>>- extra cheese
+>```
+>
+>  **Spiegazione:**
+>
+>- size è un argomento posizionale (la dimensione della pizza).
+>- **`*toppings`** raccoglie tutti gli argomenti successivi come una tupla, che rappresentano i condimenti (toppings) della pizza.
+>- Le chiamate a `make_pizza` mostrano due esempi:
+  >  - La prima crea una pizza da 16 pollici con il topping `'pepperoni'`.
+  >  - La seconda crea una pizza da 12 pollici con tre topping: `'mushrooms'`, `'green peppers'` e `'extra cheese'`.
+ >
+ >Quindi l'operatore `*` permette alla funzione di accettare un numero arbitrario di topping per ogni pizza, come vediamo nel secondo esempio.   ^op-asterisk
+ 
 
 ### Funzioni e `**kwargs`
-`*args` da una tupla di elementi
-`**kwargs` passa i valori per chiave-valore. 
+
+Come per `*args`, è utile passare un numero arbitrario di argomenti a una funzione. Tuttavia, non sempre si può sapere in anticipo che tipo di informazioni verranno passate.  
+In questi casi, si può scegliere di usare funzioni che accettano coppie chiave-valore fornite dall'istruzione che le chiama.
+Un esempio di utilizzo è la creazione di profili utente:  
+si sa che si riceveranno informazioni su un utente, ma non si è sicuri di quale tipo di dati verranno forniti.
+
+Qui entra in gioco il `**kwargs`:
+==è usato per raccogliere un numero arbitrario di argomenti passati keyword (**key-value pairs**) in una funzione.==   ^kwargs-Def
+
+
+> [!done] Differenza tra `*args`,  `**kwargs` 
+> 1. [[#Funzioni e `*args`|`*args`]]: 
+>    ==restituisce  una tupla di elementi, cioè raccoglie argomenti posizionali in una [[Collections#Tuple|tupla]]==.
+> 
+>2.  `**kwargs`:  
+>   ==raccoglie argomenti passati come chiavi e valori in un [[Collections#I dictionaries|dizionario]]==.
+
+Un esempio di utilizzo è la creazione di profili utente:  
+si sa che si riceveranno informazioni su un utente, ma non si è sicuri di quale tipo di dati verranno forniti.. 
+
 Quindi viene trattato come un dizionario infatti posso usare i metodi di un dizionario.
 ```python
 def total_price(**kwargs):
@@ -841,8 +1052,58 @@ Total: 10.53€
 ```
 Quindi è come se trattasi un dizionario.
 
+
+> [!deep]- L'operatore `**`
+> L'operatore **`**` in Python, quando usato nei parametri di una funzione, raccoglie gli argomenti passati per **chiave-valore** e li memorizza in un dizionario.  ^op-doubleAsterisk
+
+
+> [!info] `*args`,  `*kwargs` sono nomi convenzionali
+> ==`*args` ed `**kwargs` non sono parole chiave riservate, ma solo nomi convenzionali.== 
+> ==Puoi sostituirli con qualsiasi altro nome significativo, purché rispetti la sintassi.== 
+> In realtà i nomi `args` ed `kwargs` sono sono nomi convenzionali ma non definiscono nulla: 
+> sono gli operatori [[#^op-asterisk|`*`]] ed [[#^op-doubleAsterisk|`**`]] a definire il funzionamento degli argomenti variabili.
+> > [!example]- Esempi pratici dei due operatori
+>>```python
+> > def somma_totale(*numeri):
+  >>  """Somma tutti i numeri passati come argomenti posizionali."""
+  >>  return sum(numeri)
+>>
+>>print(somma_totale(1, 2, 3, 4))  # Output: 10
+>>```
+>>Qui `*numeri` fa la stessa cosa di `*args`.
+>>
+>>```python
+>>def dettagli_auto(modello, marca, **specifiche):
+  >>  """Restituisce un dizionario con i dettagli dell'auto."""
+   >> specifiche["modello"] = modello
+  >>  specifiche["marca"] = marca
+   >> return specifiche
+>>auto = dettagli_auto("Golf", "Volkswagen", >>colore="blu", anno=2020)
+>>print(auto)
+>>```
+>>Qui `**specifiche` raccoglie le informazioni extra come farebbe `**kwargs`.
+> In conclusione, puoi usare qualsiasi nome al posto di `args` e `kwargs`, **l'importante è mantenere il `*` e `**` per il corretto funzionamento**. ✅
+
+
+
 ### Built-in functions
 come detto prima sono le funzioni di default date da python.
-`print()`, `len()`, `max()`, `min()`, `sum()`, abs(), range(),etc. 
+- **`print()`**: Visualizza dati sulla console.
+
+- **[[Spiegazione esercizi Lezione 1 Python#La funzione di `len()`|`len()`]]**: Restituisce la lunghezza di un oggetto (es. stringa o lista).
+  
+- **`max()`**: Restituisce l'elemento più grande in un iterabile.
+  
+- **`min()`**: Restituisce l'elemento più piccolo in un iterabile.
+  
+- **`sum()`**: Restituisce la somma di tutti gli elementi in un iterabile.
+  
+- **`abs()`**: Restituisce il valore assoluto di un numero.
+  
+- **`round()`**: Arrotonda un numero a un numero specificato di cifre decimali.
+  
+- **`sorted()`**: Restituisce una nuova lista ordinata dagli elementi di un iterabile.
+  
+- **`range()`**: Genera una sequenza di numeri. 
 
 
