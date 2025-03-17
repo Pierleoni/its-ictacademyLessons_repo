@@ -13,59 +13,16 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/Lezione 4/Problem Solving.md",
+                "file": "Python/Lezione 2/Introduzione a Python.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Problem Solving"
-            }
-          },
-          {
-            "id": "e347c8ab3636af3b",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/Lezione 4/Problem Solving.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
-              },
-              "icon": "lucide-file",
-              "title": "Problem Solving"
-            }
-          },
-          {
-            "id": "2603ed92aa07687e",
-            "type": "leaf",
-            "state": {
-              "type": "vscode-editor",
-              "state": {
-                "file": "Ex9_pi_greco.py"
-              },
-              "icon": "lucide-file",
-              "title": "Ex9_pi_greco"
-            }
-          },
-          {
-            "id": "9562bb7a76e011e4",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/Lezione 2/Spiegazione esercizi Lezione 1 Python.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
-              },
-              "icon": "lucide-file",
-              "title": "Spiegazione esercizi Lezione 1 Python"
+              "title": "Introduzione a Python"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -109,18 +66,6 @@
             }
           },
           {
-            "id": "522ece88da89b870",
-            "type": "leaf",
-            "state": {
-              "type": "image",
-              "state": {
-                "file": "img/Stack of Layers.png"
-              },
-              "icon": "lucide-image",
-              "title": "Stack of Layers"
-            }
-          },
-          {
             "id": "324a6eacdf7d3839",
             "type": "leaf",
             "state": {
@@ -137,7 +82,7 @@
               "type": "mindmap",
               "state": {},
               "icon": "dot-network",
-              "title": "Mind Map of Presentazione su le buone pratiche di programmazione e applicazioni reali di python"
+              "title": "Mind Map of ^myCla"
             }
           }
         ]
@@ -160,7 +105,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Obsidian.md",
+                "file": "Python/Lezione 4/Problem Solving.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -170,7 +115,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Obsidian"
+              "title": "Backlinks for Problem Solving"
             }
           },
           {
@@ -246,9 +191,19 @@
               "icon": "spreadsheet",
               "title": "Advanced Tables"
             }
+          },
+          {
+            "id": "8213b794721633b3",
+            "type": "leaf",
+            "state": {
+              "type": "code-execute-manage-executors",
+              "state": {},
+              "icon": "command-glyph",
+              "title": "Execution Runtimes"
+            }
           }
         ],
-        "currentTab": 6
+        "currentTab": 7
       }
     ],
     "direction": "horizontal",
@@ -257,75 +212,76 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "command-palette:Open command palette": false,
+      "darlal-switcher-plus:Open Symbols for the active editor": false,
       "omnisearch:Omnisearch": false,
+      "audio-recorder:Start/stop recording": false,
       "quickadd:QuickAdd": false,
       "callout-manager:Insert Callout": false,
-      "command-palette:Open command palette": false,
       "workspaces:Manage workspace layouts": false,
       "switcher:Open quick switcher": false,
       "obsidian42-text-transporter:Text Transporter": false,
       "graph:Open graph view": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
-      "audio-recorder:Start/stop recording": false,
       "obsidian-git:Open Git source control": false,
       "obsidian-importer:Open Importer": false,
       "table-editor-obsidian:Advanced Tables Toolbar": false,
       "markdown-importer:Open format converter": false,
       "darlal-switcher-plus:Open in Headings Mode": false,
-      "darlal-switcher-plus:Open Symbols for the active editor": false,
       "canvas:Create new canvas": false,
       "templater-obsidian:Templater": false,
       "vscode-editor:Create Code File": false
     }
   },
-  "active": "e347c8ab3636af3b",
+  "active": "8b538edc3bf28eb7",
   "lastOpenFiles": [
-    "Ex9_pi_greco.py",
+    "Python/Lezione 2/Introduzione a Python.md",
+    "Recording 20241217135846.webm.md",
+    "Python/Lezione 6/Le Classi.md",
+    "Sistemi digitali/Lezione 10/Le architetture di un Computer.md",
+    "Sistemi digitali/Lezione 11/Il modello di Von Neumann.md",
+    "Code/class employed.py",
+    "^myCla.md",
+    "Diagram/DiagramEx 10.svg",
+    "img/Ereditarietà delle classi.png",
+    "img/1176.png",
+    "img/Stack of Layers.png",
     "Python/Lezione 4/Problem Solving.md",
     "Python/Lezione 4/Funzioni in Python.md",
+    "Python/Lezione 2/Gli Operatori.md",
+    "Python/Lezione 6",
+    "Code/Ex9_pi_greco.py",
+    "img/Probelm solving ex9.png",
+    "Code",
+    "img/Conquest.png",
+    "Esercitazione su Python.md",
     "Python/Lezione 2/Spiegazione esercizi Lezione 1 Python.md",
-    "Python/Lezione 2/Introduzione a Python.md",
     "Python/Lezione 2/I modificatori.md",
     "Python/Lezione 2/dinamically-typed (tipizzato dinamicamente) o Statically-typed.md",
-    "Python/Lezione 2/Gli Operatori.md",
     "Python/Lezione 2/Estensioni delle collections in Python.md",
     "Python/Lezione 1/Introduzione generale.md",
     "Python/Lezione 2/Collections.md",
     "Python/Lezione 2/Presentazione su le buone pratiche di programmazione e applicazioni reali di python.md",
     "Ripasso Python.md",
-    "prova.py",
+    "Code/prova.py",
     "My code file.py",
     "Objected Oriented.md",
-    "Esercitazione su Python.md",
     "Untitled mindmap.md",
     "Python/Lezione 3/Cicli e condizionali.md",
     "Numeri Complessi.md",
     "Lavorare su Vs Code.md",
     "Bandwidth (Larghezza di banda).md",
     "^swap.md",
-    "Recording 20241217135846.webm.md",
     "Screenshot 2025-03-01 at 12-03-21 5. Collections - 04-SO.pdf.png",
     "Python/Lezione 3/Ripasso if, if else e Loops.md",
-    "Python/Lezione 3/Match Statement.md",
     "img/function Python.png",
-    "Untitled",
     "Python/Lezione 4",
-    "Sistemi digitali/Lezione 12/I fundamentals di un Sistema Operativo.md",
-    "Sistemi digitali/Lezione 17/Servizi e funzioni del Sistema Operativo.md",
     "img/GUI.png",
     "img/Interfaccia Alfanumerica.png",
-    "img/Process Life Cycle.png",
-    "img/Gestione dei dispositivi periferici.png",
-    "img/File System Management.png",
-    "img/gestione dei processi e fork.png",
-    "img/Memory Hierarchy.png",
     "Sistemi digitali/Lezione 17",
-    "img/Motherboard.png",
     "Untitled.canvas",
     "Sistemi digitali/Lezione 16",
-    "Python",
-    "Sistemi digitali",
-    "Lezione 2/Collections_additional_resources.pdf"
+    "Python"
   ]
 }

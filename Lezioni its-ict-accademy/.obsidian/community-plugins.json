@@ -26,11 +26,12 @@
   "math-in-callout",
   "solve",
   "highlightr-plugin",
-  "code-emitter",
   "omnisearch",
-  "ai-commander",
   "language-translator",
   "obsidian-annotator",
   "obsidian-wordnet-plugin",
-  "vscode-editor"
+  "vscode-editor",
+  "obsidian-file-color",
+  "code-styler",
+  "execute-code"
 ]

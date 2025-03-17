@@ -212,6 +212,9 @@ Queste funzioni possono essere integrate in librerie esterne come `pyp` o `pip`,
 > È consigliabile non fare funzioni troppo generabili che funzionano per ogni dato, le funzioni devono avere un focus specifico per quell'operazione su quei dati specifici, esattamente come per le [[Collections#Le liste|liste]], nelle quali posso inserire ogni tipo di dato(integer, float, stringa, booleano), ma è sconsigliabile farlo. 
 > Come per le esercizio della funzione di sottrazione; è meglio creare una funzione generale che dati due interi me li sottrae 
 
+
+---
+
 ### Il Return 
 Ogni volta che una funzione contiene un'istruzione `return`, ==essa restituisce un **valore** in output.== 
 **Perché è importante restituire un valore?**
@@ -944,7 +947,7 @@ def add(a, b):
 print(add(2, 3))
 print(add(2,3,4))
 ```
-il primo print funziona poiche ho definito dei valori posizionali nella chiamata della funzione che he messa come argomento del `print()`, mentre   `print(add(2,3,4))`, ==mi torna errore perché l'ultimo argomento è mancante nella definizione della funzione `add`==. 
+il primo print funziona poiché ho definito dei valori posizionali nella chiamata della funzione che he messa come argomento del `print()`, mentre   `print(add(2,3,4))`, ==mi torna errore perché l'ultimo argomento è mancante nella definizione della funzione `add`==. 
 Quindi se voglio aggiungere altri argomenti devo scrivere `*args`:
 ```python
 def add(a, b):
@@ -969,9 +972,8 @@ Per dirla in modo tecnico:
 > In questo caso si deve usare il [[#^kwargs-Def|`**kwargs`]] che vedremo più avanti
 
 > [!deep]-  L'operatore `*`
->
-> Tuttavia `*args` è un modo generico che permette a una funzione di accettare u numero variabile di argomenti. 
-> Quando si usa `*args` in una funzione, Python raccoglie tutti gli argomenti passati alla funzione e li inserisce in una tupla, permettendoti di trattare un numero indefinito di argomenti.
+>  `*args` è un modo generico che permette a una funzione di accettare u numero variabile di argomenti. 
+> Quando si usa `*args` in una funzione, ==Python **raccoglie tutti gli argomenti passati alla funzione e li inserisce in una tupla**, permettendoti di trattare un numero indefinito di argomenti.==
 > Ad esempio :
 > ```python
 > myList:list[int] = [1,2,3,4,5,6,7,8,9]
@@ -995,8 +997,8 @@ Per dirla in modo tecnico:
 >make_pizza(12, 'mushrooms', 'green peppers', 'extra cheese')
 >#Output
 >>>>Making a 16-inch pizza with the following toppings:
->>> pepperoni
->>>Making a 12-inch pizza with the following toppings:
+>>>> pepperoni
+>>>>Making a 12-inch pizza with the following toppings:
 >>>>- mushrooms
 >>>>- green peppers
 >>>>- extra cheese
@@ -1054,7 +1056,7 @@ Quindi è come se trattasi un dizionario.
 
 
 > [!deep]- L'operatore `**`
-> L'operatore **`**` in Python, quando usato nei parametri di una funzione, raccoglie gli argomenti passati per **chiave-valore** e li memorizza in un dizionario.  ^op-doubleAsterisk
+> L'operatore `**` in Python, quando usato nei parametri di una funzione, raccoglie gli argomenti passati per **chiave-valore** e li memorizza in un dizionario.  ^op-doubleAsterisk
 
 
 > [!info] `*args`,  `*kwargs` sono nomi convenzionali

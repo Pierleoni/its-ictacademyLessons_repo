@@ -146,12 +146,34 @@ span.cm-inline-code {
 } 
 
 
-/* Cambia il colore dei commenti nei code blocks */
+/* Cambia il colore dei commenti nei code blocks
 pre code .token.comment {
     color: #8f0ac8 !important; /* Cambia questo valore con il colore che preferisci */
+/*}
+
+
+
+
+/* Miglioramento della sintassi Python in Obsidian */
+.theme-dark pre[class*="language-"],
+.theme-light pre[class*="language-"] {
+    /* background-color: #1e1e1e; Sfondo scuro VS Code */
+    color: #d4d4d4; /* Testo di default */
+    font-family: Consolas, "Courier New", monospace;
+    border-radius: 5px;
+    padding: 10px;
 }
 
-
+/* Colorazione sintassi */
+pre[class*="language-python"] .token.keyword { color: #481297; } /* Parole chiave (for, in, int, def, etc.) */
+pre[class*="language-python"] .token.function { color: #c5c51c; } /* Funzioni */
+pre[class*="language-python"] .token.string { color: #ba6a1f; } /* Stringhe */
+pre[class*="language-python"] .token.number { color: #67c535; } /* Numeri */
+pre[class*="language-python"] .token.operator { color: #d4d4d4; } /* Operatori */
+pre[class*="language-python"] .token.comment { color: #477432; font-style: italic; } /* Commenti */
+pre[class*="language-python"] .token.punctuation { color: #d4d4d4; } /* Virgole, punti e parentesi */
+pre[class*="language-python"] .token.builtin { color: #b3ab17; } /* Funzioni built-in (print, range, etc.) */
+pre[class*="language-python"] .token.variable { color: #2799d6; } /* Variabili */
 
 
 

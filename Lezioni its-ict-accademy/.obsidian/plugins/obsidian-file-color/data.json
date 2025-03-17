@@ -1,0 +1,49 @@
+{
+  "cascadeColors": false,
+  "colorBackground": false,
+  "palette": [
+    {
+      "id": "zmlu2Zg1-VwgWvwxc06mi",
+      "name": "Py",
+      "value": "#007ef5"
+    },
+    {
+      "id": "qzrdJKLdHcWoyG9iqaRjw",
+      "name": "DS",
+      "value": "#7ea003"
+    },
+    {
+      "id": "hu1PHw--DcVNBpvu9rFZO",
+      "name": "Code",
+      "value": "#689ac0"
+    },
+    {
+      "id": "Q_1nIkpSGvdHauxOtKs8S",
+      "name": "Diagram",
+      "value": "#ffffff"
+    },
+    {
+      "id": "cz1p-WAE9mdVK-N4qPhJT",
+      "name": "Img",
+      "value": "#1d338c"
+    }
+  ],
+  "fileColors": [
+    {
+      "path": "Python",
+      "color": "zmlu2Zg1-VwgWvwxc06mi"
+    },
+    {
+      "path": "img",
+      "color": "cz1p-WAE9mdVK-N4qPhJT"
+    },
+    {
+      "path": "Sistemi digitali",
+      "color": "qzrdJKLdHcWoyG9iqaRjw"
+    },
+    {
+      "path": "Code",
+      "color": "hu1PHw--DcVNBpvu9rFZO"
+    }
+  ]
+}

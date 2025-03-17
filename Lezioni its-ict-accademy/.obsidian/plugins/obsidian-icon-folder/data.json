@@ -6,6 +6,7 @@
     "emojiStyle": "native",
     "iconColor": null,
     "recentlyUsedIcons": [
+      "LiFolderCode",
       "LiFileCode",
       "LiDiagram",
       "LiImage"
@@ -34,5 +35,6 @@
   },
   "img": "LiImage",
   "Diagram": "LiDiagram",
-  "prova.py": "LiFileCode"
+  "Code": "LiFolderCode",
+  "Code/prova.py": "LiFileCode"
 }
