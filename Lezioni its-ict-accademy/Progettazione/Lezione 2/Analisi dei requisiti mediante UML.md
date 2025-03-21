@@ -160,22 +160,96 @@ Applicando questa distinzione al diagramma:
 - Il **livello estensionale** è costituito dalle istanze `div_comm` e `bio`, che sono oggetti concreti della classe `Libro`. Questi oggetti possiedono valori specifici per l'attributo `titolo`: `"La Divina Commedia"` per `div_comm` e `"La mia grandiosa vita"` per `bio`.
 In altre parole, il livello intensionale riguarda **la progettazione** (definizione delle classi), mentre il livello estensionale riguarda **l'implementazione concreta** (gli oggetti creati nel sistema).
 
-È possibile che esistono due oggetti distinti che pero hanno lo stresso valore dell'attributo 
-![[Screenshot 2025-03-20 at 12-33-20 Meet - bmb-xnne-ahh.png]]
+### Identità degli oggetti o delle istanze 
+È possibile avere due oggetti distinti che però condividono lo stesso valore per un determinato attributo.
+![[le istanze diverse con lo stesso attributo.png]]
 
-Non è il fatto di avere le stresse prorprietà che mi dice che l'oggetto è lo stessso ma dipende dall'identificatore.
-Possiamo avere due oggetti perosona con lo stesso nome e cognome ?SI, pero l'identificativo deve essere diverso, se l'identificativo è diverso non posso farlo. 
+L'immagine mostra due livelli:
 
-Il secondo elemento che ci serve è cpaire come le classi e gli oggetti interagiscono tra loro, quindi parliamo di link e correlazzioni.
-![[Screenshot 2025-03-20 at 12-36-05 Meet - bmb-xnne-ahh.png]]
+1. **[[#^inLevel|Livello delle classi (intensionale)]]:** 
+    - Qui si definisce la classe `Libro`, che ha un attributo `titolo: Stringa`.
+    - La classe specifica la struttura e le proprietà generali di un oggetto.
+2. **[[#^exLevel|Livello degli oggetti (estensionale)]]:**  
+    - Vengono rappresentate due **istanze** (oggetti) della classe `Libro`.
+    - Entrambi gli oggetti (`div_comm` e `div_comm_2`) hanno lo stesso valore per l'attributo `titolo = "La divina commedia"`.
+    - Ogni istanza è un'entità separata, anche se ha gli stessi dati.
 
-Un associazione è la possibilita che due oggetti siano o meno in relazione uno con l'altro, ad esempio l'associazione autore modella il fatto che il legame tra libro e persona mi dice che se il nome della Persona è correllata al libro allora quella persona è l'autore. 
-L'associazione è una relazione tra due classi, le istanze delle associazioni tra due classi si chiamano link. 
-Se l'associazione lega la classe C1 e C2 il link invece collega un oggetto della classe C1 a un oggetto della classe C2.
-Infatti quello sotto è un link che lega div_comm con dante. 
-Non si immette un identificatore in un link perché in UML, non possono esistere due link che legano la stessa coppia di oggetti:
-Ad esempio div_comm e Dante sono legati con un link tra l'associazione Libro o autore o non sono legati perché non ha senso rispondere di "si" alla stessa domanda, questo è anche il motivo del perché il link non ha un identificatore perché è implicitamente identificato dalla coppia di oggetti che rappresenta. 
 
+==Non è il valore degli attributi a determinare l'unicità di un oggetto, ma il suo identificatore.== 
+Ad esempio, possiamo avere due oggetti `Persona` con lo stesso nome e cognome? **Sì**, ma devono avere identificatori diversi. ==Se l'identificatore non è diverso, non è possibile distinguere i due oggetti.== 
+
+
+> [!deep]- **La macro area dell'identità degli oggetti**
+> Il concetto di **identità degli oggetti** o **identità delle istanze** in programmazione e modellazione concettuale racchiude e integra i tre concetti fondamentali:
+> 1. **Identità dell'oggetto (Object Identity - OID)**:  
+   > ==Questo concetto si riferisce al fatto che un oggetto è distinto dagli altri non in base ai suoi attributi, ma grazie a un identificatore univoco.== 
+   > ==Anche se due oggetti hanno gli stessi valori di attributo, rimangono entità separate.== 
+   > Questo è un aspetto fondamentale dell'identità degli oggetti.
+>    
+>2. **Estensione e intensionalità delle classi**:
+ >   
+ >   - **Intensionalità**: 
+ >     ==rappresenta la definizione della classe, ovvero la sua struttura (attributi) e comportamento (metodi).==
+>        
+  >  - **Estensione**: 
+  >    ==rappresenta le istanze (oggetti) della classe, che possono avere gli stessi valori per alcuni attributi ma rimanere entità distinte grazie alla loro identità univoca.==  
+   >     Questo concetto è strettamente legato all'identità degli oggetti, poiché l'identità è ciò che distingue le istanze anche quando condividono gli stessi attributi.
+  >      
+>3. **Principio di uguaglianza vs. identità**:
+  >  
+ >   - **Uguaglianza (Equality)**: 
+ >     ==due oggetti sono considerati uguali se hanno gli stessi valori negli attributi rilevanti.==
+ >       
+ >   - **Identità (Identity)**: 
+ >     ==due oggetti sono distinti se hanno identificatori diversi, anche se hanno gli stessi attributi.==  
+  >      Questo principio è centrale nel concetto di identità degli oggetti, poiché sottolinea la differenza tra l'uguaglianza basata sui valori e l'identità basata sull'unicità dell'oggetto.
+
+### Link e associazioni: come classi e oggetti interagiscono
+
+Il secondo elemento fondamentale da comprendere è come le classi e gli oggetti interagiscono tra loro. Per questo, parliamo di **link** e **associazioni**.
+Sia i link che le associazioni rientrano nel concetto di identità degli oggetti, anche se in modo indiretto.
+
+![[Link e associazioni.png]]
+
+#### Cosa sono le associazioni?
+Nella modellazione concettuale (ad esempio, in UML) un'associazione rappresenta una relazione tra due o più classi.
+anche qui l'identità degli oggetti gioca un ruolo importante:
+- Le associazioni collegano istanze specifiche (oggetti) di classe diverse, e queste istanze sono identificate in modo univoco. 
+==Un'**associazione** rappresenta la **possibilità** che due oggetti siano o meno in relazione tra loro.==  
+
+Ad esempio, l'associazione `autore` modella il legame tra le classi `Libro` e `Persona`. Se il nome di una `Persona` è correlato a un `Libro`, allora quella persona è l'autore del libro.
+
+In altre parole:
+
+- ==Un'associazione è una **relazione tra due classi**==.
+- Le istanze di un'associazione tra due classi si chiamano **link**.
+
+
+#### Cosa sono i link?
+
+==Se un'associazione lega due classi (ad esempio, `C1` e `C2`), un **link** collega un oggetto della classe `C1` a un oggetto della classe `C2`==.
+
+Ad esempio, nella figura sotto, c'è un link che lega <u>`div_comm`</u> (un oggetto della classe `Libro`) a `Dante` (un oggetto della classe `Persona`).
+
+#### Perché i link non hanno un identificatore?
+
+In UML, i link non hanno un identificatore esplicito perché:
+
+1. ==Non possono esistere due link che collegano la stessa coppia di oggetti.==  
+    Ad esempio, se `div_comm` e `Dante` sono legati da un link nell'associazione `Libro-autore`, non ha senso avere un altro link che li collega di nuovo. La risposta alla domanda "sono legati?" è già implicita: o sono legati o non lo sono.
+    
+2. ==Il link è implicitamente identificato dalla coppia di oggetti che rappresenta.== 
+
+> [!example] Riepilogo
+> - **Associazione**: 
+>   relazione tra due classi (es. `Libro` e `Persona`).
+>     
+> - **Link**: 
+>   istanza di un'associazione, che collega due oggetti specifici (es. `div_comm` e `Dante`).
+>     
+> - I link non hanno un identificatore esplicito perché sono univoci per la coppia di oggetti che collegano.
+
+  
 Si vuole progettare che permetta ai clienti di prenotare hotel via web:
 le classi qui sono `hotel`, `clienti` e come moddeliamo il fatto che il clienti prenoti l'hotel, con un link:
  ![[Screenshot 2025-03-20 at 12-47-02 Meet - bmb-xnne-ahh.png]]
