@@ -5,12 +5,12 @@ In [[Introduzione a Python#Variabili|Python]], ==ci sono delle strutture dei dat
 Abbiamo visto i tipi semplici come [[Introduzione a Python#^myList-integer|i numeri interi]], [[Introduzione a Python#^myList-float|numeri con la virgola]], [[Introduzione a Python#^myList-str|stringhe]], [[Introduzione a Python#^myList-bool|booleani]] e i [[Numeri Complessi]] (vedi le proprietà [[Spiegazione esercizi Lezione 1 Python#La proprietà `.real`|.real]] e [[Spiegazione esercizi Lezione 1 Python#La proprietà `.imag`|.imag]]); tuttavia Python ha anche diversi tipi di composti incorporati, i quali agiscono come dei container per gli altri types. 
 Questi tipi di composti sono: 
 
-| Type name                          | Esempio                                   | Descrizione                             |
-| ---------------------------------- | ----------------------------------------- | --------------------------------------- |
-| Liste                              | `[1,2,3]`                                 | Collection ordinate                     |
-| Tuple                              | `(1,2,3)`                                 | Raccolta ordinata immutabile            |
-| [[#I dictionaries\|Dictionaries]]  | `{'key1':'valore1', 'key2':2, "key3": 3}` | Mappatura non ordinata (chiave,valore)  |
-| Set                                | `{1,2,3}`                                 | Raccolta non ordinata di valori univoci |
+| Type name                         | Esempio                                   | Descrizione                             |
+| --------------------------------- | ----------------------------------------- | --------------------------------------- |
+| Liste                             | `[1,2,3]`                                 | Collection ordinate                     |
+| Tuple                             | `(1,2,3)`                                 | Raccolta ordinata immutabile            |
+| [[#I dictionaries\|Dictionaries]] | `{'key1':'valore1', 'key2':2, "key3": 3}` | Mappatura non ordinata (chiave,valore)  |
+| Set                               | `{1,2,3}`                                 | Raccolta non ordinata di valori univoci |
 e rientrano nella grande famiglie delle collections 
 Nelle collection possiamo salvare più valori nella stessa struttura.
 Se noi vogliamo tenere traccia di tutti i valori assegnati, devo usare la collection: 

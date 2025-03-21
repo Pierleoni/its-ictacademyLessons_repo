@@ -80,7 +80,7 @@ Tuttavia non bisogna confondere un'istanza con un attributo della classe. Un'ist
 In questo caso, ==`studente1` e `studente2` sono due istanze della classe `Studente`==.  Il nome è un attributo, ma la stringa `"Marco"` è solo un valore assegnato a quell'attributo.
 
 
->[!example] **Per fare chiarezza:** 
+>[!example] **Per fare chiarezza: Analogia con le istanze di un Plugin Audio** 
 >Le istanze di una classe in Python possono essere paragonate alle istanze di un plugin audio in una DAW: Immagina di utilizzare lo stesso identico plugin sulla catena degli insert in una traccia, con gli stessi settaggi, in una DAW (Pro Tools, Reaper, Cubase, FL Studio, Ableton, ecc.). Sebbene si tratti dello stesso plugin (cioè della stessa classe), ogni istanza è indipendente e separata dalle altre. Ad esempio, consideriamo il compressore 1176 della UAD: ![[1176.png|center]]
 >
 >- Il plugin UAD 1176 rappresenta una classe; definisce le caratteristiche e il comportamento del processamento della compressione sulla sorgente audio (traccia).

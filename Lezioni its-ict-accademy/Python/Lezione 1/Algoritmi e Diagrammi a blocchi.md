@@ -19,7 +19,7 @@ Ci permettono di rappresentare degli algoritmi in maniera visiva
 ![[Struttura fondamentale.png|700]]
 
 
-# Diagramma a blocchi
+## Diagramma a blocchi
 Questo tipo di diagramma lo si scrive seguendo un ordine e una struttura precisa.
 
 ![[Struttura diagramma a blocchi.png]]
@@ -63,19 +63,22 @@ Come vedremo più avanti, il rombo viene spesso utilizzato per i cicli `if`, `el
 > 
 
 
+### Esempio di un Diagramma a blocchi
 
 Ecco come potremmo strutturare un diagramma a blocchi che somma i numeri in una lista:
 
-### 1. **Sequenza**
+#### 1. **Sequenza**
 
-La sequenza è rappresentata dai blocchi che si susseguono uno dopo l’altro. In questo caso, la sequenza inizierà con il blocco che definisce la lista e continuerà con un blocco che inizializza una variabile per la somma.
+==La sequenza è rappresentata dai blocchi che si susseguono uno dopo l’altro==. 
+In questo caso, la sequenza inizierà con il blocco che definisce la lista e continuerà con un blocco che inizializza una variabile per la somma.
 I blocchi di apertura e di chiusura degli algoritmi hanno una sola freccia, che, rispettivamente entra ed esce, mentre i blocchi di mezzo hanno 2 freccie: una in entrata e una in uscita.
 ![[Block sequence.png]]
 
 
-### 2. **Selezione (Condizione)**
+#### 2. **Selezione (Condizione)**
 
-La selezione permette di eseguire un blocco di codice solo se una condizione è vera. Non è strettamente necessaria per la somma, ma può essere usata per controllare se la lista è vuota o se ha numeri da sommare.
+==La selezione permette di eseguire un blocco di codice solo se una condizione è vera.== 
+Non è strettamente necessaria per la somma, ma può essere usata per controllare se la lista è vuota o se ha numeri da sommare.
 
 ![[Selection block.png]]
 Analizzando l'immagine, partendo da sinistra:
@@ -111,9 +114,10 @@ Analizzando l'immagine, partendo da sinistra:
 >     instruction()
 > ```
 
-### 3. **Iterazione**
+#### 3. **Iterazione**
 
-L'iterazione è il processo che permette di ripetere una serie di operazioni più volte. Per sommare i numeri in una lista, si utilizza un ciclo (iterazione). In un diagramma a blocchi, questo ciclo è rappresentato da un blocco "loop" (per esempio, "for" o "while") che scorre la lista.
+==L'iterazione è il processo che permette di ripetere una serie di operazioni più volte.== 
+Per sommare i numeri in una lista, si utilizza un ciclo (iterazione). In un diagramma a blocchi, questo ciclo è rappresentato da un blocco "loop" (per esempio, "for" o "while") che scorre la lista.
 
 ![[Control block.png]]
 Analizzando l'immagine, partendo da sinistra verso destra:
@@ -181,7 +185,7 @@ Analizzando l'immagine, partendo da sinistra verso destra:
 >- **Terzo diagramma**: 
 >  Rappresenta cicli strutturati con contatore (`for`), dove inizializzazione, condizione e aggiornamento sono chiaramente separati.
 
-#### Diagramma a blocchi per sommare 5 numeri in una lista:
+### Diagramma a blocchi per sommare 5 numeri in una lista:
 
 1. **Inizio**
 2. **Inizializza la somma a 0**
@@ -193,7 +197,7 @@ Analizzando l'immagine, partendo da sinistra verso destra:
 6. **Stampa la somma totale**
 7. **Fine**
 
-### Traduzione in pseudocodice:
+#### Traduzione in pseudocodice:
 
 
 ```python
@@ -204,7 +208,7 @@ print(somma)
 ```
 In un diagramma a blocchi, il flusso di esecuzione partirebbe da un blocco di inizio, per passare all'inizializzazione della somma (un blocco di assegnazione), poi a un blocco di iterazione "for" che scorre la lista. Dopo ogni iterazione, un blocco di somma aggiungerebbe il valore corrente della lista alla variabile `somma`. Alla fine, quando non ci sono più numeri nella lista, un blocco di stampa restituirebbe il risultato finale.
 
-### Rappresentazione visiva:
+#### Rappresentazione visiva:
 
 - Un **blocco rettangolare** (operazione) per l'inizializzazione della somma.
 - Un **rombo** (condizione) per verificare se ci sono numeri nella lista.

@@ -59,7 +59,7 @@ def computePI(approximation_value, decimal_digits):
 	
 ```
 
-Questa strategia del divide et impera, ci fa dividere il probmela in sotto problemi più piccoli, per fare ciò suddividiamo in 3 passaggi:
+Questa strategia del divide et impera, ci fa dividere il problema in sotto problemi più piccoli, per fare ciò suddividiamo in 3 passaggi:
 1. Generalizza la formula, quindi trovare una formula che conesnte di generalizzare la serie infinta di pi greco
 2. Scrive la funzione computePI()
 3. Usare la funzione 

@@ -33,14 +33,15 @@ Prendiamo l'esempio del calcolo della media di un insieme di numeri e vediamo co
 
 ## Programma 
 
-Un set di istruzioni che dice al tuo computer come eseguire un algoritmo.  
+==Un set di istruzioni che dice al tuo computer come eseguire un algoritmo.==  
 Es:  
 ![[esempio programma.png]]
 
 
-## Linguaggio di programmazione 
+### Linguaggio di programmazione 
 
-Uno specifico linguaggio per formulare programmi è chiamato **linguaggio di programmazione**. Sono usati dai developers per comunicare le istruzioni a un computer in modo che posso capirle ed eseguirle. Sono il mezzo attraverso cui creiamo software, automatizziamo tasks e risolviamo problemi computazionali.  
+Uno specifico linguaggio per formulare programmi è chiamato **linguaggio di programmazione**. 
+Sono usati dai developers per comunicare le istruzioni a un computer in modo che posso capirle ed eseguirle. Sono il mezzo attraverso cui creiamo software, automatizziamo tasks e risolviamo problemi computazionali.  
 Es: Python, Java o C++
 
 Per riassumere:   

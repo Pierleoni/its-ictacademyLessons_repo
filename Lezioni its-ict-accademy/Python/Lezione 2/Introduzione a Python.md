@@ -28,7 +28,7 @@ Grazie alla sua versatilità, Python è utilizzato in vari settori, tra cui lo s
 
 ---
 
-## Programmare in Python
+### Programmare in Python
 
 ==Un codice è una serie di istruzioni che i programmatori scrivono. Il processo di scrivere un programma è chiamato anche codifica.==
 
@@ -36,7 +36,7 @@ Ora creeremo il nostro primo codice in Python: Crea un file chiamato helloWorld.
 `My first Python code`  
 `print ("Hello World")`  
 `"This program displays the message: Hello World!"`  
-### I commenti  
+#### I commenti  
 ==I commenti aiutano i programmatori a comunicare e comprendere un programma. Non sono istruzioni di programmazione e quindi vengono ignorati dall'interprete.==
 
 In Python, i commenti sono preceduti da:  
@@ -46,9 +46,11 @@ In Python, i commenti sono preceduti da:
 `'''this program displays the message: Hello World!''`.   
 
 
-## Data types
+---
 
-### Cosa sono i data types
+### Data types
+
+#### Cosa sono i data types
 Quando ci approcciammo a un qualsiasi linguaggio di programmazione ci approcciamo a dei dati primitivi 
 Un programma deve rappresentare diversi tipi di valori con cui lavorare. Iniziamo con i più semplici: i tipi primitivi.  
 Ce ne sono di diversi tipi:  
@@ -70,7 +72,7 @@ Ce ne sono di diversi tipi:
 ![[Data types.png]]
 
 I numeri possono avere qualsiasi valore come le stringhe, i valori booleani posso avere 2 valori `True` o `false`
-### Variabili
+#### Variabili
 ==Una volta compreso i dati devi saperli usare, le variabili sono dei modi per salvare questi valori di dati e li puoi richiamare richiamando la variabile a cui hai assegnato quel valore (dato)==.
 A una[[Spiegazione esercizi Lezione 1 Python#Introduzione a Python Variabili| variabile]] posso dargli qualsiasi nome e valore, i nomi devono descrivere al meglio il tipo di dato che state usando (es: name, age). 
 Consideriamo prima il semplice problema di calcolare l'area di un cerchio.  
@@ -124,7 +126,7 @@ type (gianpino)
 >>> <class `float`> 
 ```
 
-## Le variabili di python sono dei puntatori non dei recipienti!
+##### Le variabili di python sono dei puntatori non dei recipienti!
 > [!faq] Le variabili di python sono dei pointers
 > In molti linguaggi di programmazione, le variabili sono come contenitori o secchi (buckets) nei quali inserisci dati. 
 > Ad esempio in ***C***:
@@ -297,7 +299,7 @@ Questi attributi e metodi sono accessibili tramite la sintassi del punto (`.`) (
 
 
 
-## Convenzioni di denominazione 
+### Convenzioni di denominazione 
 
 Quando nomini le tue variabili, ci sono alcune cose che non puoi fare.  
 Ad esempio: gli spazi bianchi.  
@@ -312,7 +314,7 @@ In generale:
 ---
 
 
-## Strings 
+### Strings 
 ==Una stringa è una sequenza di caratteri.== 
 Quindi è possibile accedere a ogni carattere della stringa utilizzando un indice che indica la posizione di quel carattere all'interno della stringa data.
 ```python
