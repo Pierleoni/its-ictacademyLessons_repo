@@ -181,10 +181,14 @@ Ad esempio, possiamo avere due oggetti `Persona` con lo stesso nome e cognome? *
 
 > [!deep]- **La macro area dell'identità degli oggetti**
 > Il concetto di **identità degli oggetti** o **identità delle istanze** in programmazione e modellazione concettuale racchiude e integra i tre concetti fondamentali:
+> 
+> 
 > 1. **Identità dell'oggetto (Object Identity - OID)**:  
    > ==Questo concetto si riferisce al fatto che un oggetto è distinto dagli altri non in base ai suoi attributi, ma grazie a un identificatore univoco.== 
    > ==Anche se due oggetti hanno gli stessi valori di attributo, rimangono entità separate.== 
-   > Questo è un aspetto fondamentale dell'identità degli oggetti.
+   > Questo è un aspetto fondamentale dell'identità degli oggetti.    ^OID
+   > 
+   > 
 >    
 >2. **Estensione e intensionalità delle classi**:
  >   
@@ -206,30 +210,62 @@ Ad esempio, possiamo avere due oggetti `Persona` con lo stesso nome e cognome? *
 
 ### Link e associazioni: come classi e oggetti interagiscono
 
-Il secondo elemento fondamentale da comprendere è come le classi e gli oggetti interagiscono tra loro. Per questo, parliamo di **link** e **associazioni**.
+Il secondo elemento fondamentale da comprendere è come le classi e gli oggetti interagiscono tra loro. Per questo, parliamo di **[[#Cosa sono i link?|link]]** e **[[#Cosa sono le associazioni?|associazioni]]**.
 Sia i link che le associazioni rientrano nel concetto di identità degli oggetti, anche se in modo indiretto.
 
 ![[Link e associazioni.png]]
 
+L'immagine qui riportata rappresenta il concetto di associazioni e link nella modellazione concettuale.
+Riprendiamo la distinzione tra **[[#^inLevel|livello intensionale (classi e associazioni)]]** e [[#^exLevel|livello estensionale (istanze e link)]] per comprendere meglio il rapporto tra gli oggetti in un sistema. 
+Nel livello intensionale possiamo notare 2 classi: 
+- La classe **Libro** con l'attributo `titolo:Stringa` 
+- La classe **Persona** con l'attributo `nome: Stringa` e `cognome: Stringa`. 
+  Tra queste due classi esiste un'**[[#^associationsDef|associazione]]** chiamata autore: 
+  ==essa rappresenta la relazione tra un libro e la persona che lo ha scritto.==   
+- L'associazione è direzionata: la freccia indica "il verso di lettura del nome" (facoltativo)
+Nel livello Estensivo possiamo vedere istanze le specifiche delle classi:
+- **<u>div_comm</u>**:
+  è un oggetto della classe `libro`, con il titolo `"La divina commedia"`
+- **<u>dante</u>:** 
+  è un oggetto della classe `Persona`, con nome `"Dante"` e cognome `"Alighieri"`.
+Tra questi due oggetti esiste un **[[#^instanceDef|link]]**(istanza della relazione autore), che collega `div_comm` con `dante`. 
+==Questo link non ha un identificatore proprio, poiché è determinato univocamente dagli oggetti che collega.== 
 #### Cosa sono le associazioni?
 Nella modellazione concettuale (ad esempio, in UML) un'associazione rappresenta una relazione tra due o più classi.
 anche qui l'identità degli oggetti gioca un ruolo importante:
 - Le associazioni collegano istanze specifiche (oggetti) di classe diverse, e queste istanze sono identificate in modo univoco. 
-==Un'**associazione** rappresenta la **possibilità** che due oggetti siano o meno in relazione tra loro.==  
+- L'identità degli oggetti permette di distinguere tra due istanze che potrebbero avere gli stessi attributi ma partecipano a relazioni diverse.
+Quindi possiamo definire un'associazione come: 
+==Un'**associazione** rappresenta la **possibilità** che due oggetti siano o meno in relazione tra loro.==   ^associationsDef
 
-Ad esempio, l'associazione `autore` modella il legame tra le classi `Libro` e `Persona`. Se il nome di una `Persona` è correlato a un `Libro`, allora quella persona è l'autore del libro.
+> [!example] **Esempio: Sistema di gestione di una biblioteca**
+> In un sistema di gestione di una biblioteca, due libri potrebbero avere lo stesso titolo e autore (attributi uguali), ma sono istanze distinte con identità diverse. Un'associazione tra un libro e un prestito si baserà sull'identità univoca del libro, non solo sui suoi attributi.
+
+
+[[Link e associazioni.png|Riprendendo l'immagine sopra]], l'associazione `autore` modella il legame tra le classi `Libro` e `Persona`. Se il nome di una `Persona` è correlato a un `Libro`, allora quella persona è l'autore del libro.
 
 In altre parole:
 
 - ==Un'associazione è una **relazione tra due classi**==.
-- Le istanze di un'associazione tra due classi si chiamano **link**.
+- ==Le istanze di un'associazione tra due classi si chiamano **link**.==
 
 
 #### Cosa sono i link?
+==Un link (o riferimento) è un modo per accedere a un oggetto specifico attraverso un puntatore o un identificatore.== 
+In altre parole:
+==Un link è una relazione concreta tra due istanze di classi diverse.==   ^instanceDef
 
-==Se un'associazione lega due classi (ad esempio, `C1` e `C2`), un **link** collega un oggetto della classe `C1` a un oggetto della classe `C2`==.
+Questo è strettamente legato all'identità degli oggetti perché:
+- Un link punta a un oggetto specifico, identificato in modo univoco (ad esempio, tramite il suo **[[#^OID|Object Identity(OID)]]**).
+- Anche se due oggetti hanno gli stessi attributi, i riferimenti a essi saranno distinti perché puntano a istanze diverse. 
+  
+> [!example] Prendi ad esempio le [[Le Classi#^instanceCode|istanze di una classe in Python]]
 
-Ad esempio, nella figura sotto, c'è un link che lega <u>`div_comm`</u> (un oggetto della classe `Libro`) a `Dante` (un oggetto della classe `Persona`).
+
+Quindi se un'associazione lega due classi (ad esempio, `C1` e `C2`),
+ ==un **link** collega un oggetto della classe `C1` a un oggetto della classe `C2`==.
+
+Ad esempio, [[Link e associazioni.png|nella figura sopra]], c'è un link che lega <u>`div_comm`</u> (un oggetto della classe `Libro`) a `Dante` (un oggetto della classe `Persona`).
 
 #### Perché i link non hanno un identificatore?
 
@@ -249,26 +285,193 @@ In UML, i link non hanno un identificatore esplicito perché:
 >     
 > - I link non hanno un identificatore esplicito perché sono univoci per la coppia di oggetti che collegano.
 
-  
-Si vuole progettare che permetta ai clienti di prenotare hotel via web:
-le classi qui sono `hotel`, `clienti` e come moddeliamo il fatto che il clienti prenoti l'hotel, con un link:
- ![[Screenshot 2025-03-20 at 12-47-02 Meet - bmb-xnne-ahh.png]]
-Cosa modella l'associazione prenota? Modella la possibilità che un oggetto della classe Persona e della Classe Hotel siano in relazione.
-Questo è il livello intensionale.
-A livello estensionael 
-![[Screenshot 2025-03-20 at 12-48-28 Meet - bmb-xnne-ahh.png]]
 
-A quale domanda risponde l'estensa di quel link prenota? 
-E se io volessi rappresentare una seocnda prenotazione di 'alice' presso h1? Non si può fare, quei due link prenota non può essere fatto in UML, ma io volgio che la persona possa prenotare due volte lo stesso hotel. 
-In questo caso il diagramma è inadatto anche perché io volevo riposnedere alla doamnda "Quantwe volte alice ha prenotato questo Hotel?".
-Ora come si può sistemare questo diagramma, cosa gli manca? La classe `prenotazione` per vedere qunate volte alice ha prenotato questo hotel. 
-Quindi in partenza non abbiamo individuato la classe prenotazione:
-![[Screenshot 2025-03-20 at 12-54-22 Meet - bmb-xnne-ahh.png]]
-Nel livello sotto abbiamo 
-Abbiamo imparato che alcune volte il costrutto di associazione basta (come nell'esempio libro), ma certe volte il costrutto da solo n basta e serve la classe(come in questo caso la classe `prenotazione`). 
+> [!faq]- **Quando i link e le associazioni non rientrano nell'identità degli oggetti**
+> In alcuni contesti, i link e le associazioni possono essere utilizzati in modo astratto, senza fare esplicito riferimento all'identità degli oggetti. Ad esempio:
+>
+>- In un database relazionale, le associazioni sono spesso rappresentate tramite chiavi esterne, che si basano su valori (non necessariamente su identità univoche).
+  >  
+>- In alcuni linguaggi di programmazione, i riferimenti possono essere utilizzati per condividere lo stesso oggetto (ad esempio, in Python, due variabili possono puntare allo stesso oggetto).
+  >  
+>
+>Tuttavia, anche in questi casi, l'identità degli oggetti è implicita, poiché è ciò che permette di distinguere tra oggetti condivisi e oggetti distinti.
 
-Tra le stessi classi possono essere definte più associazioni, che modelllano legami di natura diversa.
-
-![[Screenshot 2025-03-20 at 13-02-42 Meet - bmb-xnne-ahh.png]]
+In sintesi, i **link** e le **associazioni** sono strettamente legati all'identità degli oggetti, poiché si basano sull'unicità delle istanze per funzionare correttamente. Tuttavia, il loro utilizzo può variare a seconda del contesto (programmazione, modellazione, database), ma il concetto di identità rimane fondamentale per garantire che gli oggetti siano gestiti e distinti in modo appropriato.
 
 
+---
+
+## Esempio Pratico:  Gestione delle Prenotazioni in un Albergo
+Per comprendere meglio il concetto di **associazioni e link**, consideriamo il caso di un sistema di prenotazioni alberghiere.
+### Modello concettuale
+![[livello intensionale prenotazioni.png]] 
+Nel nostro modello, abbiamo due classi principali: 
+- **Hotel:** 
+  con l'attributo `nome:Stringa`, che rappresenta il nome dell'hotel.
+- **Persona:**
+  con gli attributi `nome:Stringa` e `cognome:Stringa`, che rappresentano il cliente.
+
+Queste due classi sono collegate da un'**[[#^associationsDef|associazione]]** chiamata **Prenota**, che rappresenta la possibilità che una persona possa prenotare un hotel.
+Questa immagine rappresenta il **[[#^inLevel|livello intensionale]],** cioè il livello delle classi e delle loro associazioni. Questo significa che **non stiamo ancora parlando di istanza specifiche,** ma solo della struttura concettuale del sistema.  
+#### Significato dell'associazione "Prenota "
+L'associazione **prenota** indica una relazione tra oggetti della classe `Persona` e oggetti della classe `Hotel`. 
+In altre parole: 
+==definisce il fatto che una persona può prenotare un hotel==.
+
+- **Senza l'associazione "prenota"**, i==l modello non potrebbe rappresentare il concetto di prenotazione, perché le classi `Persona` e `Hotel` sarebbero entità indipendenti senza alcun legame==.
+    
+- **Con l'associazione "prenota"**, ==esplicitiamo che esiste una connessione tra queste due entità, rendendo possibile modellare il concetto di prenotazione==.
+Questo per quanto riguarda nel [[#^inLevel|livello intensionale]].
+#### Livello Estensionale: Istanza della Prenotazione 
+Dopo aver definito il **livello intensionale**, in cui abbiamo individuato le classi `Hotel` e `Persona` e l'associazione `prenota`, passiamo ora al **[[#^exLevel|livello estensionale]]**, che rappresenta le istanze concrete di queste classi e i loro collegamenti effettivi.
+Quindi, ==mentre nel livello intensionale si definisce **la struttura concettuale del sistema**, nel livello estensionale si osservano **casi specifici e reali**==.
+![[Livello estensionale prenotazioni.png|448x189]]
+
+L'immagine mostra due istanze delle classi:
+
+- **h1:Hotel**, un'istanza della classe `Hotel`, che rappresenta un hotel reale chiamato `"La Pergola"`.
+    
+- **alice:Persona**, un'istanza della classe `Persona`, che rappresenta una persona specifica di nome `"Alice Bianchi"`.
+    
+
+Queste istanze sono collegate da un **link prenota**, che indica che **Alice Bianchi ha prenotato l'hotel "La Pergola"**.
+
+#### Dal modello Concettuale ai Dati Reali
+Possiamo vedere che ogni elemento del livello intensionale ha una controparte nel livello estensionale:
+
+1. **La classe `Hotel`** → istanza `h1:Hotel` con nome `"La Pergola"`.
+    
+2. **La classe `Persona`** → istanza `alice:Persona` con nome `"Alice"` e cognome `"Bianchi"`.
+    
+3. **L'associazione `prenota`** → link effettivo tra `h1` e `alice`, che rappresenta una prenotazione concreta.
+Mentre modellizziamo questo sistema dobbiamo porci la seguente domanda:  "A quale domanda risponde l'instanza di quel link prenota?" 
+In generale Il **livello estensionale** risponde alla domanda:  
+**"Quale persona specifica ha prenotato quale hotel specifico?"**
+
+Nel nostro esempio, la risposta è:  
+**"Alice Bianchi ha prenotato l'hotel 'La Pergola'."**
+
+Tuttavia  se io volessi rappresentare una seconda prenotazione di 'alice' presso h1? 
+Nel modello attuale, c'è un problema: non possiamo rappresentare più prenotazioni della stessa persona presso lo stesso hotel. 
+Questo perché, in UML, un **link** tra due oggetti (in questo caso, `alice:Persona` e `h1:Hotel`) può esistere solo una volta. 
+Quindi, se Alice prenota "La Pergola" due volte, il modello attuale non è in grado di catturare questa informazione.
+Questo perché il modello attuale risponde solo all domanda: **"Quale persona ha prenotato quale hotel ?"**, 
+ma non può rispondere a una domanda più specifica come:
+**"Quante volte Alice ha prenotato l'hotel 'La Pergola'? "**
+==Questo limite nasce dal fatto che l'associazione `prenota` collega direttamente `Persona` e `Hotel`, senza tenere traccia delle singole prenotazioni.== 
+Per risolvere questo problema, dobbiamo introdurre una **classe aggiuntiva** che rappresenti la prenotazione stessa.
+Quindi come si può sistemare questo diagramma, cosa gli manca? La classe `prenotazione`, per vedere quante volte 'alice' ha prenotato questo Hotel.
+Questa classe quindi ci consente di gestire più prenotazioni della stessa persona presso lo stesso Hotel, perché agirà come "punto di collegamento " tra `Persona` e `Hotel`, permettendo di rappresentare più prenotazioni. 
+#### Come funziona la classe `Prenotazione`
+1. **La classe `Prenotazione`:**
+	-  Rappresenta una singola prenotazione.
+	- È collegata alla classe `Persona` attraverso un'associazione (es. `effettua`)
+	- È collegata alla classe `Hotel` attraverso un'altra associazione (es. `riguarda`).
+2. **Istanze di `Prenotazione`:**
+   - Ogni istanza di `Prenotazione` rappresenta una prenotazione specifica 
+
+> [!example] Esempio
+>    e Alice prenota "La Pergola" due volte, avremo due istanze di `Prenotazione`, entrambe collegate a `alice:Persona` e `h1:Hotel`.
+
+Quindi nel modello aggiornato:
+![[La classe prenotazione.png]]
+- `Prenotazione` è una classe che collega `Persona` e `Hotel`.
+- Ogni prenotazione è un'istanza di questa classe, che tiene traccia di quante volte una persona ha prenotato un hotel.
+
+> [!example] **Riassumendo:**
+> La classe `Prenotazione` risolve il problema iniziale perché:
+> 1. **Permette più prenotazioni**:  
+  >  Ora possiamo rappresentare più prenotazioni della stessa persona presso lo stesso hotel, creando più istanze di `Prenotazione`.
+ >   
+>2. **Risponde a domande più specifiche**:  
+  >  Il modello può ora rispondere a domande come:
+  >  
+  >  - "Quante volte Alice ha prenotato 'La Pergola'?"
+  >      
+ >   - "Quali sono le date delle prenotazioni di Alice?" (se aggiungiamo attributi come `data` alla classe `Prenotazione`).
+ >       
+>3. **Migliora la flessibilità del modello**:  
+  >  La classe `Prenotazione` può essere estesa per includere ulteriori dettagli, come la data della prenotazione, il numero di ospiti, ecc.
+
+Questo esempio ci mostra che:
+A volte il costrutto di associazione è sufficiente :
+In casi semplici (come l'associazione `autore` tra `Libro` e `Persona` ), un'associazione diretta tra due classi è sufficiente.
+Altre volte serve una classe aggiuntiva:
+In situazioni più complesse (come le prenotazioni multiple), è necessario introdurre una classe intermedia (es. `Prenotazione`) per modellare correttamente la realtà.
+
+## Aggiungere più associazioni tra le classi 
+==Nella modellazione concettuale, è possibile definire **più associazioni tra le stesse classi**, purché queste associazioni rappresentino relazioni di natura diversa.== 
+Questo ci permette di modellare situazioni più complesse in cui due classi possono interagire in modi differenti.
+![[aggiungere le associazioni tra le classi.png]]
+Prendendo in riferimento l'immagine qui sopra, abbiamo 2 classi principali:
+- **Libro**: con l'attributo `titolo: stringa`.
+
+- **Persona**: con gli attributi `nome: Stringa` e `cognome: Stringa`.
+
+Tra queste due classi, possiamo definire **due associazioni distinte**:
+1. **`autore`**: 
+   ==rappresenta il legame tra un libro e il suo autore.==
+
+2. **`editore`**: 
+   ==rappresenta il legame tra un libro e il suo editore.==
+
+Queste due associazioni modellano relazioni diverse:
+- L'associazione `autore` indica **chi ha scritto il libro**.
+
+- L'associazione `editore` indica **chi ha pubblicato il libro**.
+
+Nel [[#^inLevel|livello intensionale]] (livello delle classi e delle associazioni), definiamo la struttura del sistema:
+
+- **Classi**:
+    
+    - `Libro`: 
+      ==rappresenta un libro con un titolo.==
+        
+    - `Persona`: 
+      ==rappresenta una persona con nome e cognome.==
+        
+- **Associazioni**:
+    
+    - `autore`: 
+      ==collega un `Libro` a una `Persona` (l'autore del libro).==
+        
+    - `editore`: 
+      ==collega un `Libro` a una `Persona` (l'editore del libro).== 
+Mentre nel livello estensionale (livello degli oggetti e dei link), vediamo come queste classi e associazioni si concretizzano in istanze specifiche. Ecco alcuni esempi:
+
+1. **Libri**:
+    - `div_comm: Libro`: 
+      ==un'istanza della classe `Libro` con titolo `"La divina commedia"`.==
+        
+    - `bio: Libro`: 
+      ==un'istanza della classe `Libro` con titolo `"La mia grandiosa vita"`.==
+2. **Persone**:
+    
+    - `dante: Persona`: 
+      ==un'istanza della classe `Persona` con nome `"Dante"` e cognome `"Alighieri"`.==
+        
+    - `feltr: Persona`: 
+      ==un'istanza della classe `Persona` con nome `"Faustino"` e cognome `"Feltrinelli"`.==
+        
+    - `modestino: Persona`: 
+      ==un'istanza della classe `Persona` con nome `"Modestino"` e cognome `"Rossi"`.==
+        
+3. **Link**:
+    - Il libro `div_comm` è collegato a `dante` attraverso l'associazione `autore` (Dante è l'autore della Divina Commedia).
+        
+    - Il libro `div_comm` è collegato a `feltr` attraverso l'associazione `editore` (Feltrinelli è l'editore della Divina Commedia).
+        
+    - Il libro `bio` è collegato a `modestino` attraverso l'associazione `autore` (Modestino è l'autore di "La mia grandiosa vita").
+
+Questo sistema di definire più associazioni tra le stessi classi ci permette di:
+1. **Modellare relazioni diverse**:  
+    Ad esempio, una persona può essere sia un autore che un editore, ma queste sono due relazioni distinte che devono essere rappresentate separatamente.
+    
+2. **Rispondere a domande specifiche**:
+    
+    - "Chi è l'autore di questo libro?" → Risposta: Dante Alighieri.
+        
+    - "Chi è l'editore di questo libro?" → Risposta: Faustino Feltrinelli.
+        
+3. **Mantenere la chiarezza del modello**:  
+    Separare le associazioni in base al loro significato rende il modello più comprensibile e facile da gestire.

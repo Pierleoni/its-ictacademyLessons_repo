@@ -22,8 +22,6 @@
   "obsidian-enhancing-mindmap",
   "callout-manager",
   "obsidian-format-code",
-  "quickadd",
-  "math-in-callout",
   "solve",
   "highlightr-plugin",
   "omnisearch",
@@ -33,5 +31,6 @@
   "vscode-editor",
   "obsidian-file-color",
   "code-styler",
-  "execute-code"
+  "execute-code",
+  "image-converter"
 ]
