@@ -112,7 +112,7 @@ circostanze, un oggetto è istanza di più classi, ma in ogni caso, tra le class
 istanza, esiste sempre la classe più specifica).
 
 
-![[Oggetto in UML.pdf.png|center]]
+![[Oggetto in UML.pdf.png]]
 Prendendo questa immagine come riferimento possiamo notare:
 - **div_comm:** 
   ==è l'identificatore dell'oggetto== (scelto
@@ -475,3 +475,4 @@ Questo sistema di definire più associazioni tra le stessi classi ci permette di
         
 3. **Mantenere la chiarezza del modello**:  
     Separare le associazioni in base al loro significato rende il modello più comprensibile e facile da gestire.
+

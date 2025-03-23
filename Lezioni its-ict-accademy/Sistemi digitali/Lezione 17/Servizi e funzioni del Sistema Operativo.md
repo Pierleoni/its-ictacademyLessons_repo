@@ -282,7 +282,7 @@ Poiché più programmi possono richiedere contemporaneamente l'accesso a un disp
 Per garantire una comunicazione efficiente con i dispositivi periferici, il SO utilizza un tipo speciale di memoria chiamata **memoria buffer**, che funge da "area di sosta" dove i dati provenienti o destinati al dispositivo possono essere temporaneamente conservati fino al loro successivo trattamento.
 
 L'interazione con le periferiche avviene tramite un modulo software specifico, il **driver del dispositivo**.
-![[Gestione dei dispositivi periferici.png|center]] 
+![[Gestione dei dispositivi periferici.png]] 
 
 ### Le memoria secondarie
 Le memorie secondarie sono i dispositivi di archiviazione persistenti: ==possono conservare le informazioni registrate anche quando la macchina è spenta.== 
@@ -360,14 +360,8 @@ Il processo di login si basa su un archivio di credenziali utente e sulla defini
 In generale, un'**interfaccia utente (UI)** può essere:  
 • **Interfaccia alfanumerica:** 
 Il sistema operativo offre un modello di terminale astratto per visualizzare le informazioni su uno schermo che mostra caratteri alfabetici e numerici. 
-Inoltre, cattura  l'input tramite una tastiera.![[Interfaccia Alfanumerica.png|right]]
-
-
-
-
-
-
-
+Inoltre, cattura  l'input tramite una tastiera.
+![[Interfaccia Alfanumerica.png|right]]
 
 • **Interfaccia grafica utente (GUI):** 
 Il sistema operativo fornisce funzionalità per permettere ai programmi di costruire una GUI utilizzando elementi come finestre e icone. L'input può essere effettuato utilizzando un mouse o uno schermo tattile, oltre alla tastiera.  

@@ -16,7 +16,7 @@ Ci permettono di rappresentare degli algoritmi in maniera visiva
 > Pseudo-codice: traduzione in linguaggio del codice e viene usata per abbozzare gli algoritmi prima di scriverli.
 ## Struttura fondamentale
 
-![[Struttura fondamentale.png|700]]
+![[Struttura fondamentale.png]]
 
 
 ## Diagramma a blocchi

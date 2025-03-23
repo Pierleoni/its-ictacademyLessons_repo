@@ -3,7 +3,7 @@
 Il **firmware** è un tipo di software integrato all'interno di componenti hardware del dispositivo; come ad esempio: processori, schede grafiche, schede audio, schede di rete e dispositivi periferici (come stampanti e monitor). 
 La sua **funzione principale** è quella di **iniziallizzare il componente** e facilitare la sua comunicazione con gli altri componenti all'interno del dispositivo. 
 In sostanza, il firmware fornisce al componente un insieme di interfacce di comunicazione e protocolli, permettendo ai vari componenti di **"parlare" tra di loro**, utilizzando un linguaggio comune (che comprende sitnassi e semantica).
-![[Firmware.png|center]]
+![[Firmware.png]]
 
 Il firmware è un tipo di software **proprietario:** 
 e non può essere facilmente modificato dall'utente, funge da **ponte tra hardware e software**, consentendo così all'hardware di **comunicare e funzionare secondo le istruzioni software**. 
@@ -28,7 +28,8 @@ LE flash memory sono un tipo di EEPROM ma hanno una capienza più grande utilizz
 
 
 ### Motherboard 
-![[Motherboard.png|left]] La **scheda madre** è una delle componenti più importanti all'interno di un dispositivo elettronico (non solo del computer). 
+![[Motherboard.png]] 
+La **scheda madre** è una delle componenti più importanti all'interno di un dispositivo elettronico (non solo del computer). 
 È una **scheda a circuito stampato** (PCB) che ospita e consente la comunicazione tra i componenti elettronici fondamentali del dispositivo. Funziona come un **hub centrale**, unendo tutte le parti del computer e permettendo loro di comunicare e lavorare insieme.
 
 Sulla scheda madre si trovano diversi elementi cruciali:

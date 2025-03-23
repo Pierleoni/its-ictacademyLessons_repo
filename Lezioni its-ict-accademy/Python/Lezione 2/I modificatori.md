@@ -92,7 +92,7 @@ Su alcuni editor funziona su alcuni editor anche un solo slash in questo caso ma
 print("Ciao\t blablablablabla")
 ```
 
-![[Recording 20241217113337.webm]]
+
 
 ---
 

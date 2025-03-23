@@ -4,7 +4,7 @@
 
 ## Cosa sono gli operatori?
 ==Gli operatori sono usati per eseguire operazioni su variabili e valori.==
-Python supporta vari tipi di operazioni, includendo operazioni aritmetiche, comparazioni, logiche e gli operatori di assegnazione
+Python supporta vari tipi di operazioni, includendo operazioni aritmetiche, comparazioni, logiche e gli operatori di assegnazione.
 ![[Operatori.png]]
 
 ## Gli operatori aritmetici

@@ -170,7 +170,7 @@ ogni fase inizia quando termina la precedente.
 
 Nel mondo reale questa cosa non si può fare veramente, poiché [[#Tempi di Progettazione|i tempi di progettazione]] sono lunghi e complicati quindi  si preferisce usare il **modello spirale o iterativo:**
 ==si sviluppano versioni sempre più complete del software, con cicli di feedback e miglioramento.==
-![[il modello iterativo.pdf.png|right]]
+![[il modello iterativo.pdf.png]]
 
 ### Unified Modeling Language (UML)
 ==UML è un linguaggio di modellazione utilizzato per rappresentare visivamente un sistema software.== 

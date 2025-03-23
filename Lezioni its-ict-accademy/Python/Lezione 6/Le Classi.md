@@ -81,7 +81,7 @@ In questo caso, ==`studente1` e `studente2` sono due istanze della classe `Stude
 
 
 >[!example] **Per fare chiarezza: Analogia con le istanze di un Plugin Audio** 
->Le istanze di una classe in Python possono essere paragonate alle istanze di un plugin audio in una DAW: Immagina di utilizzare lo stesso identico plugin sulla catena degli insert in una traccia, con gli stessi settaggi, in una DAW (Pro Tools, Reaper, Cubase, FL Studio, Ableton, ecc.). Sebbene si tratti dello stesso plugin (cioè della stessa classe), ogni istanza è indipendente e separata dalle altre. Ad esempio, consideriamo il compressore 1176 della UAD: ![[1176.png|center]]
+>Le istanze di una classe in Python possono essere paragonate alle istanze di un plugin audio in una DAW: Immagina di utilizzare lo stesso identico plugin sulla catena degli insert in una traccia, con gli stessi settaggi, in una DAW (Pro Tools, Reaper, Cubase, FL Studio, Ableton, ecc.). Sebbene si tratti dello stesso plugin (cioè della stessa classe), ogni istanza è indipendente e separata dalle altre. Ad esempio, consideriamo il compressore 1176 della UAD: ![[1176.png]]
 >
 >- Il plugin UAD 1176 rappresenta una classe; definisce le caratteristiche e il comportamento del processamento della compressione sulla sorgente audio (traccia).
 >- Ogni volta che il plugin viene caricato in uno slot della traccia, viene creata una nuova istanza del plugin. Di conseguenza, anche se i parametri tra due istanze sono identici, esse sono comunque oggetti distinti con memoria separata. Lavorano e influenzano la CPU insieme, ma in modo indipendente. 
@@ -194,7 +194,7 @@ Abbiamo definito 4 classi per l'ITS, tutte queste classi, se ci pensiamo bene, h
 **sono tutte persone**, anche se ogni classe fa una cosa diversa.
 
 
-![[Ereditarietà delle classi.png|center]]
+![[Ereditarietà delle classi.png]]
 ^GerarchiaClassi
 
 Questa immagine rappresenta la gerarchia di classi utilizzando il concetto di ereditarietà nella programmazione OOP:

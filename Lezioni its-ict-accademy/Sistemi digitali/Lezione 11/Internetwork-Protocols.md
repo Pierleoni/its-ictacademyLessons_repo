@@ -37,7 +37,7 @@ Le differenze tra le reti possono includere:
 ==• I nomi degli strati.==
 ==• Il contenuto di ciascun strato.==
 ==• La funzionalità di ciascun strato.==
-![[Stack of Layers.png|right]] ==Ogni strato serve a fornire servizi specifici agli strati superiori, mentre astrae i dettagli su come tali servizi sono implementati.==
+![[Stack of Layers.png]] ==Ogni strato serve a fornire servizi specifici agli strati superiori, mentre astrae i dettagli su come tali servizi sono implementati.==
 
 
 
@@ -51,7 +51,7 @@ Le differenze tra le reti possono includere:
 ==Il concetto di Layer Protocol è organizzato su livelli diversi, dove ogni livello offre servizi esclusivamente al livello immediatamente superiore.== 
 Questi livelli possono variare sia per numero che per funzionalità, ma la loro interazione è fondamentale per garantire una comunicazione efficace tra dispositivi. 
 I protocolli governano la comunicazione tra le diverse macchine, stabilendo regole e convenzioni che guidano questo processo. Quando il livello `n` di una macchina comunica con il livello `n` di un'altra macchina, le norme che regolano questa interazione sono conosciute collettivamente come protocollo del livello `n`. In sostanza, un protocollo è un accordo che definisce le procedure di comunicazione tra le parti coinvolte, assicurando che le informazioni vengano scambiate in modo chiaro e coerente.
-![[Layer Protcol.png|center|490]]
+![[Layer Protcol.png|448x274]]
 Osservando l'immagine, si nota che ogni livello comunica direttamente con il livello corrispondente sull'altra macchina (es: livello 5 con livello 5, livello 4 con livello 4, e così via). 
 [[#^logicComm|Questa comunicazione tra livelli uguali è logica]]: 
 nel senso che ogni livello utilizza un protocollo specifico per scambiarsi dati con il suo equivalente sull'altra macchina. 
