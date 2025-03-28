@@ -4,55 +4,56 @@
     "type": "split",
     "children": [
       {
-        "id": "03dd6bbffa6adba0",
+        "id": "48d91bce1f0da44e",
         "type": "tabs",
         "children": [
           {
-            "id": "504e77702ccf29a4",
+            "id": "e7ab45810c89f546",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Sistemi digitali/Lezione 17/Servizi e funzioni del Sistema Operativo.md",
+                "file": "Progettazione/Lezione 2/Voli Arei 1.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Servizi e funzioni del Sistema Operativo"
+              "title": "Voli Arei 1"
             }
           },
           {
-            "id": "9759800daa4b99a2",
+            "id": "8842b03ea5dcefc0",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/Lezione 4/Problem Solving.md",
+                "file": "Progettazione/Lezione 2/Esercitazione Azienda 1.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Problem Solving"
+              "title": "Esercitazione Azienda 1"
             }
           },
           {
-            "id": "2709e0380781d1df",
+            "id": "8c6f624f3226582b",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Progettazione/Lezione1/Introduzione e cenni di  ingegneria del software.md",
+                "file": "Progettazione/Lezione 2/Analisi dei requisiti mediante UML.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Introduzione e cenni di  ingegneria del software"
+              "title": "Analisi dei requisiti mediante UML"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -119,8 +120,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "8ef8bc59cd79fc10",
@@ -234,7 +234,7 @@
             }
           }
         ],
-        "currentTab": 7
+        "currentTab": 6
       }
     ],
     "direction": "horizontal",
@@ -264,8 +264,24 @@
       "vscode-editor:Create Code File": false
     }
   },
-  "active": "504e77702ccf29a4",
+  "active": "8c6f624f3226582b",
   "lastOpenFiles": [
+    "Progettazione/Lezione 2/Esercitazione Azienda 1.md",
+    "Progettazione/Lezione 2/Analisi dei requisiti mediante UML.md",
+    "Progettazione/Lezione 2/Voli Arei 1.md",
+    "Sistemi digitali/Lezione 12/ISO E OSI Model.md",
+    "Python/Lezione 2/Collections.md",
+    "Python/Lezione 4/Funzioni in Python.md",
+    "Sistemi digitali/Lezione 20/Modello TCP-IP.md",
+    "Sistemi digitali/Lezione 16/Network, Transport, Session, Presentation, Application Layers.md",
+    "Progettazione/Lezione1/Introduzione e cenni di  ingegneria del software.md",
+    "Sistemi digitali/Lezione 20",
+    "img/Progettazione IMG/Progettazione(Lezione2)_Analisi dei requisiti in UML/1 esempio.png",
+    "Python/Lezione 6/Le Classi.md",
+    "img/Progettazione IMG/Progettazione(Lezione2)_Analisi dei requisiti in UML/link non ammessi.pdf.png.~tmp",
+    "img/Progettazione IMG/Progettazione(Lezione2)_Analisi dei requisiti in UML/link non ammessi.pdf.png",
+    "Python/Lezione 4/Problem Solving.md",
+    "Sistemi digitali/Lezione 17/Servizi e funzioni del Sistema Operativo.md",
     "img/Sistemi Digitali/Lezione 17/Gestione dei dispositivi periferici.png",
     "img/Sistemi Digitali/Lezione 17/File System Management.png",
     "img/Sistemi Digitali/Lezione 17/Process Life Cycle.png",
@@ -274,44 +290,28 @@
     "img/Sistemi Digitali/Lezione 17/GUI.png",
     "img/Sistemi Digitali/Lezione 17",
     "img/Sistemi Digitali/Nuova cartella",
-    "Sistemi digitali/Lezione 16/Network, Transport, Session, Presentation, Application Layers.md",
     "img/Sistemi Digitali/Lezione 16/Network, Transport, Session, Presentation, Apllication Layers/Packet Header Structure.png",
     "img/Sistemi Digitali/Lezione 16/Network, Transport, Session, Presentation, Apllication Layers/Sockets.png",
-    "img/Sistemi Digitali/Lezione 16/Network, Transport, Session, Presentation, Apllication Layers/Routing Process2.png",
-    "img/Sistemi Digitali/Lezione 16/Network, Transport, Session, Presentation, Apllication Layers/Routing Process.png",
-    "img/Sistemi Digitali/Lezione 16/Network, Transport, Session, Presentation, Apllication Layers/Network Layer.png",
     "img/Sistemi Digitali/Lezione 16/Network, Transport, Session, Presentation, Apllication Layers",
     "img/Sistemi Digitali/Lezione 16/Network, Transport",
     "img/Sistemi Digitali/Lezione 16/Nuova cartella",
     "img/Sistemi Digitali/Lezione 16",
-    "Sistemi digitali/Lezione 12/ISO E OSI Model.md",
     "Sistemi digitali/Lezione 12/I fundamentals di un Sistema Operativo.md",
     "img/Sistemi Digitali/Lezione 12/ISO E OSI Model",
     "img/Sistemi Digitali/Lezione 12/Nuova cartella",
-    "img/Sistemi Digitali/Lezione 12/I fundamentals di un sistema operativo",
-    "img/Sistemi Digitali/Lezione 12",
     "Sistemi digitali/Lezione 11/Internetwork-Protocols.md",
     "Sistemi digitali/Lezione 11/Il modello di Von Neumann.md",
     "Sistemi digitali/Lezione 11/Esercizi su conversione e operazioni binarie.md",
     "Sistemi digitali/Lezione 10/Le architetture di un Computer.md",
     "Python/Lezione 1/Algoritmi e Diagrammi a blocchi.md",
-    "Python/Lezione 6/Le Classi.md",
     "Sistemi digitali/Lezione 7/Complemento a 2 e Reti di calcolatori.md",
     "Sistemi digitali/Lezione 7/Spiegazione per i vantaggi e svantaggi dei modelli Client server e P2P, spiegazione delle tre entità di spotify..md",
-    "Python/Lezione 4/Problem Solving.md",
-    "Python/Lezione 4/Funzioni in Python.md",
     "Python/Lezione 3/Ripasso if, if else e Loops.md",
     "Python/Lezione 3/Match Statement.md",
     "Python/Lezione 3/Cicli e condizionali.md",
     "Python/Lezione 2/Introduzione a Python.md",
     "Python/Lezione 2/I modificatori.md",
     "Python/Lezione 2/Gli Operatori.md",
-    "Python/Lezione 2/Estensioni delle collections in Python.md",
-    "Python/Lezione 2/dinamically-typed (tipizzato dinamicamente) o Statically-typed.md",
-    "Python/Lezione 2/Collections.md",
-    "Python/Lezione 1/Introduzione generale.md",
-    "Python/Lezione 1/Esercizio Diagrammi a blocchi.md",
-    "Progettazione/Lezione1/Introduzione e cenni di  ingegneria del software.md",
     "Untitled.canvas"
   ]
 }

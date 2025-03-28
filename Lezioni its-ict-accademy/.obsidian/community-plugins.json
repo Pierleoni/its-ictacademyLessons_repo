@@ -1,6 +1,4 @@
 [
-  "obsidian-image-toolkit",
-  "image-upload-toolkit",
   "obsidian-git",
   "obsidian-importer",
   "table-editor-obsidian",
@@ -26,7 +24,6 @@
   "highlightr-plugin",
   "omnisearch",
   "language-translator",
-  "obsidian-annotator",
   "obsidian-wordnet-plugin",
   "vscode-editor",
   "obsidian-file-color",

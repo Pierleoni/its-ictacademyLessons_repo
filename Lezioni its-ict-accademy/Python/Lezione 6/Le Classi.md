@@ -361,7 +361,7 @@ La scelta del livello di astrazione dipende quindi dal programmatore e dalle esi
 ==In Python, le classi permettono di creare strutture dati personalizzate e oggetti con caratteristiche specifiche.== 
 Una classe rappresenta un modello per la creazione di oggetti, ciascuno con attributi e metodi propri.
 
-### **Definizione di una Classe e il Costruttore** `**__init__()**`
+### **Definizione di una Classe e il Costruttore** `__init__()`
 
 Per definire una classe in Python, ==si utilizza la parola chiave `class`==. 
 Gli attributi di una classe vengono generalmente assegnati attraverso il **costruttore**, un metodo speciale chiamato `__init__()`. 
@@ -435,67 +435,65 @@ class Person:
 
 - `self`: 
   ==rappresenta l'istanza attuale della classe e permette di accedere agli attributi e ai metodi dell'oggetto.== 
+### **`Self` in Python**  
 
+  
+==Il `self` è un riferimento all'istanza della classe ed è utilizzato per accedere agli **attributi** e ai **metodi** dell'oggetto.==  
+Grazie a `self`, ==ogni istanza mantiene i propri dati separati dalle altre, evitando sovrapposizioni.==  
+È quindi indispensabile nei metodi di una classe quando si lavora con gli attributi dell'istanza.
+#### **Dove si usa `self`?**
+1️. Nel costruttore [[#**Definizione di una Classe e il Costruttore** `**__init__()**`|`__init__`]]  
 
-> [!deep] **`Self` in Python**  
-> ==Il `self` è un riferimento all'istanza della classe ed è utilizzato per accedere agli **attributi** e ai **metodi** dell'oggetto.==  
-> Grazie a `self`, ==ogni istanza mantiene i propri dati separati dalle altre, evitando sovrapposizioni.==  
-> È quindi indispensabile nei metodi di una classe quando si lavora con gli attributi dell'istanza.
->
-> **Dove si usa `self`?**
->
- >1️. Nel costruttore `__init__`
->
-> Quando un oggetto viene creato, ==`self` permette di assegnare i valori agli attributi dell'istanza.==
->```python
-> class Persona:
-  >  def __init__(self, nome, cognome):
- >       self.nome = nome  # ✅ Necessario per salvare il valore nell'istanza
- >       self.cognome = cognome
->
->```
->2. Nei metodi d'istanza:
->   ==`Self` permette di accedere agli attributi dell'oggetto anche dentro altri metodi della classe.==
->```python
->class Persona:
-  >  def __init__(self, nome):
-  >      self.nome = nome  # ✅ Memorizza il nome nell'oggetto
->
-  >  def saluta(self):
-  >      return f"Ciao, mi chiamo {self.nome}!"  # ✅ Usa self per leggere l'attributo
->
->persona1 = Persona("Luca")
->print(persona1.saluta())  # ✅ Ciao, mi chiamo Luca!
->   
->```
->>[!attention] **`Self` è solo una convenzione**
->>Python non obbliga a usare proprio la parola `self`, ma è una convenzione universale. ==Rinominare `self` con un altro nome è considerato **una cattiva pratica**, perché rende il codice più difficile da leggere e capire==.
->>```python 
->>class Persona:
-  >>  def __init__(istanza, nome):  # Tecnicamente valido, ma sconsigliato
-  >>      istanza.nome = nome
->>```
->
->Il `Self` è importante perché senza di esso gli attributi  non vengono salvati in [[Il modello di Von Neumann#RAM|RAM]] per l'istanza:
->- Con `Self` l'attributo viene memorizzato nell'oggetto e rimane disponibile finché esiste l'istanza
->- Senza `Self` il valore esiste solo dentro la funzione e viene eliminato quando la funzione termina.
->  
+Quando un oggetto viene creato, ==`self` permette di assegnare i valori agli attributi dell'istanza.==
+```python
+ class Persona:
+    def __init__(self, nome, cognome):
+        self.nome = nome  # ✅ Necessario per salvare il valore nell'istanza
+        self.cognome = cognome
+
+```
+2. Nei metodi d'istanza:
+ ==`Self` permette di accedere agli attributi dell'oggetto anche dentro altri metodi della classe.==
+```python
+class Persona:
+    def __init__(self, nome):
+        self.nome = nome  # ✅ Memorizza il nome nell'oggetto
+
+    def saluta(self):
+        return f"Ciao, mi chiamo {self.nome}!"  # ✅ Usa self per leggere l'attributo
+
+persona1 = Persona("Luca")
+print(persona1.saluta())  # ✅ Ciao, mi chiamo Luca!
+   
+```
+>[!attention] **`Self` è solo una convenzione**
+>Python non obbliga a usare proprio la parola `self`, ma è una convenzione universale. ==Rinominare `self` con un altro nome è considerato **una cattiva pratica**, perché rende il codice più difficile da leggere e capire==.
 >```python 
 >class Persona:
-  >  def __init__(self, nome):
-   >     nome = nome  #  Non viene salvato nell'istanza!
->
->persona1 = Persona("Luca")
->print(persona1.nome)  #  Errore! L'attributo non esiste 
+  >  def __init__(istanza, nome):  # Tecnicamente valido, ma sconsigliato
+  >      istanza.nome = nome
 >```
->
->>[!example] **In Conclusione: l'importanza del self**
->>- ==**`Self` è un parametro che serve per accedere agli attributi e ai metodi di un'istanza della classe.**== 
->>- ==**Permette di salvare gli attributi nell'istanza dell'oggetto**, mantenendoli in memoria finché l'istanza esiste.== 
->> - ==**È obbligatorio nei metodi d'istanza** per distinguere i dati dell'oggetto corrente da quelli di altre istanze.== 
->> - ==**Non è una parola riservata**, ma è una convenzione fortemente consigliata.== 
->>   
->>   Quindi,  grazie a `Self` ogni oggetto viene reso unico e separato dagli altri.
+
+Il `Self` è importante perché senza di esso gli attributi non vengono salvati in [[Il modello di Von Neumann#RAM|RAM]] per l'istanza:
+- Con `Self` l'attributo viene memorizzato nell'oggetto e rimane disponibile finché esiste l'istanza
+- Senza `Self` il valore esiste solo dentro la funzione e viene eliminato quando la funzione termina.
+  
+```python 
+class Persona:
+    def __init__(self, nome):
+        nome = nome  #  Non viene salvato nell'istanza!
+
+persona1 = Persona("Luca")
+print(persona1.nome)  #  Errore! L'attributo non esiste 
+```
+
+>[!example] **In Conclusione: l'importanza del self**
+>- ==**`Self` è un parametro che serve per accedere agli attributi e ai metodi di un'istanza della classe.**== 
+>- ==**Permette di salvare gli attributi nell'istanza dell'oggetto**, mantenendoli in memoria finché l'istanza esiste.== 
+> - ==**È obbligatorio nei metodi d'istanza** per distinguere i dati dell'oggetto corrente da quelli di altre istanze.== 
+> - ==**Non è una parola riservata**, ma è una convenzione fortemente consigliata.== 
+>  
+> Quindi,  grazie a `Self` ogni oggetto viene reso unico e separato dagli altri.
 
 
     
@@ -742,3 +740,45 @@ In questo modo, chi tenta di leggere `get_password()` otterrà un'eccezione, pro
 > - ==**Le eccezioni** possono essere usate per proteggere dati sensibili.== 
 
 L'uso corretto delle classi rende il codice più organizzato, leggibile e manutenibile, consentendo di modellare in modo efficace problemi complessi con la programmazione a oggetti in Python.
+
+
+Attributi di classe
+Sono attributi globali, a che servono? Ad esmepio se ho 10 ogggetti di Person e si accede all'attributo di classe e slegato degli oggetti ma è legato alla classe e quindi è legato a tutti gli oggetti.
+Es: 
+```
+class Person:
+
+    personCount = 0
+
+    def __init__(self, name):
+
+        self.name = name
+
+        self.update()
+
+    @classmethod #é una direttiva che va ad indicare che stai andando ad accedere agli attributi di classe, senza di esso il cls sotto verrebbe interpretato come un self
+
+    def update(cls):
+
+        cls.personCount += 1
+
+alice = Person("Alice W.")
+
+bob = Person("Bob M.")
+
+print("------------------")
+
+print(Person.personCount)
+```
+
+Quindi `Person.personCount` è un attributo della classe non dell'oggetto.
+
+`cls`: è il modo corretto per accedere agli attributi della classe.
+
+`@classmethod`:é una direttiva che va ad indicare che stai andando ad accedere agli attributi di classe, senza di esso il `cls` sotto verrebbe interpretato come un self.
+
+La differenza tra cls e self:
+cls: va ad accedere agli attriubuti globali della classe
+self: va ad accedere agli attriubuti del costruttore o quelli che vanno ad essere definiti negli altri metodi della classe.
+
+Tuttavia non posso ad accedere ad un attributo definito con il self anche con il cls, l'interprete mi dà un messaggio di errore in output e mi dice che quell'attributo non è stato definito.

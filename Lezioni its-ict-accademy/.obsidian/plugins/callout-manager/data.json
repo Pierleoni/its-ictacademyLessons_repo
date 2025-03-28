@@ -2,7 +2,7 @@
   "callouts": {
     "custom": [
       "deep",
-      "obs"
+      "remember"
     ],
     "settings": {
       "deep": [
@@ -27,11 +27,18 @@
           }
         }
       ],
-      "obs": [
+      "attention": [
         {
           "changes": {
-            "icon": "lucide-eye",
-            "color": "196, 134, 95"
+            "color": "255, 0, 0"
+          }
+        }
+      ],
+      "remember": [
+        {
+          "changes": {
+            "icon": "lucide-cloud",
+            "color": "95, 171, 196"
           }
         }
       ]

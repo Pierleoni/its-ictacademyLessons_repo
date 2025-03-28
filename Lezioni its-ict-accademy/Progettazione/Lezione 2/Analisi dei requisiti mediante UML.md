@@ -7,13 +7,15 @@ in fase di analisi ci concentriamo sulle classi che sugli oggetti:
 ==Quindi un programma si scrive definendo un insieme si classi (o class), non di oggetti poiché questi vengono creati, modificati e distrutti durante l'esecuzione del programma.== 
 In UML ci sono tanti costrutti delle classi e degli oggetti ma ne andremmo ad escluderne molti in modo di avere un significato univoco per ogni diagramma. 
 ## Cos'è un oggetto in UML
-Un oggetto in UML modella un elemento del dominio di analisi :
+Un oggetto (istanza di una classe) in UML modella un elemento del dominio di analisi :
 
 > [!deep]- **Significato di Dominio di analisi**
 >  ==è l'insieme degli oggetti di interesse che si trovano nella porzione di mondo che il sistema deve rappresentare==
 
 - un oggetto "ha vita propria": 
   ==cioè  può essere interpretato e compreso indipendentemente dagli altri oggetti del sistema e si risolve indipendentemente dagli altri oggetti.== 
+un oggetto in UML è: se prendo un telefono e l'ho metto in uno spazio nero quel telfono ha vita propria perché ha le sue app, il suo orario, etc. e se lo metti in relazione ad altri oggetti simili costituisci una classe.
+Una data non è un'oggetto, perché se prendi una data ad esempio 3/05/2025 questa data da sola non dice nulla e quindi va a costituire un tipo di dato, non un oggetto.
 
 > [!deep]- **Cosa si intende per "l'oggetto si risolve"?**
 > ==Si intende che l'oggetto ha una sua **identità** e una sua **logica interna** che non dipendono direttamente dagli altri oggetti del sistema.== 
@@ -110,9 +112,24 @@ Ad esempio un telefono all'interno del sistema può essere capito ed interpretat
 - Un oggetto in UML è un istanza di classe (la cosiddetta classe più specifica; vedremo che, in determinate
 circostanze, un oggetto è istanza di più classi, ma in ogni caso, tra le classi di cui un oggetto è
 istanza, esiste sempre la classe più specifica).
+![Oggetto in UML](file:///C:/Users/Project%20Lead/OneDrive/Documents/Programmazione/Its-ict%20academy/Lezioni%20its-ict-accademy/img/Progettazione%20IMG/Progettazione(Lezione2)_Analisi%20dei%20requisiti%20in%20UML/Oggetto%20in%20UML.pdf.png)
 
 
-![[Oggetto in UML.pdf.png]]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Prendendo questa immagine come riferimento possiamo notare:
 - **div_comm:** 
   ==è l'identificatore dell'oggetto== (scelto
@@ -122,15 +139,15 @@ schema concettuale)
   è la classe più specifica di cui l'oggetto è istanza 
 - **La sottolineatura**
 
-Due oggetti rappresentano due cose distinte nel mondo.
+==Due oggetti (istanze) rappresentano due cose distinte nel mondo.==
 La classe sono insieme di oggetti  omogenee (tutti gli oggetti hanno qualcosa in comune): hanno in comune gli attributi (il valore viene attribuito all'oggetto) e le dinamiche (operazioni, le vedremo in seguito).
 Ogni classe è descritta da:
-- **nome**
+- **nome:** gli oggetti in Uml per convenzione sono al singolare 
 - **Insieme di proprietà:** 
   ==astrazioni delle proprietà comuni degli oggetti che sono istanze delle classi.== 
-![[1 esempio.png]]
+![Primo esempio|493x158](https://i.imgur.com/uOjGmpA.png)
 
-Abbiamo la classe `Libro`, che possiede un attributo `titolo` di tipo `Stringa`. Questo significa che ogni oggetto creato a partire dalla classe `Libro` dovrà avere un valore per l'attributo `titolo`, e questo valore dovrà essere una stringa.
+Abbiamo la classe `Libro`, che possiede un attributo `titolo` di tipo `Stringa`. Questo significa che ogni oggetto creato a partire dalla classe `Libro` dovrà avere un valore (uno solo) per l'attributo `titolo`, e questo valore dovrà essere una stringa.
 
 Nel diagramma vediamo due istanze della classe `Libro`:
 
@@ -156,13 +173,58 @@ Nel diagramma sono evidenziati due livelli fondamentali:
 
 Applicando questa distinzione al diagramma:
 
-- Il **livello intensionale** è rappresentato dalla classe `Libro`, che definisce l'attributo `titolo` di tipo `Stringa`. Questo stabilisce che ogni istanza della classe `Libro` dovrà necessariamente avere un attributo `titolo` con un valore di tipo stringa.
-- Il **livello estensionale** è costituito dalle istanze `div_comm` e `bio`, che sono oggetti concreti della classe `Libro`. Questi oggetti possiedono valori specifici per l'attributo `titolo`: `"La Divina Commedia"` per `div_comm` e `"La mia grandiosa vita"` per `bio`.
+- Il **livello intensionale:** 
+  ==è rappresentato dalla classe `Libro`, che definisce l'attributo `titolo` di tipo `Stringa`.== 
+  Questo stabilisce che ==ogni istanza della classe `Libro` dovrà necessariamente avere un attributo `titolo` con un valore di tipo stringa.==
+- Il **livello estensionale:** 
+  ==è costituito dalle istanze `div_comm` e `bio`, che sono oggetti concreti della classe `Libro`.== Questi oggetti possiedono valori specifici per l'attributo `titolo`: `"La Divina Commedia"` per `div_comm` e `"La mia grandiosa vita"` per `bio`.
 In altre parole, il livello intensionale riguarda **la progettazione** (definizione delle classi), mentre il livello estensionale riguarda **l'implementazione concreta** (gli oggetti creati nel sistema).
 
 ### Identità degli oggetti o delle istanze 
+Quando lavoriamo con oggetti in programmazione e modellazione UML, è cruciale comprendere la differenza tra due concetti che spesso vengono confusi:
+
+>Un conto è dire che A e B sono **uguali** un conto e dire che A e B **sono la stessa cosa**.
+
+La frase sopra ci dà un'anteprima di questo concetto, andiamo ad analizzarla meglio:
+1. **Essere la stessa cosa (Identità):**
+   L'identità di un oggetto è la sua "carta d'identità" univoca nel sistema.
+   Due riferimenti che puntano:
+    - **Allo stesso oggetto fisico in memoria** vuol dire che **hanno la stessa identità**
+2. **Avere gli stessi valori (Uguaglianza):** 
+   Due oggetti distinti possono:
+	- **Condividere valori identici** per alcuni attributi, il che vuol dire che **sono uguali.** 
+
+Per chiarire meglio i concetti di identità e uguaglianza:
+
+> [!example] Esempio dei gemelli : Identità
+> 
+>
+>Immaginiamo due gemelli omozigoti.  
+>Condividono **aspetto fisico, DNA, età, genere e cognome**, eppure sono due entità distinte. La loro **identità** è unica perché:
+>
+>1. **Hanno nomi diversi**, che fungono da primo identificatore distintivo.
+>2. **Occupano spazi fisici separati**: anche se simili, non possono essere lo stesso individuo.
+>3. **Sviluppano personalità diverse nel tempo**, rendendo ancora più evidente la loro unicità.
+>
+>Anche in un sistema informatico, due oggetti possono avere molte caratteristiche in comune, ma la loro **identità è definita da un identificatore univoco**, che permette di distinguerli indipendentemente dagli attributi.
+
+
+> [!example] **Esempio degli omonimi: Uguaglianza**
+>
+>Ora consideriamo due persone con lo stesso **nome e data di nascita**.  
+>Hanno in comune **il nome, il giorno, il mese e l’anno di nascita**, che sono attributi dell’istanza `Persona`, ma **restano due oggetti distinti** perché:
+>
+>- **Hanno cognomi diversi**, il che basta per distinguerli.
+>- Anche se **avessero lo stesso cognome**, rimarrebbero comunque due persone separate.
+>
+> **Punto chiave:**  
+>L'identità **non si basa solo sugli attributi visibili**, ma su un **identificatore unico** (come un codice fiscale o un ID interno a un database).
+
+
 È possibile avere due oggetti distinti che però condividono lo stesso valore per un determinato attributo.
-![[le istanze diverse con lo stesso attributo.png]]
+
+![Le istanze diverse con lo stesso attributo ](https://i.imgur.com/MCqQRib.png)
+
 
 L'immagine mostra due livelli:
 
@@ -222,7 +284,7 @@ Nel livello intensionale possiamo notare 2 classi:
 - La classe **Persona** con l'attributo `nome: Stringa` e `cognome: Stringa`. 
   Tra queste due classi esiste un'**[[#^associationsDef|associazione]]** chiamata autore: 
   ==essa rappresenta la relazione tra un libro e la persona che lo ha scritto.==   
-- L'associazione è direzionata: la freccia indica "il verso di lettura del nome" (facoltativo)
+- L'associazione è direzionata: la freccia indica "il verso di lettura del nome" (facoltativo).
 Nel livello Estensivo possiamo vedere istanze le specifiche delle classi:
 - **<u>div_comm</u>**:
   è un oggetto della classe `libro`, con il titolo `"La divina commedia"`
@@ -235,6 +297,7 @@ Nella modellazione concettuale (ad esempio, in UML) un'associazione rappresenta 
 anche qui l'identità degli oggetti gioca un ruolo importante:
 - Le associazioni collegano istanze specifiche (oggetti) di classe diverse, e queste istanze sono identificate in modo univoco. 
 - L'identità degli oggetti permette di distinguere tra due istanze che potrebbero avere gli stessi attributi ma partecipano a relazioni diverse.
+
 Quindi possiamo definire un'associazione come: 
 ==Un'**associazione** rappresenta la **possibilità** che due oggetti siano o meno in relazione tra loro.==   ^associationsDef
 
@@ -267,6 +330,11 @@ Quindi se un'associazione lega due classi (ad esempio, `C1` e `C2`),
 
 Ad esempio, [[Link e associazioni.png|nella figura sopra]], c'è un link che lega <u>`div_comm`</u> (un oggetto della classe `Libro`) a `Dante` (un oggetto della classe `Persona`).
 
+Al contrario degli oggetti, però, i link non hanno identificatori espliciti: ==un link è implicitamente==
+==identificato dalla coppia (o in generale dalla ennupla, v. seguito) di oggetti che esso rappresenta.==
+Ciò implica, ad esempio, che il seguente diagramma degli oggetti non è ammesso dal diagramma delle classi.
+![](https://i.imgur.com/xqYQtO3.png)
+Questo diagramma dice che un Libro non puo modellare l'istanza della stessa persona perché non avrebbe senso.
 #### Perché i link non hanno un identificatore?
 
 In UML, i link non hanno un identificatore esplicito perché:
@@ -476,3 +544,411 @@ Questo sistema di definire più associazioni tra le stessi classi ci permette di
 3. **Mantenere la chiarezza del modello**:  
     Separare le associazioni in base al loro significato rende il modello più comprensibile e facile da gestire.
 
+
+
+---
+## Vincoli di molteplicità sulle associazioni e sugli attributi 
+
+I diagrammi delle classi visti finora ci permettono di rappresentare la realtà attraverso entità (classi) e relazioni (associazioni). ==Tuttavia, queste rappresentazioni sono spesso **troppo generiche** e non catturano pienamente i vincoli logici e concettuali che esistono nel mondo reale.==
+
+Ipotizziamo che si deve progettare un sistema che registra la data di nascita di un impiegato in una città, come abbiamo negli esempi riportati nelle immagini sopra i modelli concettuali definiti finora **permettono configurazioni che potrebbero non essere realistiche,** questo perché senza vincoli precisi il modello accetta qualsiasi combinazione che sia formalmente corretta, anche se **non ha senso dal punto di vista logico.** 
+Se guardiamo l'immagine riportata qui sotto ad esempio, possiamo vedere che:
+![](https://i.imgur.com/PR5bO1D.png)
+
+1. **Livello Intensionale (in alto)**
+
+- Il modello concettuale prevede due classi:
+    
+    - `Impiegato`, con gli attributi `nome` e `cognome`.
+        
+    - `Città`, con l’attributo `nome`.
+        
+- L’associazione `nascita` collega un `Impiegato` a una `Città`, indicando dove è nato l’impiegato.
+2. **Livello Estensionale (in basso):**
+- Sono presenti istanze concrete delle classi:
+
+	- `anna:Impiegato`, con nome `"Anna"` e cognome `"Bianchi"`.
+    
+	- Due città: `roma:Città` (`"Roma"`) e `milano:Città` (`"Milano"`).
+	
+Ora, qui il problema è che Anna risulta nata sia a Roma che a Milano, il che è possibile nel modello ma nel mondo reale non ha senso. 
+Infatti la nota "Ammesso ma..." sottolinea che questa configurazione è ammessa nel diagramma delle classi, ma non rispetta i vincoli del mondo reale, poiché una persona non può essere nata contemporaneamente in due città diverse. 
+Difatti una persona può nascere in una sola città, quindi il modello necessita di un vincolo per imporre questa regola. 
+Proprio per questo si parla di vincoli di **vincoli di molteplicità sulle associazioni e sugli attributi,** i quali impongono delle restrizioni su:
+- **Le associazioni** (es: Un impiegato deve essere nato in una sola città)
+- **Gli attributi** (es: il nome di una città non può essere vuoto). 
+I vincoli di molteplicità permettono di migliorare la qualità del modello, rendendolo più aderente alla realtà e riducendo errori nella progettazione del sistema.
+### Vincoli di integrità 
+diagrammi delle classi in UML ci permettono di definire la struttura di un sistema attraverso entità (classi) e relazioni (associazioni). Tuttavia, per garantire che il modello rispecchi fedelmente la realtà e sia privo di inconsistenze, è necessario introdurre **vincoli di integrità**. 
+==Questi vincoli aggiungono restrizioni ulteriori rispetto a quelle puramente strutturali, imponendo regole più stringenti sui valori degli attributi e sulle relazioni tra oggetti.==
+Vincoli di integrità : impongono ulteriori restrizioni (oltre a quelle strutturali imposte dal diagramma) sui livelli estensionali.  Sono ettichette che si mettono nel programma, cioè un'asserzione che impone una restrizione.  
+In altre parole ==è una regola che limita i valori ammissibili per attributi, associazioni o interi oggetti in un modello.== 
+A differenza dei vincoli di molteplicità, che si occupano esclusivamente del numero di relazioni tra classi, i vincoli di integrità controllano aspetti più articolati.
+
+(il vincolo fi integrità è un espediente tecnologico per imporre dei limiti che esistono nel mondo reale)
+
+![](https://i.imgur.com/73Z1k8Y.png)
+In questo esempio:
+1. **Classe `Impiegato`**:
+    
+    - Attributi: `nome` (Stringa), `cognome` (Stringa).
+        
+    - Vincoli di molteplicità sull’associazione `nascita`:
+        
+        - `0..*` (lato `Impiegato`): Un oggetto città   **può non essere associato** a nessun impiegato (0) o a molti impiegati (`*`).
+            
+        - `1..1` (lato `Città`): Ogni oggetto impiegato **deve essere associata a una citta.**
+
+Senza questo vincolo il modello permette configurazioni illogiche, come un impiegato nato in due città diverse. 
+Infatti la nota "non più ammesso" indica che, introducendo vincoli aggiuntivi (es: `1..1` sul lato `Impiegato`), questa incoerenza viene eliminata.
+
+> [!danger]- **I vincoli di molteplicità e di integrità non sono la stessa cosa ne sono sotto categorie una dell'altra**
+> I vincoli di molteplicità vengono sono una prerogativa di UML.
+> - **Cosa fanno**:  
+  >  Definiscono **quante istanze** di una classe possono essere collegate a un'istanza di un'altra classe **in un'associazione UML**.
+  >  
+>- **Esclusività**:  
+ >   Concetto nativo e specifico dei **diagrammi delle classi UML**. Non esiste in database o codice (se non come traduzione indiretta, es: cardinalità in SQL).
+> Mentre i vincoli di integrità sono Universali.
+> - **Cosa fanno**:  
+  >  Impostano **regole generiche** su valori, stati o relazioni, applicabili in **qualsiasi contesto** (UML, database, programmazione).
+  >  
+>- **Dove si usano**:
+ >   
+ >   - **In UML**: Su attributi/classi (es: `{prezzo > 0}`).
+   >     
+  >  - **In database**: `NOT NULL`, `UNIQUE`, `CHECK`.
+  >      
+ >   - **In codice**: Validazioni a runtime (es: `if(età < 18) throw Error()`).
+ >       
+>- **Esempio UML vs DB**:
+  >  
+  >  - **UML**: `{nome.length ≤ 50}` su un attributo `nome`.
+  >      
+ >   - **SQL**: `CREATE TABLE (nome VARCHAR(50) NOT NULL)`.
+ >Tuttavia esiste una relazione tra i due:
+ >- **Analogia**:  
+  >  I vincoli di molteplicità **sono a UML** ciò che i vincoli di integrità referenziale **sono ai database** (es: `FOREIGN KEY`), ma:
+  >  
+   > - I primi sono **sintattici** (parte del linguaggio UML).
+ >       
+  >  - I secondi sono **semantici** (concetti logici indipendenti dal linguaggio).
+  >      
+>- **Collaborazione**:  
+  >  In UML, **entrambi** servono a restringere il modello:
+>
+ >   - La molteplicità dice _"quanti"_ (relazioni).
+   >     
+  >  - L'integrità dice _"come"_ (valori/regole).
+>> [!example] **In Sintesi**
+>>
+>>|                 | Vincoli di Molteplicità  | Vincoli di Integrità           |
+| --------------- | ------------------------ | ------------------------------ |
+| natura          | Specifici di UML         | Universali                     |
+| Scopo           | Quantità di relazioni    | Qualsiasi regola logica        |
+| Esempio UML     | `impiegato 1..* Azienda` | `{eta ≥ 18}`                   |
+| Esempio non-UML | Non applicabile          | `CHECK (prezzo > 0)`<br>In SQL |
+
+ 
+Inoltre i vincoli **di integrità aggiungono restrizioni ulteriori e più ampie rispetto ai soli vincoli di molteplicità**.
+
+**1. Vincoli di Molteplicità (base)**
+
+- **Cosa restringono**:  
+    Solo il **numero di collegamenti** in un'associazione tra classi.  
+    Esempio:
+     
+- Uno studente può essere iscritto a _molti_ corsi (`*`), ma ogni corso deve avere _almeno uno_ studente (`1`).
+        
+- **Limite**:  
+    Non controllano il contenuto degli attributi o altre regole complesse.
+    
+
+**2. Vincoli di Integrità (restrizioni aggiuntive)**
+
+- **Cosa restringono**:  
+    Tutto ciò che i vincoli di molteplicità **non coprono**:
+    
+    - Valori degli attributi (es: `nome ≠ ""`).
+        
+    - Regole complesse tra attributi (es: `se età < 18 allora genitore ≠ null`).
+        
+    - Unicità (es: `matricola univoca`).
+        
+
+Quindi senza vincoli di integrità, il modello sarebbe **formalmente corretto ma logicamente errato** (es: città senza nome, impiegati con età negativa). Introducendoli, si garantisce coerenza con il mondo reale e si prevengono errori nel sistema finale.
+
+### Semantica dei vincoli di molteplicità sui ruoli delle associazioni
+I vincoli di molteplicità in UML hanno una semantica precisa che aiuta a capire a quale classe fanno riferimento e danno un'interpretazione univoca al diagramma:
+![Semantica dei vincoli|0x0](https://i.imgur.com/UINDioH.png)
+Prendendo come riferimento questa immagine possiamo notare che: 
+Le classe coinvolte sono:
+- `Impiegato`, con attributi `nome` e `cognome`
+- `Città`, con attributo `nome`.
+L'associazione `nascita` collega `Impiegato` a `Città`.
+Sotto alla linea della associazione, posti alle estremità vediamo scritti i due vincoli di molteplicità:
+
+`0..*` (zero to star): 
+significa che ==un'istanza della classe può partecipare a zero o più associazioni==.  ^zeroToStart
+- Il valore minimo (`0`) indica che l'oggetto **potrebbe non essere coinvolto in alcuna associazione**.
+- Il valore massimo (`*`, ovvero "infinito") indica che **può essere coinvolto in un numero qualsiasi di associazioni**.
+  
+`1..1`(uno a uno): 
+Significa che ==ogni istanza della classe deve essere associata esattamente a un'istanza dell'altra classe.==
+Il valore minimo (`1`) e massimo (`1`) indicano che **l'oggetto deve sempre essere coinvolto in una e una sola associazione**.
+
+>[!example]- Riassumendo
+>| Vincolo | Significato                                                         |
+| ------- | ------------------------------------------------------------------- |
+| `0..*`  | L'oggetto può essere coinvolto in **zero o più** associazioni.      |
+| `1..1`  | L'oggetto **deve essere coinvolto in una e una sola** associazione. |
+>
+
+
+> [!NOTE] **==Quando analizziamo i vincoli di molteplicità, dobbiamo leggerli "al contrario"==**
+> 
+
+==Ovvero lo "**zero to star**"(`0..*`) si riferisce alla agli oggetti della classe citta, mentre il vincolo uno a uno (`1..1`) si riferisce agli oggetti della classe impiegato.== 
+Quindi quando impostiamo i vincoli di molteplicità, dobbiamo porci la seguente domanda:
+ **==A quanti [TARGET] è collegato un [SOURCE] tramite [ASSOCIAZIONE]?==**.
+ 
+ ##### **Legenda della Frase**
+ 
+ 1.**Source (Classe Sorgente):** 
+ ==È la classe da cui parte l'associazione (il punto di partenza del "link").==   
+Corrisponde alla classe **di cui stiamo analizzando le relazioni** quando formuliamo domande del tipo;
+ *A quanti \[target] può essere collegato un \[source].*  
+ ^sourceClass
+ 
+ 
+ 2.**Target (Classe di destinazione):** 
+ ==È la classe **a cui arriva l'associazione** (il punto di destinazione del "link").==   
+Corrisponde alla classe **di cui vogliamo contare gli oggetti collegati** al source.    ^b5cc77
+
+3. **Associazione:** [[#^associationsDef|vedi la definizione]] 
+
+Detto ciò, in questo caso le domande da porci sono: 
+ 1. **==A quanti oggetti della classe `Città` può essere collegato un oggetto della classe `Impiegato` tramite l'associazione `nascita`?==**
+    - **[[#^sourceClass|Classe Sorgente]]**:   `Impiegato` (partenza dell'associazione)
+    - **[[#^b5cc77|Classe target]]:** `Citta` (destinazione)
+    - **[[#^associationsDef|Associazione]]**: `nascita`
+	- La risposta è `1..1` perché ogni impiegato **può essere nato in una sola città**.
+	- Questo vincolo garantisce che non possano esistere due città diverse associate alla stessa persona tramite l'associazione "nascita".
+
+2. **"A quanti oggetti della classe `Impiegato` può essere collegato un oggetto della classe `Città` tramite il link `nascita`?"** 
+	-  **[[#^sourceClass|Classe Sorgente]]**: `Città` (partenza dell'associazione)
+	- **[[#^b5cc77|Classe target]]:** `Impiegato` (destinazione)
+	- **[[#^associationsDef|Associazione]]**: `nascita`
+	-   La risposta è `0..*` perché una città **può avere un numero qualsiasi di impiegati nati al suo interno**.
+	- Questo significa che una città potrebbe non avere alcun impiegato associato oppure averne moltissimi.
+
+Prendiamo come esempio anche questa immagine 
+
+![](https://i.imgur.com/dgHnOYY.png)
+Nel [[#^inLevel|livello intensionale]] ci sono due classi:
+- `Persona`: ha un attributo  `nome` di tipo `stringa`
+- `Automobile`: ha un attributo `targa`, presumibilmente di tipo `stringa`
+La relazione tra `Persona` e `Automobile` è chiamata **"possiede"** ed è caratterizzata da un vincolo di molteplicità **`0..*`** dal lato di `Automobile`.
+Nel [[#^exLevel|livello estensionale]] , difatti, possiamo notare che:
+l'istanza della classe `Persona` è `anna:Persona` da cui partono vari link verso le istanze della classe `Automobile`(`a1:Automobile`, `a2:Automobile`, `a3:Automobile`, e così via).
+Il vincolo di molteplicità accanto a queste istanze è [[#^zeroToStart|`0..*`]] e conferma il vincolo imposto nel livello soprastante: ovvero una persona può possedere **zero, una o più** automobili.
+Quindi la freccia con il vincolo `0..*` mostra la relazione di possesso, infatti una persona può possedere più automobili ma non è obbligata a possederne almeno una. 
+
+> [!remember]- **Ricorda: La distinzione tra livello intensionale ed estensionale**
+> - Il [[#^inLevel|primo]] mostra le classi e le loro relazioni generali.
+   > 
+>- Il [[#^exLevel|secondo]] mostra esempi concreti (istanze) che rispettano il modello.
+
+#### Esercizio 1
+ Definire i vincoli di molteplicità sui ruoli delle associazioni del seguente diagramma delle classi.
+ ![](https://i.imgur.com/QkcwhFE.png)
+In questa immagine possiamo notare 3 classi:
+- `Hotel`: 
+  con l'attributo `nome` di tipo `Stringa`.
+- `Prenotazione`: 
+  con l'attributo `istante` di tipo `DataOra`.
+- `Persona`: 
+  con gli attributi `nome` e `cognome`, entrambi di tipo `Stringa`.
+E due associazioni:
+1. **`hotel_prenotato`** tra `Hotel` e `Prenotazione`.
+    
+2. **`cliente_prenotazione`** tra `Prenotazione` e `Persona`.
+
+Per definire i vincoli di molteplicità tra queste prime due classi (associazione `hotel_prenotato`) devo pormi le seguenti domande:
+1. "==A quanti oggetti della classe `Prenotazione` può essere collegato un oggetto della classe `Hotel` tramite l'associazione `hotel_prenotato`?**=="
+	  
+	- **[[#^sourceClass|Classe Sorgente (source)]]:** `Hotel`(partenza dell'associazione).
+	- **[[#^b5cc77|Classe Target]]:** `Prenotazione` (destinazione).
+	- **[[#^associationsDef|Associazione]]:** `hotel_prenotato`. 
+	**Ergo:** Un hotel può avere **zero, una o più prenotazioni** nel tempo.  
+	**Risposta:** `0..*` (zero o più prenotazioni per ogni hotel).
+	
+2) . "**==A quanti oggetti della classe `Hotel` può essere collegato un oggetto della classe `Prenotazione` tramite l'associazione `hotel_prenotato`?==**"
+	- **[[#^sourceClass|Classe sorgente (source)]]:** `Prenotazione` (partenza dell'associazione)
+	- **[[#^b5cc77|Classe Target]]:** `Hotel` (destinazione)
+	- **[[#^associationsDef|Associazione]]:** `hotel_prenotato`
+    **Ergo:** Una prenotazione è sempre riferita **a un solo hotel**.  
+    **Risposta:** `1..1` (ogni prenotazione è associata a un solo hotel).
+    
+
+> [!done] **Risultato**
+> - `Hotel` → `0..*` `Prenotazioni`
+>     
+> - `Prenotazione` → `1..1` `Hotel`
+
+Passando alla seconda coppia di classi (associazione `cliente_persona`): 
+Qui dobbiamo porci le seguenti domande:
+3) "**==A quanti oggetti della classe `Persona` può essere collegato un oggetto della classe `Prenotazione` tramite `cliente_prenotazione`?==**"
+	- **[[#^sourceClass|Classe Sorgente (source)]]:** `Prenotazione` 
+	- **[[#^b5cc77|Classe Target]]:** `Persona` (destinazione)
+	- **[[#^associationsDef|Associazione]]:** `cliente_prenotazione`
+	**Ergo:** Una prenotazione può essere effettuata da **una sola persona** (di solito il titolare della prenotazione).  
+	- **Risposta:** `1..1` (ogni prenotazione ha un solo cliente associato).
+	
+4) "**==A quanti oggetti della classe `Prenotazione` può essere collegato un oggetto della classe `Persona` tramite `cliente_prenotazione`?==**"
+	 - **[[#^sourceClass|Classe Sorgente (Source)]]:** `Persona`
+	 - **[[#^b5cc77|Classe Target]]:** `Prenotazione` (destinazione)
+	 - **[[#^associationsDef|Associazione]]:** `cliente_prenotazione`
+	**Ergo:** Una persona può effettuare **zero, una o più prenotazioni** nel tempo.  
+    -  **Risposta:** `0..*` (una persona può avere più prenotazioni, o nessuna).
+
+
+> [!done ] **Vincoli finali corretti**
+> 1. `Hotel` → `0..*` `Prenotazione`
+ >   
+>2. `Prenotazione` → `1..1` `Hotel`
+ >   
+>3. `Persona` → `0..*` `Prenotazione`
+  >  
+>4. `Prenotazione` → `1..1` `Persona`
+
+![Soluzione dell'esercizio](https://i.imgur.com/Dsqzoiw.png)
+
+Quindi il punto non è come dai la risposta ma come poni la domanda : ==perché la molteplicità dipende sempre da **quanti oggetti di una classe sono collegati a un oggetto dell'altra classe** nell'associazione.== 
+In parole povere: 
+Il fulcro è **come poni la domanda**, perché la molteplicità **non** riguarda una singola classe in sé, ma il **numero di oggetti collegati tra le due classi** attraverso l'associazione.
+
+
+> [!hint] **Regola chiave:**
+> Non bisogna chiedersi "**Quante relazioni ha questa classe?**", ma =="**Quanti oggetti di questa classe sono collegati a un oggetto dell'altra classe?**"==.
+> Riprendendo l'esercizio qui sopra una **domanda errata** è: 
+> > [!fail] "**Quante prenotazioni ha una persona?**"
+> > Questo è troppo generico e può creare confusione.
+> 
+> Quindi la **domanda corretta** da porsi è:
+> > [!done] **"A quante prenotazioni partecipa una singola persona?"**
+> > Ciò ti porta direttamente alla risposta corretta(`0..*`)
+> 
+> **Il trucco è:**
+> pensa sempre in termini di **oggetti specifici**, non di intere classi.
+
+
+#### Esercizio 2
+- Si vuole progettare un sistema che gestisca i dati anagrafici delle persone.
+-  Di ogni persona interessa il nome, il cognome, la data di nascita, la città di nascita e quella di residenza.
+-  Si definisca un diagramma delle classi concettuale per l’applicazione.
+
+Quindi ci servono due classi:
+1. `Persona`: 
+   con gli attributi;
+	- `nome`: di tipo `stringa`
+	- `cognome`: di tipo `stringa`
+	- `data_nascita`: di tipo `Data`
+2. `Città`:
+   con l'attributo
+	- `nome`: di tipo `stringa`  
+
+Dopodiché  andremo a definire due associazioni tra queste classi:
+1. `nascita`
+2. `residenza`
+
+
+Ora andiamo a porci le seguenti domande per impostare i vincoli di molteplicità:
+1. "**==A quanti oggetti della classe `Città` può essere collegato un oggetto della classe `Impiegato` tramite l'associazione `nascita`?==**"
+   - **[[#^sourceClass|Classe sorgente(source)]]:** `Impiegato`(partenza dell'associazione)
+   - **[[#^b5cc77|Classe Target]]:** `Città` (destinazione)
+   - **[[#^associationsDef|Associazione]]:** `nascita`. 
+   **Ergo:** Una persona può essere nato in una sola città.
+   **Risposta:** `1..1` (ogni persona ha solo una città di nascita).
+   
+2. "**==A quanti oggetti della classe `Città` può essere collegato un oggetto della classe `Impiegato` tramite l'associazione `residenza`?==**"
+   - **[[#^sourceClass|Classe sorgente(source)]]:** `Impiegato` (partenza dell'associazione)
+   - **[[#^b5cc77|Classe Target]]:** `Città`(destinazione)
+   - **[[#^associationsDef|Associazione]]:** `residenza`
+   **Ergo:** Una persona può risiedere in una sola città.
+   **Risposta:**`1..1`(ogni persona ha solo una citta di residenza).
+   
+3. "**==A quanti oggetti della classe `Impiegato` può essere collegato un oggetto della classe `Città` tramite l'associazione `nascita` ?==**"
+   - **[[#^sourceClass|Classe sorgente (source)]]:**`Città` (partenza dell'associazione)
+   - **[[#^b5cc77|Classe Target]]:**`Impiegato` (destinazione)
+   - **[[#^associationsDef|Associazione:]]**`nascita` 
+   **Ergo:** Una città può essere la citta di nascita di nessuna o di una o di più persone.
+   **Risposta:** `0..*`(ogni città ha nessuna, una o più persone che vi sono nati).
+   
+4. "**==A quanti oggetti della classe `Impiegato` può essere collegato un oggetto della classe `Città` tramite l'associazione `residenza`?==**"
+   - **[[#^sourceClass|Classe sorgente (source)]]:** `Città` (partenza dell'associazione)
+   - **[[#^b5cc77|Classe Target]]:** `Impiegato` (destinazione)
+   - **[[#^associationsDef|Associazione]]:** `residenza`
+   **Ergo:** Una citta può essere la citta di residenza di nessuna o di una o di più persone. 
+   **Risposta:** `0..*`(ogni città ha nessun, uno o più persone che vi risiedono).
+
+![Esercizio 2](https://i.imgur.com/j30YVFi.png)
+
+
+
+## Associazioni che insistono più volte sulla stessa classe
+Supponiamo di voler modellare i sovrani di un regno ormai scomparso.
+• Di ogni sovrano interessa il nome, il periodo in cui ha regnato, ed il predecessore.
+Qui abbiamo bisogno di una classe `Sovrano`:
+gli attributi sono;
+- `nome`: di tipo `stringa`
+- `inizio`: di tipo `Data`
+- `fine`: di tipo `Data`
+![La classe sovrano|339x224](https://i.imgur.com/QCteEn5.png)
+Qui bisogna ricordare che ogni sovrano può essere un **predecessore** e un **successore**, in questo caso si usano **le associazioni con ruoli distinti**:
+==**Un'associazione ricorsiva con ruoli distinti** è un tipo di associazione in cui una classe è collegata a sé stessa, rappresentando una relazione tra le istanze della stessa classe.== 
+==Per evitare ambiguità, ogni partecipazione della classe all’associazione è caratterizzata da un **ruolo distinto**, che specifica il significato dei diversi estremi della relazione.==  ^def-AssRecuWithDistRole
+
+### Caratteristiche principali 
+- **Associazione ricorsiva**: 
+  ==una classe partecipa più volte alla stessa associazione.==  
+  
+-  **Ruoli distinti**: 
+   ==ogni istanza assume ruoli diversi nell’associazione per rendere chiaro il significato della relazione==.  ^roleDef
+ 
+- **Molteplicità**: 
+  specifica il numero minimo e massimo di istanze coinvolte in ciascun ruolo.  
+-  **Esempi comuni**: gerarchie, genealogie, strutture organizzative.
+Come per gli esempi riportati prima anche qui posso applicare lo schema:
+**"==A quanti [Target] è collegato [Source] tramite [Associazione]?=="**
+Tuttavia rimane un problema, ovvero come faccio a capire chi è il predecessore e chi è il successore in un associazione ricorsiva?
+Devo assegnare due ruoli ben distinti nella stessa associazione
+
+![](https://i.imgur.com/hS2QigU.jpeg)
+Sappiamo che le istanze dell’associazione sono coppie (s1, s2) di oggetti (istanze) di classe Sovrano.
+• La classe Sovrano gioca due ruoli nell’associazione.
+In questo caso  UML ci obbliga a dare esplicitamente nomi distinti ai due ruoli
+Quindi assegnando un ruolo A (predecessore) e un ruolo B (successore) alla associazione ricorsiva `successione` si è risolto il problema dell'ambiguità proprio perché avendogli assegnato questi ruoli si va a chiarire il significato della relazione all'interno della classe `Sovrano`. 
+==Senza i due ruoli non si capirebbe chi è il predecessore e/o chi il successore di quale sovrano.== 
+
+Ora per applicare i vincoli di molteplicità dobbiamo chiederci:
+1. **"A quanti oggetti della classe `Sovrano` può essere collegato un oggetto della classe `Sovrano` nel ruolo di `successore`?"**
+	- **[[#^sourceClass|Classe Source]]:** `Sovrano`
+	- **[[#^b5cc77|Classe Target]]:** `Sovrano`
+	- **[[#^roleDef|Ruolo]]:** `successore`
+   **Risposta:**`0..1`: ogni oggetto sovrano può partecipa con il **ruolo di** successore al link della associazione successione  da 0 a 1 volta
+2. **"A quanti A quanti oggetti della classe `Sovrano` può essere collegato un oggetto della classe `Sovrano` nel ruolo di `predecessore` ?"**
+	- **[[#^sourceClass|Classe Source]]:** `Sovrano`
+	- **[[#^b5cc77|Classe Target]]:** `Sovrano`
+	-  **[[#^roleDef|Ruolo]]:** `predecessore`
+**Risposta:** ogni oggetto sovrano può partecipa con il **ruolo di** `predecessore` al link della associazione successione da 0 a 1 volta.
+
+![|423x188](https://i.imgur.com/9EY4OaU.png)
+
+Ogni sovrano d quanti sovrano può essere successore?0, se è il primo della dinastia o  1
+Ongi sovrano di quanti sovrani è il predecessore? 0 se è il primo della dinastia o 1
+
+Il problema è il sovrano può essere predecessore di se stesso( esempio Napoleone Bonaparte)? Si 
+
+La Riflessività: Padre di me stesso
+La simmetria: A padre di B e B padre di C

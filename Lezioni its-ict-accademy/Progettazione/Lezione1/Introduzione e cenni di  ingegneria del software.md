@@ -1,4 +1,3 @@
-In questo corso ci allontaniamo dall'approccio "artigianale" dell'informatica, dove si prende un problema e si scrive direttamente il codice. Qui entriamo nel mondo dei sistemi complessi, dove la progettazione è fondamentale. **Non scriveremo codice**, ma ci concentreremo su come progettare sistemi software robusti e scalabili, indipendentemente dalla tecnologia utilizzata.
 Quindi è importanti capire i dati di interesse e come sono correlati tra loro, non esiste una via unica, l'importante che le scelte fatte lungo il progetto siano ben ragionate.
 Quindi impareremo a ragionare logicamente e a capire le conseguenza delle nostre azioni. 
 
@@ -191,7 +190,8 @@ La metodologia che illustriamo in questo modulo si basa su UML, in particolare, 
 Nell’analisi concettuale useremo solo i seguenti diagrammi (e di questi diagrammi useremo solo le
 caratteristiche più importanti):
 - Diagrammi strutturali:
-	- Diagramma delle classi e degli oggetti (class and object diagram)
+	- Diagramma delle classi e degli oggetti (class and object diagram):
+	  modella le classi e gli oggetti UML( c'è una differenza tra le classi e le class Python)
 - Diagrammi comportamentali:
 	- Diagramma degli use case (use case diagram),
 	- Diagramma degli stati e delle transizioni (state/transition diagram)
