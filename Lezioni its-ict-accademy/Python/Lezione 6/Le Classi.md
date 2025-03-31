@@ -745,7 +745,7 @@ L'uso corretto delle classi rende il codice più organizzato, leggibile e manute
 Attributi di classe
 Sono attributi globali, a che servono? Ad esmepio se ho 10 ogggetti di Person e si accede all'attributo di classe e slegato degli oggetti ma è legato alla classe e quindi è legato a tutti gli oggetti.
 Es: 
-```
+```run-python
 class Person:
 
     personCount = 0
@@ -782,3 +782,43 @@ cls: va ad accedere agli attriubuti globali della classe
 self: va ad accedere agli attriubuti del costruttore o quelli che vanno ad essere definiti negli altri metodi della classe.
 
 Tuttavia non posso ad accedere ad un attributo definito con il self anche con il cls, l'interprete mi dà un messaggio di errore in output e mi dice che quell'attributo non è stato definito.
+
+
+---
+
+
+## Metodi speciali
+### il metodo `__str__`
+
+Ci permette di rappresentare un oggetto della classe leggibile come stringa
+```python
+class Person:
+	def __init__ (self, name, age):
+		self.name = name
+		self.age = age
+	def __str__(self):
+		return f"{self.name}, {self.age} years old"
+
+p = Person ("Luca", 30)
+print(p)
+```
+
+Oltre a migliorare la leggibilità è utile per fare il debbuging. 
+Se togliessi il metdo `__str__` mi ritornerebbe l'indirizzo di memoria. 
+ciò è utile perchè io in questo caso printo solo l'oggetto senza associarlgi anche la funzione:
+se io al posto del metodo `__str__` definissi una funzione, ad esempio `printMsg()` per stampare l'oggetto nel print dovrei fare `print(p.printMsg())`, mentre in questo modo me lo fa in automatico.
+
+### Metodo `__call__`
+Fa si che l'oggetto della classe può essere trattato come una funzione. Quindi:
+```
+class Greeter:
+	def __init__(self, message):
+		self.msg = message
+	def __call__(self):
+		return f"Hello, {self.msg}"
+
+g = Greeter("Alice")
+print(g())
+```
+
+In questo caso abbiamo le paretnesi perchè abbiamo l'oggetto g come se fosse una funzione
