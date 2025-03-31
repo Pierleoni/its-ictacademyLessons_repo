@@ -37,7 +37,8 @@
               "title": "Vincoli di molteplicità sulle associazioni e sugli attributi"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -248,11 +249,11 @@
       "vscode-editor:Create Code File": false
     }
   },
-  "active": "ea25a8bf87b52345",
+  "active": "3d14c75caf10afd1",
   "lastOpenFiles": [
+    "Progettazione/Lezione 2/Associazioni con attributi in UML.md",
     "Progettazione/Lezione 2/Vincoli di molteplicità sulle associazioni e sugli attributi.md",
     "Progettazione/Lezione 2/Analisi dei requisiti mediante UML.md",
-    "Progettazione/Lezione 2/Associazioni con attributi in UML.md",
     "Python/Lezione 6/Le Classi.md",
     "Progettazione/Lezione 2/Esercitazione Azienda 1.md",
     "Progettazione/Lezione 2/Università 1.md",
