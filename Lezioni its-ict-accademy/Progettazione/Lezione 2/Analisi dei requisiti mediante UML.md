@@ -277,7 +277,7 @@ Nel livello Estensivo possiamo vedere istanze le specifiche delle classi:
   è un oggetto della classe `Persona`, con nome `"Dante"` e cognome `"Alighieri"`.
 Tra questi due oggetti esiste un **[[#^instanceDef|link]]**(istanza della relazione autore), che collega `div_comm` con `dante`. 
 ==Questo link non ha un identificatore proprio, poiché è determinato univocamente dagli oggetti che collega.== 
-#### Cosa sono le associazioni?
+### Cosa sono le associazioni?
 Nella modellazione concettuale (ad esempio, in UML) un'associazione rappresenta una relazione tra due o più classi.
 anche qui l'identità degli oggetti gioca un ruolo importante:
 - Le associazioni collegano istanze specifiche (oggetti) di classe diverse, e queste istanze sono identificate in modo univoco. 
@@ -298,7 +298,7 @@ In altre parole:
 - ==Le istanze di un'associazione tra due classi si chiamano **link**.==
 
 
-#### Cosa sono i link?
+### Cosa sono i link?
 ==Un link (o riferimento) è un modo per accedere a un oggetto specifico attraverso un puntatore o un identificatore.== 
 In altre parole:
 ==Un link è una relazione concreta tra due istanze di classi diverse.==   ^instanceDef
@@ -319,7 +319,7 @@ Al contrario degli oggetti, però, i link non hanno identificatori espliciti: ==
 ==identificato dalla coppia (o in generale dalla ennupla, v. seguito) di oggetti che esso rappresenta.==
 Ciò implica, ad esempio, che il seguente diagramma degli oggetti non è ammesso dal diagramma delle classi.
 ![](https://i.imgur.com/xqYQtO3.png)
-Questo diagramma dice che un Libro non puo modellare l'istanza della stessa persona perché non avrebbe senso.
+Questo diagramma dice che un Libro non può modellare l'istanza della stessa persona perché non avrebbe senso.
 #### Perché i link non hanno un identificatore?
 
 In UML, i link non hanno un identificatore esplicito perché:
@@ -331,12 +331,12 @@ In UML, i link non hanno un identificatore esplicito perché:
 
 > [!example] Riepilogo
 > - **Associazione**: 
->   relazione tra due classi (es. `Libro` e `Persona`).
+>   ==relazione tra due classi (es. `Libro` e `Persona`).==
 >     
 > - **Link**: 
->   istanza di un'associazione, che collega due oggetti specifici (es. `div_comm` e `Dante`).
+>   ==istanza di un'associazione, che collega due oggetti specifici (es. `div_comm` e `Dante`).==
 >     
-> - I link non hanno un identificatore esplicito perché sono univoci per la coppia di oggetti che collegano.
+> - ==I link non hanno un identificatore esplicito perché sono univoci per la coppia di oggetti che collegano.==
 
 
 > [!faq]- **Quando i link e le associazioni non rientrano nell'identità degli oggetti**
