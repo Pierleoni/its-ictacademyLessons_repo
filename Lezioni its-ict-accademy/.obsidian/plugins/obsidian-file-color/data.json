@@ -26,6 +26,16 @@
       "id": "cz1p-WAE9mdVK-N4qPhJT",
       "name": "Img",
       "value": "#1d338c"
+    },
+    {
+      "id": "DbYCxHoLT6fNSFcr_9Y3B",
+      "name": "Progettazione",
+      "value": "#b2592a"
+    },
+    {
+      "id": "CqznCFYVP5m8M8O2U3K_x",
+      "name": "Web Dev.",
+      "value": "#b09121"
     }
   ],
   "fileColors": [
@@ -44,6 +54,14 @@
     {
       "path": "Code",
       "color": "hu1PHw--DcVNBpvu9rFZO"
+    },
+    {
+      "path": "Progettazione",
+      "color": "DbYCxHoLT6fNSFcr_9Y3B"
+    },
+    {
+      "path": "Web Development",
+      "color": "CqznCFYVP5m8M8O2U3K_x"
     }
   ]
 }
