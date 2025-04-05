@@ -15,9 +15,9 @@ In analisi bisogna ricordare che non si effettuano scelte tecnologiche(come ad e
 
 
 ### **Cosa si intende per tipo di dato concettuale?**
-Prendiamo ad esempio il tipo di dato "Data":
-- Esso rappresenta il concetto di data (ad esempio: 2/05/2025), 
-- Definisce **un istante di tempo**, ma **non specifica il formato di memorizzazione o di visualizzazione** (che dipenderà dalla tecnologia utilizzata).
+Prendiamo ad esempio il **tipo di dato "Data":**
+- Esso **rappresenta il concetto di data (ad esempio: 2/05/2025),** 
+- ==Definisce **un istante di tempo**, ma **non specifica il formato di memorizzazione o di visualizzazione** (che dipenderà dalla tecnologia utilizzata).==
 Tuttavia, a volte abbiamo bisogno di rappresentare i dati in modo più accurato, introducendo dei **tipi di dato specializzati**.
 
 ## Tipi di dato specializzati
@@ -43,7 +43,7 @@ Ora, il sistema deve rispettare queste regole:
 
 Quindi, per **evitare l’inserimento di voti non validi**, dobbiamo **specializzare il tipo di dato** di `voto`, definendolo con un **range valido**.
 ![](https://i.imgur.com/MEnDwEU.png)
-Ora che si è andato a definire Ora che abbiamo definito il range `18..30` per `voto` nel [[Analisi dei requisiti mediante UML#^inLevel|livello intensionale]], il valore `-5` **non è più lecito nel modello UML**.
+Ora che si è andato a definire il range `18..30` per `voto` nel [[Analisi dei requisiti mediante UML#^inLevel|livello intensionale]], il valore `-5` **non è più lecito nel modello UML**.
 
 > [!example] **Altri esempi di specializzazione dei tipi di dato**
 >
@@ -52,7 +52,8 @@ Ora che si è andato a definire Ora che abbiamo definito il range `18..30` per `
   >  - Tipo di dato → `Reale 0..1`
   >      
   >  - Esempio: `0.45` è valido, mentre `1.5` no.
-  >      
+  >    
+>  
 >- **Stringa con esattamente 4 caratteri alfabetici maiuscoli:**
   >  
  >   - Tipo di dato → `Stringa[4]`
@@ -60,13 +61,15 @@ Ora che si è andato a definire Ora che abbiamo definito il range `18..30` per `
   >  - Esempi validi: `"ABCD"`, `"XZYT"`
  >       
 > - Esempi non validi: `"abc"` (solo 3 caratteri), `"ABCDE"` (5 caratteri)
->        
+>  
+>      
 >- **Codice Fiscale italiano (16 caratteri alfanumerici):**
   >  
  >   - Tipo di dato → `Stringa[16]`
  >       
 >    - Esempi validi: `"RSSMRA85M01H501Z"`
- >       
+ > 
+>      
 >- **Partita IVA italiana (11 caratteri numerici):**
 >    
   > 	 - Tipo di dato → `Stringa[11]` (solo cifre)
@@ -84,7 +87,7 @@ Ad esempio, riprendendo l’esempio precedente, supponiamo di voler aggiungere u
     
 
 In questi casi, si utilizza un **tipo di dato enumerativo**, che:
- ==Definisce esplicitamente e completamente l’insieme dei valori possibili per un attributo.==
+ ==Definisce esplicitamente e completamente l’insieme dei valori possibili per un attributo.==  
 
 Ecco come possiamo rappresentarlo nel livello intensionale:
 
@@ -122,14 +125,14 @@ Questi sono chiamati **tipi record** e ==consentono di **strutturare più inform
 `Tipo indirizzo = (via: Stringa, civico:intero >0, cap: Intero>0) .`
 Qui abbiamo un **tipo di dato composto (record)** con i seguenti campi:
 
-- `tipo`: `{via, piazza, contrada, viale, corso}`
+- `tipo`: `(via, piazza, contrada, viale, corso)`
     
 >[!danger] **Attenzione!**
->Come per il tipo di dato enumerativo anche qui non si può scrivere `etc.`! Bisogna **elencare tutte le possibilità**.
+>Come per il [[#Tipi di dato enumerativo|tipo di dato enumerativo]] anche qui non si può scrivere `etc.`! Bisogna **elencare tutte le possibilità**.
     
 - `denominazione`: `Stringa`
     
-- `civico`: `Stringa`
+- `civico`: `Intero`
     
 - `CAP`: `Stringa numerica di 5 caratteri`
     

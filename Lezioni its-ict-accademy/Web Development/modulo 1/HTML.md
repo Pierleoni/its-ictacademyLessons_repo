@@ -179,3 +179,171 @@ tag `<li>` :
 	<li>terzo elemento</li>
 </ol>
 ```
+
+
+### Tabelle 
+Per definire una tabella possiamo riprodurre un esempio simile al seguente :
+```html
+<table>
+	<tr>
+		<td>Colonna 1</td><td>Colonna 2</td>
+	</tr>
+	<tr>
+		<td>Dato 1</td><td>Dato 1</td>
+	</tr>
+	<tr>
+	<td>Dato 2</td><td>Dato 2</td>
+	</tr>
+	<tr>
+		<td>Dato 3</td><td>Dato 3</td>
+	</tr>
+</table>
+```
+Renderizzato viene visualizzato così:
+<table>
+	<tr>
+		<td>Colonna 1</td><td>Colonna 2</td>
+	</tr>
+	<tr>
+		<td>Dato 1</td><td>Dato 1</td>
+	</tr>
+	<tr>
+	<td>Dato 2</td><td>Dato 2</td>
+	</tr>
+	<tr>
+		<td>Dato 3</td><td>Dato 3</td>
+	</tr>
+</table>
+
+
+Nell’esempio riusciamo a definire una griglia
+formata da righe e colonne, il risultato è
+piuttosto povero ma ci aiuta a presentare i tag di
+base:
+
+
+| Tag       | Descrizione                                                           |
+| --------- | --------------------------------------------------------------------- |
+| `<table>` | È il contenitore di tutta la tabella e la definisce                   |
+| `<tr>`    | "table row" Contiene una riga della tabella                           |
+| `<td>`    | "table data", Una cella che contiene i valori all'interno di una riga |
+Questo tipo di tabella era un elemento
+predominante nel “vecchio Web” (ed è ancora
+presente in quello attuale), perché funzionale
+anche alla suddivisione degli spazi, oltre che alla
+rappresentazione dei dati.
+Con il consolidarsi di pratiche più specifiche per
+il markup dei layout, questo utilizzo delle tabelle
+è caduto in disuso.
+
+Per scrivere una tabella che fornisca una
+rappresentazione più chiara dei dati introduciamo un
+template leggermente più ricco:
+```html
+<table>
+	<tr><th>Colonna 1</th><th>Colonna 2</th> </tr>
+	<tr><td>Totale 1</td><td>Totale 2</td></tr>
+	<tr><td>Dato 1,1</td><td>Dato 1,2</td></tr>
+	<tr><td>Dato 2,1</td><td>Dato 2,2</td></tr>
+	<tr><td>Dato 3,1</td><td>Dato 3,2</td></tr>
+</table>
+```
+
+<table>
+	<tr><th>Colonna 1</th><th>Colonna 2</th> </tr>
+	<tr><td>Totale 1</td><td>Totale 2</td></tr>
+	<tr><td>Dato 1,1</td><td>Dato 1,2</td></tr>
+	<tr><td>Dato 2,1</td><td>Dato 2,2</td></tr>
+	<tr><td>Dato 3,1</td><td>Dato 3,2</td></tr>
+</table>
+
+`table header` o `th`:
+Indica una cella che contiene un intestazione (ad esempio il titolo di una colonna
+o di una riga) e serve a dare una definizione dei dati cui si riferisce.
+
+#### Annidare tabelle in HTML
+
+Posso annidare le tabelle tra loro:
+
+```HTML
+<table>
+	<tr>
+		<th>Campo</th><th>Tabella</th>
+	</tr>
+	<tr>
+			<td>Campo1</td>
+		<td>
+		<table>
+			<tr><th>Campo</th><th>Descrizione</th></tr>
+			<tr><td>Campo1</td><td>Descrizione1</td></tr>
+		</table>
+		</td>
+	</tr>
+</table>
+```
+
+<table>
+	<tr>
+		<th>Campo</th><th>Tabella</th>
+	</tr>
+	<tr>
+			<td>Campo1</td>
+		<td>
+		<table>
+			<tr><th>Campo</th><th>Descrizione</th></tr>
+			<tr><td>Campo1</td><td>Descrizione1</td></tr>
+		</table>
+		</td>
+	</tr>
+</table>
+
+
+Tuttavia le tabelle sono statiche, da quando sono nati i primi smartphone le tabelle in HTML  sono andati in progressivamente in disuso, ma ancora si utilizzano, si usano i div con la stessa logica delle tabelle
+```
+<table> 
+	<tr>
+		<td></td>
+	</tr>
+</table>
+
+<div>
+	<div>
+		<div></div>
+	</div>
+</div>
+```
+
+### Attributi delle tabelle
+dentro il tag table devo mettere border per farmi fare il bordo della tabella, 
+hieght non si usa mai perchè l'aletzza della tabella si deve adattare al contenuto della tabella. 
+Per quanto riguarda il l'attributo width non usare la misura della percentualema usa i pixel. 
+Prima si dice che la tabella deve avere una misura in percentuale cosi ha un riferimento e poi sui td impostare diverse width in percentuale
+
+
+## Form
+L'HTML mette a disposizione una serie di tag il cui scopo
+è quello di creare moduli con caselle di testo, opzioni,
+bottoni di invio ed altro ancora.
+Il termine tecnico che riassume tutti questi elementi è form ed il loro scopo è quello di creare interazione e scambio dati tra gli utenti ed il sito. 
+Più precisamente, attraverso un form HTML è possibile "raccogliere" gli
+input degli utenti per poi inviarli ad un qualche sistema di elaborazione (normalmente uno script lato server che vedremo più avanti).
+
+### Il tag `<form>`
+Per la creazione di un form utilizziamo l'omonimo tag form, come nell'esempio che segue:
+
+```html
+<form method="" action="" name="">
+...
+</form>
+```
+
+Scopo di questo tag è di fare da contenitore ad una serie di tag che costituiranno gli specifici controlli del modulo.
+
+I principali attributi del tag form, come visto nell'esempio, sono i seguenti:
+• `method` - specifica il metodo di invio dei dati ed
+accetta i valori `get` o `post`;
+• `action` - specifica lo script che riceverà,
+controllerà ed elaborerà i dati.
+• `name` - specifica il nome attribuito al form, in
+quanto è possibile inserire in una pagina più form
+e questo tag serve ad identificarlo.

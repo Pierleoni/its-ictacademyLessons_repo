@@ -1,14 +1,15 @@
 1. Requisiti sui dipartimenti aziendali:
 	1.1) nome del dipartimento(Stringa)
-	1.2) Indirizzo del dipartimento (vedi [[#^8db6f0|req.2]])
+	1.2) indirizzo(Indirizzo)
+	%% 1.2) Indirizzo del dipartimento (vedi [[#^8db6f0|req.2]]) %%
 	1.3) direttore (classe [[#^direttore|req.3]]).
 	^dipartimento
  
 
-2. Requisiti sull'indirizzo:
+%% 2. Requisiti sull'indirizzo:
 	2.1) nome della via (Stringa)
 	2.2) n. indirizzo civico(intero > 0).
-	^8db6f0
+	^8db6f0 %%
 
 3. Requisiti sul direttore:
 	3.1)  nome del direttore (Stringa)
@@ -34,14 +35,14 @@
 7. Requisiti sui fornitori:
 	8.1) nome della ditta(Stringa)
 	8.2) partita Iva (Stringa = partita iva tramite nota)
-	8.3) indirizzo(vedi [[#^8db6f0|req.2]])
+	8.3) indirizzo(%% vedi [[#^8db6f0|req.2]]) %%, Indirizzo)
 	8.4) numero di telefono(Stringa)
 	8.5) Indirizzo email(Stringa)
  ^5f21a7
 9. Requisiti sugli ordini:
 	9.1) nome del dipartimento (vedi [[#^dipartimento|req.1]])
 	9.2) data di stipula(attr. della associazione tra ordine e dipartimento) (vedi [[#^dataStipula|req.10]])
-	9.3) nome del Fornitore(associazione vedi [[#^5f21a7|req.8]])
+	9.3) nome del Fornitore(associazione vedi [[#^5f21a7|req.7]])
 	9.4) descrizione dei beni e/o servizi(Stringa)
 	9.5) lo stato dell'ordine (Stringa)
 		9.5.1) preparazione

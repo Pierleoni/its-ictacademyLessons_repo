@@ -1,6 +1,10 @@
 # Introduzione
 Abbiamo visto come funzionano le [[Funzioni in Python|funzioni in Python]] e quali sono i [[Funzioni in Python#Le funzioni|vantaggi]] nell'implementarle nel codice.
-Esiste una particolare uso delle funzioni chiamate **funzioni ricorsive**
+Esiste una particolare uso delle funzioni chiamate **funzioni ricorsive**.
+
+
+
+
 ## Le funzioni ricorsive
 ==Sono funzioni che chiamano sé stesse durante la loro esecuzione. ==
 Questo approccio è particolarmente utile ==per risolvere problemi che possono essere scomposti in sotto-problemi più piccoli dello stesso tipo,== come ad esempio il calcolo del fattoriale, la sequenza di Fibonacci o la costruzione e la navigazione interna di strutture dati gerarchiche (es: alberi). 
