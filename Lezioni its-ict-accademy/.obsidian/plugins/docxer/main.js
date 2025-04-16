@@ -27707,7 +27707,7 @@ var FileUtils = class _FileUtils {
 };
 
 // src/core/convertible-file-view.ts
-var ConvertibleFileView = class extends import_obsidian.TextFileView {
+var ConvertibleFileView = class extends import_obsidian.EditableFileView {
   constructor(leaf, plugin) {
     super(leaf);
     this.header = null;
@@ -28780,15 +28780,17 @@ var _DocxFileView = class _DocxFileView extends ConvertibleFileView {
     const html = await mammoth.convertToHtml({ arrayBuffer: fileBuffer }, {
       styleMap: this.plugin.settings.getSetting("importComments") ? ["comment-reference => sup"] : void 0,
       convertImage: mammoth.images.imgElement(async (image) => {
-        var _a, _b, _c, _d;
+        var _a, _b, _c, _d, _e, _f;
         console.debug(`Extracting image ${(_a = image.altText) != null ? _a : ""}`);
         const imageBinary = await image.read();
         const fallbackFilename = this.plugin.settings.getSetting("fallbackAttachmentName");
-        const attachmentAltText = (_c = (_b = image.altText) == null ? void 0 : _b.replace(/\n/g, " ")) != null ? _c : "";
-        const fileExtension = (_d = MimeUtils.EXTENSIONS[image.contentType]) != null ? _d : "png";
-        const path = await FileUtils.createBinary(this.app, attachmentsDirectory, attachmentAltText, fallbackFilename, fileExtension, imageBinary);
+        let attachmentFilename = (_c = (_b = this.file) == null ? void 0 : _b.name.replace(/\.docx$/, "")) != null ? _c : "";
+        if (this.plugin.settings.getSetting("useImageAltAsFilename"))
+          attachmentFilename = (_e = (_d = image.altText) == null ? void 0 : _d.replace(/\n/g, " ")) != null ? _e : "";
+        const fileExtension = (_f = MimeUtils.EXTENSIONS[image.contentType]) != null ? _f : "png";
+        const path = await FileUtils.createBinary(this.app, attachmentsDirectory, attachmentFilename, fallbackFilename, fileExtension, imageBinary);
         console.debug(`Extracted image to ${path}`);
-        return { src: path.contains(" ") ? `<${path}>` : path, alt: attachmentAltText };
+        return { src: path.contains(" ") ? `<${path}>` : path, alt: attachmentFilename };
       })
     });
     let markdown;
@@ -28804,6 +28806,20 @@ var _DocxFileView = class _DocxFileView extends ConvertibleFileView {
           const commentNumber = (_d = (_c = content.match(/(\d+)/)) == null ? void 0 : _c[1]) != null ? _d : "1";
           const commentId = (_f = (_e = content.match(/#([^\)]+)/)) == null ? void 0 : _e[1]) != null ? _f : "comment-0";
           return ` ([[#^${commentId}|Comment ${author} ${commentNumber}]])`;
+        }
+      });
+      turndownService.addRule("internalLink", {
+        filter: function(node, options) {
+          var _a;
+          return !!(node.nodeName === "A" && ((_a = node.getAttribute("href")) == null ? void 0 : _a.startsWith("#")));
+        },
+        replacement: function(content, node) {
+          const linkText = content.trim();
+          if (linkText)
+            return `[[#${linkText}]]`;
+          const href = node.getAttribute("href") || "";
+          console.warn(`Internal link with href "${href}" has no text content. Creating link to target ID.`);
+          return `[[${href}]]`;
         }
       });
       turndownService.addRule("comments-description-list", {
@@ -28865,7 +28881,8 @@ var DEFAULT_SETTINGS = {
   importComments: false,
   fallbackAttachmentName: "Attachment",
   attachmentsFolder: "subfolder",
-  customAttachmentsFolder: "Attachments"
+  customAttachmentsFolder: "Attachments",
+  useImageAltAsFilename: false
 };
 var _SettingsManager = class _SettingsManager {
   constructor(plugin) {
@@ -28921,6 +28938,9 @@ var DocxerPluginSettingTab = class extends import_obsidian4.PluginSettingTab {
     );
     new import_obsidian4.Setting(containerEl).setName("Custom attachments folder").setDesc("Specify the name of the folder where attachments will be extracted.").addText(
       (text) => text.setPlaceholder("Attachments").setValue(this.settingsManager.getSetting("customAttachmentsFolder")).onChange(async (value) => await this.settingsManager.setSetting({ customAttachmentsFolder: value }))
+    );
+    new import_obsidian4.Setting(containerEl).setName("Use image alt text as filename").setDesc("Use the alt text of the image as the filename. If the alt text is empty, the fallback name will be used.").addToggle(
+      (toggle) => toggle.setValue(this.settingsManager.getSetting("useImageAltAsFilename")).onChange(async (value) => await this.settingsManager.setSetting({ useImageAltAsFilename: value }))
     );
     this.addKofiButton(containerEl);
   }

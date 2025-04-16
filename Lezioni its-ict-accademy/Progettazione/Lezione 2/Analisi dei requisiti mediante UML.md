@@ -115,6 +115,14 @@ istanza, esiste sempre la classe più specifica).
 ![Oggetto in UML](file:///C:/Users/Project%20Lead/OneDrive/Documents/Programmazione/Its-ict%20academy/Lezioni%20its-ict-accademy/img/Progettazione%20IMG/Progettazione(Lezione2)_Analisi%20dei%20requisiti%20in%20UML/Oggetto%20in%20UML.pdf.png)
 
 
+
+
+
+
+
+
+
+
 Prendendo questa immagine come riferimento possiamo notare:
 - **div_comm:** 
   ==è l'identificatore dell'oggetto== (scelto
@@ -208,7 +216,7 @@ Per chiarire meglio i concetti di identità e uguaglianza:
 
 È possibile avere due oggetti distinti che però condividono lo stesso valore per un determinato attributo.
 
-![Le istanze diverse con lo stesso attributo ](https://i.imgur.com/MCqQRib.png)
+![Le istanze diverse con lo stesso attributo|448x182](https://i.imgur.com/MCqQRib.png)
 
 
 L'immagine mostra due livelli:

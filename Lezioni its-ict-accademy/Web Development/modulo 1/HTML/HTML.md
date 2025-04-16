@@ -7,7 +7,7 @@ La finalità è quello di utilizzare un programma che venga renderizzato dalla m
 
 L'idea del file html è di scrivere il file e lo si passa ad un parsing html che lo traduce e ti monta la pagina in base alle indicazione.
 In HTML esistono i cosiddetti "tags": permettono di formattare il testo 
-```
+```html
 <nometag>....contenuto...</nometag>
 ```
 Come possiamo all'interno del tag c'è un contenuto che può essere testo o un altro tag annidato:

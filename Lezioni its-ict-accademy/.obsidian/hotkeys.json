@@ -646,5 +646,15 @@
       ],
       "key": "R"
     }
+  ],
+  "editing-toolbar:toggle-inline-math": [
+    {
+      "modifiers": [
+        "Alt",
+        "Mod",
+        "Shift"
+      ],
+      "key": "4"
+    }
   ]
 }

@@ -175,6 +175,22 @@ pre[class*="language-python"] .token.punctuation { color: #d4d4d4; } /* Virgole,
 pre[class*="language-python"] .token.builtin { color: #b3ab17; } /* Funzioni built-in (print, range, etc.) */
 pre[class*="language-python"] .token.variable { color: #2799d6; } /* Variabili */
 
+/* Questo blocco mi numera le righe di obsdian ma non i le righe dentro i code block
+.cm-content {
+    counter-reset: line;
+}
+
+/* Applica numeri solo alle righe che NON sono blocchi di codice */
+/* .cm-line:not(.HyperMD-codeblock)::before {
+    counter-increment: line;
+    content: counter(line);
+    display: inline-block;
+    width: 2em;
+    margin-right: 1em;
+    color: #888;
+    text-align: right;
+}    */
+
 
 
 

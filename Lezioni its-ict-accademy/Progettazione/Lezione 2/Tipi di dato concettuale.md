@@ -115,7 +115,7 @@ In questo caso, l’insieme dei valori è **completo e immutabile**, quindi dovr
 
 
 
-### Tipi di dato composti
+### Tipi di dato composti(record)
 
 UML consente all’analista di **definire tipi di dato composti** da più campi.  
 Questi sono chiamati **tipi record** e ==consentono di **strutturare più informazioni all'interno di un singolo attributo**.== 
@@ -176,3 +176,50 @@ Tipo Denaro: tipo composto con i seguenti campi
 - L’attributo `Importo` è un numero reale che **non può mai essere negativo**.
     
 - L’attributo `Valuta` deve essere una **stringa di esattamente 3 caratteri alfabetici maiuscoli** (es. `EUR`, `USD`, `JPY`).
+
+
+## Vincoli di identificazioni di classe
+ In alcuni casi, per modellare correttamente il dominio applicativo, è necessario imporre alcuni ulteriori vincoli oltre a quelli naturalmente imposti dal diagramma delle classi.
+- Vincolo (di integrità): 
+  ==una asserzione che impone restrizioni all’insieme dei livelli estensionali ammessi (ovvero agli insiemi di oggetti e link che possono coesistere) ulteriori a quelle strutturali che provengono dal diagramma delle classi==.
+Abbiamo già visto i [[Vincoli di molteplicità sulle associazioni e sugli attributi|vincoli di molteplicità sulle associazioni]].
+
+Ci sono però  un ulteriore tipologia di vincolo:
+**vincolo di identificazione di classe**
+-  ==Impone che non possono coesistere oggetti di una classe che coincidono nel valore di un insieme di attributi e/o sono collegati tramite link agli stessi oggetti di altre classi.==
+![[vincoli di identificazione di una classe.png]]
+Se guardiamo a questo esempio nella classe `Persona` stiamo dicendo che:
+Non possono esistere due persone con lo stesso codice fiscale (“{id1}”) e non possono esistere persone con, simultaneamente, lo stesso nome, cognome e data di nascita (“{id2}”)
+
+### Vincoli di identificazioni di classe nei ruoli di una classe 
+Un vincolo di identificazione di classe può coinvolgere anche ruoli della classe.
+![[vincoli sui ruoli di una classe.png]]
+In questo esempio possiamo vedere:
+- 2 classi:
+  1. `Studente`;
+     3 attributi
+	  - `matr:Stringa{id}`
+	  - `nome:Stringa`
+	  - `cognome:Stringa`
+  2. `Università` ;
+	  1 attributo:
+	   - `nome:Stringa`
+- un associazione `iscritto`:
+	2 vincoli;
+	 - **`0..*`** (lato `Studente`): 
+	   ==Una **università** può avere **zero o più studenti iscritti**==
+	 - `1..1` (lato `Università`): 
+	   ==Uno **studente** è iscritto a **una e una sola università**.==
+Il vincolo di identificazione sull'attributo stringa ci dice che non possono esistere due studenti con lo stesso numero di matricola, quel `{id}` **non è un vincolo sul ruolo**, significa che **l’identificatore dell’associazione "iscritto" include l'identificatore della classe Università**.
+In altre parole per **identificare un'istanza dell'associazione `iscritto`**, è sufficiente l'ID dello studente (**`matr`**), perché ogni studente è iscritto **a una sola università**.
+Quindi si può dire che: 
+==Il `{id}` sul ruolo `1..1` indica che **per ogni studente l’università a cui è iscritto è unica**, e quindi **l’identificatore dell'associazione è lo stesso dell'oggetto Studente**.==
+
+
+> [!danger] un vincolo di identificazione di classe può coinvolgere solo attributi a molteplicità [1..1] e/o ruoli della classe a molteplicità 1..1
+> 
+
+Quindi riprendendo l'esercitazioni [[Ordini e fatture 1]]: se devo dire che non esistono due dipartimenti con lo stesso nome devo mettere accanto al valore dell'attributo `nome` nella classe Dipartimento:
+`nome:Stringa{id}`
+
+Per capire i vincoli delle associazioni delle classi, guardiamo le classi, se io ho 3 classi che sono associati tramite associazioni ed ho applicato il vincolo id all 'attributo' e sull vincolo di molteplicità associato a quella classe il vicnolo di classe è uno solo perché riguarda la stessa classe

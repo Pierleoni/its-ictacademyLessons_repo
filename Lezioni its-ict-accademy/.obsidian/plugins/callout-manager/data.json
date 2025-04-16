@@ -2,7 +2,8 @@
   "callouts": {
     "custom": [
       "deep",
-      "remember"
+      "remember",
+      "ticket"
     ],
     "settings": {
       "deep": [
@@ -39,6 +40,14 @@
           "changes": {
             "icon": "lucide-cloud",
             "color": "95, 171, 196"
+          }
+        }
+      ],
+      "ticket": [
+        {
+          "changes": {
+            "icon": "lucide-ticket-percent",
+            "color": "251, 255, 0"
           }
         }
       ]

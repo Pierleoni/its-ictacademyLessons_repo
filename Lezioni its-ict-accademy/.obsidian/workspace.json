@@ -4,52 +4,37 @@
     "type": "split",
     "children": [
       {
-        "id": "48d91bce1f0da44e",
+        "id": "2dc2fa42e2c7782d",
         "type": "tabs",
         "children": [
           {
-            "id": "ea25a8bf87b52345",
+            "id": "b80ae09403a09dc7",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Progettazione/Lezione 2/Ordini e fatture 1.md",
+                "file": "Python/Lezione 9/Lambda.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Ordini e fatture 1"
+              "title": "Lambda"
             }
           },
           {
-            "id": "b26592b01009a869",
+            "id": "e65df5880bbe1c60",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Progettazione/Lezione 2/Associazioni con attributi in UML.md",
+                "file": "Python/Lezione 6/Public, Private and Class Attibutes, Class and Static Methods.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Associazioni con attributi in UML"
-            }
-          },
-          {
-            "id": "b44df41771e868ee",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Progettazione/Lezione 2/Tipi di dato concettuale.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
-              },
-              "icon": "lucide-file",
-              "title": "Tipi di dato concettuale"
+              "title": "Public, Private and Class Attibutes, Class and Static Methods"
             }
           }
         ]
@@ -85,7 +70,7 @@
               "type": "search",
               "state": {
                 "query": "",
-                "matchingCase": true,
+                "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": true,
                 "extraContext": true,
@@ -93,16 +78,6 @@
               },
               "icon": "lucide-search",
               "title": "Search"
-            }
-          },
-          {
-            "id": "324a6eacdf7d3839",
-            "type": "leaf",
-            "state": {
-              "type": "bookmarks",
-              "state": {},
-              "icon": "lucide-bookmark",
-              "title": "Bookmarks"
             }
           },
           {
@@ -114,12 +89,22 @@
               "icon": "dot-network",
               "title": "Mind Map of ^myCla"
             }
+          },
+          {
+            "id": "8b149556b72aca22",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
           }
         ]
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 333.5
   },
   "right": {
     "id": "8ef8bc59cd79fc10",
@@ -130,37 +115,13 @@
         "type": "tabs",
         "children": [
           {
-            "id": "e4898971592c19a0",
-            "type": "leaf",
-            "state": {
-              "type": "backlink",
-              "state": {
-                "file": "Python/Lezione 4/Problem Solving.md",
-                "collapseAll": false,
-                "extraContext": false,
-                "sortOrder": "alphabetical",
-                "showSearch": false,
-                "searchQuery": "",
-                "backlinkCollapsed": false,
-                "unlinkedCollapsed": true
-              },
-              "icon": "links-coming-in",
-              "title": "Backlinks for Problem Solving"
-            }
-          },
-          {
             "id": "802c871ec5734c70",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "README.md",
-                "mode": "source",
-                "backlinks": false,
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "README"
+              "title": "New tab"
             }
           },
           {
@@ -231,13 +192,33 @@
               "icon": "command-glyph",
               "title": "Execution Runtimes"
             }
+          },
+          {
+            "id": "75d7eb9a6a585201",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Progettazione/Esercizi/Esercitazione GO.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Esercitazione GO"
+            }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -259,57 +240,57 @@
       "darlal-switcher-plus:Open in Headings Mode": false,
       "canvas:Create new canvas": false,
       "templater-obsidian:Templater": false,
-      "vscode-editor:Create Code File": false
+      "vscode-editor:Create Code File": false,
+      "zk-prefixer:Create new unique note": false
     }
   },
-  "active": "ea25a8bf87b52345",
+  "active": "b80ae09403a09dc7",
   "lastOpenFiles": [
+    "Python/Lezione 9/RegEx.md",
+    "Python/Lezione 9/Lambda.md",
+    "Web Development/modulo 1/Bootstrap/Bootstrap.md",
+    "img/Screenshot 2025-04-16 at 12-10-50 BOOTSTRAP 5 - slide-0.3-Bootstrap-5.pdf.png",
+    "Web Development/modulo 1/Bootstrap",
+    "Python/Lezione 6/Public, Private and Class Attibutes, Class and Static Methods.md",
+    "Python/Lezione 8/Ereditarietà delle classi.md",
+    "Python/Lezione 23/Docker.md",
+    "img/Screenshot 2025-04-15 at 12-14-24 Docker_v3 - Docker.pdf.png",
+    "img/Screenshot 2025-04-15 at 12-13-09 Docker_v3 - Docker.pdf.png",
+    "img/Screenshot 2025-04-15 at 12-12-19 Docker_v3 - Docker.pdf.png",
+    "Python/Lezione 23",
+    "Sommario.md",
+    "Python/Lezione 8",
+    "Progettazione/Esercizi/Esercitazione GO.md",
+    "Progettazione/Lezione 2/Generalizzazioni.md",
+    "Web Development/modulo 1/HTML/I form in HTML.md",
     "Progettazione/Lezione 2/Tipi di dato concettuale.md",
-    "Progettazione/Lezione 2/Ordini e fatture 1.md",
-    "Progettazione/Lezione 2/Associazioni con attributi in UML.md",
-    "Web Development/modulo 1/HTML.md",
-    "Python/Lezione 13/Funzioni Ricorsive.md",
-    "Python/Lezione 4/Funzioni in Python.md",
-    "Web Development/modulo 1",
-    "Web Development",
-    "Web.1",
-    "Python/Lezione 6/Le Classi.md",
-    "Python/Lezione 13",
-    "Progettazione/Lezione 2/Esercitazione Azienda 1.md",
-    "Progettazione/Lezione 2/Analisi dei requisiti mediante UML.md",
-    "^.md",
     "Progettazione/Lezione 2/Vincoli di molteplicità sulle associazioni e sugli attributi.md",
-    "Progettazione/Lezione 2/Università 1.md",
-    "Progettazione/Lezione 2/Voli Arei 1.md",
-    "Sistemi digitali/Lezione 12/ISO E OSI Model.md",
+    "Web Development/modulo 1/DOM.md",
+    "Python/Lezione 13/Funzioni Ricorsive.md",
+    "202504121219.md",
+    "Python/Lezione 18/Eccezioni in Python.md",
+    "Python/Lezione 9",
+    "Progettazione/Esercizi/Spiegazione Studenti e impiegati.md",
+    "Python/Lezione 18/Asserzioni.md",
+    "Python/Lezione 5/Capire la comprehensions in Python.md",
+    "img/Python/Lezione 5",
+    "Clippings/Imgur The magic of the Internet.md",
+    "img/Progettazione IMG/Progettazione(Lezione2)/{disjoint,complete}.png",
+    "img/Progettazione IMG/{disjoint,complete}.png",
+    "img/Progettazione IMG/Progettazione(Lezione2)/{complete}.png",
+    "img/Progettazione IMG/Progettazione(Lezione2)/{disjoint}.png",
+    "img/Python/Lezione 5/sintax list comprehension.png",
     "Python/Lezione 2/Collections.md",
-    "Sistemi digitali/Lezione 20/Modello TCP-IP.md",
-    "Sistemi digitali/Lezione 16/Network, Transport, Session, Presentation, Application Layers.md",
-    "Progettazione/Lezione1/Introduzione e cenni di  ingegneria del software.md",
-    "Sistemi digitali/Lezione 20",
-    "img/Progettazione IMG/Progettazione(Lezione2)_Analisi dei requisiti in UML/1 esempio.png",
-    "img/Progettazione IMG/Progettazione(Lezione2)_Analisi dei requisiti in UML/link non ammessi.pdf.png.~tmp",
-    "img/Progettazione IMG/Progettazione(Lezione2)_Analisi dei requisiti in UML/link non ammessi.pdf.png",
-    "Python/Lezione 4/Problem Solving.md",
-    "Sistemi digitali/Lezione 17/Servizi e funzioni del Sistema Operativo.md",
-    "img/Sistemi Digitali/Lezione 17/Gestione dei dispositivi periferici.png",
-    "img/Sistemi Digitali/Lezione 17/File System Management.png",
-    "img/Sistemi Digitali/Lezione 17/Process Life Cycle.png",
-    "img/Sistemi Digitali/Lezione 17/Memory Hierarchy.png",
-    "img/Sistemi Digitali/Lezione 17/Interfaccia Alfanumerica.png",
-    "img/Sistemi Digitali/Lezione 17/GUI.png",
-    "img/Sistemi Digitali/Lezione 17",
-    "img/Sistemi Digitali/Nuova cartella",
-    "img/Sistemi Digitali/Lezione 16/Network, Transport, Session, Presentation, Apllication Layers/Packet Header Structure.png",
-    "img/Sistemi Digitali/Lezione 16/Network, Transport, Session, Presentation, Apllication Layers/Sockets.png",
-    "img/Sistemi Digitali/Lezione 16/Network, Transport, Session, Presentation, Apllication Layers",
-    "img/Sistemi Digitali/Lezione 16/Network, Transport",
-    "Sistemi digitali/Lezione 12/I fundamentals di un Sistema Operativo.md",
-    "Sistemi digitali/Lezione 11/Internetwork-Protocols.md",
-    "Sistemi digitali/Lezione 11/Il modello di Von Neumann.md",
-    "Sistemi digitali/Lezione 11/Esercizi su conversione e operazioni binarie.md",
-    "Sistemi digitali/Lezione 10/Le architetture di un Computer.md",
-    "Python/Lezione 1/Algoritmi e Diagrammi a blocchi.md",
+    "Python/Lezione 5",
+    "Web Development/modulo 1/CSS/CSS.md",
+    "Python/Lezione 18",
+    "img/Css/Screenshot 2025-04-09 at 15-41-08 Meet - wri-jxki-bxo.png",
+    "img/Css",
+    "Web Development/modulo 1/HTML/HTML.md",
+    "Web Development/modulo 1/CSS",
+    "Web Development/modulo 1/HTML",
+    "Progettazione/Lezione 2/Analisi dei requisiti mediante UML.md",
+    "Progettazione/Esercizi/Università 1.md",
     "Untitled.canvas"
   ]
 }
