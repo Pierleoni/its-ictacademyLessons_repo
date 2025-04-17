@@ -519,3 +519,4 @@ print("Non cattura:", re.findall(r"(?:abc)+", text))  # Output: ['abcabcabc'] (i
 > **Non-Capture groups:**  usa `(?:...)` se ti serve **solo raggruppare** per logica o ripetizione.
 
 
+[regex101](https://regex101.com/)
