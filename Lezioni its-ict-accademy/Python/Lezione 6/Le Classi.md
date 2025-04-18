@@ -217,23 +217,40 @@ Questa immagine rappresenta la gerarchia di classi utilizzando il concetto di er
 #### **Cosa mostra l'immagine?**
 
 Ogni classe eredita gli attributi dalla classe superiore, evitando la ripetizione del codice.  
-La gerarchia è costruita con il principio **"[[#^is-aDef|is-a]]"**:
+**La gerarchia è costruita con il principio "[[Generalizzazioni#^is-a-Def|is-a]]"**:
 
-- Uno `Studente di scambio` è uno `Studente` ed è anche una `Persona`.  
--  Più si scende nella gerarchia, più le classi diventano specifiche.
+- ==Uno `Studente di scambio` è anche uno `Studente` ed è anche una `Persona`.==  
+-  ==Più si scende nella gerarchia, più le classi diventano specifiche==.
 
 Queste 4 classi che possono essere raggruppate in una superclasse `Persona` perché hanno attributi in comune (ad esempio `Nome`, `Cognome`, `Codice Fiscale`, `Residenza` etc.). 
-Quindi andando a creare la classe `Persona` si va a formare una gerarchia di classi padri e classi figli.
+==Quindi andando a creare la classe `Persona` si va a formare una gerarchia di classi padri e classi figli==.
 
-> [!info] In questo caso la classe `Persona`, diventa la classe padre di `Studente`, `Insegnante` ed etc., ha la priorità più alta nella gerarchia delle classi
+> [!info] In questo caso la classe `Persona`, diventa la classe padre di `Studente`, `Insegnante` ed etc.
+> Quindi `Persona` ha la priorità più alta nella gerarchia delle classi
 
-Questa gerarchia padre-figlio è utile per non  scrivere tutti gli attributi e i metodi per ogni classe.
+==Questa gerarchia padre-figlio è utile per non  scrivere tutti gli attributi e i metodi per ogni classe==.
 Così facendo scrivo meno codice ogni volta per ogni classe che si riferiscono a persone, inoltre la possibilità di sbagliare è più bassa.
 [[#^GerarchiaClassi|Prendendo in riferimento l'immagine sopra]], possiamo notare come le frecce indicano che il flusso vada dal basso verso l'alto, questo perché non tutte le persone sono studenti o studenti di scambio, ma tutti gli studenti sono persone e anche tutti gli studenti di scambio sono persone.
 Per comprendere meglio questo concetto:
-studente eredità la classe persona, lo studente è una persona ma non il contrario e non può andare nel senso opposto perché  posso dire che `A`(cioè la superclasse `Persona`) eredità `B` (la sottoclasse `Studente`) ma `B` non eredità `A`, tuttavia `C` (la sottoclasse `Studente di scambio`) può ereditare sia `A` che `B`. 
-Questo perché io posso ereditare padre → figlio ma poi il figlio a sua volta può diventare padre, quindi 
-`A → B → C`. 
+==`Studente` eredità la classe `Persona`, quindi lo studente è una persona ma non il contrario e non può andare nel senso opposto perché  posso dire che `A`(cioè la superclasse `Persona`) eredità `B` (la sottoclasse `Studente`) ma `B` non eredità `A`, tuttavia `C` (la sottoclasse `Studente di scambio`) può ereditare sia `A` che `B`.==
+Come possiamo notare questa formula dell'ereditarietà delle classi segue il sillogismo aristotelico:
+1. Tutti gli uomini sono mortali
+2. Socrate è un uomo
+3. Quindi Socrate è mortale
+
+Nel nostro caso, l'analogia si traduce così:
+1. **Premessa maggiore:**
+   "Tutti gli `studenti` sono `Persone`"
+   (Ogni istanza della classe `Studente` eredita le proprietà/metodi della superclasse `Persona`).
+   Quindi è come dire che le istanze di `Studente` sono parte delle istanze di `Persona`
+2. **Premessa minore:**
+   "Non tutte le `Persone` sono `Studenti`"
+   (Ciò significa che `Studente` è un **sottoinsieme proprio** della classe `Persona`, quindi l'inverso non è  valido.)
+3. **Conclusione:**
+   "L'insieme di `Studente` è un sottoinsieme proprio di `Persona`"
+   (La gerarchia diventa chiara: `Persona` → `Studente` ).
+✔ Se `B` eredita da `A`, allora `B` è un([[Generalizzazioni#^is-aDef|is-a]]) `A`.
+==Questo perché io posso ereditare padre → figlio ma poi il figlio a sua volta può diventare padre, quindi `A → B → C`.== 
 Quindi, in sostanza: 
 `B` eredita `A` ma `C` eredità sia `A` che `B`.
 
@@ -291,12 +308,12 @@ Quindi, in sostanza:
 >>> |Bus Kick, Snare, Toms, etc. | **Sottoclassi** (ereditarietà da una classe più generica)|
 >>>|Bus Drum Kit| **Superclasse** (classe base da cui tutte le altre ereditano)|
 
-Quando si creano gerarchie di classi, si definiscono nuovi tipi di dati. Ad esempio, la classe `Studente` eredita da `Persona`, il che significa che uno studente **è una persona** (relazione _[[#^is-aDef|is-a]]_). Più si scende nella gerarchia, più le classi diventano specifiche.
-
+Quando si creano gerarchie di classi, si definiscono nuovi tipi di dati. Ad esempio, la classe `Studente` eredita da `Persona`, il che significa che uno studente **è una persona** (relazione _[[Generalizzazioni#^is-aDef|is-a]]_). Più si scende nella gerarchia, più le classi diventano specifiche.
+ 
 Se osserviamo l'immagine, la classe `Studente di scambio` (_Exchange Student_) è collegata con una freccia alla classe `Studente`. Questo perché **non tutti gli studenti sono studenti di scambio**, così come **non tutte le persone sono studenti**, ma **tutti gli studenti sono persone**.
 
 
-> [!faq] **Principio "is-a"**
+> [!faq] **Principio "[[Generalizzazioni#^is-aDef|is-a]]"** 
 > Il principio _is-a_ nella gerarchia dell'ereditarietà delle classi in Python rappresenta una relazione in cui una classe derivata è un tipo di oggetto della classe base. In altre parole, una classe derivata "è una" classe base, estendendo o specializzando il comportamento della classe da cui eredita.
 > ==In parole povere questo principio riguarda specificatamente la relazione in cui la **sottoclasse** "è una" istanza della classe base, e può estenderla o specializzarla==.    ^is-aDef
 > 

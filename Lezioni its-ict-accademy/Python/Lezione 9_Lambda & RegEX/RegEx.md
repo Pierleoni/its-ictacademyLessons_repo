@@ -200,8 +200,9 @@ Se si scrive
 
 Siccome definire queste classi è lungo e complesso e può portare spesso a degli errori di sintassi ci sono degli shortcut:
 
-- `\d`: matcha un qualsiasi singola cifra (equivalente a \[0-9]).
-  Anche se è non sono del tutto equivalenti in tutti i contesti; il `\d` matcha tutte le cifre Unicode e quindi è più lento nella verifica, tuttavia in Python, di defualt è come `[0-9]`.
+- `\d`: 
+  ==matcha un qualsiasi singola cifra (equivalente a \[0-9]).==
+  Anche se è non sono del tutto equivalenti in tutti i contesti; il `\d` matcha tutte le cifre Unicode e quindi è più lento nella verifica, tuttavia in Python, di default è come `[0-9]`.
   
 - `\D`: matcha qualsiasi carattere che non sia un numero (equivalente a \[0-9]).
 
@@ -426,8 +427,8 @@ re.sub(r"\d", "#", "a1b2")  # Output: 'a#b#'
 
 7. `re.split(pattern, string)`
    - **Descrizione:**
-     Divide la stringa **dove trova un match** e ritorna una lista di parti.
-     In altre parole suddivide una stringa in base al match, quindi separa le occorrenze e le restituisce come se fossero elementi singoli di una lista.
+     ==Divide la stringa **dove trova un match** e ritorna una lista di parti.==
+     ==In altre parole suddivide una stringa in base al match, quindi separa le occorrenze e le restituisce come se fossero elementi singoli di una lista.==
    - **Restituisce:** Lista di stringhe
    - Esempio:
 ```python

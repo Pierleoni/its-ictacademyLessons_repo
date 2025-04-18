@@ -1,8 +1,14 @@
 
-# Introduzione delle Ereditarietà delle [[Le Classi|classi]] in Python
+# Introduzione delle Ereditarietà delle classi in Python
 
 # Introduzione
-Ci permette di utilizzare metodi e attirbuti di una classe padre su una classe figlia:
+Abbiamo già affrontato il concetto di ereditarietà delle classi nella lezione [[Le Classi]] in Python e nella lezione [[Generalizzazioni]] in Progettazione. 
+In questa lezione andremo a vedere come implementare l'ereditarietà della classi in Python.
+Innanzitutto bisogna definire cos'è l'ereditarietà da un punto di vista pratico: 
+==Ci permette di riutilizzare metodi e attributi  a partire da una classe padre su una classe figlia.== 
+
+
+
 
 ### Sintassi
 ```python
@@ -14,8 +20,15 @@ class Derivedclass(Baseclass):
 		pass
 ```
 
-Esempio di ereditarietà:
-```
+| Componenti   | Descrizione                                                    |
+| ------------ | -------------------------------------------------------------- |
+| BaseClass    | Il padre(superclasse) che definisce il comportamento condiviso |
+| DerivedClass | Il figlio (sottoclasse) che eredita dalla BaseClass            |
+| `:`          | Dichiara l'inizio della definizione della classe               |
+| `()`         | Usata per specificare la classe padre che viene ereditata      |
+
+### Esempio di ereditarietà
+```run-python
 class Animal:
 	def speak(self) -> None:
 		print("The animal makes a sound")
@@ -25,31 +38,38 @@ class Dog(Animal):
 		print("Woof!")
 
 
-Fido:Dog = Dog()
+fido:Dog = Dog()
 fido.speak() # Output: "The animal makes a sound"
 fido.bark() # Output: "Woof!"
 ```
 
-Quidni fido eredità sia il metodo speak della classe Animal sia il suo metodo bark.
-come puo una classe figlia ereditare i metodi e gli attributi della classe padre?
-Tramite il `super().__init__()`: tramite questo metodo messo nella classe figlia inizializzo i metodi e gli attributi della classe padre.
+Quindi `Fido` eredità sia il metodo `speak()` della classe `Animal`, ma viene anche chiamato il suo metodo `bark() `.
+Tuttavia in queste esempio abbiamo chiamato i diversi metodi delle due classi separatamente mentre nella definizione della classe (`()`) abbiamo messo la classe `Animal`: questo significa che la classe `Dog` is-a `Animal`.
+Però la classe `Dog` non eredita gli attributi e i metodi della classe base `Animal`. 
 
-Esempio senza super:
-```
+### Il metodo `super.__init()__` 
+Quindi come può una classe figlia ereditare i metodi e gli attributi della classe padre?
+Tramite il metodo `super().__init__()`: tramite questo metodo messo nella classe figlia si inizializza i metodi e gli attributi della classe padre.
+
+#### Esempio senza `super.__init()__`:
+
+```run-python
 # Without super()
 class Animal:
 	def __init__(self, name:str) -> None:
-	self.name:str = name
-	print("Animal initialized")
+		self.name:str = name
+		print("Animal initialized")
 class Dog(Animal):
 	def __init__(self, name:str) -> None:
-	self.name:str = name
-	print("Dog initialized")
+		self.name:str = name
+		print("Dog initialized")
 fido:Dog = Dog("Rudy")
 # Output: Dog initialized
 ```
 Quindi senza il `super__init()__` abbiamo una ripetizione
-Esempio con il super initi():
+
+#### Esempio con il `super__init()__`:
+
 ```run-python
 # With super()
 class Animal:

@@ -13,7 +13,7 @@ Nella classe `Persona` metto attributo `cf:CodiceFiscale` e un attributo `tipo:(
 Per la legge è giusto, quindi questo diagramma com'era fatto prima era sbagliato perché per legge un professore può iscriversi a un corso di laurea. Tuttavia questo può essere un problema all'interno del sistema, quindi devo trovare un modo per evitare questo scenario. 
 ## Il concetto di generalizzazione
 Quindi in molte situazioni voglio rappresentare il fatto che tra due classi sussista una relazione di sotto-insieme. 
-I diagrammi delle classi permettono di definire il concetto di **relazione is-a tra le classi.**
+I diagrammi delle classi permettono di definire il concetto di **relazione [[#^is-aDef|is-a]] tra le classi.** 
 
 ![[concetto di generalizzazione.png|340x300]]
 
@@ -23,8 +23,8 @@ Guardiamo questo esempio: mettendo questa freccia stiamo imponendo una relazione
 
 Detta in altri termini: un'istanza della classe `Studente` è anch'essa stessa un' istanza della classe `Persona`.
 
-Quindi tutte le istanze della sottoclasse `Studente` sono anch'esse istanze della super-classe(**is-a**) `Persona`. 
-Come si può intuire nel concetto di generalizzazione o relazione is-a è presente anche il concetto di ereditarietà: 
+Quindi tutte le istanze della sottoclasse `Studente` sono anch'esse istanze della super-classe(**[[#^is-aDef|is-a]]**) `Persona`. 
+Come si può intuire nel concetto di generalizzazione o relazione [[#^is-aDef|is-a]] è presente anche il concetto di ereditarietà: 
 ==tutti gli attributi della sottoclasse (`Studente`) ereditano gli attributi della super-classe(`Persona`).== 
 Ovviamente ciò non vale per l'inverso: 
 ==cioè non tutte le istanze di `Persona` devono per forza essere anche istanze di `Studente`== .   ^ereditarieta
@@ -49,13 +49,13 @@ Possiamo quindi descrivere **quattro possibili scenari** per l'oggetto `anna`:
 
 
 È necessario per il sistema che Anna è una lavoratrice, una studentessa e persona? No, perché Il sistema può dedurre che anna è una persona: 
-==le classi più specifiche (le più specifiche perché sono quelle più in basso nell'albero **is-a**) sono collegate tramite generalizzazione alla classe padre (o super-classe) `Persona`, di conseguenza se anna è una studentessa o una lavoratrice il sistema può dedure che anna è anche una persona.== 
+==le classi più specifiche (le più specifiche perché sono quelle più in basso nell'albero **[[#^is-aDef|is-a]]**) sono collegate tramite generalizzazione alla classe padre (o super-classe) `Persona`, di conseguenza se anna è una studentessa o una lavoratrice il sistema può dedure che anna è anche una persona.== 
 
 > [!abstract]  [[#^ereditarieta|Anna è una studentessa, tutti gli studenti sono una persona, quindi Anna è anche una persona]].  ^sillogismoAristotelico
 > 
 
 ##### Cosa sono le classi specifiche
-Le classi più specifiche(anche dette _"foglie"_ nell'albero `is-a`): 
+Le classi più specifiche(anche dette _"foglie"_ nell'albero [[#^is-aDef|`is-a`]]): 
 ==sono `Studente` e `Lavoratore`, e rappresentano le "nature" più concrete di Anna. La classe `Persona` invece è più generale e viene ereditata.==
 In altre parole le sottoclassi (o classi figlie) `Studente` e `Lavoratore`, rappresentano i suoi **tipi più concreti.**
 
@@ -77,8 +77,8 @@ Questo perché tutti gli studenti sono persone ([[#^is-aDef|relazione is-a]]):
 Di conseguenza, ==di tutti gli studenti  si sta rappresentando anche nome, genere e città di nascita (con le loro molteplicità `1..1`)==.
 
 #### Relazioni tra classi: ereditarietà delle relazioni is-a a più livelli
-Ovviamente possiamo avere **relazioni `is-a` a più livelli: la transitività**
-Prendiamo ad esempio il diagramma con la relazione is-a, `Persona`→`Studente`:
+Ovviamente possiamo avere **relazioni [[#^is-aDef|`is-a`]] a più livelli: la transitività**
+Prendiamo ad esempio il diagramma con la relazione [[#^is-aDef|is-a]], `Persona`→`Studente`:
 abbiamo detto che 
 - di tutte le persone di interesse volgiamo rappresentare nome, cognome, genere e città di nascita.
 - di tutti gli studenti volgiamo rappresentare la matricola e l'eventuale tutor.
@@ -87,23 +87,23 @@ Adesso aggiungiamo un ulteriore sottoclasse `StudenteStraniero`:
 ![[transitività.png]]
 In questo esempio abbiamo una relazione is-a a più livelli:
 **Primo livello:**
-- Tutti gli studenti sono persone (relazione `is-a`):
+- Tutti gli studenti sono persone (relazione [[#^is-aDef|`is-a`]]):
 	- di conseguenza, di tutti gli studenti stiamo rappresentando anche nome, genere e città di nascita (con le loro molteplicità)
 	- inoltre si associano alla classe `Tutor` tramite il link della associazione `tutor_stud`
 **Secondo livello:**
-- Tutti gli studenti stranieri sono studenti (relazione is-a): 
+- Tutti gli studenti stranieri sono studenti (relazione [[#^is-aDef|is-a]]): 
 	- di conseguenza, degli studenti stranieri stiamo rappresentando anche nome, genere di matricola, città di nascita e la possibilità di avere o meno un tutor(quindi stiamo rappresentando le loro molteplicità per la città di nascita(`1..1`) e per i tutor(`0..1`))
 	- Inoltre si associano anche alla classe `Nazione` tramite il link dell'associazione `naz_stud`. 
 
 ### Generalizzazione 
 Tornando al concetto di generalizzazione tra le classi:
-I diagrammi delle classi UML offrono un costrutto più complesso della relazione is-a: il costrutto della generalizzazione
+I diagrammi delle classi UML offrono un costrutto più complesso della relazione [[#^is-aDef|is-a]]: il costrutto della generalizzazione
 - **==Permette di definire che le istanze di una classe possono essere istanze di più classi figlie secondo uno stesso criterio concettuale==**
 
 ![[Generalizzazione_1.png]]
 Il significato di questa immagine è:
-• Studente **is-a(è anche un)** Persona
-• Lavoratore **is-a(è anche un)** Persona
+• Studente **[[#^is-aDef|is-a]](è anche un)** Persona
+• Lavoratore **[[#^is-aDef|is-a]](è anche un)** Persona
 Il criterio secondo il quale le Persone sono considerate studenti e/o lavoratori è lo
 stesso: quello dell’enfasi concettuale chiamata “occupazione”
 Quindi è ancora possibile per un oggetto essere istanza sia di `Studente` che di `Lavoratore`.
@@ -229,7 +229,7 @@ Nel nostro esempio:
 
 Per capire meglio questi vincoli prendiamo ad esempio i diagrammi di Ven: 
 Come possiamo vedere da questa immagine guardandola da sinistra verso destra;
-1. nella prima immagine non si hanno vincoli sulla generalizzazione quindi tutte le istanze della classe padre C appartengono anche alle classi figlie A e B che a loro volta si sovrappongono tra loro, questo perché A is-a C e B is-a C.
+1. nella prima immagine non si hanno vincoli sulla generalizzazione quindi tutte le istanze della classe padre C appartengono anche alle classi figlie A e B che a loro volta si sovrappongono tra loro, questo perché A [[#^is-aDef|is-a]] C e B [[#^is-aDef|is-a]] C.
 2. Nella seconda immagine: viene applicato il vincolo `{disjoint}`, infatti come possiamo vedere le sottoclassi A e B sono disgiunte tra loro andando a formare due diagrammi separati ma comunque contenuti in C, questo perché ogni istanza della superclasse può appartenere a una sola istanza della sottoclasse o nessuna
 3. Nella terza immagine: viene applicato il vincolo `{complete}` difatti A e B adesso si sovrappongono tra loro andando ad a occupare e completare il diagramma C, questo perché ogni istanza **deve appartenere ad almeno una** delle sottoclassi.
 4. Nella quarta immagine: viene applicato il vincolo `{disjoint,complete}`, infatti adesso sia A che B si uniscono ma rimangono comunque separati tra loro.
