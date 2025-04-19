@@ -502,3 +502,89 @@ print(new_text)
 - `m` è un oggetto `re.Match` che rappresenta il risultato della corrispondenza
     
 - Le lambda in `re.sub()` permettono **elaborazioni complesse** delle sostituzioni
+
+
+### `Lambda` e la funzione `Reduce()`
+
+La funzione `reduce()` è una funzione del modulo `functools` in Python, difatti va importata esplicitamente:
+```python
+from functools import reduce
+```
+
+**Definizione:**
+	==Questa funzione applica **accumulativamente (o anche iterativamente)** una funzione a due argomenti agli elementi di un iterabile, da sinistra a destra, riducendoli a un singolo valore.== 
+#### Sintassi della funzione `reduce()`
+La sintassi di questa funzione è:
+```
+from functools import reduce
+
+reduce(funzione, iterabile[, valore_iniziale])
+```
+
+Dove:
+- `funzione`: una funzione che prende due argomenti e restituisce un valore 
+- `iterabile`: una [[Collections#Le liste|lista]] (o un altro oggetto iterabile) su cui lavorare.
+- `valore_iniziale`**(opzionale):** un valore da usare come punto di partenza.
+
+
+
+I casi d'uso comuni di questa funzione sono:
+- Somme
+- Prodotti
+- Concatenazioni
+- Composizioni di funzioni
+
+##### Esempi concreti: Somma di una lista
+```run-python
+from functools import reduce
+
+numeri = [1, 2, 3, 4]
+somma = reduce(lambda a, b: a + b, numeri)
+print(somma)
+# Passaggi:
+# 1. 1 + 2 = 3
+# 2. 3 + 3 = 6
+# 3. 6 + 4 = 10 → Risultato finale
+```
+
+###### Spiegazione:
+- Abbiamo una lista di numeri → `numeri`
+- assegniamo la funzione `reduce()` alla variabile `somma`, come argomento di `reduce()` mettiamo:
+	- Come `funzione`:  una `lambda` che prende esattamente 2 soli argomenti (`a` e `b`) e come espressione di `lambda` si fa eseguire il calcolo tra `a` e `b`.
+	- Come `iterabile`: la lista `numeri`; in sostanza viene detto alla funzione `reduce()` di iterare su ogni elemento presente nella lista `numeri`.
+
+Fatto questo vediamo come funzione `reduce()`:
+1. **Prima iterazione:**
+- Prende i primi due elementi della lista (`1` e `2`)
+    
+- Applica la funzione lambda: `1 + 2 = 3`
+    
+- _Stato interno_: risultato parziale = `3`
+
+2. **Seconda iterazione:**
+- Prende il risultato precedente (`3`) e il terzo elemento (`3`)
+    
+- Applica la funzione: `3 + 3 = 6`
+    
+- _Stato interno_: risultato parziale = `6`
+
+3. **Terza iterazione:**
+- Prende il risultato precedente (`6`) e il quarto elemento (`4`)
+    
+- Applica la funzione: `6 + 4 = 10`
+    
+- _Risultato finale_: `10` 
+
+**Visualizzazione grafica**
+```
+Iterazione 1: [1, 2, 3, 4] → lambda(1, 2) → 3
+Iterazione 2: [3, 3, 4]    → lambda(3, 3) → 6
+Iterazione 3: [6, 4]       → lambda(6, 4) → 10
+```
+
+> [!ticket] Requisiti Chiave
+> 1. La `funzione` :
+> 	   - Accetta **esattamente 2 parametri**
+> 	   - Restituisce un valore compatibile con il tipo degli elementi.
+> 	   - In questo caso `a` è il risultato accumulato, `b` è il prossimo elemento
+> 1. L'`iterabile` deve contenere almeno 1 elemento (nel caso in cui non si usi un inizializzatore).

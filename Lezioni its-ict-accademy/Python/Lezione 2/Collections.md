@@ -424,7 +424,7 @@ print(z)  # Output: {4, 5}
 
 ---
 
-# I dictionaries
+# I dictionaries 
 ==Sono una collezione **non ordinata** di **coppie chiave-valore**.== 
 ==Ogni elemento del dizionario è costituito da una **chiave unica** (un oggetto immutabile) e un **valore** che può essere di qualsiasi tipo di dato==.   ^definizione-dict
 
@@ -685,7 +685,7 @@ menu["menu invernale"]["Pasta"] = 42
 ---
 
 
-# Tuple 
+## Tuple 
 ==Una **tupla** in Python è una struttura dati **immutabile** che può contenere una sequenza ordinata di elementi.== 
 ==Gli elementi di una tupla possono essere di tipi diversi (numeri, stringhe, liste, ecc.), e una volta creata, non può essere modificata (non si possono aggiungere, rimuovere o modificare elementi).==
 Le **tuple** sono una collection usata frequentemente con le funzioni, ad esempio per restituire più valori contemporaneamente. I **dizionari** e i **set**, a partire da Python 3.7, preservano l'ordine di inserimento, ma non sono ordinati in senso matematico. Inoltre, i dizionari non permettono chiavi duplicate, ma i loro valori possono essere duplicati.

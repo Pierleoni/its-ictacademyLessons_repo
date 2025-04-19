@@ -13,13 +13,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/Lezione 9_Lambda & RegEX/Lambda.md",
+                "file": "Python/Lezione 8/Ereditarietà delle classi.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Lambda"
+              "title": "Ereditarietà delle classi"
             }
           },
           {
@@ -28,13 +28,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/Lezione 6/Le Classi.md",
+                "file": "Python/Lezione 9_Lambda & RegEX/RegEx.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Le Classi"
+              "title": "RegEx"
             }
           },
           {
@@ -43,13 +43,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Progettazione/Lezione 2/Generalizzazioni.md",
+                "file": "Python/Lezione 2/Collections.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Generalizzazioni"
+              "title": "Collections"
             }
           }
         ]
@@ -261,12 +261,15 @@
   },
   "active": "b80ae09403a09dc7",
   "lastOpenFiles": [
-    "Python/Lezione 9_Lambda & RegEX/RegEx.md",
+    "202504191641.md",
     "Python/Lezione 8/Ereditarietà delle classi.md",
+    "Python/Lezione 9_Lambda & RegEX/Lambda.md",
+    "Python/Lezione 2/Collections.md",
+    "Python/Lezione 9_Lambda & RegEX/RegEx.md",
     "Python/Lezione 6/Le Classi.md",
+    "lista.md",
     "Progettazione/Lezione 2/Generalizzazioni.md",
     "Python/Lezione 18/Eccezioni in Python.md",
-    "Python/Lezione 9_Lambda & RegEX/Lambda.md",
     "Python/Lezione 5_ List Comprehensions/Capire la comprehensions in Python.md",
     "Python/Lezione 6/Public, Private and Class Attibutes, Class and Static Methods.md",
     "Web Development/modulo 1/Bootstrap/Bootstrap.md",
@@ -296,7 +299,6 @@
     "img/Progettazione IMG/Progettazione(Lezione2)/{complete}.png",
     "img/Progettazione IMG/Progettazione(Lezione2)/{disjoint}.png",
     "img/Python/Lezione 5/sintax list comprehension.png",
-    "Python/Lezione 2/Collections.md",
     "Python/Lezione 5_ List Comprehensions",
     "Web Development/modulo 1/CSS/CSS.md",
     "Python/Lezione 18",
@@ -305,8 +307,6 @@
     "Web Development/modulo 1/HTML/HTML.md",
     "Web Development/modulo 1/CSS",
     "Web Development/modulo 1/HTML",
-    "Progettazione/Lezione 2/Analisi dei requisiti mediante UML.md",
-    "Progettazione/Esercizi/Università 1.md",
     "Untitled.canvas"
   ]
 }

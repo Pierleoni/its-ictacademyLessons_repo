@@ -4,8 +4,8 @@
 # Introduzione
 Abbiamo già affrontato il concetto di ereditarietà delle classi nella lezione [[Le Classi]] in Python e nella lezione [[Generalizzazioni]] in Progettazione. 
 In questa lezione andremo a vedere come implementare l'ereditarietà della classi in Python.
-Innanzitutto bisogna definire cos'è l'ereditarietà da un punto di vista pratico: 
-==Ci permette di riutilizzare metodi e attributi  a partire da una classe padre su una classe figlia.== 
+**Cos'è l'ereditarietà?**
+==È un meccanismo che permette a una classe figlia di **riutilizzare metodi e attributi** definiti in una classe padre, riducendo la ridondanza e favorendo la riusabilità del codice.==
 
 
 
@@ -48,10 +48,18 @@ Tuttavia in queste esempio abbiamo chiamato i diversi metodi delle due classi se
 Però la classe `Dog` non eredita gli attributi e i metodi della classe base `Animal`. 
 
 ### Il metodo `super.__init()__` 
-Quindi come può una classe figlia ereditare i metodi e gli attributi della classe padre?
-Tramite il metodo `super().__init__()`: tramite questo metodo messo nella classe figlia si inizializza i metodi e gli attributi della classe padre.
+L'ereditarietà non si limita ai metodi, ma si estende anche agli **attributi** definiti nel costruttore `__init__` della superclasse.
+Per richiamare correttamente il costruttore della classe padre, si utilizza `super().__init__()`: 
+==questo metodo permette di invocare il costruttore della superclasse, così da inizializzare correttamente tutti gli attributi e i comportamenti definiti nella classe padre.==
+Quindi questo metodo inizializza gli attributi della classe padre ed esegue il suo costruttore nella sottoclasse. 
+In realtà il `super().__init__()` non è necessario per ereditare i metodi, poichè essi sono disponibili automaticamente in Python.
+#### Spiegazione di come lavora il `super.__init__()`
+`super()` restituisce un **oggetto temporaneo** che rappresenta la superclasse della classe corrente, ==quindi chiamando il `super.__init__()` si esegue il costruttore della superclasse permettendo di riutilizzare il codice già scritto senza doverlo copiare nella sottoclasse==. 
+Questo è fondamentale soprattutto quando la superclasse contiene inizializzazioni(attributi, logica) che si vuole mantenere nella sottoclasse.
 
-#### Esempio senza `super.__init()__`:
+
+
+#### Esempio senza `super.__init__()`:
 
 ```run-python
 # Without super()
@@ -66,8 +74,7 @@ class Dog(Animal):
 fido:Dog = Dog("Rudy")
 # Output: Dog initialized
 ```
-Quindi senza il `super__init()__` abbiamo una ripetizione
-
+In questo caso, la classe `Dog` **non richiama il costruttore** della classe `Animal`, quindi deve ridefinire esplicitamente gli stessi attributi.
 #### Esempio con il `super__init()__`:
 
 ```run-python
@@ -87,8 +94,13 @@ print(fido)
 # Output: Animal initialized
 # Dog initialized
 ```
-dog chiama il costrutotre di ANimal e quindi devo dargli un costruttore, quindi quando fado a fare fido = Dog("Rudy") e quindi prende i valori di dog e inzializzo i valori della classe Animal.
-Quindi si parte dall'arogmento name nel super init signfica che l'attributo name della classe dog viene inizializzato e viene poi passata negli attributi della classe padre
+In questo esempio:
+
+- `super().__init__(name)` chiama il costruttore della superclasse `Animal` e inizializza `self.name`.
+    
+- Evitiamo la ripetizione del codice e manteniamo la gerarchia di ereditarietà.
+
+> [!NOTE] Nota: `super()` è particolarmente utile in presenza di più livelli di ereditarietà e in scenari di ereditarietà multipla.
 
 Si può avere metodi perosnalizzati, cosa succede se la classe padre ha attributi e metodi hanno gli stessi nomi e arogmenti della classe figlia? 
 Avviene il metodo overridding:
