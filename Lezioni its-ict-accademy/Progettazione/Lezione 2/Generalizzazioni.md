@@ -65,7 +65,7 @@ Tornando al meccanismo dell'[[#^ereditarieta|ereditarietà]]:
 fino ad ora abbiamo implicitamente assunto  che classi diverse non hanno istanze in comune, tuttavia in molte situazioni torna utile rappresentare il fatto che tra due classi sussista una relazione di sottoinsieme.
 Infatti i diagrammi delle classi permettono di definire il concetto di **[[#^is-aDef|relazione `is-a`]]** .
 
-> [!caution] In presenza di relazioni [[#^is-aDef|is-a]], vige il [[#^ereditarieta|meccanismo dell'ereditarietà]]: per assimilare meglio questo concetto bisogna ricordare il **[[#^sillogismoAristotelico|sillogismo aristotelico]]** 
+> [!caution] In presenza di relazioni [[#^is-aDef|is-a]], vige il [[#^ereditarieta|meccanismo dell'ereditarietà]]: per assimilare meglio questo concetto bisogna ricordare il **[[Ereditarietà delle classi#^sillogismoAristotelico-Def|sillogismo aristotelico]]** 
 > 
 
 Prendiamo ad esempio un sistema in cui di tutte le persone di interesse vogliamo rappresentare nome, cognome, genere e città di nascita; mentre di tutti gli studenti vogliamo rappresentare il numero di matricola e l'eventuale tutor.

@@ -43,9 +43,80 @@ fido.speak() # Output: "The animal makes a sound"
 fido.bark() # Output: "Woof!"
 ```
 
-Quindi `Fido` eredità sia il metodo `speak()` della classe `Animal`, ma viene anche chiamato il suo metodo `bark() `.
-Tuttavia in queste esempio abbiamo chiamato i diversi metodi delle due classi separatamente mentre nella definizione della classe (`()`) abbiamo messo la classe `Animal`: questo significa che la classe `Dog` is-a `Animal`.
-Però la classe `Dog` non eredita gli attributi e i metodi della classe base `Animal`. 
+In questo esempio, `fido` è un oggetto della classe `Dog`. Possiamo notare che:
+
+- `fido` può **chiamare il metodo `speak()`** definito nella classe `Animal`, perché `Dog` **eredita** da `Animal`;
+    
+- `fido` può anche **chiamare `bark()`**, definito direttamente nella classe `Dog`.
+
+Questo accade perché nella definizione della classe `Dog`, abbiamo scritto `class Dog(Animal)`, cioè stiamo dicendo che **`Dog` è una sottoclasse di `Animal`**.  
+In altre parole, `Dog` **is-a** `Animal` (relazione di generalizzazione → [[Generalizzazioni#^is-aDef|is-a]]).
+
+Il concetto di ereditarietà delle classi è rappresentato tramite il **sillogismo aristotelico**: 
+==Il **sillogismo aristotelico** è una forma di **ragionamento deduttivo** composta da **due premesse** (una maggiore e una minore) e una **conclusione** che deriva logicamente da esse.==  
+È uno strumento classico della logica formale, introdotto da **Aristotele**, per dedurre una verità a partire da affermazioni generali.  ^sillogismoAristotelico-Def
+#### Struttura del sillogismo aristotelico
+1. **Premessa maggiore**: affermazione generale.
+2. **Premessa minore**: affermazione specifica.
+3. **Conclusione**: deduzione logica. 
+
+L'esempio canonico di questo sillogismo è: 
+1. **Premessa maggiore**: Tutti gli uomini sono mortali
+2. **Premessa minore**: Socrate è un uomo.
+3. **Conclusione**: Quindi Socrate è un uomo
+
+Nel nostro caso possiamo usare il sillogismo aristotelico per dedurre che:
+1. **Tutti gli animali hanno il metodo `speak()`**
+    
+2. **Dog eredita da Animal**
+    
+3. **Quindi Dog eredita anche il metodo `speak()`**.
+
+
+> [!NOTE] Questo sillogismo può comunque sembrare debole, perché difatti lo è:
+> Deriva da una capacità funzionale da una struttura, non è formalmente deduttivo.
+> In altre parole Dog eredita anche il metodo `speak()` è una conseguenza comportamentale, vera nel codice, ma meno rigorosa in logica pura. 
+> Questo perché:
+> - Non tratta **categorie ontologiche** (come "uomo", "mortale", "filosofo" ecc.).
+   > 
+>- Ma descrive un **meccanismo tecnico di ereditarietà** (una regola del linguaggio di programmazione).
+>  Quindi: 
+>  ✅**È corretto nel contesto della OOP** (è "logico" all’interno delle regole della programmazione).
+>- ❌ **non è logica deduttiva pura aristotelica**, perché non si basa su inclusioni di insiemi concettuali stabili, bensì su una "propagazione di comportamenti" data da un sistema formale (il linguaggio).
+
+
+
+> [!ticket] Regola Chiave del sillogismo aristotelico 
+> La **premessa minore** (in questo caso "il cane è un animale") deve sempre incastrarsi con la **premessa maggiore** (in questo caso "tutti gli animali fanno X"), per dedure la **conclusione logica corretta** ("che il cane fa X")
+
+
+> [!deep] **La relazione "is-a" (`è un`) nel sillogismo aristotelico**
+> Non esiste una regola specifica per dove può trovarsi la relazione [[Generalizzazioni#^is-aDef|`is-a`]] all'interno del sillogismo:
+> può trovarsi sia nella premessa minore che nella conclusione, dipende dal tipo di sillogismo che si va a formulare.
+> Nel esempio canonico:
+> 1. **Tutti gli uomini sono mortali** (relazione "uomo → mortale").
+> 2. **Socrate è un uomo**(relazione `is-a`).
+> 3. **Quindi Socrate è mortale**
+> Qui la relazione `is-a` (Socrate è un uomo) è nella premessa minore, la conclusione, invece, è in inferenza di proprietà ereditate ("Socrate è mortale").
+>
+>
+>Anche nel esempio tra la classe `Dog` e la classe `Animal` la relazione `is-a` si trova comunque nella **premessa minore**, ma se si formulasse un diverso sillogismo tra queste due classi, ovvero:
+>- Premessa maggiore: Tutti i cani sono animali 
+>- Premessa minore: Fido è cane
+>- Conclusione: Quindi Fido è un animale → `is-a`
+> In questo caso è la conclusione ad esprimere la relazione `is-a`. 
+> > [!example] **In sintesi**
+> > | Dove si trova   | È coretto | Quando succede?                                               |
+| --------------- | --------- | ------------------------------------------------------------- |
+| Premessa minore | ✅         | Quando si descrive un caso particolare ("X è un Y")           |
+| Conclusione     | ✅         | Quando deduci una gerarchia o appartenenza ("X è anche un Z") |
+> > 
+> > 
+> > 
+
+
+
+
 
 ### Il metodo `super.__init()__` 
 L'ereditarietà non si limita ai metodi, ma si estende anche agli **attributi** definiti nel costruttore `__init__` della superclasse.
