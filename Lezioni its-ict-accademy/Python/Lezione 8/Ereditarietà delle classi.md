@@ -73,7 +73,7 @@ Nel nostro caso possiamo usare il sillogismo aristotelico per dedurre che:
 3. **Quindi Dog eredita anche il metodo `speak()`**.
 
 
-> [!NOTE] Questo sillogismo può comunque sembrare debole, perché difatti lo è:
+> [!NOTE]- Questo sillogismo può risultare debole, perché difatti lo è:
 > Deriva da una capacità funzionale da una struttura, non è formalmente deduttivo.
 > In altre parole Dog eredita anche il metodo `speak()` è una conseguenza comportamentale, vera nel codice, ma meno rigorosa in logica pura. 
 > Questo perché:
@@ -83,7 +83,22 @@ Nel nostro caso possiamo usare il sillogismo aristotelico per dedurre che:
 >  Quindi: 
 >  ✅**È corretto nel contesto della OOP** (è "logico" all’interno delle regole della programmazione).
 >- ❌ **non è logica deduttiva pura aristotelica**, perché non si basa su inclusioni di insiemi concettuali stabili, bensì su una "propagazione di comportamenti" data da un sistema formale (il linguaggio).
-
+>Infatti questo tipo di ereditarietà non è una relazione `is-a` ma è **Ereditarietà comportamentale (`has-a method`):** 
+>==relazione **pratica e funzionale** in cui una classe eredita metodi/attributi da un'altra per **riusare il comportamento**.== 
+>Questo tipo di relazione è fondamentale nella OOP, ma differisce dalla relazione `is-a` in quanto non implica necessariamente una categorizzazione concettuale.
+>> [!example] **Esempio:** 
+>>`Dog` eredita `speak()` da `Animal`, ma non significa che la logica `is-a` sia sempre corretta.
+>
+>|Concetto|`is-a` (Relazione logica/strutturale)|Ereditarietà comportamentale (`has-a method`)|
+|---|---|---|
+| **Definizione**|Relazione concettuale tra due entità|Condivisione di metodi/attributi tramite ereditarietà|
+| **Origine**|Logica formale, filosofia|Programmazione ad oggetti (OOP)|
+| **Scopo**|Categorizzare, creare gerarchie logiche|Riutilizzare codice, condividere funzionalità|
+| **Implementazione in OOP**|Tramite `class Sottoclasse(Superclasse)`|Tramite ereditarietà (stessa sintassi)|
+|✅ **Quando è corretta**|Quando la sottoclasse **è un tipo** della superclasse|Quando la sottoclasse **ha bisogno dei metodi** della superclasse|
+|⚠️ **Rischi**|Pochi, se usata con coerenza concettuale|Se usata solo per "riciclare codice", porta a design debole|
+| **Esempio valido**|`Dog is-a Animal`|`Dog` eredita `speak()` da `Animal`|
+|🚫 **Esempio scorretto**|`Button is-a Clickable` (non sempre vero logicamente)|`Button` eredita `onClick()` solo per riuso|
 
 
 > [!ticket] Regola Chiave del sillogismo aristotelico 
@@ -117,16 +132,16 @@ Nel nostro caso possiamo usare il sillogismo aristotelico per dedurre che:
 
 
 
-
-### Il metodo `super.__init()__` 
-L'ereditarietà non si limita ai metodi, ma si estende anche agli **attributi** definiti nel costruttore `__init__` della superclasse.
-Per richiamare correttamente il costruttore della classe padre, si utilizza `super().__init__()`: 
+## Il metodo `super.__init()__` 
+L'ereditarietà in Python non si limita ai **metodi**, ma si estende anche agli **attributi** definiti nel costruttore `__init__` della superclasse.  
+Per inizializzare correttamente la superclasse all’interno di una sottoclasse, si utilizza il metodo `super().__init__()`:
 ==questo metodo permette di invocare il costruttore della superclasse, così da inizializzare correttamente tutti gli attributi e i comportamenti definiti nella classe padre.==
-Quindi questo metodo inizializza gli attributi della classe padre ed esegue il suo costruttore nella sottoclasse. 
-In realtà il `super().__init__()` non è necessario per ereditare i metodi, poichè essi sono disponibili automaticamente in Python.
-#### Spiegazione di come lavora il `super.__init__()`
+In altre parole, consente alla sottoclasse di **riutilizzare il costruttore della superclasse(`__init__`)** senza dover duplicare codice.  
+Va notato che **i metodi della superclasse sono ereditati automaticamente**, ma il costruttore deve essere invocato esplicitamente.
+
+### Spiegazione di come lavora il `super.__init__()`
 `super()` restituisce un **oggetto temporaneo** che rappresenta la superclasse della classe corrente, ==quindi chiamando il `super.__init__()` si esegue il costruttore della superclasse permettendo di riutilizzare il codice già scritto senza doverlo copiare nella sottoclasse==. 
-Questo è fondamentale soprattutto quando la superclasse contiene inizializzazioni(attributi, logica) che si vuole mantenere nella sottoclasse.
+Questo approccio è fondamentale quando la superclasse contiene logica di inizializzazione che si vuole **mantenere e riutilizzare**.
 
 
 
@@ -145,7 +160,7 @@ class Dog(Animal):
 fido:Dog = Dog("Rudy")
 # Output: Dog initialized
 ```
-In questo caso, la classe `Dog` **non richiama il costruttore** della classe `Animal`, quindi deve ridefinire esplicitamente gli stessi attributi.
+In questo caso, la classe `Dog` **non richiama il costruttore** della classe `Animal`, quindi si deve ridefinire esplicitamente gli stessi attributi.
 #### Esempio con il `super__init()__`:
 
 ```run-python
@@ -169,14 +184,21 @@ In questo esempio:
 
 - `super().__init__(name)` chiama il costruttore della superclasse `Animal` e inizializza `self.name`.
     
-- Evitiamo la ripetizione del codice e manteniamo la gerarchia di ereditarietà.
+- Quindi si evita la ripetizione del codice e manteniamo la gerarchia di ereditarietà.
 
 > [!NOTE] Nota: `super()` è particolarmente utile in presenza di più livelli di ereditarietà e in scenari di ereditarietà multipla.
 
-Si può avere metodi perosnalizzati, cosa succede se la classe padre ha attributi e metodi hanno gli stessi nomi e arogmenti della classe figlia? 
-Avviene il metodo overridding:
-occore quando una sottoclasse definisce un metodo con lo stesso nome e paramenri come un metodo della calsse padre.
-I metodi e gli attributi della sottoclasse hanno la priorità più alta.
+### L'overriding dei metodi 
+Cosa succede se nella classe padre e nella/e classe/i figlia/e si hanno metodi con lo stesso nome e parametri? 
+Avviene l'overriding dei metodi:
+l'overridding di un metodo si verifica quando una sottoclasse definisce un metodo con lo stesso nome e gli stessi parametri di un metodo presente nella sua superclasse. 
+La versione che viene definita nella sottoclasse sostituisce quella eredita dalla classe padre.
+Lo scopo di questo comportamento è quello di personalizzare o estendere il comportamento di un metodo ereditato dalla classe padre, e di realizzare il polimorfismo: stessa interfaccia, comportamenti diversi. 
+Ovviamente, siccome con l'overriding si va a sovrascrivere tramite il metodo della classe figlia il metodo della classe padre, **il metodo della classe figlia ha la priorità su quello della classe padre.**
+==Quindi quando si ridefinisce un metodo che esiste già nella superclasse, il metodo della sottoclasse prende il posto di quello originale.==
+Detto in termini pratici: 
+==quando si richiama quel metodo su una istanza della sottoclasse, verrà eseguita la versione della sottoclasse, non quella della superclasse.==
+
 In questo esempio possiamo vedere questo metodo:
 ```run-python
 class Animal:
