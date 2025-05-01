@@ -190,16 +190,17 @@ In questo esempio:
 
 ### L'overriding dei metodi 
 Cosa succede se nella classe padre e nella/e classe/i figlia/e si hanno metodi con lo stesso nome e parametri? 
-Avviene l'overriding dei metodi:
-l'overridding di un metodo si verifica quando una sottoclasse definisce un metodo con lo stesso nome e gli stessi parametri di un metodo presente nella sua superclasse. 
+Avviene quello che viene chiamato **overriding** del metodo:
+==L’**overriding di un metodo** si verifica quando una sottoclasse **ridefinisce** un metodo già esistente nella superclasse, mantenendo lo stesso nome e gli stessi  parametri==. In questo caso, **la versione della sottoclasse ha la priorità** su quella ereditaria: ==il metodo ridefinito **sovrascrive** quello della superclasse.== 
 La versione che viene definita nella sottoclasse sostituisce quella eredita dalla classe padre.
-Lo scopo di questo comportamento è quello di personalizzare o estendere il comportamento di un metodo ereditato dalla classe padre, e di realizzare il polimorfismo: stessa interfaccia, comportamenti diversi. 
-Ovviamente, siccome con l'overriding si va a sovrascrivere tramite il metodo della classe figlia il metodo della classe padre, **il metodo della classe figlia ha la priorità su quello della classe padre.**
+Lo scopo di questo comportamento è quello di personalizzare o estendere il comportamento di un metodo ereditato dalla classe padre, e di realizzare il [[Polimorfismo#Cos'è il polimorfismo|polimorfismo]]: ==stessa interfaccia, comportamento diverso==. ^accennoPolimorfismo
+
+
 ==Quindi quando si ridefinisce un metodo che esiste già nella superclasse, il metodo della sottoclasse prende il posto di quello originale.==
 Detto in termini pratici: 
 ==quando si richiama quel metodo su una istanza della sottoclasse, verrà eseguita la versione della sottoclasse, non quella della superclasse.==
 
-In questo esempio possiamo vedere questo metodo:
+In questo esempio possiamo vedere come agisce l'overriding:
 ```run-python
 class Animal:
 	def speak(self) -> None:
@@ -214,160 +215,113 @@ class Cat(Animal):
 kitty:Cat = Cat()
 kitty.speak() # Output: "Meow!"
 ```
-Quindi bisogna fare attenzione. 
-Ogni sottoclasse eertedita della superclasse ttributi e meotdi, poi possono avere i propri attributi e metodi e ma possono anche sovrascrivere i metodi della classe padre
+In questo esempio:
 
-> [!attention] L'overide avviene solo ed esclusivamente con i metodi
+1. `Animal` è la **superclasse**, e definisce il metodo `speak()`.
+    
+2. `Cat` è la **sottoclasse** che eredita da `Animal`, e ridefinisce anch’essa `speak()` con un comportamento diverso.
+    
 
-Gli attributi possono essere protetti sono attributi anche privarti ma le sottoclasse possono accedervi, 
-difatti un attributo protetto può essere visibile solo dalla classe di appartenenza o dalle sue sottoclassi.
-Per definire se gli attributi sono protetti bisogna mettere un solo underscore (es: `_attribute` o `_method`).
-La protezione in python  è solo una convenzione, mentre in altri linguaggi gli attributi sono realmente privati o protetti.
+Quando creiamo un’istanza di `Cat` (`kitty`) e chiamiamo `kitty.speak()`, l’interprete esegue la **versione ridefinita** del metodo, cioè quella di `Cat`.
+
+Questo succede perché Python usa il **Method Resolution Order(MRO)**: nel risolvere un metodo, parte dalla classe **più specifica** (quella dell’istanza) e **risale** la gerarchia (dal basso verso l’alto) fino a trovare il metodo corrispondente.
+In altre parole:
+1. Cerca nella classe dell'istanza (`Cat`)
+    
+2. Se non trovato, risale la gerarchia (`Animal`)
+
+> [!note] 📚 Ordine di risoluzione dei metodi (MRO)
+> Per visualizzare l'**ordine con cui Python cerca i metodi** nelle classi (in caso di ereditarietà), puoi usare:
+> 
+> ```python
+> print(NomeDellaSottoclasse.__mro__)
+> ```
+> Questo restituirà una **tupla** che rappresenta l’ordine di ricerca: dalla classe specifica, fino ad arrivare a `object`.
+>Esempio pratico:
+>```python
+>class Animal:
+>	def speak(self) -> None:
+>		print("The animal makes a sound")
+>
+>class Cat(Animal):
+>	def speak(self) -> None:
+>		print("Meow!")
+>
+>kitty: Cat = Cat()
+>kitty.speak()  # Output: "Meow!"
+>print(Cat.__mro__)
+
+
+> [!tip] 🧭 Uso di `super()` e MRO
+> ==Il comando `super()` serve per **richiamare il metodo della superclasse** (classe genitore) senza doverla nominare esplicitamente.==
+> 
+> ==È particolarmente utile quando si vuole **estendere** il comportamento del metodo ereditato, **senza sovrascriverlo completamente**.==
+>Esempio:
+>```python
+>class Animal:
+>	def speak(self) -> None:
+>		print("The animal makes a sound")
+>
+>class Dog(Animal):
+>	def speak(self) -> None:
+>		super().speak()  # richiama speak() da Animal
+>		print("Woof!")
+>
+>fido: Dog = Dog()
+>fido.speak()
+>```
+>**Perché funziona così?** ==Il metodo `super()` sfrutta il **Method Resolution Order (MRO)** per determinare da quale classe genitore deve partire la ricerca del metodo da eseguire.==
+>
+> ✅ **super() + `__mro__` = comportamento prevedibile e ordinato nell’ereditarietà**
+
+
+
+Quindi:  
+==in presenza di overriding, la versione più "vicina" all’istanza vince sempre==.
+
+> [!attention] Importante L’**overriding** riguarda **solo i metodi**, **non gli attributi**. Per gli attributi si parla di _shadowing_ o _hiding_, e il comportamento può variare.
+
+
+### Gli attributi protetti
+
+In Python è possibile definire **attributi protetti**, cioè attributi che **non dovrebbero essere accessibili dall'esterno della classe**, ma che **possono essere usati dalle sottoclassi**.
+
+==Un attributo protetto è accessibile solo all'interno della classe in cui è definito e nelle sue sottoclassi.==  
+Per convenzione, un attributo si considera **protetto** se il suo nome inizia con un singolo underscore (`_`), ad esempio `_attribute` o `_method`.
+Infatti questa marcatura è utilizzata solo come convenzione è non è effettivamente una restrizione impostata dal linguaggio.
+
+> ⚠️ In Python questa protezione non è forzata dal linguaggio (come avviene in Java o C++), ma è solo una **convenzione** per indicare che l’attributo o metodo **non dovrebbe essere usato direttamente dall’esterno**.
+
 Esempio:
 ```run-python
 class Animal:
 	def __init__(self) -> None:
-		self._type:str = "Mammal" # Protected attribute
-	def _sound(self) -> None: # Protected method
+		self._type: str = "Mammal"  # Attributo protetto
+
+	def _sound(self) -> None:     # Metodo protetto
 		print("Generic animal sound")
+
 class Dog(Animal):
 	def describe(self) -> None:
-		print(f"I am a {self._type}") # Accessing protected attribute
-		self._sound() # Calling protected method
-fido:Dog = Dog()
-fido.describe() # Output: "I am a Mammal"
+		print(f"I am a {self._type}")  # Accesso a attributo protetto
+		self._sound()                  # Chiamata a metodo protetto
+
+fido: Dog = Dog()
+fido.describe()
+# Output:
+# I am a Mammal
 # Generic animal sound
+
 ```
 
 
+> [!ticket] Punti chiave 
+> - L'underscore singolo `_` segnala agli altri sviluppatori che l'attributo/metodo è destinato a un uso interno alla classe o alle sue sottoclassi.
+>
+>- Tecnicamente, questi elementi rimangono accessibili dall'esterno, ma è considerato una buona pratica rispettarne la visibilità dichiarata.
+  >  
+>- Questa convenzione si applica sia ad attributi che a metodi
 
+Quindi la protezione in Python si basa quindi sulla cooperazione tra sviluppatori piuttosto che su meccanismi rigidi del linguaggio.
 
-```run-python
-class Persona:
-#Inizializza un oggetto della classe Persona
-    def __init__(self,name,last,age):
-
-        self.setName(name)
-
-        self.setlastname(last)
-
-        self.setage(age)
-
-   def __str__(self):
-
-        pass
-
-        print(f"Nome: {self.name}\nCognome: {self.lastname} \nEtà: {self.age}")
-
-    '''
-
-    Mi consente di impostare un valore per self.name
-
-    '''
-
-    def set_name(self, name:str ) -> None:
-	if:
-        self.name = name
-   else:
-	   print("Errore")
-
-    '''
-
-    Mi consente di impostare un valore per self.lastname
-
-    '''
-
-    def set_lastname(self, lastname:str ) -> None:
-	if:
-        self.lastname = lastname
-	else:
-		print("Errore)
-    '''
-
-    Mi consente di impostare un valore per self.age
-
-    '''
-
-    def set_age(self, age:int ) -> None:
-
-        if age <0 or age>130:
-
-            self.age = 0
-
-        else:
-
-            self.age = age
-
-    # Mi ritorna il valore di self.name
-
-    def getName(self)->str:
-
-        return self.name
-
-    def getLastName(self) -> str:
-
-        return self.lastname
-
-    def getAge(self) -> int:
-
-        return self.age
-
-    
-
-  
-
-# Crea un oggetto di tipo Persona
-
-m:Persona = Persona ("Marco", "Pierleoni", 27)
-
-# Imposta i nomi di una Persona
-
-m.set_name("Marco")
-
-  
-
-# Imposta i cognomi di una persona
-
-m.set_lastname("Pierleoni")
-
-  
-
-# Imposta l'età di una persona
-
-m.set_age(29)
-
-# Stampa i dati della persona creata
-
-m.display_data()
-
-print("-----------")
-
-print(m.getName(), m.getLastName(), m.getAge())
-```
-
-dobbiamo abituarci a scrivere gli attributi della classe. 
-Il metodo `__init__` ci costruisce gli attributi della classe, prende in input name, lastname, `age:int`:
-le altre volte abbiamo usato il modo canonico `self.nomeattributo = attributo`, in realtà sarebbe mehlio usare il metodo set nell'init, questo perché se l'utente mette un dato non valido il metodo set controlla la validità del dato e garantisce la validità e se il metodo set verrà richiamato nel codice i nostri dati saranno sempre valida. 
-QUindi il metodo set prende sempre in input come argomento, essendo che se scrivessi il set fuori dall'`__init__` per controllare la validità del dato sarebbbe una ridondanza mentre se scrivo il set nell'`init` sto controllando ad esempio che `name` non sia una stringa vuota
-
-Il metodo speciale str permette di visualizzare in output un oggetto della classe Persona, senza questo metodo mi printa l'oggetto della classe Persona la sua posizione in memoria il che no n mi serve, quindi tramite il metodo str mi permette di lavorare tramite il print, a differneza del metodo display_data lo devo ricihamare ogni volta.
-Tramite il metodo set faccio un controllo che la stringa sia vuota, se non è vuota tramite il `self.name = name` sto dicendo che l'attributo name sia uguale a una stringa non vuota.
-Stessa cosa per il metodo `setLastname`.
-Il metodo setAge controlla che l'età sia un vlaore valido, cioè compreso tra 0 e 130 se è all'intenro di questo range mi ritorna il valore di age.
-I metodi get peremtte di riotnare i vlaori degli attributi name, last e age, sono importnati perchè una Classe cosi definita a gli attributi pubblici ma di solito le informazioni all'intenro della classe vengono nascosti e quindi si usa il get per ritonare il valore di un attributo proprio perché noin si può accedere direttamente al valore di quell'attributo.
-
-Definiamo una classe Persona dove abbimao definito, nome.cognome ed età e andiamo a definire una classe Studente e vogliamo che abbia le stresse identiche prorpietà di una Persona anche con gli stessi metodi, ma vogliamo anche aggiungere delle informazioni in più come ad esempio un attributo matricola e un metodo che calcoli la media dei voti degli esami sostenuti. 
-ci sono due vie per fare cio:
-riscirvere da capo tutti gli attributi e i metodi nel coaso devo scrivere tante cose c'è la via smart che è quella di sfruttare le ereditarietà: ereditò nella classe Studente tutti gli attributi e metodi della classe Persona. Questo mi peremette di scirvere il mio codice in maniera efficiente e veloce.
-Quando si lavora con le classi bisofgna tenere le varie classi separate tra loro
-Quindi nel file `studente.py` importo la classe `Persona`. 
-Per dire a python che la classe Studente eredità persona scrivo così:
-```python
-from Persona_2 import Persona as P
-
-class Studente(P):
-```
-
-l'overidding di un metodo significa: io posso ridefinire un metodo già presente nella classe padre che viene ridefinito nella classe figlia al fine che faccia cose diverse.
-
-
+ 

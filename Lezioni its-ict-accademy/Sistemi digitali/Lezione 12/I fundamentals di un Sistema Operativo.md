@@ -155,7 +155,7 @@ permette di eseguire più programmi alla volta.  ^multi-task-OS
 Multi-Threading Operating Systems: lo stesso programma che viene suddiviso in altri piccoli progrmami 
 Mono-User: un solo utente può interagire con il sistema 
 
-Multi-User: più utenti possono interagire con il sistema.(Windows, etc. Sono multi-user ma sono usate come Mono-User).   ^multi-user-OS
+Multi-User: più utenti possono interagire con il sistema.(Windows, [[Linux]], etc. Sono multi-user ma sono usate come Mono-User).   ^multi-user-OS
 
 
 ### Struttura del SO 

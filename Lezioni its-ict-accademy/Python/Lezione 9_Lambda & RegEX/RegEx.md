@@ -45,22 +45,23 @@ Esistono diversi tipi di quantificatori:
   Esempio:
   Se scriviamo `abc+`; matchia "abc", "abcc", "abccc" , ma non "ab".
   
-- `?`: da zero a uno, matchia da 0 a 1 occorrenza dell'elemento che precede
+- `?`: 
+  ==da zero a uno, matchia da 0 a 1 occorrenza dell'elemento che precede==
   Esempio: 
-  Se scriviamo `abc?`; matchia "ab" o "abc".
+  ==Se scriviamo `abc?`; matchia "ab" o "abc"==.
   Con questi primi quantificatori andiamo a definire il numero di occorrenze, mentre se volessimo definire il numero di occorrenze:
 
 - `{n}`: **Esattamente `n` volte**.
-  Ovvero esprime esattamente le occorrenze `n` volte, esattamente per quante volte possono servire. 
+  ==Ovvero esprime esattamente le occorrenze `n` volte, esattamente per quante volte possono servire.== 
   Agisce sempre sul carattere antecedete
   Esempio: 
   se scriviamo `abc{3}`; matchia "abccc" poiché matcherà con le occorrenze di c che si ripetono per tre volte nella stessa stringa.
   
-- `{n,}`: **almeno n volte**, 
+- `{n,}`: ==**almeno n volte**==, 
   Esempio:
-  se scriviamo `abc{2,}`; il match corrisponde a  "abcc", "abccc", "abcccc",etc.
+  ==se scriviamo `abc{2,}`; il match corrisponde a  "abcc", "abccc", "abcccc",etc.==
   
-- `{n,m}`: **tra n a m volte**, 
+- `{n,m}`: ==**tra n a m volte**==, 
   Esempio:
   Se scriviamo `abc{2,4}`; matchia le corrispondenze di "c" da 2 a 4 volte.
   Ovvero matchia "abcc", "abccc", "abcccc".
@@ -198,6 +199,8 @@ Si può combinare le classi:
 Se si scrive 
 `[a-zA-Z0-9_]`: significa che in quella particolare posizione matcha qualsiasi lettere minuscola o maiuscola, cifra o underscore.
 
+
+### Shortcut delle RegEx
 Siccome definire queste classi è lungo e complesso e può portare spesso a degli errori di sintassi ci sono degli shortcut:
 
 - `\d`: 

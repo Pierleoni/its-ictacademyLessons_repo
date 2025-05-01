@@ -541,10 +541,12 @@ Questo permette di applicare controlli e garantire un accesso sicuro ai dati.
 Esistono 2 metodi principali per gestire gli attributi:
 1. **Getter:** 
    ==permettono di ottenere il valore di un attributo.==
-   In altre parole è un ==metodo **read-only,** restituisce il valore dell'attributo e permette di leggerlo senza modificarlo.==  
+   In altre parole è un ==metodo **read-only,** restituisce il valore dell'attributo e permette di leggerlo senza modificarlo.==  ^getterMethod-Def
+
 2. **Setter:** 
    ==consentono di modificare i valori degli attributi in modo controllato.== 
-   In parole povere ==permette di modificare il valore di un attributo, applicando eventualmente controlli o validazioni.== 
+   In parole povere ==permette di modificare il valore di un attributo, applicando eventualmente controlli o validazioni.==  ^setterMethod-Def
+
 
 
 **Implementazione di Getter e Setter**
@@ -610,7 +612,7 @@ class Person:
 Questo approccio:
 - Il metodo `nome()` con il decoratore `@property` agisce come un getter: 
   ==permette di leggere l'attributo come se fosse pubblico, ma senza modificarlo direttamente.== 
-- Il metodo `nome()` con il decoratore `@nome.setter` agisce come un setter e permette di applicare controlli sulla modifica del valore. 
+- Il metodo `nome()` con il decoratore `@nome.setter` agisce come un setter: ==permette di applicare controlli sulla modifica del valore.== 
 
 > [!info] Ovviamente per ogni attributo (`nome`, `cognome`, `eta`) bisogna usare il nome dell'attributo stesso nel decoratore (`@nome.setter`, `@cognome.setter`, `@eta.setter`)
 >>[!example]- **Esempio:**
@@ -655,13 +657,6 @@ Questo approccio:
    >>     else:
   >>          raise ValueError("L'età deve essere positiva")
 >>```
-
-
-
-
-
-
-
 
 
 > [!done] **Vantaggi dell'uso di Getter e Setter con `@property`**
@@ -759,83 +754,177 @@ In questo modo, chi tenta di leggere `get_password()` otterrà un'eccezione, pro
 L'uso corretto delle classi rende il codice più organizzato, leggibile e manutenibile, consentendo di modellare in modo efficace problemi complessi con la programmazione a oggetti in Python.
 
 
-Attributi di classe
-Sono attributi globali, a che servono? Ad esmepio se ho 10 ogggetti di Person e si accede all'attributo di classe e slegato degli oggetti ma è legato alla classe e quindi è legato a tutti gli oggetti.
-Es: 
+### Attributi di classe
+Gli **attributi di classe** sono attributi **globali**:  
+==non appartengono ai singoli oggetti (istanze), ma sono condivisi **da tutti gli oggetti** della stessa classe.==
+Quindi in sostanza: sono condivisi tra tutte le istanze di una classe, a differenza degli attributi di istanza (definiti con `self` in `__init__()`),  e quindi gli attributi di classe sono legati alla classe stessa e non ai singoli oggetti. 
+
+
+> [!done] A cosa servono?
+> - **Condividere dati globali**: Utili per memorizzare informazioni comuni a tutte le istanze (es. un contatore di oggetti creati).
+   > 
+>- **Risparmiare memoria**: Poiché il valore è unico per la classe, non viene duplicato in ogni oggetto.
+
+Per fare un esempio più concreto: mettiamo di avere ho 10 oggetti della classe `Person`, ==un attributo di classe sarà **lo stesso** per tutti gli oggetti, perché è associato direttamente alla classe e **non** ai singoli oggetti.== 
+**Esempio Pratico:** 
 ```run-python
-class Person:
+class Persona:
+    # Attributo di classe (condiviso)
+    conteggio_persone = 0  
 
-    personCount = 0
+    def __init__(self, nome: str):
+        self.nome = nome  # Attributo di istanza (unico per oggetto)
+        self.aggiorna_conteggio()
 
-    def __init__(self, name):
+    @classmethod
+    def aggiorna_conteggio(cls) -> None:
+        cls.conteggio_persone += 1
 
-        self.name = name
+# Creazione di istanze
+alice = Persona("Alice W.")
+bob = Persona("Bob M.")
 
-        self.update()
-
-    @classmethod #é una direttiva che va ad indicare che stai andando ad accedere agli attributi di classe, senza di esso il cls sotto verrebbe interpretato come un self
-
-    def update(cls):
-
-        cls.personCount += 1
-
-alice = Person("Alice W.")
-
-bob = Person("Bob M.")
-
-print("------------------")
-
-print(Person.personCount)
+print(f"Persone create: {Persona.conteggio_persone}")  # Output: 2
 ```
 
-Quindi `Person.personCount` è un attributo della classe non dell'oggetto.
+**Spiegazione passo-passo:**
+- `personCount` è un **attributo di classe**: esiste **una sola copia** di `personCount`, condivisa da tutti gli oggetti `Person`.
+    
+- Ogni volta che creiamo un nuovo oggetto (`Person("Alice W.")`, `Person("Bob M.")`), il metodo `update()` viene chiamato e incrementa `personCount` di 1.
+    
+- Alla fine, `Person.personCount` vale **2**.
 
-`cls`: è il modo corretto per accedere agli attributi della classe.
+- `cls`: è il modo corretto per accedere agli attributi della classe.
 
-`@classmethod`:é una direttiva che va ad indicare che stai andando ad accedere agli attributi di classe, senza di esso il `cls` sotto verrebbe interpretato come un self.
+#### Distinzione tra `@classmethod` e `cls`
+- `@classmethod` è un decoratore che segnala che il metodo successivo (ovvero `update`) lavora sugli attributi di classe e non sui singoli oggetti.
+- `cls`: come possiamo notare nell'esempio; il primo parametro convenzionalmente chiamato nel metodo di classe è il `cls` (che sta per **class**), invece del canonico `self`. 
+  Questo perché il parametro `self` da un metodo di istanza mentre il parametro `cls` da un metodo di classe. 
+Sia il decoratore che il parametro `cls` vanno usati insieme: 
+se si omette `@classmethod`, Python interpreterà `cls` come `self`, causando degli errori.
+**Esempio senza `@classmethod`:**
+```run-python
+class Persona:
+    # Attributo di classe (condiviso)
+    conteggio_persone = 0  
 
-La differenza tra cls e self:
-cls: va ad accedere agli attriubuti globali della classe
-self: va ad accedere agli attriubuti del costruttore o quelli che vanno ad essere definiti negli altri metodi della classe.
+    def __init__(self, nome: str):
+        self.nome = nome  # Attributo di istanza (unico per oggetto)
+        self.aggiorna_conteggio()
 
-Tuttavia non posso ad accedere ad un attributo definito con il self anche con il cls, l'interprete mi dà un messaggio di errore in output e mi dice che quell'attributo non è stato definito.
+   
+# SENZA @classmethod (ERRATO)
+	def aggiorna_conteggio(cls):  # cls viene trattato come self!
+	    cls.conteggio_persone += 1  # Fallisce se chiamato dalla classe
+
+# Creazione di istanze
+alice = Persona("Alice W.")
+bob = Persona("Bob M.")
+
+print(f"Persone create: {Persona.conteggio_persone}")  # Output: 2
+```
+
+#### La differenza tra `cls` e `self`:
+- `self` permette di accedere **solo** agli attributi legati all'**istanza**.
+    
+- `cls` permette di accedere **solo** agli attributi legati alla **classe**.
+    
+- Non è possibile accedere a un attributo definito con `self` usando `cls`:  
+    se provi a farlo, otterrai un **errore** perché l'attributo è definito solo **nell'istanza** e non nella **classe**.
+
+```run-python
+class Example:
+    def __init__(self) -> None:
+        self.instance_attr = "I am an instance attribute"
+
+    @classmethod
+    def show_attr(cls) -> None:
+        print(cls.instance_attr)  # Errore! instance_attr non esiste a livello di classe
+
+ex = Example()
+ex.show_attr() #Output: AttributeError: type object 'Example' has no attribute 'instance_attr'
+
+
+```
+
+
 
 
 ---
 
 
 ## Metodi speciali
-### il metodo `__str__`
+I **metodi speciali** (detti anche **magic methods** o **dunder methods**, da "double underscore") sono metodi che iniziano e finiscono con due underscore (`__nome__`).  
+Essi ==permettono di **modificare il comportamento predefinito** degli oggetti in Python, ad esempio come vengono stampati, come sono confrontati, o addirittura permettono di trattarli come funzioni==.
 
-Ci permette di rappresentare un oggetto della classe leggibile come stringa
-```python
+
+### Il metodo `__str__`
+
+Il metodo `__str__` serve per: 
+==**fornire una rappresentazione leggibile di un oggetto** sotto forma di stringa==.
+Quando chiamiamo `print()` su un oggetto, Python cerca di chiamare automaticamente il metodo `__str__` per ottenere la stringa da stampare.
+
+Esempio:
+```run-python
 class Person:
-	def __init__ (self, name, age):
-		self.name = name
-		self.age = age
-	def __str__(self):
-		return f"{self.name}, {self.age} years old"
+    def __init__(self, name: str, age: int) -> None:
+        self.name = name
+        self.age = age
 
-p = Person ("Luca", 30)
-print(p)
+    def __str__(self) -> str:
+        return f"{self.name}, {self.age} years old"
+
+p = Person("Luca", 30)
+print(p)  # Output: Luca, 30 years old
+
 ```
 
-Oltre a migliorare la leggibilità è utile per fare il debbuging. 
-Se togliessi il metdo `__str__` mi ritornerebbe l'indirizzo di memoria. 
-ciò è utile perchè io in questo caso printo solo l'oggetto senza associarlgi anche la funzione:
-se io al posto del metodo `__str__` definissi una funzione, ad esempio `printMsg()` per stampare l'oggetto nel print dovrei fare `print(p.printMsg())`, mentre in questo modo me lo fa in automatico.
+#### Senza `__str__`
+Se non definissimo il metodo `__str__`, Python stamperebbe una **rappresentazione predefinita** dell'oggetto, ad esempio:
+
+```csharp
+<__main__.Person object at 0x7f5a6c8b2d90>
+```
+Ovvero l'indirizzo di memoria dell'oggetto, poco utile e poco leggibile.
+
+
+> [!done] Perché è utile `__str__`?
+>
+>- **Migliora la leggibilità**: rende immediato capire il contenuto dell'oggetto.
+>    
+>- **Facilita il debug**: è più semplice controllare lo stato degli oggetti stampandoli.
+>    
+>- **Comodità**: non serve creare un metodo separato (es. `printMsg()`) da chiamare manualmente; basta `print(object)`.
+>> [!example] Se avessimo definito invece un metodo tipo `printMsg()`, per stampare il contenuto avremmo dovuto scrivere `print(p.printMsg())`. Con `__str__`, basta semplicemente `print(p)`.
+
+
 
 ### Metodo `__call__`
-Fa si che l'oggetto della classe può essere trattato come una funzione. Quindi:
-```
+Il metodo `__call__`: 
+==permette di **chiamare un oggetto come se fosse una funzione**==.  
+In pratica, aggiunge il comportamento delle **parentesi** `()` agli oggetti. 
+
+```run-python
 class Greeter:
-	def __init__(self, message):
-		self.msg = message
-	def __call__(self):
-		return f"Hello, {self.msg}"
+    def __init__(self, message: str) -> None:
+        self.msg = message
+
+    def __call__(self) -> str:
+        return f"Hello, {self.msg}"
 
 g = Greeter("Alice")
-print(g())
+print(g())  # Output: Hello, Alice
+
 ```
 
-In questo caso abbiamo le paretnesi perchè abbiamo l'oggetto g come se fosse una funzione
+In questo caso:
+
+- `g()` esegue il metodo `__call__`, **anche se `g` è un oggetto**, non una funzione vera e propria.
+    
+- L'oggetto diventa **funzionale**: può essere "chiamato"
+
+
+> [!done] Quando è utile `__call__`?
+> - Quando vuoi **modellare un oggetto che si comporta come una funzione**.
+ >   
+>- Quando desideri **salvare uno stato interno** (attributi) e allo stesso tempo permettere la chiamata diretta con `()`.

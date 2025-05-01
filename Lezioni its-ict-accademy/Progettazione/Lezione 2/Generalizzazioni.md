@@ -216,7 +216,7 @@ Abbiamo detto che con il vincolo **`{complete}`**:
 > ==_tutte_ le istanze della superclasse devono appartenere a **una o più** delle sottoclassi coinvolte.==
 
 Mentre con **`{disjoint}`**:
-> ==le sottoclassi **non si sovrappongono**, quindi un'istanza può appartenere a **una sola** sottoclasse tra quelle o ha nessuna.== 
+> ==le sottoclassi **non si sovrappongono**, quindi un'istanza può appartenere a **una sola** sottoclasse tra quelle o a nessuna.== 
 
 Quando questi due vincoli si combinano (`{disjoint, complete}`), il significato diventa:
 > ==tutte le istanze della superclasse devono appartenere a **una sola** delle sottoclassi coinvolte.==

@@ -8,33 +8,18 @@
         "type": "tabs",
         "children": [
           {
-            "id": "b80ae09403a09dc7",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/Lezione 8/Ereditarietà delle classi.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
-              },
-              "icon": "lucide-file",
-              "title": "Ereditarietà delle classi"
-            }
-          },
-          {
             "id": "694e1b816d8d81f3",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/Lezione 9_Lambda & RegEX/RegEx.md",
+                "file": "Sistemi digitali/Lezione 12/I fundamentals di un Sistema Operativo.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "RegEx"
+              "title": "I fundamentals di un Sistema Operativo"
             }
           },
           {
@@ -43,16 +28,32 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Progettazione/Lezione 2/Generalizzazioni.md",
+                "file": "Progettazione/Esercizi/Officine 1.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Generalizzazioni"
+              "title": "Officine 1"
+            }
+          },
+          {
+            "id": "6ed22edebe0b0e74",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Sistemi digitali/Lezione 21/Linux.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "Linux"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -259,54 +260,53 @@
       "zk-prefixer:Create new unique note": false
     }
   },
-  "active": "b80ae09403a09dc7",
+  "active": "6ed22edebe0b0e74",
   "lastOpenFiles": [
+    "img/Sistemi Digitali/Lezione 21/Shell.png",
+    "Sistemi digitali/Lezione 21/Linux.md",
+    "img/Sistemi Digitali/Lezione 21/rm -ri.png",
+    "img/Sistemi Digitali/Lezione 21/cp comand.png",
+    "img/Sistemi Digitali/Lezione 21/Permessi sui file.png",
+    "img/Sistemi Digitali/Lezione 21/cd comand.png",
+    "img/Sistemi Digitali/Lezione 21/cd command.png",
+    "img/Sistemi Digitali/Lezione 21/File System information.png",
+    "img/Sistemi Digitali/Lezione 21",
+    "Sistemi digitali/Lezione 12/I fundamentals di un Sistema Operativo.md",
+    "Sistemi digitali/Lezione 11/Internetwork-Protocols.md",
+    "Sistemi digitali/Lezione 10/Le architetture di un Computer.md",
+    "Python/Lezione 8_Ereditarietà delle classi/Ereditarietà delle classi.md",
+    "img/Sistemi Digitali/Lezione 21/Spiegazione FSI.png",
+    "img/Sistemi Digitali/Lezione 21/File System information_2.png",
+    "Python/Lezione 8_Ereditarietà delle classi/Classi astratte.md",
+    "202504300927.md",
+    "Python/Lezione 8_Ereditarietà delle classi/Polimorfismo.md",
+    "Progettazione/Esercizi/Esercitazioni universitarie.md",
+    "Progettazione/Esercizi/Officine 1.md",
+    "Python/Lezione 2/Introduzione a Python.md",
+    "Progettazione/Lezione 2/Operazioni di classe.md",
+    "img/Screenshot 2025-04-29 at 12-59-19 Meet - bmb-xnne-ahh.png",
+    "C__Users_Project Lead_OneDrive_Documents_Programmazione_Its-ict academy_Lezioni its-ict-accademy_img",
+    "Sistemi digitali/Lezione 21",
+    "Python/Lezione 1/Introduzione generale.md",
     "Progettazione/Lezione 2/Associazioni con attributi in UML.md",
-    "Progettazione/Lezione 2/Analisi dei requisiti mediante UML.md",
-    "Progettazione/Lezione 2/Tipi di dato concettuale.md",
-    "Progettazione/Esercizi/Esercitazione GO.md",
-    "Progettazione/Esercizi/Ordini e fatture 1.md",
-    "Python/Lezione 8/Ereditarietà delle classi.md",
+    "Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi.md",
+    "Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Public, Private and Class Attibutes, Class and Static Methods.md",
     "Progettazione/Lezione 2/Generalizzazioni.md",
+    "Progettazione/Lezione 2/Tipi di dato concettuale.md",
+    "Progettazione/Esercizi/Ordini e fatture 1.md",
+    "Progettazione/Esercizi/Esercitazione Azienda 1.md",
+    "Progettazione/Esercizi/Esercitazione GO.md",
     "Python/Lezione 9_Lambda & RegEX/RegEx.md",
+    "Progettazione/Lezione 2/Analisi dei requisiti mediante UML.md",
     "Python/Lezione 2/Collections.md",
     "202504191641.md",
-    "Python/Lezione 9_Lambda & RegEX/Lambda.md",
-    "Python/Lezione 6/Le Classi.md",
-    "lista.md",
-    "Python/Lezione 18/Eccezioni in Python.md",
-    "Python/Lezione 5_ List Comprehensions/Capire la comprehensions in Python.md",
-    "Python/Lezione 6/Public, Private and Class Attibutes, Class and Static Methods.md",
-    "Web Development/modulo 1/Bootstrap/Bootstrap.md",
-    "img/Screenshot 2025-04-16 at 12-10-50 BOOTSTRAP 5 - slide-0.3-Bootstrap-5.pdf.png",
     "Web Development/modulo 1/Bootstrap",
-    "Python/Lezione 23/Docker.md",
-    "img/Screenshot 2025-04-15 at 12-14-24 Docker_v3 - Docker.pdf.png",
-    "img/Screenshot 2025-04-15 at 12-13-09 Docker_v3 - Docker.pdf.png",
-    "img/Screenshot 2025-04-15 at 12-12-19 Docker_v3 - Docker.pdf.png",
     "Python/Lezione 23",
-    "Sommario.md",
-    "Python/Lezione 8",
-    "Web Development/modulo 1/HTML/I form in HTML.md",
-    "Progettazione/Lezione 2/Vincoli di molteplicità sulle associazioni e sugli attributi.md",
-    "Web Development/modulo 1/DOM.md",
-    "Python/Lezione 13/Funzioni Ricorsive.md",
-    "202504121219.md",
+    "Python/Lezione 8_Ereditarietà delle classi",
     "Python/Lezione 9_Lambda & RegEX",
-    "Progettazione/Esercizi/Spiegazione Studenti e impiegati.md",
-    "Python/Lezione 18/Asserzioni.md",
     "img/Python/Lezione 5",
-    "img/Progettazione IMG/Progettazione(Lezione2)/{disjoint,complete}.png",
-    "img/Progettazione IMG/{disjoint,complete}.png",
-    "img/Progettazione IMG/Progettazione(Lezione2)/{complete}.png",
-    "img/Progettazione IMG/Progettazione(Lezione2)/{disjoint}.png",
-    "img/Python/Lezione 5/sintax list comprehension.png",
     "Python/Lezione 5_ List Comprehensions",
     "Python/Lezione 18",
-    "img/Css/Screenshot 2025-04-09 at 15-41-08 Meet - wri-jxki-bxo.png",
-    "img/Css",
-    "Web Development/modulo 1/CSS",
-    "Web Development/modulo 1/HTML",
     "Untitled.canvas"
   ]
 }
