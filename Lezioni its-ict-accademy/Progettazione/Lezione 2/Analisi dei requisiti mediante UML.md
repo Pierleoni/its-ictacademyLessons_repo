@@ -14,7 +14,7 @@ Un oggetto (istanza di una classe) in UML modella un elemento del dominio di ana
 
 - un oggetto "ha vita propria": 
   ==cioè  può essere interpretato e compreso indipendentemente dagli altri oggetti del sistema e si risolve indipendentemente dagli altri oggetti.== 
-un oggetto in UML è: se prendo un telefono e l'ho metto in uno spazio nero quel telfono ha vita propria perché ha le sue app, il suo orario, etc. e se lo metti in relazione ad altri oggetti simili costituisci una classe.
+un oggetto in UML è: se prendo un telefono e l'ho metto in uno spazio nero quel telefono ha vita propria perché ha le sue app, il suo orario, etc. e se lo metti in relazione ad altri oggetti simili costituisci una classe.
 Una data non è un'oggetto, perché se prendi una data ad esempio 3/05/2025 questa data da sola non dice nulla e quindi va a costituire un tipo di dato, non un oggetto.
 
 > [!deep]- **Cosa si intende per "l'oggetto si risolve"?**
@@ -112,17 +112,9 @@ Ad esempio un telefono all'interno del sistema può essere capito ed interpretat
 - Un oggetto in UML è un istanza di classe (la cosiddetta classe più specifica; vedremo che, in determinate
 circostanze, un oggetto è istanza di più classi, ma in ogni caso, tra le classi di cui un oggetto è
 istanza, esiste sempre la classe più specifica).
-![Oggetto in UML](file:///C:/Users/Project%20Lead/OneDrive/Documents/Programmazione/Its-ict%20academy/Lezioni%20its-ict-accademy/img/Progettazione%20IMG/Progettazione(Lezione2)_Analisi%20dei%20requisiti%20in%20UML/Oggetto%20in%20UML.pdf.png)
 
 
-
-
-
-
-
-
-
-
+![[Diagram.svg]]
 Prendendo questa immagine come riferimento possiamo notare:
 - **div_comm:** 
   ==è l'identificatore dell'oggetto== (scelto

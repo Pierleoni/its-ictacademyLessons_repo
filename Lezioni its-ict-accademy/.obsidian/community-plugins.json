@@ -29,5 +29,7 @@
   "execute-code",
   "image-converter",
   "obsidian-emoji-toolbar",
-  "emoji-shortcodes"
+  "emoji-shortcodes",
+  "obsidian-image-toolkit",
+  "image-upload-toolkit"
 ]

@@ -8,52 +8,67 @@
         "type": "tabs",
         "children": [
           {
-            "id": "694e1b816d8d81f3",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Sistemi digitali/Lezione 12/I fundamentals di un Sistema Operativo.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
-              },
-              "icon": "lucide-file",
-              "title": "I fundamentals di un Sistema Operativo"
-            }
-          },
-          {
             "id": "a51b2d065cfdabc6",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Progettazione/Esercizi/Officine 1.md",
+                "file": "Progettazione/Lezione 2/Documenti di specifica.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Officine 1"
+              "title": "Documenti di specifica"
             }
           },
           {
-            "id": "6ed22edebe0b0e74",
+            "id": "aba76b34a55c0c44",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Sistemi digitali/Lezione 21/Linux.md",
+                "file": "Progettazione/Lezione 2/Operazioni di classe.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Linux"
+              "title": "Operazioni di classe"
+            }
+          },
+          {
+            "id": "745719d8afc3ebec",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Progettazione/Lezione 2/Analisi dei requisiti mediante UML.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "Analisi dei requisiti mediante UML"
+            }
+          },
+          {
+            "id": "68dbe70d7ba42d2e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Progettazione/Lezione 2/Associazioni con attributi in UML.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "Associazioni con attributi in UML"
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -120,7 +135,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 333.5
+    "width": 422.5
   },
   "right": {
     "id": "8ef8bc59cd79fc10",
@@ -260,53 +275,53 @@
       "zk-prefixer:Create new unique note": false
     }
   },
-  "active": "6ed22edebe0b0e74",
+  "active": "a3c89a053243abbf",
   "lastOpenFiles": [
-    "img/Sistemi Digitali/Lezione 21/Shell.png",
-    "Sistemi digitali/Lezione 21/Linux.md",
-    "img/Sistemi Digitali/Lezione 21/rm -ri.png",
-    "img/Sistemi Digitali/Lezione 21/cp comand.png",
-    "img/Sistemi Digitali/Lezione 21/Permessi sui file.png",
-    "img/Sistemi Digitali/Lezione 21/cd comand.png",
-    "img/Sistemi Digitali/Lezione 21/cd command.png",
-    "img/Sistemi Digitali/Lezione 21/File System information.png",
-    "img/Sistemi Digitali/Lezione 21",
-    "Sistemi digitali/Lezione 12/I fundamentals di un Sistema Operativo.md",
-    "Sistemi digitali/Lezione 11/Internetwork-Protocols.md",
-    "Sistemi digitali/Lezione 10/Le architetture di un Computer.md",
-    "Python/Lezione 8_Ereditarietà delle classi/Ereditarietà delle classi.md",
-    "img/Sistemi Digitali/Lezione 21/Spiegazione FSI.png",
-    "img/Sistemi Digitali/Lezione 21/File System information_2.png",
-    "Python/Lezione 8_Ereditarietà delle classi/Classi astratte.md",
-    "202504300927.md",
-    "Python/Lezione 8_Ereditarietà delle classi/Polimorfismo.md",
-    "Progettazione/Esercizi/Esercitazioni universitarie.md",
-    "Progettazione/Esercizi/Officine 1.md",
-    "Python/Lezione 2/Introduzione a Python.md",
-    "Progettazione/Lezione 2/Operazioni di classe.md",
-    "img/Screenshot 2025-04-29 at 12-59-19 Meet - bmb-xnne-ahh.png",
-    "C__Users_Project Lead_OneDrive_Documents_Programmazione_Its-ict academy_Lezioni its-ict-accademy_img",
-    "Sistemi digitali/Lezione 21",
-    "Python/Lezione 1/Introduzione generale.md",
-    "Progettazione/Lezione 2/Associazioni con attributi in UML.md",
-    "Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi.md",
-    "Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Public, Private and Class Attibutes, Class and Static Methods.md",
-    "Progettazione/Lezione 2/Generalizzazioni.md",
-    "Progettazione/Lezione 2/Tipi di dato concettuale.md",
-    "Progettazione/Esercizi/Ordini e fatture 1.md",
-    "Progettazione/Esercizi/Esercitazione Azienda 1.md",
-    "Progettazione/Esercizi/Esercitazione GO.md",
-    "Python/Lezione 9_Lambda & RegEX/RegEx.md",
     "Progettazione/Lezione 2/Analisi dei requisiti mediante UML.md",
-    "Python/Lezione 2/Collections.md",
-    "202504191641.md",
+    "Progettazione/Lezione 2/Operazioni di classe.md",
+    "Progettazione/Lezione 2/Associazioni con attributi in UML.md",
+    "img/Progettazione IMG/Progettazione(Lezione2)/transitività.png",
+    "img/Progettazione IMG/Progettazione(Lezione2)/Operazioni_di_classe Sintassi.png",
+    "img/Progettazione IMG/Progettazione(Lezione2)/operazioni di classe 1.png",
+    "C__Users_Project Lead_OneDrive_Documents_Programmazione_Its-ict academy_Lezioni its-ict-accademy_img/Screenshot 2025-05-07 at 11-19-39 Slide A.1 - Analisi dei requisiti mediante UML - BD2 - Slide A.1 - Analisi dei requisiti mediante UML - BD2.pdf.png",
+    "C__Users_Project Lead_OneDrive_Documents_Programmazione_Its-ict academy_Lezioni its-ict-accademy_img",
+    "Diagram/Demo diagramma a blocchi.svg",
+    "Diagram.svg.xml",
+    "Diagram.svg",
+    "img/Progettazione IMG/Progettazione(Lezione2)/Link e associazioni.png",
+    "Clippings/Imgur.md",
+    "C__Users_Project Lead_OneDrive_Documents_Programmazione_Its-ict academy_Lezioni its-ict-accademy_img/Screenshot 2025-05-07 at 10-57-08 Slide A.1 - Analisi dei requisiti mediante UML - BD2 - Slide A.1 - Analisi dei requisiti mediante UML - BD2.pdf-4.png",
+    "C__Users_Project Lead_OneDrive_Documents_Programmazione_Its-ict academy_Lezioni its-ict-accademy_img/Screenshot 2025-05-07 at 10-57-08 Slide A.1 - Analisi dei requisiti mediante UML - BD2 - Slide A.1 - Analisi dei requisiti mediante UML - BD2.pdf-3.png",
+    "C__Users_Project Lead_OneDrive_Documents_Programmazione_Its-ict academy_Lezioni its-ict-accademy_img/Screenshot 2025-05-07 at 10-57-08 Slide A.1 - Analisi dei requisiti mediante UML - BD2 - Slide A.1 - Analisi dei requisiti mediante UML - BD2.pdf-2.png",
+    "Progettazione/Lezione 2/Tipi di dato concettuale.md",
+    "Progettazione/Lezione 2/Diagramma use-case.md",
+    "Progettazione/Lezione 2/Documenti di specifica.md",
+    "Python/Lezione 5_ List Comprehensions/Capire la comprehensions in Python.md",
+    "Progettazione/Lezione 2/Generalizzazioni.md",
+    "Progettazione/Lezione 2/Vincoli di molteplicità sulle associazioni e sugli attributi.md",
+    "Inglese/Riassunto capitoli/Capitolo 5.md",
+    "Inglese/Riassunto capitoli/Capitolo 4.md",
+    "Clippings/Computational Thinking An Overview.md",
+    "Web Development/Javascript.md",
+    "Clippings",
+    "Inglese/Riassunto capitoli/Capitolo 3.md",
+    "Inglese/Riassunto capitoli/Capitolo 1.md",
+    "Inglese/Riassunto capitoli/Capitolo 13.md",
+    "Inglese/Riassunto capitoli/Capitolo 12.md",
+    "Inglese/Riassunto capitoli/Capitolo 11.md",
+    "Inglese/Riassunto capitoli/Capitolo 10.md",
+    "Inglese/Riassunto capitoli/Capitolo 9.md",
+    "Inglese/Riassunto capitoli/Capitolo 8.md",
+    "Inglese/Riassunto capitoli/Capitolo 7.md",
+    "Inglese/Riassunto capitoli/Capitolo 6.md",
+    "Progettazione/Esercizi/Officine 1.md",
+    "Inglese/Riassunto capitoli",
+    "img/Sistemi Digitali/Lezione 21",
+    "Sistemi digitali/Lezione 21",
     "Web Development/modulo 1/Bootstrap",
     "Python/Lezione 23",
     "Python/Lezione 8_Ereditarietà delle classi",
     "Python/Lezione 9_Lambda & RegEX",
-    "img/Python/Lezione 5",
-    "Python/Lezione 5_ List Comprehensions",
-    "Python/Lezione 18",
     "Untitled.canvas"
   ]
 }
