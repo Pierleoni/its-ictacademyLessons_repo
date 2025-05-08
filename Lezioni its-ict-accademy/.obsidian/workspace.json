@@ -28,13 +28,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Progettazione/Lezione 2/Operazioni di classe.md",
+                "file": "Progettazione/Lezione 2/Operazioni di classe e Specializzazioni degli attributi di associazioni e operazioni.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Operazioni di classe"
+              "title": "Operazioni di classe e Specializzazioni degli attributi di associazioni e operazioni"
             }
           },
           {
@@ -58,13 +58,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Progettazione/Lezione 2/Associazioni con attributi in UML.md",
+                "file": "Progettazione/Lezione 2/Generalizzazioni.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Associazioni con attributi in UML"
+              "title": "Generalizzazioni"
             }
           }
         ],
@@ -135,7 +135,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 422.5
+    "width": 200
   },
   "right": {
     "id": "8ef8bc59cd79fc10",
@@ -277,27 +277,28 @@
   },
   "active": "a3c89a053243abbf",
   "lastOpenFiles": [
-    "Progettazione/Lezione 2/Analisi dei requisiti mediante UML.md",
-    "Progettazione/Lezione 2/Operazioni di classe.md",
+    "img/Python/Lezione 6/Le Classi/Ereditarietà delle classi.png",
+    "Progettazione/Lezione 2/Operazioni di classe e Specializzazioni degli attributi di associazioni e operazioni.md",
+    "Progettazione/Lezione 2/Documenti di specifica.md",
+    "img/Progettazione IMG/Progettazione(Lezione2)/Esempio_opDiClasse_istanza.png",
+    "img/Progettazione IMG/Progettazione(Lezione2)/ereditarietà_operazioni_diClasse.png",
+    "img/Progettazione IMG/Progettazione(Lezione2)/Screenshot 2025-05-07 at 10-57-08 Slide A.1 - Analisi dei requisiti mediante UML - BD2 - Slide A.1 - Analisi dei requisiti mediante UML - BD2.pdf.png",
+    "img/Progettazione IMG/Progettazione(Lezione2)/Screenshot 2025-05-05 at 17-04-04 Meet - bmb-xnne-ahh.png",
+    "img/Progettazione IMG/Progettazione(Lezione2)/Screenshot 2025-05-05 at 16-58-55 Meet - bmb-xnne-ahh.png",
+    "img/Progettazione IMG/Progettazione(Lezione2)/Screenshot 2025-05-05 at 16-06-24 Meet - bmb-xnne-ahh.png",
+    "img/Progettazione IMG/Progettazione(Lezione2)/Screenshot 2025-05-05 at 15-54-13 Meet - bmb-xnne-ahh.png",
+    "img/Progettazione IMG/Progettazione(Lezione2)/Screenshot 2025-05-05 at 15-17-35 Meet - bmb-xnne-ahh.png",
+    "img/Progettazione IMG/Progettazione(Lezione2)/Relazioni is-a tra classi_ereditarietà.png",
+    "img/Progettazione IMG/Progettazione(Lezione2)/diagramma di Ven.png",
+    "Progettazione/Lezione 2/Generalizzazioni.md",
     "Progettazione/Lezione 2/Associazioni con attributi in UML.md",
-    "img/Progettazione IMG/Progettazione(Lezione2)/transitività.png",
-    "img/Progettazione IMG/Progettazione(Lezione2)/Operazioni_di_classe Sintassi.png",
-    "img/Progettazione IMG/Progettazione(Lezione2)/operazioni di classe 1.png",
-    "C__Users_Project Lead_OneDrive_Documents_Programmazione_Its-ict academy_Lezioni its-ict-accademy_img/Screenshot 2025-05-07 at 11-19-39 Slide A.1 - Analisi dei requisiti mediante UML - BD2 - Slide A.1 - Analisi dei requisiti mediante UML - BD2.pdf.png",
+    "Progettazione/Lezione 2/Analisi dei requisiti mediante UML.md",
     "C__Users_Project Lead_OneDrive_Documents_Programmazione_Its-ict academy_Lezioni its-ict-accademy_img",
-    "Diagram/Demo diagramma a blocchi.svg",
     "Diagram.svg.xml",
-    "Diagram.svg",
-    "img/Progettazione IMG/Progettazione(Lezione2)/Link e associazioni.png",
     "Clippings/Imgur.md",
-    "C__Users_Project Lead_OneDrive_Documents_Programmazione_Its-ict academy_Lezioni its-ict-accademy_img/Screenshot 2025-05-07 at 10-57-08 Slide A.1 - Analisi dei requisiti mediante UML - BD2 - Slide A.1 - Analisi dei requisiti mediante UML - BD2.pdf-4.png",
-    "C__Users_Project Lead_OneDrive_Documents_Programmazione_Its-ict academy_Lezioni its-ict-accademy_img/Screenshot 2025-05-07 at 10-57-08 Slide A.1 - Analisi dei requisiti mediante UML - BD2 - Slide A.1 - Analisi dei requisiti mediante UML - BD2.pdf-3.png",
-    "C__Users_Project Lead_OneDrive_Documents_Programmazione_Its-ict academy_Lezioni its-ict-accademy_img/Screenshot 2025-05-07 at 10-57-08 Slide A.1 - Analisi dei requisiti mediante UML - BD2 - Slide A.1 - Analisi dei requisiti mediante UML - BD2.pdf-2.png",
     "Progettazione/Lezione 2/Tipi di dato concettuale.md",
     "Progettazione/Lezione 2/Diagramma use-case.md",
-    "Progettazione/Lezione 2/Documenti di specifica.md",
     "Python/Lezione 5_ List Comprehensions/Capire la comprehensions in Python.md",
-    "Progettazione/Lezione 2/Generalizzazioni.md",
     "Progettazione/Lezione 2/Vincoli di molteplicità sulle associazioni e sugli attributi.md",
     "Inglese/Riassunto capitoli/Capitolo 5.md",
     "Inglese/Riassunto capitoli/Capitolo 4.md",
