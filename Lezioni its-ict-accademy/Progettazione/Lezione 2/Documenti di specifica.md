@@ -1,30 +1,52 @@
-Nello schema concettuale è fatto da:
-diagramma delle classi
-use case
-documenti di specifica: specifica di dato, la specifica di classe(definisce qualis sono le operazioni di classe e cosa clacola e se modicia i dati), specifica degli use case(dice cosa fa ogni operazione), specidica dei vincoli esterni.
+Abbiamo visto nel completo il diagramma delle classi in UML e il diagramma degli use-case, esiste un terzo documento chiamato documento di specifica.
+Siccome il i primi due diagrammi hanno dei rispettivi limiti:
+1. Il diagramma delle classi non definisce nel dettaglio cosa calcolano le operazioni di classe, né se e come modificano gli oggetti esistenti (i dati).
+2. Il diagramma UML degli use- case non definisce quali sono le operazioni di ogni use-case, né cosa calcolano, né se e come modificano gli oggetti esistenti (i dati).
 
-### Specifica dei tipi di dato
+Di conseguenza lo schema va corredato di un ulteriore documento di specifica **separato da accludere allo schema concettuale,** questo documento si suddivide in 4 tipi diversi:
+- **Specifica di dato:**
+	==Definisce tutti i tipi di dato non standard utilizzati nello schema concettuale.==  ^specificaDato
+	
+- **Specifica di classe**:
+	==definisce quali sono le operazioni di classe e cosa calcolano e se modificano gli oggetti/link esistenti.==  ^specificaClasse
+	
+- **Specifica degli use-case:**
+	==Definisce l’insieme delle operazioni di uno use-case.== 
+	==Per ogni operazione, definisce cosa calcola e se e come modifica gli oggetti/link esistenti (i dati).==
+	
+- **Specifica dei vincoli esterni:**
+	==Definisce ulteriori vincoli (non esprimibili nel diagramma della classi, di qui il nome “esterni”) che gli oggetti/link devono soddisfare==
 
-### Specifica di classe
-Finora abbiamo visto la signatura.
-Come la si da la specifica di un operazione:
-riportiamo la signatura e definire le pre-condizioni e le post-condizioni: 
+### [[#^specificaDato|Specifica dei tipi di dato]] 
+![[Specifica dei tipi di dato.png]]
+
+### [[#^specificaClasse|Specifica di classe]] 
+
+Come si da la specifica di un operazione:
+![[Specifica operazione nella specifica delle classi.png]]
+
+SI deve riportare la signatura delle operazioni e definire le pre-condizioni e le post-condizioni: 
 - pre-condizioni:
-condizioni che devono essere vere per poter invocare quella operazione.
-Le condizioni che devono sussistere affinché l'invocazione abbia luogo.
+Le condizioni che devono essere vere per poter invocare quella operazione, in altre ==parole le condizioni che devono sussistere affinché l'invocazione abbia luogo.== 
+queste condizioni vanno indicate per 
+	- oggetto di invocazione
+	- valori degli argomenti
+	-  altri oggetti del sistema
 Senza le precondizioni possiamo avere comportamenti inaspettati o bugging. 
-- post-condizioni: e quello che deve essere vero dopo quella operazioni
+- post-condizioni: 
+  e quello che deve essere vero dopo quella operazioni
 	1. se si modificano i dati come si modificano
 	2. spiega come è calcolato il risultato
 
-Per esempio `media_fino_a`:
-
+#### Esempio pratico
+Nel diagramma nell'[[Specifica operazione nella specifica delle classi.png|immagine sopra]] la classe `Studente` ha l'operazione di classe `media_fino_a(d:Data): reale in 18..30`.
+Di questa operazione bisogna specificare questo:
 ![[Screenshot 2025-05-05 at 16-47-32 Meet - bmb-xnne-ahh.png]]
 
-Ci chiediamo dei casi in cui non è possibile calcolare il tipo di ritorno? 
-Se non ha svolto nessun esame non posso restirure un reale tra 18 e 30, 
-potrei mettere il vincolo \[0..1] ma non esendoci devo avere una pre-condizione in cui mi dice che lo studente deve aver fatto almeno un esame. 
-Devo dire, l'oggetto di invocazione(self in python) detto this deve essere coinvolto in almerno un link dell'associazione esame che ha abbia un vlaore per l'attributo data non successivo al vlaore `d` precedente a quella presa in input dall'operazione.
+Bisogna chiedersi quali possono essere dei  casi in cui non è possibile calcolare il tipo di ritorno? 
+Se lo studente non ha svolto nessun esame, allora  non è possibile restirure un reale tra 18 e 30, 
+per risolvere questo problema si potrebbe applicare il vincolo \[0..1], però non essendoci devo avere una pre-condizione in cui mi dice che lo studente deve aver fatto almeno un esame. 
+Devo dire, l'oggetto di invocazione(self in python) detto "this" deve essere coinvolto in almeno un link dell'associazione esame che ha abbia un valore per l'attributo data non successivo al valore `d` precedente a quella presa in input dall'operazione.
 Se vedo che lo studente ha sostenuto un esame prima della data d posso clacolare il voto dell'esame.
 Dico come è fatto il risultato non come calcolarlo perché è dichiarativa concettuale. 
 Questa operazione modifica i dati? No perchè non crea nuovi dati nel sistema quindi non modifica il livello estensionale.

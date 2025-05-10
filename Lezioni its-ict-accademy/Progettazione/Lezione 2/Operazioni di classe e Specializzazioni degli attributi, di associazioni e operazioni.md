@@ -145,19 +145,48 @@ Immaginiamo di dover progettare un sistema informativo che tenga traccia degli a
 - Gli articoli nuovi devono essere venduti da almeno due venditori professionali.
 ![[Specializzazione_associazioni1.png]]
 
-Un aritcolo in vendita è venduta esattamente da un utente (1..1 vicino a utente), ma un articlo in vendita può essere un articolo nuovo come un utente può essere messo in vendita da un venditore professionale.
-Tutti i link vend_nuovo sono anche venditore, non è vero il contrario perché se un articolo in vendita non è un articolo nuovo e l'utente non è venditore professionale allora il link nopn è più valido.
-Riprendeod l'esempio di azienda1:
-![[Screenshot 2025-04-29 at 12-30-13 Slide A.1 - Analisi dei requisiti mediante UML - BD2 - Slide A.1 - Analisi dei requisiti mediante UML - BD2.pdf.png]]
+In questo diagramma stiamo dicendo che: 
+Un articolo in vendita è venduto esattamente da un utente (`1..1` vicino a utente), ma un articolo in vendita può essere anche un articolo nuovo, come un utente può essere anche un venditore professionale che a sua volta può vendere da 0 a più articoli nuovi (guarda il vincolo `0..*` ) e un articolo nuovo è venduto esattamente da un venditore professionale (`1..1` vicino a venditore).
+Tutti i collegamenti `vend_nuovo` sono anche validi come collegamenti `venditore`, perché coinvolgono istanze di classi figlie (`ArticoloNuovo` ⊆ ([[Generalizzazioni#^is-aDef|is-a]]) `ArticoloInVendita`, `VenditoreProfessionale` ⊆ (is-a) `Utente`). Tuttavia, **non vale il contrario**: non tutti i collegamenti `venditore` sono anche `vend_nuovo`, perché potrebbero coinvolgere un `ArticoloInVendita` che non è un `ArticoloNuovo` o un `Utente` che non è un `VenditoreProfessionale`.
+Per spiegare meglio questo concetto riprendiamo  l'esempio di [[Esercitazione Azienda 1|Azienda 1]]:
+In quell'esercitazione si è dovuto creare due classi diverse, una `Impiegato` e l'altra `Direttore`, la prima che aveva una associazione di nome `afferisce` con la classe `Dipartimento` e l'altra una associazione di nome `dirige` sempre con la classe `Dipartimento`. 
+Questa ridondanza può essere risolta grazie alla specializzazione di associazioni:
+![[secondoesempio di specializzazione delle associazioni.png]]
 
-In questo caso sto dicendo che se un impiegato dirige un dipartiemto allora vi afferisce anche, quindi io posso essere un impiegato che afferisce e basta ma posso essere anche un impieghato che lo dirige e quindi vi afferisce.
-QUi un dipartiemento in questo caso quanto impiegati afferiscono?
-A sinistra dico che il dipartiemento è afferito da 0 a più impiegati pero c'è almeno un mipiegato che lo dirige e quindi vi afferisce anche.
-Quini lo 0 to star diventa fuorviante, infatti in questo caso bisogna stare attenti con i vincoli, infatti a sinistra dovrei mettere 1..* oppure a destra 0..1.
-La questione è spinosa:
-il diagramma degli articoli dice che:
-un articolo nuovo è venduta da quanti utenti viene venduto? 
-C'è l'articolo a che è istnaza di nuovo, c'è utente1 che istsnza di utente e utente2 che è istnaza di utente e l'istanza di vpi che è istanza di venditore Professionale, 
+Con questo diagramma stiamo dicendo che:
+se un `Impiegato` dirige un dipartimento allora vi afferisce anche, quindi si può essere un impiegato che afferisce a un dipartimento ma non lo dirige, come si può essere anche un impiegato che  dirige il dipartimento e quindi vi afferisce.
+In un dipartimento, in questo caso, quanto impiegati afferiscono?
+Leggiamo il diagramma da sinistra verso destra:
+ il dipartimento può avere da 0 a più impiegati che vi afferiscono (`0..*`) e un impiegato può afferire almeno ad un solo dipartimento (`1..1`), pero c'è almeno un impiegato che  dirige il dipartimento (`0..1`) come il dipartimento può essere diretto da solo un impiegato (`1..1`) che tra l'altro vi afferisce anche.
+ Infatti, come per l'esempio sopra, una association class, in quanto classe, può anche essere radice di relazioni is-a e generalizzazioni.
+Difatti in questo diagramma lo 0 to star diventa fuorviante perché:
+la molteplicità `0..*` suggerisce che un dipartimento può avere anche zero impiegati che vi afferiscono.
+Ma..
+>==Se un dipartimento è diretto da qualcuno (`dirige` con `1..1` sull'impiegato), e chi dirige **vi afferisce per forza**, allora il dipartimento **ha almeno un impiegato** (ovvero quello che lo dirige).==
+
+Quindi **non è vero che il dipartimento può avere zero impiegati** in generale.
+Il vincolo `0..*` non tiene conto della specializzazione, cioè del fatto che **almeno uno (cioè il direttore) deve esserci se il dipartimento è diretto.**
+Va da sé che a questo punto bisogna cambiare la molteplicità sul lato della classe `Impiegato`, sulla associazione `afferenza`, che da `0..*` passa a `1..*`, questo significa dire:
+> "Ogni dipartimento ha **almeno un impiegato** che vi afferisce" (cioè il direttore)
+
+Questo riflette meglio il fatto che:
+
+- Se **nessuno afferisce**, **nessuno può dirigere** (dato che dirigere è una specializzazione di afferenza)
+    
+- Quindi un dipartimento diretto → ha **almeno uno** (il direttore) che afferisce
+
+![[Secondo esempio di specializzazione delle associazioni ammesso.png]]
+
+
+> [!ticket] Se una **sottoclasse di un'associazione implica la presenza nella classe madre**, i vincoli devono riflettere anche quel legame implicito, altrimenti diventano **fuorvianti**.
+
+Ora che abbiamo appreso questa consapevolezza torniamo al [[Specializzazione_associazioni1.png|diagramma della classi degli articoli in vendita]]:
+
+Per risolvere questo problema bisogna porci la domanda: un articolo nuovo è venduta da quanti utenti ? 
+Immaginiamo di avere più istanze:
+  - `a` a che è istanza di `ArticoloInVendita `.
+  - `utente1` e `utente2` che sono istanze di `Utente`.
+  -  `v1` e `v2` che sono istanze di `VenditoreProfessionale`.
 quindi l'oggetto a può essere venduto da esattamente solo vp1, tuttavia se ci fosse l'istanza vp2, quindi può esserci un nuovo link tra questa istanza e l'istanza di articolonuovo? 
 SI, perchè il vincolo 1..1 dice che articolo nuovo partecipa esatemmente a un link venditore nuovo ma articolo nuovo può particapera ad lameno un link venditore e quando partecuipa al link vendiotore il venditore può essere un utente e basta o un vendiotre, quindi è ammesso.
 Quindi se vend_nuovo lo scrivo come venditorepreferito volgio dire che un articolo viene venduto da un venditore preferito ma può essere venduto da latri utenti/venditori.
@@ -172,7 +201,7 @@ ho questi 5 oggetti, quali link posso creare?
 Succede solo esattamente solo un vendiotre professionale può essere il venditore preferito, quindi può essereci il link (a,v1): vend_preferito, ma non può esserci il link (a, v2):vend_preferito, ma v2 può essere un venditore perché è un vendiotre.
 Ma mettiamo che u1 metta in vendita l'articolo a, quindi pùò esserci il link (a, u1): venditore
 (a,u2):venditore 
-![[Screenshot 2025-05-05 at 15-17-35 Meet - bmb-xnne-ahh.png]]
+
 
 Un altor esempio di articolo fuorviante
 ![[Screenshot 2025-04-29 at 12-55-12 Slide A.1 - Analisi dei requisiti mediante UML - BD2 - Slide A.1 - Analisi dei requisiti mediante UML - BD2.pdf.png]]
