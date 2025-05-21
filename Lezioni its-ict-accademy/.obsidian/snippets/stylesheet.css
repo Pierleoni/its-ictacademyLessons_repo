@@ -8,6 +8,8 @@
     --table-oddText-color: black; 
 }
 
+
+/* Questo blocco è decide il margine e il padding del file di obsidian */
 body {
     margin: 0;
     padding: 0; 
@@ -22,15 +24,26 @@ h5,
 h6 {
     text-align: center;
 }
-
+/* Colora di rosso i primi 3 header */
 h1,h2, h3 {
     color: red !important;
 }
 
+/* Colora di arancione il quarto header */
 h4 {
     color: rgb(194, 78, 16) !important;
 }
 
+
+/* Evidenziazione in grassetto sia nell'editor che nel preview */
+mark,
+.cm-highlight {
+    font-weight: bold !important;
+}
+
+
+
+/* Questo blocco setta lo stile per le tabelle su obsidian */
 table,
 tr,
 td,
@@ -40,6 +53,30 @@ th {
     padding: 0px;
     
 }
+
+
+/* Stile per le intestazioni della tabella */
+
+th {
+    background-color: var(--table-header-bg-color) !important; /* Red background */
+    color: var(--table-header-text-color) !important; /* Black text */
+}
+
+/* Stile per le righe dispari della tabella */
+
+tr:nth-child(odd) {
+    background-color: var(--table-odd-row-bg-color) !important; /* background color */
+    color: var(--table-oddText-color) !important ; /* Black text */
+}
+
+/* Assicura che il testo delle celle sia nero per le righe dispari */
+
+table tr:nth-child(odd) td {
+    /* Black text for odd rows */
+    color: var(--table-oddText-color) !important; 
+}
+
+
 
 /* Per allineare le immagini */
 img[alt*="left"] {
@@ -94,26 +131,7 @@ img [alt*= "bottom-left"]{
     bottom: 0;
     left: 0;
 }
-/* Stile per le intestazioni della tabella */
 
-th {
-    background-color: var(--table-header-bg-color) !important; /* Red background */
-    color: var(--table-header-text-color) !important; /* Black text */
-}
-
-/* Stile per le righe dispari della tabella */
-
-tr:nth-child(odd) {
-    background-color: var(--table-odd-row-bg-color) !important; /* background color */
-    color: var(--table-oddText-color) !important ; /* Black text */
-}
-
-/* Assicurati che il testo delle celle sia nero per le righe dispari */
-
-table tr:nth-child(odd) td {
-    /* Black text for odd rows */
-    color: var(--table-oddText-color) !important; 
-}
 /* Per il codice inline */
 span.cm-inline-code {
     background-color: rgb(54, 47, 47) !important; 

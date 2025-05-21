@@ -266,7 +266,8 @@ m: set = {"ciao",1,1,1,1}
 print(m)  
 >>> {ciao, 1}
 ```
-Quando stampi o osservi gli elementi di un set, **l'ordine potrebbe sembrare casuale**, ma non lo è realmente. Python utilizza una struttura chiamata **hash table** per gestire i set. 
+Quando stampi o osservi gli elementi di un set, **l'ordine potrebbe sembrare casuale**, ma non lo è realmente. 
+Python utilizza una struttura chiamata **hash table** per gestire i set. 
 ==Gli elementi sono archiviati in base al loro **hash**, che è una funzione che calcola un valore numerico unico per ciascun elemento.== 
 **Hash e memoria**:
 - ==La posizione degli elementi in un set dipende dall'hash e dall'implementazione interna di Python, che varia anche a seconda della memoria disponibile o della versione di Python.== 
@@ -289,6 +290,7 @@ Quando stampi o osservi gli elementi di un set, **l'ordine potrebbe sembrare cas
 > ```
 > Questo torna utile se devi fare il parsing dei siti web.
 
+### Hash
 Tornando al concetto di **hasher:**
 ==Un **hasher** è una funzione che calcola un valore numerico (hash) per un oggetto.==
 ==Gli hasher sono dei numeri che vengono generati, sono una funzione che prende in input un elemento e restituisce un numero,== le liste non sono "hashable" perché sono un tipo di strutture dati mutabili(cioè i loro contenuti possono essere modificati).
@@ -424,7 +426,7 @@ print(z)  # Output: {4, 5}
 
 ---
 
-# I dictionaries 
+## I dictionaries 
 ==Sono una collezione **non ordinata** di **coppie chiave-valore**.== 
 ==Ogni elemento del dizionario è costituito da una **chiave unica** (un oggetto immutabile) e un **valore** che può essere di qualsiasi tipo di dato==.   ^definizione-dict
 
@@ -485,6 +487,8 @@ m:dict={"key1": 1}
 m["key"] = [1,2,3]
 ```
 ==Inoltre si possono inserire delle liste all'interno del dizionario==.
+
+
 La ricerca tramite hash e per trovare valori all'interno del dizionario in maniera rapida.
 Devo trovare dei valori dentro una lista disordinata, come si fa?
 Da un punto di vista astratto per trovare un valore, devo scorrere tutti gli elementi.
@@ -574,7 +578,7 @@ In questo caso si usa il log in basa due per nel caso della ricerca binaria divi
 >- **Ricerca Binaria (O(log n))**: 
 >  ==Per una lista ordinata, dividi la lista in due ogni volta. Il numero di operazioni cresce molto lentamente, anche per liste molto lunghe.== 
 
-
+#### Gli hasher nei dizionari
 Tutto questo discorso è per dire che i dizionari sono molto efficienti se si vuole trovare un valore, questo perché le chiavi sono hashabili.
 Tornando al dizionario di prima:
 ```python
@@ -585,7 +589,7 @@ Nel dizionario, ==**le chiavi devono essere hashabili**, mentre **i valori posso
   Questo è necessario perché i dizionari usano tabelle hash per organizzare e recuperare i valori associati alle chiavi.
 - **I ==valori**, invece, **non devono essere hashabili**==. 
   Di conseguenza possono essere di qualsiasi tipo, incluso oggetti mutabili come liste o dizionari.
-Per valore hashabile si inrtende: le funzione di hasher (f(x)). 
+Per valore hashabile si inrtende: le funzione di hasher (`f(x)`). 
 Un oggetto è hashabile quando:
 - Ha un valore hash immutabile, calcolabile tramite la funzione integrata `hash()`.
 - Può essere usato come chiave in un dizionario o elemento di un set.

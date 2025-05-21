@@ -825,10 +825,12 @@ print(f"Persone create: {Persona.conteggio_persone}")  # Output: 2
 ```
 
 #### La differenza tra `cls` e `self`:
-- `self` permette di accedere **solo** agli attributi legati all'**istanza**.
-    
-- `cls` permette di accedere **solo** agli attributi legati alla **classe**.
-    
+- `self`: 
+  ==permette di accedere **solo** agli attributi legati all'**istanza**.==   
+     ^040c50
+- `cls`: 
+  ==permette di accedere **solo** agli attributi legati alla **classe**.==  
+     ^4932bb
 - Non è possibile accedere a un attributo definito con `self` usando `cls`:  
     se provi a farlo, otterrai un **errore** perché l'attributo è definito solo **nell'istanza** e non nella **classe**.
 
@@ -928,3 +930,508 @@ In questo caso:
 > - Quando vuoi **modellare un oggetto che si comporta come una funzione**.
  >   
 >- Quando desideri **salvare uno stato interno** (attributi) e allo stesso tempo permettere la chiamata diretta con `()`.
+
+
+### Il metodo `__new__(cls[,...])`
+
+==Viene chiamato prima di `__init__()`, ed è usato per creare l'oggetto==. 
+Serve soprattutto quando:
+- ==Si estende **classi immutabili (`int`, `str`, `tuple`, etc.)**==
+- ==Si ha la necessità di **controllare o personalizzare l'istanza prima della creazione.**==
+Infatti questo metodo viene chiamato per creare una **nuova istanza** della classe (`cls`).
+Questo **metodo è statico**, difatti Python lo gestisce in modo speciale, quindi non serve dichiararlo come tale.
+È il metodo statico della classe che crea l'oggetto e restituisce un istanza della classe appena creata, di defualt la classe `__new__()` invoca l'istazna della classe invocando il new della superclasse.
+La superclasse di ogni Classe in Python è la classe `Object`, ed è il motivo per cui il metodo `__new__()` funziona: ogni volta che si invoca la superclasse di una classe che non specifica apertamente la superclasse Python riporta che l'ereditarietà arriva dalla classe Object.
+```run-python
+from beartype import beartype
+from typing import Self
+class Persona(object):
+	nome:str
+	cognome:str
+	def __new__(cls)->Self:
+		return super().__new__(cls)
+	def __init__(self,name)->None:
+		self.nome = nome
+	def fun(self, cognome):
+		self.cognome
+
+if __name__ == '__main__':
+	persona = Persona("Alice")
+	print(type(Persona))
+	print("Superclasse di Persona:" + str(Persona.mro()[-1]))
+```
+
+mro: è l'ordine di risoluzione dei metodi che cerca prima quel metodo o quei metodi nelle sottoclassi, per poi risalire la gerarchia fino alla superclasse. 
+Una buona pratica è quella di definire gli attributi fuori dall' `__init__()` e poi inizializzarli nell'`__init__()`.
+Questo perché se si avesse una classe con 10 attributi vengono definiti prima e quindi il codice sarebbe più ordinato e leggibile.
+
+BearType: cosa fa? se lancio questo modulo annotando la funzione beartype mi controlla i tipi.
+#### Sintassi del metodo `__new__(cls[,...])`
+Come primo argomento prende la classe da cui si vuole creare l'istanza([[#^4932bb|`cls`]]), e gli altri argomenti sono quelli che vengono passati nel momento in cui si invoca il costruttore (cioè quando si scrive `Classe(...)`).
+==Questo metodo restituisce una nuova istanza dell'oggetto (di solito è un'istanza `cls`)==.
+
+L'implementazione tipica di questo metodo è la seguente:
+Supponiamo di voler creare una sottoclasse di `str` che forza tutto in maiuscolo, e lo facciamo tramite il metodo `__new__()`.
+```run-python
+class UpperStr(str):
+    def __new__(cls, value):
+        print(f"__new__ ricevuto: {value}")
+        # Creiamo una nuova istanza usando la superclasse str
+        instance = super().__new__(cls, value.upper())  # <-- Ecco l'uso esplicito con parametro
+        print(f"__new__ restituisce: {instance}")
+        return instance
+
+    def __init__(self, value):
+        print(f"__init__ chiamato con: {value}")
+
+
+s = UpperStr("ciao")
+print(s)           # Output: CIAO
+print(type(s))     # <class '__main__.UpperStr'>
+
+```
+
+**Spiegazione:**
+- `super().__new__(cls, value.upper())`: 
+  chiama `str.__new__()` passando il valore già modificato.
+    
+- `UpperStr("ciao")`: 
+  creerà un oggetto `str` con valore `"CIAO"` e lo restituirà.
+    
+- `__init__()`:
+   viene comunque chiamato dopo con il valore originale `"ciao"`.
+
+
+
+
+Come detto prima questo approccio è necessario con classi immutabili (`str`, `int`, `tuple`, etc.), perché `__init__()` non può modificarle (ma solo inizializzare i valori degli attributi), di conseguenza ogni modifica deve essere fatta in `__new__()`.
+
+Se `__new__()` restituisce un’istanza di `cls` (cioè della stessa classe per cui è stato chiamato il costruttore), allora `__init__()` verrà automaticamente invocato per inizializzarla.  
+Se invece `__new__()` restituisce un oggetto di un tipo diverso, allora `__init__()` **non verrà chiamato**, poiché Python presume che l’oggetto sia già pronto all’uso.
+
+
+#### Esempio pratico: 
+
+```run-python
+class MyInt(int):
+    def __new__(cls, value):
+        print("Sto creando un MyInt con valore", value)
+        # Raddoppia sempre il valore dato
+        return super().__new__(cls, value * 2)
+
+a = MyInt(3)
+print(a)  # Output: 6
+
+```
+
+
+> [!NOTE] **Nota**
+> `__new__()` deve sempre restituire l'istanza solitamente chiamando `super().__new__(cls,...)`
+
+
+
+> [!example] **In sintesi: `__new__(cls[,...])`**
+> - È usato comunemente per creare istanze di tipi immutabili (come ad esempio `int`, `str`, `tuple`), al fine di personalizzare la creazione.
+> 
+> - Viene anche sovrascritto nei metaclassi per personalizzare la creazione delle classi
+> 
+
+
+
+> [!caution] **Differenza tra il metodo `__new__()` e il metodo `__init__()`**
+>1.  `__new__(cls,...)`:
+> 	- È responsabile della creazione vera e propria dell'oggetto.
+> 	- Riceve `cls`, cioè la classe da cui si vuole creare l'oggetto. 
+> 	- Ritorna l'oggetto creato (tipicamente si scrive `return super().__new()__(cls)`)
+> 	- È utile per classi immutabili, dove non puoi modificare l'oggetto dopo la creazione (es: `int`, `str`, `tuple` )
+> 
+> 
+> 2. `__init__(self,...)`:
+> 	  - viene chiamato dopo che l'oggetto è stato creato da `__new__()`.
+> 	  - Inizializza l'oggetto appena creato, impostando i suoi attributi.
+> 	  - Agisce sull'istanza, quindi usa [[#^040c50|`self`]] 
+> > [!done] **In altre parole:**
+> > 🔹 `__new__()`:
+> >  ==**crea** l’oggetto, è usato soprattutto per controllare la creazione (es. classi immutabili).==  
+>>🔹 `__init__()`:
+>> ==**inizializza** l’oggetto creato, settando gli **attributi dell’istanza**.==
+>
+>
+>> [!example] **In sintesi** 
+>> - **`__new__()`**  
+ >>   ==Viene chiamato **prima** di `__init__()` e serve a **creare l’oggetto della classe**.==  
+ >>   È particolarmente utile quando si lavora con **classi immutabili** (`str`, `int`, `tuple`, ecc.), ==perché permette di **modificare i dati prima della creazione vera e propria** dell’oggetto.==  
+ >>   ==Restituisce l’istanza appena creata (di solito usando `super().__new__(cls, ...)`).==
+  >>  
+>>- **`__init__()`**  
+ >>   ==Viene chiamato **dopo** che l’oggetto è stato creato, e serve a **inizializzare l’istanza**, cioè a **settare gli attributi** tramite `self`.==  
+ >>   Non può modificare l’oggetto già creato, solo inizializzarlo.
+
+
+### Il metodo `__eq__(self, other)`
+
+Questo metodo appartiene ai cosiddetti metodi di confronto "ricchi" o rich comparison (`__ne__`, `__gt__`, `__ge__`, etc.). 
+Per intenderci i normali [[Gli Operatori#Lista operatori di confronto|operatori di confronto]] (=\=, `!=`, `<`, `<=`, `>`, `>=`) corrispondono a metodi speciali:
+
+| Operatore | Metodo Chiamato |
+| :-------: | :-------------: |
+|  `x < y`  |  `x.__It__(y)`  |
+| `x <= y`  |  `x.__le__(y)`  |
+| `x == y`  |  `x.__eq__(y)`  |
+| `x != y`  |  `x.__ne__(y)`  |
+|  `x > y`  |  `x.__gt__(y)`  |
+| `x >= y`  |  `x.__ge__(y)`  |
+
+- Questi metodi possono restituire:
+    
+    - ==`True` o `False` per un confronto riuscito,==
+        
+    - ==oppure lo speciale valore `NotImplemented` se il confronto non è supportato tra i due oggetti.==
+        
+- Se usati in un contesto booleano (es. `if x == y:`), Python applica automaticamente `bool()` al risultato
+Come possiamo vedere da questa tabella sopra il metodo `__eq__()` confronta l'identità (cioè `x is y`) e restituisce `True` solo se sono lo stesso **oggetto in memoria.** 
+
+#### A cosa serve `__eq__(self, other)`
+==Definisce quando due oggetti sono uguali== (=\=).
+
+Se **non** viene definito, Python utilizza il comportamento predefinito della classe base `object`, che è equivalente a `x is y` (cioè verifica se sono lo stesso oggetto in memoria).
+
+Ma se si vuole confrontare **i contenuti** degli oggetti, puoi ridefinire `__eq__()` per specificare tu cosa significa "uguale".
+
+```
+from beartype import beartype
+from typing import Self
+class Persona(object):
+	nome:str
+	cognome:str
+	def __new__(cls)->Self:
+		return super().__new__(cls)
+	def __init__(self,name)->None:
+		self.nome = nome
+	def fun(self, cognome):
+		self.cognome
+
+if __name__ == '__main__':
+	alice1: Persona = Persona("Alice")
+	print(type(alice1))
+	print("Superclasse di Persona:" + str(Persona.mro()[-1]))
+	alice2:Persona = Persona ("Alice")
+```
+In questo modo restituisce false se dico che alice1 e alice2 sono la stessa Persona:
+```run-python
+from beartype import beartype
+from typing import Self, Any
+class Persona(object):
+	nome:str
+	cognome:str
+	def __new__(cls)->Self:
+		return super().__new__(cls)
+	def __init__(self,name)->None:
+		self.nome = nome
+	def __eq__(self, other:Any):
+		if not isinstance(other, Persona ):  #o type(self) al posto di Persona
+		return False
+	return self.nome ==other.name
+
+if __name__ == '__main__':
+	alice1: Persona = Persona("Alice")
+	print(type(alice1))
+	print("Superclasse di Persona:" + str(Persona.mro()[-1]))
+	alice2:Persona = Persona ("Alice")
+```
+
+In questo caso due persone sono la stessa Persona, questa cosa non è sempre vera, dipende da come gestiamo l'uguaglianza:
+```
+from beartype import beartype
+from typing import Self, Any
+class Persona(object):
+	nome:str
+	cognome:str
+	def __new__(cls)->Self:
+		return super().__new__(cls)
+	def __init__(self,name)->None:
+		self.nome = nome
+	def __eq__(self, other:Any):
+		if not isinstance(other, Persona ):  #o type(self) al posto di Persona
+		return False
+	return self.nome ==other.name
+
+if __name__ == '__main__':
+	alice1: Persona = Persona("Alice")
+	print(type(alice1))
+	print("Superclasse di Persona:" + str(Persona.mro()[-1]))
+	alice2:Persona = Persona ("Alice")
+
+bob:Persona = Persona("bob")
+
+l:list[Persona] = ["alice1", "bob", "alice2"]
+l: list[Persona] = ["alice1", "bob"]
+alice2 in l
+```
+Uscira true perchè cerca ogni istanza di alice quindi definisce l'ugaglianza tra i due elementi delle due liste alice1. 
+Ovviamente non posso farlo con i dizionari perché le chiavi sono hashabili.
+##### Esempio pratico
+```run-python
+class Persona:
+    def __init__(self, nome, eta):
+        self.nome = nome
+        self.eta = eta
+
+    def __eq__(self, other):
+        if isinstance(other, Persona):
+            return (self.nome == other.nome) and (self.eta == other.eta)
+        return NotImplemented
+
+a = Persona("Mario", 30)
+b = Persona("Mario", 30)
+c = Persona("Luigi", 25)
+
+print(a == b)  # True
+print(a == c)  # False
+
+```
+
+#### Sintassi di `__eq__(self, other)`
+
+1. `self`:
+	  - ==È il riferimento all'**istanza corrente** della classe (quella a sinistra dell'operatore =\=).==
+    
+	- Permette di accedere agli attributi dell'oggetto creati con `__init__`.
+	
+	**esempio:**
+```python
+a = Persona("Mario", 30)
+```
+In questo esempio `a == b`; il `self` sarà l'oggetto `a`. 
+
+
+2. `other`:
+	==Questo parametro va ad indicare l'oggetto con cui si confronta `self`. Quindi è quello a destra del \==`.== 
+	Può essere oggetto della stessa classe oppure **di un'altra classe o tipo.**
+
+	Nel metodo `__eq__`, si controlla quasi sempre prima se `other` è della classe usando `isinstance()`:
+```run-python
+def __eq__(self, other):
+    if isinstance(other, Persona):
+        return self.nome == other.nome and self.eta == other.eta
+    return NotImplemented
+
+```
+
+In questo esempio:
+
+- `self` è l'oggetto `a`
+    
+- `other` è l'oggetto `b` nel confronto `a == b`
+
+
+> [!info] **Perché serve `other`?**
+> Serve per **prendere i suoi attributi** e confrontarli con quelli di `self`.
+>
+> È come dire: “Se `other` è un’altra Persona, vediamo se ha lo stesso nome e la stessa età di me (`self`).”
+> > [!example] **Visualizzazione**
+> > Nel confronto `a == b`, Python esegue internamente:
+>>```python
+> > a.__eq__(b)  # self = a, other = b
+>>```
+
+Io in questo cao posso personalizzare l'istanza ad esempio se due Persone hanno lo stesso codice fiscale io posso fare in modo che siano la stessa Persona.
+### La funzione `__hash__(self)` 
+==Una funzione hash prende cose all'intenro di un domino qualsiasi e restituisce un codice==.
+In python una funzione hash prende cose e ritorna un intero.
+La lista non hashable perché una lista è mutabile.
+L 'hash' è uguale per oggetto equivlanti, però puo essere che ci siano cose diverse che hanno lo stesso hash, questa cosa si cihama collisione.
+Quindi l'hash è limitato è finito, infatti ci sono stringhe divesre con lo stesso hash.
+Con numeri piccoli di hash posso avere più collisioni, con numeri grnadi o meno possibilità di collisione.
+Le funzioni hash sono dette anche one-way function: perché
+
+> `__hash__(self)` 
+
+- È il metodo speciale chiamato dalla funzione incorporata `hash(obj)` da operazioni su **collezioni indicizzate tramite hash** come [[Collections#I set|`set`]], `frozenset` e [[Collections#I dictionaries|`dict`]]. 
+    
+- Deve restituire un **intero**.
+In sostanza: ==serve per rendere un oggetto utilizzabile, come chiave nei dizionari o nei set, calcolando un valore numerico; ovvero l'hash== (per vedere cos'è un hash vedi la lezione sulle [[Collections]], in particolare i capitoli [[Collections#Hash|Hash]] e [[Collections#Gli hasher nei dizionari|Gli hasher nei dizionari]]).
+Infatti il requisito fondamentale per questo metodo è:
+==Se due oggetti sono uguali (`x == y` restituisce `True`), devono avere lo **stesso valore di hash**==.
+Hash prende un singolo parametro.
+
+
+
+> [!hint] Per oggetti personalizzati, puoi costruire l'hash **combinando i valori dei componenti** usati anche per l'uguaglianza:
+> 
+>```python
+> def __hash__(self):
+ >   return hash((self.name, self.nick, self.color))
+>
+>```
+>
+>Infatti in quesgo caso si sta mettendo tre valori dentro una tupla perchè cosi è comme se si stesse mettendo un solo valore
+>
+>> [!info]- Maggiori informazioni sul metodo `__hash__()`
+>> - `hash()` tronca il valore secondo l'architettura (64 bit o 32 bit).
+  >>  
+>>- Per garantire compatibilità tra diverse piattaforme, verifica la larghezza con:
+>>  
+>>```
+>>  python -c "import sys; print(sys.hash_info.width)"
+>>```
+>>  
+
+#### Regole sull'implementazione:
+
+- ==Se una classe **non definisce `__eq__()`**, non dovrebbe definire `__hash__()`!==
+  Se la classe a sia `__hash__()` che `__eq__()` vuol dire che l'oggetto è immutabile
+    
+- Se una classe **definisce `__eq__()` ma non `__hash__()`**, Python disabilita automaticamente l’hash: ==le istanze **non potranno essere usate come chiavi nei dizionari o elementi nei set**==.
+    
+- ==Se una classe **è mutabile** e definisce `__eq__()`, **non deve definire `__hash__()`**, per evitare comportamenti incoerenti nelle collezioni hashabili==.
+
+> [!caution] ==Se si definisce `__eq__()`, si deve anche definire `__hash__()` **per mantenere la coerenza**: oggetti considerati uguali devono avere lo stesso hash.== 
+>
+
+Una collezione hashable è una collezzione che usa l'hash, i dizionari usa l'hash di quella chiave (viene detto hash map).
+Esistono librerie che calcolano l'hash, perché ogni volta che lanciamo python l'hash sarà diverso mentre con delle libreire esterne il numero di hash sarà sempre lo stesso.
+Quindi non devo usare il built-in hash di Python, meglio usare `hashlib`, perchè questa libreria restituice un codice hash sempre uguale.
+```
+from beartype import beartype
+from typing import Self, Any
+class Persona(object):
+	nome:str
+	cf:str
+	def __new__(cls)->Self:
+		return super().__new__(cls)
+	def __init__(self,name)->None:
+		self.nome = nome
+	def __eq__(self, other:Any):
+		if not isinstance(other, Persona ):  #o type(self) al posto di Persona
+		return False
+	return self.cf ==other.cf
+
+	def __hash__(self):
+		return hash(self.cf)
+	def __repr__(self):
+		return f"Persona {self.cf} e nome: {self.nome}
+
+if __name__ == '__main__':
+	alice1: Persona = Persona("Alice")
+	print(type(alice1))
+	print("Superclasse di Persona:" + str(Persona.mro()[-1]))
+	alice2:Persona = Persona (nome:"Alice", cf: "AA")
+
+bob:Persona = Persona("bob")
+
+l:list[Persona] = ["alice1", "bob", "alice2"]
+l: list[Persona] = ["alice1", "bob"]
+alice2 in l
+```
+
+
+#### Esempi pratici del metodo `__hash__(self)`
+```run-python
+class Cat:
+    def __init__(self, name, color):
+        self.name = name
+        self.color = color
+
+    def __eq__(self, other):
+        if not isinstance(other, Cat):
+            return NotImplemented
+        return self.name == other.name and self.color == other.color
+
+    def __hash__(self):
+        return hash((self.name, self.color))  # Combinazione immutabile
+
+c1 = Cat("Milo", "black")
+c2 = Cat("Milo", "black")
+c3 = Cat("Luna", "white")
+
+print(c1 == c2)  # True
+print(hash(c1), hash(c2))  # Uguali
+print({c1, c2, c3})  # Solo 2 oggetti diversi nel set
+
+```
+
+**Spiegazione:**
+- `__eq__()` confronta due oggetti `Cat` in base a **name e color**.
+    
+- `__hash__()` calcola un hash basato su una **tupla immutabile** `(self.name, self.color)`. Usare una tupla è una buona pratica perché:
+    
+    - Le tuple sono immutabili ⇒ l’hash non cambia nel tempo.
+        
+    - Il risultato è coerente con `__eq__()`: due oggetti uguali → stesso hash.
+
+
+#### Esempio problematico
+```run-python
+class Dog:
+    def __init__(self, name):
+        self.name = name
+
+    def __eq__(self, other):
+        return self.name == other.name
+
+    def __hash__(self):
+        return hash(self.name)  # ⚠️ Potenziale problema se 'name' cambia
+
+d = Dog("Rex")
+s = {d}
+d.name = "Fido"
+print(d in s)  # ⚠️ False: l'hash è cambiato! Rende il set inconsistente
+
+```
+
+**Spiegazione:**
+- `_eq__()` confronta solo il `name`.
+    
+- `__hash__()` usa `self.name`, che è **modificabile** dopo la creazione dell’oggetto.
+    
+- Questo può portare a **comportamenti incoerenti** nelle collezioni hash-based.
+-  Quando `d` è stato aggiunto al set, l’hash era basato su `"Rex"`.
+    
+- Dopo aver cambiato `name`, il valore dell’hash cambia.
+    
+- Quando il set prova a cercare `d`, calcola un nuovo hash (per `"Fido"`) → non trova l’oggetto → `in` restituisce `False`.
+
+
+#### Esempio pratico: Python disabilita automaticamente `__hash__()` se definisci solo `__eq__()`
+```run-python
+class Person:
+    def __init__(self, name):
+        self.name = name
+
+    def __eq__(self, other):
+        return isinstance(other, Person) and self.name == other.name
+
+p1 = Person("Alice")
+p2 = Person("Alice")
+
+print(p1 == p2)  # True: __eq__ funziona
+print(hash(p1))  # TypeError!
+
+```
+
+**Spiegazione:**
+La classe `Person` **ha `__eq__()`**, ma **non ha `__hash__()`**.
+L'errore in output viene generato perché 
+- ==Python **presume che se stai confrontando oggetti con `__eq__()`**, allora vuoi che il confronto abbia un significato logico (non solo l'identità)==.
+    
+- Ma se non definisci anche `__hash__()`, Python **protegge la coerenza** tra =\= e `hash()` disabilitandolo del tutto:
+    
+    > "Oggetti uguali devono avere lo stesso hash. Se non puoi garantirlo, non ti lascio usare hash."
+    
+Quindi `__hash__()` viene definito dal programmatore stesso quando si è sicuri he l’oggetto sia immutabile o che l’hash sia stabile:
+```run-python
+class Person:
+    def __init__(self, name):
+        self.name = name
+
+    def __eq__(self, other):
+        return isinstance(other, Person) and self.name == other.name
+
+    def __hash__(self):
+        return hash(self.name)
+
+p1 = Person("Alice")
+print(hash(p1))  # OK!
+```
+

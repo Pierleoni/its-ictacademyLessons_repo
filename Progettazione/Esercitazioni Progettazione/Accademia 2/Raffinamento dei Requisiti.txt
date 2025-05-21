@@ -1,0 +1,50 @@
+Accademia 2 - Raffinamento dei Requisiti
+
+1. Dei docenti interessa:
+	1.1 nome (Stringa) 
+	1.2 cognome (Stringa)
+	1.3 luogo di nascita (v. req. 5)
+	1.4 Data di nascita
+	1.5 il numero di matricola (univoco)
+	1.6 posizione universitaria (ricercatore, professore associato, professore ordinario,etc.)
+	1.7 progetti a cui partecipa (v. req. 2)
+
+2. Dei progetti interessa: 
+	2.1 nome (Stringa)
+	2.2 acronimo (Stringa)
+	2.3 data di inizio
+		2.3.1 la durata in giorni (calcolabile)
+	2.4 data di fine 
+		2.4.1 v. req. 2.3.1
+	2.5 il numero di docenti che vi partecipano (v. req.1) (calcolabile)
+
+
+
+3. Dei Work Package interessa:
+	3.1 progetto (v. req. 2)
+	3.2 nome (Stringa)
+	3.3 periodo (Data di inizio e fine)
+		3.3.1 il periodo deve essere tra la data di inizio e quella di fine del progetto (v. req. 2.3.1) (calcolabile)
+	3.4 il progetto a cui fa riferimento (v. req. 2)
+
+4. Degli impegni interessa:
+	4.1 il docente (v. req. 1)
+	4.2 data
+	4.3 tipologia
+		4.3.1 assenza (p. es. chiusura univeristaria, malattia, etc.)
+		4.3.2 impegni istituzionali (p. es. didattica, ricerca, missione, etc.)
+		4.3.3 impegni progettuali (p. es. R&S, dimostrazione, etc.)
+	4.4 durata
+		4.4.1 per gli impegni di tipologia per malattia, 
+		4.4.2 per tutte le altre tipologie sono espresse in ore 
+
+
+
+5. Delle città interessa:
+	5.1 nome
+
+6. Della regione interessa:
+	6.1 nome
+
+7. Della nazione interessa:
+	7.1 nome

@@ -75,7 +75,7 @@ Le **wildcard** (o metacaratteri) nelle espressioni regolari sono: ==simboli spe
 	- "axyz",
 	- "a123xzc" 
 	In somma da `a` a qualsiasi carattere a `c`, cioè il match trova da qualsiasi carattere a partire da `a` a `c`.
-- `.+`: matcha da almeno uno a più caratteri qualsiasi.
+- `.+`: ==matcha da almeno uno a più caratteri qualsiasi==.
   Simile a `.*` ma **richiede almeno un carattere tra quelli specificati.**
   Esempio: se scriviamo a.+c matcha 
 	- "abc", 
@@ -93,7 +93,7 @@ Le **wildcard** (o metacaratteri) nelle espressioni regolari sono: ==simboli spe
 
 
 ### Operatori logici delle RegEx
-1. `|`(l'alternazione OR): matcha  l'espressione prima o l'espressione dopo o entrambe se scritte attaccate all'operatore.
+1. `|`(l'alternazione OR): ==matcha  l'espressione prima o l'espressione dopo o entrambe se scritte attaccate all'operatore==.
 
 > [!example]+ **Esempio**
 > - Se scriviamo `a|b`-> matcha "a" oppure "b".

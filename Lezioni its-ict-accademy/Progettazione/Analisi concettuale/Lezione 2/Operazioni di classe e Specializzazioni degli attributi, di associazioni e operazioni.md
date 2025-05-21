@@ -47,7 +47,7 @@ Le operazioni di classe, possiamo vederle come dei messaggi, a cui gli oggetti d
 Quindi seguendo l'immagine sopra tutti gli oggetti della classe `Studente` possono invocare il calcolo della media(`media_fino_a(d:Data):Reale in 18..30`).
 Infatti nell'immagine vediamo che l'oggetto `s` (istanza della classe `Studente`), oltre ad avere gli attributi `matricola` e `nome`, può invocare l’operazione per il calcolo della media. 
 Allo stesso modo, anche gli oggetti della classe `Corso` possono invocare l’operazione: `voto_medio():Reale in 18..30`.
-Da notare come il questa operazione non abbia il parametro (o il tipo di ritorno) in input, questo perché: 
+Da notare come il questa operazione non abbia il parametro (o il tipo di argomento) in input, questo perché: 
 `voto_medio` calcola la media dei voti degli esami relativi a quel corso, di conseguenza non ha un parametro esterno(o per meglio dire un tipo di argomento) come data o filtro, a differenza di `media_fino_a`, che calcola la media degli esami sostenuti _fino a una certa data_.
 In altre parole: `voto_medio()` usa **solo lo stato interno dell’oggetto `Corso`**, cioè la lista degli esami e i relativi voti. Per questo motivo **non ha bisogno di argomenti in input**: è un'operazione che lavora esclusivamente sui dati già contenuti all’interno dell’oggetto.
 
@@ -84,8 +84,9 @@ Quindi possiamo dire che:
 ==**La specializzazione di attributi, associazioni e operazioni** si verifica quando una **sottoclasse** ridefinisce o raffina un elemento della **superclasse** in modo da renderlo **più specifico**, **più vincolato** o **più dettagliato** rispetto alla definizione originale, mantenendo la compatibilità semantica con essa.== 
 Ciò può avvenire tramite:
 1. **[[#Specializzazione di attributi Esempio pratico|Attributi]]:** 
-   ==restringendo il tipo, il dominio di valori o i vincoli==
-Quindi un attributo specializzato in una sottoclasse può;
+   ==restringendo il tipo, il dominio di valori o i vincoli.==  ^445701
+
+Quindi un attributo specializzato in una sottoclasse può; 
 - avere un **tipo più specifico** (es. `Intero > 0` invece di `Intero`),
     
 - avere **vincoli più stringenti** (es. un range di valori più stretto),
@@ -110,9 +111,10 @@ Quindi un attributo specializzato in una sottoclasse può;
 > Nella superclasse `Lavoratore` è associato a `Azienda` con molteplicità `0..*`
 > Nella sottoclasse `Impiegato` è associato alla sottoclasse di `Azienda`, `AziendaPubblica`, con una molteplicità `1..1`
 
-3. Operazioni:
-   ==ridefinendo il comportamento, restringendo i parametri o il tipo di ritorno, o aggiungendo vincoli.== 
-   Quindi un operazione specializzata può:
+3. **[[#5dbd80 Specializzazioni di Operazioni di classe Esempio Pratico|Operazioni]]**:
+   ==ridefinendo il comportamento, restringendo i parametri o il tipo di ritorno, o aggiungendo vincoli.==  ^5dbd80
+
+   Quindi un operazione specializzata può: 
 - **ridefinire** l’implementazione nella sottoclasse (override).
     
 - **restringere il tipo di ritorno** (covarianza).
@@ -124,7 +126,7 @@ Quindi un attributo specializzato in una sottoclasse può;
 > Nella sottoclasse `ContoRisparmio`: `calcolo_interessi():Reale>0.5`
 
 
-### Specializzazione di attributi: Esempio pratico
+### [[#^445701|Specializzazione di attributi]]: Esempio pratico
 Immaginiamo un caso in cui si deve progettare un sistema che tenga traccia degli articoli in vendita:
 - Degli articoli in vendita vanno rappresentati: nome e numero di anni di garanzia (anche zero)
 -  Alcuni articoli sono nuovi
@@ -187,33 +189,145 @@ Immaginiamo di avere più istanze:
   - `a` a che è istanza di `ArticoloInVendita `.
   - `utente1` e `utente2` che sono istanze di `Utente`.
   -  `v1` e `v2` che sono istanze di `VenditoreProfessionale`.
-quindi l'oggetto a può essere venduto da esattamente solo vp1, tuttavia se ci fosse l'istanza vp2, quindi può esserci un nuovo link tra questa istanza e l'istanza di articolonuovo? 
-SI, perchè il vincolo 1..1 dice che articolo nuovo partecipa esatemmente a un link venditore nuovo ma articolo nuovo può particapera ad lameno un link venditore e quando partecuipa al link vendiotore il venditore può essere un utente e basta o un vendiotre, quindi è ammesso.
-Quindi se vend_nuovo lo scrivo come venditorepreferito volgio dire che un articolo viene venduto da un venditore preferito ma può essere venduto da latri utenti/venditori.
-![[Screenshot 2025-04-29 at 12-49-33 Meet - bmb-xnne-ahh.png]]
-Esiste articolo a:ArticoloNuovo, 
-creaimo 4 utenti:
-u1:Utente
-u2:Utente
-v1:VendProf
-v2:VendProf
-ho questi 5 oggetti, quali link posso creare?
-Succede solo esattamente solo un vendiotre professionale può essere il venditore preferito, quindi può essereci il link (a,v1): vend_preferito, ma non può esserci il link (a, v2):vend_preferito, ma v2 può essere un venditore perché è un vendiotre.
-Ma mettiamo che u1 metta in vendita l'articolo a, quindi pùò esserci il link (a, u1): venditore
-(a,u2):venditore 
+  ![[Diagramma Articolo_Risolto.png]]
+Nel contesto di questo nuovo diagramma abbiamo diverse relazioni:
+- Abbiamo una relazione `vend_nuovo` tra `ArticoloNuovo` e `VenditoreProfessionale`.
+- Questa relazione è una **specializzazione** della più generale `venditore`, che collega `ArticoloInVendita` a `Utente`.
+L'interpretazione semantica è:
+- Un istanza di `ArticoloNuovo` è un anche un istanza di `ArticoloInVendita`.
+    
+- Un istanza di  `VenditoreProfessionale` è anche un istanza di `Utente`.
+    
+- `vend_nuovo` è una **specializzazione** di `venditore`.
+
+Ciò significa che:  
+==**Se un `VenditoreProfessionale` vende un `ArticoloNuovo` tramite `vend_nuovo`, allora vende anche l’articolo tramite la relazione `venditore`**.==
+
+Tuttavia questo diagramma è fuorviante, per via delle molteplicità sulla relazione `venditore`:
+- `0..*` lato ArticoloInVendita
+    
+- `1..1` lato Utente
+Quindi **sembra** che un articolo possa essere venduto da **zero utenti**.
+Ma questa è **fuorviante**, per lo stesso motivo visto nel caso "impiegato-dipartimento":
+==Se un `ArticoloNuovo` è associato a un `VenditoreProfessionale` tramite `vend_nuovo`, allora **per forza** deve anche partecipare a `venditore`.==  
+==Dunque l’articolo è venduto da almeno **uno** (il venditore preferito).==
+==**Quindi dire che la molteplicità su `venditore` è `0..*` non è del tutto corretto.**== 
+
+Questo problema si può ovviare andando a modificare i vincoli di molteplicità; al fine di essere **semanticamente coerenti** con la specializzazione:
+la molteplicità sul lato di `ArticoloInVendita` nella relazione `venditore` dovrebbe essere **`1..*`**.
+Questo perché è come dire:
+=="Ogni articolo (nuovo o usato) è messo in vendita **da almeno uno o più utenti**”==
+Di conseguenza:
+==“Se è un articolo nuovo, allora è venduto da almeno un utente, e **uno di questi è anche venditore preferito (cioè un venditore professionale)**.”==
+In conclusione, quindi, bisogna ricordare che:
+==Quando una **relazione è specializzazione di un’altra**, bisogna ricordare che ogni **istanza della relazione specializzata** **è anche** un’istanza della relazione generale.==  
+==Quindi i **vincoli di molteplicità sulla relazione generale devono tener conto anche di quelli impliciti** portati dalla specializzazione.==
 
 
-Un altor esempio di articolo fuorviante
-![[Screenshot 2025-04-29 at 12-55-12 Slide A.1 - Analisi dei requisiti mediante UML - BD2 - Slide A.1 - Analisi dei requisiti mediante UML - BD2.pdf.png]]
+> [!ticket] Regola d'oro
+> **==Una relazione specializzata rafforza semanticamente la relazione generale: i suoi effetti devono essere riflessi anche nei vincoli.==**
 
-Il vincolo 1..* è fuorviante. In realtà diagramma implica che ogni articolo nuovo è venduto da un solo venditore professionale! Quindi è 1..1
-Implica chel'eticolo nuovo è venduto da un solo vendiotre professionale
-Questo è anche peggio perché dice che un articolo nuovo può essere messo in vendita da 2 venditori professionali ma può essere messo in vnedita da almeno un utente, quindi se metto creo un oggetto aritcolo nuovo si rompre tutto.
-Mentre se dico che articolo nuovo partecipa ad almeno 2 venditore professionale che è una sottoclasse di utente quindi il vincolo accanto a utente(1..1) non è più vlaida ma diventerebbe il vincolo 0..*
 
-Si posso specializzare anche le operazioni di classe:
-![[Screenshot 2025-04-29 at 12-59-19 Meet - bmb-xnne-ahh.png]]
 
-Nella classe Articolo c'è un operazione prezzo che applica un numero intero maggiore di 0.
-Ignoriamo l'ultima la riga dell'operazione, noi sapremmo comunque che possiamo invocare comqunue l'operazione prezzo su articolo in offerta, ma riscirivendola nella sottoclasse abbiamo riscritto l'operazione prezzo, ma anziché applicare il prezzo normalmente come fa la classe padre nella sottoclasse applica anche lo sconto dato dall'attributo `tasso_sconto`, quindi diventa un operazione specializzata, usa il dato dell'attributo tasso_sconto e lo calcola nell'operazione eredita anche l'attributo `prezzo_unitario` (in sintesi è l'overriding dei metodi di Python).
-L'operazione specializzata posteva anche restituire un intero perché gli interi sono anche reali ma non il contrario, i tipi di arogmenti devono essere **esattamente** uguali all'operazione che si trova nella classe padre.
+##### Un altro esempio di articolo fuorviante:
+![[Un altro esempio di articolo in vendita.png]]
+In questo diagramma abbiamo:
+- Una **relazione principale** `venditore` tra `ArticoloInVendita` e `Utente`, con classe associativa (con attributo `istante` con valore `DataOra`).
+    
+- Una **specializzazione** di quella relazione: `vend_nuovo`, tra `ArticoloNuovo` (sottoclasse di `ArticoloInVendita`) e `VenditoreProfessionale` (sottoclasse di `Utente`).
+I vincoli di molteplicità sono: 
+
+| Associazioni | Lato Articolo            | Lato Venditore                        |
+| ------------ | ------------------------ | ------------------------------------- |
+| `venditore`  | `0..*` ArticoloInVendita | `1..1` Utente                         |
+| `vend_nuovo` | `0..*` ArticoloNuovo     | `1..*` VenditoreProfessionale<br>(🔴) |
+Ora cosa non torna in questo diagramma?
+-  **Specializzazione implicita:**
+	Poiché l'association class `vend_nuovo` è **specializzazione** della association class `venditore`, ogni coppia 
+	`(ArticoloNuovo, VenditoreProfessionale)` in `vend_nuovo` **è anche** una coppia in `venditore`.
+	
+Quindi è come dire che : 
+>ogni `ArticoloNuovo` è anche in relazione con un `Utente` attraverso `venditore` — nello specifico, quel venditore è un `VenditoreProfessionale`.
+ 
+In altre parole ogni articolo nuovo può essere venduto da almeno un venditore professionale o anche più di uno. 
+Questa condizione è data dal vincolo di molteplicità `1..*` accanto a `VenditoreProfessionale`, tuttavia:
+**ha senso che uno stesso articolo nuovo sia messo in vendita da più venditori professionali?** 
+In un sistema e-commerce realistico, **NO**: ogni annuncio/articolo è venduto da **uno solo**.
+Quindi il vincolo `1..*` va corretto e cambiato in `1..1 `:
+Se si dice che un `ArticoloNuovo` può essere venduto da 2 o più `VenditoriProfessionali`, ma la relazione generale `venditore` ammette **solo un `Utente` (`1..1`) per ogni `ArticoloInVendita`**, allora hai un **conflitto**:
+
+Un articolo ha più venditori professionali → quindi più utenti → ma può avere **solo 1 utente** come venditore?
+
+
+> [!example] In sintesi
+> > Se un `ArticoloNuovo` ha **più venditori professionali** tramite `vend_nuovo`, allora dovrebbe avere anche più utenti tramite `venditore`.
+>
+>❌ Ma questo **viola** la molteplicità `1..1` nella relazione `venditore` (cioè: ogni `ArticoloInVendita` è venduto da **uno solo** `Utente`).
+>
+>🔁 Quindi **o cambi la molteplicità di `venditore` in `0..*`**, oppure metti `1..1` anche in `vend_nuovo`.
+
+
+Quindi, il vincolo `1..*` nella relazione `vend_nuovo` è **fuorviante**, perché sembra suggerire che **un singolo `ArticoloNuovo` possa essere venduto da più `VenditoriProfessionali`**, ma la relazione generale `venditore` (che collega ogni `ArticoloInVendita` a **uno solo** `Utente`) verrebbe **violata** in tal caso.
+ ==Per coerenza, dovremmo cambiare la molteplicità di `vend_nuovo` da `1..*` a `1..1`, per dire chiaramente che ogni `ArticoloNuovo` è venduto da **esattamente uno** `VenditoreProfessionale` (che è anche un `Utente`), proprio come ogni `ArticoloInVendita` è venduto da uno solo `Utente`.== 
+
+### [[#^5dbd80|Specializzazioni di Operazioni di classe]]: Esempio Pratico  
+
+Come detto in precedenza si possono  specializzare anche le operazioni di classe:
+![[Specializzazioni di operazioni di classe.png]]
+
+In questo diagramma abbiamo:
+
+- `Articolo`:
+    
+    - Attributi:
+        
+        - `nome: Stringa`
+            
+        - `prezzo_unitario: Reale >= 0`
+            
+    - Operazione:
+        
+        - `prezzo(num: Intero > 0, naz: Nazione): Reale >= 0`
+            
+            > Calcola il prezzo come:  
+            > `prezzo_unitario * num + costo_spedizione(naz)`
+            
+- `ArticoloInOfferta` **è una sottoclasse** di `Articolo`
+    
+    - Attributo aggiuntivo:
+        
+        - `tasso_sconto: Reale in 0..1`
+            
+    - **Ridefinisce** l’operazione `prezzo(...)`:
+        
+        > Applica lo **sconto** sul prezzo calcolato dalla superclasse.
+
+
+Quindi nella classe `Articolo` è presente un'operazione di classe `prezzo()`: prende come parametri (o tipi di argomento) un numero intero maggiore di 0 e una nazione. 
+Come tipo di ritorno restituisce un reale maggiore maggiore o uguale a zero.
+In altre parole questa operazione applica un prezzo sull'articolo in vendita prendendo come parametri un intero (che deve essere moltiplicato per l'attributo `prezzo_unitario: Reale >=0`) e calcola anche i costo di spedizione verso quella nazione in cui deve essere consegnato, restituendo un numero con la virgola che deve essere maggiore o uguale a zero.
+Nella sottoclasse di `Articolo`, `ArticoloInOfferta`, c'è un attributo aggiuntivo `tasso_sconto:Reale in 0..1`: 
+questa classe  eredita  e ridefinisce l'operazione `prezzo()` della classe padre applicando  il tasso di sconto sul prezzo calcolato dalla superclasse.
+Proprio per questo l'operazione `prezzo()` viene specializzata: perché nella sottoclasse `ArticoloInOfferta` viene applicato lo sconto dato dall'attributo `tasso_sconto`.
+
+Il concetto chiave dietro a ciò è l'[[Ereditarietà delle classi#L'overriding dei metodi|overriding]] dell'operazione:
+La sottoclasse `ArticoloInOfferta` ridefinisce l’operazione `prezzo(...)`, usando la **stessa signatura** (stessi parametri e stesso tipo di ritorno).
+Anche se non riscrivessimo `prezzo(...)` nella sottoclasse, potremmo comunque **ereditare** e usare l’operazione della superclasse (`Articolo`). Ma in questo caso **la ridefiniamo per adattarla** al contesto specifico (cioè applicare uno sconto).
+
+
+
+> [!warning] Nota sui tipi di argomento
+>  Quando si specializza un’operazione, i **tipi degli argomenti** devono essere **esattamente uguali** a quelli definiti nella superclasse.
+>Questo garantisce la **compatibilità** e il rispetto del **principio di sostituibilità** (es. principio di Liskov in OOP).
+>
+> > [!example] **Esempio**:
+>>
+>>- Se la superclasse ha:  
+ > >  `prezzo(num: Intero, naz: Nazione): Reale`  
+>>- Allora anche la sottoclasse **deve avere gli stessi tipi** per `num` e `naz`.
+ > >  
+>>
+>> ✅ È accettabile che il tipo restituito sia più **specifico** (es. `Intero` al posto di `Reale`), perché ogni intero è anche un reale.  
+>> ❌ Non è accettabile il contrario (es. restituire un `Reale` quando è atteso un `Intero`).
+
+

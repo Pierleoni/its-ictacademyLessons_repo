@@ -1,26 +1,4 @@
 {
-  "Progettazione/Lezione 2/Tipi di dato concettuale.md": {
-    "52264f8335d4c0b9349d15c2e05bb9ff": {
-      "position": "right",
-      "width": "",
-      "height": "",
-      "wrap": false
-    }
-  },
-  "Progettazione/Lezione 2/Generalizzazioni.md": {
-    "f77ae10386b6d1513c545b592fb45ced": {
-      "position": "center",
-      "width": "",
-      "height": "",
-      "wrap": false
-    },
-    "4b12d453e698e6181a1dd9b638e6cf19": {
-      "position": "center",
-      "width": "",
-      "height": "",
-      "wrap": false
-    }
-  },
   "Python/Lezione 23/Docker.md": {
     "cda0e616f7b12f5595afd6df6283d032": {
       "position": "right",
@@ -59,24 +37,22 @@
       "width": "",
       "height": "",
       "wrap": false
+    },
+    "eb2a607d92e70254343d53ab2dee322d": {
+      "position": "center",
+      "width": "",
+      "height": "",
+      "wrap": false
     }
   },
-  "Progettazione/Lezione 2/Documenti di specifica.md": {
-    "12a38a4156a9a2e91ab31bbd58ba9028": {
+  "Sistemi digitali/Lezione 22/Linux 2.md": {
+    "7f609168f08efca46182392fed01edec": {
       "position": "center",
       "width": "",
       "height": "",
       "wrap": false
     },
-    "c8ec6c1cf09ec9410facc70ca9315e2d": {
-      "position": "center",
-      "width": "",
-      "height": "",
-      "wrap": false
-    }
-  },
-  "Progettazione/Lezione 2/Operazioni di classe e Specializzazioni degli attributi, di associazioni e operazioni.md": {
-    "1f665313383a08dbc6fc911b2e876ece": {
+    "2745ca17bc3c55b2bf8b7c7eac29f69b": {
       "position": "center",
       "width": "",
       "height": "",

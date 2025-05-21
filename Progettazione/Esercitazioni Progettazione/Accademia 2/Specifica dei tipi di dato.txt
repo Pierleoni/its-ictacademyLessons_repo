@@ -1,0 +1,4 @@
+Specifica dei tipi di dato  
+
+Matricola:
+stringa numerica univoca di 5 caratteri secondo standard

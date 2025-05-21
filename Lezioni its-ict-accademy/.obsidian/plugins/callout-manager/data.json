@@ -46,8 +46,47 @@
       "ticket": [
         {
           "changes": {
-            "icon": "lucide-ticket-percent",
+            "icon": "lucide-ticket-percent"
+          }
+        },
+        {
+          "condition": {
+            "colorScheme": "light"
+          },
+          "changes": {}
+        },
+        {
+          "condition": {
+            "colorScheme": "dark"
+          },
+          "changes": {
             "color": "251, 255, 0"
+          }
+        }
+      ],
+      "warning": [
+        {
+          "changes": {}
+        },
+        {
+          "condition": {
+            "colorScheme": "light"
+          },
+          "changes": {}
+        },
+        {
+          "condition": {
+            "colorScheme": "dark"
+          },
+          "changes": {
+            "color": "233, 151, 63"
+          }
+        }
+      ],
+      "fail": [
+        {
+          "changes": {
+            "icon": "lucide-alert-triangle"
           }
         }
       ]

@@ -1,0 +1,71 @@
+Specifica delle classi
+
+
+1. Specifica della classe Impegno
+	Ogni istanza di questa classe rappresenta un impegno
+	
+	durata_in_ore(d:Data):Intero>0 
+		pre-condizioni:
+		l'oggetto di invocazione ("this") è coinvolto in almeno un link dell'associazione "registra" con valore per l'attributo "data_impegno" non successivo al valore "d". 
+
+		post-condizioni:
+		l'operazione non modifica il livello estensionale 
+		Il valore del risultato ("result") è definito come segue:
+
+			- sia (this, doc): registra l'unico link registra che coinvolge "this"
+			
+
+
+
+
+
+
+
+2. Specifica della classe ProgettoDiRicerca:
+	ogni istanza di questa classe rappresenta il progetto di ricerca
+
+	durata_in ore(): Intero > 0
+		pre-condizioni:
+		-	nessuna
+
+		post-condizioni:
+		
+			- non modifica il livello estensionale
+			- il risultato è definito come unumero di ore 
+			(this.data_fine - this.data_inizio) * 24
+===	Vincoli Esterni
+[V.Progetto.periodo_valido]
+per ogni istanza p:Progetto
+p.data_inizio<p.data_fine
+
+3. Specifica della classe WorkPackage
+	ogni istanza di questa classe rappresenta un work package di un progetto
+
+	=== Vincoli esterni
+	[V.WP.periodo_in_progetto]
+
+	Per ogni w:WP
+	sia (w, p): prog_wp l'unico link dell'associazione "prog_wp" che coinvolge w.
+
+	deve essere vero che:
+	- w.inizio >= p.inizio
+	- w.fine <= p.fine
+
+	o si puo scrivere 
+	p.inizio <=w.inizio <w.fine <= p.fine 
+	
+	giorni_durata(): Intero>0
+	pre-condizioni:
+		l'oggetto di invocazione ("this") può essere coinvolto in un link della associazione "partecipa"
+
+	post-condizioni:
+		
+			- Sia D la differenza dei valori degli attributi "data_fine" e "data_inizio" di tutti i link di associazione "partecipa"
+
+			- Result = D ("la differenza dei D ")
+
+
+
+
+
+

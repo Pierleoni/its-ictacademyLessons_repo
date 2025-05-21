@@ -278,10 +278,10 @@ Nel livello Estensivo possiamo vedere istanze le specifiche delle classi:
 Tra questi due oggetti esiste un **[[#^instanceDef|link]]**(istanza della relazione autore), che collega `div_comm` con `dante`. 
 ==Questo link non ha un identificatore proprio, poiché è determinato univocamente dagli oggetti che collega.== 
 ### Cosa sono le associazioni?
-Nella modellazione concettuale (ad esempio, in UML) un'associazione rappresenta una relazione tra due o più classi.
+Nella modellazione concettuale (ad esempio, in UML) ==un'associazione rappresenta una relazione tra due o più classi.== 
 anche qui l'identità degli oggetti gioca un ruolo importante:
-- Le associazioni collegano istanze specifiche (oggetti) di classe diverse, e queste istanze sono identificate in modo univoco. 
-- L'identità degli oggetti permette di distinguere tra due istanze che potrebbero avere gli stessi attributi ma partecipano a relazioni diverse.
+- ==Le associazioni collegano istanze specifiche (oggetti) di classe diverse, e queste istanze sono identificate in modo univoco.== 
+- ==L'identità degli oggetti permette di distinguere tra due istanze che potrebbero avere gli stessi attributi ma partecipano a relazioni diverse.==
 
 Quindi possiamo definire un'associazione come: 
 ==Un'**associazione** rappresenta la **possibilità** che due oggetti siano o meno in relazione tra loro.==   ^associationsDef

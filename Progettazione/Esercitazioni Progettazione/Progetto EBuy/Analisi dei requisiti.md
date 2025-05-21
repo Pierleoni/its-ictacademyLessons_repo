@@ -56,6 +56,8 @@ Raffinamento dei requisiti
 	5.3 L'insieme delle sottocategorie data una categoria principale 
 
 999. Il sistema deve permettere le seguenti funzionalita:
-	999.1. Agli utenti deve permettere di pubblicare post
-	per oggetti in vendita con o senza asta.
+	999.1. Agli utenti deve permettere di pubblicare post per oggetti in vendita con o senza asta.
+	999.2 Agli utenti deve permettere di proporre bid alle aste oppure acquistare post "Compralo Subito"
+	999.3 Agli utenti vincitori di un asta o che hanno acquistato un oggetto in modalità "CompraloSubito" deve permettere di lasciare un feedback al post.
+
 

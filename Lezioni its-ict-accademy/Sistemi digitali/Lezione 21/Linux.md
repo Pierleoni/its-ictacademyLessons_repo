@@ -670,19 +670,19 @@ $ chmod [ugoa] [+-=] [rwx] [nome_file]
 ```
 
 Dove `[ugoa]` sta per: 
-- `u`: user(proprietario)
-- `g`: gruppo (group)
-- `o`: altri utenti(other)
-- `a`: tutti (all)
+- `u`: ==user(proprietario)==
+- `g`: ==gruppo (group)==
+- `o`: ==altri utenti(other)==
+- `a`: ==tutti (all)==
 mentre `[+-=]` indica:
-- `+`: aggiungi
-- `-`: rimuovi
-- \=: assegna
+- `+`: ==aggiungi==
+- `-`: ==rimuovi==
+- \=: ==assegna==
 
 Per ultimo `[r w x]` indica:
-- `r`: read
-- `w`: write
-- `e`: execute
+- `r`: ==read==
+- `w`: ==write==
+- `e`: ==execute==
 
 ### Copiare un file: comando `cp`
 Permette di copiare un file. 
@@ -747,7 +747,7 @@ $ rm -ri [nome_directory] #Per eliminare una directory e i suo contenuto chieden
 ```
 
 Es: 
-```
+```bash
 $ rm prova.txt  #elimina il file prova.txt
 
 $ rm *  #elimina tutti i file nella directory corrente
@@ -771,4 +771,263 @@ Da utente privilegiato non eseguire MAI i comandi:
 >`$ rm -rf .*` :  cancella tutti i file e le directory nella working directory
 >`$ rm -rf /`:  cancellerà tutti i file e le directory nel file system a partire dalla root /
 >`$ rm -rf --no-preserve-root /`:  come sopra ma bypassando meccanismi di protezione
+
+### Spostare e/o rinominare un file 
+Il comando `mv` (a.k.a. move): ==permette di rinominare o spostare un file o una directory.==
+
+Le opzioni di questo comando sono :
+```bash
+$ mv [file1] [file2] # rinomina il file1 in file2
+$ mv [file1] [dir1/dir2] # sposta file1 dalla directory corrente alla directory dir1/dir2
+$ mv [file1] [dir1/dir2/file2] 
+# sposta file1 nella directory dir1/dir2 cambiandogli nome in file2
+```
+
+### Il comando `grep`
+Questo comando ==è utilizzato per la ricerca di stringhe all'interno di un file.==
+```
+Esempio: $ grep volta ./disney/cenerentola.txt
+```
+Ricerca la stringa volta all’interno del file cenerentola.txt, contenuto nella directory `/home/User/disney`.
+
+Mentre per ricercare espressioni contenenti **spazi** o **Tab** si usano gli apici (`' '`).
+```bash
+$ grep ‘uomo ricco’ ./disney/cenerentola.txt
+```
+
+Ricerca la stringa 'uomo ricco all'interno del file cenerentola.
+
+#### L'opzione `-i`
+Serve ad ignorare i caratteri maiuscoli o minuscoli.
+```bash
+ $ grep –i pettinaci ./disney/cenerentola.txt
+```
+Ricerca la stringa pettinaci all'interno del file, nel nostro caso questa parola inizia con la P maiuscola, ignorando se le lettere sono maiuscole o minuscole.
+
+
+### Commando `find`
+Permette di cercare un file specifico all'interno del file system.
+```bash
+$ find [nomedir] [maxdepth] –name [nomefile]
+```
+La sintassi è:
+ - `[nomedir]` :
+   è il percorso della directory da cui effettuare la ricerca
+-  `[maxdepth]`:
+  è il numero di livelli di directory in cui cercare
+-  `[nomefile]`: 
+  è il nome del file da cercare.
+Se non mostra nulla vuol dire che non esiste nessun file in quella posizione, per cercare il file nelle directory si usa l'opzione `maxdepth`:
+```bash
+$ find . -maxdepth 1 -namepluto
+```
+questa opzione in questo caso cerca nel primo livello delle sub-directory, per cercare nei livelli successivi si usano i numeri `2`, `3` e cosi via.
+Detto questo per trovare un file:
+```bash
+$ find . -name pluto
+```
+
+Cerca il file `pluto` nella working directory e nelle sue sotto directory.
+
+#### L'opzione `-empty`
+Cerca i file vuoti nella working directory e sub-directory.
+```
+$ find . -empty
+```
+
+#### L'opzione `-exec cat{}`
+```bash
+$ find . -name pluto -exec cat {} \;
+```
+cerca il file `pluto` ed esegue il comando [[#Il comando `$ cat`|`cat`]] 
+- `\;`: chiude la sequenza di comandi da eseguire
+
+### Il comando `tree`
+Serve per esplorare in maniera grafica, ad albero, una directory specificata.
+
+> [!info] Se il comando no viene trovato lo si può installare con il comando: `sudo apt install tree`
+
+```
+$ tree - stampa l’albero della working director
+```
+
+```
+$ tree [dir]  
+```
+Stampa l’albero della directory `dir` specificata
+
+
+```
+$ tree -d  
+```
+
+Mostra solo le directory senza mostrare i file.
+
+
+
+---
+## Re-direzione dell' I/O
+
+Quando un comando viene eseguito ha alcuni canali standard per il flusso dei dati:
+-  standard input: ==dati di ingresso==
+-  standard output: ==dati di uscita==
+- standard error: ==eventuali messaggi di errore.==
+La re-direzione è la deviazione dei canali standard di un dato comando verso destinazioni (o da sorgenti, nel caso dello standard input) che sono diverse da quelle predefinite.
+![[Redirezione I-O.png]]
+
+### Standard input 
+Per re-direzionare lo standard si utilizza il simbolo `<`. 
+Il comando che precede il simbolo `<` considera come input il contenuto del file specificato subito dopo. 
+#### Esempio di casi d'uso
+1.  Inserire nella directory `/home/[tua_home_directory]` i file `sum.sh` e `number.txt`
+2. Definire i permessi di esecuzione per il file `sum.sh`: 
+	  Per fare ciò bisogna usare [[#Definire i permessi|il comando `chmod`]] 
+```
+$ chmod u+x sum.sh
+```
+In questo modo stiamo dando i permessi all'utente (`u`) 
+- `+`: stiamo assegnando i permessi all'utente 
+- `x`: gli stiamo dando i permessi di esecuzione.
+3. Scrivere `$./sum.sh < number.txt`.
+4. Lo script viene eseguito prendendo in input il numero `10` contenuto nel file `number.txt`.
+
+### Standard Output
+==Per re-direzionare lo standard output si utilizzano i simboli: `>` oppure `>>`==.
+L'output del comando che precede il simbolo `>` viene re-diretto nel file specificato subito dopo, creandolo o sovrascrivendolo.
+
+#### Esempi di casi d'uso.
+```
+$ ls > folder_list.txt
+```
+L'output del comando [[#Comando `$ ls`|`ls`]] viene scritto nel nuovo file `folder_list.txt`, e se questo file non esiste lo crea o può sovrascrivere il suo contenuto se è presente
+
+```bash
+$ echo 20 > number.txt
+```
+
+l’output del comando `echo` è stato scritto nel file esistente `number.txt` che viene sovrascritto.
+```bash
+$ echo "20" > number.txt
+$ cat number.txt
+#Output:
+20
+```
+
+Quindi il numero `20` viene aggiunto al file number.txt e sovrascrive il suo contenuto.
+
+Mentre se si vuole aggiungere contenuto senza sovrascrivere nulla si usano i simboli `>>`.
+```bash
+$ echo 30 >> number.txt
+#Output:
+20 
+30
+```
+
+
+### Il comando `echo`.
+Il comando `echo` viene utilizzato per visualizzare una linea di testo o una variabile nel terminale.
+```bash
+$ echo Ciao Mondo!
+```
+
+Stampa su terminale "Ciao Mondo!"
+
+```
+$ echo Ciao Mondo > mio_file.txt
+```
+
+"Ciao Mondo" viene scritto all'interno di `mio_file.txt` sovrascrivendolo.
+
+```
+$ echo mi aggiungo al file! >> mio_file.txt
+```
+
+
+
+
+---
+## Pipeline
+Generalmente pensiamo a una pipeline di produzione, ovvero la catena di montaggio: si pensi a una azienda che sviluppi software dove per realizzare un prodotto software si devono seguire dei passaggi( progettazione, design ed implementazione.).
+Tutti questi passaggi sono sequenziali tra loro.
+In shell programming io posso incolonnare una serie di comandi legandoli tra loro:
+Si ha un primo comando che produce un output che deve diventare l'input del comando numero due e cosi via.
+### Esempi:
+Scrivere, utilizzando la pipe, il comando per visualizzare da un elenco esteso della directory `/home` tutti i file e le directory che nel loro nome contengono le lettere
+*li*.
+Per ovviare a questo problema si deve usare i comandi:
+```bash
+$ ls -al | grep li
+```
+
+### Lista di commandi
+Seguendo questo conetto della pipeline si possono scrivere una lista di comandi separati tra loro dal punto e virgola (`;`).
+Questi comandi sono eseguiti nell’ordine in cui appaiono nella sequenza.
+
+```bash
+command1 ; command2 ; command3 ; …
+```
+
+#### Esempio
+```
+$ echo Buongiorno! ; echo La data di oggi! ; date ; cal
+```
+
+In questo caso viene stampato in output il messaggio "Buongiorno!", il messaggio "Data di oggi!", la data del giorno corrente e il calendario del mese corrente.
+
+> [!note] se il comando cal non viene trovato è possibile installarlo mediante `sudo apt install ncal`
+
+#### Le opzioni delle parentesi per le liste di comandi.
+
+Le parentesi tonde `(command1 ; command2 ; command3)` nella shell vengono utilizzate per raggruppare comandi insieme in modo che vengano eseguiti in una sotto-shell. 
+Una sotto-shell è un ambiente separato che esegue i comandi come se fossero un singolo comando.
+```
+ $ echo Ciao ; echo Caro! > out_file.txt
+```
+
+Esegue entrambi i comandi, ma "Ciao" viene visualizzato su terminale, mentre l’output dell’ultimo echo: "Caro!" viene scritto in un file `out_file.txt`.
+Utilizzando le parentesi si sta indicando che entrambi gli output del comando `$echo` devono essere scritti nel file `out_file.txt`:
+```
+ $ (echo Ciao ; echo ‘’ Caro!’’) > out_file.txt
+```
+Esegue entrambi i comandi e scrive l’output complessivo, formato dalle parole
+Ciao e Caro!, nel file `out_file.txt`.
+
+### Gli operatori logici 
+#### L'operatore AND (&&)
+Questo operatore esegue il comando successivo solo se il comando precendente è stato eseguito con successo.
+```
+command1 && command2 
+```
+In questo caso `command2` viene eseguito solo se `command1` è stato eseguito con successo.
+#### Esempio
+Se `out_file.txt` esiste:
+
+```
+$ rm out_file.txt && echo il file è stato eliminato!
+```
+L'output sarà : *"Il file è stato eliminato*
+Questo perché il comando [[#Eliminare i file il comando `rm`|`$ rm out_file.txt`]] è stato eseguito con successo.
+Mentre se il file non esiste:
+```
+$ rm
+out_file.txt && echo il file è stato eliminato!
+```
+
+L'output sarà: *impossibile rimuovere file out_file.txt*
+Questo perché il comando `rm` non è stato eseguito con successo
+
+#### L'operatore logico OR (`||`)
+L’operatore `||` esegue il comando successivo solo se l’esecuzione del comando precedente è fallita.
+```
+command1 || command2
+```
+command2 viene eseguito solo se command1 è stato eseguito senza successo
+
+Se il file `out_text.txt` non esiste:
+```
+$ rm out_file.txt || echo il file non esiste!
+```
+
+L'output sarà: *Il file non esiste*
+Questo perché non è stato possibile eseguire il comando `rm`
 
