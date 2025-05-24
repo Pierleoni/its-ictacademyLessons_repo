@@ -1,16 +1,45 @@
-## Cos'è un file?
-Il disco rigido è un hardware che contiene bit, una sequenza di 0 e 1, qualsiasi cosa è una sequenza di 0 e 1 nella macchina, ma come fa il SO a capire quando finisce un file e ne inizia un altro?
-Attraverso una serie di marker che caratterizano il tipo di file, in particolare l'end-of-file(EOF): una sequenza di bit univoca che caratterizzano un file dall'altro.
-Un altra caratteristicha dei file è l'Header del pacchetto: in questo caso contiene il nome del file, genralmente contiene i meta dati del file che sono le info del file (ad esempio quando premo alt+invio sul file posso vedere alcuni metadati del file in questione).
-Se un file .txt viene intrepretao come caratteri, se ho un file .jpg viene interpretato come un file immagini e così via. 
-Le estensioni sono modi per codificare e decodificare i byte del file.
-Per i file del testo ci sono estensioni come il codice ASCII e le più recenti UTF-8, UTF-16, etc.
-SOtto l'header abbiamo il copro del file e alla fine del file abbiamo la sequenza di EOF che indica la fine del file.
-La deframmentazione del file: se i file venivano visti dal SO nel HDD in maniera non contigua ci voleva più lento.
-Qual'è il comando per aprire il file è `open`: è una funzione built-in che ha varie opzioni.
+# Cos'è un file?
+Un file è un insieme contiguo di byte usato per memorizzare dati.
+Può essere semplice come un file `.txt` o complesso come un eseguibile `.exe`.
+Tutti i dati vengono tradotti in [[Le architetture di un Computer#il Codice Binario|sequenze binarie]] (0 e 1) per essere processati dal computer.
+I file vengono slavati su hard disk (o disco rigido): Il disco rigido è un hardware che contiene bit, una sequenza di 0 e 1 ( qualsiasi cosa è una sequenza di 0 e 1 nella macchina), ma come fa il SO a capire quando finisce un file e ne inizia un altro?
+Attraverso una serie di marker che caratterizzano il tipo di file:
+1. **Header:** 
+   ==contiene metadati del file, come nome, tipo, data di creazione, etc.==
+2. **Dati:** 
+   ==il contenuto vero e proprio del file==, cioè il corpo (o contenuto) del file.
+3. **EOF(end-of-file):** 
+   ==una sequenza di bit univoca che caratterizzano un file dall'altro, cioè è un carattere speciale che segna la fine del file==.
 
-Perchè è utile poter scrivere o leggere sui file in Python?
-I programmi Py girano su RAM quindi è utile per disimpegnare la RAM e in parte anche per scrivere e salvare lo stato del programma sul HD. 
+ Le estensioni dei file (`.txt`, `.jpg`, `.mp3`, etc.) indicano al [[I fundamentals di un Sistema Operativo|sistema operativo]] come intrepretare i byte contenuti.  
+Ad esempio:
+- `.txt`: viene interpretato come testo (ASCII, UTF-8, etc.) 
+- `.jpg`: interpretato come immagine
+
+
+> [!info] La **deframmentazione** era utile in passato per riordinare i file salvati in settori non contigui su disco (soprattutto HDD), migliorando la velocità di accesso.
+
+
+## Leggere/scrivere file in Python
+Quindi perché è utile poter scrivere e/o leggere sui file in [[Introduzione a Python|Python]]?
+In Python, i programmi vengono eseguiti in **[[Il modello di Von Neumann#RAM|RAM]]**, ovvero nella memoria volatile del computer. Questo significa che, una volta terminata l'esecuzione, tutte le variabili e i dati elaborati **vanno persi**, a meno che non vengano salvati in modo permanente.
+Di conseguenza questi dati vengono salvati e immagazzinati nei file cosi da venire scritti su disco rigido in modo che siano persistenti e permettono al programma di mantenere lo stato tra un'esecuzione e l'altra.
+Altri motivi sono:
+- **Scaricare la RAM:**
+  scrivere su file consente di liberare memoria RAM, soprattutto quando si lavora con grandi quantità di dati.
+- **Configurazione e log:**
+  molte applicazioni leggono file di configurazione o scrivono file di log che servono per documentare eventi, errori o risultati.
+- **Scambio di dati:**
+  i file (testuali, JSON, CSV, etc.) sono un mezzo universale per importare ed esportare informazioni tra programmi o sistemi diversi.
+
+In sintesi: lavorare con i file in Python rende i programmi **più flessibili, scalabili e utili nel mondo reale**, dove i dati devono essere conservati e riutilizzati nel tempo.
+
+
+### Aprire e chiudere un file in Python
+Su Python per aprire un file esiste una funzione built-in nominata `open()`:
+questa funzione richiede un singolo argomento; ovvero il path del file.
+E ritorna l'oggetto del file 
+
 
 La funzione open(): 
 c'è bisogno di un wrapper perché quando devo scrivere su disco rigido la scrittura del HD va ad eseguirsi tramite le API del SO quindi ho bisogno di un Wrapper.

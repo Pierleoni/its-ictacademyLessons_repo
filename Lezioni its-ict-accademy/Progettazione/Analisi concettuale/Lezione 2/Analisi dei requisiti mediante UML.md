@@ -129,7 +129,8 @@ La classe sono insieme di oggetti  omogenee (tutti gli oggetti hanno qualcosa in
 Ogni classe è descritta da:
 - **nome:** gli oggetti in Uml per convenzione sono al singolare 
 - **Insieme di proprietà:** 
-  ==astrazioni delle proprietà comuni degli oggetti che sono istanze delle classi.== 
+  ==astrazioni delle proprietà comuni degli oggetti che sono istanze delle classi.==  ^proprietaDellaClasse
+
 ![Primo esempio|493x158](https://i.imgur.com/uOjGmpA.png)
 
 Abbiamo la classe `Libro`, che possiede un attributo `titolo` di tipo `Stringa`. Questo significa che ogni oggetto creato a partire dalla classe `Libro` dovrà avere un valore (uno solo) per l'attributo `titolo`, e questo valore dovrà essere una stringa.
@@ -174,10 +175,10 @@ La frase sopra ci dà un'anteprima di questo concetto, andiamo ad analizzarla me
 1. **Essere la stessa cosa (Identità):**
    L'identità di un oggetto è la sua "carta d'identità" univoca nel sistema.
    Due riferimenti che puntano:
-    - **Allo stesso oggetto fisico in memoria** vuol dire che **hanno la stessa identità**
+    - **==Allo stesso oggetto fisico in memoria** vuol dire che **hanno la stessa identità==**
 2. **Avere gli stessi valori (Uguaglianza):** 
    Due oggetti distinti possono:
-	- **Condividere valori identici** per alcuni attributi, il che vuol dire che **sono uguali.** 
+	- ==**Condividere valori identici** per alcuni attributi, il che vuol dire che **sono uguali.**== 
 
 Per chiarire meglio i concetti di identità e uguaglianza:
 
@@ -307,7 +308,7 @@ Questo è strettamente legato all'identità degli oggetti perché:
 - Un link punta a un oggetto specifico, identificato in modo univoco (ad esempio, tramite il suo **[[#^OID|Object Identity(OID)]]**).
 - Anche se due oggetti hanno gli stessi attributi, i riferimenti a essi saranno distinti perché puntano a istanze diverse. 
   
-> [!example] Prendi ad esempio le [[Le Classi#^instanceCode|istanze di una classe in Python]]
+> [!example] Prendi ad esempio le [[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi#^instanceCode|istanze di una classe in Python]]
 
 
 Quindi se un'associazione lega due classi (ad esempio, `C1` e `C2`),

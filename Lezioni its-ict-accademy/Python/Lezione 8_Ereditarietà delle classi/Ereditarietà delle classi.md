@@ -2,7 +2,7 @@
 # Introduzione delle Ereditarietà delle classi in Python
 
 # Introduzione
-Abbiamo già affrontato il concetto di ereditarietà delle classi nella lezione [[Le Classi]] in Python e nella lezione [[Generalizzazioni]] in Progettazione. 
+Abbiamo già affrontato il concetto di ereditarietà delle classi nella lezione [[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi]] in Python e nella lezione [[Generalizzazioni]] in Progettazione. 
 In questa lezione andremo a vedere come implementare l'ereditarietà della classi in Python.
 **Cos'è l'ereditarietà?**
 ==È un meccanismo che permette a una classe figlia di **riutilizzare metodi e attributi** definiti in una classe padre, riducendo la ridondanza e favorendo la riusabilità del codice.==

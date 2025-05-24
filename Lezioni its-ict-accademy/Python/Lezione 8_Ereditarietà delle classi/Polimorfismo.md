@@ -16,7 +16,7 @@ In Python, **non serve** dichiarare esplicitamente il tipo degli oggetti (come i
 class Persona: 
 ```
  
- 2. dopodiché dobbiamo definire il [[Le Classi#**Definizione di una Classe e il Costruttore** `__init__()`|costruttore della classe]] (`__init__()`), che prende: 
+ 2. dopodiché dobbiamo definire il [[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi#**Definizione di una Classe e il Costruttore** `__init__()`|costruttore della classe]] (`__init__()`), che prende: 
 	 come parametri l'attributo `name` (cioè il nome della persona), l'attributo `last` (cioè il lastname o cognome in italiano) e, infine, l'attributo `age` (cioè l'età della persona ).
 ```python
 class Persona:
@@ -30,7 +30,7 @@ class Persona:
         self.age = age
 ```
 
-3. Inoltre implemento anche una serie di [[Le Classi#**Gestione degli Attributi con Getter e Setter**|setter e getter]] all'interno della classe e il metodo speciale [[Le Classi#Il metodo `__str__`|`__str__()`]]:
+3. Inoltre implemento anche una serie di [[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi#**Gestione degli Attributi con Getter e Setter**|setter e getter]] all'interno della classe e il metodo speciale [[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi#Il metodo `__str__`|`__str__()`]]:
 
 ```python
  '''
@@ -167,7 +167,7 @@ Più o meno come per l'attributo `age`, il `self.setGalaxy(galaxy)` serve per co
         print("hfdhfdjhfjhdfdfidshfdjkfh")
 ```
 
-6. Andiamo a definire il [[Le Classi#Il metodo `__str__`|metodo speciale `__str__()`]] che ritorna in output la una stringa formatta: 
+6. Andiamo a definire il [[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi#Il metodo `__str__`|metodo speciale `__str__()`]] che ritorna in output la una stringa formatta: 
 ```python
     def __str__(self)->str:
         return f"Alieno proveniente dalla galassia {self.getGalaxy()}"

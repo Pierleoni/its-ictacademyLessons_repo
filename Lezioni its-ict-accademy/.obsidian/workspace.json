@@ -8,37 +8,37 @@
         "type": "tabs",
         "children": [
           {
-            "id": "31603a587e57ae82",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/Lezione 9_Lambda & RegEX/RegEx.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
-              },
-              "icon": "lucide-file",
-              "title": "RegEx"
-            }
-          },
-          {
             "id": "13592c356f6e5a0b",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Progettazione/Design di applicazioni in Python/Design di applicazioni in Python.md",
+                "file": "Progettazione/Design di applicazioni in Python/Implementazione delle classi.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Design di applicazioni in Python"
+              "title": "Implementazione delle classi"
             }
           },
           {
             "id": "b1dc87ea50cd1ff6",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Progettazione/Design di applicazioni in Python/Evoluzione delle proprietà.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "Evoluzione delle proprietà"
+            }
+          },
+          {
+            "id": "be31f2de104353fc",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -53,17 +53,22 @@
             }
           },
           {
-            "id": "be31f2de104353fc",
+            "id": "512af13e261d293a",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "Progettazione/Analisi concettuale/Lezione 2/Analisi dei requisiti mediante UML.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "Analisi dei requisiti mediante UML"
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -272,6 +277,22 @@
   },
   "active": "b1dc87ea50cd1ff6",
   "lastOpenFiles": [
+    "img/Progettazione IMG/Design di applicazione Python/Esempio diagramma delle classi ristrutturato_2.png",
+    "img/Progettazione IMG/Design di applicazione Python/Esempio diagramma delle classi Ristrutturato.png",
+    "Progettazione/Design di applicazioni in Python/Evoluzione delle proprietà.md",
+    "img/Progettazione IMG/Introduzione e cenni di  ingegneria del software/il modello iterativo.pdf.png",
+    "img/Progettazione IMG/Design di applicazione Python",
+    "Progettazione/Analisi concettuale/Lezione 2/Analisi dei requisiti mediante UML.md",
+    "Progettazione/Design di applicazioni in Python/Design di applicazioni in Python.md",
+    "Progettazione/Analisi concettuale/Lezione 2/Documenti di specifica.md",
+    "Progettazione/Design di applicazioni in Python/Implementazione delle classi.md",
+    "img/Progettazione IMG/Screenshot 2025-05-23 at 18-48-03 Meet - bmb-xnne-ahh.png",
+    "Progettazione/Design di applicazioni in Python/Generalizzazioni nella ristrutturazione del diagramma UML delle classi.md",
+    "Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Public, Private and Class Attibutes, Class and Static Methods.md",
+    "Web Development/Javascript/Le variabili in Javascript.md",
+    "Web Development/Javascript/Javascript.md",
+    "Python/Lezione 15/File in Python.md",
+    "Python/Lezione 9_Lambda & RegEX/RegEx.md",
     "Sistemi digitali/Lezione 21/Linux.md",
     "Sistemi digitali/Lezione 22/Linux 2.md",
     "img/Sistemi Digitali/Lezione 22/Esempio modo 2 per l'esecuzione di uno script.png",
@@ -282,20 +303,13 @@
     "Sistemi digitali/Lezione 22",
     "img/Sistemi Digitali/Lezione 21/Redirezione I-O.png",
     "Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi.md",
-    "Progettazione/Design di applicazioni in Python/Design di applicazioni in Python.md",
-    "Python/Lezione 9_Lambda & RegEX/RegEx.md",
     "Progettazione/Analisi concettuale/Lezione 2/Tipi di dato concettuale.md",
     "Progettazione/Analisi concettuale/Lezione 2/Operazioni di classe e Specializzazioni degli attributi, di associazioni e operazioni.md",
     "Progettazione/Analisi concettuale/Lezione 2/Vincoli di molteplicità sulle associazioni e sugli attributi.md",
     "Progettazione/Analisi concettuale/Lezione 2/Generalizzazioni.md",
     "Progettazione/Analisi concettuale/Lezione 2/Diagramma use-case.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Documenti di specifica.md",
     "img/Progettazione IMG/Progettazione(Lezione2)/Specifica di use-case.png",
-    "Progettazione/Analisi concettuale/Lezione 2/Analisi dei requisiti mediante UML.md",
     "img/Progettazione IMG/Progettazione(Lezione2)/Generalizzazione tra attori.png",
-    "img/Progettazione IMG/Progettazione(Lezione2)/Generalizzazione tra use-case.png",
-    "img/Screenshot 2025-04-15 at 12-12-19 Docker_v3 - Docker.pdf.png",
-    "img/Screenshot 2025-04-15 at 12-13-09 Docker_v3 - Docker.pdf.png",
     "Python/Lezione 8_Ereditarietà delle classi/Polimorfismo.md",
     "Python/Lezione 8_Ereditarietà delle classi/Ereditarietà delle classi.md",
     "Python/Lezione 18/Eccezioni in Python.md",
@@ -304,19 +318,11 @@
     "Python/Lezione 2/Collections.md",
     "Progettazione/Design di applicazioni in Python",
     "Python/Lezione 2/Gli Operatori.md",
-    "Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Public, Private and Class Attibutes, Class and Static Methods.md",
-    "Web Development/Javascript/Le variabili in Javascript.md",
-    "Web Development/Javascript/Javascript.md",
     "Web Development/Javascript",
-    "Python/Lezione 4_FunzioniPython/Funzioni in Python.md",
-    "Python/Lezione 15/File in Python.md",
     "Python/Lezione 15",
-    "Progettazione/Analisi concettuale/Lezione 2/Associazioni con attributi in UML.md",
     "C__Users_Project Lead_OneDrive_Documents_Programmazione_Its-ict academy_Lezioni its-ict-accademy_img",
     "Diagram.svg.xml",
-    "Clippings/Imgur.md",
     "Clippings",
-    "Inglese/Riassunto capitoli",
     "Untitled.canvas"
   ]
 }

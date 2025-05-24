@@ -74,9 +74,9 @@ In questo caso stiamo forzando l'accesso all'attributo `name` contenuto nella cl
 > 
 
 ### Accesso agli attributi Privati: Getter e Setter
-Quindi, in Python, per evitare di accedere al valore dell'attributo in maniera forzata si usano, per leggere o modificare un attributo privato dall'esterno della classe, i [[Le Classi#**Gestione degli Attributi con Getter e Setter**|metodi getter e setter]]:
-- Il **[[Le Classi#^getterMethod-Def|Getter]]**: restituisce il valore dell'attributo
-- Il **[[Le Classi#^setterMethod-Def|Setter]]**: modifica il valore dell'attributo
+Quindi, in Python, per evitare di accedere al valore dell'attributo in maniera forzata si usano, per leggere o modificare un attributo privato dall'esterno della classe, i [[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi#**Gestione degli Attributi con Getter e Setter**|metodi getter e setter]]:
+- Il **[[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi#^getterMethod-Def|Getter]]**: restituisce il valore dell'attributo
+- Il **[[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi#^setterMethod-Def|Setter]]**: modifica il valore dell'attributo
 Questi due metodi permettono di gestire gli attributi in maniera controllata .
 **Esempio con il `get`:**
 
@@ -124,7 +124,7 @@ print(animal.get_name())  # Output: "Dog"
 
 ## Gli attributi di classe e i metodi statici
 ### I metodi statici
-Come abbiamo già ampiamente introdotto nella lezione [[Le Classi]], al capitolo [[Le Classi#**Utilizzo dei Decoratori** `@property` **per Getter e Setter**|Utilizzo dei Decoratori** `@property` **per Getter e Setter]]:
+Come abbiamo già ampiamente introdotto nella lezione [[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi]], al capitolo [[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi#**Utilizzo dei Decoratori** `@property` **per Getter e Setter**|Utilizzo dei Decoratori** `@property` **per Getter e Setter]]:
 il metodo statico: si definisce con l'operatore chiocciola (`@staticmethod`).
 - **Non riceve né `self` né `cls`** come primo parametro, quindi non ha accesso né agli attributi dell'istanza né a quelli della classe.
     
@@ -133,15 +133,15 @@ il metodo statico: si definisce con l'operatore chiocciola (`@staticmethod`).
 - È completamente **indipendente** sia dai dati dell'istanza che della classe: il metodo non interagisce con l'oggetto o la classe stessa.
     
 
-In pratica, un metodo statico è un metodo che, pur facendone parte, non ha bisogno di accedere a dati o comportamenti specifici della classe o delle sue istanze.
+In pratica, ==un metodo statico è un metodo che, pur facendone parte, non ha bisogno di accedere a dati o comportamenti specifici della classe o delle sue istanze.==
 
 #### Quando usare un metodo statico?
 
 Un metodo statico è utile quando:
 
-- Il metodo **ha senso essere raggruppato** nella classe (per motivi logici o organizzativi),
+- ==Il metodo **ha senso essere raggruppato** nella classe (per motivi logici o organizzativi)==,
     
-- Ma **non necessita** di accedere né agli attributi dell'istanza (`self`) né a quelli della classe (`cls`).
+- ==Ma **non necessita** di accedere né agli attributi dell'istanza (`self`) né a quelli della classe (`cls`)==.
 
 **Esempio:**
 ```run-python
@@ -175,7 +175,7 @@ Anche se chiamato su un oggetto, il comportamento rimane identico perché il met
 
 
 ### Gli attributi della classe
-Come abbiamo ampiamente detto nella lezione [[Le Classi]], al capitolo [[Le Classi#Attributi di classe|Attributi di classe]]; gli **attributi di classe** sono variabili che appartengono **alla classe stessa**, **non** alle sue istanze.  
+Come abbiamo ampiamente detto nella lezione [[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi]], al capitolo [[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi#Attributi di classe|Attributi di classe]]; gli **attributi di classe** sono variabili che appartengono **alla classe stessa**, **non** alle sue istanze.  
 Questo significa che sono **condivisi** tra **tutte le istanze**: ogni oggetto vede e può usare lo stesso valore, ma l'attributo **rimane collegato alla classe**, non al singolo oggetto.
 Esempio attributi di classe:
 ```run-python
@@ -224,7 +224,7 @@ Qui manca il self perchè non è legato all'istanza, infatti nel primo print mi 
 
 ### Metodo di classe
 un class method quindi è un metodo legato non all'istanza ma alla classe e come parametri di definizione prende `cls` e non `self`, perché fa riferimento agli attributi di classe al fine di manipolarli.
-Sempre come abbiamo visto nel capitolo [[Le Classi#Attributi di classe|Attributi di classe]] il metodo di classe: 
+Sempre come abbiamo visto nel capitolo [[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi#Attributi di classe|Attributi di classe]] il metodo di classe: 
 - È definito con `@classmethod`
     
 - Prende `cls` (non `self`) come primo parametro.
