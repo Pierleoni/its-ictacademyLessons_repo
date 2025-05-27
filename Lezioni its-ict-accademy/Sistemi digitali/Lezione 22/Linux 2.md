@@ -160,3 +160,82 @@ Esiste un insieme di variabili di ambiente predefinite, che contengono informazi
 
 - $SHELL: ==path della shell di login==.
 - $TERM: ==specifica il tipo di terminale utilizzato==.
+
+
+### Il comando `read`
+legge dallo standard input ed assegna alla prima variabile specificata la prima parola digitata, alla seconda variabile specificata la seconda parola digitata e così via.
+```bash
+echo "Scrivi il tuo nome e cognome"
+#usa il comando read per assegnare alle variabili name e surname i valori di nome e cognome digitati
+read name surname
+echo "Ciao, $name $surname"
+```
+
+il comando `$bash` serve per eseguire i file:
+`$ bash read_script.sh`: esegue lo script `read_script.sh`
+
+
+---
+## Operazioni aritmetiche
+In linux è possibile eseguire operazioni aritmetiche tramite i seguenti operatori:
++ `+`: somma
+- `-`: sottrazione
+* `*`:prodotto
+- `/`: divisione intera
+- `%`: resto
+
+Mentre gli operatori relazionali comuni sono:
+
+| Operatore positivo | Significato           | Operatore negativo | Significato         |
+| ------------------ | --------------------- | ------------------ | ------------------- |
+| `>`                | **maggiore**          | `<`                | **minore**          |
+| `>=`               | **maggiore o uguale** | `<=`               | **minore o uguale** |
+| `=`                | **uguale**            | `!=`               | **diverso**         |
+| `&&`               | **AND Logico**        | \|\|               | `OR logico`         |
+### Il comando `$ expr`
+Sta per *\<espressioni aritmetiche>*, permette di usare variabili numeriche e di eseguire calcoli semplici.
+```
+$ expr 1 + 2 #attenzione agli spazi
+```
+In questo caso effettua la somma tra 1 e 2
+
+```
+$ a = 9 b=3 #definisce due variabili numeriche
+$expr $a - $b #effetua la sottrazione tra a e b
+
+```
+
+Si possono anche usare le parentesi tonde e quadre per rappresentare le espressioni aritmetiche:
+```
+$ a = 9 b=3 #definisce due variabili numeriche
+$ echo $($a+$b)
+```
+
+Oppure: 
+```
+$ a = 9 b=3 #definisce due variabili numeriche
+$ echo $[$a-$b]
+```
+
+### Strutture di controllo 
+In ambiente Linux (come anche in programmazione) per compiere una determinata azione si usano delle strutture di controllo.
+
+Le principali strutture di controllo sono:
+- if
+- case
+- for 
+- while
+#### Struttura dell' if 
+Come per python la struttura dell'if è la seguente:
+```
+if <condizione>:
+	
+then <condizione>:  #o elif in python
+	
+else <condizione>:
+	
+```
+
+Se la prima condizione ha successo oppure è verificata viene eseguita la seconda condizione, o, se questa non è verificata, viene eseguita la condizione dell'`else`. 
+
+

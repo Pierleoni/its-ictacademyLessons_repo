@@ -13,13 +13,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Progettazione/Design di applicazioni in Python/Implementazione delle classi.md",
+                "file": "Web Development/Javascript/Lezione 4 ; Espressioni e operatori, statements e cicli.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Implementazione delle classi"
+              "title": "Lezione 4 ; Espressioni e operatori, statements e cicli"
             }
           },
           {
@@ -28,47 +28,46 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Progettazione/Design di applicazioni in Python/Evoluzione delle proprietà.md",
+                "file": "Web Development/Javascript/Le funzioni in Javascript.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Evoluzione delle proprietà"
+              "title": "Le funzioni in Javascript"
             }
           },
           {
-            "id": "be31f2de104353fc",
+            "id": "80ea66857602a593",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Progettazione/Analisi concettuale/Lezione 2/Documenti di specifica.md",
+                "file": "Progettazione/Design di applicazioni in Python/Responsabilità.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Documenti di specifica"
+              "title": "Responsabilità"
             }
           },
           {
-            "id": "512af13e261d293a",
+            "id": "eef09dbb30efbdf0",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Progettazione/Analisi concettuale/Lezione 2/Analisi dei requisiti mediante UML.md",
+                "file": "Python/Lezione 2/Gli Operatori.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Analisi dei requisiti mediante UML"
+              "title": "Gli Operatori"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -244,7 +243,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 5
       }
     ],
     "direction": "horizontal",
@@ -275,54 +274,54 @@
       "zk-prefixer:Create new unique note": false
     }
   },
-  "active": "b1dc87ea50cd1ff6",
+  "active": "13592c356f6e5a0b",
   "lastOpenFiles": [
-    "img/Progettazione IMG/Design di applicazione Python/Esempio diagramma delle classi ristrutturato_2.png",
-    "img/Progettazione IMG/Design di applicazione Python/Esempio diagramma delle classi Ristrutturato.png",
-    "Progettazione/Design di applicazioni in Python/Evoluzione delle proprietà.md",
-    "img/Progettazione IMG/Introduzione e cenni di  ingegneria del software/il modello iterativo.pdf.png",
-    "img/Progettazione IMG/Design di applicazione Python",
-    "Progettazione/Analisi concettuale/Lezione 2/Analisi dei requisiti mediante UML.md",
-    "Progettazione/Design di applicazioni in Python/Design di applicazioni in Python.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Documenti di specifica.md",
-    "Progettazione/Design di applicazioni in Python/Implementazione delle classi.md",
-    "img/Progettazione IMG/Screenshot 2025-05-23 at 18-48-03 Meet - bmb-xnne-ahh.png",
-    "Progettazione/Design di applicazioni in Python/Generalizzazioni nella ristrutturazione del diagramma UML delle classi.md",
+    "Web Development/Javascript/Lezione 1 I fondamenti Javascript.md",
+    "Web Development/Javascript/Lezione 4 ; Espressioni e operatori, statements e cicli.md",
+    "Progettazione/Design di applicazioni in Python/Evoluzione delle proprietà e visibilità delle proprietà.md",
+    "Web Development/Javascript/Le funzioni in Javascript.md",
+    "Web Development/Javascript/Lezione 3; Array, Indexing, Attributo Length, Operatori, Conversione tra tipi di variabili.md",
+    "Python/Lezione 2/Gli Operatori.md",
+    "Progettazione/Design di applicazioni in Python/Responsabilità.md",
+    "img/Progettazione IMG/Design di applicazione Python/Responsabilità.png",
+    "img/Progettazione IMG/Class Diagram Design.png",
+    "img/Progettazione IMG/Design di applicazione Python/Operazioni di classe_Responsabilità.png",
+    "Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi.md",
     "Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Public, Private and Class Attibutes, Class and Static Methods.md",
-    "Web Development/Javascript/Le variabili in Javascript.md",
-    "Web Development/Javascript/Javascript.md",
+    "Progettazione/Analisi concettuale/Lezione 2/Analisi dei requisiti mediante UML.md",
+    "img/Web Dev/JS/Indexing di un array.png",
+    "Web Development/Javascript/Lezione 2 Le variabili in Javascript.md",
+    "img/Web Dev/JS/JS Lato Server.png",
+    "img/Web Dev/JS",
+    "img/Web Dev",
+    "Progettazione/Design di applicazioni in Python/Implementazione delle classi.md",
+    "Python/Lezione 8_Ereditarietà delle classi/Ereditarietà delle classi.md",
+    "Progettazione/Analisi concettuale/Lezione 2/Documenti di specifica.md",
+    "img/Progettazione IMG/Progettazione(Lezione2)/Screenshot 2025-05-05 at 16-58-55 Meet - bmb-xnne-ahh.png",
+    "img/Progettazione IMG/Progettazione(Lezione2)/Screenshot 2025-05-05 at 17-04-04 Meet - bmb-xnne-ahh.png",
+    "img/Progettazione IMG/Screenshot 2025-05-23 at 18-48-03 Meet - bmb-xnne-ahh.png",
+    "img/Progettazione IMG/Progettazione(Lezione2)/Class Diagram Design.png",
+    "Sistemi digitali/Lezione 22/Linux 2.md",
     "Python/Lezione 15/File in Python.md",
+    "img/Progettazione IMG/Design di applicazione Python/Esempio diagramma delle classi ristrutturato_2.png",
+    "img/Progettazione IMG/Design di applicazione Python",
+    "Progettazione/Design di applicazioni in Python/Design di applicazioni in Python.md",
+    "Progettazione/Design di applicazioni in Python/Generalizzazioni nella ristrutturazione del diagramma UML delle classi.md",
     "Python/Lezione 9_Lambda & RegEX/RegEx.md",
     "Sistemi digitali/Lezione 21/Linux.md",
-    "Sistemi digitali/Lezione 22/Linux 2.md",
-    "img/Sistemi Digitali/Lezione 22/Esempio modo 2 per l'esecuzione di uno script.png",
-    "img/Sistemi Digitali/Lezione 22/Esempio modo 1 per l'esecuzione di uno script.png",
-    "img/F di x.svg",
-    "img/Sistemi Digitali/Lezione 22/Esecuzione di uno script.png",
     "img/Sistemi Digitali/Lezione 22",
     "Sistemi digitali/Lezione 22",
-    "img/Sistemi Digitali/Lezione 21/Redirezione I-O.png",
-    "Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi.md",
     "Progettazione/Analisi concettuale/Lezione 2/Tipi di dato concettuale.md",
     "Progettazione/Analisi concettuale/Lezione 2/Operazioni di classe e Specializzazioni degli attributi, di associazioni e operazioni.md",
     "Progettazione/Analisi concettuale/Lezione 2/Vincoli di molteplicità sulle associazioni e sugli attributi.md",
     "Progettazione/Analisi concettuale/Lezione 2/Generalizzazioni.md",
     "Progettazione/Analisi concettuale/Lezione 2/Diagramma use-case.md",
-    "img/Progettazione IMG/Progettazione(Lezione2)/Specifica di use-case.png",
-    "img/Progettazione IMG/Progettazione(Lezione2)/Generalizzazione tra attori.png",
     "Python/Lezione 8_Ereditarietà delle classi/Polimorfismo.md",
-    "Python/Lezione 8_Ereditarietà delle classi/Ereditarietà delle classi.md",
-    "Python/Lezione 18/Eccezioni in Python.md",
-    "Congettura di Collatz.md",
     "Progettazione/Analisi concettuale",
-    "Python/Lezione 2/Collections.md",
     "Progettazione/Design di applicazioni in Python",
-    "Python/Lezione 2/Gli Operatori.md",
     "Web Development/Javascript",
     "Python/Lezione 15",
     "C__Users_Project Lead_OneDrive_Documents_Programmazione_Its-ict academy_Lezioni its-ict-accademy_img",
-    "Diagram.svg.xml",
-    "Clippings",
     "Untitled.canvas"
   ]
 }

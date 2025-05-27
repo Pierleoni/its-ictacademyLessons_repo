@@ -1,12 +1,17 @@
-La metodologia consiste fare una class Python per ogni classe UML e per goni tipi di dato non base (codice fiscale, etc.).
+Per implementare le classi UML in class Python, la metodologia consiste fare una class Python per ogni classe UML e per ogni tipi di dato non base (codice fiscale, etc.).
 Quindi dobbiamo scrivere un programma python che sia al 100% compatibile con il diagramma delle classi.
-Sciriviamo la class elencando gli attributi e sono sempre proetti mai pubblici, l'idea è che la modifica e la gestione dei vlaori degli attributi sia resposabilità della classe in modo interno. 
+Quindi bisogna scrivere la class elencando gli attributi, **che devono essere sempre protetti mai pubblici.** 
+==L'idea dietro a questa metodologia è che la modifica e la gestione dei valori degli attributi sia responsabilità della classe in modo interno==. 
+Quindi abbiamo visto nella lezione [[Evoluzione delle proprietà e visibilità delle proprietà]] come [[Evoluzione delle proprietà e visibilità delle proprietà#^propDiClasse|evolvere le proprietà di una classe]] e la differenza tra un attributi [[Evoluzione delle proprietà e visibilità delle proprietà#^attrUMLpubblici|pubblico]], [[Evoluzione delle proprietà e visibilità delle proprietà#^attrUMLprivato|privato]] o [[Evoluzione delle proprietà e visibilità delle proprietà#^attrUMLprotetto|protetto]].  
 
-Nella classe studente 
+## Implementare le classi del diagramma UML in Python
+Prendiamo ad esempio la classe `Studente`:
+
 ![[Screenshot 2025-05-23 at 18-48-03 Meet - bmb-xnne-ahh.png]]
 
-Scegliamo i set su telefono ed email perché non si accettano ripetezioni e perchè gli elementi devono essere immutabili:
-```
+
+Per le proprietà `telefono` e `email` si sceglie di utilizzare un set perché  le collection di dati  essendo uniche per ogni oggetto della classe, quindi non si accettano ripetizioni e perché gli elementi devono essere immutabili:
+``` run-python
 class Studente:
 # campi dati:
 	_matricola: int #<<imm>>, noto alla nascita
@@ -16,8 +21,9 @@ class Studente:
 	_email: set[Email] # non noto alla nascita
 ```
 
-per gli attributi pubblici dobbiamo usare i getter:
-
+### I metodi getter 
+Per gli attributi [[Evoluzione delle proprietà e visibilità delle proprietà#^attrUMLpubblici|pubblici]] dobbiamo usare i [[Le Classi#**Gestione degli Attributi con Getter e Setter**|getter]]:
+come abbiamo già detto nelle lezioni di Python [[Ereditarietà delle classi#Gli attributi protetti|Ereditarietà delle classi]] e nei paragrafi [[Public, Private and Class Attibutes, Class and Static Methods#Gli attributi pubblici|Gli attributi pubblici]] e [[Public, Private and Class Attibutes, Class and Static Methods#Attributi privati|Gli attributi privati]], non esiste il concetto in Python di "pubblico" o "privato" impostato dal linguaggio (come in altri linguaggi tipo Java o C++), ma si usa la convenzione di rendere tutti gli attributi protetti (con il simbolo del singolo underscore `_`) e si gestisce l'acceso solo tramite i [[Public, Private and Class Attibutes, Class and Static Methods#Accesso agli attributi Privati Getter e Setter|metodi getter e, eventualmente,  i setter ]]. 
 ```run-python
 class Studente:
 # campi dati:
@@ -37,9 +43,23 @@ class Studente:
 	def email(self)->set[Email]:
 		return set(self._email) # una copia immutabile!
 ```
+ In questo esempio:
+ - `_matricola`: un attributo immutabile(perché il numero di matricola di uno studente è univoco per ogni studente) e noto alla nascita dell'oggetto `studente`
+ - `_nome`: attributo mutabile (il nome di uno studente può cambiare da studente a studente) e noto alla nascita dell'oggetto `studente`.
+ - `_genere`: attributo con valore di tipi specializzato (enum) noto alla nascita dell'oggetto `studente`.
+ - `_telefono`: un attributo di tipo `set`, noto alla nascita dell'oggetto studente.
+ - `_email`: un attributo noto alla nascita dell'oggetto studente.
+ Tutti le funzioni in questo caso le funzioni sono dei getter:
+```python
+ def telefono(self) -> set[Telefono]:
+    return set(self._telefono)  # restituisce una copia!
+```
+ 
 
-La variabile s contiene un riferimento in memoria all'oggetto `{1,2,3}` ,
-qujdi quando s si assegna a una cloocetion set viene creato prima l'oggetto set in memoria e la variabile conterrà un riferimento a qusto oggetto in memoria.
+
+
+La variabile `s` contiene un riferimento in memoria all'oggetto `{1,2,3}` ,
+qujdi quando s si assegna a una collection set viene creato prima l'oggetto set in memoria e la variabile conterrà un riferimento a qusto oggetto in memoria.
 Se si faccesse:
 ```
 s = {1,2,3}
@@ -47,7 +67,7 @@ t = s
 print(t)
 ```
 In questo caso t punta al riferimento in memoria dove punta s, ma se si facesse:
-```run-python
+``` run-python
 s = {1,2,3}
 t = s
 print(t)

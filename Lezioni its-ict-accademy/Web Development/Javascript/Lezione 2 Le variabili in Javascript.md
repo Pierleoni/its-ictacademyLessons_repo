@@ -148,7 +148,7 @@ Mentre gli altri metodi più importanti sono :
 4. `replace()` : ==sostituisce una parte della stringa prendendo la stringa passata per prima e la sostituisce con la stringa passata per secondo parametro.== 
 
 
-#### Numeri in JS 
+### Numeri in JS 
 JavaScript ha un unico tipo di dato numerico, **cioè non c’è distinzione formale, ad esempio, tra intero e decimale.**
 Internamente tutti i valori numerici sono rappresentati come numeri in virgola mobile, ma se non è specificata la parte decimale il numero viene trattato come intero (sono a 64 bit i numeri da `−9.223.372.036.854.775.808` a
 `+9.223.372.036.854.775.807`).
@@ -180,34 +180,57 @@ parseInt(anni) // Converte una stringa in intero
 parseFloat(anni) //Converte una stringa in Reale
 ```
 
-`parseInt`: 
+#### La funzione `parseInt`: 
 
-La funzione parseInt in Javascript viene generalmente utilizzata per convertire il suoprimo argomento in un numero intero. La sintassi è la seguente: `parseInt(stringa)`. 
+==La funzione `parseInt` in Javascript viene generalmente utilizzata per convertire il suo primo argomento in un numero intero==. 
+La sintassi è la seguente: `parseInt(stringa)`. 
 Dove stringa rappresenta la stringa da convertire.
 ```js
 var importo = "12"
 console.log(parseInt(importo)) //12 adesso è un integer
 ```
 
-`parseFloat()`:
-La funzione `parseFloat()` fa la stessa cosa del `parseInt()` con l’unica differenza che torna un numero decimale invece di un numero intero.
+#### La funzione `parseFloat()`:
+==La funzione `parseFloat()` fa la stessa cosa del `parseInt()` con l’unica differenza che torna un numero decimale invece di un numero intero==.
 
 ```js
 var importo = "12.6789"
 console.log(parseFloat(importo)) //12.6789 ora è un reale
 ```
 
+#### La funzione `toFixed()`
+==È una funzione globale built-in.== 
+==Prende in ingresso un numero che sta ad indicare quante cifre decimali si devono visualizzare dopo la virgola, arrotondando per eccesso o per difetto.==
+Ad esempio:
+```js
+var importo = 12.6789
+console.log(importo,toFixed(2)) // 12.68
+```
+
+> [!caution] Attenzione!
+> Bisogna fare attenzione ad una regola **molto importante:**
+> la funzione `toFixed()` si applica su un numero (la funzione `toFixed()` è una funzione che prende solo numeri come parametri) ma ritorna una stringa
+>```js
+>var importo = 12.6789
+>console.log(importo.toFixed(2)) // '12.68' è una stringa
+>console.log(importo.toFixed(2)+4) //'12.684' concatena
+> 
+>```
+
+
 ### La costante Nan
 
-La particolarità di JS esiste una costante globlae chiamata `Nan`(not a number) viene chiamata da JS per dire che quella variabile non è un numero.
+La particolarità di JS esiste una costante globale chiamata `Nan`(aka: not a number) viene chiamata da JS per dire che quella variabile non è un numero.
 NaN (Not a Number) è una costante globale che viene invocata quando si esegue una funzione matematica con i numeri e questa operazione torna qualcosa che non è un numero.
-La prima cosa da dire è che NaN non è uguale a se stesso. Questo vuol dire che se ad esempio scrivo :
+==La prima cosa da dire è che NaN non è uguale a se stesso==. 
+Questo vuol dire che se ad esempio scrivo :
 ```js
 console.log( 1 === 1 ); // true
 console.log( NaN === NaN ) // false
 ```
 
-Questo vuol dire che se noi vogliamo verificare se un risultato è uguale a NaN non posso confrontarlo con NaN. Ad esempio se scrivo:
+Questo vuol dire che se noi vogliamo verificare se un risultato è uguale a NaN non posso confrontarlo con NaN. 
+Ad esempio se scrivo:
 ```js
 var risultato = 10 * ‘prova’;
 console.log(risultato);
@@ -225,7 +248,7 @@ console.log(IsNaN(‘ciao’)); // true
 console.log(IsNaN(‘’)); // false
 console.log(IsNaN(false)) // false
 ```
-Pero IsNan non mi da una soluzione al 100% vera, perché una stringa vuota ritorna false perché per JS è 0 mentre se è piena è 1 quindi true.
+Pero `IsNan` non mi da una soluzione al 100% vera, perché una stringa vuota ritorna false perché per JS è 0 mentre se è piena è 1 quindi `true`.
 Perchè se io scrivo in Js:
 ```js
 let z = ""
@@ -233,16 +256,16 @@ if (z){
 
 }
 ```
-Scrivo questo perché in JS come in altri linguaggi di programmazione una stringa vuota viene trattato come un booleano, quindi sto dicendo che se z è una stringa bvuota fai qualcosa. 
+Scrivo questo perché in JS come in altri linguaggi di programmazione una stringa vuota viene trattato come un booleano, quindi sto dicendo che se `z` è una stringa vuota fai qualcosa. 
 Quindi se la variabile è vuota è False quindi è zero e se la passo in `IsNan()` per lui è un numero.
 Se io in JS scrivessi:
-```
+```js
 console.log(""+3) //stampa 3
 ```
 Fa una concatenazione tra una stringa vuota e l'intero `3`.
 
 > [!hint] Consiglio
-> Anziché usare il `IsNaN` per controllare se quel valore è un numero o meno è meglio usare `typeof()`.
+> Anziché usare il `IsNaN` per controllare se quel valore è un numero o meno è meglio usare [[#L'operatore `typeof`|`typeof()`]].
 >```js
 > if (typeof(z)=="number"){
 > }
@@ -254,9 +277,44 @@ Fa una concatenazione tra una stringa vuota e l'intero `3`.
 > `Number.isNaN()` ritorna True solo se gli arriva `NaN`, e serve a controllare se si ha un `NaN`
 
 
-La differenza tra null e undefinde è che null è un vlaore e undefined no:
+### I tipi di dato null undefined e booleano
+JavaScript prevede due tipi di dato speciali per rappresentare valori nulli e non definiti.
+Il tipo di dato `null` prevede il solo valore `null`, che rappresenta un valore che non rientra tra i tipi di dato del linguaggio, cioè non è un valore numerico valido, né una stringa, né un oggetto.
+In sintesi è uguale al `None` di Python
+È possibile assegnare il valore `null` ad una variabile come nel seguente esempio:
+La differenza tra `null` e `undefind`  è:
+-  `null`: ==è un valore==.
+
+- `undefined`: ==rappresenta un valore che non esiste==.
+
 ```
 let r = null //null
 let w //undefined
 ```
-Undefined è qualcosa che non è mai stato inizializzato
+In altre parole `Undefined` è qualcosa che non è mai stato inizializzato, ovvero un valore a cui non è stato assegnato nessun valore, nemmeno `null`.
+
+Mentre per i tipi di dati booleani prevedono solo due valori:
+- True (vero)
+- False (falso)
+
+### Tipizzazione debole o dinamica
+Vediamo ora come javascript è un linguaggio a tipizzazione debole. Questo vuol dire che una variabile può assumere valori di tipi diverso, tipizzazione modificata in base al valore assegnato.
+Se ad esempio dichiaro una variabile `var test = ‘buongiorno a tutti’;` questa variabile javascript la vede come una stringa perché dopo l’uguale ho
+messo l’apice. Se invece alla riga successiva scrivo `test = 1;` la stessa variabile test per javascript adesso è in numero.
+
+### L'operatore `typeof`
+==L'operatore `typeof` è un modo semplice per controllare il tipo di una variabile nel codice==. 
+Questo è importante perché JavaScript è un linguaggio tipizzato dinamicamente ed è utile per la convalida dei dati e il controllo del tipo.
+La sintassi è la seguente : 
+==far seguire dall’operatore `typeof` il nome della variabile in modo da ricevere il tipo di dato in quel momento.== 
+
+```
+var test;
+console.log("Test" + "=>" + typeof test) //undefined
+var test = "boungiorno a tutti";
+console.log("Test" + "=>" + typeof test) //string
+var test = 10;
+console.log("Test" + "=>" + typeof test) //number
+var test = True;
+console.log("Test" + "=>" + typeof test) //boolean
+```
