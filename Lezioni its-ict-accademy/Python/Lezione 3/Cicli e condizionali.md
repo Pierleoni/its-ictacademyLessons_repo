@@ -190,7 +190,7 @@ Le istruzioni presenti nel corpo non hanno limite, posso metterne quante mi pare
 ```
 Python ci mette a disposizione alte 2 conditional statements oltre l'`if`:
 2. `elif`:
-   ==sta per **else if** ed esprime un altra condizione dopo la condizione uno (cioè l'`if`)==; quindi,  se la condizione 1 è vera fai altro se non è vera fai quello che ti dice `elif`.  ^elif-Def
+   ==sta per [[Lezione 4 ; Espressioni e operatori, statements e cicli#^elseIfJS|else if]] ed esprime un altra condizione dopo la condizione uno (cioè l'`if`)==; quindi,  se la condizione 1 è vera fai altro se non è vera fai quello che ti dice `elif`.  ^elif-Def
 
 > [!info] Posso usare un numero imprecisato di `elif` dopo lo statement `if` 
 >

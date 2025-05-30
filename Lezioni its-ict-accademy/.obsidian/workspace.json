@@ -13,13 +13,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Web Development/Javascript/Lezione 4 ; Espressioni e operatori, statements e cicli.md",
+                "file": "Progettazione/Design di applicazioni in Python/Responsabilità.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Lezione 4 ; Espressioni e operatori, statements e cicli"
+              "title": "Responsabilità"
             }
           },
           {
@@ -28,13 +28,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Web Development/Javascript/Le funzioni in Javascript.md",
+                "file": "Web Development/Javascript/Lezione 2 Le variabili in Javascript.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Le funzioni in Javascript"
+              "title": "Lezione 2 Le variabili in Javascript"
             }
           },
           {
@@ -58,13 +58,28 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/Lezione 2/Gli Operatori.md",
+                "file": "Web Development/Javascript/Lezione 3; Array, Indexing, Attributo Length, Operatori, Conversione tra tipi di variabili.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Gli Operatori"
+              "title": "Lezione 3; Array, Indexing, Attributo Length, Operatori, Conversione tra tipi di variabili"
+            }
+          },
+          {
+            "id": "763ab2e38d87d234",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Progettazione/Analisi concettuale/Lezione 2/Vincoli di molteplicità sulle associazioni e sugli attributi.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "Vincoli di molteplicità sulle associazioni e sugli attributi"
             }
           }
         ]
@@ -276,13 +291,20 @@
   },
   "active": "13592c356f6e5a0b",
   "lastOpenFiles": [
-    "Web Development/Javascript/Lezione 1 I fondamenti Javascript.md",
-    "Web Development/Javascript/Lezione 4 ; Espressioni e operatori, statements e cicli.md",
-    "Progettazione/Design di applicazioni in Python/Evoluzione delle proprietà e visibilità delle proprietà.md",
-    "Web Development/Javascript/Le funzioni in Javascript.md",
-    "Web Development/Javascript/Lezione 3; Array, Indexing, Attributo Length, Operatori, Conversione tra tipi di variabili.md",
-    "Python/Lezione 2/Gli Operatori.md",
+    "Progettazione/Esercizi/Esercitazione Azienda 1.md",
     "Progettazione/Design di applicazioni in Python/Responsabilità.md",
+    "img/Progettazione IMG/Design di applicazione Python/Esempio di responsabilità singola.png",
+    "img/Progettazione IMG/Design di applicazione Python/Esempio1 Responsabilità.png",
+    "Progettazione/Analisi concettuale/Lezione 2/Vincoli di molteplicità sulle associazioni e sugli attributi.md",
+    "Web Development/Javascript/Lezione 3; Array, Indexing, Attributo Length, Operatori, Conversione tra tipi di variabili.md",
+    "Progettazione/Design di applicazioni in Python/Implementazione delle classi.md",
+    "Progettazione/Design di applicazioni in Python/Evoluzione delle proprietà e visibilità delle proprietà.md",
+    "Web Development/Javascript/Lezione 4 ; Espressioni e operatori, statements e cicli.md",
+    "Python/Lezione 3/Cicli e condizionali.md",
+    "Python/Lezione 2/Gli Operatori.md",
+    "Web Development/Javascript/Lezione 2 Le variabili in Javascript.md",
+    "Web Development/Javascript/Le funzioni in Javascript.md",
+    "Web Development/Javascript/Lezione 1 I fondamenti Javascript.md",
     "img/Progettazione IMG/Design di applicazione Python/Responsabilità.png",
     "img/Progettazione IMG/Class Diagram Design.png",
     "img/Progettazione IMG/Design di applicazione Python/Operazioni di classe_Responsabilità.png",
@@ -290,20 +312,16 @@
     "Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Public, Private and Class Attibutes, Class and Static Methods.md",
     "Progettazione/Analisi concettuale/Lezione 2/Analisi dei requisiti mediante UML.md",
     "img/Web Dev/JS/Indexing di un array.png",
-    "Web Development/Javascript/Lezione 2 Le variabili in Javascript.md",
     "img/Web Dev/JS/JS Lato Server.png",
     "img/Web Dev/JS",
     "img/Web Dev",
-    "Progettazione/Design di applicazioni in Python/Implementazione delle classi.md",
     "Python/Lezione 8_Ereditarietà delle classi/Ereditarietà delle classi.md",
     "Progettazione/Analisi concettuale/Lezione 2/Documenti di specifica.md",
     "img/Progettazione IMG/Progettazione(Lezione2)/Screenshot 2025-05-05 at 16-58-55 Meet - bmb-xnne-ahh.png",
     "img/Progettazione IMG/Progettazione(Lezione2)/Screenshot 2025-05-05 at 17-04-04 Meet - bmb-xnne-ahh.png",
     "img/Progettazione IMG/Screenshot 2025-05-23 at 18-48-03 Meet - bmb-xnne-ahh.png",
-    "img/Progettazione IMG/Progettazione(Lezione2)/Class Diagram Design.png",
     "Sistemi digitali/Lezione 22/Linux 2.md",
     "Python/Lezione 15/File in Python.md",
-    "img/Progettazione IMG/Design di applicazione Python/Esempio diagramma delle classi ristrutturato_2.png",
     "img/Progettazione IMG/Design di applicazione Python",
     "Progettazione/Design di applicazioni in Python/Design di applicazioni in Python.md",
     "Progettazione/Design di applicazioni in Python/Generalizzazioni nella ristrutturazione del diagramma UML delle classi.md",
@@ -313,10 +331,7 @@
     "Sistemi digitali/Lezione 22",
     "Progettazione/Analisi concettuale/Lezione 2/Tipi di dato concettuale.md",
     "Progettazione/Analisi concettuale/Lezione 2/Operazioni di classe e Specializzazioni degli attributi, di associazioni e operazioni.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Vincoli di molteplicità sulle associazioni e sugli attributi.md",
     "Progettazione/Analisi concettuale/Lezione 2/Generalizzazioni.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Diagramma use-case.md",
-    "Python/Lezione 8_Ereditarietà delle classi/Polimorfismo.md",
     "Progettazione/Analisi concettuale",
     "Progettazione/Design di applicazioni in Python",
     "Web Development/Javascript",

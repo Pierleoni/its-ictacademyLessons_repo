@@ -4,8 +4,8 @@ Abbiamo visto nella [[Lezione 2 Le variabili in Javascript|scorsa lezione]] come
 ## Definire Array in JS
 Gli array consentono di associare più valori ad un unico nome di variabile (o
 identificatore). 
-In genere i valori contenuti in un array hanno una qualche affinità (ad esempio l’elenco dei giorni della settimana). L’uso degli array evita di definire più variabili e semplifica lo svolgimento di operazioni cicliche su
-tutti i valori. 
+In genere i valori contenuti in un array hanno una qualche affinità (ad esempio l’elenco dei giorni della settimana). 
+L’uso degli array evita di definire più variabili e semplifica lo svolgimento di operazioni cicliche su tutti i valori. 
 Ad es:
 ```js
 var giorniDellaSettimana = [
@@ -168,6 +168,11 @@ console.log(giorniDellaSettimana.length) // 6 (l'indicizzazione parte da 0 e arr
 >Ricordiamo che l’indice parte da ZERO mentre il conteggio della lunghezza parte da UNO.
 >Questo vuol dire che, tornando all’esempio dei giorni della settimana, l’array ha una lunghezza di 7 elementi con indice che va da 0 a 6.
 
+
+
+---
+## Gli operatori in Javascripts
+In JS, come in Python, esistono diversi tipi di operatori, andiamo ad esaminarli in JS. 
 ### Operatori aritmetici 
 Per quel che riguarda il tipo di dato numerico, abbiamo gli operatori aritmetici, che, come in [[Gli Operatori#Gli operatori aritmetici|Python]] consentono la combinazione di valori numerici. 
 Si tratta di operatori binari corrispondenti ai classici operatori matematici:
