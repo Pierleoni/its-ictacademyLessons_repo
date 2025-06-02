@@ -44,7 +44,8 @@ Difatti la classe `CorsoDiLaurea` potrebbe non avere responsabilità nell'associ
 
 Quindi, potrebbe anche essere che lo studente ha responsabilità sul corso di laurea ma da un corso di laurea non ci interessa sapere gli studenti iscritti,
 in questo caso, si dice che la **responsabilità è singola**:
-nel diagramma delle classi ristrutturato, alle associazioni a responsabilità di una singola classe si associa un verso di navigabilità,  cioè  sola freccia che parte dalla classe che ha la responsabilità e va verso la classe di cui si è responsabili.
+nel diagramma delle classi ristrutturato, alle associazioni a responsabilità di una singola classe si associa un verso di navigabilità,  cioè: 
+una sola freccia che parte dalla classe che ha la responsabilità e va verso la classe di cui si è responsabili.
 ![[Esempio di responsabilità singola.png]]
 Quindi l'associazione può essere "navigata" solo in quel verso.
 
@@ -53,13 +54,13 @@ immaginiamo che da un dipartimento deve conoscere la sua citta, ma dall'altra pa
 
 ![[Responsabilità.png]]
 
-Deve assic che il vincolo di moltepl 1..1 deve essere risp e perchè dobbiamo immaginare che nel sys ci sia un operazione che dato un dip bisogna conoscere la sua citta, ma data una città non serve conoscere i dipartienti che stanno in quella città. 
-Quando succede questo, che la resp è singola e l'assoc non ha attr. si cihama aggregazione e si fa con il rombo: questo significa che la città è una proprietà di dip come quasi se fosse un attrib. 
-L'agreg modella la relazione has-a: tipo da uno studnete si ha una riferimento diretto a un corso di laurea.
-COme si implementano le aggregazioni?
-Diventa una class Python specifica, ad esempio 
-```
+In questo caso:
+bisogna tener conto che il vincolo di molteplicità, legato alla classe `Dipartimento`,(`1..1`) deve essere rispettato, poiché si deve immaginare che nel sistema ci sia un operazione che dato un dipartimento bisogna conoscere la sua citta, ma data una città non serve conoscere i dipartimenti che risiedono  in quella città. 
+Quando succede questo, ovvero che la responsabilità è singola e l'associazione non ha attributi, si chiama aggregazione e si fa con il rombo: questo significa che la città è una proprietà di dipartimento come quasi se fosse un suo attributo. 
+![[Esempio aggregazione.png]]
+L'aggregazione modella la relazione `has-a`:
+==gli oggetti della classe responsabile hanno o possono avere (come “parte”, cioè come se fosse un attributo) riferimenti diretti ad uno o più oggetti dell’altra classe (in base al vincolo di molteplicità).== 
+Ad esempio, in questo caso,  uno studente ha un riferimento diretto a un corso di laurea.
 
-```
 
-Da notare come le aggreg funzionano anhe con lo `0..*` ad esempio una persona ha visitato una città, la resp è singola quindi persona ha un aggregazione verso città 
+Da notare come le aggregazione funzionano anche con lo `0..*` ad esempio una persona ha visitato una città, la resp è singola quindi persona ha un aggregazione verso città 

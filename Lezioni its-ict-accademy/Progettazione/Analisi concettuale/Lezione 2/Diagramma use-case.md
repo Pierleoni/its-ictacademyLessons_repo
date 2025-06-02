@@ -12,9 +12,9 @@ In sostanza risponde al quesito:
 Quindi questo tipo di diagramma modella ==gli utenti esterni (o attori) che possono essere umani o sistemi esterni che utilizzeranno il sistema che stiamo progettando==.
 
 ### Cos è un attore
-Un attore è un ruolo che può esser giocato da un essere umano o da un sistema. 
+==Un attore è un ruolo che può esser giocato da un essere umano o da un sistema.== 
 Da notare come l'utente può ricoprire i diversi ruoli (es: i ruoli all'interno di un sistema informativo di una università possono essere amministrativo(visualizzare i voti di tutti), docenti, studenti, etc.)
-Il ruolo attore può essere interpretato da diversi utenti, ma la persona può avere diversi ruoli. 
+==Il ruolo attore può essere interpretato da diversi utenti, ma la persona può avere diversi ruoli==. 
 
 ### Diagramma UML degli Use-case
 Più specificatamente un diagramma UML degli use case é un grafo:
