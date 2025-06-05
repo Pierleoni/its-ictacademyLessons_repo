@@ -231,7 +231,7 @@ A differenza di Python, dove le iterazioni vengono fatte principalmente tramite 
     
 2. [[#Il ciclo `do...while`|`do...while`]]
     
-3. `for`
+3. [[#Il ciclo `for`|`for`]]
     
 4. `for...in`
     

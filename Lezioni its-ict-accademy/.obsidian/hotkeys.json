@@ -675,5 +675,14 @@
       ],
       "key": "E"
     }
+  ],
+  "github-sync:github-sync-command": [
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "P"
+    }
   ]
 }
