@@ -124,7 +124,7 @@ L’oggetto `arguments` è una variabile locale disponibile in tutte le funzioni
 ==Questo oggetto contiene una voce per ogni argomento passato a una funzione, che ci aiuterà a conoscere il numero di questi argomenti e ad accedervi.==
 
 > [!NOTE] Nota
-> `arguments` **non funziona** con le **[[arrow functions]]** (`()=>{}`).
+> `arguments` **non funziona** con le **[[#Arrow function|arrow functions]]** (`()=>{}`).
 
 Come abbiamo detto, l’oggetto arguments è un oggetto ([[Lezione 3; Array, Indexing, Attributo Length, Operatori, Conversione tra tipi di variabili#Definire Array in JS|array]]), quindi ha una proprietà `length()`: ==ovvero possiamo accedere ai valori individuali==
 ==usando la notazione di indicizzazione dell’array (`arguments [i]`)==
@@ -250,8 +250,8 @@ function test2(){
 
 
 ### Arrow function
-Con l’introduzione di **ECMAScript 6 (ES6)**, JavaScript ha aggiunto una nuova sintassi per scrivere le funzioni: le **arrow function**, dette anche **funzioni freccia.**
-Sono più **brevi**, **leggibili**, e si usano molto nel codice moderno 
+Con l’introduzione di **ES6 (ECMAScript 2015)**, JavaScript ha aggiunto una nuova sintassi per scrivere le funzioni: le **arrow function** (o **funzioni freccia**)
+Sono più **brevi**, **leggibili** e ampiamente usate nel codice moderno, soprattutto per le callback. 
 La sintassi delle arrow function è la seguente :
 ```js
 let test = () => {
@@ -271,37 +271,51 @@ let test = (nome,cognome) => {
 test('Pippo', 'Sowlo');
 ```
 
-Le arrow function sono funzioni anonime (perché non hanno il nome della funzione), vengono usati come callback di altre funzioni: sono utilizzate quando le funzioni vengono chiamate automaticamente.
+==Per definizione le arrow function sono funzioni anonime (perché non hanno il nome della funzione)==,  e vengono usati come callback: 
+cioè come funzioni **passate come parametro** ad altre funzioni.
+
 Ma quando una funzione viene chiamata automaticamente?
-Prima delle arrow function per definire una funzione anonima si doveva fare:
+Prima di ES6, una funzione anonima si scriveva così:
 ```
 let y = function(){
 	//istruzione da eseguire
 }
 ```
-Quindi cambia solo la sintassi, ma cambiano anche un po di cose:
-1. Quando il parametro è uno solo le tonde non so obbligatorie
-2. Quando il contenuto della funzione è una sola istruzione le graffe non sono obbligatorie e il `return` è implicito.
+
+
+In realtà non cambia solo la sintassi, ma si aggiungono altri vantaggi come quello della sintassi abbreviata:
+1. ==Quando il parametro è uno solo le tonde non so obbligatorie==
+```js
+let saluta = nome => console.log('Ciao ' + nome);
+saluta('Luca');
+
+```
+2. ==Quando il contenuto della funzione è una sola istruzione le graffe non sono obbligatorie e il `return` è implicito.==
+```js
+let somma = (a, b) => a + b;
+console.log(somma(2, 3)); //   5
+```
 Quindi se si scrive una arrow function bisogna stare dentro un altra funzione:
 ```
 let x = () => {
 	//istruzione da eseguire
 }
 ```
-QUesto esempio è banale ma non rispecchia la realta: le arrow function vengono utilizzate nella maggior parte dei casi come callback; 
+Questo esempio è banale ma non rispecchia la realta: le arrow function vengono utilizzate nella maggior parte dei casi come callback; 
 le callback è una funzione che viene passato come parametro ad un'altra funzione.
 Quindi 
 ```
-let y = function(){
-	//istruzione da eseguire
+let y = () => {
+	console.log("Funzione passata come parametro!");
 }
 
-let x = (test) => {
-	test()
-	//istruzione da eseguire
+let x = (callback) => {
+	callback(); // la funzione y viene eseguita qui
+	console.log("Fine esecuzione.");
 }
 
-x(y)
+x(y);
+
 ```
 
 Si chiama `x` e poi `x` chiamerà `y`.
@@ -343,9 +357,26 @@ giorno.map(giorno =>giorno); //in questo caso tornerà un array con i giorni del
 
 In alcuni framework e librerie non possono usare costrutti (`if`, `while`, `for`, `do..while`, `for..in`, `for..each`), quindi se si deve iterare su un array si usano `forEach` e `map()`.
 La differenza tra questi due:
-for each è un ciclo for che non torna nulla; cioè se si dovesse far ritornare qualcosa sull'array giorni usando il `forEach` 
-map() torna un nuovo array.
+- `for each`: ==è un ciclo for che non torna nulla; cioè se si dovesse far ritornare qualcosa sull'array giorni usando il `forEach`== 
+- `map()`: ==**ritorna un nuovo array**, quindi se non ritorni nulla esplicitamente, ottieni `undefined`==.
 
+
+| Metodo      | Ritorna un valore?      | Scopo principale                   |
+| ----------- | ----------------------- | ---------------------------------- |
+| `forEach()` | No                      | Esegue un'azione per ogni elemento |
+| `map()`     | Si, cioè un nuovo array | Trasforma ogni elemento dell'array |
+### Nota su framework/librerie (es. **JSX**, React)
+
+In alcuni contesti (come JSX in React), **non puoi usare costrutti come `if`, `while`, `for`, `do...while`, `for...in`** dentro l’HTML virtuale.  
+Per questo motivo si usano sempre metodi come `map()` per iterare sugli array:
+```
+{giorni.map(giorno => <li>{giorno}</li>)}
+```
+Quindi:
+
+- ✅ `forEach()` → utile per side effect (es. `console.log`, invio dati, ecc.)
+    
+- ✅ `map()` → utile quando vuoi generare un **nuovo array** (es. in JSX)
 Ad esempio nella libreria JSX non si possono utilizzare costrutti e si deve scrivere tutto il codice  sulla stessa linea.
 
 ### Parametri di default 

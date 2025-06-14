@@ -215,7 +215,8 @@ Siccome definire queste classi è lungo e complesso e può portare spesso a degl
 - `\S`: matchia qualsiasi carattere che non è uno spazio, tab, newline, etc.
 
 ### Boundary
-- `\b-`Word boundary: serve per creare limiti di parola, matcha la posizione tra un carattere di parola e un non carattere di parola.
+- `\b-`Word boundary:
+   ==serve per creare limiti di parola, matcha la posizione tra un carattere di parola e un non carattere di parola.==
   Cioè Matcha la **posizione** tra un carattere di parola (`\w`) e un non-carattere (spazi, punteggiatura, ecc.).  
   Utile per cercare parole intere.
 
@@ -251,7 +252,8 @@ result: list[str] = re.findall(r'\S+@\S+', text)
 print(result)  # Output ['marco@gmail.com']
 ```
 
-`findall()`: Cerca **tutte le occorrenze non sovrapposte** (non-overlapping) del `pattern` nella `string` e le restituisce come **lista di stringhe**. 
+`findall()`: 
+==Cerca **tutte le occorrenze non sovrapposte** (non-overlapping) del `pattern` nella `string` e le restituisce come **lista di stringhe**.== 
 La regex(`\S+@\S+`):
 1. `\S+`
 	-  `\S` = **Qualsiasi carattere che NON sia uno spazio bianco** (no spazi, tab, newline).
@@ -378,7 +380,8 @@ re.search(r"\d+", "abc123")  # Match: '123'
     ^research
 
 3. `re.fullmatch(pattern, string)`
-   - **Descrizione:** ==Verifica se **tutta** la stringa corrisponde esattamente al pattern. In altre parole controlla se l'intera stringa matcha una specifica RegEx==, quindi se si inserisce una stringa con solo cifre se la trova la ritorna, o per meglio dire:
+   - **Descrizione:** ==Verifica se **tutta** la stringa corrisponde esattamente al pattern. 
+    In altre parole controlla se l'intera stringa matcha una specifica RegEx==, quindi se si inserisce una stringa con solo cifre se la trova la ritorna, o per meglio dire:
     **==Restituisce `Match` solo se l'intera stringa soddisfa il pattern, altrimenti `None`==** ****
    - **Restituisce:** Oggetto `Match` o `None`
    - Esempio:

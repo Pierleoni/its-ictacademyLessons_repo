@@ -44,10 +44,11 @@ Difatti la classe `CorsoDiLaurea` potrebbe non avere responsabilità nell'associ
 
 Quindi, potrebbe anche essere che lo studente ha responsabilità sul corso di laurea ma da un corso di laurea non ci interessa sapere gli studenti iscritti,
 in questo caso, si dice che la **responsabilità è singola**:
-nel diagramma delle classi ristrutturato, alle associazioni a responsabilità di una singola classe si associa un verso di navigabilità,  cioè: 
-una sola freccia che parte dalla classe che ha la responsabilità e va verso la classe di cui si è responsabili.
+==nel diagramma delle classi ristrutturato, alle associazioni a responsabilità di una singola classe si associa un verso di navigabilità,==  
+cioè: 
+==una sola freccia che parte dalla classe che ha la responsabilità e va verso la classe di cui si è responsabili==.   
 ![[Esempio di responsabilità singola.png]]
-Quindi l'associazione può essere "navigata" solo in quel verso.
+Quindi l'associazione può essere "navigata" solo in quel verso. ^6a5c39
 
 Riprendiamo il diagramma delle classi ristrutturato di [[Esercitazione Azienda 1|Azienda 1]], facciamo una modifica al diagramma aggiungendo la classe Città: 
 immaginiamo che da un dipartimento deve conoscere la sua citta, ma dall'altra parte non chiederemo a una citta di sapere i suoi dipartimenti, perché al dipartimento serve conoscere il suo link verso citta ma non viceversa:
@@ -56,6 +57,8 @@ immaginiamo che da un dipartimento deve conoscere la sua citta, ma dall'altra pa
 
 In questo caso:
 bisogna tener conto che il vincolo di molteplicità, legato alla classe `Dipartimento`,(`1..1`) deve essere rispettato, poiché si deve immaginare che nel sistema ci sia un operazione che dato un dipartimento bisogna conoscere la sua citta, ma data una città non serve conoscere i dipartimenti che risiedono  in quella città. 
+
+### L'aggregazione
 Quando succede questo, ovvero che la responsabilità è singola e l'associazione non ha attributi, si chiama aggregazione e si fa con il rombo: questo significa che la città è una proprietà di dipartimento come quasi se fosse un suo attributo. 
 ![[Esempio aggregazione.png]]
 L'aggregazione modella la relazione `has-a`:
@@ -63,4 +66,4 @@ L'aggregazione modella la relazione `has-a`:
 Ad esempio, in questo caso,  uno studente ha un riferimento diretto a un corso di laurea.
 
 
-Da notare come le aggregazione funzionano anche con lo `0..*` ad esempio una persona ha visitato una città, la resp è singola quindi persona ha un aggregazione verso città 
+Da notare come le aggregazione funzionano anche con lo `0..*` ad esempio una persona ha visitato una città, la responsabilità è singola quindi persona ha un aggregazione verso città 

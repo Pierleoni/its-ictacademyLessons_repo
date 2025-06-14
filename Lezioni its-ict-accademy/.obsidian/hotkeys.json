@@ -684,5 +684,15 @@
       ],
       "key": "P"
     }
+  ],
+  "vscode-editor:create": [
+    {
+      "modifiers": [
+        "Alt",
+        "Mod",
+        "Shift"
+      ],
+      "key": "N"
+    }
   ]
 }

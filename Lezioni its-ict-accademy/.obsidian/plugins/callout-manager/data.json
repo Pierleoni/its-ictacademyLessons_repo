@@ -89,6 +89,13 @@
             "icon": "lucide-alert-triangle"
           }
         }
+      ],
+      "tip": [
+        {
+          "changes": {
+            "icon": "lucide-microscope"
+          }
+        }
       ]
     }
   },
