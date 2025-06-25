@@ -1,2 +1,0 @@
-Si prende un intero n (es: 5), con questo numero intero n lo si mette all'intenro di questa funzione se il numero è pari viene diviso per due, se è dispari moltplica per 3 e si somma per +1 (`n*3+1`).
-Se io ho f (1)

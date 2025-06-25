@@ -18,17 +18,18 @@ Da notare come l'utente può ricoprire i diversi ruoli (es: i ruoli all'interno 
 
 ### Diagramma UML degli Use-case
 Più specificatamente un diagramma UML degli use case é un grafo:
-Un grafo è una struttura molto comune in informatica, rappresenta una **rete** di elementi (detti **nodi**), che sono collegati a coppie da **archi**.
+**Un grafo** è una struttura molto comune in informatica:
+==rappresenta una **rete** di elementi (detti **nodi**), che sono collegati a coppie da **archi**.==
 Un esempio molto comune di grafo è una mappa della rete metropolitana:
 ![[Rete metropolitana.png]]
 Come possiamo vedere in questa immagine un nodo è la fermata metro di una linea poichè collega più linee della metro tra loro, mentre l'arco è la linea della metro in se che collega le diverse fermate tra loro.
 Infatti questa logica è usata anche nei diagrammi UML degli use-case;
 - un **nodo rappresenta:**
-	- attori e use case
+	- ==attori e use case==
 - **Gli archi rappresentano:**
-	- la possibilità per un attore di invocare uno use-case
-	- la possibilità per uno use-case di invocare un altro use-case
-	- la generalizzazione tra attori e tra use-case
+	- ==la possibilità per un attore di invocare uno use-case==
+	- ==la possibilità per uno use-case di invocare un altro use-case==
+	- ==la generalizzazione tra attori e tra use-case==
 
 Quindi, in sostanza, gli archi di un diagramma degli use case sono le associazioni
 
@@ -56,11 +57,11 @@ I docenti devono poter inserire i risultati dei test degli studenti: tali test s
 ![[Esempio di un diagramma degli use-case.png]]
 Come mostra questa immagine:
 - Abbiamo l'attore `Studente` che accede all'use-case `Gestione iscrizioni`:  
-	  è l'insieme di funzionalità che permettono l'iscrizione web da parte degli studenti, ovvero singole operazioni racchiuse in un use case omogeneo.
+	  ==è l'insieme di funzionalità che permettono l'iscrizione web da parte degli studenti, ovvero singole operazioni racchiuse in un use-case omogeneo.==
 - Inoltre l'attore uno `Studente`, e l'attore `Docente` possono entrambi accedere all'use-case `Gestione test`:
-  è l'insieme di funzionalità che permettono la creazione, la somministrazione e la valutazione dei test, cioè singole operazioni racchiuse in un use case omogeneo.
+  ==è l'insieme di funzionalità che permettono la creazione, la somministrazione e la valutazione dei test, cioè singole operazioni racchiuse in un use case omogeneo.==
 -  Abbiamo l'attore `Segreteria` che accede all' use -case `Gestione docenti`:
-	è l'insieme di funzionalità  che permettono l'assegnazione dei docenti ai corsi, etc. Singole operazioni racchiuse in un use case omogeneo
+	==è l'insieme di funzionalità  che permettono l'assegnazione dei docenti ai corsi, etc. Singole operazioni racchiuse in un use case omogeneo==n
 
 Tuttavia questo diagramma è comunque troppo vago, per una serie di motivi:
 1. **Granularità troppo elevata (troppo generico):**
@@ -93,7 +94,7 @@ In sintesi il costrutto `<<include>>` si applica quando:
 ==alcune funzionalità del case A può hanno bisogno di accedere ad alcune funzionalità  del case B.==
 ![[Esempio del costrutto include.png]]
 
-In questo esempio sia i case `Somministrazione Test` che il case `Creazione` e valutazione test possono **usare** le funzionalità del case `Gestione Test`. 
+In questo esempio; sia i case `Somministrazione Test` che il case `Creazione` e valutazione test possono **usare** le funzionalità del case `Gestione Test`. 
 
 > [!example] Analogia con Python
 > Possiamo pensare al costrutto `<<include>>` come all’istruzione `import` in Python:

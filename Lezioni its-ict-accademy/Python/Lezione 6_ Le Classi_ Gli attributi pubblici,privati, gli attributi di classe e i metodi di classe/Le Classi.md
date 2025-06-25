@@ -1435,3 +1435,5 @@ p1 = Person("Alice")
 print(hash(p1))  # OK!
 ```
 
+
+VEDI PER IL METODO [[Associazione a responsabilità singola#il metodo speciale `__repr__()`|`__repr__()`]] 

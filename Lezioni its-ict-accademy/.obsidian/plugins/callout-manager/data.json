@@ -3,7 +3,8 @@
     "custom": [
       "deep",
       "remember",
-      "ticket"
+      "ticket",
+      "link"
     ],
     "settings": {
       "deep": [
@@ -38,8 +39,23 @@
       "remember": [
         {
           "changes": {
-            "icon": "lucide-cloud",
-            "color": "95, 171, 196"
+            "icon": "lucide-brain-circuit"
+          }
+        },
+        {
+          "condition": {
+            "colorScheme": "light"
+          },
+          "changes": {
+            "color": "154, 120, 161"
+          }
+        },
+        {
+          "condition": {
+            "colorScheme": "dark"
+          },
+          "changes": {
+            "color": "70, 112, 180"
           }
         }
       ],
@@ -94,6 +110,14 @@
         {
           "changes": {
             "icon": "lucide-microscope"
+          }
+        }
+      ],
+      "link": [
+        {
+          "changes": {
+            "icon": "link",
+            "color": "78, 183, 218"
           }
         }
       ]

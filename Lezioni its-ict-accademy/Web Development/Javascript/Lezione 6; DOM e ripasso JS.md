@@ -370,7 +370,7 @@ funzioneIsolata();         // ⚠️ Output: undefined (o errore in strict mode)
 Invece, **"ereditano" `this` dallo scope esterno** (quello in cui sono state definite). Questo comportamento si chiama **`this` lessicale**.
 Esempio:
 
-```
+```js
 const persona = {
   nome: "Max",
   mostraNome: function() {
@@ -434,7 +434,7 @@ Quindi le differenze principali possono essere schematizzate in questa tabella:
 >- In **JavaScript**, `this` può cambiare **a seconda del contesto** in cui chiami la funzione (tranne nelle arrow function, dove è "fissato").
 
 ### Gli oggetti in Javascript
-Ora che abbiamo esplorato le funzioni, torniamo a parlare dei **valori**, e in particolare degli **oggetti**:
+Ora che abbiamo esplorato le funzioni, torniamo a parlare dei **valori**, e in particolare degli **[[Gli oggetti in Javascript#Cos'è un oggetto in JS|oggetti]]**:
 ==**gli oggetti in JavaScript** servono per **raggruppare più valori** sotto un'unica entità.==
 Un oggetto in JS può essere creato in questo modo attraverso la literal object:
 Ad esempio, se si ha un nome utente, ome `"Rob"`, e un'età, come `46`, posso raggruppare questi dati in un oggetto chiamato `utente`.
@@ -448,7 +448,7 @@ const utente = {
 La creazione di oggetti in JS è un array associativo di chiave-valore (come nei [[Collections#I dictionaries|dizionari di python]] o i file [[File in Python#File JSON|JSON]]).
 Questo oggetto può essere stampato nella console per ispezionarne il contenuto.  
 Si può anche accedere ai suoi **singoli campi** usando la **notazione a punti**, come:
-```
+````js`
 console.log(utente.nome); // Output: "Rob"
 ```
 
@@ -507,3 +507,390 @@ A differenza di **Python**, dove il riferimento all’istanza corrente (`self`) 
 
 >[!NOTE]  
 >Questo rende `this` in JavaScript **più potente ma anche più insidioso** rispetto a `self` in Python, soprattutto se usi funzioni freccia (\=>) o perdi il contesto.
+
+### Array di Js
+Come abbiamo visto nella lezione 3 al capitolo [[Lezione 3; Array, Indexing, Attributo Length, Operatori, Conversione tra tipi di variabili#Definire Array in JS|Definire Array in JS]], gli array in JS sono oggetti ma rappresentano una categoria speciale di essi.
+La sintassi è:
+```js
+let nomeVariabile = [...]
+```
+
+Quindi a differenza degli oggetti veri e propri, che utilizzano coppie di chiave valore, gli array memorizzano solo valori in ordine specifico e sono accessibili tramite l'indice degli elementi, che è zero based (di base sono [[Collections#Le liste|le liste in Python]]).
+
+Ad esempio, se ho una lista di hobby come sport, cucina e lettura, posso accedere a questi valori utilizzando l'indice. 
+```js
+const hobbies = ['sport', 'cucina', 'lettura'];
+// accesso tramite indice
+console.log(hobbies[0]); // Output: "sport"
+console.log(hobbies[1]); // Output: "cucina"
+
+```
+Gli array sono molto comuni in JavaScript perché spesso è necessario memorizzare liste di valori. Possono contenere qualsiasi tipo di valore, inclusi altri array e oggetti.
+
+Gli array offrono vari metodi utili:
+- il metodo `push`:
+	  aggiunge un nuovo elemento all'array.  ^729767
+```js
+ hobbies.push('lavoro');
+console.log(hobbies); // ["sport", "cucina", "lettura", "lavoro"]
+```
+^pushMethod
+
+- Il metodo  `findIndex`:
+	   ==trova l'indice di un determinato valore.== 
+	   Questo metodo accetta una funzione come input, che viene eseguita per ogni elemento dell'array.
+```js
+const index = hobbies.findIndex(item => item === 'sport');
+console.log(index); // 0
+```
+Un altro metodo frequentemente utilizzato è `map`: 
+	 ==trasforma ogni elemento dell'array in un altro elemento.== 
+```js
+const modified = hobbies.map(item => item + '!');
+console.log(modified); // ["sport!", "cucina!", "lettura!", "lavoro!"]
+```
+ 
+ Come `findIndex`, anche `map` accetta una funzione come input. Questa funzione viene eseguita per ogni elemento dell'array, e il valore restituito diventa il nuovo elemento dell'array.
+ Ad esempio partendo dall'array `hobbies` posso trasformare gli elementi in oggetti:
+```js
+const objectHobbies = hobbies.map(item => ({ text: item }));
+console.log(objectHobbies);
+// [{ text: "sport" }, { text: "cucina" }, { text: "lettura" }, { text: "lavoro" }] 
+```
+
+In sintesi, gli array sono strumenti potenti per memorizzare e manipolare liste di valori in JavaScript. Offrono una varietà di metodi utili per la manipolazione e l'accesso ai dati, rendendoli strumenti indispensabili per qualsiasi sviluppatore JavaScript.
+
+### Assegnazione per riferimento in JS 
+Per comprendere bene come Javascript assegna i valori alle variabili e agli oggetti e array bisogna distinguere l'assegnazione per valore e l'assegnazione per riferimento:
+- I **tipi primitivi** (come numeri, stringhe, booleani) sono assegnati **per valore**.
+    
+- Gli **oggetti** e gli **array** (che sono oggetti complessi) sono assegnati **per riferimento**.
+
+#### Assegnazione per riferimento = stessa posizione in memoria
+Quando si assegna un oggetto o un array a una nuova variabile non si sta creando una copia ma si sta dicendo all'interprete di JS che quella variabile sta puntando allo stesso oggetto in memoria:
+```js
+const persona1 = { nome: 'Mario', eta: 30 };
+const persona2 = persona1;
+
+persona2.nome = 'Luigi';
+
+console.log(persona1.nome); // "Luigi"
+console.log(persona2.nome); // "Luigi"
+```
+ Se si modifica `persona2` si modifica anche `persona1`, poiché sono lo stesso oggetto in memoria. 
+
+Per fare un ulteriore esempio con un array:
+```js
+const array1 = [1, 2, 3];
+const array2 = array1;
+
+array2.push(4);
+
+console.log(array1); // [1, 2, 3, 4]
+console.log(array2); // [1, 2, 3, 4]
+```
+
+Qui `array1` viene assegnato a `array2`, ma **non si crea una copia**: entrambe le variabili puntano **allo stesso array in memoria**.  
+Usando [[#^729767|`push(4)`]] su `array2`, anche `array1` viene modificato, perché sono lo **stesso oggetto**.
+
+ 
+> [!caution] È fondamentale conoscere questa distinzione tra **assegnazione per valore** e **per riferimento**, perché potresti modificare dati in modo **inconsapevole**, causando bug difficili da individuare.
+
+
+> [!hint] Per evitare che due variabili puntano allo stesso oggetto in memoria
+> 
+>```js
+>const array1 = [1, 2, 3];
+const array2 = [...array1]; // Crea una copia indipendente
+>
+>array1.push(99);
+>
+>console.log(array1); // [1, 2, 3, 99]
+>console.log(array2); // [1, 2, 3] ✅ 
+>```
+>In questo modo `array2` rimane immutato anche se cambi `array1`, perché ora **sono due array distinti** in memoria.
+
+### Destrutturazione 
+
+Un'altra caratteristica importante di JS, introdotta dall'ES6, è: la destrutturazione di array e oggetti.
+==La **destrutturazione** è una funzionalità di JavaScript che permette di **estrarre valori da array o oggetti** e assegnarli a variabili in modo semplice e leggibile.==
+
+#### Destrutturazione degli array
+Immaginiamo di avere un array con nome e cognome dell'utente:
+```js
+const userData = ['Mario', 'Rossi'];
+```
+
+Per accedere agli elementi di questo array, secondo il metodo tradizionale, si usa l'indexing:
+```js
+const userData = ['Mario', 'Rossi'];
+const firstname = userData[0];
+const lastname = userData[1];
+console.log(firstname) //output : 'Mario'
+console.log(lastname) //output : 'Rossi'
+```
+
+Tuttavia questo metodo può risultare pedante e noioso soprattutto con array molti lunghi, di conseguenza si usa destrutturare un array (cioè estrarre i valori):
+```js
+const userData = ['Mario', 'Rossi'];
+const [firstname, lastname] = userData;
+console.log(firstname); // "Mario"
+console.log(lastname);  // "Rossi"
+```
+
+**Spiegazione:**
+- `const [firstname, lastname] = userData;`: 
+	  ==estrae i valori di `userData` e li assegna alle variabili `firstname` e `lastname`. Queste variabili conterranno una copia dei valori (tipi primitivi), non un riferimento all'intero array.==
+
+
+Si usano le parentesi quadre (`[]`) per indicare che si sta destrutturando un array.
+Si può scegliere qualsiasi nome per le variabili, ma  si deve rispettare l'ordine e la quantità degli elementi dell'array.
+
+
+
+#### Destrutturazione di un oggetto
+Come detto prima si possono anche destrutturare gli oggetti.
+Immaginiamo un oggetto utente:
+```js
+const user = {
+  name: 'Mario',
+  age: 30
+};
+```
+
+Per estrare i valori dall'oggetto con il metodo tradizionale si fa:
+```js
+const name = user.name;
+const age = user.age;
+```
+
+mentre con la destrutturazione:
+```js
+const user = {
+  name: 'Mario',
+  age: 30
+};
+
+const { name, age } = user;
+console.log(name); // "Mario"
+console.log(age);  // 30
+```
+
+A differenza della destrutturazione degli array, dove si usano le parentesi quadre (`[]`), per gli oggetti si utilizzano le parentesi graffe (`{}`) per indicare che si sta destrutturando un oggetto.
+In questo caso, a differenza con gli array, le variabili devono avere lo stesso nome delle proprietà dell'oggetto.
+
+##### Destrutturazione con alias
+Quando si destruttura un oggetto si possono rinominare le variabili durante la destrutturazione:
+```js
+const user = {
+  name: 'Mario',
+  age: 30
+};
+
+const { name: userName, age: userAge } = user;
+console.log(userName); // "Mario"
+console.log(userAge);  // 30
+```
+
+Qui si sta dicendo di prendere la chiave `name` e rinominarla `userName`, e di prendere la chiave `age` e rinominarla `userAge`.
+
+
+#### Destrutturazione di parametri delle funzioni
+==La destrutturazione può essere utilizzata anche direttamente nei **parametri di una funzione**, permettendoti di estrarre le proprietà di un oggetto **senza doverle accedere manualmente** nel corpo della funzione.==
+Prendiamo ad esempio una funzione che accetta un parametro che conterrà un oggetto, questo può essere destrutturato per estrarre le proprietà dell'oggetto e renderle disponibili come variabili con scope locale (cioè variabili disponibili solo all'interno del corpo della funzione).
+Esempio tradizionale senza destrutturazione:
+
+```js
+function storeOrder(order) {
+	localStorage.setItem('id', order.id);
+	localStorage.setItem('currency', order.currency);
+}
+```
+
+Invece di accedere alle proprietà dell'ordine tramite la canonica "notazione a punto" all'interno del corpo della funzione `storeOrder` si utilizza la destrutturazione:
+
+```js
+function storeOrder({id, currency}) { // destrutturazione
+	localStorage.setItem('id', id);
+	localStorage.setItem('currency', currency);
+};
+```
+
+In questo esempio:
+
+- La funzione riceve ancora **un solo oggetto come parametro**.
+    
+- Solo che le sue proprietà (`id`, `currency`) vengono **destrutturate direttamente** tra le parentesi della funzione.
+    
+- È come se dicessi: "Appena ricevi l'oggetto, prendi `id` e `currency` e rendili disponibili come variabili locali".
+- Quindi nella chiamata della funzione:
+```js
+storeOrder({ id: 5, currency: 'USD', amount: 15.99 }); 
+```
+
+Anche se l’oggetto contiene **più proprietà**, verranno estratte solo quelle specificate (`id` e `currency`), ignorando le altre (`amount` in questo caso).
+
+Quindi la destrutturazione è molto utile quando lavori con oggetti strutturati, come dati provenienti da un'API, e ti permette di scrivere codice più pulito ed esplicito.
+
+
+### Spread operator
+
+Un’altra caratteristica fondamentale di JavaScript (introdotta con ES6) è **l’operatore di spread**, rappresentato da tre punti: `...`.
+
+Serve per **espandere** (cioè "spargere") gli elementi di un **array** o le **proprietà di un oggetto** all’interno di un altro array o oggetto.
+
+#### Spread con gli array
+Immaginiamo di avere due array di hobby e di volerli unire:
+```js
+const hobby1 = ['Nuoto', 'Ciclismo'];
+const hobby2 = ['Lettura'];
+```
+
+Per fare ciò senza spread:
+```js
+const unioneSenzaSpread = [hobby1, hobby2];
+console.log(unioneSenzaSpread);
+// Output: [['Nuoto', 'Ciclismo'], ['Lettura']] (array annidato)
+```
+
+In questo caso stiamo **inserendo** gli array `hobby1` e `hobby2` **come interi elementi** all'interno di un nuovo array, ottenendo un array **annidato**.
+Il che potrebbe anche andare bene se si volesse ottenere questo risultato.
+
+Mentre con lo spread:
+
+```javascript
+const unioneConSpread = [...hobby1, ...hobby2];
+console.log(unioneConSpread);
+// Output: ['Nuoto', 'Ciclismo', 'Lettura']
+```
+
+**Spiegazione:**
+-  `...hobby1`: 
+	  ==`...hobby1` estrae ciascun elemento dell’array `hobby1` e lo inserisce nel nuovo array come elemento indipendente.==
+    
+- `...hobby2`: 
+	  ==fa lo stesso con `['Lettura']`==
+    
+- Tutti gli elementi vengono **inseriti come singoli valori** nel nuovo array.
+
+#### Spread con gli oggetti
+Lo spread operator può essere usato anche con gli **oggetti** per **unirne le proprietà**.
+```js
+const utente = { name: 'Mario', age: 30 };
+const utenteEsteso = { isAdmin: true, ...utente };
+console.log(utenteEsteso);
+// Output: { isAdmin: true, name: 'Mario', age: 30 }
+```
+
+**Spiegazione:**
+- **Lo spread `...utente`:** 
+	  ==prende tutte le coppie chiave-valore dall’oggetto `utente`==
+    
+- ==Le "espande" nell’oggetto `utenteEsteso`==
+    
+- ==Il risultato è un nuovo oggetto che **unisce** tutte le proprietà== 
+
+
+> [!danger] **Attenzione:** se ci sono **chiavi duplicate**, prevale **l’ultima definita** (quella più a destra).
+>```js
+>const obj = { a: 1, ...{ a: 2 } };
+>console.log(obj); // { a: 2 } 
+>```
+
+
+#### Clonazione e sovrascrittura
+Inoltre lo spread è spesso usato per **clonare** o **modificare** oggetti senza alterare l’originale:
+
+```js
+// Clonazione semplice
+const originale = { nome: 'Luca', età: 25 };
+const copia = { ...originale };
+console.log(copia); // { nome: 'Luca', età: 25 }
+
+// Sovrascrittura
+const utente = { nome: 'Mario', ruolo: 'user' };
+const nuovoUtente = { ...utente, ruolo: 'admin' };
+console.log(nuovoUtente); // { nome: 'Mario', ruolo: 'admin' }
+```
+
+
+
+> [!done] **Quando si usa lo spread operator?**
+> - Per evitare array annidati o codice verboso
+  >  
+>- Per **unire** o **clonare** array e oggetti facilmente
+ >   
+>- Infine, per scrivere codice più **leggibile e conciso**
+
+
+> [!example] **In sintesi**
+> Lo spread operator `...` permette di:
+ >- Espandere gli elementi di un **array** in un altro array
+ >   
+>- Espandere le proprietà di un **oggetto** in un altro oggetto
+  >  
+>- È utile per unire, copiare, o modificare dati senza mutare quelli originali
+
+
+### Rest parameters 
+I rest parameters in JS sono l'opposto dello spread operator:
+- **Spread operator:**
+	  - Espandono scomponendo i valori o gli elementi di un array o un oggetto.
+	  - Vengono usati al di fuori dei parametri di una funzione 
+	  - Lavorano con array e oggetti
+	  - lo spread operator può essere messo in qualsiasi punto della destrutturazione 
+
+- **Rest parameters:**
+	- Raccoglie/raggruppa comprimendo i valori di un array
+	- Viene usato all'interno dei parametri di funzione
+	- Lavora con argomenti di funzioni, array
+	- Deve essere messo come ultimo parametro 
+
+Quindi  i Rest parameters, **raccolgono più valori in un array**. 
+==Si usa spesso nei **parametri delle funzioni** per gestire un numero variabile di argomenti.== 
+Per fare un esempio più concreto:
+```js
+
+function somma(...numeri) {
+  return numeri.reduce((acc, curr) => acc + curr, 0);
+}
+
+console.log(somma(1, 2, 3, 4)); // Output: 10
+```
+
+^325e65
+
+**Spiegazione:**
+
+- `function somma(...numeri) {}`  
+    La funzione utilizza i **rest parameters** (`...numeri`) per raccogliere tutti gli argomenti in un array chiamato `numeri`.
+    
+- `numeri.reduce((acc, curr) => acc + curr, 0)`  
+    È un metodo che **riduce l’array a un singolo valore**.
+    
+    - `acc` (accumulatore): 
+	    ==è il **valore totale accumulato** fino a quel punto.==
+        
+    - `curr` (corrente): 
+	      ==è il **valore corrente dell’elemento dell’array** durante l’iterazione.==
+        
+    - `0`: è il **valore iniziale dell'accumulatore**.  
+        → ==In questo caso, si parte da `0` e si sommano tutti gli elementi uno dopo l'altro.== 
+        
+
+✅ Quindi: `reduce` esegue qualcosa tipo  
+`0 + 1 → 1` 
+
+`1 + 2 → 3`  
+
+`3 + 3 → 6`  
+
+`6 + 4 → 10`
+
+> [!example] **In sintesi**
+>  La differenza tra gli spread operators e i rest parameters è:
+> - Rest parameters: 
+>   ==sono utili quando non si sa in anticipo quanti argomenti verranno passati a una funzione come nell'[[#^325e65|esempio poco sopra]].==
+> - Spread operators: 
+>   ==Utile quando vogliamo espandere un array/oggetto in un altro contesto, evitando strutture annidate o aggiungendo/modificando i valori.==
+> 

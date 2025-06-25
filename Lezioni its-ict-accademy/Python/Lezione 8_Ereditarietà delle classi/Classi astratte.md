@@ -1,24 +1,25 @@
 ## Introduzione
 
-Nel paradigma della programmazione orientata agli oggetti (OOP), le **classi astratte** rappresentano un concetto fondamentale per progettare architetture flessibili, riutilizzabili e ben strutturate. Queste classi non vengono istanziate direttamente, ma servono come base per altre classi che dovranno implementare determinati comportamenti.
+Nel paradigma della programmazione orientata agli oggetti (OOP), le **classi astratte** rappresentano un concetto fondamentale per progettare architetture flessibili, riutilizzabili e ben strutturate. 
+==Queste classi non vengono istanziate direttamente, ma servono come base per altre classi che dovranno implementare determinati comportamenti==.
 ### Cosa sono le classi astratte?
 
 Una **classe astratta** è una classe che:
 
-- **non può essere istanziata direttamente**;
+- ==**non può essere istanziata direttamente**==;
     
-- **può contenere uno o più metodi astratti**, ovvero metodi che sono dichiarati ma **non hanno un corpo**;
+- ==**può contenere uno o più metodi astratti**, ovvero metodi che sono dichiarati ma **non hanno un corpo**==;
     
-- serve da **modello** per le classi derivate (sottoclassi), che sono obbligate a implementare i metodi astratti dichiarati.
+- ==serve da **modello** per le classi derivate (sottoclassi), che sono obbligate a implementare i metodi astratti dichiarati==.
     
 
 ### Il modulo `abc`
 
 In Python, per definire una classe astratta si usa il modulo `abc`, e si eredita da `ABC` (Abstract Base Class). I metodi astratti si definiscono usando il decoratore `@abstractmethod`.
 Per dirla meglio il modulo `abc`, fornisce due elementi essenziali:
--  `ABC`: la classe base da cui devono ereditare le classi astratte.
+-  `ABC`: ==la classe base da cui devono ereditare le classi astratte.==
     
-- `@abstractmethod`: un decoratore per definire metodi astratti, ossia metodi che **devono essere implementati** dalle sottoclassi.
+- `@abstractmethod`: ==un decoratore per definire metodi astratti, ossia metodi che **devono essere implementati** dalle sottoclassi.==
 si scrive così :
 ```python
 from abc import ABC, abstractmethod
@@ -119,4 +120,4 @@ r.draw()
 Quindi le classi astratte sono uno strumento potente per definire comportamenti obbligatori nelle sottoclassi, migliorando la coerenza del codice e sfruttando il **polimorfismo**. In questo esempio, `FormaGenerica` agisce come blueprint per tutte le forme, mentre `Rettangolo` fornisce una specifica implementazione del disegno.
 
 > [!ticket] **Regola d’oro**: 
-> se una classe contiene almeno un metodo astratto, allora è astratta e non può essere istanziata direttamente!
+> ==se una classe contiene almeno un metodo astratto, allora è astratta e non può essere istanziata direttamente==!

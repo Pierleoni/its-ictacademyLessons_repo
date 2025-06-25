@@ -70,7 +70,7 @@ Se guardiamo questa serie, ogni temrine di questa serie è una frazione e il den
 1.1) Determinare come il denomitarore cambia per ogni iterazione 
 1.2) Determinare come il segno si alterna per ogni terminwe della serie in ogni iterazione
 #### Sub-Step 1.1 
-Detrminare come il denomi atore cambia.
+Detrminare come il denomiatore cambia.
 - il primo termine della serie è `4`
 - The first term of the series is 4.
 • The second term of the series is 4/3.

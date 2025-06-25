@@ -1,12 +1,12 @@
-from __future__ import annotations
+    from __future__ import annotations
 from typing import Any
 class Studente:
-    _nome: str
-    _esami: dict[Modulo, _esame] # da assoc. 'esame' [0..*] resp. singola, certamente non noti alla nascita
+_nome: str
+_esami: dict[Modulo, _esame] # da assoc. 'esame' [0..*] resp. singola, certamente non noti alla nascita
 
-    def __init__(self, nome: str) -> None:
-        self._nome = nome
-        self._esami = dict()
+def __init__(self, nome: str) -> None:
+self._nome = nome
+self._esami = dict()
 
     def nome(self) -> str:
         return self._nome
