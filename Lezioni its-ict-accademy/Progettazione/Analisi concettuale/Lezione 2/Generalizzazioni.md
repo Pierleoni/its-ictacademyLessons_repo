@@ -175,8 +175,8 @@ Quindi,  in questo diagramma si sta modellando $2^4=16$ combinazioni.
 Il costrutto della generalizzazione delle classi  li posso vincolare:
 spesso, nell'ottica di modellare accuratamente i requisiti si mettono dei vincoli sulle generalizzazioni.
 il primo di questi vincoli è 
-1. `{disjoint}`: 
-	==significa che ho disgiunte le sottoclassi fra loro, in questo caso ho disgiunto la sottoclasse `Uomo` e `Donna` e sto dicendo che non hanno nulla in comune.== 
+#### 1. `{disjoint}`: 
+==significa che ho disgiunte le sottoclassi fra loro, in questo caso ho disgiunto la sottoclasse `Uomo` e `Donna` e sto dicendo che non hanno nulla in comune.== 
 
 ![[{disjoint}.png]]
 
@@ -191,7 +191,7 @@ Quindi il significato di questa immagine è:
 > [!caution] **`{disjoint}` impone che ogni istanza di `Persona` possa appartenere **al massimo** a una sola tra `Uomo` e `Donna`, ma può anche non appartenere a nessuna**.
 > 
 
-2. `{complete}`: 
+#### 2. `{complete}`: 
    ==Le due sottoclassi rappresentano l'insieme completo delle istanze della superclasse. 
    Se, ad esempio, prendo le istanze di `Uomo` e `Donna`, queste coprono tutte le istanze della classe `Persona`. Quindi, ogni persona deve appartenere ad almeno una di queste due sottoclassi. Una persona può avere un solo genere oppure entrambi, se non è presente il vincolo `{disjoint}`.== 
 ![[{complete}.png]]
@@ -220,6 +220,8 @@ Mentre con **`{disjoint}`**:
 
 Quando questi due vincoli si combinano (`{disjoint, complete}`), il significato diventa:
 > ==tutte le istanze della superclasse devono appartenere a **una sola** delle sottoclassi coinvolte.==
+	
+^db2378
 
 Nel nostro esempio:
 

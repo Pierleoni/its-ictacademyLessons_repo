@@ -338,30 +338,198 @@ Di default il browser è impostato a 16 quindi se vengono assegnati 5rem,il calc
 
 Nel context React la prop key è utilizzata per aiutare React a identificare quali elementi sono cambiati, o aggiunti, o rimossi tra diversi render. Le keys dovrebbero essere assegnate agli elementi all'intenro di un array agli elementi una identità.
 
-Ogni volta che si vuole creare un applicazione con Node.js si deve eseguire una serie di comandi sul terminale o di vs code o del prompt di comandi:
+## Creazione di un'applicazione React con Node.js
+Ogni volta che si desidera creare una nuova applicazione React utilizzando Node.js, è necessario eseguire alcuni comandi dal terminale (di VS Code o del prompt dei comandi di Windows).
+
+### 1. Abilitare l’esecuzione degli script (solo su Windows PowerShell)
+Per evitare problemi durante l'esecuzione dei comandi, specialmente su Windows, ==si consiglia di eseguire il seguente comando **una sola volta** (non ad ogni progetto)==:
 ```shell
 Set-ExecutionPolicy -ExecueSigned -Scope CurrentUser
 ```
+Questo comando consente l'esecuzione di script firmati localmente nella sessione dell'utente corrente.
 
-e 
+> [!caution] Potrebbe essere richiesta l'autorizzazione da amministratore. Digitare `S` per confermare.
+
+### 2. Creare una nuova applicazione React
+Per generare la struttura base di un'applicazione React, usare il seguente comando:
 ```shell
 npx create-react-app nomeDellApplicazione
 ```
 
-questo comando lo si deve eseguire ogni volta che si vuole creare una nuova applicazione in un nuova working directory.
+Questo comando crea automaticamente una nuova **working directory** con il nome specificato (`nome-della-applicazione`) e vi inserisce i file e le cartelle necessari, tra cui:
 
-se si scrive 
+- `public/`
+    
+- `src/`
+    
+- `node_modules/`
+    
+- `package.json`
+    
+- file di configurazione e inizializzazione
+
+
+> [!info] Differenza tra i comandi `Set-ExecutionPolicy` e `npx create-react-app`
+> 
+> 1. `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`
+>
+>- **Scopo**: autorizzare l'esecuzione di script firmati a livello dell'utente corrente in Windows PowerShell.
+  >  
+>- **Quando si esegue**: **una sola volta**, subito dopo aver installato Node.js (o comunque prima di creare la prima app React su Windows).
+>    
+>- **Validità**: vale per **tutte le future sessioni PowerShell** dell’utente.  
+>    Non è necessario ripeterlo ogni volta che crei un nuovo progetto.
+>    
+> 2. `npx create-react-app nome-della-applicazione`
+> - **Scopo**: generare la struttura base di una nuova applicazione React.
+>   
+>- **Quando si esegue**: **ogni volta che si vuole iniziare un nuovo progetto React**, in una **nuova working directory**.
+ >  
+>- **Cosa fa**: crea la cartella `nome-della-applicazione/` con all’interno:
+ >   
+>    - `src/`, `public/`, `node_modules/`, `package.json` e altri file iniziali
+>        
+>- **Validità**: vale **solo per quel progetto specifico**.  
+>    ➤ Va eseguito **nuovamente** per ogni nuovo progetto che vuoi inizializzare.
+
+
+### Reinstallare i pacchetti (in caso di spostamento del progetto).
+Se sposti il progetto in un’altra cartella o desideri inviarlo ad altri (es. via USB, Git o altro), **non è necessario copiare la cartella `node_modules`**.
+
+È sufficiente conservare le directory `public/`, `src/` e il file `package.json`.
+Per reinstallare tutti i pacchetti necessari, basta eseguire:
 ```shell
 npm install
 ```
-se si ha necessita di esportare la cartellla public e metterla in un altra working directory si può cancellare il resto o meglio solo la directory `node_modules` e tramite questo comando mi re installa tutti i pacchetti di Node.js
+Questo comando ricrea la cartella `node_modules/` leggendo le dipendenze elencate in `package.json`.
+Se si ha necessita di esportare la cartellla public e metterla in un altra working directory si può cancellare il resto o meglio solo la directory `node_modules` e tramite questo comando mi re installa tutti i pacchetti di Node.js
 La directory `src` 
 
-Come si ad lanciare l'applicazione 
+
+### Avviare il server di sviluppo React
+Per lanciare l'applicazione in locale, eseguire:
+
 ```shell
 npm start
 ```
-in questo modo si crea il server che lancia l'applicazione react.
+Questo comando:
+
+- Compila l’app in modalità sviluppo
+    
+- Avvia un server locale (di solito su `http://localhost:3000`)
+    
+- Mostra in tempo reale le modifiche effettuate ai file (`hot reload`).
+
+
+> [!hint] Metodo CRA vs. Vite : Creazione di un progetto React
+> In realta esiste un metodo più moderno ed efficiente per lanciare un progetto React ed è il metodo **Vite.**
+> Mettiamo a confronto i due metodi:
+> 1. Create React App (CRA):
+> 	   Metodo ufficiale e tradizionale per avviare un progetto React.
+> Come abbiamo visto basta digitare una sequenza di comandi sul terminale di Vs Code per creare e lanciare un progetto React.
+>```powershell
+> npx create-react-app nome-progetto
+> cd nome-progetto
+> npm start
+>```
+>Quindi in sintesi questo metodo:
+>- Crea automaticamente l'intera struttura del progetto
+>   
+>- Installa tutte le dipendenze (`react`, `react-dom`, `react-scripts`, ecc.)
+>   
+>- Configura Webpack, Babel e altri strumenti **dietro le quinte**
+>   
+>- Avvia il server di sviluppo con `npm start`
+> 
+> La struttura generata sul progetto Vs Code è: 
+>```plaintext
+>nome-progetto/
+>├── public/
+>├── src/
+>├── package.json
+>├── node_modules/
+>└── README.md
+>```
+>
+>> [!done] Vantaggi
+>> - Perfetto per chi **inizia con React**
+>>   
+>>- Documentazione ufficiale ampia
+>>    
+>>- Nessuna configurazione iniziale richiesta
+>
+>
+>> [!failure] Svantaggi
+>>- Toolchain datata (usa Webpack)
+>>    
+>>- Build e hot reload più **lenti** rispetto a soluzioni moderne
+>>   
+>>- Configurazione nascosta: per modificarla bisogna usare `npm run eject` (operazione irreversibile)
+>>  
+>
+>2. Metodo Vite
+> Questo metodo è **moderno, veloce e modulare**. 
+> È largamente adottato nella community di sviluppo front-end ed è compatibile con React, pur **non essendo il tool ufficiale** di Facebook. 
+> Viene apprezzato per le sue performance, la semplicità e l’approccio configurabile.
+> **Per creare un progetto** attraverso il terminale (PowerShell, Bash o terminale integrato di VS Code), eseguire uno dei seguenti comandi:
+>```powershell
+>npm create vite@latest nome-progetto
+># oppure:
+>npx create-vite
+>```
+>Dopo aver eseguito uno di questi comandi, Vite mostrerà nel terminale una procedura guidata nella quale verrà chiesto:
+>
+>- **Quale framework si vuole utilizzare** (Le opzioni sono React, ecc.)
+>    
+>- **Quale linguaggio si preferisce** (`JavaScript`, `TypeScript`, ecc.)
+> La strutturata generata è:
+>```plaintext
+>nome-progetto/
+>├── index.html
+>├── package.json
+>├── vite.config.js
+>├── /src
+>│   ├── main.jsx
+>│   └── App.jsx
+>└── /public
+>```
+>> [!danger] **Attenzione**
+>> A differenza di CRA, **Vite non installa automaticamente le dipendenze dopo la generazione del progetto.**
+>> È necessario eseguire manualmente l'installazione usando righe di comando su terminale
+>
+>Per installare le dipendenze dopo la generazione del progetto si usano questi comandi:
+>```powershell
+>cd nome-progetto
+>npm install
+>npm run dev
+>```
+>Mentre per lanciare il server di sviluppo locale, bisogna eseguire:
+>```powershell
+>npm run dev
+>```
+>Il terminale restituirà un URL (di solito `http://localhost:5173`) da aprire nel browser per visualizzare l'applicazione.
+>
+>> [!done] Vantaggi di Vite
+>> - **Estremamente veloce** all'avvio e nel reload
+>>  
+>>-  Supporto nativo per **JSX**, **ESModules**, **TypeScript**, **PostCSS**, ecc.
+>>    
+>>-  File di configurazione (`vite.config.js`) semplice e modificabile.
+>>   
+>>-  Ottimo per integrazione con librerie moderne e testing.
+>>   
+>>-  Progetto generato più leggero e pulito.
+>
+>
+>> [!failure] Svantaggi (relativi)
+>> - Richiede **installazione manuale dei pacchetti** (`npm install`)
+>>   
+>>- Non include librerie e strumenti aggiuntivi (es. testing) come CRA
+>>   
+>>- Necessita una **minima conoscenza del flusso di sviluppo moderno**
+
+
+
 
 Sul file `App.js` scriviamo 
 ```jsx
@@ -451,7 +619,7 @@ export default app;
 
 Il componente di React è un unità indipendete di codice che rappresenta una parte di UI
 
-COme si fa ad usare BootsTrap in questa applicazione?
+### COme si fa ad usare BootsTrap in questa applicazione?
 1. Passare il link nel html 
 2. Scrvere:
 ```shell

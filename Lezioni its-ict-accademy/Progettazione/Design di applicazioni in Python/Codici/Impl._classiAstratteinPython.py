@@ -13,14 +13,17 @@ class Persona(ABC):
 class Studente (Persona):
 	_matricola:int 
 
-	def __init(self, nome:str, matricola:int)->None:
+	def __init(self,*,nome:str, matricola:int)->None:
 		super().__init__(nome)
 		self._matricola = matricola 
 	# Benchè l'init di Persona sia astratto lo si poù invocare nelle sue sottoclassi quindi se si fa:
 
-mario:Persona = Studente("Mario", 1234) #Viene invocato ("Mario") viene invocato Object
+mario:Persona = Studente(nome ="Mario", matricola = 1234) #Viene invocato ("Mario") viene invocato Object
 
 print(type(mario))
 print(isinstance(mario,Persona))
 
 print(Studente.mro()) #mro() fa vedere, a partire da una classe fa vedere la catena di ereditarietà della classe 
+
+
+
