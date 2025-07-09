@@ -1,0 +1,22 @@
+$ docker exec -it its_postgresql bash
+1263b8cd96da:/# cd home
+1263b8cd96da:/home# ls
+Class Exercise    Progetti_Py       compito_py        example.txt       web
+Esercizi Web Dev  README.md         config            simple_test
+1263b8cd96da:/home# cd/home
+bash: cd/home: No such file or directory
+1263b8cd96da:/home# whoiam
+bash: whoiam: command not found
+1263b8cd96da:/home# mkdir esempi
+1263b8cd96da:/home# cd esempi
+1263b8cd96da:/home/esempi# touch esami.sql
+1263b8cd96da:/home/esempi# ls
+esami.sql
+1263b8cd96da:/home/esempi# cd home
+bash: cd: home: No such file or directory
+1263b8cd96da:/home/esempi# cd /home
+1263b8cd96da:/home# ls
+Class Exercise    README.md         esempi            web
+Esercizi Web Dev  compito_py        example.txt
+Progetti_Py       config            simple_test
+1263b8cd96da:/home#

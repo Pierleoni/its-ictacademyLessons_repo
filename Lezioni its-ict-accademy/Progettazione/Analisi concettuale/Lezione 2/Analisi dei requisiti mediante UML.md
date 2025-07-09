@@ -210,7 +210,7 @@ Per chiarire meglio i concetti di identità e uguaglianza:
 È possibile avere due oggetti distinti che però condividono lo stesso valore per un determinato attributo.
 
 ![Le istanze diverse con lo stesso attributo|448x182](https://i.imgur.com/MCqQRib.png)
-
+^myImg
 
 L'immagine mostra due livelli:
 

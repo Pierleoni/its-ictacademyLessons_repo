@@ -69,14 +69,16 @@
           "condition": {
             "colorScheme": "light"
           },
-          "changes": {}
+          "changes": {
+            "color": "193, 197, 13"
+          }
         },
         {
           "condition": {
             "colorScheme": "dark"
           },
           "changes": {
-            "color": "251, 255, 0"
+            "color": "120, 122, 0"
           }
         }
       ],
