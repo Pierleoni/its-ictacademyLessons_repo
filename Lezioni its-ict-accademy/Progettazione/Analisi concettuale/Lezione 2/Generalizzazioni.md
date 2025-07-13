@@ -211,12 +211,15 @@ Il significato di questa immagine è il seguente:
 - Una istanza di Persona può essere sia istanza di Uomo che di Studente? Sì
   Una istanza di Persona può essere istanza né di Uomo né di Donna? **Non più**
   Una istanza di Persona può essere istanza sia di Uomo che di Donna? **Non più**
+
+
 Questo perché: 
 Abbiamo detto che con il vincolo **`{complete}`**:
-> ==_tutte_ le istanze della superclasse devono appartenere a **una o più** delle sottoclassi coinvolte.==
+> ==_tutte_ le istanze della superclasse devono appartenere a **una o più** delle sottoclassi coinvolte.==    ^defComplete
+
 
 Mentre con **`{disjoint}`**:
-> ==le sottoclassi **non si sovrappongono**, quindi un'istanza può appartenere a **una sola** sottoclasse tra quelle o a nessuna.== 
+> ==le sottoclassi **non si sovrappongono**, quindi un'istanza può appartenere a **una sola** sottoclasse tra quelle o a nessuna.==    ^defDisjoint
 
 Quando questi due vincoli si combinano (`{disjoint, complete}`), il significato diventa:
 > ==tutte le istanze della superclasse devono appartenere a **una sola** delle sottoclassi coinvolte.==

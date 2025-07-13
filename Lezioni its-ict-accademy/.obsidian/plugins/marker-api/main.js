@@ -23096,10 +23096,6 @@ async function deleteOriginalFile(app, file) {
 // src/utils/settingsUtils.ts
 var import_obsidian5 = require("obsidian");
 function checkSettings(settings) {
-  if (!settings.markerEndpoint) {
-    new import_obsidian5.Notice("Err: Marker API endpoint not set");
-    return false;
-  }
   if (settings.extractContent !== "text" && settings.extractContent !== "images" && settings.extractContent !== "all") {
     new import_obsidian5.Notice(
       "Err: Invalid content extraction setting for Marker, check settings"

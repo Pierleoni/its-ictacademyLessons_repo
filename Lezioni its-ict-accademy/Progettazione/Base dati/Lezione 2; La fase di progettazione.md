@@ -1,20 +1,20 @@
 # Introduzione
 In questo momento ci troviamo nella [[Lezione 1; Introduzione e modello relazionale#Fase di progettazione|fase di progettazione]], come abbiamo già visto nella scorsa lezione possiamo suddividere in varie fasi il percorso fatto e quello ancora da fare:
-### 1. Analisi concettuale
+### 1. Analisi concettuale 
 Lo scopo è comprendere e modellare i requisiti informativi del dominio applicativo, producendo uno **schema concettuale** ad alto livello, indipendente dal DBMS.
 **Output:**
 
-- 📘 Diagramma UML concettuale delle classi
+-  Diagramma UML concettuale delle classi
     
-- 📘 Specifiche dei tipi di dato
+-  Specifiche dei tipi di dato
     
-- 📘 Specifiche delle classi
+-  Specifiche delle classi
     
-- 📘 Specifiche dei vincoli esterni
+-  Specifiche dei vincoli esterni
     
-- 📘 Diagramma UML concettuale degli _use-case_
+-  Diagramma UML concettuale degli _use-case_
     
-- 📘 Specifiche concettuali degli _use-case_
+-  Specifiche concettuali degli _use-case_
 
 ### 2. Progettazione Logica (o ristrutturazione concettuale)
 In questa fase ==si **traduce e ristruttura** lo schema concettuale per ottenere una struttura più adatta a un **modello relazionale**, tenendo conto dei vincoli e dei requisiti di performance.==
@@ -318,7 +318,7 @@ La metodologia prevede una **sequenza precisa di passi**, che **devono essere se
         
     - ==Suddivisione in più tabelle== (`multiple table`)
         
-    - Strategie miste (in base alla **completezza/disgiunzione** cioè `{dissjoint, complete}`)
+    - Strategie miste (in base alla **completezza/disgiunzione** cioè `{disjoint, complete}`)
         
 4. **Eliminazione delle generalizzazioni tra associazioni**  
     ==Le relazioni ereditarie tra **association class** vanno appiattite e trasformate in nuove entità o associazioni con vincoli logici equivalenti.==
@@ -396,7 +396,15 @@ Al termine del passo di eliminazione degli attributi multivalore tutti gli attri
 
 ### Scelta dei tipi di dato
 Analogamente a quanto avviene nella ristrutturazione di un diagramma delle classi in Python, anche nel contesto della progettazione di basi di dati è necessario trasformare il **diagramma UML concettuale delle classi** in uno **equivalente**, in cui **tutti gli attributi siano espressi tramite tipi di dato (domini) supportati dal DBMS**.
-er ciascun attributo del modello concettuale, è necessario **scegliere un tipo di dato SQL compatibile**, eventualmente **definendo nuovi tipi di dato utente** mediante SQL.
+**Obiettivo:**  
+==Ottenere uno **schema ristrutturato** in cui **tutti gli attributi** siano associati a **tipi di dato supportati** dal sistema di gestione del database relazionale (in questo caso, PostgreSQL).==
+
+#### Cosa si deve fare 
+Per **ogni attributo** del modello concettuale:
+
+-  Occorre **scegliere un tipo SQL compatibile** tra quelli di base offerti dal DBMS
+    
+-  Oppure **definire un nuovo tipo personalizzato** ([[#2. **Tipi concettuali specializzati→ Domini Specializzati**|dominio]] o tipo composito), qualora il tipo concettuale non sia direttamente mappabile
 
 ###### 1. **Tipi concettuali di base**
 
@@ -406,49 +414,705 @@ Esempi:
     Corrispondenti tipi SQL standard (PostgreSQL):
     
 - `integer`, `real`, `varchar(n)`, `date`, `time`, `timestamp`, ecc.  
-    Riferimento: [PostgreSQL - Documentazione tipi di dato](https://www.postgresql.org/docs/current/datatype.html)
     
 
-###### 2. **Tipi concettuali specializzati**
+Riassumendo:
 
-Esempi:
+| Tipo concettuale | Tipo SQL (PostgreSQL)      |
+| ---------------- | -------------------------- |
+| `intero`         | `INTEGER`                  |
+| `reale`          | `REAL`, `NUMERIC`, `FLOAT` |
+| `stringa`        | `VARCHAR(n)`, `TEXT`       |
+| `Data`           | `DATE`                     |
+| `Ora`            | `TIME`                     |
+| `DataOra`        | `TIMESTAMP`                |
+>Riferimento: [PostgreSQL - Documentazione tipi di dato](https://www.postgresql.org/docs/current/datatype.html)
 
-- `intero > 0`, `reale ≤ 0`, intervalli numerici (`x..y`), ecc.  
-    Soluzione:
-    
-- Definizione di **domini personalizzati** con vincoli di controllo tramite:
+###### 2. **Tipi concettuali specializzati→ Domini Specializzati**
+Quando un tipo concettuale ha **restrizioni aggiuntive** (intervalli, vincoli semantici), è possibile creare **domini SQL personalizzati.** 
+Alcuni esempi possono essere:
+
+- `intero > 0` →
 ```postgresql
-CREATE DOMAIN PosInt AS INTEGER CHECK (VALUE > 0);
+CREATE DOMAIN Int_gz AS INTEGER CHECK (VALUE > 0);
 ```
 
-• Tipi concettuali enumerativi: ad es., {M,F}, etc.
-—> definire nuovi tipi di dato supportati dal DBMS usando SQL: CREATE TYPE … AS ENUM (v. slide su
-SQL DDL)
-• Tipi concettuali composti: ad es., Indirizzo, etc.
-—> definire nuovi tipi di dato supportati dal DBMS usando SQL: CREATE TYPE … AS (…) (v. slide su SQL
-DDL)
+- `reale ≤ 0`, quindi tra intervalli numerici (`x..y`), ecc.
+```postgresql
+CREATE DOMAIN Voto AS REAL CHECK (VALUE BETWEEN 18 AND 30);
+```
 
-Dobbiamo produrre sostituendo tutti i tipi di dati Python con tipi di dato SQL.
-Quindi otteniamo un diagrama che tutti i tipi di dato sono tipi di dato in Postgres.
+In sostanza bisogna definire di **domini personalizzati** con vincoli di controllo.
 
-### Le generalizzazioni
-Non ha senso il conetto di eredeitarietà in una base dati: una tabella è un altra tabella, non esiste.
-Esiste la FK ma quelli sono attributi di una tabella, stessa cosa per le op di classi: le generalizzazioni vanno via.
-Quindi la prima cosa da fare è la fusione che abbiamo già visto, macon la differenza che può essere applicata sempre.
-![[Screenshot 2025-07-09 at 12-18-08 Meet - bmb-xnne-ahh.png|500x215]]
+###### 3. Tipi enumerativi
+Per attributi concettuali che assumono **un insieme finito di valori**, è possibile utilizzare gli **ENUM**:
 
-![[Screenshot 2025-07-09 at 12-18-25 Meet - bmb-xnne-ahh.png|500x214]]
+- Tipo concettuale `Genere` che comprende un insieme di valori come `{maschio, femmina}`
+```postgresql
+CREATE TYPE Genere AS ENUM ('M', 'F');
+```
+
+- Oppure tipo concettuale `Ruolo` che comprende un insieme di valori come `{direttore, progettista, analista, programmatore}`
+```postgresql
+CREATE TYPE Ruolo AS ENUM ('direttore, progettista, analista, programmatore')
+```
+In sostanza si va a  definire nuovi tipi di dato supportati dal DBMS usando SQL: `CREATE TYPE … AS ENUM(...)` 
+
+- Oppure per il tipo concettuale `Voto`:
+```postgresql
+CREATE DOMAIN Voto AS Integer
+	CHECK (value >= 18 and value <= 31);
+```
+
+###### 4. Tipi concettuali composti:  
+Per rappresentare tipi concettuali **strutturati** (es. `Indirizzo`, `Periodo`, `Intervallo`, ecc.), è possibile definire **nuovi tipi composti** in PostgreSQL mediante:
+```postgresql
+CREATE TYPE Indirizzo AS (
+    via VARCHAR,
+    civico INTEGER,
+    cap CHAR(5),
+    citta VARCHAR
+);
+```
+In sostanza si va a definire nuovi tipi di dato supportati dal DBMS usando SQL: `CREATE TYPE … AS (…)` 
+>In questo modo si ottiene un **tipo strutturato** che può essere usato come tipo di attributo all’interno delle tabelle relazionali.
+
+##### Problema: assenza di vincoli nei tipi composti
+Tuttavia, questo approccio **presenta un limite importante**:  
+**PostgreSQL non permette di specificare vincoli** (es. `NOT NULL`, `CHECK`, ecc.) **direttamente nei singoli campi di un tipo composto**.
+Tentativi come il seguente:
+```postgresql
+CREATE TYPE Indirizzo AS (
+    via VARCHAR(100) NOT NULL,
+    civico INTEGER NOT NULL CHECK (VALUE > 0)
+);
+
+```
+==**generano errore di sintassi**, in quanto **i vincoli sono ammessi solo a livello di dominio o tabella**, non all'interno dei tipi composti.==
 
 
-In realta è molto analogo con roba già vista nell'implementazione delle generalizzazioni in Python.
-Nella fase di progettazione: i progettisiti non devono progettare un sistema che rappresetna il mondo reale, di questo si occupa l'analista, mentre i proge si occupano anche delle performance del sistema.
+> [!abstract]- **Perché PostgreSQL non permette l’uso diretto di vincoli (`NOT NULL`, `CHECK`, ecc.) dentro i tipi composti definiti con `CREATE TYPE`?**
+>
+ >Perché i **tipi composti** (definiti tramite `CREATE TYPE`) non sono progettati per **applicare vincoli di validazione sui singoli campi**, ma esclusivamente per **descrivere la struttura** dei dati, ovvero la loro **forma**, non il loro **comportamento vincolato**.
+>
+>Da un punto di vista tecnico, il comando `CREATE TYPE ... AS (...)` serve a definire **tipi di dato strutturati** (simili a tuple), utili ad esempio per:
+>
+>- Parametri e valori di ritorno nelle funzioni SQL/PLpgSQL
+ >   
+>- Colonne composite nelle tabelle
+  >  
+>- Variabili nei blocchi di codice procedurale
+ >   
+>
+> **Tuttavia, non è concepito per gestire vincoli logici o di integrità**: i campi di un tipo sono "nudi", ovvero privi di qualsiasi controllo. La responsabilità della validazione ricade **sulle tabelle** o **sui domini** che lo impiegano.
+ >
+ >Inoltre un altro motivo è la **separazione delle responsabilità:**
+ >In PostgreSQL — come nei DBMS in generale — vige una **chiara separazione dei compiti**: 
+ >
+ > `TYPE`: ==Descrive la struttura (nome e tipo dei campi).==
+ > `DOMAIN`: ==Definisce vincoli su un singolo valore.==
+ > `TABLE`: ==Applica vincoli su intere tuple e colonne specifiche.==
+ > 
+ > Questa distinzione consente:
+ > - **Riutilizzabilità** del tipo senza forzare vincoli fissi.
+ > - **Maggiore flessibilità**: **Maggiore flessibilità**, poiché uno stesso tipo può essere utilizzato in più contesti, ciascuno con vincoli specifici.
+ > - 
+ > Le conseguenze pratiche sono che, difatti, non è possibile inserire il vincolo `NOT NULL` ovunque perché PostgreSQL **non sa** dove il tipo verrà usato e di conseguenza non può garantire che questo vincolo abbia senso ovunque nel codice.
+ > Ad esempio:
+>```postgresql
+ > CREATE TYPE Persona AS (
+  nome VARCHAR NOT NULL  -- ❌
+);
+>
+>```
+>Genera un errore perché **PostgreSQL non può garantire che il vincolo `NOT NULL` sia valido in ogni contesto**.  
+Ad esempio:
+>
+>- Cosa succede se `Persona` è usato come parametro di una funzione?
+ >   
+>- Cosa accade se viene usato in una colonna che può ammettere valori `NULL`?
+ >   
+>
+>Per evitare **ambiguità semantiche** e **comportamenti incoerenti**, PostgreSQL **non consente l’inserimento di vincoli all’interno della definizione di un tipo composto**.
+>>[!example] **Analogia**
+>>Immagina i **tipi** come **stampini per biscotti**: definiscono la **forma** del biscotto (es. rotondo, a stella...).
+>>
+>>I **vincoli**, invece, sono come le **regole in cucina**: “cuocere per 10 minuti”, “non usare zucchero”, ecc.
+>>
+>> Non ha senso codificare le regole dentro lo stampo: le **applichi quando usi lo stampo**, non nello stampo stesso.
+
+
+##### Soluzione: definire **domini ausiliari** con vincoli
+Per applicare **vincoli semantici ai campi** di un tipo composto, è necessario **definire prima dei domini SQL**, ovvero **tipi derivati** dotati di `CHECK`, `NOT NULL`, ecc.
+
+```postgresql
+CREATE Domain String100_not_null AS varchar(100)
+	CHECK (value IS NOT NULL);
+	
+CREATE DOMAIN Int_gz_not_null AS Integer
+	CHECK (value IS NOT NULL and value > 0);
+	
+CREATE TYPE Indirizzo (
+	via String100_not_null,
+	civico Int_gz_not_null
+);
+```
+
+>==In questo modo si riesce a ottenere un tipo strutturato **con vincoli forti su ogni campo**, superando il limite sintattico di PostgreSQL.==
+
+In conclusione:
+==La costruzione di **tipi composti robusti** in PostgreSQL **richiede la definizione di domini ausiliari**, per poter garantire la correttezza semantica e l’integrità dei dati.==
+
+Questo approccio è particolarmente utile ==quando si vogliono modellare concetti complessi come `Indirizzo`, `Intervallo`, `PersonaFisica`, ecc., **riutilizzabili** come tipi di attributo all'interno di più tabelle, **senza duplicare la logica di controllo**.==
+
+Al termine del passo di definizione della corrispondenza dei tipi di dato concettuali in tipi supportati dal DBMS, tutti gli attributi del diagramma ristrutturato sono semplici, hanno un dominio supportato dal DBMS ed hanno vincoli di cardinalità `[0..1]` oppure `[1..1]`.
+
+
+---
+
+## Le generalizzazioni
+Nel contesto dei database relazionali, **il concetto di ereditarietà non ha una controparte diretta**.
+
+> In altre parole: **non ha senso dire che “una tabella è anche un’altra tabella”**.
+
+Nel modello a oggetti (come in UML o in Python) le **sottoclassi** ereditano attributi e operazioni dalla **superclasse**.  
+Nel modello relazionale, invece, una ==**tabella rappresenta una sola entità ben definita**.==  
+==Non esiste quindi un meccanismo naturale per esprimere **relazioni `is-a`** (generalizzazioni/specializzazioni) nel linguaggio SQL.==
+
+
+Per questo motivo, in fase di **ristrutturazione** dello schema concettuale, le generalizzazioni **vanno eliminate**, ovvero **trasformate in costrutti equivalenti** e implementabili nel modello relazionale.
+### Metodo di ristrutturazione delle generalizzazioni
+
+Il progettista deve analizzare ogni livello di generalizzazione presente nel diagramma concettuale e decidere, **caso per caso**, quale delle seguenti strategie adottare:
+
+###### 1. **Generalizzazioni tra classi**
+
+Per ogni relazione `is-a` tra classi (es. `Persona` con sottoclassi `Studente`, `Docente`, ecc.), sono disponibili **tre possibili tecniche**:
+
+1.  **Fusione** delle sottoclassi nella superclasse
+    
+    > ==Si incorporano gli attributi specifici delle sottoclassi all'interno della superclasse, aggiungendo eventualmente un **attributo discriminante**.==  
+    > ==È l’approccio **più semplice e universalmente applicabile**.==  ^primoMetodo
+    
+2.  **Divisione** della superclasse in più tabelle disgiunte
+    > Ogni sottoclasse diventa una tabella indipendente con tutti gli attributi, inclusi quelli ereditati.  
+    > L’implementazione si basa sulla **disgiunzione** tra le sottoclassi.  ^secondoMetodo
+    
+3.  **Sostituzione** della generalizzazione con un’associazione
+    > Si elimina il legame `is-a` e si rappresentano i collegamenti con **foreign key** e **relazioni tra tabelle**.    ^terzoMetodo
+    
+
+###### 2. **Generalizzazioni tra associazioni**
+
+In modo analogo alle classi, le **relazioni `is-a` tra associazioni** (association class) devono essere gestite con:
+
+- 🔁 **Fusione** delle sotto-associazioni nella super-associazione, **se coerente con le modifiche precedenti**
+    
+- ⚠️ **Aggiunta di vincoli esterni** per mantenere la semantica originale della generalizzazione (vincoli che verranno gestiti successivamente)
+    
+
+> [!important]  **Nota operativa:**  
+> Il primo approccio, ovvero **la fusione delle sottoclassi nella superclasse**, è la **tecnica più generale** e può essere **applicata in qualsiasi situazione**.  
+> È quindi **il primo tentativo da considerare** nel processo di ristrutturazione delle generalizzazioni
+
+Quindi esistono vari modi per ristrutturare le generalizzazioni e come nella [[Ristrutturazione di generalizzazioni|ristrutturazione delle generalizzazioni in Python]] vi sono vari casi di come ristrutturarle, tenendo anche conto dei vincoli `{disjoint}`, `{complete}` e `{disjoint,complete}`.
+
+### 1. [[#^primoMetodo|Fusione delle classi]] 
+Come nella [[Ristrutturazione di generalizzazioni|ristrutturazione delle generalizzazioni in Python]] il metodo della fusione ingloba le sottoclassi nella superclasse ma **preservando le differenze semantiche** tra le sottoclassi mediante:
+- Aggiunta di un tipo enumerato che distingue le istanze tra loro (in Python avevamo aggiunto flag booleani)
+- Inclusione degli attributi delle sottoclassi nella superclasse aggiungendo vincoli sugli attributi che segnalano che solo le istanze del tipo corrispondente valorizzano l'attributo (es: `[0..1]`).
+- Rilassamento delle molteplicità minime nelle associazioni che coinvolgono le sottoclassi inglobate dalla classe padre 
+#### Caso 1: ristrutturazione con la fusione senza vincoli.
+
+L'approccio in questo caso è quello di fondere un intero livello della generalizzazione (ovvero fondere le sottoclassi con la superclasse) in un'unica classe.
+![[Fusione senza vincoli.png]]
+###### Spiegazione:
+**A destra** dell'immagine possiamo vedere tre classi:
+1. la classe `Persona`, con gli attributi:
+	-  `nome:varchar(100)`
+	- `genere:Genere`(di tipi `ENUM`)
+2. La classe `Studente`, con attributo:
+	- `matricola:varchar(12)`
+3. La classe `CorsoDiLaurea`, con attributo:
+	- `nome:varchar(100)`
+Tra la classe `Persona` e la classe `Studente` vi è una relazione is-a, quindi:
+>uno studente è anche una(`is-a`) persona, ma una persona non è uno studente.
+
+L'associazione `iscritto` tra `Studente` e `CorsoDiLaurea` è arricchita con i vincoli di molteplicità: 
+Uno studente partecipa al link di associazione `iscritto` con molteplicità `1..1`, e un corso di laurea partecipa al link di associazione `iscritto` con molteplicità `0..*` 
+Questo sta i significare che: 
+> A un corso di laurea possono essere iscritti tanti studenti o nessuno, ma uno studente può essere iscritto a un solo corso di laurea.
+
+Ora come possiamo ristrutturare questo diagramma UML concettuale delle classi?
+La risposta si trova a [[Fusione senza vincoli.png|sinistra dell'immagine ]]: 
+la classe `Studente` viene fusa con la classe `Persona` a cui si aggiungono altri due attributi:
+1. `tipo:Persona`; di tipo `ENUM` con un insieme di valori finiti `'Persona', 'Studente'`.
+
+```postgresql
+CREATE TYPE TipoPersona AS ENUM ('Persona', 'Studente');
+```
+
+
+> [!NOTE] **Nota**
+> Questo tipo di dato serve per distinguere le istanze di `Persona`, difatti agisce da discriminatore
+
+
+2. Si aggiunge anche l'attributo `matricola:varchar(12)` di `Studente` con molteplicità `[0..1]`.
+3. Inoltre l'associazione `iscritto` adesso è solo tra la classe `Persona` e la classe `CorsoDiLaurea`, con vincoli `0..*` ( sul lato di `Persona`), e `0..1` (sul lato di `CorsoDiLaurea`).
+
+#### La scelta dei vincoli non è casuale
+il vincolo `[0..1]` sull'attributo `matricola`, rispecchia perfettamente la generalizzazione poichè come detto prima; uno studente è anche una persona, ma una persona non è anche uno studente.
+==Per questo si aggiunge questo vincolo che va ad indicare che una persona può avere o meno un numero di matricola, poiché se lo ha allora è uno studente.==
+La stessa logica viene usata per rilassare a zero il vincolo `0..1` sul lato di `CorsoDiLaurea` che prima nel diagramma concettuale era `1..1`:
+==non tutte le istanze di `Persona` sono `Studenti`, quindi **non tutte possono partecipare all’associazione `iscritto`**.==
+Infatti quel vincolo `0..1` sta proprio a indicare ciò: per `ogni p:Persona, p.tipo` = 'Studente' se e solo se p è coinvolto in un link di associazione 'iscritto'.
+
+##### Interpretazione semantica dei vincoli:
+ Quindi una volta fatta la fusione e impostato i vincoli sugli attributi della sottoclasse e sulle associazioni che la coinvolgevano, bisogna anche esplicare i vincoli esterni per specificare il comportamento della generalizzazione ristrutturata,
+ ==questo perché I vincoli formali **non possono più essere espressi tramite molteplicità** ma devono essere scritti come **vincoli esterni**==:
+```plain
+Per ogni istanza p di Persona:
+	1. p.tipo = ‘Studente’ se e solo se p.matricola è valorizzato
+	2. p.tipo = ‘Studente’ se e solo se p è coinvolto in un link “iscritto”
+```
+
+###### Spiegazione:
+
+- Il campo `tipo` funge da **discriminante**, distinguendo `Studenti` da altre `Persone`
+    
+- Se `p.tipo = 'Studente'`, allora:
+    
+    - `p.matricola` **deve essere valorizzata**
+        
+    - `p` **deve risultare iscritto a un `CorsoDiLaurea`**
+        
+- Se `p.tipo ≠ 'Studente'`, entrambi i requisiti **non devono essere soddisfatti.**
+
+#### Caso 2: ristrutturazione di generalizzazioni in caso di sottoclassi disgiunte (`{disjoint}`)
+Nel secondo caso, affrontiamo la **ristrutturazione di una generalizzazione tra sottoclassi disgiunte**, ovvero con vincolo `{disjoint}`.
+
+##### Definizione del vincolo `{disjoint}`:
+
+Una generalizzazione `{disjoint}` implica che:
+
+> ==**Un'istanza della superclasse può appartenere ad al più una delle sottoclassi coinvolte (oppure a nessuna).**==
+
+![[Fusione con vincolo {disjoint}.png]]
+###### Spiegazione:
+A destra dell'immagine abbiamo una generalizzazione tra le sottoclassi `Studente` e `Docente` con `Persona` arricchita con il vincolo [[Generalizzazioni#1. `{disjoint}`|`{disjoint}`]].
+Questo sta sta a significare che: 
+>Un istanza di `Persona` può essere istanza di `Studente` o istanza di `Docente`, ma non di entrambi.
+
+Gli attributi di queste tre classi sono:
+1. La classe `Persona`:
+	- `nome:varchar(100)`
+2. La classe `Studente`:
+	- `matricola:varchar(12)`
+3. La classe `Docente`:
+	- `nascita:Date`
+
+Queste due sottoclassi sono coinvolte in due associazioni rispettivamente:
+1. La sottoclasse `Studente` è coinvolta in una associazione `iscritto` con la classe `CorsoDiLaurea` con vincoli di molteplicità `0..*` (sul lato `Studente`) e `1..1` (sul lato `CorsoDiLaurea`):
+> 	Un corso di laurea può essere seguito da tanti studenti o da nessuno.
+> 	Uno studente può essere iscritto a un solo corso di laurea.
+
+2. Mentre la la sottoclasse `Docente` è coinvolta in una associazione `afferenza` con la classe `Dipartimento` con vincoli di molteplicità `0..*` (sul lato `Docente`) e `1..1` (sul lato `Dipartimento`):
+>	A un dipartimento possono afferire più docenti o nessuno.
+>	Un docente può afferire a un solo dipartimento.
+
+Le classi `CorsoDiLaurea` e `Dipartimento` hanno i rispettivi attributi:
+- `nome:varchar(100)` 
+- `nome:varchar(100)`
+
+Ora come si può trattare la fusione in questo caso?
+In realtà dobbiamo agire come nel [[#Caso 1 ristrutturazione con la fusione senza vincoli.|caso 1]] aggiungendo solo alcuni valori e vincoli esterni in più.
+Infatti se [[Fusione con vincolo {disjoint}.png|guardiamo l'immagine]] possiamo notare molte similitudine con l'esempio di prima:
+1. le sottoclassi sono state fuse con la superclasse a cui si aggiungono 3 attributi in più:
+- `tipo:TipoPersona`; in questo caso questo tipo di dato ottiene un terzo valore che è `'Docente'`.
+
+```postgresql
+CREATE TYPE TipoPersona AS ENUM ('Persona', 'Studente', 'Docente');
+```
+
+
+> [!NOTE] **Nota**
+> Questo tipo di dato serve per distinguere le istanze di `Persona`, difatti agisce da discriminatore
+
+
+- `matricola:varchar(12)[0..1]`;  attributo di `Studente` a cui viene aggiunto il vincolo `[0..1]`.
+- `nascita:Date[0..1]`; attributo di `Docente` a cui viene aggiunto il vincolo `[0..1]`.
+
+Inoltre i vincoli accanto alle classi associate (`CorsoDiLaurea` e `Dipartimento`) sono cambiati da `1..1` a `0..1` proprio per rispettare la generalizzazione concettuale con il vincolo `{disjoint}` :
+
+Avendo usato il metodo della fusione con un vincolo di disgiunzione sulla generalizzazione si deve trovare il modo di indicare che:
+**Una persona può essere uno studente o un docente o nessuno dei due.**
+
+Di conseguenza [[#Caso 1 ristrutturazione con la fusione senza vincoli.|come nell'esempio precedente]] nella superclasse viene aggiunto un tipo di dato enumerativo (`tipo:TipoPersona`) che racchiude valori finiti relativi proprio a persona, studente e docente, inoltre gli attributi delle sottoclassi vengono inglobati nella superclasse e vengono aggiunti ad ognuno di essi il vincolo `[0..1]` proprio per indicare che un istanza di `Persona` se è istanza di una di queste sottoclassi allora l'attributo è valorizzato.
+Anche i vincoli di molteplicità `0..1` vanno a rispettare la generalizzazione nel diagramma concettuale:
+Una persona può partecipare ad almeno un link di associazione `iscritto` con `CorsoDiLaurea` solo se il valore dell'attributo `tipo = 'Studente'`, di conseguenza se `tipo = Persona`  non partecipa a nessun  link di associazione `iscritto` (`0..1`).
+Stessa cosa per l'associazione `afferenza`: una persona può partecipare ad almeno un link di associazione `afferenza` solo se il valore dell'attributo `tipo= 'Docente'`. 
+
+##### Vincoli esterni 
+Poiché la semantica `{disjoint}` non è esprimibile direttamente nel modello relazionale, è necessario introdurre **vincoli esterni** per garantire la coerenza tra:
+
+- l’attributo `tipo`
+    
+- gli attributi specifici
+    
+- la partecipazione ad associazioni
+
+```plain
+Per ogni istanza p di Persona:
+	1. p.tipo = 'Studente' ⇔ (se e solo se) p.matricola è valorizzato
+	2. p.tipo = 'Studente' ⇔ (se e solo se) p è coinvolto in un link "iscritto"
+	3. p.tipo = 'Docente' ⇔ (se e solo se) p. nascita è valorizzato 
+	4. p.tipo = ‘Docente’ se e solo se p è coinvolto in un link “afferenza”
+```
+
+
+> [!NOTE] **Nota:**
+> L’aggiunta dell’attributo `tipo` e l’uso del vincolo `[0..1]` sugli attributi delle sottoclassi permettono di rappresentare in modo coerente la generalizzazione `{disjoint}`.  
+>Tuttavia, questo approccio richiede **più vincoli esterni** da mantenere, per assicurare la coerenza semantica tra i dati e la struttura del modello originario.
+
+
+#### Caso 3: Ristrutturazione di generalizzazioni per fusione in caso di sottoclassi disgiunte e complete (`{disjoint, complete}`)
+Nel terzo caso, affrontiamo la **ristrutturazione di una generalizzazione tra sottoclassi disgiunte e complete**, ovvero con vincolo `{disjoint,complete}`.
+n questo scenario trattiamo la ristrutturazione di una generalizzazione caratterizzata da entrambi i vincoli:
+
+- [[Generalizzazioni#^defDisjoint|`{disjoint}`]] → un'istanza può appartenere a **una sola** sottoclasse tra quelle o a nessuna.
+    
+- [[Generalizzazioni#^defComplete|`{complete}`]] → _tutte_ le istanze della superclasse devono appartenere a **una o più** delle sottoclassi coinvolte.
+
+##### Definizione del vincolo [[Generalizzazioni#^db2378|`{disjoint,complete}`]]:
+> Una generalizzazione `{disjoint, complete}` implica che ==**tutte le istanze della superclasse devono appartenere a una e una sola delle sottoclassi** coinvolte.== 
+
+ ![[Fusione con {disjoint,complete}.png]]
+
+###### Spiegazione:
+partendo a sinistra dell'immagine (dove si trova il diagramma UML concettuali delle classi);
+1. `Persona` è la superclasse con attributo:
+    
+    - `nome : varchar(100)`
+        
+2. Sono presenti due sottoclassi:
+    
+    2.1 `Studente`, con attributo `matricola : varchar(12)`
+        
+    2.2. `Docente`, con attributo `nascita : Date`
+        
+3. Associazioni:
+    
+    - `Studente` ↔ `CorsoDiLaurea` (associazione `iscritto`)
+        
+        - Molteplicità: `Studente 0..*` ↔ `CorsoDiLaurea 1..1`
+            
+    - `Docente` ↔ `Dipartimento` (associazione `afferenza`)
+        
+        - Molteplicità: `Docente 0..*` ↔ `Dipartimento 1..1`
+
+Detto questo spostiamo l'attenziona a [[Fusione con {disjoint,complete}.png|destra dell'immagine]]:
+La fusione procede come nei casi precedenti, con una differenza fondamentale:  
+**le istanze della superclasse devono obbligatoriamente appartenere a una sottoclasse.**
+Si aggiunge sempre nella superclasse `Persona`, che ingloba le sottoclassi `Studente` e `Docente` l'attributo `tipo:TipoPersona` che serve sempre per distinguere le diverse istanze di `Persona`.
+```postgresql
+CREATE TYPE TipoPersona AS ENUM ('Studente', 'Docente');
+```
+
+
+> [!NOTE] **Nota Operativa**
+> In questo caso il valore `'persona'` viene escluso perché non esistono persone che non siano almeno uno studente o un docente
+
+Come anche nei casi precedenti gli attributi delle sottoclassi vengono inclusi nella superclasse con molteplicità `[0..1]`:
+- `matricola : varchar(12) [0..1]`
+    
+- `nascita : Date [0..1]`
+E anche i vincolo di molteplicità nelle associazioni vengono rilassati a `0..1`.
+- `iscritto`: `Persona 0..*` ↔ `CorsoDiLaurea 0..1`
+    
+- `afferenza`: `Persona 0..*` ↔ `Dipartimento 0..1`
+
+Come per gli altri casi anche qui i vincoli sugli attributi e sulle associazioni devono rispettare il vincolo `{disjoint,complete}` della generalizzazione del diagramma UML:
+Assumendo che le istanze di `Persona` devono appartenere obbligatoriamente a una e una sola delle sottoclassi coinvolte, se l'istanza di `Persona` è anche istanza di `Docente` il numero di matricola sarà valorizzato (per le proprietà del vincolo `[0..1]` che rendono l'attributo opzionale)né partecipa al link di associazione `iscritto`  ; viceversa se l'istanza di `Persona` è anche istanza di `Studente` l'attributo `nascita` non sarà valorizzato (per le proprietà del vincolo `[0..1]` che rendono l'attributo opzionale) né partecipa al link di associazione `afferenza`.
+
+##### Vincoli esterni da applicare 
+Come negli altri casi la semantica `{disjoint, complete}` non è esprimibile unicamente attraverso la struttura, è quindi necessario introdurre **vincoli esterni** per mantenere la coerenza semantica.
+
+```plain
+Per ogni istanza p di Persona:
+1. p.tipo = 'Studente' ⇔ (se e solo se) p.matricola è valorizzato
+2. p.tipo = 'Studente' ⇔ (se e solo se) p partecipa ad almeno un link “iscritto”
+3. p.tipo = 'Docente' ⇔ (se e solo se) p.nascita è valorizzato
+4. p.tipo = 'Docente' ⇔ (se e solo se) p partecipa ad almeno un link “afferenza”
+```
+
+
+
+#### Caso 4: Ristrutturazione di generalizzazioni per fusione in caso di sottoclassi disgiunte
+Affrontiamo ora il caso in cui vi sia una generalizzazione tra classe disgiunte ma senza il vincolo esplicito del `{disjoint}`.
+
+
+![[Screenshot 2025-07-09 at 12-18-08 Meet - bmb-xnne-ahh.png]]
+
+###### Spiegazione:
+partendo a sinistra dell'immagine (dove si trova il diagramma UML concettuali delle classi);
+1. `Persona` è la superclasse con attributo:
+    
+    - `nome : varchar(100)`
+        
+2. Sono presenti due sottoclassi:
+    
+    2.1 `Studente`, con attributo `matricola : varchar(12)`
+        
+    2.2. `Docente`, con attributo `nascita : Date`
+        
+3. Associazioni:
+    
+    - `Studente` ↔ `CorsoDiLaurea` (associazione `iscritto`)
+        
+        - Molteplicità: `Studente 0..*` ↔ `CorsoDiLaurea 1..1`
+            
+    - `Docente` ↔ `Dipartimento` (associazione `afferenza`)
+        
+        - Molteplicità: `Docente 0..*` ↔ `Dipartimento 1..1`
+
+Qui la situazione cambia perché la differenza con la [[Fusione senza vincoli.png|prima immagine]] è che nel primo caso la generalizzazione comprendeva solo un unica classe padre e una sola classe figlia, mentre qui la generalizzazione comprende due classi figlie ma non è presente il vincolo `{disjoint}` in maniera esplicita.
+Tuttavia si ha la necessita di differenziare le classi poiché un istanza non può essere contemporaneamente un oggetto di `Studente` e `Docente`.
+In altre parole non possono esistere tabelle di tue tipi diversi che ereditano da una tabella, come già detto all'inizio di questa lezione in PostgreSQL non esiste il concetto di [[Ereditarietà delle classi|ereditarietà come in Python ]]. 
+
+Quindi i cambiamenti da fare sono:
+1. Inserire due flag booleani come nella [[Ristrutturazione di generalizzazioni|ristrutturazione delle generalizzazioni in Python]];
+	- `is_studente:boolean`
+	- `is_docente:boolean`
+
+
+
+> [!abstract]- **Quando usare un attributo enumerativo oppure i flag booleani**
+> La scelta tra l'usare un attributo di tipo enumerativo oppure i flag booleani può sembrare che dipenda solo dalla volontà del progettista di voler memorizzare o meno le sottoclassi nel DBMS, in realtà dipende anche come il progettista intende rappresentare la semantica della generalizzazione e della qualità del modello relazionale.
+> Vediamo le **differenze concettuali** e **implicazioni pratiche**.
+> **Approccio 1: tipo di dato enumerativo (o stringa) per rappresentare le sottoclassi**
+>```postgresql
+>CREATE TYPE TipoPersona AS ENUM ('Studente', 'Docente', 'Persona');
+>
+>CREATE TABLE Persona (
+> 	  nome VARCHAR(100),
+> 	  tipo TipoPersona,
+> 	  matricola VARCHAR(12),
+> 	  nascita DATE
+>); 
+>```
+>
+>Questo metodo sia nella fase di ristrutturazione che di implementazione ha diversi vantaggi:
+>> [!done] **Vantaggi**
+>> - **Un solo attributo** discrimina tra le sottoclassi (più semplice e leggibile)
+>>    
+>>- Più **coerente con generalizzazioni `{disjoint}` e `{disjoint, complete}`**: è impossibile che una persona sia contemporaneamente `Studente` e `Docente`
+>>   
+>>- **Permette facilmente di memorizzare il concetto di sottoclasse** nel DB, **in forma implicita**, come richiesto nei casi di generalizzazione completa.
+>
+>> [!failure] **Svantaggi**
+>> - In presenza di generalizzazioni **non disgiunte**, non è sufficiente (una persona potrebbe essere sia docente che studente)
+>>   
+>>- Richiede **vincoli esterni** per validare la coerenza fra tipo e campi (e.g., matricola ⇔ tipo = 'Studente').
+>
+>**Approccio 2: flag booleani**
+>Esempio:
+>```postgresql
+>CREATE TABLE Persona (
+> 	  nome VARCHAR(100),
+> 	   is_studente BOOLEAN,
+> 	  is_docente BOOLEAN,
+> 	   matricola VARCHAR(12),
+> 	   nascita DATE
+>);
+>```
+>
+>> [!done] **Vantaggi**
+>> - Più flessibile in caso di **generalizzazioni sovrapposte/non disgiunte** (una persona può essere entrambe le cose)
+>>   
+>>- Evita la definizione di un tipo ENUM, quindi più _compatibile_ con DBMS che non supportano ENUM.
+>
+>
+>>[!failure] **Svantaggi**
+>>- **Modello meno leggibile**: i flag vanno interpretati e possono creare ambiguità
+>>   
+>>- Serve **maggiore logica di validazione**: se entrambi i flag sono veri? o entrambi falsi?
+>>    
+>>- Perde la **semantica forte del tipo** → non rappresenta davvero la sottoclasse come entità nel modello.
+>
+>In conclusione:
+>==Se si usa un attributo di tipo enumerativo si **rappresentano le sottoclassi in forma normalizzata** (anche se non in tabelle distinte), e si tiene traccia della _natura_ dell’istanza.==
+>
+>==Mentre se si usano flag booleani il progettista **non formalizza le sottoclassi come entità autonome**, ma solo come _proprietà_==
+
+2. inglobare nella classe padre gli attributi delle classe figlie aggiungendo i vincoli `[0..1]` accanto agli attributi delle sottoclassi:
+	- `matricola : varchar(12) [0..1]`
+	- `nascita : Date [0..1]`
+	In questo modo sempre si rispetta la generalizzazione poiché se `p.is_studente = True` se e solo se `p.matricola` è valorizzato, e se `p_is_docente = True` se e solo se `p.nascita` è valorizzato
+
+
+
+3. Rilassare i vincoli di molteplicità a zero anche sulle associazioni che coinvolgevano le sottoclassi:
+	- `Studente` ↔ `CorsoDiLaurea` (associazione `iscritto`)
+        
+        - Molteplicità: `Studente 0..*` ↔ `CorsoDiLaurea 0..1`
+            
+    - `Docente` ↔ `Dipartimento` (associazione `afferenza`)
+        
+        - Molteplicità: `Docente 0..*` ↔ `Dipartimento 0..1`
+	In questo modo stiamo dicendo che una persona può partecipare al link di associazione `iscritto` **oppure** `afferenza` solo se è uno studente **oppure** un docente, quindi di contro se non è ne uno studente non partecipa al link di associazione `iscritto` e se non è uno docente non partecipa al link di associazione `afferenza`.
+
+##### Vincoli esterni 
+Come nei casi precedenti anche in questo la semantica non è esprimibile solo attraverso la struttura, quindi è necessario specificare i vincoli esterni per mantenere la coerenza semantica:
+```plain
+Per ogni istanza p di Persona:
+1. p.is_studente = TRUE ⇔ (se e solo) se p.matricola è valorizzato
+2. p.is_studente = TRUE ⇔ (se e solo) se p è coinvolto in un link “iscritto”
+3. p.is_docente = TRUE ⇔ (se e solo) se p.nascita è valorizzato
+4. p.is_docente = TRUE ⇔ (se e solo) se p è coinvolto in un link “afferenza”
+```
+
+#### Caso 5: Ristrutturazione di generalizzazioni per fusione in caso di sottoclassi disgiunte con il vincolo `{complete}`
+In questo caso affrontiamo il caso in cui si ha una generalizzazione tra classi con il solo vincolo  `{complete}`.
+Come già sappiamo questo vincolo significa:
+>_tutte_ le istanze della superclasse devono appartenere a **una o più** delle sottoclassi coinvolte.
+
+
+![[Ristrutturazione di generalizzazioni per fusione in caso di sottoclassi disgiunte con il vincolo `{complete}`.png]]
+
+###### Spiegazione 
+partendo a sinistra dell'immagine (dove si trova il diagramma UML concettuali delle classi);
+1. `Persona` è la superclasse con attributo:
+    
+    - `nome : varchar(100)`
+        
+2. Sono presenti due sottoclassi:
+    
+    2.1 `Studente`, con attributo `matricola : varchar(12)`
+        
+    2.2. `Docente`, con attributo `nascita : Date`
+        
+3. Associazioni:
+    
+    - `Studente` ↔ `CorsoDiLaurea` (associazione `iscritto`)
+        
+        - Molteplicità: `Studente 0..*` ↔ `CorsoDiLaurea 1..1`
+            
+    - `Docente` ↔ `Dipartimento` (associazione `afferenza`)
+        
+        - Molteplicità: `Docente 0..*` ↔ `Dipartimento 1..1`
+
+In questo caso dobbiamo tenere conto per l'appunto del significato del vincolo sulla generalizzazione.
+Come per [[#Caso 3 Ristrutturazione di generalizzazioni per fusione in caso di sottoclassi disgiunte|il caso precedente]] le azioni da compiere sono le stesse:
+1. applicare due flag booleani:
+	- `is_studente:boolean`
+	- `is_docente:boolean`
+2. inglobare nella classe padre gli attributi delle classe figlie aggiungendo i vincoli `[0..1]` accanto agli attributi delle sottoclassi:
+	- `matricola : varchar(12) [0..1]`
+	- `nascita : Date [0..1]`
+	In questo modo sempre si rispetta la generalizzazione poiché se `p.is_studente = True` se e solo se `p.matricola` è valorizzato, e se `p_is_docente = True` se e solo se `p.nascita` è valorizzato
+3. Rilassare i vincoli di molteplicità a zero anche sulle associazioni che coinvolgevano le sottoclassi:
+	- `Studente` ↔ `CorsoDiLaurea` (associazione `iscritto`)
+        
+        - Molteplicità: `Studente 0..*` ↔ `CorsoDiLaurea 0..1`
+            
+    - `Docente` ↔ `Dipartimento` (associazione `afferenza`)
+        
+        - Molteplicità: `Docente 0..*` ↔ `Dipartimento 0..1`
+	In questo modo stiamo dicendo che una persona può partecipare al link di associazione `iscritto` **oppure** `afferenza` solo se è uno studente **oppure** un docente, quindi di contro se non è ne uno studente non partecipa al link di associazione `iscritto` e se non è uno docente non partecipa al link di associazione `afferenza`.
+
+
+L'unica differenza è che si aggiunge un vincolo esterno per mantenere la coerenza semantica:
+```plain
+Per ogni istanza p di Persona:
+1. p.is_studente = TRUE se e solo se p.matricola è valorizzato
+2. p.is_studente = TRUE se e solo se p è coinvolto in un link “iscritto”
+3. p.is_docente = TRUE se e solo se p.nascita è valorizzato
+4. p.is_docente = TRUE se e solo se p è coinvolto in un link “afferenza”
+5. p.is_docente = TRUE oppure p.is_studente = TRUE
+```
+
+In questo caso il quinto e ultimo vincolo sta a significare che una persona può essere sia studente che docente. Difatti in questo caso l'oppure può essere inteso come un OR inclusivo andando così a rispettare pienamente la semantica del vincolo `{complete}`.
+
+
+
+
+### 2. [[#^secondoMetodo|Divisione della superclasse in più classi disgiunte]] 
+
+Consiste nel **eliminare la superclasse** e **replicare tutti i suoi attributi** nelle sottoclassi, creando così tabelle indipendenti per ciascuna sottoclasse. È applicabile **solo se la generalizzazione è `{disjoint, complete}`**.
+
+
+![[Divisione in classi disgiunte.png]]
+
+###### Spiegazione:
+partendo a sinistra dell'immagine (dove si trova il diagramma UML concettuali delle classi);
+1. `Citta` con attributo:
+	- `nome:varchar(100)`
+
+2. `Persona` è la superclasse con attributo:
+    
+    - `nome : varchar(100)`
+        
+3. Sono presenti due sottoclassi:
+    
+    2.1 `Studente`, con attributo `matricola : varchar(12)`
+        
+    2.2. `Docente`, con attributo `nascita : Date`
+        
+4. Associazioni:
+    - `Citta`  ↔  `Persona` (associazione `residenza`)
+	    - Molteplicità 
+    - `Studente` ↔ `CorsoDiLaurea` (associazione `iscritto`)
+        
+        - Molteplicità: `Studente 0..*` ↔ `CorsoDiLaurea 1..1`
+            
+    - `Docente` ↔ `Dipartimento` (associazione `afferenza`)
+        
+        - Molteplicità: `Docente 0..*` ↔ `Dipartimento 1..1`
+
+> [!abstract] **Differenze tra la [[#1. primoMetodo Fusione delle classi|fusione]] e la [[#2. secondoMetodo Divisione della superclasse in più classi disgiunte|divisione]]** 
+> Assumendo di conoscere il significato del vincolo [[Generalizzazioni#^db2378|`{disjoint, complete}`]], la scelta del progettista di utilizzare la **divisione della superclasse in più classi disgiunte** (anziché la fusione, come nel [[#Caso 3 Ristrutturazione di generalizzazioni per fusione in caso di sottoclassi disgiunte e complete (`{disjoint, complete}`)|caso 3]]) può essere giustificata da molteplici motivi, tra cui:
+> 1. **Necessità di tabelle distinte nel dominio applicativo:**
+> 	Quando il dominio di riferimento **distingue concettualmente** `Studente` e `Docente` come entità autonome e trattate con logiche amministrative separate, è opportuno modellarle come tabelle distinte, pur condividendo alcuni attributi (es. `nome`, `cf` come in questo caso).
+> 		**Esempio pratico**:
+>
+>- I **docenti** non si iscrivono ai corsi e non devono figurare in alcun contesto "da studente".
+ >   
+>- Gli **studenti** non insegnano e non sono associati a dipartimenti.
+>    
+>- Il sistema informativo gestisce studenti e docenti **con interfacce o flussi separati**.
+> 2. **Query prevalentemente specifiche per sottoclasse**
+> Se il **95% delle query** riguardano solo `Studente` o solo `Docente`, allora avere tabelle separate:
+> 
+> - **Evita join su attributi inutili**
+>     
+> - **Ottimizza le prestazioni**
+>     
+> - Riduce il rischio di accessi incoerenti (es., leggere `nascita` per uno studente)
+> 3. **Attributi specifici molto numerosi**
+> 
+> Se le sottoclassi hanno molti attributi propri e **pochi in comune**, allora:
+> 
+> - **Fondere** tutto in un’unica tabella genera tante colonne nullable
+>     
+> - **Dividere** in due tabelle riduce lo "spreco" di spazio e migliora la **leggibilità dello schema.**
+> 4. **Necessità di enforcement della disgiunzione tramite vincoli esterni**
+> 
+> Con il metodo della divisione, la **disgiunzione logica** tra sottoclassi può essere **espressa con vincoli a livello di database**:
+> Nel caso della fusione ([[#Caso 3 Ristrutturazione di generalizzazioni per fusione in caso di sottoclassi disgiunte e complete (`{disjoint, complete}`)|caso 3]]), la disgiunzione è "logica", ma spesso **non enforceable direttamente** nel DB.
+> Al contrario, con la **fusione**, la disgiunzione è affidata a logica applicativa o vincoli parziali (`tipo`, flag, ecc.), meno robusti.
+> 
+> 5.  **Preferenza progettuale o vincolo tecnologico**
+> 
+> - Alcuni ORM (Object-Relational Mapping) lavorano **meglio con classi separate**
+> - Alcuni DBMS o strumenti ETL richiedono tabelle fisicamente distinte.
+
 Se ci sono delle classi che non voglio memorizzare non viene scritto nel DBSM:
  prendiamo come esempio questa immagine:
  ![[Screenshot 2025-07-09 at 12-21-24 Meet - bmb-xnne-ahh.png|500x205]]
 
 Mettiamo di avere una operazione che deve restiruire i soli docenti ma essendo sia gli stud che i docenti sono in unica tabella ogno volta deve andarsi a cercare i docenti in mezzo agli studenti, il che costerebbe un sacco di tempo.
 Quindi si potrebbe memeorizzare gli stud e i doce in tabelle separate.
-Ora anzichè findere `Studnetne` e `docente` in `Persona` andiamo a creare tre tabelle, ovvero, tre classi separate.
+Ora anzichè fondere `Studnetne` e `docente` in `Persona` andiamo a creare tre tabelle, ovvero, tre classi separate.
 
 Come possiamo collegare queste tre classi senza generalizzazione: con due associazioni, aggiunedo vicnoli `1..1` su Persona su vincoli stu_isa_pers e con vincolo `0..1`.
 Sull'altra assoc. doc_isa_pers si aggiunge un vincoli accanto a Persona `1..1` e un vicnolo accanto a `Docente` `0..1`.
