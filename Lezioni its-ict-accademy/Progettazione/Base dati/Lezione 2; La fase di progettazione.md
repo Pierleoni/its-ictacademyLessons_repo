@@ -595,11 +595,11 @@ Per ogni relazione `is-a` tra classi (es. `Persona` con sottoclassi `Studente`, 
     > ==È l’approccio **più semplice e universalmente applicabile**.==  ^primoMetodo
     
 2.  **Divisione** della superclasse in più tabelle disgiunte
-    > Ogni sottoclasse diventa una tabella indipendente con tutti gli attributi, inclusi quelli ereditati.  
-    > L’implementazione si basa sulla **disgiunzione** tra le sottoclassi.  ^secondoMetodo
+    > ==Ogni sottoclasse diventa una tabella indipendente con tutti gli attributi, inclusi quelli ereditati.==  
+    > ==L’implementazione si basa sulla **disgiunzione** tra le sottoclassi.==  ^secondoMetodo
     
 3.  **Sostituzione** della generalizzazione con un’associazione
-    > Si elimina il legame `is-a` e si rappresentano i collegamenti con **foreign key** e **relazioni tra tabelle**.    ^terzoMetodo
+    > ==Si elimina il legame `is-a` e si rappresentano i collegamenti con **foreign key** e **relazioni tra tabelle**.==    ^terzoMetodo
     
 
 ###### 2. **Generalizzazioni tra associazioni**
@@ -1049,6 +1049,7 @@ partendo a sinistra dell'immagine (dove si trova il diagramma UML concettuali de
 	- `nome:varchar(100)`
 
 2. `Persona` è la superclasse con attributo:
+    - `cf:CodiceFiscale{id}`(l'id sta a significare che ogni l'attributo `cf` è univoco per ogni istanza `p:Persona`)
     
     - `nome : varchar(100)`
         
@@ -1069,7 +1070,7 @@ partendo a sinistra dell'immagine (dove si trova il diagramma UML concettuali de
         
         - Molteplicità: `Docente 0..*` ↔ `Dipartimento 1..1`
 
-> [!abstract] **Differenze tra la [[#1. primoMetodo Fusione delle classi|fusione]] e la [[#2. secondoMetodo Divisione della superclasse in più classi disgiunte|divisione]]** 
+> [!abstract]- **Differenze tra la [[#1. primoMetodo Fusione delle classi|fusione]] e la [[#2. secondoMetodo Divisione della superclasse in più classi disgiunte|divisione]]** 
 > Assumendo di conoscere il significato del vincolo [[Generalizzazioni#^db2378|`{disjoint, complete}`]], la scelta del progettista di utilizzare la **divisione della superclasse in più classi disgiunte** (anziché la fusione, come nel [[#Caso 3 Ristrutturazione di generalizzazioni per fusione in caso di sottoclassi disgiunte e complete (`{disjoint, complete}`)|caso 3]]) può essere giustificata da molteplici motivi, tra cui:
 > 1. **Necessità di tabelle distinte nel dominio applicativo:**
 > 	Quando il dominio di riferimento **distingue concettualmente** `Studente` e `Docente` come entità autonome e trattate con logiche amministrative separate, è opportuno modellarle come tabelle distinte, pur condividendo alcuni attributi (es. `nome`, `cf` come in questo caso).
@@ -1106,35 +1107,430 @@ partendo a sinistra dell'immagine (dove si trova il diagramma UML concettuali de
 > - Alcuni ORM (Object-Relational Mapping) lavorano **meglio con classi separate**
 > - Alcuni DBMS o strumenti ETL richiedono tabelle fisicamente distinte.
 
+Andando sulla destra notiamo come nella ristrutturazione della generalizzazione la classe padre `Persona` viene eliminata e i suoi attributi sono replicati in ogni sottoclasse.
+Inoltre possiamo notare come entrambi le sottoclassi partecipano a un link di associazione con la classe `Città`:
+
+`Studente` partecipa a un link di associazione `residenza_stud` con `Città`, con molteplicità `1..1`.
+`Città` partecipa a un link di associazione `residenza_stud` con `Studente`, con molteplicità `0..*`.
+`Docente` partecipa a un link di associazione `residenza_doc` con `Città`, con molteplicità `1..1`, mentre `Città` partecipa al link di associazione `residenza_doc` con molteplicità `0..*`.
+
+
+Questo perché quando si sceglie la tecnica della divisione per ristrutturare una generalizzazione il fine è quello di trattare le sottoclassi come classi indipendenti a sé.
+
+Quindi in sintesi : 
+- La **superclasse `Persona` è scomparsa**.
+    
+- `Studente` e `Docente` **ripetono** gli attributi `nome` e `cf` (Codice Fiscale).
+    
+- L'associazione `residenza` è stata **moltiplicata**:
+    
+    - `residenza_stud` collega `Studente` ↔ `Città`
+        
+    - `residenza_doc` collega `Docente` ↔ `Città`
+        
+- Si sono quindi **moltiplicati ruoli e associazioni**, aumentando la complessità.
+
+##### Vincoli esterni 
+Poiché nel metodo della **divisione** in sottoclassi disgiunte viene a mancare una tabella comune che centralizzi l’identità concettuale (`Persona`), la **semantica del vincolo di identificazione** (ad esempio su `cf`) **non è più esplicitamente rappresentata** nello schema fisico.
+
+In particolare, non è più garantito che **un’identità (`cf`) compaia in una sola sottoclasse**, come richiesto dal vincolo `{disjoint}`.
+
+Per recuperare questa informazione **semantica persa**, è necessario definire un **vincolo esterno**:
+```plain
+non devono esistere s:Studente e d:Docente tali che s.cf = d.cf
+```
+
+Questo vincolo assicura che **una stessa chiave (`cf`) non appaia contemporaneamente in più sottoclassi**, **preservando la disgiunzione**.
+
+
+> [!caution] Occhio all'approccio della divisione
+> L’approccio di **dividere la superclasse in più tabelle (una per sottoclasse)** va bene **solo in presenza di generalizzazioni `{disjoint, complete}`**.  
+>In altri casi è **problematico** e va **usato con estrema cautela**.
+> Per comprendere meglio ciò vediamolo nel dettaglio:
+> 1. **Generalizzazione non completa ([[Generalizzazioni#^defComplete|`¬complete`]])**
+>> ==_tutte_ le istanze della superclasse devono appartenere a **una o più** delle sottoclassi coinvolte.==
+>
+>
+>Il problema nel metodo della divisione è che la la superclasse viene "smontata" e **non esiste più una tabella centrale (in questo caso `Persona`).**
+>Se però alcune persone **non appartengono a nessuna sottoclasse**, **non c'è modo di rappresentarle**, e quindi:
+>- **Si perdono delle informazioni    
+>-  Si viola la semantica del modello concettuale
+>  1. Generalizzazione non disgiunta ([[Generalizzazioni#^defDisjoint|`¬disjoint`]]) 
+>>==le sottoclassi **non si sovrappongono**, quindi un'istanza può appartenere a **una sola** sottoclasse tra quelle o a nessuna.==
+>
+>In questo caso nella divisione disgiunta  ogni persona ha una riga **in una sola sottoclasse**. Se invece **può comparire in più sottoclassi (es. essere Studente _e_ Docente)**:
+>- Si crea **duplicazione** dei dati comuni (`cf`, `nome`, ecc.)
+ >   
+>- Si rischia **incoerenza** (es. due `nome` diversi per la stessa `cf`)
+>    
+>- È necessario **introdurre vincoli esterni** complicati per mantenere l’identità.
+>> [!ticket] **In Conclusione**
+>> Il metodo della divisione in classi disgiunte funziona bene solo se la generalizzazione è `{disjoint,complete}`, perché:
+>> - Nel vincolo `{disjoint}` → le istanze sono sono in una sola tabella (non vi è la sovrapposizione)
+>> - Nel vincolo `{complete}`→ le istanze sono in almeno una tabella.
+>> Di conseguenza se questi vincoli **non sono garantiti**, il metodo:
+>> - **Può rompere la semantica**
+>> - **Richiede molti vincoli esterni**
+>>   
+>> **Quindi va usato con estrema cautela, solo se la modellazione concettuale lo giustifica chiaramente.**
+
+
+### 3. Sostituzione di relazioni `is-a` con associazioni
+Ora affrontiamo il [[#^terzoMetodo|terzo metodo]] della ristrutturazione delle generalizzazioni
+
+#### Caso 1: Ristrutturazione delle generalizzazioni: Ristrutturazione di relazioni `is-a` indipendenti o generalizzazioni non disgiunte e non complete
+
+L'immagine rappresenta un caso in cui si parte da una generalizzazione **non disgiunta e non completa** (oppure da relazioni `is-a` indipendenti). In questo contesto, si adotta una ristrutturazione alternativa in cui la relazione di generalizzazione viene **sostituita da associazioni**.
+
+![[Ristrutturazione di relazioni is-a indipendenti o generalizzazioni non disgiunte e non complete.png]]
+
+###### Spiegazione:
+partendo a sinistra dell'immagine (dove si trova il diagramma UML concettuali delle classi);
+1. `Persona` è la superclasse con attributo:
+    
+    - `nome : varchar(100)`
+        
+2. Sono presenti due sottoclassi:
+    
+    2.1 `Studente`, con attributo `matricola : varchar(12)`
+        
+    2.2. `Docente`, con attributo `nascita : Date`
+        
+3. Associazioni:
+    
+    - `Studente` ↔ `CorsoDiLaurea` (associazione `iscritto`)
+        
+        - Molteplicità: `Studente 0..*` ↔ `CorsoDiLaurea 1..1`
+            
+    - `Docente` ↔ `Dipartimento` (associazione `afferenza`)
+        
+        - Molteplicità: `Docente 0..*` ↔ `Dipartimento 1..1`
+
+Guardando il diagramma a destra dell'immagine notiamo delle differenze rispetto  al metodo di divisione, in questa ristrutturazione:
+
+- La superclasse `Persona` viene **mantenuta**.
+    
+- Le sottoclassi `Studente` e `Docente` diventano **classi indipendenti** collegate a `Persona` tramite apposite associazioni:
+    
+    - `s_isa_p`: `Studente` ↔ `Persona` con molteplicità `0..1` ↔ `1..1{id}`
+        
+    - `d_isa_p`: `Docente` ↔ `Persona` con molteplicità `0..1` ↔ `1..1{id}`
+
+
+##### Il ruolo dell’identificatore `{id}`
+L'identificatore `{id}` sul vincolo dell'associazione agisce come **identificatore esterno** per le ex-sottoclassi `Studente` e `Docente`. In questa ristrutturazione:
+
+- Le classi `Studente` e `Docente` **non ereditano più direttamente** da `Persona`.
+    
+- Vengono invece trasformate in **classi indipendenti**, collegate a `Persona` attraverso **associazioni uno-a-uno**:
+    
+    - con **molteplicità obbligatoria `1..1{id}`** dalla parte di `Persona`, che fornisce l'identificativo univoco ([[Lezione 1; Introduzione e modello relazionale#La chiave primaria|chiave primaria]]),
+        
+    - e **molteplicità opzionale `0..1`** dalla parte di `Studente` o `Docente`.
+        
+
+Questa struttura riflette il concetto di **identificazione esterna**:
+
+- ==L'identità delle istanze di `Studente` e `Docente` non è autonoma, ma **deriva dall'identificativo `{id}` della corrispondente istanza di `Persona`**.==
+    
+- In tal modo, ==**ogni `Studente` o `Docente` deve necessariamente essere associato a una `Persona`**==, **mentre una `Persona` può:**
+    
+    - non essere né `Studente` né `Docente`,
+        
+    - essere solo `Studente`,
+        
+    - essere solo `Docente`,
+        
+    - oppure essere **entrambe le cose** contemporaneamente.
+        
+
+> ==In altre parole, la presenza di un collegamento `s_isa_p` o `d_isa_p` indica che l’istanza della classe `Persona` rappresenta anche uno `Studente` o un `Docente`.==
+
+Inoltre, il fatto che l'identificativo `{id}` sia **comune e condiviso tra `Persona` e le ex-sottoclassi** assicura che:
+
+- ==**non possano esistere due `Studente` (o due `Docente`) con lo stesso identificatore**, ovvero non possono esistere due righe distinte nella tabella `Studente` collegate alla stessa persona==.
+    
+- ==Questo vincolo **preserva l’univocità dell’identità** delle ex-sottoclassi rispetto alla classe generale `Persona`.==
+
+
+> [!NOTE] **Nota:**
+> la presenza di un collegamento `s_isa_p` o `d_isa_p` indica che l’istanza della classe `Persona` può rappresentare anche rispettivamente uno `Studente` o un `Docente`.
+
+**Inoltre non serve specificare vincoli esterni poiché in questo caso la struttura rappresenta bene la semantica della generalizzazione senza vincoli**
+
+> [!done] **Vantaggi dell’identificazione esterna**
+> - **Univocità dell’identità garantita**:  
+>    Non possono esistere due `Studente` o due `Docente` con lo stesso `id`, poiché l’identità è **univocamente determinata** dalla chiave primaria della `Persona`.
+>    
+>- **Separazione logica e semantica** tra la struttura comune (`Persona`) e i ruoli specifici (`Studente` e `Docente`), pur mantenendo l’integrità dei dati.
+
+
+#### Caso 2: Ristrutturazione in caso di sottoclassi disgiunte (con vincolo `{disjoint}`)
+
+In questo scenario, si parte da una generalizzazione tra sottoclassi disgiunte. Anche in questo caso, è possibile adottare il **terzo metodo** di ristrutturazione, ossia la **sostituzione della relazione di generalizzazione con associazioni**.
+
+![[Ristrutturazione in caso di sottoclassi disgiunte.png]]
+
+###### Spiegazione
+partendo a sinistra dell'immagine (dove si trova il diagramma UML concettuali delle classi);
+1. `Persona` è la superclasse con attributo:
+    
+    - `nome : varchar(100)`
+        
+2. Sono presenti due sottoclassi:
+    
+    2.1 `Studente`, con attributo `matricola : varchar(12)`
+        
+    2.2. `Docente`, con attributo `nascita : Date`
+        
+3. Associazioni:
+    
+    - `Studente` ↔ `CorsoDiLaurea` (associazione `iscritto`)
+        
+        - Molteplicità: `Studente 0..*` ↔ `CorsoDiLaurea 1..1`
+            
+    - `Docente` ↔ `Dipartimento` (associazione `afferenza`)
+        
+        - Molteplicità: `Docente 0..*` ↔ `Dipartimento 1..1`
+
+Ora partendo dal significato del vincolo [[Generalizzazioni#^defDisjoint|`{disjoint}`]] sappiamo che una persona può essere uno studente o un docente o nessuno dei due.
+Analogamente al **[[#Caso 1 Ristrutturazione delle generalizzazioni Ristrutturazione di relazioni `is-a` indipendenti o generalizzazioni non disgiunte e non complete|Caso 1]]**, si procede con:
+
+- **Mantenimento della classe `Persona`** come entità centrale.
+    
+- Trasformazione delle ex-sottoclassi `Studente` e `Docente` in **classi autonome**, collegate a `Persona` tramite apposite **associazioni identificanti**:
+    
+    - `s_isa_p`: `Studente` ↔ `Persona`, con molteplicità `0..1` ↔ `1..1{id}`
+        
+    - `d_isa_p`: `Docente` ↔ `Persona`, con molteplicità `0..1` ↔ `1..1{id}`
+
+##### Il ruolo dell'identificatore `{id}` nella ristrutturazione con il vincolo `{disjoint}`
+
+L’identificatore `{id}` sull'associazione svolge, anche in questo caso, il ruolo di **identificatore esterno** per le classi `Studente` e `Docente`, esattamente come nel **Caso 1**. Tuttavia, **la differenza fondamentale è data dal vincolo `{disjoint}`**.
+
+- Ogni `Studente` o `Docente` deve riferirsi a un’identità presente in `Persona` (vincolo di molteplicità `1..1{id}` sul lato `Persona`).
+    
+- Una stessa `Persona` può essere:
+    
+    - solo uno `Studente`,
+        
+    - solo un `Docente`,
+        
+    - oppure **nessuno dei due**,
+        
+    - **ma mai entrambe le cose contemporaneamente** (vincolo `{disjoint}`).
+Solo che uno studente è per forza una persona (vincolo sull'associazione `s_isa_p 1..1{id}`) mentre una persona deve essere solo uno studente o un docente ma può non essere nessuno dei due (vincoli sulle associazioni `s_isa_p 0..1`, dal lato `Studente`,  e `d_isa_p 0..1`, dal lato `Docente`).
+
+##### Vincoli esterni per il rispetto della disgiunzione
+Poiché la struttura con associazioni **non è in grado di esprimere direttamente il vincolo `{disjoint}`**, è necessario **enunciarlo esplicitamente come vincolo esterno** per mantenere la coerenza semantica del modello concettuale:
+```plain
+Disgiunzione: non devono esistere p:Persona, s:Studente d:Docente tali che (s, p): s_isa_p e (d, p): d_isa_p
+```
+^vincDis
+
+
+==In altre parole, **una stessa istanza di `Persona` non può essere contemporaneamente collegata a entrambe le sottoclassi `Studente` e `Docente`**.== 
+
+#### Caso 3: Ristrutturazione in caso di sottoclassi complete (con il vincolo `{complete}`)
+
+In questo scenario si parte da una generalizzazione **completa** (`{complete}`), ovvero **ogni istanza della superclasse `Persona` deve necessariamente appartenere ad almeno una delle sottoclassi `Studente` o `Docente`**.
+
+Come nei casi precedenti, si procede con la **sostituzione della generalizzazione con associazioni identificanti**.
+
+
+![[Ristrutturazione in caso di sottoclassi complete.png]]
+
+###### Spiegazione:
+partendo a sinistra dell'immagine (dove si trova il diagramma UML concettuali delle classi);
+1. `Persona` è la superclasse con attributo:
+    
+    - `nome : varchar(100)`
+        
+2. Sono presenti due sottoclassi:
+    
+    2.1 `Studente`, con attributo `matricola : varchar(12)`
+        
+    2.2. `Docente`, con attributo `nascita : Date`
+        
+3. Associazioni:
+    
+    - `Studente` ↔ `CorsoDiLaurea` (associazione `iscritto`)
+        
+        - Molteplicità: `Studente 0..*` ↔ `CorsoDiLaurea 1..1`
+            
+    - `Docente` ↔ `Dipartimento` (associazione `afferenza`)
+        
+        - Molteplicità: `Docente 0..*` ↔ `Dipartimento 1..1`.
+
+
+Anche in questo caso, la struttura viene trasformata nel seguente modo:
+
+- La superclasse `Persona` viene **mantenuta**.
+    
+- Le sottoclassi `Studente` e `Docente` diventano **classi autonome**, collegate a `Persona` tramite:
+    
+    - `s_isa_p`: `Studente` ↔ `Persona`: `0..1` ↔ `1..1{id}`
+        
+    - `d_isa_p`: `Docente` ↔ `Persona`: `0..1` ↔ `1..1{id}`
+
+Anche qui, [[#Il ruolo dell’identificatore `{id}`|L'identificatore `{id}`]] svolge il medesimo ruolo del dei due casi visti in precedenza solo che bisogna tener conto del vincolo `{complete}`: 
+- Le classi `Studente` e `Docente` **non ereditano più direttamente** da `Persona`.  
+    
+- Vengono invece trasformate in **classi indipendenti**, collegate a `Persona` attraverso **associazioni uno-a-uno**:
+    - con **molteplicità obbligatoria `1..1{id}`** dalla parte di `Persona`, che fornisce l'identificativo univoco ([[Lezione 1; Introduzione e modello relazionale#La chiave primaria|chiave primaria]]).
+        
+    - e **molteplicità opzionale `0..1`** dalla parte di `Studente` o `Docente`.
+
+
+##### Vincoli esterni per il rispetto della completezza
+Poiché la struttura con associazioni **non è in grado di esprimere direttamente il vincolo `{complete}`**, è necessario **enunciarlo esplicitamente come vincolo esterno** per mantenere la coerenza semantica del modello concettuale:
+```plain
+Completezza: per ogni p:Persona:
+• esiste s:Studente per cui: (s, p): s_isa_p
+• oppure esiste d:Docente per cui: (d, p): d_isa_p
+```
+^vincCompl
+
+In altre parole: 
+Ogni istanza della classe `Persona` deve necessariamente essere anche uno `Studente` oppure un `Docente`, o entrambi.
+
+#### Caso 4: Ristrutturazione in caso di sottoclassi disgiunte e complete (con il vincolo `{disjoint, complete}`)
+
+In questo scenario si parte da una generalizzazione **disgiunta e completa** ([[Generalizzazioni#^db2378|`{disjoint,complete}`]]), ovvero tutte le istanze di `Persona` devono appartenere a una sola delle classi coinvolte:
+- **`disjoint`** → ogni istanza della superclasse `Persona` **appartiene a una sola** tra le sottoclassi coinvolte (`Studente` o `Docente`);
+    
+- **`complete`** → ogni istanza della superclasse `Persona` **appartiene ad almeno una** tra le sottoclassi coinvolte.
+
+![[Ristrutturazione in caso di sottoclassi disgiunte e complete.png]]
+
+###### Spiegazione 
+partendo a sinistra dell'immagine (dove si trova il diagramma UML concettuali delle classi);
+1. `Persona` è la superclasse con attributo:
+    
+    - `nome : varchar(100)`
+        
+2. Sono presenti due sottoclassi:
+    
+    2.1 `Studente`, con attributo `matricola : varchar(12)`
+        
+    2.2. `Docente`, con attributo `nascita : Date`
+        
+3. Associazioni:
+    
+    - `Studente` ↔ `CorsoDiLaurea` (associazione `iscritto`)
+        
+        - Molteplicità: `Studente 0..*` ↔ `CorsoDiLaurea 1..1`
+            
+    - `Docente` ↔ `Dipartimento` (associazione `afferenza`)
+        
+        - Molteplicità: `Docente 0..*` ↔ `Dipartimento 1..1`.
+
+Anche in questo caso, la struttura viene trasformata nel seguente modo:
+
+- La superclasse `Persona` viene **mantenuta**.
+    
+- Le sottoclassi `Studente` e `Docente` diventano **classi autonome**, collegate a `Persona` tramite:
+    
+    - `s_isa_p`: `Studente` ↔ `Persona`: `0..1` ↔ `1..1{id}`
+        
+    - `d_isa_p`: `Docente` ↔ `Persona`: `0..1` ↔ `1..1{id}`.
+
+Anche qui, [[#Il ruolo dell’identificatore `{id}`|L'identificatore `{id}`]] svolge il medesimo ruolo del dei due casi visti in precedenza solo che bisogna tener conto del vincolo `{complete}`: 
+- Le classi `Studente` e `Docente` **non ereditano più direttamente** da `Persona`.  
+    
+- Vengono invece trasformate in **classi indipendenti**, collegate a `Persona` attraverso **associazioni uno-a-uno**:
+    - con **molteplicità obbligatoria `1..1{id}`** dalla parte di `Persona`, che fornisce l'identificativo univoco ([[Lezione 1; Introduzione e modello relazionale#La chiave primaria|chiave primaria]]).
+        
+    - e **molteplicità opzionale `0..1`** dalla parte di `Studente` o `Docente`.
+
+##### Vincoli esterni per il rispetto della disgiunzione e della  completezza
+Negli ultimi due casi precedenti abbiamo visto come le strutture non esprimessero al meglio la semantica e quindi abbiamo dichiarato dei [[#^vincDis|vincoli di disgiunzione]] e di [[#^vincCompl|completezza]], in questo scenario i due tipi di vincoli vengono uniti insieme:
+```plain
+1. Disgiunzione: non devono esistere p:Persona, s:Studente e d:Docente tali che (s, p): s_isa_p e (d, p): d_isa_p
+2. Completezza: per ogni p:Persona:
+• esiste s:Studente per cui: (s, p): s_isa_p
+• oppure esiste d:Docente per cui: (d, p): d_isa_p
+```
+
+**Interpretazione:**
+- ==Il **primo vincolo** vieta che una `Persona` sia **collegata a entrambe** le sottoclassi (`{disjoint}`) .==
+    
+- ==Il **secondo vincolo** impone che una `Persona` **sia collegata almeno a una** delle due (`{complete}`).==
+
 Se ci sono delle classi che non voglio memorizzare non viene scritto nel DBSM:
  prendiamo come esempio questa immagine:
  ![[Screenshot 2025-07-09 at 12-21-24 Meet - bmb-xnne-ahh.png|500x205]]
 
-Mettiamo di avere una operazione che deve restiruire i soli docenti ma essendo sia gli stud che i docenti sono in unica tabella ogno volta deve andarsi a cercare i docenti in mezzo agli studenti, il che costerebbe un sacco di tempo.
-Quindi si potrebbe memeorizzare gli stud e i doce in tabelle separate.
-Ora anzichè fondere `Studnetne` e `docente` in `Persona` andiamo a creare tre tabelle, ovvero, tre classi separate.
 
-Come possiamo collegare queste tre classi senza generalizzazione: con due associazioni, aggiunedo vicnoli `1..1` su Persona su vincoli stu_isa_pers e con vincolo `0..1`.
-Sull'altra assoc. doc_isa_pers si aggiunge un vincoli accanto a Persona `1..1` e un vicnolo accanto a `Docente` `0..1`.
-Ora dobbiamo fare un altra cosa obbligatoria:
-Aggiungere due `{id}` sui vincoli accanto a Persona `1..1` su entrambe le assoc.
-Mentre le associazioni tra Studente e corso di Laurea con i vincoli rimangono i dentici stessa cosa per l'assoc. tra Docente e Dipartimento e i loro vincoli.
 
-Ma se mettiamo il vincolo `{disjoint}` sulla generalizzazione? 
-La situazione cambia, ci vuole un vincolo esterno perché non si può espriemere:
-I vincoli esterni e in questo caso si chiama vincoli di disgiunzione; vuol dire non devono esistere una `p:Persona`, `s:Studente`, `d:Docente` e `(p,s):stu_isa_pers` e `(p,d): doc_isa_pers`.
-Abbiamo dovuto espriemrlo cosi perchè non si può espriemere nel diagramma.
-Stssa cosa se c'è il complete:
-si cihama vincolo di completezza; 
-```plain text
-per ogni p:Persona:
-- esiste s:Studente tale che  (s,p):stud_isa_pers
-- oppure esiste d:Docente tale che (p,d):doc_isa_pers
+
+---
+
+## Identificatori di classe
+
+Al termine della **ristrutturazione del diagramma UML delle classi**, ogni classe deve:
+
+- disporre di **almeno un identificatore** (chiave candidata),
+    
+- e di un **identificatore primario** ben definito (che diventerà la **chiave primaria** nella futura tabella relazionale).
+
+La metodologia operativa è:
+1. Scelta di un identificatore concettuale (se disponibile):
+	Se una classe possiede un attributo che rappresenta un identificatore **reale e significativo** (es. codice fiscale, matricola):
+
+	- si verifica se è **sufficientemente stabile** e **semplice** da usare come chiave primaria.
+    
+		- se sì, si contrassegna con `{id1}` (identificatore primario).   
+Esempio:
+```plain
+Persona
+  nome : varchar(100)
+  cf   : CodiceFiscale {id1}   ← identificatore concettuale accettabile
 ```
 
-Vediamolo su [[Esercitazione GO|go]]:
+2. Creazione di un identificatore artificiale (se necessario):
+Se una classe:
 
+- **non ha un identificatore concettuale**, oppure
+    
+- gli attributi esistenti **non sono adatti** come chiave (es. `nome` non è univoco),
+    
 
+→ allora si **aggiunge un nuovo attributo artificiale** (es. `id: integer`) e lo si marca con `{id1}`.
+
+Esempio: 
+```plain
+CorsoDiLaurea
+  nome : varchar(100)
+  id   : integer {id1}   ← identificatore artificiale
+```
+
+Questi identificatori artificiali sono solo escamotage tecnologico: **servono solo per supportare l’implementazione relazionale**, ma **non hanno valore concettuale.**
+
+### Esempio 1
+![[Esempio identificatori di classe.png]]
+
+###### Spiegazione 
+A sinistra dell'immagine abbiamo un diagramma ristrutturato con:
+ 1. `Studente`  con attributo:
+    
+    - `nome : varchar(12){id1}`
+        
+2. Sono presenti due sottoclassi:
+    
+    2.1 `Studente`, con attributo `matricola : varchar(12){id}`
+        
+    2.2. `Docente`, con attributo `nascita : Date`
+        
+3. Associazioni:
+    
+    - `Studente` ↔ `CorsoDiLaurea` (associazione `iscritto`)
+        
+        - Molteplicità: `Studente 0..*` ↔ `CorsoDiLaurea 1..1`
+            
+    - `Docente` ↔ `Dipartimento` (associazione `afferenza`)
+        
+        - Molteplicità: `Docente 0..*` ↔ `Dipartimento 1..1`.
 Ora che abbiamo fatto la ristrutturazione ci mancano le chiavi primarie o identificatori di classe:
 
 ![[Screenshot 2025-07-09 at 12-52-22 Meet - bmb-xnne-ahh.png|500x170]]

@@ -565,7 +565,7 @@ def _remove_link_coinvolto(self, l: 'coinvolto._link') -> None:
 > [!NOTE] Questo metodo è chiamato **dalla factory `coinvolto.remove(l)`**, che si occupa anche di rimuoverlo dalla controparte `Progetto`.
 
 7. `def progetti()`:
-==Esporre in lettura **l’insieme dei progetti associati** a questo `Impiegato`.==
+ 
 
 ```python
 def progetti(self) -> frozenset['coinvolto._link']:

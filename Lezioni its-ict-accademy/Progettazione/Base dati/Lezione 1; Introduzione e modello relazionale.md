@@ -447,11 +447,11 @@ Come si nota:
 >
 > Se i valori di chiave primaria contengono `NULL` o dati incoerenti, **le relazioni logiche tra le tabelle non possono essere garantite.**
 
-
-Per ovviare a queste problematiche si sceglie, tra le chiavi della tabella,  una o più chiavi, che diventa/no la chiave primaria. 
-Le caratteristiche della chiave primaria sono:
+#### La chiave primaria
+Per ovviare a queste problematiche si sceglie, tra le chiavi della tabella,  una o più chiavi, che diventa/no la **chiave primaria**. 
+Le caratteristiche della **chiave primaria** sono:
 - ==Gli attributi della chiave primaria non possono avere valori `NULL`==
-- ==Gli attributi della chiave primaria di una tabella sono indicati sottolineati==
+- ==Gli attributi della chiave primaria di una tabella sono indicati sottolineati.==   
 
 ##### **Esempio pratico di chiave primarie**
 **Tabella Studente**
@@ -573,9 +573,9 @@ In altre parole:
 >```postgresql
 >REFERENCES Officina(nome)
 >```
->- La **colonna nella tabella figlia** (in questo caso, `officina`) è la **foreign key** vera e propria
+>- ==La **colonna nella tabella figlia** (in questo caso, `officina`) è la **foreign key** vera e propria==
 >
->- La **colonna nella tabella padre** (in questo caso, `nome` in `Officina`) è una **chiave primaria** o **chiave candidata**.
+>- ==La **colonna nella tabella padre** (in questo caso, `nome` in `Officina`) è una **chiave primaria** o **chiave candidata**.==
 >
 >Per capire meglio, consideriamo il seguente esempio::
 >

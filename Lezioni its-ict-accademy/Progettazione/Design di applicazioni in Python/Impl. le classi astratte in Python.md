@@ -37,7 +37,7 @@ In questo caso mi darebbe errore perché nella classe Persona è presente almeno
 Tuttavia questo metodo di dichiarare un metodo astratto a caso è poco efficiente e anche brutto, 
 quindi si astrae il costruttore della classe.
 Tuttavia un metodo astratto può contenere logica al suo interno
-```
+```python
 from abc import ABC
 class Persona(ABC):
 	_nome:str
