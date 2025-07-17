@@ -32,12 +32,28 @@ UN DBMS si strutturano in 3 livelli:
 
 
 ### SQL e livelli 
+Innanzitutto bisogna lanciare il Docker dove si trova il database tramite il comando:
+```docker
+docker exec -it its_postgresql bash
+```
 
+Dopodiché bisogna spostarsi nella cartella `home` dell'ambiente virtualizzato di Linux:
+```shell
+601b8410aa93:/# cd /home
+```
 
+In seguito digitare questo commando:
+```shell
+601b8410aa93:/home# psql -U postgres
+```
+
+Ora siamo dentro postgreSQL.
 Data definition language:
-un database è in insieme di tabelle popolate da dati il comando è:
+
+un database è in insieme di tabelle popolate di dati.
+Il comando per creare il DB è:
 ```sql
-create database nome_database[opzioni]
+create database nome_database[opzioni];
 ```
 
 SQL è case insenstive: si può scrivere maisucoli e minuscoli come mi pare, una volta non si poteva perché non eistivenao i colori sullo schemro.
@@ -109,7 +125,7 @@ postgres(#
 Ti dice cosa manca, finchè c'è l'uguale dopo postgres vuol dire il comando è stato eseguito con successo.
 
 Come si fa a definire una tabella?
-```
+```postgresql
 create table [nome_schema] nome_tabella(
 nome_attributo dominio [vincolo di dominio] //se ce ne sono
 nome_attributo dominio [vincoli di dominio]

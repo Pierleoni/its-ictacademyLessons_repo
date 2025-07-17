@@ -350,7 +350,7 @@ La metodologia adottata prevede di:
 Vediamo 2 esempi:
 1. Esempio classico con attributi multivalore di una classe:
 
-![[Screenshot 2025-07-09 at 12-13-35 Meet - bmb-xnne-ahh.png]]
+![[Eliminazione attributi multivalore.png]]
 
 Nell’immagine proposta, sulla sinistra è rappresentata la classe `Studente`, con i seguenti attributi:
 
@@ -386,7 +386,7 @@ I vincoli di molteplicità tra le classi e l’association class sono `0..*` su 
 Come si nota, l’attributo `data` di `Esame` è un attributo multivalore, a causa del vincolo di molteplicità `[x..y]`. 
 Perciò, nel diagramma ristrutturato a destra, l’attributo `data: Data [x..y]` viene trasformato in una classe autonoma chiamata `DataProva`, con attributo `data: Data {id}`, e partecipa a un link di associazione `esame_prova` con molteplicità `1..*` verso `esame`.
 
-==La molteplicità `1..*`, [[Screenshot 2025-07-09 at 12-13-35 Meet - bmb-xnne-ahh.png|come nell'esempio precedente]], impone che il database memorizzi solo le date effettivamente associate ad almeno un esame, garantendo l’integrità e la coerenza dei dati.==
+==La molteplicità `1..*`, [[Eliminazione attributi multivalore.png|come nell'esempio precedente]], impone che il database memorizzi solo le date effettivamente associate ad almeno un esame, garantendo l’integrità e la coerenza dei dati.==
 
 Parallelamente, l’association class `esame` mantiene il proprio ruolo nel modello, partecipando a un link di associazione con `DataProva` con molteplicità che riflette quella originaria dell’attributo multivalore `data: Data` nel diagramma concettuale delle classi.
 
@@ -1505,16 +1505,17 @@ CorsoDiLaurea
   id   : integer {id1}   ← identificatore artificiale
 ```
 
-Questi identificatori artificiali sono solo escamotage tecnologico: **servono solo per supportare l’implementazione relazionale**, ma **non hanno valore concettuale.**
+Questi identificatori artificiali sono solo escamotage tecnologico: ==**servono solo per supportare l’implementazione relazionale**, ma **non hanno valore concettuale.**==
 
 ### Esempio 1
 ![[Esempio identificatori di classe.png]]
 
 ###### Spiegazione 
 A sinistra dell'immagine abbiamo un diagramma ristrutturato con:
- 1. `Studente`  con attributo:
+ 1. `Persona`  con attributo:
     
-    - `nome : varchar(12){id1}`
+    - `nome : varchar(100)`
+    - `cf:CodiceFiscale{id1}`
         
 2. Sono presenti due sottoclassi:
     
@@ -1523,7 +1524,24 @@ A sinistra dell'immagine abbiamo un diagramma ristrutturato con:
     2.2. `Docente`, con attributo `nascita : Date`
         
 3. Associazioni:
+    - `Persona` ↔ `Studente` (Associazione: `s_isa_p`)
     
+		- Molteplicità: `Persona 1..1 {id2}` ↔ `Studente 0..1`
+    
+	    - Significato: ogni `Studente` è associato a una sola `Persona`, che viene **identificata dal proprio Codice Fiscale (`cf`)**.
+        
+	    - L’identificatore `{id2}` sull’associazione indica che **lo studente eredita l’identificatore della `Persona` tramite il legame `s_isa_p`.**
+	    - La `matricola` rappresenta un **identificatore secondario**, non utilizzato come **chiave primaria effettiva** nella traduzione logica, poiché l’identità dello studente è veicolata tramite la persona collegata.
+	- `Persona` ↔ `Docente` (Associazione: `d_isa_p`)
+    
+		- Molteplicità: `Persona 1..1 {id}` ↔ `Docente 0..1`
+    
+		    - Il significato dell' `{id}` è simile al precedente:
+        
+	        - Ogni `Docente` è associato a una sola `Persona`, riconoscibile tramite il suo `cf`.
+            
+	        - Anche in questo caso, l’identificatore effettivo del `Docente` è **quello della `Persona` associata**, e quindi non c’è un identificatore proprio.
+
     - `Studente` ↔ `CorsoDiLaurea` (associazione `iscritto`)
         
         - Molteplicità: `Studente 0..*` ↔ `CorsoDiLaurea 1..1`
@@ -1531,13 +1549,169 @@ A sinistra dell'immagine abbiamo un diagramma ristrutturato con:
     - `Docente` ↔ `Dipartimento` (associazione `afferenza`)
         
         - Molteplicità: `Docente 0..*` ↔ `Dipartimento 1..1`.
-Ora che abbiamo fatto la ristrutturazione ci mancano le chiavi primarie o identificatori di classe:
 
-![[Screenshot 2025-07-09 at 12-52-22 Meet - bmb-xnne-ahh.png|500x170]]
- L'ultimo passo della ristruttturazione è: scegliere un identificatore primario per ogni classe.
- La metodologia è che se nella classe c'è un `{id}` allora quella diventa quell'attributo un identificatore primario. 
- Il vincolo `1..1{id}` serve quindi per identificare lo studente che è identificato dal codice fiscale della Persona quindi dall'attributo Univoco della classe padre 
+Ora sul lato destro dell'immagine le modifiche da apportare sono:
+- Le classi **che non hanno un identificatore naturale** (cioè un attributo con vincolo `{id}`) vengono **dotate di un identificatore artificiale**;
+- Di conseguenza si prepara il terreno per una **traduzione efficace in PostgreSQL**, che richiede chiavi primarie in tutte le tabelle.
+###### 1. Classe `Persona`
+Difatti nella classe `Persona` l'identificatore accanto all'attributo `cf` diventa 
+```
+cf : CodiceFiscale {id1}
+```
 
-Se nella classe non esiste un id allora posso aggiungerlo ad esempio se in corsoDILaurea c'è solo l'attributo nome ma ci devono essere coris di laurea con lo stesso nome allora si aggiunge un attributo `id` e si mette il vincolo `{id}` accanto a questo attributo.
-Questi identificatori artificiali non cambiano nulla, è solo un escamotage tencologico.
+Il vincolo `{id2}` sull’associazione `s_isa_p` viene sostituito da `{id1}`: perché ==questo id diventa l'identificativo primario== 
 
+###### 2. Classe `Studente` 
+
+Nel diagramma a sinistra l'identificativo accanto all'attributo `matricola` da `{id1}` cambia in `{id2}`: ogni istanza di studente ha un numero di matricola univoco alle diverse istanze della stessa classe ma questo identificativo è diverso dall' identificativo sull'attributo `cf` di `Persona`. 
+
+> [!NOTE] **Nota:**
+> In fase di ristrutturazione, i vincoli `{id}` vengono rinumerati come `{id1}`, `{id2}`, ... per distinguere **tra identificatori distinti** (anche se con stesso nome) e per individuare **quello primario** nelle successive traduzioni logiche.
+
+Il vincolo sull'associazione con la classe `Persona` (`s_isa_p`), da `{id2}` diventa `{id1}`: quindi lo `Studente` **eredita l’identificatore di `Persona`** (cioè `cf`), e non ha un proprio identificatore autonomo.
+Questo è utile **se la `matricola` non è univoca o non è sufficiente** come chiave primaria.
+
+###### 3. Classe `Docente`
+Anche qui il vincolo sull'associazione `d_isa_p` da `{id}` diventa `{id1}`: quindi ogni istanza di `Docente` **eredita l’identificatore di `Persona`** (cioè `cf`), e non ha un proprio identificatore autonomo.
+
+
+> [!ticket] Regola D'Oro
+> Per le classi che erano sotto-classi di generalizzazioni ristrutturate mediante sostituzione con associazioni, ==questo identificatore <u>deve essere il primario</u>==
+
+
+###### 4. Classe `CorsoDiLaurea`
+Siccome questa classe non conteneva nessun attributo identificativo (cioè con `{id}` accanto), viene introdotto un identificatore artificiale:
+```
+id: integer {id1}
+```
+
+Come già detto prima, questi identificatori artificiali **servono solo per supportare l’implementazione relazionale**, ma **non hanno valore concettuale.**
+In altre parole serve come **chiave primaria autonoma**, necessaria per realizzare la tabella `CorsodiLaurea` in PostgreSQL.
+L’attributo `nome` **rimane descrittivo**.
+I vincoli sull'associazione `iscritto` rimangono invariati (`Studente 0..*` ↔ `CorsoDiLaurea 1..1` )
+
+###### 5. Classe `Dipartimento`
+Anche qui prima non era presente un attributo identificativo per cui viene aggiunto l'attributo:
+```
+id: integer {id1}
+```
+
+E come per la classe `CorsoDiLaurea` serve come **chiave primaria autonoma**, necessaria per realizzare la tabella `Dipartimento` in PostgreSQL.
+I vincoli sull'associazione `afferenza` rimangono invariati (`Docente 0..*` ↔ `Dipartimento 1..1` ).
+
+
+> [!info] **Perché servono gli identificatori artificiali?**
+> - ==Alcune classi, come `CorsoDiLaurea` e `Dipartimento`, **non hanno attributi sufficienti per garantire unicità**.==
+ >   
+>- ==Per garantire **l’integrità referenziale** nel database, ogni tabella deve avere una **chiave primaria**.==
+>    
+>- Gli identificatori artificiali:
+ >
+>- ==non derivano da attributi reali del dominio,==
+ >       
+ >- ==ma sono **necessari per modellare correttamente il sistema informativo**.==
+
+
+### Il problema dei cicli di identificatori primari esterni 
+Come abbiamo già visto nel modello concettuale, un **identificatore primario** (annotato con `{id1}`) può essere composto da:
+
+- un **attributo locale** (es. `a`, `b`, `c`)
+    
+- e da una **relazione identificante** a cardinalità minima `1` su un'altra classe, che fornisce a sua volta una parte dell'identificatore (via catena).
+Per capire meglio questo problema prendiamo ad esempio questa immagine:
+
+![[Cicli di identificaotri primari esterni.png]]
+
+L'immagine rappresenta tre classi: `A`, `B`, `C`, con tre associazioni binarie:
+
+- `A` è identificata da:
+    
+    - il proprio attributo `a` e
+        
+    - un oggetto di `B` tramite l’associazione `ab` (`1..1`, `{id1}`)
+        
+- `B` è identificata da:
+    
+    - il proprio attributo `b` e
+        
+    - un oggetto di `C` tramite `bc` (`1..1`, `{id1}`)
+        
+- `C` è identificata da:
+    
+    - il proprio attributo `c` e
+        
+    - un oggetto di `A` tramite `ac` (`1..1`, `{id1}`)
+        
+ **Questo forma un ciclo chiuso di dipendenze identificanti**:
+```plain
+A → B → C → A
+```
+
+#### Perché è un problema?
+in questa situazione:
+
+- Per creare un oggetto di `A`, **servirebbe già esistente** un oggetto di `B`
+    
+- Ma per creare `B`, serve `C`
+    
+- E per creare `C`, serve `A`... il che porta a un **vicolo cieco**: non si può creare _nessun_ oggetto senza che un altro esista prima.  
+    - **Questo è logicamente impossibile.**
+    
+
+In pratica, **nessuna istanza può essere costruita per prima**, e quindi **l’intero schema è bloccato**.
+In altre parole: 
+per identificare (`id. primario`) un oggetto di `A` serve il valore dell’attributo `‘a’` e un oggetto di `B`.
+• per identificare (`id. primario`) un oggetto di `B` serve il valore dell’attributo `‘b’` e un oggetto di `C`
+• per identificare (`id. primario`) un oggetto di `C` serve il valore dell’attributo `‘c’` e un oggetto di …`A` (!).
+
+Quindi per risolvere questo problema è necessario **interrompere almeno una delle dipendenze identificanti** del ciclo. Ciò significa:
+- **Scegliere una o più classi coinvolte** (ad esempio `A` o `C`) e
+    
+- **Attribuirle un identificatore primario alternativo**, ad esempio:
+    
+    - un attributo **già esistente e sufficiente**, oppure
+        
+    - **aggiungere un identificatore artificiale** (es. `id: integer`), come si fa quando una classe **non è identificabile naturalmente o senza dipendenze cicliche**.
+
+Come mostrato nell'immagine sottostante: 
+![[Rompere i cicli di identificatori esterni primari.png]]
+
+il ciclo tra le classi `A → B → C → A` viene **interrotto** sostituendo l’identificatore esterno di una delle classi (in questo caso, `B`) con un **identificatore artificiale**.
+
+In particolare:
+
+- ==`B` ottiene un identificatore artificiale `id: integer {id1}`==
+    
+- ==L’attributo `b` di `B` diventa `{id2}`, ossia una componente non più partecipante all’identificazione primaria==
+    
+- ==Le classi `A` e `C` mantengono la dipendenza identificante da `B`, ma il ciclo viene rotto perché `B` ora può essere **creata autonomamente**==
+    
+
+In questo modo:
+
+- ==`B` è **la prima classe costruibile** (grazie al suo `id` artificiale)==
+    
+- ==`C` può essere identificata tramite `c` e una `B`==
+    
+- ==`A` può essere identificata tramite `a` e una `B`==  
+       
+    ==Quindi l’intero ciclo è stato **convertito in una catena**, e **la creazione degli oggetti diventa possibile**.==
+
+
+### In conclusione 
+> Al termine del passo di **definizione degli identificatori di classe**, si deve garantire che:
+
+- ==**Ogni classe possieda almeno un identificatore**==
+    
+- ==**Ogni classe abbia esattamente un identificatore primario**, eventualmente composto==
+    
+- **Gli identificatori primari esterni non formino cicli**
+    
+    - ==Ossia, le **dipendenze identificanti tra classi devono essere acicliche**==
+        
+
+> Se necessario, questo risultato si ottiene:
+
+- ==**inserendo identificatori artificiali** nelle classi coinvolte in cicli,==
+    
+- ==oppure **ristrutturando gli identificatori già presenti** per evitare dipendenze cicliche.==
