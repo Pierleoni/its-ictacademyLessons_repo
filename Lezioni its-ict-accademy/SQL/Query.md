@@ -108,3 +108,245 @@ from persona p, assenza a, assenza b
 where p.id = a.persona and p.id = b.persona and a.id <> b.id
 ```
 
+
+
+
+## Funzioni aggregate
+
+Cos'è? 
+Prende una tabella e calcola un solo valore,
+Calcola un singolo valore a partire da tutte le ennuple, il risultato è una tabella con una sola ennupla.
+Esempio:
+Restituire l'elenco che hanno riparato il veicolo 'HK 243 BW'
+```
+select officina
+from riparazione
+where veicolo = 'HK 243 BW'
+```
+Con le funzioni aggregate:
+```postgresql
+select count ( ∗ )
+from Riparazione
+where veicolo = ’HK 243 BW’
+```
+
+Se voglio prende 
+
+`count(*)`: conta il numero di ennuple
+`count( attributo )`: numero di valori non `NULL` per l’attributo (con
+duplicati)
+`count( distinct attributo )`: numero di valori non `NULL` e distinti
+per l’attributo
+
+Esempio :
+
+```
+select * 
+from arrpart 
+where comp = 'MagicFly'
+
+select count(*)
+from arrpart
+where comp = 'Apitalia'
+-- Output: count 5
+```
+
+Se volgio sapere quante compagnia hanno un volo che parte da FCO?
+```
+select count (distinct comp)
+from arrpart
+where partenza = 'FCO';
+
+```
+
+Quante tratte distinte ci sono da fiumicino?
+```
+select count (distinct (partenza, arrivo))
+from arrpart 
+where partenza = 'FCO';
+-- Output: count 2
+```
+
+Voglio sapere quati aeroeporti ci sono a ROMa?
+```
+select count (*)
+from luogoareoporto
+where citta = 'Roma';
+```
+
+Una query con un semplice aggregato restituisce un valore, il valore è una tabella con una colonna count e con una ennupla con il valore.
+E per forza una sola riga perchè l'aggregato prende tutte le righe e le colassa in una sola.
+
+
+```
+select  * 
+from compagnia 
+where annoFond is null;
+
+select *
+from compagnia
+where annoFond is null
+```
+
+Le altre funzioni aggregate
+sum(): prende le ennuple ma vuole un attributo, somma su domini numerici o tempi 
+posso sommare intervalli, dati e numeri 
+```
+select interval '1 year' + interval '3 day';
+```
+
+Ma non posso fare la concatenazione delle stringhe con il sum
+
+AVG(attributo); media artimetica
+
+min e max funzionano su tutti i domini che hanno un numero ordianto pure sulle stringhe:
+```
+select sum (annofondaz), avg(annoFondaz)
+from compagnia;
+```
+
+I null li ignora
+Avg restituusce un numero reale per abbelirlo:
+```
+select sum (annofondaz), round(avg(annoFondaz),2)
+from compagnia;
+```
+
+Posso fare anche il min e il max dell 'anno di fondazione e il nome della comapginia
+```postgresql
+select sum (annofondaz), round(avg(annoFondaz),2), min (annoFond), max(annoFond), min(nome)
+from compagnia;
+```
+
+I vlaori null vengono sempre ifgnorati delle funzioni aggregate
+
+Vediamo su accademia:
+Voglio fare lo stipendio medio dei ricercatori:
+Facico la tabella dei ricercatori e dopo faccio la media degli stipendi
+```
+select * 
+from persona
+where posizione = 'Ricercatore'
+
+select avg(stipendio)
+from persona
+where posizione = 'Ricercatore'
+
+-- oppure
+
+select sum(stipendio/count(*))
+from persona
+where possizione = 'Ricercatore'
+```
+
+Il secondo metodo pero ha un problema: da la divisione per zero 
+esempio:
+```
+select avg(stipendio)
+from persona
+where posizione = 'Ricertaore'
+```
+
+SI possono mettere insieme ma ogni funzione aggregata calcola il suo valore.
+
+Questa query:
+```
+select nome, round(avg(stipendio))
+from persona
+where posizione = 'Ricercatore'
+```
+
+COme si comporta, ricodridiamo che le tabelle sono rettangoli, ma questa tabella non è un rettangolo perche deve mettere tanti nomi con un solo valore.
+Inoltre nella target list (select) non possono apparire agreggati insieme a non aggregati.
+Gli operatori aggregati per ora appiono solo nella select.
+
+Quindi la regola è che la target list deve essere sempre omogenea, quindi una query con solo attributi va bene e una query con solo aggregsati va bene 
+
+Esercizio: 
+Quanti sono i voli che partono dalla città 'Roma' e durano almeno 180 minuti?
+Ragioniamo di trovare i voli che partono da Roma e che durano almeno 180 minuti:
+Mi serve `volo`, `arrpart` e `LuogoAeroporto`
+```
+select *
+from volo v, arrpart a,  LuogoAeroporto l;
+```
+
+Le ultime tre colonne sono di luogoaeroporto e devo dire che il luogo aeroporto deve stare a Roma:
+```
+l.città = 'Roma'
+```
+
+Ma non ho risulto nulla, quando associo un volo e un luogoaeroporto il luogo deve essere l'areoporto di partenza del volo:
+```
+select *
+from volo v, arrpart a,  LuogoAeroporto l
+where l.città = 'Roma'
+and v.durata_minuti >= 180
+and a.partenza = l.codiceIATA
+```
+
+Una nennupla deve parlare di un volo
+```
+select *
+from volo v, arrpart a,  LuogoAeroporto l
+where l.città = 'Roma'
+and v.durata_minuti >= 180
+and a.partenza = l.codiceIATA
+and v.codice = a.codice and v.comp = a.comp
+```
+
+Questa è la tabella arrpart, ma accanto a ogni volo in arrpart da un lato ho messo le info sulla tabella volo e dall'altro le info sull'aereporto di partenza.
+Volgio anche mettere le info sull aereoporto di arivo?
+```
+select *
+from volo v, arrpart a,  LuogoAeroporto l
+where l.città = 'Roma'
+and v.durata_minuti >= 180
+and a.partenza = l.codiceIATA
+and v.codice = a.codice and v.comp = a.comp
+
+```
+
+Adesso che ho la tabella metto il count:
+```
+select count(*)
+from volo v, arrpart a,  LuogoAeroporto l
+where l.città = 'Roma'
+and v.durata_minuti >= 180
+and a.partenza = l.codiceIATA
+and v.codice = a.codice and v.comp = a.comp
+```
+
+
+
+```postgresql
+select count(*) 
+from volo, LuogoAeroporto, arrpart
+where volo.durata_minuti >= 180
+and LuogoAeroporto.città = 'Roma' and luogoaeroporto.codiceIATA = arrpart.partenza
+and volo.codice_volo = arrpart.codice;
+```
+
+In questo caso non va usato l'operatore `IN` poichè adesso gli Aereoporti a Roma sono FCO e CIA ma se venisse costruito un nuovo aereoporto a Roma dovrei cambiare la query, mentre invece le query devono rimanenre corrette sempre.
+
+Qual'è la durata media dei voli della compagnia 'Apitalia'?
+
+```
+select *
+from volo
+```
+
+Mi servono le ennuple di Apitalia 
+```postgresql
+select *
+from volo
+where comp = 'Apitalia'
+```
+
+Dopodiché mi serve la media della durata dei minuti
+```postgresql
+select avg(volo.durata_minuti)
+from volo
+where comp = 'Apitalia'
+```
+

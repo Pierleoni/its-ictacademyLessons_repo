@@ -13,13 +13,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Progettazione/Base dati/Lezione 2; La fase di progettazione.md",
+                "file": "SQL/Query.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Lezione 2; La fase di progettazione"
+              "title": "Query"
             }
           },
           {
@@ -28,13 +28,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Progettazione/Base dati/Lezione 3; Traduzione diretta del diagramma UML delle classi ristrutturato.md",
+                "file": "Progettazione/Base dati/Lezione 1; Introduzione e modello relazionale.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Lezione 3; Traduzione diretta del diagramma UML delle classi ristrutturato"
+              "title": "Lezione 1; Introduzione e modello relazionale"
             }
           },
           {
@@ -97,8 +97,7 @@
               "title": "Generalizzazioni"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -283,29 +282,33 @@
       "canvas:Create new canvas": false
     }
   },
-  "active": "7dd7c1a4c3ed2b35",
+  "active": "7e09eca3d072a306",
   "lastOpenFiles": [
-    "img/Progettazione IMG/Basi Dati/Vincolo di molte max 1.png",
-    "img/Progettazione IMG/Basi Dati/Traduzione diretta delle associazioni.png",
-    "Progettazione/Base dati/Lezione 2; La fase di progettazione.md",
-    "Progettazione/Base dati/Lezione 3; Traduzione diretta del diagramma UML delle classi ristrutturato.md",
     "Progettazione/Base dati/Lezione 1; Introduzione e modello relazionale.md",
     "SQL/Il linguaggio SQL.md",
+    "Sicurezza/Untitled.md",
+    "Untitled.md",
+    "Sicurezza",
+    "Web Development/Javascript/API.md",
+    "Progettazione/Base dati/Lezione 3; Traduzione diretta del diagramma UML delle classi ristrutturato.md",
+    "SQL/Query.md",
+    "Progettazione/Base dati/Lezione 2; La fase di progettazione.md",
+    "img/Progettazione IMG/Basi Dati/Vincoli di molt. 1..1.png",
+    "img/Progettazione IMG/Basi Dati/Variante caso 2.png",
+    "img/Progettazione IMG/Basi Dati/Variante vinc. di molt. min. 1.png",
+    "img/Progettazione IMG/Basi Dati/Vincolo di molteplicità minima 1.png",
+    "Progettazione/Design di applicazioni in Python/Ristrutturazione delle specifiche di classi e di use-case.md",
+    "img/Progettazione IMG/Design di applicazione Python/Diagramma ristrutturato op di classe.png",
+    "C__Users_Project Lead_OneDrive_Documents_Programmazione_Its-ict academy_Lezioni its-ict-accademy_img/Screenshot 2025-07-17 at 18-49-50 Meet - osn-sttm-fkt.png",
+    "img/Progettazione IMG/Basi Dati/Vincolo di molte max 1.png",
+    "img/Progettazione IMG/Basi Dati/Traduzione diretta delle associazioni.png",
     "img/Progettazione IMG/Basi Dati/Eliminazione attributi multivalore.png",
     "img/Progettazione IMG/Basi Dati/Rompere i cicli di identificatori esterni primari.png",
-    "img/Progettazione IMG/Basi Dati/Traduzione diretta delle classi.png",
-    "img/Progettazione IMG/Basi Dati/Screenshot 2025-07-14 at 18-38-08 Meet - bmb-xnne-ahh.png",
-    "img/Progettazione IMG/Basi Dati/Screenshot 2025-07-14 at 18-39-50 Meet - bmb-xnne-ahh.png",
-    "img/Progettazione IMG/Basi Dati/Screenshot 2025-07-17 at 11-28-40 Slide BD.1.2 - Progettazione di basi dati relazionali - Slide BD.1.2 - Progettazione di basi dati relazionali.pdf.png",
-    "img/Progettazione IMG/Basi Dati/Cicli di identificaotri primari esterni.png",
-    "SQL/Query.md",
     "Progettazione/Design di applicazioni in Python/Associazioni a responsabilità doppia.md",
     "Progettazione/Design di applicazioni in Python/Impl. le classi astratte in Python.md",
     "Progettazione/Design di applicazioni in Python/Implementazione delle classi.md",
     "Progettazione/Design di applicazioni in Python/Evoluzione delle proprietà e visibilità delle proprietà.md",
-    "img/Progettazione IMG/Basi Dati/Esempio identificatori di classe.png",
     "Progettazione/Analisi concettuale/Lezione 2/Generalizzazioni.md",
-    "img/Progettazione IMG/Basi Dati/Ristrutturazione in caso di sottoclassi disgiunte e complete.png",
     "Progettazione/Analisi concettuale/Lezione 2/Associazioni con attributi in UML.md",
     "Python/Lezione 8_Ereditarietà delle classi/Ereditarietà delle classi.md",
     "Docker.md",
@@ -325,12 +328,8 @@
     "Progettazione/Design di applicazioni in Python/Codici/Studente(associazione responsabilità singola).py",
     "Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi.md",
     "Web Development/Javascript/Gli oggetti in Javascript.md",
-    "Progettazione/Design di applicazioni in Python/Ristrutturazione di generalizzazioni.md",
-    "Progettazione/Analisi concettuale/Lezione1/Introduzione e cenni di  ingegneria del software.md",
-    "Python/Lezione 8_Ereditarietà delle classi/Polimorfismo.md",
     "img/Progettazione IMG/Basi Dati",
     "img/Docker",
-    "Progettazione/Base dati",
     "Untitled.canvas"
   ]
 }

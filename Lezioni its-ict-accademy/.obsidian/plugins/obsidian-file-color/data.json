@@ -36,6 +36,11 @@
       "id": "CqznCFYVP5m8M8O2U3K_x",
       "name": "Web Dev.",
       "value": "#b09121"
+    },
+    {
+      "id": "ESuWWASdY0ChzWB4NPB1f",
+      "name": "Sicurezza",
+      "value": "#d20f0f"
     }
   ],
   "fileColors": [
@@ -62,6 +67,10 @@
     {
       "path": "Web Development",
       "color": "CqznCFYVP5m8M8O2U3K_x"
+    },
+    {
+      "path": "Sicurezza",
+      "color": "ESuWWASdY0ChzWB4NPB1f"
     }
   ]
 }

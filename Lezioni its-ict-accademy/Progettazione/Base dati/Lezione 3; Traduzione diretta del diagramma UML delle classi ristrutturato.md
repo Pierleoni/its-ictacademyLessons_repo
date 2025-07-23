@@ -97,14 +97,175 @@ La **foreign key** invece garantisce che:
 > ==assicura che lo studente coinvolto sia effettivamente presente nella tabella `Studente`.==
 > ==Assicura che il corso coinvolto sia effettivamente presente nella tabella `Corso`==
 
-#### Caso 2: Vincoli di molteplicità massima `1`
-Supponiamo di avere un altro diagramma con un vincolo `0..1`:
+#### Caso 2: Vincoli di molteplicità massima `1` in un'associazione
+Supponiamo di avere un altro diagramma con un vincolo `0..1` solo da un lato dell'associazione:
 
 ![[Vincolo di molte max 1.png]]
 
+l’associazione `insegna` collega le entità `Docente` e `Corso`, con vincoli di molteplicità:
+
+- `Docente` → `0..*`
+    
+- `Corso` → `0..1`
+    
+
+#### ➤ Interpretazione:
+
+- **Un docente può insegnare a un corso o nessuno.**
+    
+- **Un corso può essere insegnato da più docenti o da nessuno.**
+    
+
+Poiché sul lato `Corso` la molteplicità massima è **1**, ciò significa che **non si possono avere due tuple con lo stesso `corso` nella tabella `insegna`**.  
+==Ne segue che `corso` è **chiave** (univoco) nella tabella `insegna`.==
+```postgresql
+CREATE TABLE insegna(
+	docente integer primary key, 
+	corso varchar, 
+	da Date,
+	foreign key docente references Docente(matricola)
+	foreign key corso references Corso(nome)
+);
+```
+Quindi in questo caso la chiave primaria sarà solo `docente` poiché è coinvolta nel link di associazione `insegna` con molteplicità massima pari a `1` (`0..1`).
+##### Variante: Molteplicità massima `1` da entrambi i lati 
+Ipotizziamo invece una variante di questo caso ovvero: 
+Il vincolo di molteplicità `0..1` viene messo su entrambi i lati  
+![[Variante caso 2.png]]
+
+ **Interpretazione:**
+
+- **Un docente può insegnare al più un corso.**
+    
+- **Un corso può essere insegnato da al più un docente.**
+
+Ora sia `Docente` che `Corso` partecipano ai link di associazione `insegna` con i vincoli di molteplicità massima pari a `1`.
+Allora si può scegliere **uno dei due campi** (`docente` o `corso`) come chiave primaria, e sull’altro definire una **UNIQUE constraint** per garantire l’univocità:
+```postgresql
+-- tabella insegna con chiave primaria corso
+CREATE TABLE insegna(
+	corso varchar primary key, 
+	docente integer,
+	unique (docente),
+	foreign key docente references Docente(matricola),
+	foreign key corso references Corso(nome)
+	
+);
+
+-- tabella insegna con chiave primaria il campo docente
+CREATE TABLE insegna (
+	docente integer primary key,
+	corso varchar,
+	unique (corso),
+	foreign key docente references Docente(matricola),
+	foreign key corso references Corso(nome)
+)
+```
+
+Entrambe le implementazioni **riflettono correttamente il vincolo UML**, e sono **equivalenti dal punto di vista semantico**.
+
+
+> [!info] **Nota:**
+> Quando in un’associazione la **molteplicità massima è 1**, ==ciò implica **un vincolo di univocità** che si riflette nella **definizione della chiave primaria o di una chiave alternativa** nella tabella di associazione.==
+
+
+#### Caso 3: Vincolo di molteplicità minima `1` in un'associazione (`1..*`)
+Ipotizziamo di avere un diagramma dove su un lato dell'associazione vi sia un vincolo di molteplicità uno a molti (`1..*`):
+![[Vincolo di molteplicità minima 1.png]]
+Nel seguente schema:
+
+l’associazione `insegna` collega le entità `Docente` e `Corso` con vincoli di molteplicità:
+
+- `Docente`: `0..*`
+    
+- `Corso`: `1..*`
+Interpretazione:
+- Un corso può essere insegnato da almeno un docente o da più docenti (`1..*`)
+- Un docente può insegnare a più corsi o a nessun corso (`0..*`).
+==l vincolo `1..*` dal lato `Corso` implica che **ogni corso deve comparire almeno una volta nella relazione `insegna`**, ossia **deve essere insegnato almeno da un docente**.==
+
+Poiché questo tipo di vincolo **non è garantibile mediante i meccanismi standard di chiave esterna (foreign key)**, si ricorre a una **specifica logica dichiarativa**, detta **vincolo di inclusione**.
+==Il vincolo di inclusione è una generalizzazione di vincolo di foreign key, ma gli attributi della tabella di destinazione non formano una chiave.==
+```postgresql
+-- v. inclusione: Corso(nome) occorre in insegna(corso)
+```
+Difatti il vincolo di inclusione è più debole di una foreign key ==ma permette di dire che il campo `nome` in `Corso` appare (occorre) almeno una volta nel campo `corso` in `insegna`.== 
+Questo **non è un vincolo di foreign key** (che impone un'inclusione inversa), bensì la sua **generalizzazione**, ==e serve a **garantire la partecipazione obbligatoria** all'associazione.== 
+
+Poiché il DBMS **non supporta nativamente questo vincolo**, lo si **documenta** nella definizione della tabella, come segue:
+
+```postgresql
+CREATE TABLE Corso(
+	nome varchar primary key,
+	modalita ENUM, 
+	-- v. inclusione: Corso(nome) occorre in insegna(corso)
+);
+
+CREATE TABLE insegna(
+	docente integer,
+	corso varchar,
+	primary key (docente, corso)
+	foreign key docente references Docente(matricola),
+	foreign key corso references Corso(nome)
+);
+```
+
+
+> [!abstract] **Osservazione semantica**
+> Il vincolo di inclusione **è concettualmente più debole di una foreign key**>
+> esso garantisce solo che **ogni valore in `Corso(nome)` compaia almeno una volta in `insegna(corso)`**, ma **non viceversa** (cioè in `insegna(corso)` possono apparire anche corsi non più presenti in `Corso` — a meno che non vi sia anche una foreign key, come in questo caso).
+
+##### Variante con vincoli di molteplicità minima `1`
+Ipotizziamo una variante in questo caso, ovvero il vincolo `1..*` viene posto a entrambi i lati dell'associazione:
+![[Variante vinc. di molt. min. 1.png]]
+
+Nel seguente schema:
+
+l’associazione `insegna` collega le entità `Docente` e `Corso` con vincoli di molteplicità:
+
+- `Docente`: `1..*`
+    
+- `Corso`: `1..*`
+
+**Interpretazione:**
+- Un docente può insegnare ad almeno a un corso.
+- Un corso può essere insegnato da almeno un docente
+
+In tal modo, **l’associazione `insegna` non è facoltativa per nessuna delle due entità**: ciò impone che **i valori di `Docente.matricola` e `Corso.nome` debbano sempre comparire almeno una volta nella tabella `insegna`**.
+
+Per rappresentare questa obbligatorietà nella **traduzione relazionale**, dobbiamo specificare due **vincoli di inclusione**:
+- ==`Docente(matricola)` **deve apparire almeno una volta** in `insegna(docente)`==
+    
+- ==`Corso(nome)` **deve apparire almeno una volta** in `insegna(corso)`.==
+
+Come già detto in precedenza, questi vincoli, tuttavia, **non possono essere implementati direttamente dal DBMS** tramite costrutti standard. Devono pertanto essere **documentati** come commenti strutturali nel codice SQL.
+```postgresql
+CREATE TABLE Docente (
+	matricola integer primary key, 
+	nome varchar not null,
+	genere Genere not null
+	-- v. inclusione: Docente(matricola) occorre in insegna(docente
+);
+
+CREATE TABLE Corso(
+	nome varchar primary key,
+	modalità Modalità not null
+	-- v. inclusione: Corso(nome) occorre in insegna(corso)
+);
+
+
+CREATE TABLE insegna(
+	docente integer,
+	corso varchar,
+	primary key(docente, corso),
+	foreign key docente references Docente(matricola),
+	foreign key corso references Corso(nome)
+);
+```
 
 
 
+In questo caso per far rispettare il vincolo `1..*` sia sul lato
 
 E se dicessi ora che dal lato studente cambiamo il vincolo da `0..*` a `1..*`?
 Per ogni corso deve esserci uno studente che abbia passato l'esame.
@@ -146,34 +307,67 @@ create table insegna(
 );
 ```
 
-E se fosse che accanto a studente ci sia un vincolo `0..1` anziché `1..*`? 
-In questo caso non può ripetersi il corso, dove c'è un uno massimo come vincolo ignifica che è una chiave:
+#### Caso 4: caso speciale di vincoli di molteplicità `1..1` in una associazione
+Si consideri il caso in cui, in un’associazione binaria, sia presente un **vincolo di molteplicità `1..1`** su uno dei due lati:
+![[Vincoli di molt. 1..1.png]]
+
+Nel seguente schema:
+
+l’associazione `insegna` collega le entità `Docente` e `Corso` con i seguenti vincoli di molteplicità:
+
+- `Docente`: `0..*`
+    
+- `Corso`: `1..1`
+
+**Interpretazione:**
+- **Un docente può insegnare anche più corsi** o nessuno.
+    
+- **Un corso deve essere insegnato obbligatoriamente da un solo docente**.
+In questo caso, l’associazione è **funzionale da `Corso` a `Docente`**, ovvero **ogni corso è assegnato a un solo docente**, ma **un docente può insegnare più corsi**.
+Questa situazione si traduce **non con una tabella dell’associazione**, ma integrando l'associazione direttamente in una delle due tabelle, ossia **portando la chiave dell'entità `Docente` (lato `0..*`) come chiave esterna nella tabella `Corso`** (lato `1..1`):
 ```postgresql
-create table esame(
-studente integer not null,
-corso varchar not null,
-FK (Studente) ref Studente(matricola),
-FK (Corso) ref. Corso(nome),
-primary key(corso),
+CREATE TABLE Docente (
+    matricola INTEGER PRIMARY KEY,
+    nome      VARCHAR NOT NULL,
+    genere    Genere NOT NULL
+);
+
+CREATE TABLE Corso (
+    nome     VARCHAR PRIMARY KEY,
+    modalità Modalità NOT NULL,
+    docente  INTEGER NOT NULL,
+    FOREIGN KEY (docente) REFERENCES Docente(matricola)
 );
 ```
 
-Quindi il vincolo di inclusione sarà:
-```plain
-v. incl occorre in esame(Studente)
-```
 
-E se accanto a Studente mettiamo il vincolo `1..1`, in questo caos non è una chiave perche il massimo dice 1 ma il minimo pure e va letta come una inclusione.
-QUindi il vincolo di incl saà:
-```
-v. incl (nome) occorre in esame(corso)
-```
+> [!remember] **Riflessione sui vincoli**
+> 1. Vincolo di molteplicità minima `1`:
+> Se accanto a `Corso`  poniamo il vincolo `1..1`, ==il minimo `1` comporta che il valore **debba comparire** nell’associazione (in questo caso tradotta nella tabella).==
+> Questo si traduce in un vincolo di inclusione:
+>
+>```postgresql
+>-- Il docente associato a un corso deve esistere
+>FOREIGN KEY (docente) REFERENCES Docente(matricola)
+>```
+>2. Vincolo di molteplicità massima `1`:
+>==Il massimo `1` comporta che il valore non possa essere ripetuto più volte nell’associazione.==
+>
+> In questo esempio, poiché `corso.nome` è **la chiave primaria**, ogni corso compare una sola volta, e dunque **la funzione da corso a docente è automaticamente garantita**.
+> 
+>Se invece il caso fosse invertito (cioè il docente fosse sul lato `1..1`), avremmo dovuto usare un vincolo `UNIQUE` per garantire l’unicità.
+>> [!example] **In sostanza**
+>> Integrare i vincoli di molteplicità minima e massima nella progettazione relazionale è fondamentale per **preservare la semantica del modello concettuale**. In particolare:
+>>
+>>- ==Il **minimo `1`** si traduce in una **foreign key not null**==.
+  >>  
+>>- ==Il **massimo `1`** si traduce in una **unicità**, talvolta una **primary key**, a seconda dei casi.==
 
-Ma ora noto che corso è una chiave di esame, quindi questo vincolo di inclusione ma è una fk, quindi:
-```
-FK (nome) ref. esame (corso)
-```
-Gli 1 minimo diventnato delle fk mentre gli 1 massimo diventano delle chiavi (o unique o primary key).
+
+
+> [!ticket] **Quando in un’associazione UML compare il vincolo di molteplicità `1..1` su un lato**, la **metodologia di traduzione nel modello relazionale** prevede di **non trattarlo come vincolo di inclusione separato**, ma piuttosto di **implementarlo direttamente come vincolo di integrità referenziale (foreign key)**, **nella tabella corrispondente alla classe concettuale che porta il vincolo `1..1`**.
+
+### Accorpamenti
 
 Adesso mettiamo di avere una classe con attributo `nome:varchar {id1}`
 
@@ -197,7 +391,7 @@ Se avessimo una diagramma del genere
 
 In questo modo possiamo identificare uno studente tramite il codice fiscale o il nmero di matricola.
 
-### Accorpamenti
+
 
 È possibile procedere ad accorpamenti ogni volta che un assoc ha un ruolo a molt. `1..1` o `0..1`.
 ![[Screenshot 2025-07-14 at 18-39-50 Meet - bmb-xnne-ahh.png]]
