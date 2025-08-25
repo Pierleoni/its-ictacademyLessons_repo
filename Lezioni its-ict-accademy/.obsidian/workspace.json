@@ -8,96 +8,112 @@
         "type": "tabs",
         "children": [
           {
-            "id": "7e09eca3d072a306",
+            "id": "6a7574d7e3b8e4d1",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "SQL/Query.md",
+                "file": "Sistemi digitali/Lezione 10/Le architetture di un Computer.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Query"
+              "title": "Le architetture di un Computer"
             }
           },
           {
-            "id": "7dd7c1a4c3ed2b35",
+            "id": "40842c3e909ed622",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Progettazione/Base dati/Lezione 1; Introduzione e modello relazionale.md",
+                "file": "Sistemi digitali/Lezione 7/Reti di computer.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Lezione 1; Introduzione e modello relazionale"
+              "title": "Reti di computer"
             }
           },
           {
-            "id": "3ea73ccaa6102e78",
+            "id": "a9359531b77f036d",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Progettazione/Base dati/Lezione 1; Introduzione e modello relazionale.md",
+                "file": "Sistemi digitali/Lezione 7/Complemento a 2 e Reti di calcolatori.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Lezione 1; Introduzione e modello relazionale"
+              "title": "Complemento a 2 e Reti di calcolatori"
             }
           },
           {
-            "id": "1af9a989784dd4e9",
+            "id": "84dd7e6af6d7ae8c",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Progettazione/Design di applicazioni in Python/Associazioni a responsabilità doppia.md",
+                "file": "Sistemi digitali/Lezione 11/Il modello di Von Neumann.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Associazioni a responsabilità doppia"
+              "title": "Il modello di Von Neumann"
             }
           },
           {
-            "id": "599438dc147ba66e",
+            "id": "c89bbf8f9ae0f29a",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Progettazione/Design di applicazioni in Python/Associazioni a responsabilità doppia.md",
+                "file": "Sistemi digitali/Lezione 12/ISO E OSI Model.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Associazioni a responsabilità doppia"
+              "title": "ISO E OSI Model"
             }
           },
           {
-            "id": "e33f865f1f4cb28f",
+            "id": "855137203146d041",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Progettazione/Analisi concettuale/Lezione 2/Generalizzazioni.md",
+                "file": "Sistemi digitali/Lezione 16/Network, Transport, Session, Presentation, Application Layers.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Generalizzazioni"
+              "title": "Network, Transport, Session, Presentation, Application Layers"
+            }
+          },
+          {
+            "id": "8f0eb290c741d94c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Sistemi digitali/Lezione 11/Internetwork-Protocols.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "Internetwork-Protocols"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -154,7 +170,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 397.5
+    "width": 299.5
   },
   "right": {
     "id": "8ef8bc59cd79fc10",
@@ -262,16 +278,14 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:Create new base": false,
+      "workspaces:Manage workspace layouts": false,
       "graph:Open graph view": false,
-      "command-palette:Open command palette": false,
-      "omnisearch:Omnisearch": false,
+      "callout-manager:Insert Callout": false,
       "darlal-switcher-plus:Open Symbols for the active editor": false,
       "switcher:Open quick switcher": false,
       "obsidian-importer:Open Importer": false,
-      "callout-manager:Insert Callout": false,
-      "workspaces:Manage workspace layouts": false,
       "obsidian42-text-transporter:Text Transporter": false,
-      "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "table-editor-obsidian:Advanced Tables Toolbar": false,
       "markdown-importer:Open format converter": false,
@@ -279,57 +293,59 @@
       "templater-obsidian:Templater": false,
       "vscode-editor:Create Code File": false,
       "zk-prefixer:Create new unique note": false,
-      "canvas:Create new canvas": false
+      "canvas:Create new canvas": false,
+      "command-palette:Open command palette": false,
+      "daily-notes:Open today's daily note": false
     }
   },
-  "active": "7e09eca3d072a306",
+  "active": "40842c3e909ed622",
   "lastOpenFiles": [
-    "Progettazione/Base dati/Lezione 1; Introduzione e modello relazionale.md",
-    "SQL/Il linguaggio SQL.md",
-    "Sicurezza/Untitled.md",
+    "Sistemi digitali/Lezione 11/Il modello di Von Neumann.md",
     "Untitled.md",
-    "Sicurezza",
-    "Web Development/Javascript/API.md",
-    "Progettazione/Base dati/Lezione 3; Traduzione diretta del diagramma UML delle classi ristrutturato.md",
-    "SQL/Query.md",
-    "Progettazione/Base dati/Lezione 2; La fase di progettazione.md",
-    "img/Progettazione IMG/Basi Dati/Vincoli di molt. 1..1.png",
-    "img/Progettazione IMG/Basi Dati/Variante caso 2.png",
-    "img/Progettazione IMG/Basi Dati/Variante vinc. di molt. min. 1.png",
-    "img/Progettazione IMG/Basi Dati/Vincolo di molteplicità minima 1.png",
-    "Progettazione/Design di applicazioni in Python/Ristrutturazione delle specifiche di classi e di use-case.md",
-    "img/Progettazione IMG/Design di applicazione Python/Diagramma ristrutturato op di classe.png",
-    "C__Users_Project Lead_OneDrive_Documents_Programmazione_Its-ict academy_Lezioni its-ict-accademy_img/Screenshot 2025-07-17 at 18-49-50 Meet - osn-sttm-fkt.png",
-    "img/Progettazione IMG/Basi Dati/Vincolo di molte max 1.png",
-    "img/Progettazione IMG/Basi Dati/Traduzione diretta delle associazioni.png",
-    "img/Progettazione IMG/Basi Dati/Eliminazione attributi multivalore.png",
-    "img/Progettazione IMG/Basi Dati/Rompere i cicli di identificatori esterni primari.png",
-    "Progettazione/Design di applicazioni in Python/Associazioni a responsabilità doppia.md",
-    "Progettazione/Design di applicazioni in Python/Impl. le classi astratte in Python.md",
-    "Progettazione/Design di applicazioni in Python/Implementazione delle classi.md",
-    "Progettazione/Design di applicazioni in Python/Evoluzione delle proprietà e visibilità delle proprietà.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Generalizzazioni.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Associazioni con attributi in UML.md",
+    "Sistemi digitali/Lezione 16/Network, Transport, Session, Presentation, Application Layers.md",
+    "Sistemi digitali/Lezione 11/Internetwork-Protocols.md",
+    "Sistemi digitali/Lezione 12/ISO E OSI Model.md",
+    "Sistemi digitali/Lezione 10/Le architetture di un Computer.md",
+    "img/Sistemi Digitali/Lezione 16/Network, Transport, Session, Presentation, Apllication Layers/Analogia.png",
+    "Sistemi digitali/Lezione 20/Modello TCP-IP.md",
+    "img/Sistemi Digitali/Lezione 12/ISO E OSI Model/Cavo Coassiale.png",
+    "img/Sistemi Digitali/Lezione 12/ISO E OSI Model/cavo ethernet.png",
+    "Sistemi digitali/Lezione 7/Reti di computer.md",
+    "img/Sistemi Digitali/Lezione 7/Tipi di connessione.png",
+    "img/Sistemi Digitali/Lezione 7/Peer-to-Peer (P2P).png",
+    "img/Sistemi Digitali/Lezione 7/Client-Server.png",
+    "img/Sistemi Digitali/Lezione 7/Tree Topology.png",
+    "img/Sistemi Digitali/Lezione 7/mesh topology.png",
+    "img/Sistemi Digitali/Lezione 7/Star Topolgy.png",
+    "img/Sistemi Digitali/Lezione 7/Ring Topology.png",
+    "Sistemi digitali/Lezione 7/Complemento a 2 e Reti di calcolatori.md",
+    "img/Sistemi Digitali/Lezione 7",
+    "Sistemi digitali/Lezione 7/Spiegazione per i vantaggi e svantaggi dei modelli Client server e P2P, spiegazione delle tre entità di spotify..md",
+    "Python/Lezione 4_FunzioniPython/Funzioni in Python.md",
+    "Python/Lezione 4_FunzioniPython/Problem Solving.md",
+    "Python/Lezione 13/Funzioni Ricorsive.md",
+    "Python/Lezione 5_ List Comprehensions/Capire la comprehensions in Python.md",
+    "Sistemi digitali/Lezione 22/Linux 2.md",
     "Python/Lezione 8_Ereditarietà delle classi/Ereditarietà delle classi.md",
-    "Docker.md",
+    "Python/Lezione 15/File in Python.md",
+    "Sicurezza/Crittografia.md",
+    "Sicurezza/Untitled.md",
+    "Sicurezza/U2F.md",
+    "Web Development/API.md",
+    "Web Development/Javascript/Lezione 7; React.md",
+    "SQL/Il linguaggio SQL.md",
+    "SQL/Query.md",
+    "Progettazione/Base dati/Lezione 3; Traduzione diretta del diagramma UML delle classi ristrutturato.md",
+    "Progettazione/Base dati/Lezione 2; La fase di progettazione.md",
+    "img/Sicurezza",
+    "Untitled.canvas",
+    "Sicurezza",
     "C__Users_Project Lead_OneDrive_Documents_Programmazione_Its-ict academy_Lezioni its-ict-accademy_img",
     "Progettazione/Base dati/Combinazione del On Delete e On Update.png.~tmp",
-    "Progettazione/Analisi concettuale/Lezione 2/Analisi dei requisiti mediante UML.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Vincoli di molteplicità sulle associazioni e sugli attributi.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Tipi di dato concettuale.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Operazioni di classe e Specializzazioni degli attributi, di associazioni e operazioni.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Documenti di specifica.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Diagramma use-case.md",
-    "Python/Lezione 13/Funzioni Ricorsive.md",
     "SQL/postgresql.sql",
     "SQL",
     "Progettazione/Design di applicazioni in Python/Codici/Impl._classiAstratteinPython2.py",
     "Progettazione/Design di applicazioni in Python/Codici/Impl._classiAstratteinPython.py",
-    "Progettazione/Design di applicazioni in Python/Codici/Studente(associazione responsabilità singola).py",
-    "Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi.md",
-    "Web Development/Javascript/Gli oggetti in Javascript.md",
-    "img/Progettazione IMG/Basi Dati",
-    "img/Docker",
-    "Untitled.canvas"
+    "Progettazione/Design di applicazioni in Python/Codici/Studente(associazione responsabilità singola).py"
   ]
 }

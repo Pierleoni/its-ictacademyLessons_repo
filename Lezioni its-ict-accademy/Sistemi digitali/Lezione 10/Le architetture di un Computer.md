@@ -10,8 +10,9 @@ Esempi di "dati" includono:
 - un colore,  
     … e così via.
 
-Punto chiave:  
-I dati sono disorganizzati e non hanno significato diretto da soli.
+> [!ticket] Punto chiave:
+>   
+> ==I dati sono disorganizzati e non hanno significato diretto da soli.==
 
 
 --- 
@@ -35,34 +36,34 @@ Esempio di "conoscenza":
 ## La gestione dell'informazione: 
 ### il Codice Binario 
 
-Qualsiasi informazione memorizzata o recuperata da un dispositivo (come computer desktop, laptop o smartphone) deve essere rappresentata in un linguaggio che il dispositivo possa comprendere. Questo linguaggio è noto come Codice Binario.  
-Il Codice Binario è definito come un sistema di codifica che utilizza le cifre binarie 0 e 1 per rappresentare lettere, cifre o altri caratteri in un computer o in altri dispositivi elettronici, come smartphone e tablet.
+Qualsiasi informazione memorizzata o recuperata da un dispositivo (come computer desktop, laptop o smartphone) deve essere rappresentata in un linguaggio che il dispositivo possa comprendere. 
+Questo linguaggio è noto come **Codice Binario:**
+==è definito come un sistema di codifica che utilizza le cifre binarie `0` e `1` per rappresentare lettere, cifre o altri caratteri in un computer o in altri dispositivi elettronici, come smartphone e tablet.==
 
-Più specificamente, un BIT (cifra binaria) è l'unità di base di informazione utilizzata dai dispositivi per gestire tutti i tipi di dati. Un singolo BIT può esistere in uno dei due stati: 0 o 1.
-> [!NOTE] NOTA
-> Con un singolo BIT, possono essere rappresentati solo due elementi.  
-Ad esempio:  
->```
-1 = "A"  
-0 = "B"
->```
+Più specificamente, l’elemento fondamentale del codice binario è il **BIT (cifra binaria)**: 
+==è l'unità di base di informazione utilizzata dai dispositivi per gestire tutti i tipi di dati.== 
+In altre parole: 
+==un’unità minima di informazione che può assumere due soli stati: `0` oppure `1`.==
+Un singolo BIT può esistere in uno dei **2 stati**: `0` o `1`.
+
 
 #### Bit e Combinazioni: 
-- Un bit può avere 2 stati: 0 o 1.  
-- Con N bit possiamo creare 2^N combinazioni distinte.
+Quando utilizziamo più bit insieme, il numero di combinazioni cresce in maniera esponenziale.  
+Infatti, con **N bit** possiamo rappresentare **$2^N$ combinazioni distinte**.
 
-Esempi:  
-o 1 bit: 2^1 = 2 combinazioni (0, 1)  
-o 2 bit: 2^2 = 4 combinazioni (00, 01, 10, 11)  
-o 3 bit: 2^3 = 8 combinazioni (000, 001, 010, 011, 100, 101, 110, 111)
+###### Esempi:  
+o 1 bit: $2^1$ = 2 combinazioni (`0`, `1`)  
+o 2 bit: $2^2$ = 4 combinazioni (`00`, `01`, `10`, `11`)  
+o 3 bit: $2^3$ = 8 combinazioni (000, 001, 010, 011, 100, 101, 110, 111)
 
-#### Intervallo di Valori:  
-Con N bit, i valori rappresentabili vanno da 0 a 2^N − 1.
+#### Intervallo di Valori Rappresetnabili:  
+Oltre a contare le combinazioni, è importante sapere **quali valori numerici possiamo rappresentare** con N bit.
+==Con N bit, i valori rappresentabili vanno da `0` a $2^N − 1$==.
 
-Esempi:  
-o 1 bit: 2^1 − 1 = 1, valori rappresentabili nell'intervallo `[0,1]`  
-o 2 bit: 2^2 − 1 = 3, valori rappresentabili nell'intervallo `[0,3]`  
-o 3 bit: 2^3 − 1 = 7, valori rappresentabili nell'intervallo `[0,7]`.
+###### Esempi:  
+o 1 bit: $2^1 − 1$ = 1, valori rappresentabili nell'intervallo `[0,1]`  
+o 2 bit: $2^2 − 1$ = 3, valori rappresentabili nell'intervallo `[0,3]`  
+o 3 bit: $2^3 − 1$ = 7, valori rappresentabili nell'intervallo `[0,7]`.
 
 ==All'interno del dispositivo, tutto è rappresentato da un insieme di cifre binarie.== Più specificamente:  
 - Qualsiasi Sistema Operativo (ad esempio, Windows, Android, Mac OS, Linux)  
@@ -71,13 +72,15 @@ o 3 bit: 2^3 − 1 = 7, valori rappresentabili nell'intervallo `[0,7]`.
 
 ## ASCII Code
 
-Il Codice Standard Americano per la Codifica delle Informazioni (ASCII) utilizza tipicamente 7 bit per rappresentare ogni carattere, il che consente di avere 128 codici di caratteri unici.  
-**ASCII Esteso**: ASCII a volte viene esteso a 8 bit, il che permette di aggiungere 128 caratteri in più, portando il totale a 256. Questa estensione non è standardizzata allo stesso modo dell'originale ASCII a 7 bit, e ci sono vari set di ASCII esteso, come ISO 8859-1 o Windows-1252, che includono caratteri per lingue specifiche o simboli grafici.
+==Il Codice Standard Americano per la Codifica delle Informazioni (ASCII) utilizza tipicamente 7 bit per rappresentare ogni carattere, il che consente di avere 128 codici di caratteri unici.==  
+**ASCII Esteso**: ==ASCII a volte viene esteso a 8 bit, il che permette di aggiungere 128 caratteri in più, portando il totale a 256==. 
+Questa estensione non è standardizzata allo stesso modo dell'originale ASCII a 7 bit, e ci sono vari set di ASCII esteso, come ISO 8859-1 o Windows-1252, che includono caratteri per lingue specifiche o simboli grafici.
 
 **Tipi di Caratteri**:  
-• **Caratteri Alfanumerici**: Comprende tutte le lettere maiuscole e minuscole dell'alfabeto inglese e i numeri (0-9).  
-• **Simboli**: ASCII include un insieme di simboli di punteggiatura comuni e altri simboli vari come @, #, $, ecc.  
-• **Caratteri di Controllo**: Questi sono caratteri non stampabili che controllano il flusso del testo o il suo processo in qualche modo. Esempi includono TAB (tabulazione orizzontale), LF (line feed), CR (ritorno a capo) e BEL (campanello/avviso).    
+• **Caratteri Alfanumerici**: ==Comprende tutte le lettere maiuscole e minuscole dell'alfabeto inglese e i numeri (`0-9`).==  
+• **Simboli**: ASCII ==include un insieme di simboli di punteggiatura comuni e altri simboli vari come @, #, $, ecc.==  
+• **Caratteri di Controllo**: ==Questi sono caratteri non stampabili che controllano il flusso del testo o il suo processo in qualche modo==. 
+Esempi includono TAB (tabulazione orizzontale), LF (line feed), CR (ritorno a capo) e BEL (campanello/avviso).    
 
 ---
 ## Comprendere le Dimensioni dei Dati Digitali
@@ -91,16 +94,17 @@ All'interno di ogni dispositivo, le informazioni sono rappresentate da un insiem
 • 32 bit (4 byte)  
 • 64 bit (8 byte)
 
-Il numero di byte indica la "potenza" di un dispositivo. Maggiore è il numero di byte:  
-• Maggiore è la capacità del dispositivo di eseguire calcoli complessi  
-• Maggiore è la capacità del dispositivo di gestire grandi quantità di informazioni  
-• Maggiore è la capacità del dispositivo di elaborare istruzioni complesse.
+==Il numero di byte indica la "potenza" di un dispositivo.== 
+Maggiore è il numero di byte:  
+• ==Maggiore è la capacità del dispositivo di eseguire calcoli complessi==  
+• Maggiore è ==la capacità del dispositivo di gestire grandi quantità di informazioni==  
+• Maggiore è ==la capacità del dispositivo di elaborare istruzioni complesse.==
 
 ---
 
 ## Le proprietà del Codice Binario
 
-Come ogni sistema numerico, il codice binario ha le sue proprietà intrinseche. Una proprietà chiave, condivisa con altri sistemi posizionali, è la capacità di convertire numeri da una base numerica a un'altra.  
+Come ogni sistema numerico, il codice binario ha le sue proprietà intrinseche. ==Una proprietà chiave, condivisa con altri sistemi posizionali, è la capacità di convertire numeri da una base numerica a un'altra.==  
 Inoltre, il sistema binario supporta le quattro operazioni di base:
 
 - Addizione;
@@ -143,7 +147,7 @@ Risultato in binario: **1101₂**.
 Per convertire un numero binario (base 2) in un numero decimale (base 10), segui questi passaggi:
 
 6. Scrivi il numero binario.
-7. Elenca le potenze di 2 da destra a sinistra, iniziando con 2^0 sotto il bit più a destra.
+7. Elenca le potenze di 2 da destra a sinistra, iniziando con $2^0$ sotto il bit più a destra.
 8. Moltiplica ogni bit per la corrispondente potenza di 2.
 9. Somma i risultati per ottenere il numero decimale.
 
@@ -159,11 +163,11 @@ Prendi i due numeri binari che vuoi sommare.
 >[!note] NOTA: Assicurati che entrambi i numeri abbiano la stessa lunghezza.
 >  Se non lo sono, aggiungi zeri iniziali al numero più corto fino a che non abbiano la stessa lunghezza.
 
-10. Inizia a sommare i bit dalla parte destra (bit meno significativo) dei due numeri binari, seguendo queste regole:  
+1. Inizia a sommare i bit dalla parte destra (bit meno significativo) dei due numeri binari, seguendo queste regole:  
 
 ![[Bin add.png]]
 
-11. Continua sommando i bit successivi e considerando eventuali riporto dalle colonne precedenti. Se dopo aver sommato l'ultimo bit rimane un riporto, scrivilo nella colonna più a sinistra del risultato.  
+2. Continua sommando i bit successivi e considerando eventuali riporto dalle colonne precedenti. Se dopo aver sommato l'ultimo bit rimane un riporto, scrivilo nella colonna più a sinistra del risultato.  
 Esempio dell'addizione binaria:  
 ```
 Binary Addition/2
@@ -254,20 +258,35 @@ Step-by-step subtraction with borrow:
 >  Rappresentate come 1 (vero) e 0 (falso).
 >   1.  Operazioni logiche:  
 >  - [[Ripasso Python#L'operatore Le architetture di un Computer L'algebra Booleana AND|AND]] (\*): 
->  Restituisce vero se entrambi gli operandi sono veri (1 \* 1 = 1).  ^andOp-Def
+>  ==Restituisce vero se entrambi gli operandi sono veri (1 \* 1 = 1).==  ^andOp-Def
 > - [[Ripasso Python#^de8a18|OR]] (+): 
->  Restituisce vero se almeno uno degli operandi è vero (1 + 0 = 1).  ^orOp-Def
+>  ==Restituisce vero se almeno uno degli operandi è vero (1 + 0 = 1).==  ^orOp-Def
 >  - [[Ripasso Python#^notOp-Py|NOT]] (¬): 
->    Restituisce l'inverso dell'operando (¬1 = 0) (è il segno meno). ^notOp-Def
+>    ==Restituisce l'inverso dell'operando (¬1 = 0) (è il segno meno).== ^notOp-Def
 
 ### Tabelle di verità 
- 
+ ==Le **tabelle di verità** servono a rappresentare il comportamento degli **operatori logici** (AND, OR, NOT, ecc.)== applicati a variabili booleane, cioè che possono assumere solo due valori:
+
+- `0` → **falso**
+    
+- `1` → **vero**
+#### Operatore **AND** (E logico)
+==La condizione è **vera (1)** solo se **entrambi** gli operandi sono veri.==
+
 |  A  |  B  | A  AND  B |
 | :-: | :-: | :-------: |
 |  0  |  0  |     0     |
 |  0  |  1  |     0     |
 |  1  |  0  |     0     |
 |  1  |  1  |     1     |
+
+
+> [!example] **Esempio Pratico:**
+> "Devo uscire se **ho i soldi** AND **ho tempo libero**". Se manca anche solo una condizione, non posso uscire.
+
+
+#### Operatore **OR** (O logico)
+==La condizione è **vera (1)** se almeno **uno** dei due operandi è vero.==
 
 |  A  |  B  | A OR B |
 |:---:|:---:|:------:|
@@ -276,28 +295,124 @@ Step-by-step subtraction with borrow:
 |  1  |  0  |   1    |
 |  1  |  1  |   1    |
 
+> [!example] **Esempio Pratico**
+> "Prendo un gelato se c’è gusto cioccolato OR gusto vaniglia". Basta che sia disponibile uno dei due.
+
+
+#### Operatore **NOT** (Negazione)
+Inverte il valore logico: da vero a falso, da falso a vero.
+In sostanza l'operatore **NOT** ha il compito di **invertire** il valore logico della variabile a cui si applica:
+- ==se la variabile vale `1` (**vero**), dopo la negazione diventa `0` (**falso**);==
+    
+- ==se la variabile vale `0` (**falso**), dopo la negazione diventa `1` (**vero**).==
+    
+
 | A   | NOT A |
 | --- | ----- |
 | 0   | 1     |
 | 1   | 0     |
+Possiamo vedere il **NOT** come un **interruttore logico:**
+- ==Se l’affermazione è **vera (1)**, il NOT la trasforma in **falsa (0)**.==
+    
+- ==Se l’affermazione è **falsa (0)**, il NOT la trasforma in **vera (1)**.==
 
-• Commutative:
-A OR B = B OR A
-A AND B = B AND A
-• Distributive:
-A OR (B AND C) = (A OR B) AND (A OR C)
-A AND (B OR C) = (A AND B) OR (A AND C)
-• De Morgan’s Law:
-NOT (A AND B) = (NOT A) OR (NOT B)
-NOT (A OR B) = (NOT A) AND (NOT B)
+==In pratica **capovolge sempre il significato logico** di ciò a cui si applica.==
+
+> [!example] **Esempio pratico**
+> se "oggi NON piove", significa che il tempo è bello.
+>>[!abstract] **Come funziona nella logica booleana**
+>>- Frase: “Oggi **piove**” → **vero (1)**.
+  >>  
+ >>   - Applicando il NOT: “Oggi **NON piove**” → **falso (0)**.
+  >>      
+>>- Frase: “Il computer è acceso” → **vero (1)**.
+>>    
+ >>   - Applicando il NOT: “Il computer è **spento**” → **falso (0)**.
+ >>       
+>>- Frase: “La porta è chiusa” → **falso (0)**.
+>>    
+>>    - Applicando il NOT: “La porta **non è chiusa**” (cioè è aperta) → **vero (1)**.
+>> 
+>>>[!example] **Esempio informatico**
+>>>Immaginiamo di avere una lampadina collegata a un interruttore logico:
+>>>- Se la variabile `LUCE = 1` (accesa), allora `NOT LUCE = 0` (spenta).
+ >>>   
+>>>- Se la variabile `LUCE = 0` (spenta), allora `NOT LUCE = 1` (accesa).
+>>>
+>>
+>Il NOT in questo caso rappresenta un **interruttore che capovolge lo stato**.
+
+
+### Proprietà fondamentali
+
+1. **Commutative:**
+	==scambiare l’ordine degli operandi **non cambia** il risultato.==  
+	Vale per **AND** e **OR**, **non** ha senso per **NOT** (che è unario)
+    In altre parole l’ordine degli operandi non cambia il risultato.
+    - `A OR B = B OR A`
+        
+    - `A AND B = B AND A`  
+
+
+> [!example] **Esempio intuitivo**
+> - `A OR B`: “Piove **o** c’è vento” è equivalente a “C’è vento **o** piove”.
+ >   
+>- `A AND B`: “Ho tempo **e** ho soldi” ≡ “Ho soldi **e** ho tempo”.
+
+>[!attention] Nota operativa  
+>La commutatività è utile per **riordinare** i termini prima di una semplificazione (es. raggruppare variabili uguali).
+
+
+2.  Distributiva:
+	- ==AND e OR possono “distribuirsi” l’uno sull’altro, come accade nell’algebra aritmetica.==   
+
+>[!example] Intuizione con insiemi
+>
+>- `OR` ↔ **unione**; `AND` ↔ **intersezione**.
+ >   
+>- `A ∪ (B ∩ C) = (A ∪ B) ∩ (A ∪ C)` e  
+>    `A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C)`.
+
+
+3.  De Morgan’s Law:
+	- ==la negazione “capovolge” AND ↔ OR e **nega** i singoli operandi.==
+	- `NOT (A AND B) = (NOT A) OR (NOT B)`
+    
+	- `NOT (A OR B) = (NOT A) AND (NOT B)`  
+
+>[!example] Lettura in lingua naturale
+>
+>- “**Non** (A **e** B)” ≡ “(**Non** A) **o** (**Non** B)”.  
+ >   Es.: “Non (piove **e** c’è vento)” ≡ “Non piove **o** non c’è vento”.
+>    
+>- “**Non** (A **o** B)” ≡ “(**Non** A) **e** (**Non** B)”.  
+>    Es.: “Non (luci accese **o** porta aperta)” ≡ “Luci spente **e** porta chiusa”.
+
+
 
 
 > [!attention] Le regole di precedenza
-> 1. NOT ha la precedenza più alta su tutti gli altri operatori
->  1. Segue AND  
-> 
->1. Per ultimo c'è OR
->Per alternare la precedenza si usano le parentesi, ovvero l'operatore dentro la parentesi ha la precedenza su tutti gli altri.
+> Spesso accadde di avere più operatori logici nella stessa espressione, l’ordine con cui vengono eseguiti è: 
+> 1. **NOT** → ha la precedenza più alta.
+  >  
+>2. **AND** → viene valutato dopo.
+>    
+>3. **OR** → ha la precedenza più bassa.
+>    
+>>[!remember] Per modificare la precedenza si usano le **parentesi**, che hanno sempre priorità su tutto.
+>>
+>>>[!example] **Esempi mirati**
+>>>- `NOT A OR B` → prima `NOT A`, poi `(... ) OR B`.
+>>>    
+>>>- `A AND B OR C` → prima `A AND B`, poi `(... ) OR C`.
+ >>>   
+>>>- `NOT (A OR B)` → per le parentesi si valuta `A OR B`, **poi** la negazione.
+>
+>
+>>[!warning] **Errori comuni**
+>>- Dimenticare che **NOT** ha precedenza massima: `NOT A AND B` **non** è `(NOT (A AND B))`, bensì `(NOT A) AND B`.
+ >>   
+>>- Omettere parentesi in espressioni lunghe: meglio abbondare per evitare ambiguità.
 
 
 

@@ -96,16 +96,16 @@ select persona.nome, persona.cognome
 from persona, assenza
 where persona.id = assenza.persona
 group by persona.id, persona.nome, persona.cognome
-having count(*)>1
+having count(*)>1;
 ```
 
 un altra è:
-```
+```sql
 --select * 
----select p.nome, p.cognome 
+--select p.nome, p.cognome 
 select distinct p.nome, p.cognome 
 from persona p, assenza a, assenza b
-where p.id = a.persona and p.id = b.persona and a.id <> b.id
+where p.id = a.persona and p.id = b.persona and a.id <> b.id;
 ```
 
 
@@ -286,18 +286,19 @@ and a.partenza = l.codiceIATA
 ```
 
 Una nennupla deve parlare di un volo
-```
+```sql
 select *
 from volo v, arrpart a,  LuogoAeroporto l
 where l.città = 'Roma'
 and v.durata_minuti >= 180
 and a.partenza = l.codiceIATA
 and v.codice = a.codice and v.comp = a.comp
+
 ```
 
-Questa è la tabella arrpart, ma accanto a ogni volo in arrpart da un lato ho messo le info sulla tabella volo e dall'altro le info sull'aereporto di partenza.
-Volgio anche mettere le info sull aereoporto di arivo?
-```
+Questa è la tabella `arrpart`, ma accanto a ogni volo in `arrpart` da un lato ho messo le info sulla tabella volo e dall'altro le info sull'aeroporto di partenza.
+Voglio anche mettere le info sull aeroporto di arrivo?
+```sql
 select *
 from volo v, arrpart a,  LuogoAeroporto l
 where l.città = 'Roma'
@@ -308,7 +309,7 @@ and v.codice = a.codice and v.comp = a.comp
 ```
 
 Adesso che ho la tabella metto il count:
-```
+```sql
 select count(*)
 from volo v, arrpart a,  LuogoAeroporto l
 where l.città = 'Roma'
@@ -323,7 +324,7 @@ and v.codice = a.codice and v.comp = a.comp
 select count(*) 
 from volo, LuogoAeroporto, arrpart
 where volo.durata_minuti >= 180
-and LuogoAeroporto.città = 'Roma' and luogoaeroporto.codiceIATA = arrpart.partenza
+and LuogoAeroporto.citta = 'Roma' and luogoaeroporto.codiceIATA = arrpart.partenza
 and volo.codice_volo = arrpart.codice;
 ```
 

@@ -41,12 +41,6 @@ Le differenze tra le reti possono includere:
 
 
 
-
-
-
-
-
-
 ### Layer Protocol
 ==Il concetto di Layer Protocol è organizzato su livelli diversi, dove ogni livello offre servizi esclusivamente al livello immediatamente superiore.== 
 Questi livelli possono variare sia per numero che per funzionalità, ma la loro interazione è fondamentale per garantire una comunicazione efficace tra dispositivi. 
@@ -80,7 +74,7 @@ Tuttavia, nella pratica, i dati non vengono trasmessi direttamente tra livelli u
 
 ## Comunicazione di rete 
 Per spiegare meglio il funzionamento della comunicazione in rete, andiamo ad analizzare questa immagine:
-![[Network communication.png|right]]
+![[Network communication.png|right|592x423]]
 
 L'immagine rappresenta un processo di comunicazione tra **Location A** e **Location B**, in cui un messaggio viene elaborato e trasmesso attraverso diversi livelli prima di arrivare al destinatario finale.
 
@@ -182,19 +176,19 @@ Lo stesso avviene con i servizi orientati alla connessione: ==una volta che i di
 ==Il processo di handshaking serve per stabilire la connessione tra due o più dispositivi.==  
 #### Apertura la connessione
 1. **Richiesta di connessione:**
-   Il dispositivo A manda una richiesta al dispositivo B per iniziare la connessione 
+   ==Il dispositivo A manda una richiesta al dispositivo B per iniziare la connessione==. 
 2. **Risposta:**
-   Il dispositivo B risponde al dispositivo A, confermando di aver ricevuto la richiesta ed essere pronto a comunicare.
+   ==Il dispositivo B risponde al dispositivo A, confermando di aver ricevuto la richiesta ed essere pronto a comunicare==.
 3. **Conferma:**
-   Il dispositivo A invia una conferma di ricezione della risposta di dispositivo B.
+   ==Il dispositivo A invia una conferma di ricezione della risposta di dispositivo B==.
 
 #### Chiusura della connessione
  1. **Richiesta di terminazione:** 
-    Quando la comunicazione è terminata, il dispositivo A invia una richiesta di terminazione al dispositivo B.
+    ==Quando la comunicazione è terminata, il dispositivo A invia una richiesta di terminazione al dispositivo B==.
  2. **Riconoscimento:** 
-    Il dispositivo B riconosce la richiesta di terminazione, indicando che è pronto per chiudere la connessione.
+    ==Il dispositivo B riconosce la richiesta di terminazione, indicando che è pronto per chiudere la connessione==.
  3. **Conferma finale:** 
-    Il dispositivo A invia una conferma finale, completando il processo di terminazione.
+    ==Il dispositivo A invia una conferma finale, completando il processo di terminazione==.
 Tuttavia questo processo è anche responsabile del rallentamento della connessione nella rete. 
 
 Uno degli aspetti fondamentali di questi servizi è che garantiscono l'ordine dei pacchetti. 
@@ -213,10 +207,11 @@ Questo accade anche grazie a meccanismi di controllo, come gli ACK (Acknowledgme
  
 Oltre alla gestione dell'ordine e dell'affidabilità, il controllo del flusso è un'altra caratteristica importante. 
 Questo meccanismo regola la quantità di dati inviati, evitando di sovraccaricare il ricevente. La connessione viene anche chiusa tramite un processo simile all'handshaking, in cui il dispositivo A invia una richiesta di terminazione, e B risponde per confermare la chiusura.
-**Il Time To Live (TTL):**  
-Il TTL è un campo nei pacchetti che determina il numero massimo di salti che un pacchetto può fare sulla rete prima di essere scartato.
 
-### Servizi non orientati alla connessione:
+**Il Time To Live (TTL):**  
+==Il [[Network, Transport, Session, Presentation, Application Layers#^timeToLive|TTL]] è un campo nei pacchetti che determina il numero massimo di salti che un pacchetto può fare sulla rete prima di essere scartato==.  ^timetoLive2
+
+### Servizi non orientati alla connessione(connectionless):
 ==In questi servizi non è richiesta una connessione permanente (o establishement di una connessione dedicata) tra i dispositivi che comunicano prima di inviare i dati.==  
 
 ![[Servizi non orientati alla connessione.png]]

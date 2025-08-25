@@ -375,7 +375,7 @@ e un classe Studente con attributo `mat:integer {id1}` e `nome:varchar`
 Assoc. `iscritto`:
 Università → Studente: `Università 1..1{id1}`, `STudente 0..*`.
 L'unico modo per includere la primary key sull'assoc iscritto è fare così:
-```
+```sql
 create table Studente(
 	mat integer not null,
 	nome varchar not null,

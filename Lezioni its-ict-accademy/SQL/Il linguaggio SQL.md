@@ -37,6 +37,57 @@ Innanzitutto bisogna lanciare il Docker dove si trova il database tramite il com
 docker exec -it its_postgresql bash
 ```
 
+
+> [!NOTE] Nota:
+> Se si effettua il **log-out da Docker Desktop** (tramite l’icona nella system tray di Windows) dopo aver chiuso l’interfaccia utente, un eventuale tentativo successivo di eseguire il comando:
+>```docker
+> docker exec -it its_postgresql bash
+>```
+>Restituirà l'errore
+>```docker
+>Error response from daemon: container 601b8410aa933bad27fdb59c55871ee725cb540dd8e520e260d54910cb0b37a0 is not running
+>```
+>Questo messaggio indica che il container specificato **esiste**, ma **non è attualmente in esecuzione**, anche se Docker Desktop risulta visivamente "aperto"
+>Per risolvere questo problema bisogna seguire una serie di passaggi:
+>> [!hint]- **Consiglio**
+>> Prima di tutto, è utile verificare lo stato dei container con il comando:
+>>```docker
+>> docker ps -a
+>>```
+>>Questo comando mostra l’elenco completo di tutti i container (inclusi quelli **arrestati**), con lo stato specificato nella colonna `STATUS`. 
+>>Cercare il container desiderato (es. `its_postgresql`) per valutare il suo stato attuale.
+>
+>
+>> [!ticket] **Soluzioni:**
+>> Se il container è semplicemente **fermo**, senza errori, è sufficiente riavviarlo con:
+>>```docker
+>> docker start its_postgresql  /\*(o il nome del container che si vuole far partire )\*/
+>>```
+>> Poi è possibile accedervi con:
+>>```docker
+>> docker exec -it its_postgresql bash
+>>```
+>
+>
+>> [!warning] **Attenzione**
+>>Se il container **si arresta immediatamente dopo l'avvio**, è possibile che ci siano problemi di configurazione, come ad esempio:
+>>- porta occupata.
+>>  
+>>- errore nel file `docker-compose.yml`.
+ >>   
+>>- variabile d’ambiente mancante o errate..
+>>  
+>>- mancanza del volume o file corrotto.
+>>
+>>Per identificare l’errore, consultare i log del container:
+>>```docker
+>>docker logs its_postgresql (o qualsiasi altro nome di qualsiasi altro container)
+>>```
+
+
+
+
+
 Dopodiché bisogna spostarsi nella cartella `home` dell'ambiente virtualizzato di Linux:
 ```shell
 601b8410aa93:/# cd /home

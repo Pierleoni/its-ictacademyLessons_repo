@@ -1,26 +1,40 @@
 # Complemento a 2 
 Il complemento a 2 è un metodo usato nella Computer Science e nell'elettronica per rappresentare numeri interi con segno (sia positivi che negativi) nel [[Le architetture di un Computer#il Codice Binario|sistema binario]].  
-È un metodo molto utile per due motivi principali: 
-1. ==Permette di utilizzare operazioni binarie (somma e sottrazioni) sia per numeri positivi che negativi==. 
-2. ==Elimina la necessità di avere circuiti separati per operazioni aritmetiche con numeri con segno==.
-**Concetti di base:**
-1. Il **Most Significant Bit (MSB)** viene usato come bit di segno: 
-	- ==0:==  
-		==indica un numero positivo==. 
-	- ==1:==   
-		==indica un numero negativo==.  
+È il sistema **standard** utilizzato dai computer moderni per almeno due motivi:
+
+1.  ==**Consente di usare le stesse operazioni binarie (somma e sottrazione)** sia per numeri positivi che per numeri negativi, senza dover distinguere i casi.==
+    
+2.  ==**Elimina il problema del doppio zero**, presente in altri sistemi (come il complemento a 1).==
+### Concetti di base
+1. **Bit di segno (MSB – Most Significant Bit)**
+
+	- In un numero binario rappresentato in complemento a 2, il **bit più a sinistra** (MSB) è usato come **bit di segno**:
+    
+	    - `0` → ==il numero è **positivo o zero**==
+        
+	    - `1` → ==il numero è **negativo**==
+###### Esempio:
+- `0101` → +5
+    
+- `1101` → -3
 
 2. **Intervallo di rappresentazione:**
    - In un sistema binario a N bit, il complemento a 2 consente di rappresentare i numeri da: 
 	   - `-2^(N-1)` a `2^(N-1)-1` 
 
-Ad esempio, in **4 bit**, si possono rappresentare i numeri da -8 a +7
-```
-4-bit: da 1000 (-8) a 0111 (+7)
-```
+###### Esempi:
+
+- **4 bit:** da `-8` a `+7`
+    
+- **8 bit:** da `-128` a `+127`
+    
+- **16 bit:** da `-32768` a `+32767`
+In pratica, ==la metà dello spazio disponibile è dedicata ai negativi, e l’altra metà ai positivi (più lo zero).==
 
 3. **Rappresentazione di zero:**
-   - ==Lo zero ha una sola rappresentazione (`0000`), **sia in positivo che in negativo**, per evitare ambiguità e evita il problema del doppio zero presente in altri sistemi (Es: il complemento a 1).==
+   - ==- Lo zero ha **una sola rappresentazione**: `0000...0`==
+    
+- ==Questo evita il problema del **doppio zero** (`+0` e `-0`), che invece si verifica in altri sistemi (come nel **Complemento a 1**).==
 
 ### Come calcolare il complemento a 2 
 
@@ -44,7 +58,7 @@ Per trovare il complemento a 2 dei numeri binari:
 > - Invertire i bit di +3 (0011): il risultato diventa 1100 (complemento a uno)
 > - Aggiungere 1 (cioè: 0001) a 1100  
 > 1100 + 
-> 0001  = 1101 → -3 4 (bit  in binario)
+> 0001  = 1101 → -3  (4 bit  in binario)
 
 Per fare l'addizione in binario la regola è sempre la stessa:  
 1. Invertire tutti i bit del numero binario (complemento a uno)  
@@ -80,10 +94,11 @@ Da -2^(N-1) a 2^(N-1) - 1
 - **4 bit**: da `-8` (`1000`) a `+7` (`0111`).
 - **8 bit**: da `-128` (`10000000`) a `+127` (`01111111`).
 
----
+
 
 ### **Conclusione**
-Il complemento a 2 è un metodo efficace per rappresentare numeri con segno in binario, semplificando le operazioni aritmetiche. Seguendo le regole di inversione dei bit e somma di 1, possiamo facilmente calcolare la rappresentazione binaria di numeri positivi e negativi.
+==Il complemento a 2 è un metodo efficace per rappresentare numeri con segno in binario, semplificando le operazioni aritmetiche.== 
+Seguendo le regole di inversione dei bit e somma di 1, possiamo facilmente calcolare la rappresentazione binaria di numeri positivi e negativi.
 
 ---
 
@@ -157,13 +172,4 @@ offrendo un metodo rapido, economico e versatile per rimanere in contatto person
 ---
 
 
-### Comunicazioni delle reti di computer
 
-Ci sono 2 tipi di comunicazioni delle reti di computer:
-1. **Point-to point:**
-   Si intende un link diretto tra due devices 
-![[Point to point.png]]
-Questo network è strutturato attraverso una serie di link e nodi. 
-Un nodo può essere un device, come ad esempio; uno switch o un router.
-Switch:
-serve a connettere un device

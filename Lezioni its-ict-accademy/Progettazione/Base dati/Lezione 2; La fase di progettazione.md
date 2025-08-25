@@ -376,9 +376,9 @@ Nell’immagine a destra si osservano due classi e una association class:
 	- con attributo `nome:stringa`
 2. association class `esame`:
 	
-	- attributo multivalore `data: Data [x..y]``data:Data[x..y]`
+	- attributo multivalore `data: Data [x..y]`
 	
-	- attributo`voto: 18..31`
+	- attributo`voto: 18..31`. 
 3. La classe `Corso`:
 	- con attributo `nome:stringa{id}` 
 I vincoli di molteplicità tra le classi e l’association class sono `0..*` su entrambi i lati.
@@ -619,9 +619,9 @@ Quindi esistono vari modi per ristrutturare le generalizzazioni e come nella [[R
 
 ### 1. [[#^primoMetodo|Fusione delle classi]] 
 Come nella [[Ristrutturazione di generalizzazioni|ristrutturazione delle generalizzazioni in Python]] il metodo della fusione ingloba le sottoclassi nella superclasse ma **preservando le differenze semantiche** tra le sottoclassi mediante:
-- Aggiunta di un tipo enumerato che distingue le istanze tra loro (in Python avevamo aggiunto flag booleani)
-- Inclusione degli attributi delle sottoclassi nella superclasse aggiungendo vincoli sugli attributi che segnalano che solo le istanze del tipo corrispondente valorizzano l'attributo (es: `[0..1]`).
-- Rilassamento delle molteplicità minime nelle associazioni che coinvolgono le sottoclassi inglobate dalla classe padre 
+- ==Aggiunta di un tipo enumerato che distingue le istanze tra loro (in Python avevamo aggiunto flag booleani)==
+- ==Inclusione degli attributi delle sottoclassi nella superclasse aggiungendo vincoli sugli attributi che segnalano che solo le istanze del tipo corrispondente valorizzano l'attributo (es: `[0..1]`).==
+- ==Rilassamento delle molteplicità minime nelle associazioni che coinvolgono le sottoclassi inglobate dalla classe padre== 
 #### Caso 1: ristrutturazione con la fusione senza vincoli.
 
 L'approccio in questo caso è quello di fondere un intero livello della generalizzazione (ovvero fondere le sottoclassi con la superclasse) in un'unica classe.

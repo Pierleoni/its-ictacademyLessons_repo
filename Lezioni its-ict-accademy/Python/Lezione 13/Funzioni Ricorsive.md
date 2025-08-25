@@ -743,7 +743,7 @@ La sequenza di Fibonacci è una sequenza di numeri interi dove ogni numero è la
 
 ![](https://i.imgur.com/1Vs9r19.png)
 
-Per ogni funzione devo eseguire questa formula finché non raggiungo 0 o uno.
+Per ogni funzione devo eseguire questa formula finché non raggiungo `0` o `1`.
 Per capire meglio Fibonacci, usiamo questa immagine:
 ![](https://i.imgur.com/zdNVofH.png)
 Per implementare ciò in Python:

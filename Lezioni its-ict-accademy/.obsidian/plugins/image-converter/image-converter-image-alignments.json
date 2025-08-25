@@ -156,5 +156,101 @@
       "height": "",
       "wrap": false
     }
+  },
+  "Sistemi digitali/Lezione 7/Reti di computer.md": {
+    "87ee2bc7a06a588e81a250edc8321e4a": {
+      "position": "center",
+      "width": "",
+      "height": "",
+      "wrap": false
+    },
+    "562a318d9ed42b7f1df69a984863fba2": {
+      "position": "center",
+      "width": "",
+      "height": "",
+      "wrap": false
+    },
+    "85c6f3da28b51cd575844ec79827f07c": {
+      "position": "center",
+      "width": "",
+      "height": "",
+      "wrap": false
+    },
+    "db1c03a61019c8dda4c4a039cd6797fe": {
+      "position": "center",
+      "width": "423px",
+      "height": "187px",
+      "wrap": false
+    },
+    "4a304a2810f94e2917bb741aae4a888e": {
+      "position": "center",
+      "width": "331px",
+      "height": "208px",
+      "wrap": false
+    },
+    "422d182e2eeecdecc749c37a54392881": {
+      "position": "center",
+      "width": "361px",
+      "height": "232px",
+      "wrap": false
+    },
+    "9f349a7d33fb2dfc1909dd0200917073": {
+      "position": "center",
+      "width": "409px",
+      "height": "149px",
+      "wrap": false
+    },
+    "51974d5a856cd6ee2bcfb2b54289ab70": {
+      "position": "center",
+      "width": "341px",
+      "height": "183px",
+      "wrap": false
+    },
+    "dba33358e738253c2566488c34697c36": {
+      "position": "center",
+      "width": "527px",
+      "height": "263px",
+      "wrap": false
+    },
+    "c30fffdaa6a32aa74b2237eafb8326b8": {
+      "position": "center",
+      "width": "",
+      "height": "",
+      "wrap": false
+    },
+    "f208df577e2299cba4cce57f66e7d3d0": {
+      "position": "center",
+      "width": "513px",
+      "height": "309px",
+      "wrap": false
+    }
+  },
+  "Sistemi digitali/Lezione 12/ISO E OSI Model.md": {
+    "0f5bbd12140faee0df39867fda24c5aa": {
+      "position": "center",
+      "width": "369px",
+      "height": "166px",
+      "wrap": false
+    },
+    "eeebbcceadc767c04d728fa19bf25ede": {
+      "position": "center",
+      "width": "484px",
+      "height": "222px",
+      "wrap": false
+    },
+    "e9e6defd7798f4701c4f64bef333e1c8": {
+      "position": "center",
+      "width": "399px",
+      "height": "218px",
+      "wrap": false
+    }
+  },
+  "Sistemi digitali/Lezione 16/Network, Transport, Session, Presentation, Application Layers.md": {
+    "128d6f8592a2db1cfd8613e7c93d26df": {
+      "position": "center",
+      "width": "",
+      "height": "",
+      "wrap": false
+    }
   }
 }
