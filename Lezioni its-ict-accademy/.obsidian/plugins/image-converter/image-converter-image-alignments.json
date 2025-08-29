@@ -252,5 +252,49 @@
       "height": "",
       "wrap": false
     }
+  },
+  "Sistemi digitali/Lezione 12/I fundamentals di un Sistema Operativo.md": {
+    "2fc88b1cb30842948391cc5fdcf9e192": {
+      "position": "center",
+      "width": "677px",
+      "height": "321px",
+      "wrap": false
+    },
+    "546bad770f85e31a91c312595f3d7b19": {
+      "position": "center",
+      "width": "",
+      "height": "",
+      "wrap": false
+    },
+    "3fb3703cb8b99c594164a1ee23dcea59": {
+      "position": "right",
+      "width": "",
+      "height": "",
+      "wrap": true
+    },
+    "a2f95fce379a16464350ff7102f31bcb": {
+      "position": "center",
+      "width": "",
+      "height": "",
+      "wrap": false
+    },
+    "c3ad39e08ac30a85101c66c595f1bde8": {
+      "position": "right",
+      "width": "",
+      "height": "",
+      "wrap": true
+    },
+    "53af4f7cfaf88821e84d46367de06cc0": {
+      "position": "right",
+      "width": "",
+      "height": "",
+      "wrap": true
+    },
+    "283e7fb305feac39bdd6433d87396f85": {
+      "position": "center",
+      "width": "451px",
+      "height": "338px",
+      "wrap": false
+    }
   }
 }

@@ -4,7 +4,11 @@
 1. [[#CPU (Central Processing Unit)|CPU]] 
 2. [[#RAM|RAM]] 
 3. [[#Device I/O|Dispositivi I/O]]
-4. Bus di sistema:
+4. Bus di sistema
+
+
+
+### Bus di sistema
    ==connette la CPU, RAM e le periferiche di I/O a gli altri componenti del sistema.== 
 	   Permette di: 
 		   - ==trasferire i dati== 

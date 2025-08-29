@@ -31,10 +31,13 @@ Per comprendere davvero il funzionamento di Docker, è essenziale distinguere il
 Una macchina virtuale si basa su un'infrastruttura a più livelli:
 1. **Hardware fisico**  
 	(CPU, RAM, disco rigido, motherboard, ecc.)
-2. **Hypervisor**:
+2. **[[I fundamentals di un Sistema Operativo#^hypervisorSO|Hypervisor]]**:
 	   Si tratta di un software specializzato che gestisce la virtualizzazione. L’hypervisor si interpone tra l’hardware fisico e i sistemi operativi "ospiti" (guest), virtualizzando le risorse della macchina e assegnandole alle singole VM.
 	   Esempi di hypervisor sono VirtualBox, VMware Workstation, VMware ESXi, ecc.
 	   
+	^hypervisor
+	
+   
 > [!info] Gli hypervisor si suddividono in 2 principali categorie:
 > 1.Bare metal: 
 > 	Direttamente sull'hardware senza SO host.
