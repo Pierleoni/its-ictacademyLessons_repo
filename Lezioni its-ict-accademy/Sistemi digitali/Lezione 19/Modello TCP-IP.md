@@ -109,16 +109,35 @@ Il flusso prevede **6 passaggi** che sono i seguenti:
 > Esistono server DNS pubblici, ad esempio quelli di **Google (8.8.8.8, 8.8.4.4)** o **Cloudflare (1.1.1.1)**.
 
 ### HyperText Transfer Protocol (HTTP)
-il protocollo utilizzato per la navigaxione web tra client(browser) e server(il sito dove è). Esistone la navigazione sicura che è il HTTPS che è un estensione dell'HTTP e aggiunge sicurezza e provedde a una comunicazione sicura che encripta i dati che vengono scambiati tra il cliente e il server. 
+È il protocollo utilizzato per la navigazione web: 
+-  ==permette lo scambio di dati tra un **client** (il browser) e un **server** (il sito web)==.  
+- 
+Esiste anche la variante sicura - **HTTPS (HyperText Transfer Protocol Secure):** 
+-  **è un’estensione di HTTP**. 
+- ==Essa aggiunge un livello di sicurezza grazie alla crittografia, proteggendo i dati scambiati tra client e server==.
 
 #### Come funziona la navigazione web
-1. L'utente digita l'URL
-2. DNS Resolution: si dice tramite a una query di tradurre l'URL in un indirizzo IP
-3. Server Connection: il browser stabilisce una connessione per identificare il server
-4. Sending a Request: usa l'HTTP o HTTPS, il browesr manda una richiesta di GET  al server, tipicamente ricihede il documento di default (es: index.html)
-5. Receiving a Request: Il server risponde mandando il contenuto HTML della pagina web richiesta
-   pagina web al browser
-6. Rendering the page
+La navigazione web avviene tramite **6 passaggi:** 
+
+![[HTTP - Web Browsing Process.png]]
+
+1. **Digitazione dell’URL**: 
+	- ==l’utente inserisce l’indirizzo di un sito nella barra del browser.==
+    
+2. **DNS Resolution**: 
+	- ==il browser invia una query DNS per tradurre l’URL in un indirizzo IP.==
+    
+3. **Connessione al server**: 
+	- ==il browser stabilisce una connessione con il server corrispondente.==
+    
+4. **Invio della richiesta**: 
+	- ==tramite HTTP o HTTPS, il browser invia una richiesta (in genere di tipo `GET`) al server, solitamente per ottenere il documento predefinito (ad esempio `index.html`).== 
+    
+5. **Ricezione della risposta**: 
+	- ==il server invia al browser il contenuto HTML della pagina richiesta.==
+    
+6. **Rendering della pagina**: 
+	- ==il browser interpreta il codice HTML (insieme a eventuali CSS e JavaScript) e visualizza la pagina formattata.==
 
 
 ### FTP
