@@ -82,7 +82,7 @@ Ogni livello svolge una funzione specifica e interagisce con il livello adiacent
    ==Converte, comprime e cripta i dati per garantire compatibilità tra i diversi sistemi.==   ^presentationLayer
    
    
-7. **[[Network, Transport, Session, Presentation, Application Layers#Application Layer|Livello di Applicazione (Application)]]**:
+7. **[[Network, Transport, Session, Presentation, Application Layers#ISO E OSI Model applicationLayer Application Layer|Livello di Applicazione (Application)]]**:
    ==Fornisce servizi di rete agli utenti e alle applicazioni, come **HTTP, FTP e SMTP**==.  ^applicationLayer
 
 Nei primi tre livelli (Fisico, Data Link e Rete), il dato viene generalmente chiamato **bit, frame o pacchetto**, mentre nei livelli superiori può essere chiamato **segmento, messaggio o dato** a seconda del contesto.

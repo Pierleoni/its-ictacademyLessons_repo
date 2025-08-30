@@ -532,28 +532,57 @@ Questi servizi comunicano tra loro e con il microkernel tramite **messaggi** (IP
 
 ##### 3. Hybrid kernel Operating System:
 
+Un **kernel ibrido** è un’architettura che combina caratteristiche sia del kernel monolitico che del micro-kernel.
+
 ![[Hybrid Kernel.png|451x338]]
 
-Questo sistema implementa varie funzionalità del Sistema Operativo all'interno del kernel, ma può caricare moduli aggiuntivi all'avvio per potenziare e completare le caratteristiche del kernel stesso.  
-Il kernel ibrido offre un equilibrio tra le architetture monolitica e a micro-kernel: ==include le funzionalità essenziali all'interno del kernel e permettendo il caricamento di moduli aggiuntivi all'avvio, offre un approccio flessibile alla progettazione del sistema.==  
-Questa architettura mira a ottenere i vantaggi prestazionali dei kernel monolitici mantenendo al contempo un certo grado di modularità.  
-Sistemi operativi come le versioni moderne di Windows e macOS utilizzano un approccio a kernel ibrido. Questi sistemi dimostrano l'implementazione pratica e i vantaggi dei kernel ibridi in scenari reali.
 
-Quindi Un kernel ibrido è un'architettura di sistema operativo che combina elementi dei due progetti principali per i kernel:
+#### Struttura
+Come mostrato nello schema:
 
-1. **[[#1. **Monolithic Kernel Operating System **|Kernel Monolitico]]:** Tutti i servizi del sistema operativo (gestione della memoria, scheduler del processore, file system, driver dei dispositivi, ecc.) vengono eseguiti in un unico grande spazio di memoria condiviso (il kernel space). Questo approccio è molto efficiente grazie alla comunicazione diretta tra i componenti, ma è meno stabile (un bug in un driver può bloccare l'intero sistema) e meno flessibile.
+- **User Mode**
     
-2. **[[#2. Micro-kernel Operating System|Microkernel]]:** Mira a minimizzare la quantità di codice in esecuzione nello spazio del kernel (kernel space). Esegue solo le funzioni essenziali (comunicazione base tra processi, gestione della memoria primaria, scheduling della CPU) al suo interno, mentre la maggior parte dei servizi (driver, file system, stack di rete) viene eseguita come servizi in spazio utente (user space). Questo migliora notevolmente la stabilità e la modularità, ma le prestazioni possono risentirne a causa del continuo cambio di contesto (context switch) tra kernel e user space necessario per la comunicazione.
+    - Qui girano le **applicazioni** e alcuni **server** (es. File Server, UNIX Server).
+        
+    - I servizi sono più isolati e meno critici: se un server in user mode va in crash, non blocca l’intero sistema.
+        
+- **Kernel Mode**
+    
+    - Contiene i componenti essenziali per le prestazioni:
+        
+        - **Gestione della memoria virtuale**
+            
+        - **Scheduling dei processi**
+            
+        - **IPC di base (Inter-Process Communication)**
+            
+        - **Driver dei dispositivi principali**
+            
+    - Altri moduli (es. Application IPC, alcuni driver, filesystem aggiuntivi) vengono caricati dinamicamente per estendere le funzionalità del kernel.
+        
+- **Hardware**
+    
+    - Strato più basso, gestito dai driver attraverso il kernel.
+
+
+
+#### Obiettivi
+Il kernel ibrido cerca di bilanciare i vantaggi delle due architetture principali:
+
+- **Dal kernel monolitico** eredita le **prestazioni**, perché i servizi critici rimangono nello spazio kernel e comunicano velocemente.
+    
+- **Dal microkernel** prende l’idea di una maggiore **modularità e stabilità**, grazie al fatto che diversi servizi possono essere implementati come moduli caricabili o processi in user mode.
     
 
-**Il kernel ibrido** cerca di prendere il meglio di entrambi i mondi:
 
-- **Prestazioni:** Mantiene i servizi più critici e quelli per cui le prestazioni sono fondamentali (come la gestione della memoria virtuale, lo scheduler della CPU e spesso i driver di alcuni dispositivi chiave) **all'interno del kernel**, dove possono comunicare in modo rapido ed efficiente.
+### Caratteristiche chiave
+- **Performance**: i servizi vitali (memoria, CPU, driver critici) restano nel kernel.
     
-- **Modularità e Stabilità:** Sposta altri servizi (ad esempio, driver per hardware meno critico, stack di rete completi, supporto per file system non essenziali) **in moduli caricabili**. Questi moduli possono essere aggiunti dinamicamente al kernel in esecuzione (solitamente all'avvio, ma a volte anche a caldo), ma vengono comunque eseguiti nello spazio del kernel. Questo offre una grande flessibilità senza sacrificare completamente le prestazioni. Tuttavia, poiché i moduli vengono eseguiti in kernel space, un loro malfunzionamento può ancora potenzialmente destabilizzare il sistema, a differenza di un puro microkernel.
+- **Modularità**: moduli caricabili permettono di estendere le funzionalità senza ricompilare l’intero kernel.
     
-
-**In sintesi:** Il kernel ibrido è essenzialmente un kernel monolitico modulare e ottimizzato. La sua caratteristica principale è la capacità di estendersi dinamicamente caricando moduli, pur mantenendo al suo interno i componenti più importanti per ragioni di performance.
+- **Flessibilità**: parte dei servizi può essere spostata nello user mode per migliorare la stabilità.
+    
+- **Limite**: essendo i moduli comunque eseguiti in kernel space, un loro bug può compromettere la stabilità del sistema (non è sicuro quanto un puro microkernel).
 
 
 > [!example] **Esempi pratici:**
@@ -564,3 +593,9 @@ Quindi Un kernel ibrido è un'architettura di sistema operativo che combina elem
 > 	 - mentre una miriade di file `.sys` (driver e moduli) vengono caricati per estenderne le funzionalità.
   >  
 >- **macOS (e iOS/iPadOS):** Il kernel XNU (X is Not Unix) di Apple è un ibrido che combina il nucleo del kernel Mach (un microkernel) con componenti del kernel BSD (che è monolitico) e un'interfaccia per i driver caricabili (I/O Kit).
+
+> [!remember] **In sintesi:**
+>  Un **kernel ibrido** è un kernel monolitico reso modulare. Mantiene nel kernel i componenti più importanti per la velocità, ma consente anche di caricare moduli e spostare parte dei servizi in user mode, ottenendo un compromesso tra **efficienza** e **flessibilità**.
+
+
+
