@@ -52,10 +52,10 @@ Questo livello è il più vicino all’utente ed è responsabile della gestione 
 - **[[#Domain Name System (DNS)|DNS (Domain Name System)]]:**
 	-  ==risoluzione dei nomi di dominio==.   ^DNS
     
-- **HTTP/HTTPS (HyperText Transfer Protocol):**
+- **[[#HyperText Transfer Protocol (HTTP)|HTTP/HTTPS (HyperText Transfer Protocol)]]:**
 	-  ==navigazione web==.    ^Http-https
     
-- **FTP (File Transfer Protocol):** 
+- **[[#ftp File Transfer Protocol (FTP)|FTP (File Transfer Protocol)]]:** 
 	- ==trasferimento di file==.   ^ftp
     
 - **SMTP/POP3/IMAP:** 
@@ -65,7 +65,7 @@ Questo livello è il più vicino all’utente ed è responsabile della gestione 
 	- ==gestione e assegnazione dinamica degli indirizzi IP.==    ^dhcp
 
 ### [[#^DNS|Domain Name System (DNS)]]
-Il **Domain Name System (DNS)** è un sistema di denominazione **gerarchico** e **decentralizzato** che traduce i **nomi di dominio leggibili dall’uomo** (es. `www.cisco.com`) in **indirizzi IP leggibili dalle macchine** (es. `198.133.219.25`).
+Il **Domain Name System (DNS)** ==è un sistema di denominazione **gerarchico** e **decentralizzato** che traduce i **nomi di dominio leggibili dall’uomo** (es. `www.cisco.com`) in **indirizzi IP leggibili dalle macchine** (es. `198.133.219.25`).==
 
 
 
@@ -108,7 +108,7 @@ Il flusso prevede **6 passaggi** che sono i seguenti:
 > [!info]
 > Esistono server DNS pubblici, ad esempio quelli di **Google (8.8.8.8, 8.8.4.4)** o **Cloudflare (1.1.1.1)**.
 
-### HyperText Transfer Protocol (HTTP)
+### [[#^Http-https|HyperText Transfer Protocol (HTTP)]]
 È il protocollo utilizzato per la navigazione web: 
 -  ==permette lo scambio di dati tra un **client** (il browser) e un **server** (il sito web)==.  
 - 
@@ -140,61 +140,520 @@ La navigazione web avviene tramite **6 passaggi:**
 	- ==il browser interpreta il codice HTML (insieme a eventuali CSS e JavaScript) e visualizza la pagina formattata.==
 
 
-### FTP
-Utilizzato per il trasferiento di file affidabile da un Host a un server (connection oriented) e  utilizza le connessioni TC, come ad esempio Internet. Facilita il trasferimento dei file tra un client e un server. 
-3 step:
-Stabilimento della conessione:
-Controlo COnnection
-Data Connection
+### [[#^ftp|File Transfer Protocol (FTP)]]
 
-Autenticazione:
+==Il **File Transfer Protocol (FTP)** è un protocollo standard, **[[Internetwork-Protocols#Connection Oriented services|connection-oriented]]**, utilizzato per il trasferimento affidabile di file tra un client e un server su una rete basata su TCP (es. Internet)==.
+
+#### Fasi principali
+Le fasi di questo livello del modello TCP/IP sono conseguenziali: 
+
+1. **Stabilimento della connessione**
+    
+    - **Control Connection**: ==il client apre una connessione al server per inviare comandi (porta 21)==.   
+         ^4d627f
+    - **Data Connection**: ==viene aperta una seconda connessione separata per trasferire effettivamente i file (porte variabili)==.   
+         ^42332f
+2. **Autenticazione**
+    
+    - ==L’utente inserisce **username e password**.==
+        
+    - ==Per file pubblici, spesso si utilizza la modalità **anonymous FTP**, con `anonymous` come username e `guest` come password predefinita.==
+        
+3. **Trasferimento del file**
+    
+    - ==I comandi (es. `RETR` per scaricare, `STOR` per caricare) viaggiano sulla **[[#^4d627f|control connection]]**.==
+        
+    - ==I dati veri e propri vengono trasferiti sulla **[[#^42332f|data connection]]**==.
 
 
-Trasferimento del file: 
-sfrutta entrambi le connessioni e usa il data transfer
+### [[#^smtp-pop3-imap|SMTP/POP3/IMAP]]
+Quando parliamo di posta elettronica, entrano in gioco tre protocolli principali che collaborano per permettere l’invio e la ricezione dei messaggi:
+1. **[[#Cos'è il protocollo SMTP (Simple Mail Transfer Protocol)|SMTP (Simple Mail Transfer Protocol)]]:** 
+	- protocollo di invio della posta
+	  ^smtp
+   
+2. **[[#**POP3 (Post Office Protocol v3)**|POP3 (Post Office Protocol v3)]]:** 
+	- ricezione della posta con download locale
+	  ^pop3
+	  
+3. **[[#**IMAP (Internet Message Access Protocol)**|IMAP (Internet Message Access Protocol)]]:** 
+	- icezione della posta mantenendo i messaggi sul server. 
+	  ^imap
+
+Spieghiamo in dettaglio questi tre protocolli usando questa immagine: 
+L’immagine illustra il flusso di comunicazione tra client e server.
+![[SMTP-POP3-IMAP.png]]
+#### Cos'è il protocollo SMTP (Simple Mail Transfer Protocol)
+
+- È il protocollo che gestisce **l’invio delle e-mail**.
+    
+-  Opera in due scenari distinti:
+    
+    1. **Dal client al server di posta** → quando l’utente preme “Invia”, il client (MUA, Mail User Agent) trasmette il messaggio al server (MTA, Mail Transfer Agent).
+        
+    2. **Da server a server** → gli MTA possono scambiarsi il messaggio fino a raggiungere il server del destinatario.
+        
+- **Porte utilizzate:**
+    
+    - 25 (standard per inoltro server-server)
+        
+    - 587 (invio autenticato, consigliato).
+ 
+Nell'[[SMTP-POP3-IMAP.png|immagine]]: 
+- Il **Mail User Agent (MUA)** del mittente (es. Outlook, Thunderbird, Gmail client) invia la mail tramite **SMTP** al **Mail Transfer Agent (MTA)**.
+    
+- Questo MTA può inoltrarla a più server intermedi finché non raggiunge l’MTA del destinatario.
+
+#### **POP3 (Post Office Protocol v3)**
+
+- ==È il protocollo che gestisce **la ricezione della posta**.==
+    
+- **Funzionamento tipico:**
+
+	- Il client scarica i messaggi dal server.
+    
+	- Dopo il download, i messaggi vengono normalmente eliminati dal server.
+    
+	- Di conseguenza, la posta resta **solo sul dispositivo locale**.
+    
+- Porta tipica: **110** (oppure **995** se si utilizza una connessione sicura SSL/TLS).
+Nell'[[SMTP-POP3-IMAP.png|immagine]]: 
+- Il secondo **Mail Transfer Agent (MTA)** a cui è stata inoltrata l'email del mittente tramite il primo MTA diventa un **Mail Delivery Agent (MDA)**, ovvero consegna la mail al destinatario Mail User Agent (MUA).
+- Il MUA del destinatario si connette al server e, tramite POP3, **scarica definitivamente il messaggio**.
+
+> [!failure] **Svantaggio**
+> non è possibile mantenere i messaggi sincronizzati su più dispositivi.
+
+#### **IMAP (Internet Message Access Protocol)**
+
+- - È una **versione più moderna e flessibile** del protocollo POP3.
+    
+- Caratteristiche principali:
+    
+    - I messaggi **rimangono memorizzati sul server**.
+        
+    - L’utente può visualizzarli, spostarli e organizzarli come se fossero locali.
+        
+    - Permette l’accesso allo stesso account da più dispositivi (PC, smartphone, tablet) mantenendo tutto sincronizzato.
+        
+- **Porta tipica:** 143 (oppure 993 se si usa SSL/TLS).
 
 
-### STMP/POP3/IMAP
-Sono 3 protocolli, di invio STMP e gli altri di ricezioni
+Nell'[[SMTP-POP3-IMAP.png|immagine]]: 
+- Non è mostrato esplicitamente il flusso IMAP, ma il comportamento è analogo a POP3.
+    
+- Differenza fondamentale: i messaggi **non vengono cancellati dal server**, così l’utente può consultarli e gestirli in parallelo da più dispositivi.
 
-Il POP3 recupera le email scaricandole in locale e cancellandole dal server
-ùIMPa: recupra le email per l'utente, le scarica ma lascia le email sul server rendendole accessibili da qualsiasi dispositivi
+
+> [!link] **In sintesi**
+> - **[[#^smtp|SMTP]] = invio / inoltro di email**
+ >   
+>- **[[#^pop3|POP3]] = ricezione con download locale (senza sincronizzazione)**
+   > 
+>- **[[#^imap|IMAP]] = ricezione mantenendo le mail sul server e sincronizzate tra più dispositivi**
+
 
 ### DHCP (Dynamic Host Configuration Protocol)
 
-DHCP è un protocollo utilizzato quando un nuovo device si collega a una rete per assegnare l'indirizzo IP 
-Non sa qual'è il router invia in boradcast un messaggio in rete per scorprire chi è il DCHP server (il router) e quando il router risponde invia tutti i dati offrendo indirizzo IP dispponibile  e e le altre configuarzioni di rete. 
-Il client risponde con un DHCP Request indicando che accetta le condizioni
+Il **[[#^dhcp|DHCP]]** è:
+- ==il protocollo che si occupa di assegnare automaticamente un indirizzo IP e altri parametri di rete (gateway, [[#DNS Domain Name System (DNS)|DNS]], [[Network, Transport, Session, Presentation, Application Layers#La Maschera di Rete (Subnet Mask Structure)|subnet mask]], ecc.) a un dispositivo quando questo si collega a una rete.==  
+Il processo avviene in più fasi:
+
+1. **DHCP Discover:**
+    -  ==Quando un nuovo dispositivo entra in rete, non conosce l’indirizzo del server DHCP (spesso integrato nel router). Per questo invia un **[[Reti di computer#Broadcast|messaggio broadcast]]** chiamato _DHCPDISCOVER_ per cercare un server disponibile==.   ^dhcpDiscover
+    
+    
+2. **DHCP Offer:**
+    -  Il server DHCP che riceve la richiesta risponde con un **_DHCPOFFER_**
+    - **DHCPOFFER:** ==una proposta che contiene un indirizzo IP libero e le configurazioni di rete necessarie==.  ^dhcpOffer
+    
+    
+3. **DHCP Request:**
+    -  ==Il client, dopo aver ricevuto una o più offerte, sceglie quella da accettare e invia un _DHCPREQUEST_ al server, comunicando la sua decisione==.  ^dhcpRequest
+    
+    
+4. **DHCP Acknowledgment:**
+    -  ==Infine, il server conferma l’assegnazione inviando un _DHCPACK_ (acknowledgment).==   ^dhcpAck
+    - A questo punto il client può iniziare a usare l’indirizzo IP e le configurazioni ricevute.   
+  
+    
+
+
+Per comprendere meglio questi passaggi prendiamo come esempio questa immagine:
+![[DHCP.png]]
+
+**Spiegazione:**
+
+- Quando un **DHCP Client** (ad esempio un laptop appena acceso) entra in una rete, non conosce l’indirizzo del server DHCP.  
+    - Per questo invia un **messaggio broadcast [[#^dhcpDiscover|DHCP Discover]]** sulla rete locale, chiedendo se esista un server in grado di fornirgli un indirizzo IP.
+    
+- Il **DHCP Server** (spesso coincide con il router domestico o aziendale) riceve la richiesta e risponde con un **[[#^dhcpOffer|DHCP Offer]]**, cioè una proposta che contiene:
+    
+    - un indirizzo IP libero,
+        
+    - la subnet mask,
+        
+    - il gateway predefinito,
+        
+    - e altri parametri come i server DNS.
+        
+- Il client, dopo aver ricevuto l’offerta, invia un **[[#^dhcpRequest|DHCP Request]]**, dichiarando esplicitamente che intende accettare quell’assegnazione di IP da quel server.
+    
+- Infine, il server invia un **[[#^dhcpAck|DHCP ACK (Acknowledgment)]]**, confermando la validità dell’assegnazione. Da questo momento, il client può utilizzare l’indirizzo IP e i parametri ricevuti per comunicare in rete. 
+
+
+> [!example] **Esempio Reale:**
+> Immaginiamo che tu arrivi in un bar con il tuo smartphone e ti connetta al Wi-Fi gratuito:
+>
+>1. Il tuo telefono non sa quale IP usare → invia un **DHCP Discover**.
+  >  
+>2. Il router del bar riceve il messaggio e risponde con un **DHCP Offer**, proponendo ad esempio l’IP `192.168.1.25`.
+  >  
+>3. Il telefono accetta quell’indirizzo → invia un **DHCP Request**.
+  >  
+>4. Il router conferma con un **DHCP ACK**. Ora il tuo telefono ha un IP valido (`192.168.1.25`), sa quale gateway usare (`192.168.1.1`) e quali DNS contattare (ad esempio `8.8.8.8`).
+>> [!abstract]- **Analogia:**
+>> Il DHCP funziona praticamente come un “contratto temporaneo” tra un client (host) e un server (tipicamente un router o un server dedicato) per l’assegnazione di un indirizzo IP e altre informazioni di rete. 
+>> Se lo traduciamo in termini di contratto:
+>>
+>>1. **DHCP Discover → Richiesta di contratto**  
+>>    ==Il client “dichiara” che vuole entrare nella rete e cerca un server che possa fornirgli un IP.== 
+>>>[!Example]    È come dire: _“C’è qualcuno disposto a stipulare un contratto di indirizzo con me?”_
+>>    
+>>2. **DHCP Offer → Offerta di contratto**  
+>>    Il server risponde con i termini del contratto: un IP libero, subnet mask, gateway, tempo di lease, ecc. È l’equivalente della proposta contrattuale che il server fa al client.
+>>    
+>>3. **DHCP Request → Accettazione del contratto**  
+>>    Il client accetta l’offerta specifica, indicando chiaramente quale server e quale IP vuole usare. In pratica, accetta le condizioni proposte.
+ >>   
+>>4. **DHCP ACK → Conferma finale del contratto**  
+>>    Il server conferma ufficialmente l’assegnazione dell’indirizzo IP e degli altri parametri al client. A questo punto, il “contratto” è valido per il periodo di lease indicato.
+>>    
+>>
+>>>Analogicamente, puoi anche vedere il **DHCP Lease** come la durata del contratto: scaduto il tempo, se il client vuole continuare a usare lo stesso IP, deve rinnovare il contratto (DHCP Request/Renew e DHCP ACK/Renew).
+
+## [[#^TransportLayer|Transport Layer]]
+Il Transport Layer è il secondo livello del modello TCP/IP (l'equivalente del [[Network, Transport, Session, Presentation, Application Layers#ISO E OSI Model transportLayer Transport Layer|Transport Layer]] nel modello ISO/OSI).
+
+##### Funzioni principali 
+- Fornisce **trasmissione dati** tra host.
+    
+- Può essere **affidabile(protocollo TCP)** o **non affidabile(protocollo UDP)**, a seconda del protocollo utilizzato.
+    
+- Include meccanismi per assicurare che i dati arrivino correttamente e nell’ordine giusto (solo se il protocollo scelto è affidabile).
+
+
+Come anticipato all'inizio del file, la comunicazione tra processi avviene tramite **2 protocolli:**
+
+| Protocollo | Tipo di comunicazione                                                                                                 | Caratteristiche principali                                                                                                                            |
+| ---------- | --------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **TCP**    | [[Internetwork-Protocols#Connection Oriented services:\|Connection-oriented ]](orientato alla connessione)            | Affidabile; garantisce che i dati arrivino integri e nell’ordine corretto; usa meccanismi come **acknowledgment**, **sequencing** e **flow control**. |
+| **UDP**    | [[Internetwork-Protocols#Servizi non orientati alla connessione(connectionless)\|Connectionless]] (senza connessione) | Non affidabile; i dati possono arrivare fuori ordine o andare persi; basso overhead, ideale per streaming o applicazioni real-time.                   |
+
+
+### TCP (Transmission Control Protocol)
+
+**Tipo:** Connection-oriented (orientato alla connessione)  
+**Funzione principale:** Trasmissione dati affidabile tra host.
+
+**Caratteristiche principali:**
+
+- **Affidabilità:** garantisce che i dati arrivino corretti e nell’ordine giusto.
+    
+- **Error checking:** controlla la presenza di errori nei pacchetti.
+    
+- **Flow control:** regola il flusso di dati tra mittente e destinatario per evitare sovraccarichi.
+    
+- **Acknowledgment:** conferma la ricezione di pacchetti, evitando perdite o duplicazioni.
+    
+
+**Sintesi:** ==TCP assicura che la comunicazione sia **affidabile e ordinata**, rendendolo ideale per applicazioni come web, email e trasferimento file.==
+
+
+#### Spiegazione dell'immagine: il protocollo TCP in azione
+Il TCP, essendo **[[Internetwork-Protocols#Connection Oriented services|connection-oriented]]:**
+	-  ==richiede di instaurare una connessione logica tra i due host (Host A e Host B) prima di scambiare dati veri e propri.== 
+	  
+Allo stesso modo, quando la comunicazione è finita, la connessione viene chiusa in modo ordinato.
+Come possiamo vedere dall'[[TCP Protocol.png|immagine sottostante]] nel protocollo TCP vi è prima una creazione della connessione ([[#**1. TCP Connection Establishment (Three-Way Handshake)**|Connection Establishment]]) e in seguito una terminazione della connessione quando finisce ([[#**2. TCP Connection Termination (Four-Way Handshake)**|Connection Termination]]):
+##### **1. TCP Connection Establishment (Three-Way Handshake)**
+- Questo è il "rito di introduzione" tra due dispositivi.
+- ==Serve per sincronizzare i numeri di sequenza iniziali (**Sequence Number - SYN** e **Acknowledgment Number - ACK**) e negoziare i parametri della connessione.==
+**Fase per Fase:**
+1. **`Host A --> Host B: SYN`**
+    
+    - ==L'Host A (il client, ad esempio il tuo browser) invia all'Host B (il server, ad esempio google.com) un pacchetto speciale chiamato **SYN** (Synchronize).== 
+        
+    - In pratica, questo pacchetto dice: _"Ciao Server, vorrei avviare una connessione. Il mio numero di sequenza iniziale è X."_
+2. **`Host B --> Host A: SYN-ACK`**
+    
+    - ==L'Host B riceve il SYN. Se è pronto ad accettare la connessione, risponde con un unico pacchetto che è sia **SYN** che **ACK** (Acknowledgment)==.
+        
+    - Questo messaggio significa: _"Ok Client, ho ricevuto la tua richiesta (ACK) e sono d'accordo ad aprire la connessione. Il _mio numero di sequenza iniziale è Y."_
+3.  **`Host A --> Host B: ACK`**
+    
+    - ==Infine, l'Host A invia un **ACK** al server per confermare la ricezione del SYN-ACK==.
+        
+    - Dice: _"Perfetto Server, ho ricevuto la tua conferma. La connessione è ora stabilita."_
+
+
+==Dopo questo terzo scambio, i dati possono iniziare a fluire in modo affidabile tra i due host.== 
+
+#####  **2. TCP Connection Termination (Four-Way Handshake)**
+Quando una delle due parti ha finito di inviare dati; 
+- ==avvia la procedura per chiudere la connessione in modo elegante e senza perdite.== 
+Questo processo **è simmetrico:** 
+- ==cioè ogni lato deve chiudere la sua metà della connessione indipendentemente.==
+
+**Fase per Fase:**
+
+1. **`Host A --> Host B: FIN`**
+    
+    - ==L'Host A (che ha finito di inviare dati) invia un pacchetto **FIN** (Finish) all'Host B.==
+        
+    - Comunica: _"Ho finito di inviarti dati. Vorrei chiudere la connessione dalla mia parte."_
+        
+
+> [!NOTE] **Nota:**
+> - ==Host A non può più inviare dati, ma **può ancora riceverne** da Host B.==
+
+        
+2. **`Host B --> Host A: ACK`**
+    
+    - ==L'Host B riceve il FIN e risponde immediatamente con un **ACK**.==
+        
+    - Dice: _"Ok, ho ricevuto la tua richiesta di chiusura."_
+        
+    - ==A questo punto, Host B sa che non riceverà più dati da Host A, ma potrebbe averne ancora da inviare.==
+        
+3. **`Host B --> Host A: FIN`**
+    
+    - ==Quando anche Host B ha finito di inviare tutti i suoi dati rimanenti ad Host A, invia a sua volta un pacchetto **FIN**.==
+        
+    - Comunica: _"Anche io ho finito. Chiudiamo definitivamente."_
+        
+4. **`Host A --> Host B: ACK`**
+    
+    - ==Host A riceve il FIN e invia un ultimo **ACK** per confermare.==
+        
+    - ==Dopo un periodo di time-out per essere sicuro che l'ACK sia arrivato, entrambi gli host rilasciano completamente le risorse della connessione.== 
 
 
 
-## Transport Layer
-Il Tcp usta per le connsessioni connection-oriented
+> [!example] **Esempio Reale: caricare questa pagina web**
+> Immagina di aver digitato `www.google.com` nella barra del browser e premuto Invio.
+>
+>1. **Stabilizione della Connessione (Three-Way Handshake):**
+ >   
+  >  - ==Il **tuo computer (Host A)** invia un pacchetto **SYN** al server di Google (**Host B**).== 
+  >      
+  >  - ==Il server di Google risponde con un **SYN-ACK**.==
+  >      
+  >  - ==Il tuo computer conclude con un **ACK**.==
+  >      
+  >  - **Risultato:** È stato costruito un "tubo" affidabile tra te e Google. Ora il tuo browser può inviare la richiesta HTTP per la homepage attraverso questa connessione TCP appena aperta.
+  >      
+>2. **Trasferimento Dati:**
+  >  
+  >  - Attraverso la connessione stabilita, il server di Google invia i dati della pagina web (HTML, CSS, immagini). TCP si assicura che tutti i pacchetti arrivino, siano in ordine e senza errori, usando i meccanismi di ACK e ritrasmissione.
+  >      
+>3. **Terminazione della Connessione (Four-Way Handshake):**
+  >  
+ >   - ==Dopo che la pagina è stata caricata e non c'è più attività per un po', il **tuo browser (Host A)** invia un **FIN** per dire che ha chiuso la sua finestra==.
+  >      
+  >  - ==Il server di Google conferma con un **ACK**.==
+  >      
+  >  - ==Poco dopo, anche **il server di Google (Host B)**, avendo inviato tutti i dati, invia il suo **FIN**.==
+  >      
+   > - ==Il tuo computer risponde con un ultimo **ACK**.==
+  >      
+  >  - **Risultato:** ==La connessione è chiusa in modo pulito e le risorse di rete su entrambi i lati vengono liberate.==
 
-### TCP
-Fornisce l'affidabilità, stabilsce la connessione, la mantiene fin tanto che ci sono dati da trasferire e dopo che il trasferiemnto di dati non c'è più stacca la connessione.
-L'host B risponde con due messaggi (l'ACK e il messaggio flag Fin questo serve nel caso in cui l'Host A abbia finito di mandare i dati ma l'host B no).
 
+![[TCP Protocol.png]]
 #### TCP Header Structure
-nel caso del TCP oltre a porte sorgente e porte di destinazioni abbiamo anche altri campi chiave come 
-L'acknowlegment number: confemra il riceviemtno di dati 
-Checksum
-FLags:
-SYN
-ACK
-FIN
+L'intestazione TCP contiene diversi campi fondamentali per il suo funzionamento affidabile.
+
+![[TCP Header Structure.png]]
+
+Guardando questa immagine possiamo notare diversi campi della struttura dell'intestazione TCP, i principali sono: 
+
+**1. Porte (Source Port & Destination Port - 16 bit ciascuna)**
+
+- **Funzione:** 
+	- ==Identificano rispettivamente l'applicazione sul mittente e sul destinatario==. 
+	- ==Indirizzano il segmento al processo corretto su ogni host==.
+    
+
+**2. Sequence Number (Numero di Sequenza - 32 bit)**
+
+- **Funzione:** 
+	- ==Indica la posizione del primo byte di dati nel segmento corrente all'interno del flusso totale di byte.== 
+	- ==È cruciale per riordinare i segmenti ricevuti fuori ordine.==
+    
+
+**3. Acknowledgment Number (Numero di Riscontro - 32 bit)**
+
+- **Funzione:** ==Conferma la ricezione dei dati== 
+	- In sostanza indica ==il prossimo byte che il ricevitore si aspetta di ricevere, confermando così che tutti i byte precedenti sono stati ricevuti correttamente.==
+    
+
+**4. Checksum (16 bit)**
+
+- **Funzione:** 
+	- ==Utilizzato per il **controllo degli errori** sull'header e sui dati.== 
+	- ==Verifica l'integrità del segmento per rilevare eventuali corruzioni avvenute durante la trasmissione.==
+    
+
+**5. Flags (Bandierine di Controllo - 9 bit)**
+
+- **Funzione:** ==Bit di controllo che segnalano lo stato o l'intento della comunicazione==. 
+  Le tre flags principali sono:
+    
+    - **SYN (Synchronize):** Utilizzato nella **[[#**1. TCP Connection Establishment (Three-Way Handshake)**|fase di stabilimento della connessione (three-way handshake)]].**
+        
+    - **ACK (Acknowledgment):** 
+	    - ==Indica che il campo **Acknowledgment Number** è valido==. 
+	    - ==Viene impostato per confermare la ricezione di dati==.
+        
+    - **FIN (Finish):** 
+	    - ==Utilizzato per chiudere la connessione in modo ordinato, indicando che il mittente non ha più dati da inviare.==
+
+### UDP (User Datagram Protocol)
+
+Protocollo di trasporto **[[Internetwork-Protocols#Servizi non orientati alla connessione(connectionless)|connectionless]]** e **non affidabile**. A differenza di [[#TCP (Transmission Control Protocol)|TCP]], non garantisce la consegna, l'ordinamento o la ritrasmissione dei pacchetti.
+
+- **Controllo Errori (Checksum):**
+	- È presente un **checksum** nell'header ==per rilevare errori di trasmissione nei dati e nell'indirizzo.== 
+	- ==I pacchetti corrotti vengono scartati silenziosamente _senza_ richiedere una ritrasmissione==. 
+	- ==Questo meccanismo minimale è stato inserito per **evitare usi impropri** e prevenire la corruzione "silenziosa" dei dati a livello applicativo==, guidando così gli sviluppatori verso scenari d'uso appropriati.
+    
+- **Differenza con OSI:** A differenza dei servizi connectionless puri degli strati inferiori del modello ISO/OSI (es. Livello 2 - [[ISO E OSI Model#dataLink-layer Livello data link|Data Link]]), il UDP opera a Livello 4 e fornisce comunque i servizi base del suo strato, come il multiplexing basato sulle porte e, appunto, un controllo opzionale degli errori.
+    
+- **Scenario d'uso:** Ideale dove **la velocità e la bassa latenza sono più importanti dell'affidabilità totale**, come nello streaming audio/video, nelle query DNS o nei giochi online.
+
+#### Spiegazione dell'immagine
+Per comprendere meglio come funziona il protocollo UDP, basta guardare questa immagine: 
+
+![[UDP Protocol.png]]
+
+L'immagine mostra il principio fondamentale di UDP: 
+- ==il mittente invia dati senza avere alcuna garanzia o conferma che arrivino a destinazione.==
+
+1. **Request (Richiesta):** ==Il **Sender** (mittente) invia uno o più datagrammi UDP verso il ricevitore.==
+    
+    - **Nessuna connessione:** 
+	    - ==Non c'è un handshake iniziale (nessun SYN, SYN-ACK, ACK come in TCP). Il mittente "spara" i dati nella rete e spera per il meglio.==
+        
+    - **Nessuna garanzia:** 
+	    - ==Ogni freccia "Request" rappresenta un datagramma che potrebbe perdersi, arrivare duplicato o fuori ordine. UDP non fa nulla per evitarlo.==
+        
+2. **Response (Risposta) _Opzionale_:** Le frecce "Response" sono la parte _cruciale_ per capire l'immagine. 
+	   ==In UDP, non esiste una "risposta" a livello di protocollo.==
+    
+    - ==Le "Response" nell'immagine non sono inviate dal protocollo UDP, ma **dall'applicazione** che sta usando UDP.==
+        
+    - ==Se l'applicazione sul receiver ha bisogno di confermare la ricezione, deve farlo **a suo modo**, inviando a sua volta un datagramma UDP come risposta all'applicazione mittente==.
+        
+    - Ma attenzione: anche questa risposta dell'applicazione è un datagramma UDP **non affidabile!** Anche essa potrebbe perdersi.
 
 
-### UDP 
-Per connessioni connectionless, è stato inserito il meccanismo di controllo di errori per evitare usi impropri di questo protocolli, a differenza delle connessioni connectionless del protocollo ISO/OSI
+> [!example] **In sintesi:**
+> L'immagine mostra che la responsabilità di gestire la logica di comunicazione (conferme, ritrasmissioni, ordine) è **totalmente a carico dell'applicazione**. 
+> ==UDP si limita a inviare e ricevere datagrammi, punto.==
+
+
+
+> [!example] **Esempio Reale: Una Ricerca [[#DNS Domain Name System (DNS)|DNS]]**
+>**Scenario:** Il tuo computer (client) deve risolvere il nome `www.google.com` in un indirizzo IP.
+>
+>1. **Request (dal Client):**
+  >  
+>    - La tua applicazione (il resolver DNS) prepara una domanda: "Qual è l'IP di `www.google.com`?".
+>        
+>    - **Usa UDP:** ==Impacchetta questa domanda in **uno o più** datagrammi UDP e li invia all'indirizzo del server DNS. Il protocollo UDP manda i pacchetti e non si preoccupa altro.==
+>        
+>2. **Response (dal Server DNS _se tutto va bene_):**
+>    
+>    - ==Il server DNS riceve la richiesta (se il datagramma non si è perso)==.
+>        
+>    - ==Elabora la query e prepara la risposta: "L'IP è `142.251.209.36`"==.
+>        
+>    - **Ancora UDP:** ==Impacchetta questa risposta in un datagramma UDP e lo invia indietro all'indirizzo IP e alla porta del tuo computer.==
+>        
+>    - ==Il tuo computer riceve la risposta (se questo datagramma non si è perso) e la passa al browser.==
+>        
+>
+>**Cosa succede se qualcosa va storto?**
+>
+>- **Se la Request si perde:** ==Il tuo computer non riceve alcuna risposta. Dopo un **time-out** stabilito dall'applicazione (non da UDP!), il tuo computer ritrasmetterà la stessa identica richiesta UDP.==
+>    
+>- **Se la Response si perde:** ==Il tuo computer non riceve alcuna risposta. Anche in questo caso, dopo un time-out, la tua applicazione ritrasmetterà la richiesta.==
+>  
+>> [!abstract]- **Perché usare UDP per questo?**
+>>Perché è velocissimo. 
+>>Inviare una singola richiesta e sperare in una singola risposta è molto più efficiente che avviare una complessa connessione TCP con handshake a tre vie per una transazione così piccola e veloce.
+>>Quindi [[UDP Protocol.png|l'immagine]] mostra un flusso di datagrammi (richieste e risposte) dove il protocollo di base non fornisce alcuna garanzia intrinseca. 
+>>==L'affidabilità, se necessaria, deve essere implementata a un livello superiore (dall'applicazione).==
+
+
 #### UDP Header Structure
-Source e destination port
-Length
-Checksum
+L'header UDP è estremamente semplice e minimalista, soprattutto se confrontato con quello di [[#TCP Header Structure|TCP]]. 
+Questo riflette perfettamente la filosofia del protocollo:
+	- ==**essere leggero e veloce**, delegando all'applicazione qualsiasi necessità di complessità.== 
+
+L'header è composto da soli **4 campi** per un totale di **8 byte** (64 bit).
+
+##### **1. Source Port (Porta Sorgente - 16 bit)**
+
+- **Funzione:** 
+	- ==Identifica il numero di porta dell'applicazione **mittente** sul dispositivo di origine.==
+    
+
+> [!NOTE] **Nota:** 
+> 
+> - Questo campo è **opzionale**. 
+> - Se non utilizzato, viene impostato a zero. 
+> 	- Viene usato quando il destinatario ha bisogno di sapere a quale porta rispondere.
+
+    
+
+##### **2. Destination Port (Porta Destinazione - 16 bit)**
+
+- **Funzione:** 
+	-  ==Questo campo è **obbligatorio**.==
+	- ==Identifica il numero di porta dell'applicazione **destinataria** sul dispositivo di destinazione.== 
+	
+    
+
+> [!example] **Esempio:** 
+> Se un client vuole effettuare una query DNS, indirizzerà il suo datagramma UDP alla **Porta 53** del server, che è la porta standard per il servizio DNS.
+
+##### **3. Length (Lunghezza - 16 bit)**
+
+- **Funzione:** 
+	- ==Specifica la **lunghezza totale** dell'intero datagramma UDP, comprendendo sia **l'header (8 byte)** che i **dati** (payload)==.
+    
+
+> [!info]  **Calcolo:**
+>  Il valore minimo è 8 (se il datagramma non ha dati payload). Il valore massimo teorico è 65.535 byte, ma nella pratica è spesso limitato dalle reti sottostanti.
+
+    
+
+##### **4. Checksum (Checksum - 16 bit)**
+
+- **Funzione:**
+	- ==Utilizzato per il **controllo degli errori** sull'header, sui dati e su una "pseudo-header" IP (che include indirizzi IP sorgente e destinazione).==
+	- ==Il suo scopo è rilevare se il datagramma è stato corrotto durante la trasmissione.==
+    
+
+> [!info]   **Comportamento:**
+> ==Se il checksum calcolato dal ricevitore non corrisponde, il datagramma viene **scartato silenziosamente**, senza alcuna notifica al mittente.== 
+> Questo è l'**unico** meccanismo di "controllo" offerto da UDP, ed è anche esso **opzionale** (se non usato, il campo è impostato a zero).
 
 
-## Livello Interent
-Il protoccolo IP 
+## Network Layer
+Terzo e penultimo livello del modello TCP/IP 
 ICMP
 ARP 
 ### ICMP 

@@ -309,6 +309,18 @@
       "width": "",
       "height": "",
       "wrap": true
+    },
+    "8e7ace0b4fbbe61826ded72c92fc5b00": {
+      "position": "center",
+      "width": "464px",
+      "height": "264px",
+      "wrap": false
+    },
+    "4b012abbf53db3cd26ddcc59c5b7544e": {
+      "position": "center",
+      "width": "519px",
+      "height": "334px",
+      "wrap": false
     }
   }
 }

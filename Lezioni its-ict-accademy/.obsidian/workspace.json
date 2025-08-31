@@ -126,6 +126,16 @@
               "icon": "lucide-file",
               "title": "Modello TCP-IP"
             }
+          },
+          {
+            "id": "5cb22684124f3091",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
+            }
           }
         ],
         "currentTab": 7
@@ -315,28 +325,28 @@
   },
   "active": "c1d431512474e682",
   "lastOpenFiles": [
+    "img/Sistemi Digitali/Lezione 19/UDP Protocol.png",
+    "img/Sistemi Digitali/Lezione 19/TCP Header Structure.png",
+    "img/Sistemi Digitali/Lezione 19/TCP Protocol.png",
+    "img/Sistemi Digitali/Lezione 19/DHCP.png",
+    "Sistemi digitali/Lezione 16/Network, Transport, Session, Presentation, Application Layers.md",
+    "Sistemi digitali/Lezione 19/Modello TCP-IP.md",
+    "img/Sistemi Digitali/Lezione 19/SMTP-POP3-IMAP.png",
+    "Sistemi digitali/Lezione 11/Internetwork-Protocols.md",
     "img/Sistemi Digitali/Lezione 19/HTTP - Web Browsing Process.png",
     "img/Sistemi Digitali/Lezione 19/Application Layer.png",
     "img/Sistemi Digitali/Lezione 19",
-    "Sistemi digitali/Lezione 16/Network, Transport, Session, Presentation, Application Layers.md",
-    "Sistemi digitali/Lezione 19/Modello TCP-IP.md",
     "img/Sistemi Digitali/Lezione 16/Network, Transport, Session, Presentation, Apllication Layers/Network Layer.png",
     "Sistemi digitali/Lezione 12/ISO E OSI Model.md",
     "Sistemi digitali/Lezione 12/I fundamentals di un Sistema Operativo.md",
     "img/Sistemi Digitali/Lezione 12/I fundamentals di un sistema operativo/Hybrid Kernel.png",
     "C__Users_Project Lead_OneDrive_Documents_Programmazione_Its-ict academy_Lezioni its-ict-accademy_img/Screenshot 2025-08-29 at 16-57-03 5. Collections - 3-SO.pdf.png",
     "img/Sistemi Digitali/Lezione 12/I fundamentals di un sistema operativo/Microkernel.png",
-    "img/Sistemi Digitali/Lezione 12/I fundamentals di un sistema operativo/Monolithic.png",
-    "img/Sistemi Digitali/Lezione 12/I fundamentals di un sistema operativo/Struttura dell'SO.png",
     "Docker.md",
-    "img/Sistemi Digitali/Lezione 12/I fundamentals di un sistema operativo/Livelli SO.png",
     "Sistemi digitali/Lezione 11/Il modello di Von Neumann.md",
-    "img/Sistemi Digitali/Lezione 12/I fundamentals di un sistema operativo/Bios VS UEFI.png",
     "Sistemi digitali/Lezione 7/Reti di computer.md",
     "Untitled.md",
-    "Sistemi digitali/Lezione 11/Internetwork-Protocols.md",
     "Sistemi digitali/Lezione 10/Le architetture di un Computer.md",
-    "img/Sistemi Digitali/Lezione 16/Network, Transport, Session, Presentation, Apllication Layers/Analogia.png",
     "Sistemi digitali/Lezione 7/Complemento a 2 e Reti di calcolatori.md",
     "img/Sistemi Digitali/Lezione 7",
     "Sistemi digitali/Lezione 7/Spiegazione per i vantaggi e svantaggi dei modelli Client server e P2P, spiegazione delle tre entità di spotify..md",
