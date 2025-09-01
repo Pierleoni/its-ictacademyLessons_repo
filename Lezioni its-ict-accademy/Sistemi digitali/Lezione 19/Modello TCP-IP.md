@@ -652,23 +652,243 @@ L'header è composto da soli **4 campi** per un totale di **8 byte** (64 bit).
 > Questo è l'**unico** meccanismo di "controllo" offerto da UDP, ed è anche esso **opzionale** (se non usato, il campo è impostato a zero).
 
 
-## Network Layer
-Terzo e penultimo livello del modello TCP/IP 
-ICMP
-ARP 
-### ICMP 
-è un protocollo che viene utilizzato per creare il report riguarod una connessione, quindi utilizzato dai tool di diagnostica, e in grado di creare un report.
-su windows `ping google.com` per vedere se il server di google è disponibile 
-un altro commando è `tracert google.com`: permette di vedere il percorso di tutti i pacchetti trasporti per raggiungere la destinazione (dall'host al server).
+## Internet Layer
+[[#^iso-osiANDtcp-ip|Terzo e penultimo livello del modello TCP/IP]].
+Questo strato è il **cuore** di tutta Internet. 
+Il suo compito principale è:  
+- ==permettere la comunicazione tra host su reti **diverse**, indirizzando e instradando i pacchetti attraverso più "salti" (router) dalla sorgente alla destinazione.==
 
-### ARP 
-si occuppa di tradurre gli indirizzi IP in indirizzi MAC all'intenro della LAN.
-Come funziona:
-Di fare questa traduzione se ne occupa il router che ha un tabella al suo intenro dove tutti gli indirizzi IP sono associati gli indirizzi MAC, se la tabella non è aggiornata il dispositivo che vuole comunicare manda in broadcast un 
-ARP Request
-il dispoistivo dall'altro capo risponde con un ARP Reply
- e infine c'è il ARP Cache.
+### Funzioni Principali: 
+1. **Indirizzamento Logico (Logical Addressing):**
+    
+    - Assegna a ogni dispositivo su una rete un indirizzo univoco e logico: l'**[[Network, Transport, Session, Presentation, Application Layers#Logical Addressing - IP Address|Indirizzo IP]]**.
+        
+    - Questo indirizzo (es. `192.168.1.10` o `2001:db8::1`) è gerarchico:  
+	    - contiene [[Network, Transport, Session, Presentation, Application Layers#^83bcda|informazioni sulla rete di appartenenza]] e [[Network, Transport, Session, Presentation, Application Layers#^bd5cc1|sull'host specifico]], permettendo un instradamento efficiente attraverso il globo.
+        
+2. **Instradamento (Routing):**
+    
+    - ==È il processo di determinare il **percorso migliore** che un pacchetto deve fare attraverso una serie di router per passare da una rete di partenza a una rete di destinazione.== 
+        
+    - I **router** sono i dispositivi che operano a questo livello, prendendo decisioni di instradamento basate su [[Network, Transport, Session, Presentation, Application Layers#^tableRouting|tabelle di routing]].
+        
+3. **Consegna al Destinatario Corretto:**
+    
+    - ==Gestisce il forwarding dei pacchetti attraverso multiple reti, garantendo (o almeno, tentando di garantire) che raggiungano la rete di destinazione corretta.== 
+### Protocolli Chiave
+Questo livello per la comunicazione e il trasferimento di dati sfrutta 3 protocolli: 
+
+#### 1. IP(Internet Protocol - IPv4 e IPv6): 
+- **Il protocollo principale.** 
+- È responsabile dell'incapsulamento dei dati in **pacchetti** (o datagrammi), dell'assegnazione degli indirizzi di sorgente e destinazione e del loro instradamento attraverso la rete.
+    
+- È un protocollo **[[Internetwork-Protocols#Servizi non orientati alla connessione(connectionless)|connectionless]]** e **best-effort**: non stabilisce una connessione prima di inviare i dati e non garantisce la consegna (questo è compito degli strati superiori, come [[#TCP (Transmission Control Protocol)|TCP]]).
 
 
-## Network Access
-Protocolli Ethernet e wi-fi
+#### 2. ICMP  (Internet Control Message Protocol)
+- Il  compito di questo protocollo è **scambiare messaggi di controllo e di errore** tra dispositivi di rete (host, router). 
+- È il "meccanismo di segnalazione" fondamentale di IP.
+###### Scopo principale 
+- **Non trasporta dati applicativi** (come web, email, ecc.). Il suo unico compito è **creare report** e **diagnosticare** problemi relativi all'instradamento dei pacchetti IP.
+    
+- Viene utilizzato da **tool di diagnostica di rete** per verificare la connettività e le prestazioni.
+
+##### Come funziona 
+- Quando un router o un host rileva un problema (es. un host non raggiungibile, un pacchetto che supera il suo "time to live"), **genera un messaggio ICMP** e lo invia **alla sorgente** del pacchetto originale per notificare l'errore.
+- Esempio: Se un router non sa come raggiungere la rete di destinazione, scarterà il pacchetto e invierà un messaggio ICMP **`Destination Unreachable (Type 3)`** all'IP mittente per informarlo del problema.
+
+##### Messaggi comuni del protocollo ICMP
+L'ICMP (Internet Control Message Protocol) utilizza diversi "tipi" di messaggi per svolgere funzioni specifiche.
+1. **Echo Request (Tipo 8) & Echo Reply (Tipo 0)**
+
+	- **Funzione:** ==Questi due messaggi lavorano in coppia per formare il cuore del comando **`ping`**.==
+    
+	- **Meccanismo:**
+    
+	    1. ==Un host invia un **Echo Request (Tipo 8)** a un altro host. È come bussare alla porta e chiedere "C'è nessuno?".==
+        
+	    2. ==Se l'host di destinazione è raggiungibile e operativo, risponde con un **Echo Reply (Tipo 0)**, che significa "Sì, sono qui!"==.
+        
+	- **Scopo:** ==Verificare la **raggiungibilità** di un host e misurare il **tempo di andata e ritorno** (round-trip time) della comunicazione==.
+    
+
+2. **Destination Unreachable (Tipo 3)**
+
+- **Funzione:** ==Segnalare che un pacchetto IP non ha potuto essere consegnato alla sua destinazione finale.==
+    
+- **Meccanismo:** ==Un router o un host intermedio che incontra un problema durante l'inoltro di un pacchetto genera questo messaggio e lo invia **alla sorgente** del pacchetto originale.==
+    
+- **Scopo:** ==Comunicare il motivo specifico del fallimento.== 
+	- All'interno del messaggio di Tipo 3, c'è un **codice** che specifica il problema:
+    
+	    - **Code 0: Network Unreachable** → ==La rete di destinazione non è raggiungibile== (es. non esiste una rotta nella [[Network, Transport, Session, Presentation, Application Layers#^tableRouting|tabella di routing]]).
+        
+	    - **Code 1: Host Unreachable** → ==La rete è raggiungibile, ma l'host specifico al suo interno non lo è== (es. spento o disconnesso).
+        
+	    - **Code 3: Port Unreachable** → ==L'host di destinazione è raggiungibile, ma nessuna applicazione è in ascolto sulla porta richiesta==. 
+		    - Questo è molto comune.
+        
+
+3. **Time Exceeded (Tipo 11)**
+
+- **Funzione:** ==Segnalare che un pacchetto è stato scartato perché il suo **TTL (Time to Live)** è arrivato a zero==.
+    
+- **Meccanismo:** ==Ogni router che inoltra un pacchetto decrementa il suo TTL di 1. Quando il TTL raggiunge 0, il router scarta il pacchetto e invia un messaggio **Time Exceeded** al mittente originale==.
+    
+- **Scopo:**
+    
+    1. **Prevenire loop di instradamento** infiniti.
+        
+    2. **Abilitare il comando `traceroute`/`tracert`**. Questo strumento invia deliberatamente pacchetti con TTL molto bassi (1, 2, 3, ...) per forzare i router lungo il percorso a generare questi messaggi e rivelare così la loro identità e il percorso.
+        
+
+4. **Redirect (Tipo 5)**
+
+- **Funzione:** ==Permettere a un router di "istruire" un host su una rotta migliore per raggiungere una certa destinazione.==
+    
+- **Meccanismo:** 
+	- ==Su una rete locale, un host invia un pacchetto per una destinazione esterna al suo **gateway predefinito**.== 
+	- ==Se il gateway sa che esiste un router sulla stessa rete locale che ha un percorso più diretto, inoltra il pacchetto ma invia anche un **Redirect** all'host.== 
+	- Il messaggio dice all'host: "Per raggiungere quella destinazione, la prossima volta invia il pacchetto direttamente a questo altro router, non a me".
+    
+- **Scopo:** ==Ottimizzare l'efficienza del routing all'interno di una singola sottorete locale.== 
+
+
+#### 3. Address Resolution Protocol ARP 
+L'**Address Resolution Protocol (ARP)** ha un solo compito: 
+- ==**risolvere** (tradurre) un **indirizzo IP** (logico, di livello 3) in un **indirizzo MAC** (fisico, di livello 2) all'interno della stessa rete locale (LAN).== 
+- È il "elenco del telefono" della rete.
+###### Come Funziona
+
+Immagina che il **Tuo PC (`192.168.1.10`)** voglia inviare dati al **Server (`192.168.1.20`)** sulla stessa rete.
+
+1. **Il tuo PC controlla la sua ARP Cache:**
+    
+    - Prima di tutto, il tuo PC controlla la sua tabella ARP personale per vedere se conosce già l'indirizzo MAC del Server (`192.168.1.20`).
+        
+    - **Se lo trova,** invia direttamente il frame al MAC trovato. Fine del processo.
+        
+2. **Se NON lo trova, invia un ARP Request (broadcast):**
+    
+    - Se la voce non è in cache, il tuo PC crea un pacchetto speciale chiamato **ARP Request**. Questo pacchetto contiene la domanda: _"Chi ha l'IP 192.168.1.20? Il suo MAC qual è?"_.
+        
+    - Questo pacchetto viene inviato in **broadcast** all'indirizzo MAC `FF:FF:FF:FF:FF:FF`. Questo significa che **TUTTI i dispositivi** sulla rete locale ricevono e processano questa richiesta.
+        
+3. **Il Server risponde con un ARP Reply (unicast):**
+    
+    - Tutti i dispositivi ricevono la richiesta, ma solo il dispositivo con l'IP `192.168.1.20` (il Server) risponderà.
+        
+    - Il Server crea un **ARP Reply** e lo invia **direttamente (unicast)** al MAC del tuo PC. La risposta dice: _"Ciao, sono io (192.168.1.20) e il mio indirizzo MAC è 00:1A:2B:3C:4D:5E"._
+        
+4. **Il tuo PC aggiorna la sua ARP Cache:**
+    
+    - Il tuo PC riceve la risposta, memorizza la coppia `IP <-> MAC` nella sua **ARP cache** e può ora inviare i dati al Server.
+
+#### ARP Cache 
+- È una **tabella temporanea** nella memoria di **ogni dispositivo**.
+    
+- Le voci hanno una durata limitata (pochi minuti) e poi scadono. Questo perché gli indirizzi MAC possono cambiare (es., una scheda di rete sostituita) o un dispositivo può lasciare la rete.
+    
+
+> [!info] Si può visualizzare la propria ARP cache su Windows con il comando `arp -a` nel prompt dei comandi.
+>  
+
+
+
+> [!link] ARP, IP e indirizzo MAC
+> L'**indirizzo IP** viene (temporaneamente) associato all'**indirizzo MAC** fisico del dispositivo. L'indirizzo MAC è l'identificatore primario e permanente a livello di hardware.
+>
+>>[!example] Facciamo un'analogia perfetta per chiarire il concetto:
+>>Pensa a una grande città (la tua rete locale/LAN):
+>>
+>>1. **Indirizzo MAC (Media Access Control Address):**
+>>    
+>>    - È come **l'indirizzo fisico (civico) di un palazzo**. È unico, permanente e stampato sull'edificio.
+>>        
+>>    - Esempio: `Corso Italia, 123` - `08-16-05-ba-b9-30`
+>>        
+>>   - **Non cambia mai.** Anche se il palazzo cambia proprietario, l'indirizzo fisico rimane lo stesso.
+>>        
+>>2. **Indirizzo IP (Internet Protocol Address):**
+>>    
+>>    - È come il **nome del proprietario attuale di un appartamento in quel palazzo**. È logico e può cambiare.
+ >>       
+>>    - Esempio: `Mario Rossi` - `192.168.1.10`
+>>        
+>>    - **Può cambiare.** Se Mario Rossi si trasferisce, un nuovo proprietario (un nuovo dispositivo) si trasferirà in quell'appartamento e gli verrà assegnato lo stesso "nome" (IP). Oppure, Mario Rossi potrebbe prendere un altro IP dal DHCP.
+>>        
+>>**Cosa fa ARP? Il Postino**
+>>
+>>Il protocollo **ARP** è il **postino molto efficiente** di questa città.
+>>
+>>- Il postino (ARP) ha un pacco per **"Mario Rossi" (IP: 192.168.1.10)**. Ma per consegnarlo, ha bisogno di sapere in **quale palazzo specifico (MAC Address)** andare.
+>>    
+>>- Il postino non sa dove vive Mario Rossi, quindi va in mezzo alla piazza e **urla a tutti i palazzi** (broadcast): _"Hey, qualcuno sa dove abita Mario Rossi (192.168.1.10)?"_
+>>    
+>>- Tutti sentono, ma solo l'inquilino del **Corso Italia, 123** si affaccia alla finestra e urla: _"Sono io! Sono Mario Rossi! Il mio palazzo è questo (08-16-05-ba-b9-30)!"_
+ >>   
+>>- Il postino prende nota su un foglietto (la **ARP cache**) che `Mario Rossi (192.168.1.10)` abita al `Corso Italia, 123 (08-16-05-ba-b9-30)` e gli consegna il pacco.
+>>    
+>>- La prossima volta che avrà un pacco per Mario, controllerà il suo foglietto e andrà direttamente al palazzo giusto, senza bisogno di urlare.
+
+
+## Network Access Layer 
+- Questo è lo [[#^iso-osiANDtcp-ip|strato più basso del modello TCP/IP]].
+- È responsabile della **trasmissione dei dati sul mezzo fisico** (rame, fibra, onde radio, ecc.) 
+- e prepara i pacchetti IP del livello superiore per il viaggio attraverso la rete locale.
+
+### **Funzioni principali**
+
+1. **Data Framing (Incapsulamento):**
+    
+    - I pacchetti IP vengono incapsulati in **frame** adatti alla tecnologia di rete (Ethernet, Wi-Fi).
+        
+    - ==Ogni frame ha un **header** (info mittente/destinatario) e un **trailer** (controllo errori).==
+        
+2. **Physical Addressing (Indirizzamento fisico):**
+    
+    - ==Ogni dispositivo ha un **indirizzo MAC univoco**==.
+        
+    - ==L’header del frame contiene MAC sorgente e MAC destinazione==.
+        
+3. **Error Detection (Rilevamento errori):**
+    
+    - ==Il trailer include un **CRC** per controllare l’integrità.==
+        
+    - ==Se il CRC non corrisponde, il frame viene **scartato**==.
+        
+4. **Access Control (chi può parlare e quando):**
+    
+    - Ethernet (cavo): usa **CSMA/CD** → ==ascolta prima di trasmettere, gestisce collisioni.==
+        
+    - Wi-Fi (wireless): usa **CSMA/CA** → ==ascolta e prenota il canale, riducendo le collisioni.==
+        
+
+#### **Protocolli chiave**
+
+- **Ethernet:**
+    
+    - Standard per LAN cablate.
+        
+    - Definisce cavi, frame e metodo di accesso (CSMA/CD).
+        
+- **Wi-Fi (IEEE 802.11):**
+    
+    - Standard per WLAN wireless.
+        
+    - Gestisce modulazione radio, sicurezza (WPA2/WPA3) e accesso al mezzo (CSMA/CA).
+
+
+
+> [!example] ** Analogia con il Sistema Postale**
+> - **Internet Layer (IP):** Decide la città, la via e il civico di destinazione finale (l'indirizzo IP).
+>    
+>- **Network Access Layer (Ethernet/Wi-Fi):** È il **postino** che:
+ >   
+>    1. **Incapsula (Framing):** Mette la lettera in una busta standard delle poste.
+>        
+>    2. **Indirizzamento Fisico (MAC):** Sulla busta scrive il civico del **prossimo ufficio postale** (l'indirizzo MAC del router) a cui consegnare la lettera per farla proseguire.
+>        
+>    3. **Controllo Errori (CRC):** Applica un sigillo speciale sulla busta. Se il sigillo si rompe durante il trasporto, il prossimo ufficio postale sa che la lettera è stata danneggiata e la getta via.
+>        
+>    4. **Controllo Accesso:** Decide quando mettere la lettera nel camion per non farlo scontrare con altri camion in partenza.

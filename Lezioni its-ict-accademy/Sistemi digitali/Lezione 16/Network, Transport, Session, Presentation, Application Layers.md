@@ -12,7 +12,7 @@ Nello specifico è responsabile delle funzioni di
  2. **Forwarding (instradamento):**
     - ==Muove i pacchetti dall'input del router all'output appropriato==.
     
- 3. **Logical Addressing(indirizzamento):** 
+ 3. **[[#Logical Addressing - IP Address|Logical Addressing(indirizzamento):]]** 
     - ==in questo livello viene scelto il percorso per inviare i pacchetti, l'azione di inviarli (forward) è gestita utilizzando l'indirizzo IP, che identifica in modo univoco i dispositivi sulla rete==.
     
  4. **Frammentazione e Riassemblaggio:**  
@@ -180,10 +180,12 @@ Questo è un esempio di tabella di routing su ogni router e viene cotruita con g
 ## Logical Addressing - IP Address
 Un **indirizzo IP** ==è un numero che identifica in maniera univoca un’interfaccia di rete su una rete basata sul protocollo Internet (IP)==.
 
-- ==Ha una **parte di rete** (network) che identifica la rete di appartenenza==.
-    
-- H==a una **parte host** che identifica il singolo dispositivo all’interno di quella rete==.
-    
+- ==Ha una **parte di rete** (network) che identifica la rete di appartenenza==.  
+     ^83bcda
+     
+- ==Ha una **parte host** che identifica il singolo dispositivo all’interno di quella rete==.   
+  
+     ^bd5cc1
 - Può essere di due tipi:
 	1. **IPv4** (32 bit, notazione decimale puntata) 
 	2. **IPv6** (128 bit, notazione esadecimale).
@@ -199,7 +201,7 @@ Un **indirizzo IP** ==è un numero che identifica in maniera univoca un’interf
 - Questa versione offre un numero significativamente maggiore di indirizzi disponibili.
 
 
-> [!info] Entrambe le versioni operano a livello di rete ([[#Network layer|Network Layer]]).
+> [!info] Entrambe le versioni operano a livello di rete ([[#Network layer|Network Layer nel modello ISO/OSI]] e [[Modello TCP-IP#Internet Layer|Internet Layer nel modello TCP/IP]]).
 > 
 
 ### La Versione 4 dell'IP
@@ -249,8 +251,34 @@ Ad esempio:
 
 ==È la parte dell'indirizzo IP identificata dagli `1` della subnet mask==.
 
-> [!info]- **Info**
+> [!info] **Info**
 > ==si ottiene applicando un’operazione **AND logica** tra indirizzo IP e subnet mask.==
+>>[!example]- **Esempio**
+>>1. **[[Le architetture di un Computer#Conversione decimale in Binario|Converti in binario:]]**
+>> 	  - IP: `192.168.1.10` → `11000000.10101000.00000001.00001010`
+>> 	  - SM: `255.255.255.0` → `11111111.11111111.11111111.00000000`
+>>2. Esegui l'[[Le architetture di un Computer#Operatore **AND** (E logico)|AND]] logico: 
+>>```
+>> 11000000.10101000.00000001.00001010 (IP)
+>>AND
+>>11111111.11111111.11111111.00000000 (Subnet Mask)
+>>------------------------------------
+>>11000000.10101000.00000001.00000000
+>>```
+>>
+>>3. **[[Le architetture di un Computer#Conversione Binario in decimale|Converti il risultato in decimale]]:**
+>>- `11000000` → 192
+>>  
+>>- `10101000` → 168
+>>  
+>>- `00000001` → 1
+>>  
+>>- `00000000` → 0
+>>  
+>>- **Network Address:** `192.168.1.0`
+>>
+>>1. **Trova l'Host:**
+>>   L'host è la parte "libera" rimasta dopo l'AND. In questo caso, è l'ultimo ottetto: `.10`.
 
 
 #### Indirizzo Host:
