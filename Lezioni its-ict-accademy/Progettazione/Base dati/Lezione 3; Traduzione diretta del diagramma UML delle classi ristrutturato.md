@@ -75,13 +75,15 @@ La tabella `Esame` prende come **chiavi esterne** i riferimenti alle entità `St
 Le due **foreign key** permettono di rispettare i **vincoli di molteplicità `0..*`** presenti su entrambi i lati dell'associazione `esame`:
 
 1. `FOREIGN KEY (studente) REFERENCES Studente(matricola)`  
-    Il campo `studente` nella tabella `Esame` fa riferimento al campo `matricola` della tabella `Studente`.  
-    Ciò è perfettamente coerente con la semantica del modello, poiché attraverso il numero di matricola (che rappresenta la chiave primaria dello studente) è possibile risalire agli altri attributi dello studente, come `nome` e `genere`.  
-    Questo vincolo garantisce che ogni valore presente nella colonna `studente` di `Esame` **debba necessariamente comparire nella colonna `matricola` di `Studente`**, assicurando l’integrità referenziale.
+    - Il campo `studente` nella tabella `Esame` fa riferimento al campo `matricola` della tabella `Studente`.  
+    - Ciò è perfettamente coerente con la semantica del modello, poiché attraverso il numero di matricola (che rappresenta la chiave primaria dello studente) è possibile risalire agli altri attributi dello studente, come `nome` e `genere`.  
+    - Questo vincolo garantisce che ogni valore presente nella colonna `studente` di `Esame` **debba necessariamente comparire nella colonna `matricola` di `Studente`**, assicurando l’integrità referenziale.
+    
     In altre parole: **non si possono registrare esami per studenti inesistenti**.
+    
 2. `FOREIGN KEY (corso) REFERENCES Corso(nome)`  
-    Analogamente, il campo `corso` nella tabella `Esame` fa riferimento al campo `nome` della tabella `Corso`.  
-    Anche in questo caso, la foreign key assicura che ogni valore di `corso` nella tabella `Esame` sia presente come chiave primaria nella tabella `Corso`, mantenendo la coerenza tra le due entità.
+    - Analogamente, il campo `corso` nella tabella `Esame` fa riferimento al campo `nome` della tabella `Corso`.  
+    - Anche in questo caso, la foreign key assicura che ogni valore di `corso` nella tabella `Esame` sia presente come chiave primaria nella tabella `Corso`, mantenendo la coerenza tra le due entità.
     In altre parole:**non si possono registrare esami per corsi non presenti in `Corso`**.
 
 Poiché un’associazione `Studente-Corso` può essere registrata **al massimo una volta** (ossia, non è ammessa la ripetizione di esami per la stessa coppia `studente-corso`), la **primary key** in questo caso è la coppia `studente, corso`: ==perché **non può ripetersi un'ennupla con lo stesso studente associato allo stesso corso**.==

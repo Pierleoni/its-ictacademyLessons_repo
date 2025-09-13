@@ -76,7 +76,7 @@ In particolare:
 - Integrazione tra frontend, backend e DBMS.
 
 ### In conclusione
-La fase di progettazione rappresenta il ponte tra **modellazione concettuale** e **realizzazione tecnica**. 
+==La fase di progettazione rappresenta il ponte tra **modellazione concettuale** e **realizzazione tecnica**.== 
 È cruciale per garantire che l’implementazione sia coerente con i requisiti, efficiente nelle prestazioni, e sostenibile nella manutenzione e nell’evoluzione futura del sistema.
 
 ---
@@ -133,16 +133,21 @@ Le principali funzionalità offerte da un DBMS includono:
 
 > [!Note]  nonostante l’esistenza di standard (come SQL per i DB relazionali), **non tutti i DBMS commerciali li implementano completamente**, e possono esistere differenze sintattiche o semantiche da un sistema all’altro.
 
-### Modelli di dati
+### Modello  di dati
 
-I DBMS si distinguono in base al **modello dei dati** su cui si basano. In questo modulo ci concentreremo sul **modello relazionale**, che rappresenta i dati sotto forma di **tabelle (relazioni)** composte da righe (tuples) e colonne (attributi), in coerenza con lo schema concettuale derivante dall’analisi (es. [[Analisi dei requisiti mediante UML#^myImg|diagramma delle classi UML]]). 
+==I DBMS si distinguono in base al **modello dei dati** su cui si basano.== 
+In questo modulo ci concentreremo sul **modello relazionale:** 
+- ==rappresenta i dati sotto forma di **tabelle (relazioni)** composte da **righe (tuples)** e **colonne (attributi)**, in coerenza con lo schema concettuale derivante dall’analisi (es. [[Analisi dei requisiti mediante UML#^myImg|diagramma delle classi UML]]).== 
+
+
+---
 
 ## Modello relazionale dei dati e DBMS relazionali
 
 I vari DBSM si distinguono per la tipologia di modello dei dati che offrono:
 in questo caso parliamo di DB relazionali secondo cui rappresentare i dati in maniera relazionale.
 Esiste anche una altro modello detto DBMS a grafo:
-coppie di chiave/valore, etc. (oggetto di altre unità).
+- coppie di chiave/valore, etc. (oggetto di altre unità).
 
 ### Modello relazionale dei dati
 
@@ -157,7 +162,7 @@ in cui le **informazioni sono strutturate in tabelle** (dette anche _relazioni_)
 Le righe delle tabelle vengono chiamate **ennupla**(o _tuple_ in inglese):
 - ==Ogni **riga** della tabella rappresenta un’istanza di dati==.  ^ennuple
 
-Mentre le colonne sono chiamate o attributi o campi:
+Mentre le colonne sono chiamate **o attributi o campi:** 
 - ==ogni **colonna o attributo** rappresenta un attributo del dominio==.  ^colonna
 
 #### Esempio
@@ -176,9 +181,9 @@ Il database è quindi composto da tre tabelle:
 
 #### Livelli di rappresentazione
 Come per il diagramma della classi anche nel modello relazionale si distinguono due livelli fondamentali:
-- Livello intensionale (schema del DB): 
+- [[Analisi dei requisiti mediante UML#^inLevel|Livello intensionale (schema del DB):]] 
 	==definisce la struttura delle tabelle, i nomi degli attributi e i loro tipi.== 
-- Livello estensionale (contenuto del DB): 
+- [[Analisi dei requisiti mediante UML#^exLevel|Livello estensionale (contenuto del DB):]] 
 	==rappresenta i dati effettivamente contenuti nel database, ovvero le [[#^ennuple|ennuple]].== 
 
 #### Collegamenti tra le tabelle 
@@ -193,7 +198,7 @@ Ad esempio:
     
 
 Questi **valori numerici funzionano come "chiavi":** 
-==permettendo la **navigazione dei dati** tra tabelle, senza che vi siano riferimenti implementati come in una struttura a oggetti.== 
+==permettono la **navigazione dei dati** tra tabelle, senza che vi siano riferimenti implementati come in una struttura a oggetti.== 
 
 ![[Lettura delle tabelle.png]]
 
@@ -207,7 +212,7 @@ Questi **valori numerici funzionano come "chiavi":**
 
 
 
-Guardiamo meglio:
+##### Guardiamo meglio:
 ![[Modello relazionale dei dati2.png]]
 
 Questi riferimenti tra ennuple di tabelle diverse **non sono riferimenti implementati** (come puntatori in Python).  
@@ -242,14 +247,14 @@ Tuttavia, nella realtà può accadere che **alcuni dati non siano disponibili**,
     
 3. Il valore è **sconosciuto o inesistente** (non è possibile distinguere i due casi).
 
-###### Come viene rappresentata l’informazione mancante?
+#### Come viene rappresentata l’informazione mancante?
 
 I DBMS permettono di associare ad un attributo il **valore speciale `NULL`**, che rappresenta il **caso 3**, ovvero:
 ==un valore mancante di cui non si conosce se sia assente o sconosciuto.==
 
-Nello specifico:
+###### Nello specifico:
 Nel esempio, l’indirizzo email della docente `Carla Neri` è mancante:
-Il valore `NULL` nella colonna `email` **non ci dice se l’indirizzo è ignoto oppure non esiste**.
+- Il valore `NULL` nella colonna `email` **non ci dice se l’indirizzo è ignoto oppure non esiste**.
 
 ###### Esempio:
 Nel seguente esempio, l’indirizzo email della docente `Carla Neri` risulta mancante:
@@ -262,7 +267,7 @@ Nel seguente esempio, l’indirizzo email della docente `Carla Neri` risulta man
 | 4          | Daniela     | Verdi          | `dani2001@kmail.com`        |
 
 
-In questo caso, il valore `NULL` nella colonna `email` **non permette di distinguere se l’indirizzo non esiste o se non è noto**.
+In questo caso: ==il valore `NULL` nella colonna `email` **non permette di distinguere se l’indirizzo non esiste o se non è noto**.==
 ###### Come distinguere i casi?
 Per distinguere tra le diverse **cause dell’assenza del dato**, è necessario **modificare lo schema** del database.  
 Una tecnica comune consiste nell’aggiungere un **attributo esplicativo**, ad esempio:
@@ -275,14 +280,14 @@ Una tecnica comune consiste nell’aggiungere un **attributo esplicativo**, ad e
 | 4          | Daniela     | Verdi          | `dani2001@kmail.com`        |                           |
 In questo caso, il valore `NULL` nella colonna `email` **non permette di distinguere se l’indirizzo non esiste o se non è noto**.
 Se si vuole distinguere tra 1. o 2. bisogna farlo esplicitamente, ad esempio, aggiungendo nuovi attributi che “spieghino” il significato di NULL:
-Ad es., nuovo attributo `ragione_assenza_email:int`.
+Come ad esempio: il nuovo attributo `ragione_assenza_email:int`.
 Dove `ragione_assenza_email` può assumere valori codificati come:
 
-- `1`: sconosciuto
+- `1`: ==sconosciuto==
     
-- `2`: inesistente
+- `2`: ==inesistente==
     
-- `3`: sconosciuto o inesistente (comportamento predefinito)
+- `3`: ==sconosciuto o inesistente (comportamento predefinito)==
 
 
 > [!example] In conclusione
@@ -293,7 +298,8 @@ Dove `ragione_assenza_email` può assumere valori codificati come:
 
 ### Vincoli di integrità 
 Come abbiamo appena visto **database relazionale** può essere **strutturalmente corretto**, ovvero conforme agli schemi di tabelle, ma **non rappresentare correttamente i requisiti dell’applicazione** (ad esempio viene assegnato il valore `NULL`).  
-Per evitare ciò, si introducono nel modello i **vincoli di integrità**, ovvero **regole che devono essere soddisfatte dal contenuto delle tabelle**.
+Per evitare ciò, si introducono nel modello i **vincoli di integrità:**
+-   ovvero **regole che devono essere soddisfatte dal contenuto delle tabelle**.
 Questi vincoli sono:
 	==Proprietà che deve essere soddisfatta dal contenuto delle tabelle del DB affinché rappresentino informazioni corrette per l’applicazione==
 
@@ -312,11 +318,14 @@ Per comprendere meglio cosa sono i vincoli di integrità, nel seguente esempio l
 
 ![[Vincoli di integrità.png]]
 
-ad esempio: 
+ad esempio nella tabella `Esame`: 
 - alla seconda ennupla il valore `cucina` dell'attributo `modulo`  non esiste in questa tabella, perché non è un modulo d'esame.
-- alla terza ennupla anche il valore `35` dell'attributo `voto` supera il range dei voti che vanno da 18 a 30, quindi non è legale.
+
+- alla terza ennupla anche il valore `35` dell'attributo `voto` supera il range dei voti che vanno da `18` a `30`, quindi non è legale.
+
 - alla quarta ennupla il valore  `NULL` dell'attributo `Studente` e il valore `True` dell'attributo `lode` sono entrambi illegali, perché:
-	nel primo caso si ha null per il codice di `Studente` quindi non si conosce lo studente che ha sostenuto l'esame, mentre nel secondo il `True` è vero solo se il voto è `30`; ma siccome il valore dell'attributo `voto` in questo caso è 25 allora dovrebbe essere `False`.
+	1. nel primo caso si ha `NULL` per il codice di `Studente` quindi non si conosce lo studente che ha sostenuto l'esame. 
+	2. Nel secondo il `True` è vero solo se il voto è `30`; ma siccome il valore dell'attributo `voto` in questo caso è 25 allora dovrebbe essere `False`.
 - Stessa cosa nell'ultima riga ho uno studente ma non conosco il modulo.
 
 
@@ -335,9 +344,34 @@ In altre parole:
 
 ==Quindi si tratta di vincoli, facilmente verificabili su ogni singola riga==. 
 #### Vincoli di chiave o di colonna
-I **vincoli di chiave** impongono che **non possano esistere due ennuple (righe) che coincidano sugli stessi valori** di uno o più attributi di una tabella.
+==I **vincoli di chiave** impongono che **non possano esistere due ennuple (righe) che coincidano sugli stessi valori** di uno o più attributi di una tabella.==
  In altre parole: 
 	 ====servono a garantire **unicità** su determinati attributi, impedendo la duplicazione dei dati==.
+
+Ad esempio immaginiamo di avere una tabella `Studente` con i campi i seguenti campi: 
+
+| matricola:stringa | nome:stringa | cognome:stringa | nascita:date |
+| ----------------- | ------------ | --------------- | ------------ |
+Ora senza i vincoli di chiave o di colonna in questa tabella potrebbero esistere due studenti con lo stesso numero di matricola. 
+Il che sarebbe poco realistico poiché il numero di matricola è univoca per ogni studente.
+Oppure potrebbero esistere due studenti con lo stesso nome, cognome e nascita, 
+tramite i vincoli di chiave è possibile fare in modo che un comportamento del genere del DB non capiti.
+
+> [!NOTE] **Nota:**
+> Il secondo esempio nella realtà non è vero che garantisce **l’unicità di una persona**, perché possono esistere **omonimi nati lo stesso giorno**.
+>> [!example] **Esempio reale:**
+>> due ragazzi chiamati **“Marco Rossi”** nati entrambi il **13/09/2001** → sono persone diverse, ma infrangerebbero il vincolo.
+>
+>Quindi in realtà l'ultimo esempio è falso: 
+>- È un **esempio didattico** di vincolo di chiave (mostra che puoi definire chiavi anche su più attributi).
+ >   
+>- Ma è **falso come regola di business reale**, perché non garantisce l’unicità delle persone nel mondo reale.
+>> [!tip] **Infatti nei sistemi veri, si usano:**
+>> - `matricola` → nelle università
+>>- codice fiscale → nei sistemi statali
+>>    
+>>- `ID univoci` generati dal DB → negli applicativi gestionali
+
 
 ##### Definizione di una chiave
 Un **insieme K di attributi** è detto **chiave** della tabella se soddisfa due proprietà:
