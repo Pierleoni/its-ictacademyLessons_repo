@@ -9,7 +9,8 @@
     "Grey": "#CACFD9A6",
     "yellow": "#E5FF00A6",
     "Real-Red": "#FF0000A6",
-    "green": "#00FF02A6"
+    "green": "#00FF02A6",
+    "Orange": "#D76E08A6"
   },
   "highlighterOrder": [
     "Pink",
@@ -19,6 +20,7 @@
     "Grey",
     "yellow",
     "Real-Red",
-    "green"
+    "green",
+    "Orange"
   ]
 }

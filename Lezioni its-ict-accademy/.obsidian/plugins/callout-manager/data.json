@@ -122,6 +122,13 @@
             "color": "78, 183, 218"
           }
         }
+      ],
+      "todo": [
+        {
+          "changes": {
+            "icon": "lucide-code"
+          }
+        }
       ]
     }
   },

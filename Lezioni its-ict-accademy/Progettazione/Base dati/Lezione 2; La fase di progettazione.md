@@ -61,7 +61,7 @@ Per essere chiari  adesso siamo ancora in fase di ristrutturazione, dopodiché s
 
 
 ### Produzione dello schema relazionale da schema concettuale
-L'obiettivo di questa fase è **generare lo schema relazionale** (comprensivo di vincoli) a partire dallo **schema concettuale UML** dell'applicazione.
+==L'obiettivo di questa fase è **generare lo schema relazionale** (comprensivo di vincoli) a partire dallo **schema concettuale UML** dell'applicazione.==
 - Input:
 
 	- Diagramma UML concettuale delle classi
@@ -125,17 +125,21 @@ foreign key: corso references Corso(nome)
 ```
 
 In conclusione questo schema relazionale rappresenta alla perfezione il diagramma UML concettuale delle classi riportato sopra:
-La classe `esame` è stata tradotta in una **tabella indipendente**, in quanto rappresenta un’associazione n:m con attributi (→ _association class_).
-La **correttezza semantica** delle relazioni è mantenuta tramite le foreign key, che garantiscono **l'integrità referenziale** tra `esame` ↔ `Studente` e `esame` ↔ `Corso`.
+- La classe `esame` è stata tradotta in una **tabella indipendente**, in quanto rappresenta un’associazione n:m con attributi (→ _association class_).
+
+- La **correttezza semantica** delle relazioni è mantenuta tramite le foreign key, che garantiscono **l'integrità referenziale** tra `esame` ↔ `Studente` e `esame` ↔ `Corso`.
 Difatti la prima foreign key fa **riferimento** al campo `matricola` della tabella `Studente`, che è una **primary key**.
 Questo vincolo ==**impone che ogni valore di `studente` presente in `esame` esista già nella tabella `Studente`**.==  
-**In altre parole:** ==non puoi registrare un esame per uno studente che **non è presente** nella tabella `Studente`.==
+**In altre parole:** ==non si può registrare un esame per uno studente che **non è presente** nella tabella `Studente`.==
 
-Mentre la seconda foreign key fa riferimento al campo `nome` della tabella `Corso`, che è la **primary key**.
-Questo vincolo impone che ogni valore del campo `corso` in `esame` **esista già** come `nome` in `Corso`.
-In altre parole: non è possibile registrare un esame per un corso che non esiste nella tabella `Corso`.
-Il campo `corso` nella tabella `esame` deve quindi contenere solo valori che sono già presenti nel campo `nome` della tabella `Corso`.  
-Questo garantisce l’**integrità referenziale** tra la tabella `esame` e la tabella `Corso`, assicurando che ogni esame faccia sempre riferimento a un corso effettivamente esistente nel sistema.
+Mentre la seconda foreign key fa riferimento al campo `nome` della tabella `Corso`, che è la **primary key**:
+- ==Questo vincolo impone che ogni valore del campo `corso` in `esame` **esista già** come `nome` in `Corso`.==
+
+- In altre parole: ==non è possibile registrare un esame per un corso che non esiste nella tabella `Corso`.==
+
+- Il campo `corso` nella tabella `esame` deve quindi contenere solo valori che sono già presenti nel campo `nome` della tabella `Corso`.  
+  
+==Questo garantisce l’**integrità referenziale** tra la tabella `esame` e la tabella `Corso`, assicurando che ogni esame faccia sempre riferimento a un corso effettivamente esistente nel sistema==.
 
 Tuttavia esaminiamo un caso leggermente più complesso:
 ![[Esempio2.png]]
@@ -147,9 +151,15 @@ Nel diagramma sono presenti:
 - Un'[[Associazioni con attributi in UML#Le association class|association class]]: `insegna`, dotata dell’attributo `da: Date`
 - L'associazione tra `Studente` e `Corso` è arricchita da vincoli di molteplicità `1..*` su entrambi i lati:
 	- Dal lato **Lato `Docente`**:  
-	   la molteplicità `1..*` indica che **ogni docente deve insegnare ad almeno un corso**, quindi ogni docente può essere associato ad almeno un corso.
-	- **Dal lato `Corso`**: la molteplicità `1..*` indica che **almeno un corso deve essere insegnato da almeno un docente**, quindi ogni corso può essere associato ad almeno un docente.
-In sintesi, l’associazione rappresenta una **relazione molti-a-molti (n:m)** tra le classi `Studente` e `Corso`, e l’attributo `data` presente nell’association class `esame` rappresenta un'informazione legata **all’evento stesso dell’esame** (ovvero _quando_ uno studente ha sostenuto un determinato corso).
+		 -   la molteplicità `1..*` indica che: 
+			 - ==**ogni docente deve insegnare ad almeno un corso**, quindi ogni docente può essere associato ad almeno un corso.==
+		   
+	- **Dal lato `Corso`**: la molteplicità `1..*`:
+		- indica che: 
+			- ==**almeno un corso deve essere insegnato da almeno un docente**, quindi ogni corso può essere associato ad almeno un docente.==
+
+In sintesi, l’associazione rappresenta una **relazione molti-a-molti (n:m):**
+	tra le classi `Studente` e `Corso`, e l’attributo `data` presente nell’association class `esame` rappresenta un'informazione legata **all’evento stesso dell’esame** (ovvero _quando_ uno studente ha sostenuto un determinato corso).
 
 **Decisioni progettuali:**
 
@@ -158,49 +168,70 @@ Il progettista decide che:
 - Le istanze di `Docente`, `Corso` e `insegna` **devono essere memorizzate nel DB**.
     
 - **Ogni istanza di classe o associazione viene mappata su una ennupla** (riga) di una tabella.
+
 Questo si traduce in schema relazionale:
-- Tabella `Docente`
+1.  **Tabella `Docente`**
 ```plain
 Docente(matricola: integer, nome: varchar)
 ```
 
 
 
-In questo caso, si ha un **vincolo di inclusione** (non una foreign key), derivato dal vincolo di molteplicità `1..*`:
+In questo caso, si ha un **[[#^vincoliDiInclusione|vincolo di inclusione]]** (non una foreign key), derivato dal vincolo di molteplicità `1..*`:
 
-`matricola` deve comparire `insegna(docente)`.
-In altre parole: `matricola` deve comparire in almeno un’en­nupla del campo `docente` della tabella `insegna`.
+- `matricola` deve comparire (occorre) in `insegna(docente)`.
 
-- **Tabella `Corso`**
+In altre parole: 
+- ==`matricola` deve comparire **in almeno un’en­nupla** del campo `docente` della tabella `insegna`.==
+
+2. **Tabella `Corso`**
 ```plain
 Corso(nome: varchar)
 ```
 
 
-Anche in questo caso, si ha un vincolo di inclusione (non una foreign key), derivato dal vincolo di molteplicità 1..*:
+Anche in questo caso, si ha **[[#^vincoliDiInclusione|un vincolo di inclusione]]** (non una foreign key), derivato dal vincolo di molteplicità `1..*:`
 
-`nome` deve comparire in `insegna(corso)`.
-In altre parole: `nome` deve comparire in almeno un’en­nupla del campo `corso` della tabella `insegna`.
+- `nome` deve comparire (occorre) in `insegna(corso)`.
 
-- ****Tabella `insegna`** (association class)** 
+In altre parole: 
+- ==`nome` deve comparire in almeno un’en­nupla del campo `corso` della tabella `insegna`.==
+
+- **Tabella `insegna`** (association class)
 ```plain
-insegna(docente: integer, corso: varchar, da: Date)
+insegna(docente:integer, corso:varchar, da:Date)
 ```
+
+In queste tabella la chiave primaria e composita: è formata dai due campi `docente` e `corso`. 
+
+Le Foreign Key sono: 
+```plaintext
+foreign key: docente references Docente(matricola)
+foreign key: corso references Corso(nome)
+```
+
 - **Foreign Key** `docente` → `Docente(matricola)`
     - Il campo `docente` nella tabella `insegna` è **una chiave esterna** (foreign key) che **fa riferimento alla chiave primaria** `matricola` della tabella `Docente`.
     
-	- In pratica, **ogni valore presente in `insegna.docente` deve già esistere nella colonna `matricola` della tabella `Docente`**.
+	- In pratica:
+		- ==ogni valore presente in `insegna.docente` deve già esistere nella colonna `matricola` della tabella `Docente`.==
     
-	- Questo garantisce che **non si possano inserire righe nella tabella `insegna` con un docente che non esiste** nella tabella `Docente`.
+	- ==Questo garantisce che **non si possano inserire righe nella tabella `insegna` con un docente che non esiste** nella tabella `Docente`.==
+	
 - **Foreign Key** `corso` → `Corso(nome)`
 	-  Il campo `corso` nella tabella `insegna` è **una chiave esterna** che **fa riferimento alla chiave primaria** `nome` della tabella `Corso`.
     
-	- Questo vincolo impone che **ogni valore inserito in `insegna.corso` debba già esistere nella tabella `Corso.nome`**.
+	- ==Questo vincolo impone che **ogni valore inserito in `insegna.corso` debba già esistere nella tabella `Corso.nome`**.==
 
 
-> [!NOTE] **Nota:**
-> I **vincoli di inclusione** su `Docente` e `Corso` non sono implementati come foreign key, ma sono vincoli esterni **di partecipazione obbligatoria**, imposti dalla molteplicità `1..*` nel modello UML.  
->In altre parole: ogni docente e ogni corso **devono comparire almeno una volta nella tabella `insegna`**, affinché il modello rispetti le cardinalità definite nello schema concettuale.
+> [!NOTE] **Nota: Vincoli di inclusione**
+> I **vincoli di inclusione** su `Docente` e `Corso` non sono implementati come foreign key, poichè sono: 
+> - ==vincoli esterni **di partecipazione obbligatoria**, imposti dalla molteplicità `1..*` nel modello UML.==  
+>In altre parole: 
+>- ==ogni docente e ogni corso **devono comparire almeno una volta nella tabella `insegna`**, affinché il modello rispetti le cardinalità definite nello schema concettuale==.  ^vincoliDiInclusione
+
+
+---
 
 ### Perché è necessaria una ristrutturazione prima della traduzione
 Una volta definito il **diagramma UML concettuale delle classi**, ci si trova spesso di fronte a **modelli ricchi di costrutti complessi**, tra cui:
@@ -212,7 +243,8 @@ Una volta definito il **diagramma UML concettuale delle classi**, ci si trova sp
         
     - **complete / non complete**
         
-- Vincoli concettuali di alto livello (partecipazione, identificazione, ecc.)
+- **Vincoli concettuali di alto livello (partecipazione, identificazione, ecc.).**
+
 Scrivere direttamente lo schema relazionale a partire da questi diagrammi concettuali è rischioso e soggetto a errori.
 
 > [!warning] **Attenzione:**
@@ -236,35 +268,35 @@ Per questo motivo si adotta una **metodologia robusta e scalabile**, articolata 
 	    - dei vincoli esterni
         
 L' **Obiettivo della ristrutturazione** è:  
-Adattare lo schema concettuale alle **tecnologie scelte per l’implementazione**, mantenendo intatta la **capacità rappresentativa del modello (equivalenza estensionale)**.
+==Adattare lo schema concettuale alle **tecnologie scelte per l’implementazione**, mantenendo intatta la **capacità rappresentativa del modello (equivalenza estensionale)**==.
 
 In particolare, **se si adotta una tecnologia basata su basi di dati relazionali**:
 
-- Lo schema ristrutturato **definisce quali classi saranno effettivamente memorizzate nel DB**.
+- ==Lo schema ristrutturato **definisce quali classi saranno effettivamente memorizzate nel DB**==.
     
 - Contiene solo **costrutti semplici e direttamente implementabili**:
     
-    - classi
+    - ==classi==
         
-    - associazioni
+    - ==associazioni==
         
-    - attributi con tipi di dato SQL (base o definiti dal progettista)
+    - ==attributi con tipi di dato SQL (base o definiti dal progettista)==
         
-    - molteplicità massima **pari a 1**
+    - ==molteplicità massima **pari a 1**==
         
-- Tiene conto anche di **requisiti di performance** (efficienza dell’accesso ai dati, ridondanza controllata, ecc.)
+- Tiene conto anche di ==**requisiti di performance** (efficienza dell’accesso ai dati, ridondanza controllata, ecc.)==
     
 
 2. **Traduzione diretta:**
    Una volta ottenuto lo **schema ristrutturato**, si può procedere alla **traduzione diretta**, ovvero:
 
-- Si procede alla **generazione dello schema relazionale** vero e proprio, tenendo conto di:
+	- Si procede alla **generazione dello schema relazionale** vero e proprio, tenendo conto di:
 
-	- vincoli di integrità (PK, FK, vincoli esterni)
+		- ==vincoli di integrità (PK, FK, vincoli esterni)==
     
-	- requisiti di efficienza
+		- ==requisiti di efficienza==
     
-	- eventuali regole di derivazione, trigger, ecc.
+		- ==eventuali regole di derivazione, trigger, ecc.==
   
 
 > [!example] In sintesi:  
@@ -301,17 +333,17 @@ La metodologia prevede una **sequenza precisa di passi**, che **devono essere se
 
 #### I 6 passi della Ristrutturazione
 
-1. **Eliminazione degli attributi multivalore**  
+1. **[[#Eliminazione di attributi multivalore|Eliminazione degli attributi multivalore]]**  
     ==Gli attributi che ammettono più valori devono essere trasformati in **nuove classi** o **associazioni**, per rispettare la natura relazionale del modello finale.==
     
-2. **Sostituzione dei tipi di dato concettuali**  
+2. **[[#Scelta dei tipi di dato|Sostituzione dei tipi di dato concettuali]]**  
     Ogni tipo concettuale viene sostituito con un tipo **supportato dal DBMS**:
     
     - Tipo base SQL (es. `VARCHAR`, `INTEGER`, `DATE`)
         
     - Tipo definito dal progettista, se necessario (es. `CHECK`, `ENUM`, domini)
         
-3. **Eliminazione delle generalizzazioni tra classi**  
+3. **[[#1. **Generalizzazioni tra classi**|Eliminazione delle generalizzazioni tra classi]]**  
     Le gerarchie `is-a` devono essere risolte in una struttura equivalente, attraverso:
     
     - ==Ereditarietà per sovrapposizione== (`single table`)
@@ -320,7 +352,7 @@ La metodologia prevede una **sequenza precisa di passi**, che **devono essere se
         
     - Strategie miste (in base alla **completezza/disgiunzione** cioè `{disjoint, complete}`)
         
-4. **Eliminazione delle generalizzazioni tra associazioni**  
+4. **[[#2. **Generalizzazioni tra associazioni**|Eliminazione delle generalizzazioni tra associazioni]]**  
     ==Le relazioni ereditarie tra **association class** vanno appiattite e trasformate in nuove entità o associazioni con vincoli logici equivalenti.==
     
 5. **Definizione di un identificatore per ogni classe**  
@@ -358,14 +390,19 @@ Nell’immagine proposta, sulla sinistra è rappresentata la classe `Studente`, 
     
 - `nome: stringa`
     
-- `email: stringa [x..y]`: l’indicazione `[x..y]` rappresenta il vincolo di molteplicità che rende `email` un attributo multivalore.
-Sulla destra, osserviamo come l’attributo multivalore `email` sia stato trasformato in una classe vera e propria, denominata `IndirizzoEmail`, con un attributo `valore: stringa {id}`, che funge da identificatore dell’istanza (questo perché non vogliamo rappresentare nel DB più volte la stessa istanza del tipo). 
+- `email: stringa [x..y]`: 
+
+	- ==l’indicazione `[x..y]` rappresenta il vincolo di molteplicità che rende `email` un attributo multivalore.==
+
+[[Eliminazione attributi multivalore.png|Sulla destra]]: 
+osserviamo come l’attributo multivalore `email` sia stato trasformato in una classe vera e propria, denominata `IndirizzoEmail`, con un attributo `valore: stringa {id}`, che funge da identificatore dell’istanza (questo perché non vogliamo rappresentare nel DB più volte la stessa istanza del tipo). 
 Inoltre, i vincoli di molteplicità associati alle classi giocano un ruolo fondamentale nella corretta rappresentazione del modello:
 
 - **Lato `Studente`**, ==il vincolo `1..*` impone che ciascun studente sia associato ad almeno un indirizzo email, garantendo così che il database memorizzi solo indirizzi email effettivamente collegati a studenti.==  
-    ==_Si sottolinea che il vincolo `1..*` deve sempre essere applicato in questi casi._==
+    - ==_Si sottolinea che il vincolo `1..*` deve sempre essere applicato in questi casi._==
     
-- **Lato `IndirizzoEmail`**, ==si mantiene la molteplicità originaria dell’attributo concettuale `[x..y]`, che definisce il numero minimo e massimo di studenti associabili allo stesso indirizzo email.==
+- **Lato `IndirizzoEmail`**: 
+	- ==si mantiene la molteplicità originaria dell’attributo concettuale `[x..y]`, che definisce il numero minimo e massimo di studenti associabili allo stesso indirizzo email.==
 
 2. **Eliminazione degli attributi multivalore di associazione**
 ![[eliminazione degli attributi multivalore di associazione.png]]
@@ -379,12 +416,14 @@ Nell’immagine a destra si osservano due classi e una association class:
 	- attributo multivalore `data: Data [x..y]`
 	
 	- attributo`voto: 18..31`. 
+	
 3. La classe `Corso`:
 	- con attributo `nome:stringa{id}` 
+	  
 I vincoli di molteplicità tra le classi e l’association class sono `0..*` su entrambi i lati.
 
 Come si nota, l’attributo `data` di `Esame` è un attributo multivalore, a causa del vincolo di molteplicità `[x..y]`. 
-Perciò, nel diagramma ristrutturato a destra, l’attributo `data: Data [x..y]` viene trasformato in una classe autonoma chiamata `DataProva`, con attributo `data: Data {id}`, e partecipa a un link di associazione `esame_prova` con molteplicità `1..*` verso `esame`.
+Perciò, nel diagramma ristrutturato a destra, l’attributo `data: Data [x..y]` viene trasformato in una classe autonoma chiamata `DataProva`, con attributo `data: Data {id}`, e partecipa a un link di associazione `esame_prova` con molteplicità `1..*` verso `esame` ed `esame` partecipa ad un link di associazione `esame_prova` con un vincolo di `[x..y]` (cioè la cardinalità che prima faceva parte dell'attributo `data`.
 
 ==La molteplicità `1..*`, [[Eliminazione attributi multivalore.png|come nell'esempio precedente]], impone che il database memorizzi solo le date effettivamente associate ad almeno un esame, garantendo l’integrità e la coerenza dei dati.==
 
@@ -404,7 +443,7 @@ Per **ogni attributo** del modello concettuale:
 
 -  Occorre **scegliere un tipo SQL compatibile** tra quelli di base offerti dal DBMS
     
--  Oppure **definire un nuovo tipo personalizzato** ([[#2. **Tipi concettuali specializzati→ Domini Specializzati**|dominio]] o tipo composito), qualora il tipo concettuale non sia direttamente mappabile
+-  Oppure **definire un nuovo tipo personalizzato** ([[#2. **Tipi concettuali specializzati→ Domini Specializzati**|dominio]] o [[#2. **Tipi concettuali specializzati→ Domini Specializzati**|tipo composito]]), qualora il tipo concettuale non sia direttamente mappabile
 
 ###### 1. **Tipi concettuali di base**
 
@@ -475,7 +514,7 @@ CREATE TYPE Indirizzo AS (
 );
 ```
 In sostanza si va a definire nuovi tipi di dato supportati dal DBMS usando SQL: `CREATE TYPE … AS (…)` 
->In questo modo si ottiene un **tipo strutturato** che può essere usato come tipo di attributo all’interno delle tabelle relazionali.
+>==In questo modo si ottiene un **tipo strutturato** che può essere usato come tipo di attributo all’interno delle tabelle relazionali.==
 
 ##### Problema: assenza di vincoli nei tipi composti
 Tuttavia, questo approccio **presenta un limite importante**:  
@@ -493,18 +532,20 @@ CREATE TYPE Indirizzo AS (
 
 > [!abstract]- **Perché PostgreSQL non permette l’uso diretto di vincoli (`NOT NULL`, `CHECK`, ecc.) dentro i tipi composti definiti con `CREATE TYPE`?**
 >
- >Perché i **tipi composti** (definiti tramite `CREATE TYPE`) non sono progettati per **applicare vincoli di validazione sui singoli campi**, ma esclusivamente per **descrivere la struttura** dei dati, ovvero la loro **forma**, non il loro **comportamento vincolato**.
+ >Perché i **tipi composti** (definiti tramite `CREATE TYPE`) non sono progettati per **applicare vincoli di validazione sui singoli campi**, ==ma esclusivamente per **descrivere la struttura** dei dati, ovvero la loro **forma**, non il loro **comportamento vincolato**.==
 >
->Da un punto di vista tecnico, il comando `CREATE TYPE ... AS (...)` serve a definire **tipi di dato strutturati** (simili a tuple), utili ad esempio per:
+>Da un punto di vista tecnico, il comando `CREATE TYPE ... AS (...)` serve a definire **tipi di dato strutturati** (simili a [[Collections#Tuple|tuple]]), utili ad esempio per:
 >
->- Parametri e valori di ritorno nelle funzioni SQL/PLpgSQL
+>- ==Parametri e valori di ritorno nelle funzioni SQL/PLpgSQL==
  >   
->- Colonne composite nelle tabelle
+>==- Colonne composite nelle tabelle==
   >  
->- Variabili nei blocchi di codice procedurale
+>==- Variabili nei blocchi di codice procedurale==
  >   
 >
-> **Tuttavia, non è concepito per gestire vincoli logici o di integrità**: i campi di un tipo sono "nudi", ovvero privi di qualsiasi controllo. La responsabilità della validazione ricade **sulle tabelle** o **sui domini** che lo impiegano.
+> **Tuttavia, non è concepito per gestire vincoli logici o di integrità**: 
+> - ==i campi di un tipo sono "nudi", ovvero privi di qualsiasi controllo.== 
+> ==- La responsabilità della validazione ricade **sulle tabelle** o **sui domini** che lo impiegano==.
  >
  >Inoltre un altro motivo è la **separazione delle responsabilità:**
  >In PostgreSQL — come nei DBMS in generale — vige una **chiara separazione dei compiti**: 
@@ -516,7 +557,7 @@ CREATE TYPE Indirizzo AS (
  > Questa distinzione consente:
  > - **Riutilizzabilità** del tipo senza forzare vincoli fissi.
  > - **Maggiore flessibilità**: **Maggiore flessibilità**, poiché uno stesso tipo può essere utilizzato in più contesti, ciascuno con vincoli specifici.
- > - 
+ >  
  > Le conseguenze pratiche sono che, difatti, non è possibile inserire il vincolo `NOT NULL` ovunque perché PostgreSQL **non sa** dove il tipo verrà usato e di conseguenza non può garantire che questo vincolo abbia senso ovunque nel codice.
  > Ad esempio:
 >```postgresql
@@ -533,7 +574,7 @@ Ad esempio:
 >- Cosa accade se viene usato in una colonna che può ammettere valori `NULL`?
  >   
 >
->Per evitare **ambiguità semantiche** e **comportamenti incoerenti**, PostgreSQL **non consente l’inserimento di vincoli all’interno della definizione di un tipo composto**.
+>==Per evitare **ambiguità semantiche** e **comportamenti incoerenti**, PostgreSQL **non consente l’inserimento di vincoli all’interno della definizione di un tipo composto**.==
 >>[!example] **Analogia**
 >>Immagina i **tipi** come **stampini per biscotti**: definiscono la **forma** del biscotto (es. rotondo, a stella...).
 >>
@@ -636,12 +677,14 @@ L'approccio in questo caso è quello di fondere un intero livello della generali
 3. La classe `CorsoDiLaurea`, con attributo:
 	- `nome:varchar(100)`
 Tra la classe `Persona` e la classe `Studente` vi è una relazione is-a, quindi:
->uno studente è anche una(`is-a`) persona, ma una persona non è uno studente.
+
+>==uno studente è anche una(`is-a`) persona, ma una persona non è uno studente.==
 
 L'associazione `iscritto` tra `Studente` e `CorsoDiLaurea` è arricchita con i vincoli di molteplicità: 
 Uno studente partecipa al link di associazione `iscritto` con molteplicità `1..1`, e un corso di laurea partecipa al link di associazione `iscritto` con molteplicità `0..*` 
-Questo sta i significare che: 
-> A un corso di laurea possono essere iscritti tanti studenti o nessuno, ma uno studente può essere iscritto a un solo corso di laurea.
+Questo sta a significare che: 
+
+> ==A un corso di laurea possono essere iscritti tanti studenti o nessuno, ma uno studente può essere iscritto a un solo corso di laurea.==
 
 Ora come possiamo ristrutturare questo diagramma UML concettuale delle classi?
 La risposta si trova a [[Fusione senza vincoli.png|sinistra dell'immagine ]]: 
@@ -661,15 +704,22 @@ CREATE TYPE TipoPersona AS ENUM ('Persona', 'Studente');
 3. Inoltre l'associazione `iscritto` adesso è solo tra la classe `Persona` e la classe `CorsoDiLaurea`, con vincoli `0..*` ( sul lato di `Persona`), e `0..1` (sul lato di `CorsoDiLaurea`).
 
 #### La scelta dei vincoli non è casuale
-il vincolo `[0..1]` sull'attributo `matricola`, rispecchia perfettamente la generalizzazione poichè come detto prima; uno studente è anche una persona, ma una persona non è anche uno studente.
+il vincolo `[0..1]` sull'attributo `matricola`, rispecchia perfettamente la generalizzazione poichè come detto prima; 
+	uno studente è anche una persona, ma una persona non è anche uno studente.
+
 ==Per questo si aggiunge questo vincolo che va ad indicare che una persona può avere o meno un numero di matricola, poiché se lo ha allora è uno studente.==
+
 La stessa logica viene usata per rilassare a zero il vincolo `0..1` sul lato di `CorsoDiLaurea` che prima nel diagramma concettuale era `1..1`:
 ==non tutte le istanze di `Persona` sono `Studenti`, quindi **non tutte possono partecipare all’associazione `iscritto`**.==
-Infatti quel vincolo `0..1` sta proprio a indicare ciò: per `ogni p:Persona, p.tipo` = 'Studente' se e solo se p è coinvolto in un link di associazione 'iscritto'.
+Infatti quel vincolo `0..1` sta proprio a indicare ciò: 
+```plain
+per ogni p:Persona, p.tipo = 'Studente' se e solo se p è coinvolto in un link di associazione 'iscritto'.
+```
 
 ##### Interpretazione semantica dei vincoli:
  Quindi una volta fatta la fusione e impostato i vincoli sugli attributi della sottoclasse e sulle associazioni che la coinvolgevano, bisogna anche esplicare i vincoli esterni per specificare il comportamento della generalizzazione ristrutturata,
  ==questo perché I vincoli formali **non possono più essere espressi tramite molteplicità** ma devono essere scritti come **vincoli esterni**==:
+ 
 ```plain
 Per ogni istanza p di Persona:
 	1. p.tipo = ‘Studente’ se e solo se p.matricola è valorizzato

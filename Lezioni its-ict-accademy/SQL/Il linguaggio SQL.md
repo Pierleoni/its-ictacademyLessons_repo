@@ -16,20 +16,44 @@ dal 1999 fino al 2011 fu rilasciato diverse edizioni del SQL: SQL:1999, SQL:2003
 -  ancora lontano dall’essere adottato dai DBMS commercial
 
 Noi vedremo postgresql perché è implementato in quasi tutti i database commerciali, imparando postgresql impareremo anche SQL.
+### Struttura di un DBMS 
 UN DBMS si strutturano in 3 livelli:
-1. Livello interno: implementa strutture fisiche di memorizzazione (file sequenziali, file hash, indici, etc.). 
-   Questa parte non viene visualizzata dagli sviluppatori.
-2. Livello logico: è quello del modello relazionale, usato per ragionare; 
-   fornisce un modello logico dei dati, indipendente da come sono memorizzati fisicamente.
+1. **Livello interno (fisico):** 
+	- Si occupa di **come i dati sono memorizzati fisicamente**: file sequenziali, file hash, indici, pagine su disco.
+	- È completamente **nascosto agli sviluppatori** e agli utenti: né le [[Query|query]] né i modelli logici si preoccupano di come i dati siano effettivamente salvati.
+	  ^livelloInterno
+	  
+2. **Livello logico (concettuale):**  ^livelloLogico
+	- È il livello del **[[Lezione 1; Introduzione e modello relazionale|modello relazionale]]**: 
+		- ==qui i dati vengono descritti come **tabelle con attributi e vincoli**.==
+    
+	- Fornisce una visione **astratta e indipendente** dalla memorizzazione fisica.
+    
+	- È il livello su cui lavorano principalmente i **DDL (CREATE TABLE, CREATE DOMAIN, ALTER TABLE, …)** e i **vincoli**.
+  
+	   
    In altre parole i file sono organizzati in modo sconosciuto per gli sviluppatori che li visualizzano come tabelle.
+	
+> [!info] Title
+> È qui che agiscono i **DDL per CREATE VIEW** e le **query DML per interrogare le viste**.
+
 
 > [!example] **Analogia con Linux**
 >    Su Linux è la stessa cosa le cartelle su Linux sono file che quando c'è uno slash finisce il file e noi vediamo le cartelle su interfaccia grafica
 
-3. Livello esterno: 
-   per comodità si possono definire le liste; 
-   visualizzazioni particolare dei dati che hanno la forma di tabelle, non sono tabelle non si puo inserire dati ma è utile per visualizzarli. Inoltre utenti diversi con privilegi diversi possono visualizzare due liste diverse, esempio utenti con privilegi più alti mostro le email a utenti con privilegi più bassi le nascondo.
-
+3. **Livello esterno (viste):**  ^livelloEsterno
+	- Consente di definire **viste personalizzate** dei dati.
+    
+	- Le viste non sono tabelle reali, ma **proiezioni e trasformazioni** delle tabelle logiche (query salvate).
+    
+	- Servono per:
+    
+	    - **semplificazione** (es. un utente vede solo i campi che gli interessano);
+        
+	    - **sicurezza** (es. un utente con meno privilegi non vede i dati sensibili come l’email).
+        
+	- È qui che agiscono i **DDL per CREATE VIEW** e le **query DML per interrogare le viste**.
+	  
 
 ### SQL e livelli 
 Innanzitutto bisogna lanciare il Docker dove si trova il database tramite il comando:
@@ -98,162 +122,332 @@ In seguito digitare questo commando:
 601b8410aa93:/home# psql -U postgres
 ```
 
-Ora siamo dentro postgreSQL.
-Data definition language:
+Da questo momento in poi ci troviamo dentro PostgreSQL.
 
-un database è in insieme di tabelle popolate di dati.
-Il comando per creare il DB è:
-```sql
-create database nome_database[opzioni];
-```
 
-SQL è case insenstive: si può scrivere maisucoli e minuscoli come mi pare, una volta non si poteva perché non eistivenao i colori sullo schemro.
-QUindi se creo una tabella Studente maisucolo o minuscolo non cambia, l'unica cosa che veramente conta è il punto e virgola come JS.
-In un database si possono definire schemi: una schema è un sottoinseme delle tabelle. In Ebuy ad esempio può avere uno schema Utenti e Oggetti, servono a definire quando si hanno tante tabelle quindi per gestirle.
+#### Data Definition Language (DDL)
+Detto questo ora entriamo nel dettaglio e vediamo cosa è il DDL.
+==Il DDL è la componente del linguaggio SQL che permette di **definire la struttura del database**.==  
 
-Creiamo in una cartella `bd` al cui interno creiamo altre cartelle
+Ma cos’è un database?  
+- Un database è un insieme di tabelle popolate di dati.
+
+### Accesso a PostgreSQL via Docker
+Per accedere a PostgreSQL via Docker ci sono una serie di passaggi da compiere attraverso comandi di riga di comando (CLI). 
+
+1. **Creazione della cartella per gli esercizi:** 
 ```shell
+mkdir "base dati"
+cd "base dati"
 mkdir esempi
 cd esempi/
 touch esami.sql
 ```
+- Qui creiamo la struttura per salvare i file SQL.
+    
+- Apriamo subito il file `esami.sql` con il nostro editor preferito (VS Code, Sublime Text, ecc.).
 
-Dopodichè settiamo subito con che editor aprirlo e apro un altro terminale con cui entro nel container:
+2. **Controllo dei container Docker:** 
+ Prima di  entro nel [[Docker#1. Docker container vs. Docker Images|container docker]] è meglio vedere i [[Docker#^dockerPs|container attivi]] 
 ```docker
 docker ps 
 ```
-mostra gli altri container attivi
-Per vedere tutti i container anche quelli chiusi è 
-```docker
-docker ps -a
-```
+- Mostra i container **attivi**.
 
-Per aprire una bash in un contaier già in esecuzione:
+> [!info]
+> 
+> ```docker
+> docker ps -a
+> ```
+> - Mostra tutti i container, **anche quelli chiusi**.
+
+
+3. **Aprire un terminale interattivo dentro un container già in esecuzione:**
+
 ```docker
 docker exec -it [nome_container] bash
 ```
-Stiamo dicendo di aprire in modo interrativo il temrinale dentro la container
 
-```shell
-whoami
-```
+
+- `-it` apre un terminale **interattivo** dentro il container.
+    
+- Ora possiamo eseguire comandi all’interno del container.
+
+> [!info] Per vedere l’utente con cui siamo loggati all’interno del container.
+> 
+> ```shell
+> whoami
+> ```
+
+
+4. **Entrare in PostgreSQL**
 
 Ora entriamo in postgres:
 ```postgresql
 psql -U postgres
+```
+
+- `-U postgres` indica l’utente con cui ci connettiamo (di default `postgres`).
+    
+- Uscirà qualcosa come:
+```sql
 psql (versione)
-type "help" for help.
+Type "help" for help.
 postgres=#
 ```
-Ora siamo entrati nella riga di comando dentro il DBMS, quindi adesso vediamo solo comandi di `postgres`. 
-`postgres=#`: si cihma postgres sia l'utente che è entrato nel postgres e dentro il DBMS di default ha un DB postgres, l'uguale significa che sta spettando il comando.
-Per vedere quali database sono disponibili:
+
+
+`postgres=#` significa:
+
+- sei connesso al **DBMS PostgreSQL**;
+    
+- l’utente è `postgres`;
+    
+- il prompt `=#` indica che PostgreSQL sta **aspettando un comando**.
+
+
+> [!NOTE] **Nota:**
+> - Da questo punto in poi, tutti i comandi che digiterai saranno **comandi PostgreSQL**.
+ >   
+>- Puoi eseguire query, creare tabelle, domini, viste, ecc.
+
+
+#### CLI per SQL
+Vediamo ora i principali comandi da riga di comando (CLI) per creare **database, tabelle, domini e vincoli**.  
+
+1. **Creazione di un database:**
+```sql
+create database nome_database[opzioni];
 ```
+
+> [!info] #### Case Sensitivity in SQL
+> - **SQL è case-insensitive**: le parole chiave (`CREATE`, `SELECT`, `WHERE`, …) possono essere scritte sia in maiuscolo che in minuscolo, senza differenza.
+ >   
+>- Per convenzione, nei manuali e in ambito professionale si scrivono **maiuscole** per distinguerle meglio dai nomi di tabelle e colonne.
+ >   
+>- L’unico elemento davvero obbligatorio è il **punto e virgola `;`**, che indica la fine dell’istruzione (come in JavaScript).
+>> [!remember] **Nota:**
+>>  i nomi di **tabelle e colonne** possono diventare case-sensitive **solo se scritti tra doppi apici** (`"Studente"` è diverso da `"studente"`). 
+>>  Se non si usano apici, PostgreSQL li converte in minuscolo di default.
+
+
+> [!important] **Schemi in un database**
+> Una schema in un database è : 
+> un sottoinsieme logico delle tabelle all'interno di un database. 
+> Gli schemi sono utili per organizzare meglio i dati quando ci sono molte tabelle in un database. 
+>> [!example] **Esempio:**
+>> Prendiamo come esempio il diagramma delle classi UML di Ebuy;
+>> Abbiamo la classe `Utenti` che contiene le tabelle relative agli utenti
+>> E la classe `Oggetti` che contiene le tabelle relative agli oggetti in vendita.
+>>
+>
+>
+> Questa approccio permette di separare i contesti e gestire più facilmente autorizzazioni e query complesse. 
+ 
+
+2. **Per visualizzare i database disponibili:**
+```bash
 postgres=# \l
 ```
 
-per creare un database:
-```
-postgres=# create database esami;
-CREATE DATABSE
-postgres=#
+> [!example] **Esempio della creazione di un database:**
+> per creare un database:
+> ```
+> postgres=# create database esami;
+> CREATE DATABSE
+> postgres=#
+> ```
+>> [!note] **Nota:** a questo punto non siamo ancora entrati nel database creato.
+
+4. **Connettersi a un database:**
+```shell
+postgres=# \c esami; 
 ```
 
-Da notare no siamo ancora entrati nel database creato, per accedrvi:
-```
-postgres=# \c esami;
+Output previsto: 
+```shell
 You are now connected to database "esami" as user "postgres"
 ```
 
-Ora se scrivo qualcosa:
+> [!NOTE] **Nota: esempio di comando non valido**
+>
+> ```postgresql
+> postgres=# perpeorpero
+> postgres-#
+> postgres=#(
+> postgres(#
+> ```
+> 
+> - Se digiti qualcosa di non corretto, il prompt cambia (`postgres-#`, `postgres(#`) per indicare che **PostgreSQL aspetta la fine dell’istruzione**.
+ >   
+>- Finché compare il prompt `postgres=#`, il comando è stato eseguito correttamente.
+
+
+5. **Creazione di una tabella:** 
+
+	**Sintassi generale:**
+
 ```postgresql
-postgres=# perpeorpero
-postgres-#
-postgres=#(
-postgres(#
+CREATE TABLE [nome_schema.]nome_tabella (
+    nome_attributo dominio [vincoli],
+    nome_attributo dominio [vincoli],
+    ...
+    [constraint nome_vincolo vincolo_su_colonne]
+);
+
 ```
 
-Ti dice cosa manca, finchè c'è l'uguale dopo postgres vuol dire il comando è stato eseguito con successo.
+- `[nome_schema.]` → opzionale, serve se vuoi inserire la tabella in uno schema specifico.
+    
+- `dominio` → tipo di dato (integer, varchar, date, ecc.) o **domain** creato precedentemente.
+    
+- `[vincoli]` → ad esempio `NOT NULL`, `UNIQUE`, `CHECK`, ecc.
+    
+- `constraint` → per definire vincoli di chiave primaria, chiave esterna, o altri vincoli su più colonne.
 
-Come si fa a definire una tabella?
+> [!example] **Esempio di tabella**
+> 
+> ```postgresql
+> create table Corso(
+> 	codice integer not null,
+> 	nome character varying (100) not null, //dice che questa è una sequenza di 100 caratteri, standrd sql
+> 	aula character varying (10) not null,
+> 	primary key (codice)
+> );
+> create table Incarico(
+> 	id SERIAL PRIMARY KEY,
+ >   docente INTEGER NOT NULL REFERENCES Persona(cf),
+ >   corso INTEGER NOT NULL REFERENCES Corso(codice),
+ >   data_inizio DATE NOT NULL,
+ >   data_fine DATE
+> );
+> ```
+> 
+
+> [!remember] **Tipi di dato comuni in PostgreSQL**
+>
+> 
+> 1. **Integer / Numeric / Real** → numeri interi o decimali.
+>     
+> 2. **Character / Varchar / Text** → stringhe di lunghezza fissa o variabile.
+>     
+> 3. **Date / Time / Timestamp** → date, ore, o combinazioni di data e ora.
+>     
+> 4. **Boolean** → vero/falso.
+>     
+> 5. **BLOB (Binary Large Object)** → oggetti binari di grandi dimensioni, usati per **immagini, file, audio, video**.
+>     
+>     - PostgreSQL usa il tipo **`BYTEA`** per memorizzare dati binari.
+>         
+>     - Esempio: immagini caricate in un’applicazione possono essere salvate come `BYTEA`.
+>         
+>
+>Altri tipi specializzati:
+>
+>- **ENUM** → valori limitati predefiniti (es. `{M, F}`).
+ >   
+>- **Domain personalizzati** → domini con vincoli aggiuntivi (es. `CREATE DOMAIN CodiceFiscale AS CHAR(16) CHECK (…)`).
+>[Per maggiori informazioni: clicca su questo link](https://www.postgresql.org/docs/current/datatype.html)
+
+#### Creazione di tabelle valori di defualt
+Quando si crea una tabella, se **non si inserisce un valore in un campo**, PostgreSQL può impostare un **valore di default** se definito.
+Sintassi per un default:
+```sql
+colonna tipo DEFAULT valore
+```
+
+Esempio: 
+```sql
+stipendio INTEGER DEFAULT 1000 CHECK (stipendio >= 0)
+```
+
+In questo caso il [[Lezione 1; Introduzione e modello relazionale#^colonna|campo]] `stipendio` è un intero con valore di default inziale a `1000`; quindi significa che il valore di partenza delle [[Lezione 1; Introduzione e modello relazionale#^ennuple|ennuple]] di stipendio sarà di `1000`  
+
+
+#### [[Lezione 1; Introduzione e modello relazionale#Il linguaggio SQL Vincoli di dominio Vincoli di ennupla|Vincoli di dominio]] 
+
+Permettono di imporre **restrizioni sui valori degli attributi**.
+Esempio: `stipendio` deve essere maggiore o uguale a zero:
 ```postgresql
-create table [nome_schema] nome_tabella(
-nome_attributo dominio [vincolo di dominio] //se ce ne sono
-nome_attributo dominio [vincoli di dominio]
-);
+CHECK (stipendio >= 0)
 ```
+- Questo vincolo viene controllato per **ogni ennupla inserita**.
 
-Esempio
+
+#### Vincoli di chiave:
+Se devo definire un unica primary key su un solo attributo anziché scrivere:
 ```postgresql
-create table Corso(
-	codice integer not null,
-	nome character varying (100) not null, //dice che questa è una sequenza di 100 caratteri, standrd sql
-	aula character varying (10) not null,
-	primary key (codice)
-);
-create table Incarico(
-
-);
-```
-
-I tipi che abbiamo sono:
-BLOB: binary large object 
-
-
-### Creazione di tabelle valori di defualt
-quando creo una tabella se inserisco una ennupla e non inserisco il valore allora postgres imposta un valore di defualt
-
-Vincoli di dominio:
-ad esempio stipendio e un integer maggiore di zero e per controllare cio scrivo check(stipendio>=0), quindi ogni ennupla deve anche rispettare questo vincolo.
-
-Vincoli di chiave:
-Se devo definire un unica primary key su un solo attributo anziche scrivere:
-```
 primary key (matricola)
 ```
 
-Scrivo:
-```
+posso anche scrivere:
+```postgresql
 matricola integer primary key
 ```
 
-mentre per scrivee tutte le altre chiavi non primaria:
+- La clausola `primary key` impone unicità e le ennuple di quel campo non possono avere valori `NOT NULL`
+
+Se ho più attributi da far diventare chiavi primarie
+```postgresql
+PRIMARY KEY (nome, cognome, nascita)
 ```
+
+3. **Altri vincoli di unicità:**
+```postgresql
 unique(cf)
 unique(cognome, nome, nascita)
 ```
-Ciò significa che non possono essereci due studenti con lo stesso codice fiscale, nome, cognome e data di nascita.
+- Impedisce la duplicazione di righe che coincidono su uno o più attributi.
 
 
-Proviamo ad implementare delle tabelle
+##### Esempio di tabella `Studente`
 ```postgresql
-create table studente(
-	matricola integer not null,
-	 
-	nome varchar not null,
-	
-	primary key(matricola)
+CREATE TABLE Studente (
+    matricola INTEGER PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    cognome VARCHAR(50) NOT NULL,
+    cf CHAR(16) UNIQUE,
+    data_nascita DATE,
+    stipendio INTEGER DEFAULT 1000 CHECK (stipendio >= 0)
 );
 ```
 
+- `matricola` → chiave primaria.
+    
+- `nome` e `cognome` → obbligatori (`NOT NULL`).
+    
+- `cf` → unico (unico codice fiscale per ogni studente).
+    
+- `stipendio` → default a 1000 e non negativo.
 
-Se prendiamo questo codice e lo copiamo e incolliamo sul temrinale (sempre se ci troviamo dentro il DBSM):
-```
-esami=#create table(
-esami(# matricola integer not null,
-esami(# nome varchar not null,
-esami(#primary key (matricola)
-esami(#);
-CREATE TABLE
-```
 
-```
-create table corso (
-	nome varchar primary key,
-	crediti integer not null
-		check(crediti>0)
-);
-```
+
+> [!example] **Esempio concreto di copia/ incolla del codice sul terminale dentro il  DBSM:**
+> ```postgresql
+> esami=#create table(
+> esami(# matricola integer not null,
+> esami(# nome varchar not null,
+> esami(#primary key (matricola)
+> esami(#);
+> CREATE TABLE
+> ```
+> 
+> ```postgresql
+> create table corso (
+> 	nome varchar primary key,
+> 	crediti integer not null
+> 		check(crediti>0)
+> );
+> ```
+> 
+> 
+> - `matricola` → chiave primaria.
+ >   
+>- `nome` e `cognome` → obbligatori (`NOT NULL`).
+ >   
+>- `cf` → unico (unico codice fiscale per ogni studente).
+ >   
+>- `stipendio` → default a 1000 e non negativo.
 
 Se su temrinale scriviamo:
 ```

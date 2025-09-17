@@ -160,10 +160,10 @@ in cui le **informazioni sono strutturate in tabelle** (dette anche _relazioni_)
     
 
 Le righe delle tabelle vengono chiamate **ennupla**(o _tuple_ in inglese):
-- ==Ogni **riga** della tabella rappresenta un’istanza di dati==.  ^ennuple
+- ==Ogni **riga o ennupla o tupla** della tabella rappresenta un’istanza di dati==.  ^ennuple
 
 Mentre le colonne sono chiamate **o attributi o campi:** 
-- ==ogni **colonna o attributo** rappresenta un attributo del dominio==.  ^colonna
+- ==ogni **colonna o attributo o campo** rappresenta un attributo del dominio==.  ^colonna
 
 #### Esempio
 L’esempio seguente rappresenta un database relazionale che descrive un sistema universitario, con informazioni su:
@@ -332,45 +332,89 @@ ad esempio nella tabella `Esame`:
 A sua volta i vincoli [[#^intra-tabella|intra-tabella]] si suddividono in due categorie:
 1. I vincoli di ennupla.  
 2. I vincoli di chiave o di colonna
-#### Vincoli di ennupla
+#### [[Il linguaggio SQL#Vincoli di dominio|Vincoli di ennupla]] 
 
-Esprimono condizioni sui valori di ciascuna ennupla di una tabella, indipendentemente dalle altre ennuple.
-In altre parole:
-==sono **condizioni sui valori** di ciascuna riga della tabella, considerate **indipendentemente dalle altre righe**==.
+==I **vincoli di ennupla** esprimono condizioni sui valori di ciascuna riga (ennupla) di una tabella, **considerata indipendentemente dalle altre**.==  
+
+In altre parole: 
+	-  ==sono **condizioni locali**, che devono essere verificate **per ogni singola riga** del database.==
 
 **Esempi:**
-- `voto >=18 and voto<=30`
+- `voto >= 18 AND voto <= 30`
 - `IF lode = TRUE THEN voto = 30`
 
-==Quindi si tratta di vincoli, facilmente verificabili su ogni singola riga==. 
+✅ Questi vincoli sono sempre **verificabili sulla singola riga**, senza bisogno di confrontarla con le altre righe della tabella.
+
 #### Vincoli di chiave o di colonna
 ==I **vincoli di chiave** impongono che **non possano esistere due ennuple (righe) che coincidano sugli stessi valori** di uno o più attributi di una tabella.==
  In altre parole: 
 	 ====servono a garantire **unicità** su determinati attributi, impedendo la duplicazione dei dati==.
 
-Ad esempio immaginiamo di avere una tabella `Studente` con i campi i seguenti campi: 
 
-| matricola:stringa | nome:stringa | cognome:stringa | nascita:date |
-| ----------------- | ------------ | --------------- | ------------ |
-Ora senza i vincoli di chiave o di colonna in questa tabella potrebbero esistere due studenti con lo stesso numero di matricola. 
-Il che sarebbe poco realistico poiché il numero di matricola è univoca per ogni studente.
-Oppure potrebbero esistere due studenti con lo stesso nome, cognome e nascita, 
-tramite i vincoli di chiave è possibile fare in modo che un comportamento del genere del DB non capiti.
 
-> [!NOTE] **Nota:**
-> Il secondo esempio nella realtà non è vero che garantisce **l’unicità di una persona**, perché possono esistere **omonimi nati lo stesso giorno**.
->> [!example] **Esempio reale:**
->> due ragazzi chiamati **“Marco Rossi”** nati entrambi il **13/09/2001** → sono persone diverse, ma infrangerebbero il vincolo.
+> [!example] Ad esempio immaginiamo di avere una tabella `Studente` con i campi i seguenti campi: 
+> 
+> 
 >
->Quindi in realtà l'ultimo esempio è falso: 
->- È un **esempio didattico** di vincolo di chiave (mostra che puoi definire chiavi anche su più attributi).
+>
+> | matricola:stringa | nome:stringa | cognome:stringa | nascita:date |
+> | ----------------- | ------------ | --------------- | ------------ |
+> Ora **senza i vincoli di chiave o di colonna in questa tabella potrebbero esistere due studenti con lo stesso numero di matricola.** 
+> Il che sarebbe poco realistico poiché il numero di matricola è univoca per ogni studente.
+> Oppure potrebbero esistere due studenti con lo stesso nome, cognome e nascita, 
+> tramite i vincoli di chiave è possibile fare in modo che un comportamento del genere del DB non capiti.
+> 
+> > [!NOTE]- **Nota: questo esempio è puramente didattico**
+> > Il secondo esempio nella realtà non è vero che garantisce **l’unicità di una persona**, perché possono esistere **omonimi nati lo stesso giorno**.
+> >> [!example] **Esempio reale:**
+> >> due ragazzi chiamati **“Marco Rossi”** nati entrambi il **13/09/2001** → sono persone diverse, ma infrangerebbero il vincolo.
+> >
+> >Quindi in realtà l'ultimo esempio è falso: 
+> >- È un **esempio didattico** di vincolo di chiave (mostra che puoi definire chiavi anche su più attributi).
+>  >   
+> >- Ma è **falso come regola di business reale**, perché non garantisce l’unicità delle persone nel mondo reale.
+> >> [!tip] **Infatti nei sistemi veri, si usano:**
+> >> - `matricola` → nelle università
+> >>- codice fiscale → nei sistemi statali
+> >>    
+> >>- `ID univoci` generati dal DB → negli applicativi gestionali
+> 
+
+
+> [!todo]- **Come implementare i [[#Vincoli di ennupla|vincoli di ennupla]] e [[#Vincoli di chiave o di colonna|di chiave]] in PostgreSQL**
+> Per i vincoli di ennupla si implementa la clausola `CHECK` all'interno della definizione della tabella:
+>```sql
+>CREATE TABLE Esame (
+  id SERIAL PRIMARY KEY,
+  voto INTEGER CHECK (voto >= 18 AND voto <= 30),
+  lode BOOLEAN,
+  CHECK (lode = FALSE OR voto = 30)  -- se lode è TRUE allora voto deve essere 30
+);
+>```
+>
+>Qui: 
+>- `CHECK (voto >= 18 AND voto <= 30)` → vincolo di intervallo sul singolo attributo
  >   
->- Ma è **falso come regola di business reale**, perché non garantisce l’unicità delle persone nel mondo reale.
->> [!tip] **Infatti nei sistemi veri, si usano:**
->> - `matricola` → nelle università
->>- codice fiscale → nei sistemi statali
->>    
->>- `ID univoci` generati dal DB → negli applicativi gestionali
+>- `CHECK (lode = FALSE OR voto = 30)` → vincolo che coinvolge più attributi **della stessa riga.**
+>  
+> Per i vincoli di chiave o di colonna si implementa la clausola `UNIQUE`:
+>```sql
+>CREATE TABLE Studente (
+  matricola VARCHAR(10) PRIMARY KEY,       -- chiave primaria (unicità: non accetta valori NULL)
+  nome VARCHAR(50),
+  cognome VARCHAR(50),
+  nascita DATE,
+  UNIQUE (nome, cognome, nascita)          -- esempio teorico, ma non realistico
+);
+>```
+>
+>[[#^idNonAffidabile|Per capire cosa si intende con solo esempio teorico guarda qui]]
+
+> [!example] **In sintesi:**
+> - **vincoli di ennupla (`CHECK (...)`)** → riguardano condizioni **sulla singola riga**
+ >   
+>- **vincoli di chiave (`PRIMARY KEY` o `UNIQUE`)** → riguardano l’**unicità tra più righe**
+
 
 
 ##### Definizione di una chiave
@@ -394,13 +438,13 @@ Consideriamo due esempi di vincolo di **unicità**:
     
 
 > [!caution] **Attenzione**  
-> L’insieme `{nome, cognome, data_nascita}` non è un identificatore affidabile nel mondo reale, perché **persone diverse possono condividere questi dati**.
+> L’insieme `{nome, cognome, data_nascita}` non è un identificatore affidabile nel mondo reale, perché **persone diverse possono condividere questi dati**.  ^idNonAffidabile
 
   Ma allora, ritornando all'immagine [[Vincoli di integrità.png|soprastante]], immaginiamo che io non possa avere due studenti con lo stesso codice,  quindi si potrebbe avere un `NULL` al posto di codice? 
   Sì, è tecnicamente possibile che un attributo di una **chiave generica** (cioè non primaria) abbia valore `NULL`.
 Tuttavia, questo **compromette la funzione identificativa** della chiave, perché:
 
-- `NULL` **non è comparabile**: due valori `NULL` non sono mai “uguali”;
+- `NULL` **non è comparabile**: ==due valori `NULL` non sono mai “uguali”==;
     
 - Non si può verificare l’unicità su righe contenenti `NULL`.
 Quindi per evitare ambiguità e mantenere l'unicità:
@@ -418,10 +462,10 @@ Quindi, righe come queste **non sono valide**:
 | `NULL`   | prog   | 30   | True  |
 In presenza di `NULL` nei campi che compongono la chiave primaria:
 
-- Non è possibile determinare se le due righe si riferiscono allo **stesso studente**;
+- ==Non è possibile determinare se le due righe si riferiscono allo **stesso studente**==;
     
-- **Il vincolo di unicità non è verificabile**;
-- Il collegamento logico tra tabelle (es. con `Studente`) **non può essere garantito**
+- ==**Il vincolo di unicità non è verificabile**==;
+- ==Il collegamento logico tra tabelle (es. con `Studente`) **non può essere garantito**==
 
 
 ### Chiavi e valori `null`
@@ -477,9 +521,9 @@ Come si nota:
 
 
 > [!link] **Collegamenti tra tabelle e integrità referenziale**
-> Nel modello relazionale, i collegamenti tra le tabelle **non avvengono tramite puntatori**, ma tramite **valori condivisi** di attributi (tipicamente chiavi primarie e chiavi esterne).
+> Nel modello relazionale, i collegamenti tra le tabelle **non avvengono tramite puntatori**, ==ma tramite **valori condivisi** di attributi (tipicamente chiavi primarie e chiavi esterne)==.
 >
-> Se i valori di chiave primaria contengono `NULL` o dati incoerenti, **le relazioni logiche tra le tabelle non possono essere garantite.**
+> ==Se i valori di chiave primaria contengono `NULL` o dati incoerenti, **le relazioni logiche tra le tabelle non possono essere garantite==.**
 
 #### La chiave primaria
 Per ovviare a queste problematiche si sceglie, tra le chiavi della tabella,  una o più chiavi, che diventa/no la **chiave primaria**. 
@@ -570,7 +614,8 @@ Questa tecnica di **riferimento tramite chiavi primarie** consente ai [[#Cos’�
 
 
 #### I vincoli foreign key (integrità referenziale)
-Dopo aver analizzato i vincoli **intra-tabella** – cioè quelli che coinvolgono una sola tabella – come i [vincoli di ennupla](#Vincoli-di-ennupla) e i [vincoli di chiave o di colonna](#Vincoli-di-chiave-o-di-colonna), possiamo ora esaminare i vincoli **inter-tabella**, ovvero quelli che garantiscono **la coerenza tra dati presenti in tabelle diverse**.
+Dopo aver analizzato i vincoli **[[#^intra-tabella|intra-tabella]]** – cioè quelli che coinvolgono una sola tabella – come i [vincoli di ennupla](#Vincoli-di-ennupla) e i [vincoli di chiave o di colonna](#Vincoli-di-chiave-o-di-colonna), possiamo ora esaminare i vincoli **[[#^inter-tabella|inter-tabella]]:** 
+	==ovvero quelli che garantiscono **la coerenza tra dati presenti in tabelle diverse**.==
 
 Quando esistono **dati comuni** tra più tabelle (ad esempio, codici o identificativi), questi dati devono essere **coerentemente correlati**. Questa correlazione viene garantita formalmente tramite i **vincoli di integrità referenziale**, detti anche **vincoli di foreign key** (_chiave esterna_).
 
@@ -588,7 +633,7 @@ T1(A) references T2(K).
 
 ##### Significato:
 
-==Tutti i **valori** presenti negli attributi `A` della tabella `T1` devono **apparire anche** come **valori della chiave `K`** in almeno una ennupla (riga) della tabella `T2`==.
+==Tutti i **valori** presenti negli attributi (colonna) `A` della tabella `T1` devono **apparire anche** come **valori della chiave `K`** in almeno una ennupla (riga) della tabella `T2`==.
 
 In altre parole:
 	==Ogni valore della foreign key deve **corrispondere a un valore esistente** nella tabella referenziata.== 
@@ -605,7 +650,7 @@ In altre parole:
 >- La **tabella referenziata** dalla foreign key è detta **tabella padre** (_referenced table_ o _parent table_).
 >	- Esempio:
 >```postgresql
->REFERENCES Officina(nome)
+>...REFERENCES Officina(nome)
 >```
 >- ==La **colonna nella tabella figlia** (in questo caso, `officina`) è la **foreign key** vera e propria==
 >
@@ -638,7 +683,8 @@ In altre parole:
 >>- La tabella referenziata sia quella "**a cui arriva**" la FK.
 >>    
 >>- La tabella figlia sia quella "**da cui parte**" la FK.
->>Questa interpretazione, sebbene intuitiva, **è imprecisa**. La foreign key **non è una freccia visiva** (da sinistra a destra nel codice), ma un **vincolo logico** tra due tabelle.
+>>Questa interpretazione, sebbene intuitiva, **è imprecisa**. 
+>>==!!!La foreign key **non è una freccia visiva** (da sinistra a destra nel codice), ma un **vincolo logico** tra due tabelle!!!==
 >
 >**La definizione corretta è**:
 >==Una **foreign key** è un vincolo tra un insieme di attributi `A` di una tabella `T1` (figlia) e una chiave `K` di una tabella `T2` (padre).==
@@ -755,7 +801,7 @@ Supponiamo di avere **quattro tabelle relazionate tra loro**:
 - Il campo `veicolo` fa riferimento a `Veicolo(targa)`, quindi ogni riparazione è associata a un veicolo registrato.
     
 
-#### 4. **Tabella `RicambioRip`**
+4. **Tabella `RicambioRip`**
 
 - Contiene i campi:
     
@@ -772,9 +818,9 @@ Supponiamo di avere **quattro tabelle relazionate tra loro**:
 
 ##### Definizione dei vincoli di integrità referenziale
 Per garantire la coerenza tra queste tabelle, definiamo i vincoli `FOREIGN KEY` come segue:
-1. Vincolo su `Veicolo` in `Riparazione`
+1. [[FK Esempio.png|Vincolo su `Veicolo` in `Riparazione`]]
 
-==Ogni valore del campo `veicolo` deve corrispondere a una targa esistente in `Veicolo`.==
+==Ogni valore delle ennuple del campo `veicolo` deve corrispondere a una targa esistente in `Veicolo`.==
 
 ```plain text
  FK :Riparazione (veicolo) refenrces Veicolo(targa).
@@ -787,13 +833,14 @@ FOREIGN KEY (veicolo) REFERENCES Veicolo(targa)
 **Requisito fondamentale del vincolo**
 
 Implementando questo vincolo: 
-	 ==ogni valore nel campo `veicolo` di `Riparazione` **deve esistere come targa nella tabella `Veicolo`**.==
-	 ==Se si tenta di inserire una riparazione per un veicolo inesistente, il DBMS solleverà un errore di violazione dell’integrità referenziale.==
+	 ==ogni valore delle ennuple nel campo `veicolo` di `Riparazione` **deve esistere come valore delle ennuple del campo `targa` nella tabella `Veicolo`**.==
+	 
+ ==Se si tenta di inserire una riparazione per un veicolo inesistente, il DBMS solleverà un errore di violazione dell’integrità referenziale.==
 
 > [!ticket] Regola d'oro
 > Le Foreign Key vanno scritte vicino alle tabelle.
 
-2. **Vincolo su `officina` in `Riparazione`**
+2. **[[FK Esempio.png|Vincolo su `officina` in `Riparazione`]]**
 Serve a collegare il campo `officina` con la tabella `Officina`.
 ```plain text
 FK: Riparazione(officina) references Officina (nome)
@@ -808,7 +855,7 @@ FOREIGN KEY (officina) REFERENCES Officina(nome)
 **Requisito fondamentale del vincolo**
 ==Ogni `officina` registrata in `Riparazione` deve esistere come `nome` in `Officina`.==
 
-3. **Vincolo composito su `RicambioRip` verso `Riparazione`**
+3. **[[FK Esempio.png|Vincolo composito su `RicambioRip` verso `Riparazione`]]**
 ==Il campo `rip` rappresenta il codice di una riparazione, che ha significato solo in combinazione con `officina`, per formare la chiave `(officina, codice)` di `Riparazione`.==
 ```plain text
 FK: RicambioRip(officina, rip) references Riparazione(officina, codice)
@@ -831,11 +878,11 @@ FOREIGN KEY (officina, rip) REFERENCES Riparazione(officina, codice)
 
 
 > [!remember] **Regole da ricordare sulle foreign key**
-> - Le foreign key **devono fare riferimento a una chiave (primaria o candidata)** della tabella di destinazione.
+> - ==Le foreign key **devono fare riferimento a una chiave (primaria o candidata)** della tabella di destinazione.==
 >    
->- **Tutti gli attributi coinvolti devono avere lo stesso tipo e dominio** di quelli di riferimento.
+>- ==**Tutti gli attributi coinvolti devono avere lo stesso tipo e dominio** di quelli di riferimento.==
  >   
->- **I valori devono esistere** nella tabella referenziata al momento dell’inserimento, a meno che non siano `NULL` (in alcuni casi consentito).
+>- ==**I valori devono esistere** nella tabella referenziata al momento dell’inserimento, a meno che non siano `NULL` (in alcuni casi consentito).==
 
 ### Cosa succede se un’operazione viola un vincolo di foreign key?
 Ogni volta che si esegue un’**operazione di modifica del database** (inserimento, aggiornamento, cancellazione), il **DBMS verifica automaticamente i vincoli di integrità referenziale** tra le tabelle coinvolte.
@@ -860,7 +907,7 @@ Per spiegare nel dettaglio questo concetto prendiamo ad esempio due tabelle:
 | HK 243 BW   | auto |
 | AA 662 XQ   | auto |
 | HK 243 BW   | auto |
-Immaginiamo ci siano anche due FK:
+Immaginiamo ci siano anche due [[#I vincoli foreign key (integrità referenziale)|FK]]:
 ```plain text
 
 FK: Riparazione(officina) ref. Officina(nome)
@@ -880,7 +927,7 @@ FOREIGN KEY (officina) REFERENCES Officina(nome)
 
 Il significato di questi vincoli è il seguente:
 
-- ==Ogni valore della colonna `officina` in `Riparazione` deve corrispondere a un `nome` valido nella tabella `Officina`;==
+- ==Ogni valore delle ennuple della colonna `officina` in `Riparazione` deve corrispondere a un valore delle ennuple valido nel campo `nome` nella tabella `Officina`;==
     
 - ==Ogni valore della colonna `veicolo` in `Riparazione` deve esistere nella colonna `targa` della tabella `Veicolo`.==
 
@@ -894,11 +941,11 @@ SET targa = 'ZZ 111 ZZ'
 WHERE targa = 'AA 662 XQ';
 ```
 
-Questa operazione viene **bloccata dal DBMS** perché la targa `AA 662 XQ` è ancora referenziata nella tabella `Riparazione`:
+Questa operazione viene **bloccata dal DBMS** perché la targa `AA 662 XQ` è ancora referenziata nella tabella `Riparazione`.
 Perché:
 	
-Il DB rileva che la modifica violerebbe il vincolo di foreign key perché la targa `AA 662 XQ` viene modificata in `Veicolo`, ma è ancora referenziata nella tabella `Riparazione` dal veicolo associato alla riparazione (`CarFix, 1`)
-	—> Quindi il DB rifiuta l’operazione, mantenendo il vincolo soddisfatto.
+==Il DB rileva che la modifica violerebbe il vincolo di foreign key perché la targa `AA 662 XQ` viene modificata in `Veicolo`, ma è ancora referenziata nella tabella `Riparazione` dal veicolo associato alla riparazione (`CarFix, 1`)==
+	==—> Quindi il DB rifiuta l’operazione, mantenendo il vincolo soddisfatto.==
 	
 Quindi se c'è un operazione che appena completata cancella una ennupla il DBMS riconosce quell'operazione come illegale e non permette la modifica.
 ![[tentativo di cancellare e aggiungere una nuova ennupla.png]]
@@ -977,13 +1024,14 @@ FOREIGN KEY (officina, rip) REFERENCES Riparazione(officina, codice)
 
 Questi vincoli di FK significano che:
 
-- ==Ogni valore della colonna `officina` in `Riparazione` deve corrispondere a un `nome` valido nella tabella `Officina`;==
+- ==Ogni valore delle ennuple della colonna `officina` in `Riparazione` deve corrispondere a un `nome` valido nella tabella `Officina`;==
     
-- ==Ogni valore della colonna `veicolo` in `Riparazione` deve esistere nella colonna `targa` della tabella `Veicolo`.==
-- Ogni valore della coppia `officina, rip` in `RicambioRip` deve esistere nella coppia `officina, codice` in `Riparazione`.
+- ==Ogni valore delle ennuple della colonna `veicolo` in `Riparazione` deve esistere nella colonna `targa` della tabella `Veicolo`.==
+
+- ==Ogni valore della coppia `officina, rip` in `RicambioRip` deve esistere nella coppia `officina, codice` in `Riparazione`.==
 
 **Tentativo di modifica: aggiornare la chiave `(officina, codice)` di `Riparazione`**
-Supponiamo di voler **modificare la riga** `(CarFix, 1, AA 662 XQ)` nella tabella `Riparazione`, sostituendo il codice da `1` a `2`:
+Supponiamo di voler **modificare la riga** `(CarFix, 1, AA 662 XQ)` nella tabella [[#^tabellaRiparazione|`Riparazione`]], sostituendo il codice da `1` a `2`:
 ```postgresql
 UPDATE Riparazione
 SET codice = 2
@@ -1024,10 +1072,12 @@ In questo caso si potrebbe agire usando il modificatore [[#Esempio `ON UPDATE SE
  >   
 >- ✅ In alternativa, si possono usare clausole come `ON UPDATE CASCADE` per forzare l’aggiornamento anche nei riferimenti.
 
-Quindi in conclusione:
-==**Modificare una chiave primaria referenziata da una foreign key composta senza indicare un comportamento esplicito (es. `ON UPDATE CASCADE`) provoca un errore.**==  
-==Questo serve a **garantire che tutte le relazioni tra i dati restino valide e coerenti**.==
-
+> [!example] Quindi in conclusione:
+> 
+> ==**Modificare una chiave primaria referenziata da una foreign key composta senza indicare un comportamento esplicito (es. `ON UPDATE CASCADE`) provoca un errore.**==  
+> ==Questo serve a **garantire che tutte le relazioni tra i dati restino valide e coerenti**.==
+> 
+> 
 
 #### Caso 3: cancellare una ennupla referenziata da una foreign key
 Riprendiamo la situazione con le **tre tabelle relazionate** e i rispettivi vincoli di integrità referenziale:
@@ -1080,7 +1130,9 @@ Ma è corretto definire un vincolo di questo tipo?
 FOREIGN KEY (tipo_prefe) REFERENCES Veicolo(tipo)
 ```
 **Risposta: No.**
-Perché ==una Una **foreign key deve sempre riferirsi a una chiave primaria o candidata** (unica) della tabella di destinazione.==  
+Perché:
+==una  **foreign key deve sempre riferirsi a una chiave primaria o candidata** (unica) della tabella di destinazione.==  
+
 ==Nel nostro caso, `Veicolo(tipo)` **non è una chiave**, ma un attributo generico che **può ripetersi** (es. molti veicoli possono essere "auto").==
 
 > 📌 ==Sarebbe come dire che ogni tipo dichiarato in `tipo_prefe` dell’officina **deve esistere tra i tipi dei veicoli registrati**, ma **non è garantito che ci sia univocità**==.
@@ -1113,22 +1165,24 @@ ON DELETE SET NULL
 ![[Azione Compensativa.png]]
 
 Il DBMS modifica la ennupla problematica di `RicambioRip` in (`NULL, NULL, A991`), mantenendo il vincolo soddisfatto.
+
 In questo caso, **essendo questi attributi parte della chiave primaria**, il DBMS non può lasciare la situazione così, ed è costretto ad annullare tutte le modifiche, poichè le chiavi primarie non possono contenere valori `NULL` e quindi questa operazione causerebbe incoerenza dei dati.
 E come sappiamo il DBMS di default annulla le operazioni che causano incoerenza dei dati.
 Quindi anche con `ON DELETE SET NULL`, l'operazione viene annullata. 
 
 > [!ticket] **Regola D'oro**
-> **le azioni compensative devono essere compatibili con i vincoli della tabella** (es. chiavi primarie, `NOT NULL`, ecc.).
+> ==**le azioni compensative devono essere compatibili con i vincoli della tabella** (es. chiavi primarie, `NOT NULL`, ecc.).==
 
 #### Significato di `ON DELETE SET NULL` nelle foreign key
-Quando si definisce una **foreign key** in SQL, è possibile specificare un **comportamento personalizzato** da eseguire nel caso in cui venga cancellata una riga dalla tabella referenziata.
+Quando si definisce una **foreign key** in [[Il linguaggio SQL|SQL]], è possibile specificare un **comportamento personalizzato** da eseguire nel caso in cui venga cancellata una riga dalla tabella referenziata.
 Uno di questi comportamenti è:
 ```postgresql
 ON DELETE SET NULL
 ```
 
 #### Cos'è `ON DELETE SET NULL`?
-Quindi il modificatore `ON DELETE SET NULL` è una **clausola opzionale** che si può specificare **all'interno della definizione di una foreign key** in SQL.
+Quindi il modificatore `ON DELETE SET NULL`: 
+==è una **clausola opzionale** che si può specificare **all'interno della definizione di una foreign key** in [[Il linguaggio SQL|SQL]].== 
 Esempio di sintassi:
 ```postgresql
 FOREIGN KEY (campo_ref)
@@ -1184,7 +1238,7 @@ ON DELETE SET NULL
 modifica il comportamento del vincolo in caso di **cancellazione di un record nella tabella `Riparazione`**.
 
 > **Significato**:  
-> ==Se una **riparazione viene cancellata** dalla tabella `Riparazione`, allora il valore della **foreign key `(officina, rip)`** nelle ennuple corrispondenti di `RicambioRip` viene **impostato automaticamente a `NULL`**.==
+> ==Se una **riga della tabella `Riparazione`** (tabella **padre**, referenziata) viene cancellata, allora i valori della **foreign key `(officina, rip)`** nelle ennuple corrispondenti della tabella `RicambioRip` (tabella **figlia**, referenziante) vengono **impostati automaticamente a `NULL`**.==
 
 
 
@@ -1192,8 +1246,9 @@ modifica il comportamento del vincolo in caso di **cancellazione di un record ne
 >Affinché il `ON DELETE SET NULL` funzioni:
 >
 >> [!remember]  
->> ✅ I campi `officina` e `rip` in `RicambioRip` **devono essere `nullable`**, cioè **non devono avere il vincolo `NOT NULL`**.  
->> ❌ Se invece sono dichiarati `NOT NULL`, il DBMS **rifiuterà la cancellazione**, perché **non può impostare `NULL` su un campo che non lo accetta**.
+>>> [!done] I campi `officina` e `rip` in  [[#^tabellaRicambioRip|`RicambioRip`]] **devono essere `nullable`**, cioè **non devono avere il vincolo `NOT NULL`**.  
+>>
+>>> [!failure]  Se invece sono dichiarati `NOT NULL`, il DBMS **rifiuterà la cancellazione**, perché **non può impostare `NULL` su un campo che non lo accetta**.
 
 Quindi, come illustrato nel [[#^accennoONdelete|Caso 3]] e visibile nell'immagine [[Azione Compensativa.png]], il problema che normalmente causerebbe **una violazione del vincolo di chiave esterna** viene gestito dal modificatore `ON DELETE SET NULL` in questo modo:
 
@@ -1205,7 +1260,7 @@ Quindi, come illustrato nel [[#^accennoONdelete|Caso 3]] e visibile nell'immagin
 
 > [!example]- Cosa si intende per `nullable`
 > Per `nullable` si intende in linguaggio postgresql:
-> ```postgresql
+> ```sql
 > CREATE TABLE RicambioRip (
 >    officina VARCHAR(100),  -- nullable
  >   rip INTEGER,            -- nullable
@@ -1216,8 +1271,8 @@ Quindi, come illustrato nel [[#^accennoONdelete|Caso 3]] e visibile nell'immagin
 > );
 > ```
 > **Spiegazione**
-> Oltre a riferirci al codice prendiamo anche come riferimento [[Azione Compensativa.png|l'immagine]]
-> Cioè `officina` è una stringa con lunghezza massima di 100 ed è una chiave unica non primaria(questo concetto lo approfondiremo più avanti), stessa cosa per `rip`.
+> Oltre a riferirci al codice prendiamo anche come riferimento [[Azione Compensativa.png|l'immagine]]:
+> `officina` è una stringa con lunghezza massima di 100 ed è una chiave unica non primaria(questo concetto lo approfondiremo più avanti), stessa cosa per `rip`.
 > Entrambi i campi della tabella `RicambioRip` hanno i vincoli `NOT NULL`, quindi è possibile applicare il modificatore `ON DELETE SET NULL`. 
 > In questo caso il DBMS verificherà se esistono ennuple nella tabella `RicambioRip` con `(officina = 'CarFix', rip =1)` e controllerà anche l'ennupla presente in `Riparazione` andando a cancellarla e a sostituire i valori dei campi dell'ennupla a cui fa riferimento in `RicambioRip` con `NULL`.
 
@@ -1228,7 +1283,7 @@ Come già accennato nel [[#^accennoONUpdate|Caso 2]], supponiamo che nella tabel
 FK: RicambioRip(officina, rip) ref. Riparazione ON UPDATE SET NULL (officina, codice)
 ```
 
-==Questa clausola `ON UPDATE SET NULL` **modifica il comportamento del vincolo** quando si effettua **un aggiornamento (update)** su una delle colonne della **chiave primaria** della tabella referenziata, ovvero `Riparazione`.==
+==Questa clausola `ON UPDATE SET NULL` **modifica il comportamento del vincolo** quando si effettua **un aggiornamento (update)** su una delle colonne della **chiave primaria** della tabella referenziata (tabella padre), ovvero `Riparazione`.==
 
 Il significato di questo vincolo è:
 > ==Se viene modificato (tramite `UPDATE`) il valore della chiave primaria in una tupla della tabella `Riparazione`, allora il DBMS imposterà automaticamente a `NULL` i campi corrispondenti nella tabella `RicambioRip` che la referenziano.==
@@ -1246,7 +1301,9 @@ Quindi:
 	- Di conseguenza, **l’operazione di aggiornamento viene annullata**, e il DBMS genera un **errore di violazione del vincolo di integrità** per evitare uno stato inconsistente nel database.
 
 ##### Cos'è `ON UPDATE SET NULL`?
-Come per [[#Cos'è `ON DELETE SET NULL`?|`ON DELETE SET NULL`]], `ON UPDATE SET NULL` è una **clausola opzionale** che può essere associata a un **vincolo di foreign key** (`FOREIGN KEY`) in SQL, e che definisce **il comportamento automatico del DBMS** nel caso in cui la **chiave primaria (o candidata)** referenziata venga **modificata** (tramite `UPDATE`).
+Come per [[#Cos'è `ON DELETE SET NULL`?|`ON DELETE SET NULL`]], `ON UPDATE SET NULL`: 
+- è una **clausola opzionale** che può essere associata a un **vincolo di foreign key** (`FOREIGN KEY`) in SQL.
+- ==Definisce **il comportamento automatico del DBMS** nel caso in cui la **chiave primaria (o candidata)** referenziata venga **modificata** (tramite `UPDATE`).== 
 
 La sintassi è la seguente:
 ```postgresql
@@ -1269,12 +1326,12 @@ Il significato di questa clausola è:
 > [!ticket] **Requisiti fondamentali**
 > Perché `ON UPDATE SET NULL` funzioni:
 >> [!remember]
->> - ==**I campi referenziali devono essere `NULLABLE`**, cioè **non devono avere il vincolo `NOT NULL`**==
+>> - ==**I campi referenziali (cioè i campi della tabella figlia) devono essere `NULLABLE`**, cioè **non devono avere il vincolo `NOT NULL`**==
 >>    
 >>- **Non devono essere parte di una chiave primaria**  
 >>    ==Le chiavi primarie **non ammettono valori NULL**, quindi il DBMS **rifiuterebbe** l’operazione.==
 >>    
->>- ==La foreign key **deve puntare a una chiave (primaria o candidata)** esistente nella tabella di destinazione.==
+>>- ==La foreign key **deve puntare a una chiave (primaria o candidata)** esistente nella tabella di destinazione (cioè la tabella padre).==
 
 
 > [!abstract] **Quando usare `ON UPDATE SET NULL`?**
@@ -1319,7 +1376,8 @@ ON DELETE CASCADE
 **Significato:**
 
 > ==Se si cancella una tupla dalla tabella `Riparazione`, tutte le ennuple in `RicambioRip` che la referenziano vengono **automaticamente eliminate dal DBMS**.==  
-> In altre parole, la cancellazione della tupla padre (`Riparazione`) **propaga** la cancellazione anche alle tuple figlie (`RicambioRip`) che la referenziano.
+> In altre parole: 
+> 	==la cancellazione della tupla padre (`Riparazione`) **propaga** la cancellazione anche alle tuple figlie (`RicambioRip`) che la referenziano.==
 
 Difatti:
 ![[On Delete Cascade.png]]
@@ -1331,9 +1389,11 @@ Come possiamo vedere da questa immagine l'uso del `ON DELETE CASCADE` fa in modo
 >Evita violazioni di integrità e semplifica le operazioni di pulizia dei dati collegati.
 
 ##### Cos'è l'`ON DELETE CASCADE`, cancellazione in cascata delle ennuple orfane
-`ON DELETE CASCADE` è una **clausola opzionale** che può essere specificata all’interno della definizione di una **foreign key** in SQL, e serve a **modificare il comportamento del DBMS in caso di cancellazione di una riga nella tabella referenziata**.
+`ON DELETE CASCADE`:  
+	- una **clausola opzionale** che può essere specificata all’interno della definizione di una **foreign key** in SQL.
+	- ==Serve a **modificare il comportamento del DBMS in caso di cancellazione di una riga nella tabella referenziata**.==
 
-> ==Se viene cancellata un’ennepla nella tabella referenziata (cioè quella che possiede la chiave primaria), allora tutte le ennuple della tabella corrente (cioè quella che contiene la foreign key) che fanno riferimento a quella riga verranno automaticamente cancellate.==
+> ==Se viene cancellata un’ennupla nella tabella referenziata (cioè quella che possiede la chiave primaria), allora tutte le ennuple della tabella corrente (cioè quella che contiene la foreign key) che fanno riferimento a quella riga verranno automaticamente cancellate.==
 
 > In altre parole, si verifica una **cancellazione in cascata**, che impedisce la creazione di ennuple orfane (ovvero righe figlie che non hanno più un genitore valido).
 
@@ -1367,7 +1427,7 @@ Per spiegare questa clausola riprendiamo il [[#Caso 2 **modifica e riparazione d
 
 Come già illustrato, **se si tenta di aggiornare uno dei campi coinvolti in una chiave primaria** (nella tabella referenziata), il DBMS normalmente **blocca l’operazione**, per evitare che venga **violato il vincolo di integrità referenziale**.
 
-> Anche con la clausola `ON UPDATE SET NULL`, l'operazione viene **annullata** se i campi referenziati sono parte della chiave primaria nella tabella figlia (come nel caso di `RicambioRip`), poiché le **chiavi primarie non possono contenere valori `NULL`**.
+> ==Anche con la clausola `ON UPDATE SET NULL`, l'operazione viene **annullata** se i campi referenziati sono parte della chiave primaria nella tabella figlia (come nel caso di `RicambioRip`), poiché le **chiavi primarie non possono contenere valori `NULL`**==.
 
 Per ovviare a questo limite, si può usare la clausola `ON UPDATE CASCADE`.
 
@@ -1396,7 +1456,8 @@ Il che significa:
 
 Come possiamo vedere da l'immagine grazie all'utilizzo di questa clausola il DB modifica la ennupla problematica di `RicambioRip` in (`CarFix, 2, A991`), mantenendo il vincolo soddisfatto.
 In altre parole: 
-Quando viene aggiornato uno dei campi della **chiave primaria** in `Riparazione`, il DBMS **propaga automaticamente la modifica** a tutte le ennuple della tabella `RicambioRip` che fanno riferimento alla chiave modificata.
+>==Quando viene aggiornato uno dei campi della **chiave primaria** in `Riparazione`, il DBMS **propaga automaticamente la modifica** a tutte le ennuple della tabella `RicambioRip` che fanno riferimento alla chiave modificata.==
+
 In tal modo:
 
 - **l’integrità referenziale viene mantenuta**;
@@ -1406,16 +1467,20 @@ In tal modo:
 - **nessuna operazione manuale** di aggiornamento è richiesta lato applicazione.
 
 
-La clausola `ON UPDATE CASCADE` ha una logica analoga a quella del `ON DELETE CASCADE`, con la **differenza sostanziale** che:
-
-- [[#Esempio `ON DELETE CASCADE`|`ON DELETE CASCADE`]] → ==**cancella** automaticamente tutte le ennuple figlie associate alla riga padre eliminata;==
-    
-- `ON UPDATE CASCADE` → ==**propaga l’aggiornamento** della chiave primaria della riga padre a tutte le ennuple figlie che la referenziano.== 
-In entrambi i casi, lo scopo è **mantenere l’integrità referenziale** in modo automatico.
+> [!Abstract]  La clausola `ON UPDATE CASCADE` ha una logica analoga a quella del `ON DELETE CASCADE`, con la **differenza sostanziale** che:
+>
+> 
+> - [[#Esempio `ON DELETE CASCADE`|`ON DELETE CASCADE`]] → ==**cancella** automaticamente tutte le ennuple figlie associate alla riga padre eliminata==
+>    
+>    
+> - `ON UPDATE CASCADE` → ==**propaga l’aggiornamento** della chiave primaria della riga padre a tutte le ennuple figlie che la referenziano.== 
+> In entrambi i casi, lo scopo è **mantenere l’integrità referenziale** in modo automatico.
 
 #### `ON UPDATE CASCADE` — Cos'è e cosa fa
 
-`ON UPDATE CASCADE` è **una clausola opzionale** che può essere specificata nella **definizione di una foreign key**. Serve a istruire il DBMS su **come comportarsi quando il valore di una chiave primaria (o candidata) viene modificato** nella **tabella referenziata**.
+`ON UPDATE CASCADE`:
+- **una clausola opzionale** che può essere specificata nella **definizione di una foreign key**. 
+- ==Serve a istruire il DBMS su **come comportarsi quando il valore di una chiave primaria (o candidata) viene modificato** nella **tabella referenziata**.==
 
 Il significato di questa clausola è:
 
@@ -1435,11 +1500,11 @@ FOREIGN KEY (campo1_locale, campo2_locale) REFERENCES TabellaPadre(campo1, campo
 
 
 > [!caution] **Requisiti e limiti**
-> - **Le colonne referenziate devono essere parte di una chiave unica o primaria** nella tabella padre.
+> - ==**Le colonne referenziate devono essere parte di una chiave unica o primaria** nella tabella padre.==
 >    
->- **I campi nella tabella figlia devono essere aggiornabili** (cioè **non devono avere vincoli che impediscano la modifica**, ad es. `ON UPDATE SET NULL` con `NOT NULL`).
+>- ==**I campi nella tabella figlia devono essere aggiornabili** (cioè **non devono avere vincoli che impediscano la modifica**, ad es. `ON UPDATE SET NULL` con `NOT NULL`).==
 >    
->- Il vincolo `ON UPDATE CASCADE` **non funziona se l’aggiornamento violerebbe altri vincoli**, come `UNIQUE`, `NOT NULL`, `PRIMARY KEY`, ecc.
+>- ==Il vincolo `ON UPDATE CASCADE` **non funziona se l’aggiornamento violerebbe altri vincoli**, come `UNIQUE`, `NOT NULL`, `PRIMARY KEY`, ecc.==
 
 
 > [!done] **Quando usarlo?**
@@ -1464,7 +1529,7 @@ FOREIGN KEY (campo1_locale, campo2_locale) REFERENCES TabellaPadre(campo1, campo
 #### Combinazione tra il `ON DELETE` e `ON UPDATE`
 
 Per rendere il comportamento del database **più modulare e flessibile**, è possibile **combinare** le clausole `ON DELETE` e `ON UPDATE` all'interno della **stessa foreign key**.  
-Sebbene queste due azioni **lavorino in modo indipendente**, possono essere definite insieme per coprire **entrambi i casi di aggiornamento e cancellazione**.
+==Sebbene queste due azioni **lavorino in modo indipendente**, possono essere definite insieme per coprire **entrambi i casi di aggiornamento e cancellazione**.== 
 
 ![[Combinazione del On Delete e On Update.png]]
 

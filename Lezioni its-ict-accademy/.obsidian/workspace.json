@@ -13,28 +13,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Progettazione/Base dati/Lezione 3; Traduzione diretta del diagramma UML delle classi ristrutturato.md",
+                "file": "Docker.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Lezione 3; Traduzione diretta del diagramma UML delle classi ristrutturato"
-            }
-          },
-          {
-            "id": "8f0eb290c741d94c",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Progettazione/Base dati/Lezione 1; Introduzione e modello relazionale.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
-              },
-              "icon": "lucide-file",
-              "title": "Lezione 1; Introduzione e modello relazionale"
+              "title": "Docker"
             }
           },
           {
@@ -81,9 +66,84 @@
               "icon": "lucide-file",
               "title": "Analisi dei requisiti mediante UML"
             }
+          },
+          {
+            "id": "149ef66a47e0fed6",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "Le Classi"
+            }
+          },
+          {
+            "id": "8ca4e6dd028b0e64",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Python/Lezione 8_Ereditarietà delle classi/Ereditarietà delle classi.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "Ereditarietà delle classi"
+            }
+          },
+          {
+            "id": "6f51c674483785c9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "SQL/Il linguaggio SQL.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "Il linguaggio SQL"
+            }
+          },
+          {
+            "id": "b2f561262512c26e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Progettazione/Base dati/Lezione 2; La fase di progettazione.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "Lezione 2; La fase di progettazione"
+            }
+          },
+          {
+            "id": "9ac4beb4f96a8eaa",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Progettazione/Base dati/Lezione 1; Introduzione e modello relazionale.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "Lezione 1; Introduzione e modello relazionale"
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 6
       }
     ],
     "direction": "vertical"
@@ -268,17 +328,27 @@
       "daily-notes:Open today's daily note": false
     }
   },
-  "active": "8f0eb290c741d94c",
+  "active": "6f51c674483785c9",
   "lastOpenFiles": [
-    "Progettazione/Analisi concettuale/Lezione 2/Analisi dei requisiti mediante UML.md",
+    "Progettazione/Base dati/Lezione 2; La fase di progettazione.md",
     "Progettazione/Base dati/Lezione 1; Introduzione e modello relazionale.md",
+    "SQL/Il linguaggio SQL.md",
+    "Docker.md",
+    "Progettazione/Analisi concettuale/Lezione 2/Analisi dei requisiti mediante UML.md",
+    "Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi.md",
+    "Python/Lezione 8_Ereditarietà delle classi/Ereditarietà delle classi.md",
+    "img/Docker/Docker Containers.png.~tmp",
+    "img/Docker/Docker Containers.png",
+    "Progettazione/Base dati/Lezione 3; Traduzione diretta del diagramma UML delle classi ristrutturato.md",
+    "img/Docker/Docker Images.png.~tmp",
+    "img/Docker/Docker Images.png",
+    "img/Docker/La vera struttura di docker.png",
+    "img/Docker/Screenshot (74).png",
+    "Progettazione/Base dati/Lezione 4.md",
     "Progettazione/Analisi concettuale/Lezione 2/Operazioni di classe e Specializzazioni degli attributi, di associazioni e operazioni.md",
     "Progettazione/Analisi concettuale/Lezione 2/Tipi di dato concettuale.md",
     "Progettazione/Analisi concettuale/Lezione1/Introduzione e cenni di  ingegneria del software.md",
     "Sistemi digitali/Lezione 11/Internetwork-Protocols.md",
-    "Progettazione/Base dati/Lezione 3; Traduzione diretta del diagramma UML delle classi ristrutturato.md",
-    "SQL/Il linguaggio SQL.md",
-    "Progettazione/Base dati/Lezione 2; La fase di progettazione.md",
     "Sistemi digitali/Lezione 16/Network, Transport, Session, Presentation, Application Layers.md",
     "Sistemi digitali/Lezione 12/ISO E OSI Model.md",
     "Sistemi digitali/Lezione 7/Reti di computer.md",
@@ -296,26 +366,16 @@
     "img/Sistemi Digitali/Lezione 19/DHCP.png",
     "img/Sistemi Digitali/Lezione 19/SMTP-POP3-IMAP.png",
     "img/Sistemi Digitali/Lezione 19/HTTP - Web Browsing Process.png",
-    "img/Sistemi Digitali/Lezione 19/Application Layer.png",
     "img/Sistemi Digitali/Lezione 19",
-    "img/Sistemi Digitali/Lezione 16/Network, Transport, Session, Presentation, Apllication Layers/Network Layer.png",
     "Sistemi digitali/Lezione 12/I fundamentals di un Sistema Operativo.md",
-    "img/Sistemi Digitali/Lezione 12/I fundamentals di un sistema operativo/Hybrid Kernel.png",
-    "C__Users_Project Lead_OneDrive_Documents_Programmazione_Its-ict academy_Lezioni its-ict-accademy_img/Screenshot 2025-08-29 at 16-57-03 5. Collections - 3-SO.pdf.png",
-    "Docker.md",
     "Untitled.md",
     "img/Sistemi Digitali/Lezione 7",
-    "Sistemi digitali/Lezione 7/Spiegazione per i vantaggi e svantaggi dei modelli Client server e P2P, spiegazione delle tre entità di spotify..md",
-    "Python/Lezione 4_FunzioniPython/Problem Solving.md",
-    "Python/Lezione 5_ List Comprehensions/Capire la comprehensions in Python.md",
     "img/Sicurezza",
     "Untitled.canvas",
     "Sicurezza",
     "C__Users_Project Lead_OneDrive_Documents_Programmazione_Its-ict academy_Lezioni its-ict-accademy_img",
     "Progettazione/Base dati/Combinazione del On Delete e On Update.png.~tmp",
     "SQL/postgresql.sql",
-    "SQL",
-    "Progettazione/Design di applicazioni in Python/Codici/Impl._classiAstratteinPython2.py",
-    "Progettazione/Design di applicazioni in Python/Codici/Impl._classiAstratteinPython.py"
+    "SQL"
   ]
 }
