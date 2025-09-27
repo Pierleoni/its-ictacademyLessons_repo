@@ -375,8 +375,8 @@ Adesso mettiamo di avere una classe con attributo `nome:varchar {id1}`
 
 e un classe Studente con attributo `mat:integer {id1}` e `nome:varchar`
 Assoc. `iscritto`:
-Università → Studente: `Università 1..1{id1}`, `STudente 0..*`.
-L'unico modo per includere la primary key sull'assoc iscritto è fare così:
+Università → Studente: `Università 1..1{id1}`, `Studente 0..*`.
+L'unico modo per includere la primary key sull'associazione `iscritto` è fare così:
 ```sql
 create table Studente(
 	mat integer not null,
@@ -387,7 +387,7 @@ create table Studente(
 )
 ```
 
-Ora riprendiamo gli esempi dei vincoli `1..1{id1}`: in questo modo sono obbligato ad accoprpare l'assoc. dentro Studente, quindi è un ereditarietà. 
+Ora riprendiamo gli esempi dei vincoli `1..1{id1}`: in questo modo sono obbligato ad accorpare l'associazione dentro `Studente`, quindi è un ereditarietà. 
 Se avessimo una diagramma del genere
 ![[Screenshot 2025-07-14 at 18-38-08 Meet - bmb-xnne-ahh.png]]
 
@@ -399,7 +399,7 @@ In questo modo possiamo identificare uno studente tramite il codice fiscale o il
 ![[Screenshot 2025-07-14 at 18-39-50 Meet - bmb-xnne-ahh.png]]
 
 In questo caso sono obbligato nella tabella esame nell'accorpare la tabella Studente:
-```
+```postgresql
 create table esame(
 studente integer not null,
 corso varchar not null,
@@ -409,7 +409,8 @@ primary key(corso),
 foreign key (Studente, università) ref. Studente(mat,università)
 );
 ```
-Un alternativa può essere accorpare esmae in corso:
+
+Un alternativa può essere accorpare `esame` in corso:
 ```postgresql
 create table Corso(
 	nome varchar primary key,
@@ -421,5 +422,5 @@ create table Corso(
 );
 ```
 
-Queste due soluizioni sono equivalenti, c'è lo dice lap rpimay key: nella tabella esmae la chiave primaria è corso e viceversa in Corso.
-Quindi è più smeplice fare l'accorpamento anziché fare un altra tabella a parte 
+Queste due soluizioni sono equivalenti, c'è lo dice la primary key: nella tabella esame la chiave primaria è corso e viceversa in Corso.
+Quindi è più semplice fare l'accorpamento anziché fare un altra tabella a parte 

@@ -102,7 +102,7 @@ Usa due cicli annidati per disegnare:
 
 #### Step 3: Creazione file `test_astratto.py`
 Questo file serve per testare quanto fatto finora attraverso le istanze della classe `Rettangolo`
-```run-python
+```python
 from rettangolo import Rettangolo
 
 r: Rettangolo = Rettangolo()

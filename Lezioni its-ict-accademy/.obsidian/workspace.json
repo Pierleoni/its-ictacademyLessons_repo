@@ -23,37 +23,22 @@
             }
           },
           {
-            "id": "149ef66a47e0fed6",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
-              },
-              "icon": "lucide-file",
-              "title": "Le Classi"
-            }
-          },
-          {
-            "id": "8ca4e6dd028b0e64",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/Lezione 8_Ereditarietà delle classi/Ereditarietà delle classi.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
-              },
-              "icon": "lucide-file",
-              "title": "Ereditarietà delle classi"
-            }
-          },
-          {
             "id": "6f51c674483785c9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Web Development/Progettazione/Lezione 3; Protocollo HTTP; il Modello TCP- IP, il Modello ISO-OSI e la comunicazione tra livelli.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "Lezione 3; Protocollo HTTP; il Modello TCP- IP, il Modello ISO-OSI e la comunicazione tra livelli"
+            }
+          },
+          {
+            "id": "9ac4beb4f96a8eaa",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -65,36 +50,6 @@
               },
               "icon": "lucide-file",
               "title": "Lezione 2; Applicazioni Web, Caratteristiche di un’applicazione a servizi, Frontend vs. Backend, il ruolo del Browser e del Server Web, differenza tra siti Web Statici e Applicazioni Dinamiche"
-            }
-          },
-          {
-            "id": "b2f561262512c26e",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Progettazione/Base dati/Lezione 2; La fase di progettazione.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
-              },
-              "icon": "lucide-file",
-              "title": "Lezione 2; La fase di progettazione"
-            }
-          },
-          {
-            "id": "9ac4beb4f96a8eaa",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Progettazione/Base dati/Lezione 1; Introduzione e modello relazionale.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
-              },
-              "icon": "lucide-file",
-              "title": "Lezione 1; Introduzione e modello relazionale"
             }
           },
           {
@@ -118,17 +73,32 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Sistemi digitali/Lezione 7/Reti di computer.md",
+                "file": "Sistemi digitali/Lezione 19/Modello TCP-IP.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Reti di computer"
+              "title": "Modello TCP-IP"
+            }
+          },
+          {
+            "id": "f118e2c53a574dea",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Sistemi digitali/Lezione 11/Internetwork-Protocols.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "Internetwork-Protocols"
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -315,23 +285,32 @@
   },
   "active": "6f51c674483785c9",
   "lastOpenFiles": [
-    "Progettazione/Base dati/Lezione 1; Introduzione e modello relazionale.md",
+    "Sistemi digitali/Lezione 11/Internetwork-Protocols.md",
+    "Web Development/Progettazione/Lezione 3; Protocollo HTTP; il Modello TCP- IP, il Modello ISO-OSI e la comunicazione tra livelli.md",
+    "Sistemi digitali/Lezione 10/Le architetture di un Computer.md",
+    "Sistemi digitali/Lezione 19/Modello TCP-IP.md",
+    "Sistemi digitali/Lezione 17/Servizi e funzioni del Sistema Operativo.md",
+    "Sistemi digitali/Lezione 12/ISO E OSI Model.md",
+    "img/Web Dev/Progettazione/Lezione 3/I 4 livelli del protocollo TCP-IP.png",
+    "img/Web Dev/Progettazione/Lezione 3",
+    "Python/Lezione 8_Ereditarietà delle classi/Polimorfismo.md",
+    "Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi.md",
     "Sistemi digitali/Lezione 7/Reti di computer.md",
     "Web Development/Progettazione/Lezione 2; Applicazioni Web, Caratteristiche di un’applicazione a servizi, Frontend vs. Backend, il ruolo del Browser e del Server Web, differenza tra siti Web Statici e Applicazioni Dinamiche.md",
+    "Progettazione/Base dati/Lezione 1; Introduzione e modello relazionale.md",
+    "Web Development/Progettazione/Lezione 1; Fondamenti delle Applicazioni Web.md",
     "Progettazione/Base dati/Lezione 2; La fase di progettazione.md",
-    "Sistemi digitali/Lezione 19/Modello TCP-IP.md",
+    "Progettazione/Base dati/Lezione 3; Traduzione diretta del diagramma UML delle classi ristrutturato.md",
+    "Python/Lezione 8_Ereditarietà delle classi/Classi astratte.md",
+    "Python/Lezione 9_Lambda & RegEX/RegEx.md",
+    "Python/Lezione 8_Ereditarietà delle classi/Ereditarietà delle classi.md",
     "img/Web Dev/Progettazione/Lezione 2/Applicazioni web.png",
     "img/Web Dev/Progettazione/Lezione 2",
-    "Web Development/Progettazione/Lezione 1; Fondamenti delle Applicazioni Web.md",
     "Sistemi digitali/Lezione 12/I fundamentals di un Sistema Operativo.md",
-    "Sistemi digitali/Lezione 11/Internetwork-Protocols.md",
     "Sistemi digitali/Lezione 11/Il modello di Von Neumann.md",
-    "Sistemi digitali/Lezione 10/Le architetture di un Computer.md",
     "Sistemi digitali/Lezione 7/Spiegazione per i vantaggi e svantaggi dei modelli Client server e P2P, spiegazione delle tre entità di spotify..md",
     "Sistemi digitali/Lezione 21/Linux.md",
-    "Sistemi digitali/Lezione 17/Servizi e funzioni del Sistema Operativo.md",
     "Sistemi digitali/Lezione 16/Network, Transport, Session, Presentation, Application Layers.md",
-    "Sistemi digitali/Lezione 12/ISO E OSI Model.md",
     "Sistemi digitali/Lezione 11/Esercizi su conversione e operazioni binarie.md",
     "img/F di x.svg",
     "img/Web Dev/Progettazione/architettura a 3 livelli.png",
@@ -339,27 +318,18 @@
     "Web Development/API.md",
     "SQL/Il linguaggio SQL.md",
     "Web Development/Progettazione",
-    "Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi.md",
-    "Python/Lezione 8_Ereditarietà delle classi/Ereditarietà delle classi.md",
-    "Python/Lezione 8_Ereditarietà delle classi/Polimorfismo.md",
-    "Docker.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Analisi dei requisiti mediante UML.md",
-    "Python/Lezione 4_FunzioniPython/Funzioni in Python.md",
     "img/Docker/Docker Containers.png.~tmp",
     "img/Docker/Docker Containers.png",
-    "Progettazione/Base dati/Lezione 3; Traduzione diretta del diagramma UML delle classi ristrutturato.md",
     "img/Docker/Docker Images.png.~tmp",
     "img/Docker/Docker Images.png",
     "img/Docker/La vera struttura di docker.png",
     "img/Docker/Screenshot (74).png",
     "img/Sistemi Digitali/Lezione 19/UDP Protocol.png",
     "img/Sistemi Digitali/Lezione 19/TCP Header Structure.png",
-    "img/Sistemi Digitali/Lezione 19/TCP Protocol.png",
     "img/Sistemi Digitali/Lezione 19",
     "img/Sistemi Digitali/Lezione 7",
     "img/Sicurezza",
     "Untitled.canvas",
-    "Sicurezza",
-    "C__Users_Project Lead_OneDrive_Documents_Programmazione_Its-ict academy_Lezioni its-ict-accademy_img"
+    "Sicurezza"
   ]
 }

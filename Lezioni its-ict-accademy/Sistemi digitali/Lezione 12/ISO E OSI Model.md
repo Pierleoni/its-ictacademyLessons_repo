@@ -85,6 +85,13 @@ Ogni livello svolge una funzione specifica e interagisce con il livello adiacent
 7. **[[Network, Transport, Session, Presentation, Application Layers#ISO E OSI Model applicationLayer Application Layer|Livello di Applicazione (Application)]]**:
    ==Fornisce servizi di rete agli utenti e alle applicazioni, come **HTTP, FTP e SMTP**==.  ^applicationLayer
 
+
+
+> [!remember] **Trucco Mnemonico in inglese per ricodare tutti e 7 i livelli**
+> **“<mark style="background: #FFB8EBA6;">P</mark>lease <mark style="background: #ABF7F7A6;">D</mark>o <mark style="background: #ADCCFFA6;">N</mark>ot <mark style="background: #D2B3FFA6;">T</mark>hrow <mark style="background: #E5FF00A6;">S</mark>ausage <mark style="background: #FF0000A6;">P</mark>izza <mark style="background: #00FF02A6;">A</mark>way”**  
+   (<mark style="background: #FFB8EBA6;">Presentation</mark>, <mark style="background: #ABF7F7A6;">Data Link</mark>, <mark style="background: #ADCCFFA6;">Network</mark>, <mark style="background: #D2B3FFA6;">Transport</mark>, <mark style="background: #E5FF00A6;">Session</mark>, <mark style="background: #FF0000A6;">Presentation</mark>, <mark style="background: #00FF02A6;">Application</mark>).
+
+
 Nei primi tre livelli (Fisico, Data Link e Rete), il dato viene generalmente chiamato **bit, frame o pacchetto**, mentre nei livelli superiori può essere chiamato **segmento, messaggio o dato** a seconda del contesto.
 
 I primi tre livelli sono spesso detti **"media layers"**, perché gestiscono il trasporto dei dati attraverso la rete e includono dispositivi come **router e switch**. 

@@ -14,11 +14,12 @@ Difatti è progettato per garantire uno scambio dati **standardizzato, affidabil
 
 1. **[[#Application layer|Application Layer]]** – ==fornisce i protocolli per applicazioni e servizi di rete (HTTP, FTP, SMTP, DNS, ecc.)==.   ^applicationLayer
     
-2. **[[#Transport Layer|Transport Layer]]** – ==gestisce la comunicazione tra processi con protocolli come **TCP** (affidabile, orientato alla connessione) e **UDP** (veloce, non affidabile)==.   ^TransportLayer
+2. **[[#Transport Layer|Transport Layer]]** – ==gestisce la comunicazione tra processi con protocolli come **TCP** (affidabile, orientato alla connessione) e **UDP** (veloce, non affidabile)==.   
+   
+     ^0f712f
+1. **[[#Livello Internet|Internet Layer]]** – ==si occupa dell’indirizzamento e dell’instradamento dei pacchetti tramite l’**IP**==.   ^InternetLayer
     
-3. **[[#Livello Interent|Internet Layer]]** – ==si occupa dell’indirizzamento e dell’instradamento dei pacchetti tramite l’**IP**==.   ^InternetLayer
-    
-4. **[[#Network Access|Network Access (Link) Layer]]** – ==definisce come i dati vengono trasmessi fisicamente sulla rete== (Ethernet, Wi-Fi, ARP).   ^NetworkLayer
+2. **[[#Network Access|Network Access (Link) Layer]]** – ==definisce come i dati vengono trasmessi fisicamente sulla rete== (Ethernet, Wi-Fi, ARP).   ^NetworkLayer
 
 #### Confronto con il modello ISO/OSI
 [[#^iso-osiANDtcp-ip|Guardando l'immagine soprastante]] possiamo notare come i 4 livelli del TCP/IP coprono le stesse funzionalità dei 7 livelli del modello ISO/OSI. 
