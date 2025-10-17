@@ -1,4 +1,4 @@
-Per impl una classe astratte dobbiamo scrivere:
+Per implementare una [[Classi astratte|classe astratta]] dobbiamo scrivere:
 ```python
 from abc import ABC
 ```

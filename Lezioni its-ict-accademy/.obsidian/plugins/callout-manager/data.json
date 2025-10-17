@@ -129,6 +129,13 @@
             "icon": "lucide-code"
           }
         }
+      ],
+      "hint": [
+        {
+          "changes": {
+            "icon": "lucide-pencil"
+          }
+        }
       ]
     }
   },

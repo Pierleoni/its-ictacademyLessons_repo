@@ -306,7 +306,7 @@ Il modello OSI è formato da **7 livelli numerati dal basso verso l’alto**.
 
 
 
-#### **5 – Livello di Sessione (Session Layer)**
+#### **5 – [[Network, Transport, Session, Presentation, Application Layers#ISO E OSI Model sessionLayer Session Layer|Livello di Sessione (Session Layer)]]**
 
 - **Scopo:** Gestisce la **comunicazione continua** (la “sessione”) tra due applicazioni in rete.
     
@@ -534,14 +534,21 @@ Questo significa che:
 - Questa comunicazione logica è regolata dai **protocolli**, che definiscono **come i dati devono essere strutturati, interpretati e gestiti** tra due entità dello stesso livello.
     
 
-**Esempi pratici:**
+> [!example] **Esempi pratici:**
+> 
+> 
+> - **[[Network, Transport, Session, Presentation, Application Layers#Network layer|Livello di Rete (Network Layer):]]** 
+> 	- comunica logicamente con il livello di rete del destinatario per instradare correttamente i pacchetti verso la destinazione.
+>     
+> - **[[Network, Transport, Session, Presentation, Application Layers#ISO E OSI Model transportLayer Transport Layer|Livello di Trasporto (Transport Layer):]]** 
+> 	- dialoga con il livello di trasporto del destinatario per garantire affidabilità, controllo di sequenza e integrità dei dati.
+>     
+> 
 
-- **Livello di Rete (Network Layer):** comunica logicamente con il livello di rete del destinatario per instradare correttamente i pacchetti verso la destinazione.
-    
-- **Livello di Trasporto (Transport Layer):** dialoga con il livello di trasporto del destinatario per garantire affidabilità, controllo di sequenza e integrità dei dati.
-    
-
-> Questa separazione chiara di responsabilità per livello rende il modello OSI **molto utile** per progettare, comprendere e risolvere problemi nelle reti, perché ciascun livello ha compiti ben definiti e isolati dagli altri.
+> [!example] Questa separazione chiara di responsabilità per livello, rende il modello OSI **molto utile** per; 
+> - progettare
+> - comprendere 
+> - e risolvere problemi nelle reti, perché ciascun livello ha compiti ben definiti e isolati dagli altri.
 
 
 ### Confronto tra il Modello OSI e il Modello TCP/IP
@@ -550,34 +557,38 @@ Anche se **Internet funziona principalmente sul modello TCP/IP**, il modello OSI
 
 ### Livelli corrispondenti
 
-- **Livello Applicazione (TCP/IP)**  
+- **[[Modello TCP-IP#Application layer|Livello Applicazione (TCP/IP)]]**  
     Questo livello raggruppa le funzionalità dei **tre livelli superiori dell’OSI**:
     
-    - **Livello 7 - Applicazione (OSI):** Fornisce interfaccia e servizi di rete per le applicazioni utente (es. browser, client email, HTTP, SMTP).
+    - **[[Network, Transport, Session, Presentation, Application Layers#ISO E OSI Model applicationLayer Application Layer|Livello 7 - Applicazione (OSI):]]** Fornisce interfaccia e servizi di rete per le applicazioni utente (es. browser, client email, HTTP, SMTP).
         
-    - **Livello 6 - Presentazione (OSI):** Gestisce formattazione, crittografia e compressione dei dati.
+    - **[[Network, Transport, Session, Presentation, Application Layers#ISO E OSI Model presentationLayer Presentation Layer|Livello 6 - Presentazione (OSI):]]** Gestisce formattazione, crittografia e compressione dei dati.
         
-    - **Livello 5 - Sessione (OSI):** Stabilisce, gestisce e termina il dialogo tra host.
+    - **[[Network, Transport, Session, Presentation, Application Layers#ISO E OSI Model sessionLayer Session Layer|Livello 5 - Sessione (OSI):]]** Stabilisce, gestisce e termina il dialogo tra host.
         
-- **Livello Trasporto (TCP/IP)**  
-    Corrisponde al **Livello 4 - Trasporto (OSI)**: garantisce comunicazione end-to-end affidabile e controllo del flusso dei dati tramite protocolli come TCP e UDP.
+- **[[Modello TCP-IP#TransportLayer Transport Layer|Livello Trasporto (TCP/IP)]]**  
+    Corrisponde al **[[Network, Transport, Session, Presentation, Application Layers#ISO E OSI Model transportLayer Transport Layer|Livello 4 - Trasporto (OSI)]]**: garantisce comunicazione end-to-end affidabile e controllo del flusso dei dati tramite protocolli come [[Modello TCP-IP#TCP (Transmission Control Protocol)|TCP]] e [[Modello TCP-IP#UDP (User Datagram Protocol)|UDP]].
     
-- **Livello Internet (TCP/IP)**  
-    Coincide con il **Livello 3 - Rete (OSI)**: gestisce l’indirizzamento logico (IP), l’instradamento e il percorso dei pacchetti attraverso le reti.
+- **[[Modello TCP-IP#Internet Layer|Livello Internet (TCP/IP)]]**  
+    Coincide con il **[[Network, Transport, Session, Presentation, Application Layers#Network layer|Livello 3 - Rete (OSI)]]**: gestisce l’indirizzamento logico (IP), l’instradamento e il percorso dei pacchetti attraverso le reti.
     
-- **Livello di Accesso alla Rete (TCP/IP)**  
+- **[[Modello TCP-IP#Network Access Layer|Livello di Accesso alla Rete (TCP/IP)]]**  
     Raggruppa le responsabilità dei due livelli inferiori dell’OSI:
     
-    - **Livello 2 - Collegamento Dati (OSI):** gestione del framing e dell’indirizzamento fisico locale (MAC address).
+    - **[[ISO E OSI Model#dataLink-layer Livello data link|Livello 2 - Collegamento Dati (OSI):]]** gestione del framing e dell’indirizzamento fisico locale (MAC address).
         
-    - **Livello 1 - Fisico (OSI):** trasmissione dei bit attraverso il mezzo fisico (cavi, Wi-Fi, ecc.).
+    - **[[ISO E OSI Model#livelloFisico Livello fisico|Livello 1 - Fisico (OSI):]]** trasmissione dei bit attraverso il mezzo fisico (cavi, Wi-Fi, ecc.).
         
 
 #### Differenze principali
 
-- **Modello teorico vs pratico:** OSI è un modello di riferimento concettuale, mentre TCP/IP è quello utilizzato realmente su Internet.
+- **Modello teorico vs pratico:** 
+	- OSI è un modello di riferimento concettuale, 
+	- mentre TCP/IP è quello utilizzato realmente su Internet.
     
-- **Numero di livelli:** OSI ha 7 livelli distinti, offrendo una separazione più netta delle funzionalità; TCP/IP ne ha 4 (o 5 se si distingue tra Collegamento Dati e Fisico), combinando alcune funzioni.
+- **Numero di livelli:** 
+	- OSI ha 7 livelli distinti, offrendo una separazione più netta delle funzionalità; 
+	- TCP/IP ne ha 4 (o 5 se si distingue tra Collegamento Dati e Fisico), combinando alcune funzioni.
     
 
 > Anche nel TCP/IP, come nell’OSI, ogni livello dialoga logicamente con il suo pari sul sistema remoto (peer-to-peer) mentre i dati viaggiano fisicamente **dal livello superiore a quello inferiore** sul mittente e **dal basso verso l’alto** sul destinatario, secondo lo schema di **incapsulamento e decapsulamento**.
@@ -626,4 +637,5 @@ Il principio di **comunicazione a livelli** nel modello TCP/IP è molto simile a
     - Il **livello di Accesso alla Rete** del TCP/IP include Collegamento Dati e Fisico dell’OSI.
         
 
-> In sintesi, pur con differenze di nomi e numeri di livelli, il **principio fondamentale rimane lo stesso**: comunicazione verticale tra livelli adiacenti e comunicazione logica peer-to-peer tra livelli corrispondenti.
+>[!example] **In sintesi:** 
+>pur con differenze di nomi e numeri di livelli, il **principio fondamentale rimane lo stesso**: comunicazione verticale tra livelli adiacenti e comunicazione logica peer-to-peer tra livelli corrispondenti.
