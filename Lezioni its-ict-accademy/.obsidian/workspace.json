@@ -88,47 +88,32 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Sicurezza/Crittografia.md",
+                "file": "Sistemi digitali/Lezione 22/Linux 2.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Crittografia"
+              "title": "Linux 2"
             }
           },
           {
-            "id": "9906fbceb6343a00",
+            "id": "7739ada69d9cdb6a",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/Lezione 23 Flask/Introduzione a Flask.md",
+                "file": "Sistemi digitali/Lezione 12/I fundamentals di un Sistema Operativo.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Introduzione a Flask"
-            }
-          },
-          {
-            "id": "fb35677a1d4a87ea",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Web Development/React/Lezione 1- Componenti Funzionali in React React.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
-              },
-              "icon": "lucide-file",
-              "title": "Lezione 1- Componenti Funzionali in React React"
+              "title": "I fundamentals di un Sistema Operativo"
             }
           }
         ],
-        "currentTab": 7
+        "currentTab": 6
       }
     ],
     "direction": "vertical"
@@ -313,39 +298,42 @@
       "daily-notes:Open today's daily note": false
     }
   },
-  "active": "fb35677a1d4a87ea",
+  "active": "7739ada69d9cdb6a",
   "lastOpenFiles": [
-    "Web Development/Javascript/Lezione 7; React.md",
-    "Web Development/React/Lezione 1- Componenti Funzionali in React React.md",
-    "Web Development/React",
-    "Progettazione/Analisi concettuale/Lezione 2/Generalizzazioni.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Documenti di specifica.md",
-    "Python/Lezione 23 Flask/Introduzione a Flask.md",
-    "Sicurezza/Crittografia.md",
-    "Sistemi digitali/Lezione 10/Le architetture di un Computer.md",
+    "Sistemi digitali/Lezione 11/Internetwork-Protocols.md",
     "Sistemi digitali/Lezione 11/Il modello di Von Neumann.md",
-    "Python/Lezione 2/Collections.md",
+    "Sistemi digitali/Lezione 10/Le architetture di un Computer.md",
+    "Sistemi digitali/Lezione 7/Spiegazione per i vantaggi e svantaggi dei modelli Client server e P2P, spiegazione delle tre entità di spotify..md",
+    "Sistemi digitali/Lezione 7/Reti di computer.md",
+    "Sistemi digitali/Lezione 7/Complemento a 2 e Reti di calcolatori.md",
+    "Sistemi digitali/Lezione 22/Linux 2.md",
+    "img/Sistemi Digitali/Lezione 22/Struttura for.png",
+    "img/Sistemi Digitali/Lezione 22/Struttura case.png",
+    "Web Development/React/Lezione 3 - Hooks.md",
+    "Python/Lezione 3/Cicli e condizionali.md",
+    "Sistemi digitali/Lezione 21/Linux.md",
+    "img/Sistemi Digitali/Lezione 21/Pipeline.png",
+    "Sistemi digitali/Lezione 17/Servizi e funzioni del Sistema Operativo.md",
+    "Progettazione/Analisi concettuale/Lezione 2/Vincoli di molteplicità sulle associazioni e sugli attributi.md",
+    "Progettazione/Analisi concettuale/Lezione1/Introduzione e cenni di  ingegneria del software.md",
+    "Progettazione/Analisi concettuale/Lezione 2/Documenti di specifica.md",
+    "Progettazione/Analisi concettuale/Lezione 2/Diagramma use-case.md",
+    "Progettazione/Analisi concettuale/Lezione 2/Associazioni con attributi in UML.md",
+    "Progettazione/Analisi concettuale/Lezione 2/Analisi dei requisiti mediante UML.md",
+    "Progettazione/Analisi concettuale/Lezione 2/Generalizzazioni.md",
+    "Progettazione/Analisi concettuale/Lezione 2/Operazioni di classe e Specializzazioni degli attributi, di associazioni e operazioni.md",
+    "Progettazione/Analisi concettuale/Lezione 2/Tipi di dato concettuale.md",
+    "Sistemi digitali/Lezione 12/I fundamentals di un Sistema Operativo.md",
+    "Sicurezza/Crittografia.md",
+    "Web Development/React/Lezione 2 - Il Props Object.md",
+    "Web Development/React/Lezione 1- Componenti Funzionali in React React.md",
+    "Python/Lezione 23 Flask/Introduzione a Flask.md",
+    "Web Development/Javascript/Lezione 6; DOM e ripasso JS.md",
+    "Web Development/React",
     "img/Python/Lezione 23/Framework per costruire le web app in Python.png",
     "img/Python/Lezione 23/MVC.png",
     "img/Python/Lezione 23",
-    "Progettazione/Design di applicazioni in Python/Associazione a responsabilità singola.md",
     "Python/Flask",
-    "Progettazione/Analisi concettuale/Lezione 2/Diagramma use-case.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Vincoli di molteplicità sulle associazioni e sugli attributi.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Tipi di dato concettuale.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Operazioni di classe e Specializzazioni degli attributi, di associazioni e operazioni.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Associazioni con attributi in UML.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Analisi dei requisiti mediante UML.md",
-    "SQL/Il linguaggio SQL.md",
-    "Sicurezza/Sistemi operativi.md",
-    "Web Development/Progettazione/Lezione 4 - Protocollo HTTP 2 parte.md",
-    "Docker.md",
-    "Progettazione/Design di applicazioni in Python/Ristrutturazione delle specifiche di classi e di use-case.md",
-    "Progettazione/Design di applicazioni in Python/Impl. le classi astratte in Python.md",
-    "Sistemi digitali/Lezione 19/Modello TCP-IP.md",
-    "Sistemi digitali/Lezione 16/Network, Transport, Session, Presentation, Application Layers.md",
-    "Sistemi digitali/Lezione 11/Internetwork-Protocols.md",
-    "Web Development/Progettazione/Lezione 3; Protocollo HTTP; il Modello TCP- IP, il Modello ISO-OSI e la comunicazione tra livelli.md",
     "img/Sistemi Digitali/Lezione 16/Network, Transport, Session, Presentation, Apllication Layers/Network Layer.png",
     "img/Web Dev/Progettazione/Lezione 3/I 4 livelli del protocollo TCP-IP.png",
     "img/Web Dev/Progettazione/Lezione 3",
@@ -356,10 +344,7 @@
     "img/Web Dev/Progettazione",
     "Web Development/Progettazione",
     "img/Docker/Docker Containers.png.~tmp",
-    "img/Docker/Docker Containers.png",
     "img/Docker/Docker Images.png.~tmp",
-    "img/Docker/Docker Images.png",
-    "img/Docker/La vera struttura di docker.png",
     "img/Sistemi Digitali/Lezione 19",
     "Untitled.canvas"
   ]

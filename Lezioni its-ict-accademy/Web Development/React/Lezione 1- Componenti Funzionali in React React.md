@@ -5,7 +5,7 @@ Abbiamo visto [[Lezione 7; React|nella scorsa lezione]] come Installare Node.JS,
 
 ## Componenti Funzionali 
 **React** si basa sulla creazione e combinazione di **componenti riutilizzabili e reattivi**. 
-Inizialmente, React utilizzava componenti basati su classi, ma con l'introduzione degli **[[Hooks]]** in React 16.8, i **componenti funzionali** sono diventati più popolari per la loro concisione e la gestione semplificata dello stato e del ciclo di vita.
+Inizialmente, React utilizzava componenti basati su classi, ma con l'introduzione degli **[[Lezione 3 - Hooks|Hooks]]** in React 16.8, i **componenti funzionali** sono diventati più popolari per la loro concisione e la gestione semplificata dello stato e del ciclo di vita.
 
 ### Come funziona React 
 React utilizza un **Virtual DOM** per aggiornare l'interfaccia utente in modo efficiente.
@@ -272,7 +272,7 @@ export default Messaggio
 - le graffe `{ }` dicono a React: “questo non è testo, ma codice JavaScript da valutare” 
 
 
-### 2. Style inline in React
+### Style inline in React
 
 In React puoi applicare uno **stile inline** come in HTML, ma con una **differenza importante**:  
 lo stile va scritto come **oggetto JavaScript**, non come stringa.
@@ -293,9 +293,9 @@ In React invece devi scrivere:
 
 ##### Perché le doppie graffe?
 
-- La **prima coppia di graffe `{ }`** serve per **entrare nel contesto JavaScript** dentro il JSX.
+- ==La **prima coppia di graffe `{ }`** serve per **entrare nel contesto JavaScript** dentro il JSX.==
     
-- La **seconda coppia `{ }`** definisce **l’oggetto CSS** vero e proprio.
+- ==La **seconda coppia `{ }`** definisce **l’oggetto CSS** vero e proprio.==
     
 
 Ecco perché scrivi `style={{ color: 'red' }}` → una graffa “apre” il JavaScript, e dentro c’è un oggetto con le regole CSS.

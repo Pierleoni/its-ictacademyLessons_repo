@@ -45,14 +45,16 @@ Su Linux, e non solo, gli utenti possono essere messi all'interno di gruppi per 
 
 > [!attention] ATTENZIONE !
 >Il sistema operativo Linux distingue tra lettere maiuscole e minuscole e pertanto:
->•username: admin
->•username: Admin
->•username: ADMIN
->NON sono lo stesso utente.
+>- username: admin
+>- username: Admin
+>- username: ADMIN
+>==NON sono lo stesso utente.==
+>
+>
 >Come anche i seguenti file:
->•prova.dat PROVA.dat
->•Prova.dat PROVA.DAT
->NON rappresentano lo stesso file.
+>- prova.dat PROVA.dat
+>- Prova.dat PROVA.DAT
+>==NON rappresentano lo stesso file.==
 
 
 ### Shell
@@ -77,12 +79,45 @@ La shell è programmabile, cioè permette di definire gli script:
 ![[Shell.png]]
 
 #### Tipi di Shell
-Esistono vari tipi di shell:
-• Bourne shell (sh)
-• Korn shell (ksh)
-• C shell (csh ed il suo successore tcsh)
-• Bourne again shell (bash)
-Ci concentreremo su bash, la shell (quasi) standard in ambiente Linux.
+Esistono vari tipi di shell: la shell originale dei sistemi Unix.
+-  Bourne shell (`sh`) : la shell originale dei sistemi Unix.
+-  Korn shell (`ksh`): più avanzata, con funzioni di scripting evolute.
+-  C shell (`csh` ed il suo successore `tcsh`): con sintassi ispirata al linguaggio C.
+-  Bourne again shell (bash): evoluzione della Bourne Shell, oggi la più diffusa.
+
+Ci concentreremo su **bash:**
+- la shell (quasi) standard in ambiente Linux.
+
+
+> [!faq] **Differenza tra "Bash" e "Shell".**
+> Nel linguaggio comune questi due termini vengono usati come sinonimi anche se in realtà non sono esattamente la stessa cosa.
+> **Shell:**
+> ==Il termine **shell** indica in generale **l’interfaccia che permette all’utente di comunicare con il sistema operativo**, tipicamente digitando comandi testuali.==  
+>>È quindi un **concetto generico**, non legato a un programma specifico.
+>
+>Esistono diversi tipi di shell, ciascuno con proprie caratteristiche, sintassi e funzioni.  
+>
+>[[#Tipi di Shell|Vedi alcuni esempi di shell comuni in ambiente Unix/Linux]]
+>
+>**Bash:**
+>**Bash** (acronimo di _Bourne Again SHell_) è **una particolare implementazione della shell**, sviluppata come miglioramento della Bourne Shell (`sh`).  
+>È oggi la **shell predefinita nella maggior parte delle distribuzioni Linux** e su molte versioni di macOS.
+>Bash offre:
+>
+>- ==compatibilità con la vecchia `sh`;==
+  >  
+>- ==funzionalità estese (cronologia dei comandi, alias, scripting più avanzato, completamento automatico, ecc.);==
+  >  
+>- ==un ambiente interattivo molto pratico per gli utenti e gli sviluppatori.== 
+>
+>La possiamo quindi vedere cosi:
+>> [!ticket]  Tutti i sistemi che usano **bash** stanno usando una **shell**, ma non tutte le shell sono **bash**
+>> 
+>
+>
+>> [!example] **La “shell” è un termine generico che indica l’interfaccia (a riga di comando) tramite cui l’utente comunica con il sistema operativo. Mentre la Bash (Bourne Again Shell) è una specifica implementazione di shell, usata in molti sistemi Unix-like.**
+
+
 
 ## Comandi di linux
 I comandi rappresentano una richiesta di esecuzione.
@@ -103,28 +138,29 @@ In sostanza sono gli input da dare ai comandi
 
 
 ### Comando: `pwd`
-Per verificare quale sia la directory corrente, si utilizza il comando `pwd`(**Print Working Directory**). ==Stampa a video su terminale la directory corrente.==
+Per verificare quale sia la directory corrente, si utilizza il comando `pwd`(**Print Working Directory**). 
+==Stampa a video su terminale la directory corrente.==
 Es:
-```bash
+```shell
 $pwd
 ```
 
 Output:
-```
+```shell
 /home/tua_home_directory
 ```
 
 ### Comando: `passwd`
-Permetti di cambiare la password dell'utente.
+==Permette di cambiare la password dell'utente.==
 Es: 
-```bash
+```shell
 $ passwd
 ```
 
 
 
 Output:
-```bash
+```shell
 Changing password for [current user]
 Current password: [insert current password]
 New password: [insert the new password]
@@ -137,7 +173,7 @@ Passwd: all authentication tokens updated successfully.
 ==Permette di aprire il manuale (help on line) riguardante un comando specifico==.
 
 Es: 
-```bash
+```shell
 $ man passwd
 ```
 
@@ -154,7 +190,7 @@ $ man passwd
 ==Per ottenere le pagine di un manuale che contengono una determinata parola chiave== si usa il comando `man -k` (dove `k` sta per keyword) seguito dalla parola chiave ricercata
 
 **Es:** 
-```bash
+```shell
 $ man -k password
 ```
 
@@ -168,12 +204,12 @@ Elenco di tutte le pagine manuale che contengono la parola chiave specificata.
 ### Comando: `whatis`
 ==Serve per ottenere una breve descrizione dei comandi di sistema== si usa il comando `whatis`.
 Es: 
-```bash
+```shell
 $ whatis pwd
 ```
 
 Output:
-```bash
+```shell
 pwd (1)    - print name of current/working directory
 ```
 
@@ -237,14 +273,14 @@ uname -a
 
 
 ### Creazione di un file 
-Questa serie di comandi permette di creare, modificare e salvare i file.
+==Questa serie di comandi permette di creare, modificare e salvare i file.==
 
 #### Il comando `nano`
-Il comando nano è un editor di testo a riga di comando semplice e facile da usare disponibile su molti sistemi Unix e Linux.
+==Il comando nano è un editor di testo a riga di comando semplice e facile da usare disponibile su molti sistemi Unix e Linux.==
 È particolarmente utile per modificare file di configurazione o creare e modificare file di testo direttamente dal terminale.
 
 Es:
-```bash
+```shell
 nano prova.txt
 ```
 
@@ -344,18 +380,18 @@ Esempio:
 ```bash
 $ head -1 cenerentola.txt
 ```
-- mostra la prima linea del file cenerentola
+- ==mostra la prima linea del file cenerentola==
 
 Esempio:
 ```bash
 $ tail -2 cenerentola.txt
 ```
-- mostra le ultime 2 linee del file cenerentola
+- ==mostra le ultime 2 linee del file cenerentola==
 
 ### Comando `$ clear`
 ==Il comando `$ clear` consente di «pulire» la console.==
 Es: 
-```bash
+```shell
 $ clear
 ```
 
@@ -366,7 +402,7 @@ Il comando `ls` (list directory) in Linux:
 ==Esso elenca i file e le directory presenti nella directory corrente o in una directory specificata in ordine alfabetico==.
 
 Esempio di sintanssi:
-```bash
+```shell
 $ ls [opzioni] [directory] %% mostra file/directory nella directory corrente %%
 
 $ ls home  %% mostra file/directory nella directory %%
@@ -381,7 +417,7 @@ $ ls -l
 ```
 
 In Linux esistono anche i file nascosti che iniziano con il carattere `.` :
-• file di configurazione che i programmi collocano nelle home-directory degli utenti per memorizzare le impostazioni utente.
+-  ==file di configurazione che i programmi collocano nelle home-directory degli utenti per memorizzare le impostazioni utente.==
 Per visualizzare anche i file nascosi bisogna utilizzare l’opzione `-a`
 
 
@@ -463,7 +499,7 @@ Questa serie di comandi servono per creare, cambiare, spostarsi tra le directory
 #### Il comando `mkdir`
 ==Serve per creare una directory.==
 
-```bash
+```shell
 $ mkdir [nome_nuovo_directory]
 ```
 
@@ -471,7 +507,7 @@ Il comando crea la directory `nome_nuova_directory` all'interno della directory 
 
 **Esempio per creare diverse directory:**
 
-```bash
+```shell
 $ mkdir mia  %% crea una directory chiamata mia nella directory corrente %%
 
 $ mkdir new  %% crea una directory chiamata new nella directory corrente %%
@@ -489,19 +525,21 @@ $ cd [nome_directory]
 
 La directory specificata diviene la working directory.
 Se nessuna directory viene specificata, si ritorna alla home directory.
-
+#### Struttura del file system di linux
 ![[cd comand.png]]
 
 Prendendo ad esempio questa immagine partiamo dalla directory `home`:
 1. Se scriviamo
-```bash
+```shell
 $ cd mia
 ```
 
-Verremo mandati dentro la cartella `mia`; nello specifico il path sarà `home/tua_home_directory(o nome_user)/mia`
+Verremo mandati dentro la cartella `mia`; 
+	nello specifico il path sarà `home/tua_home_directory(o nome_user)/mia`
 In aggiunto possiamo usare il comando `$ pwd` per controllare la directory nella quale ci troviamo.
 Se volessi discendere ancora la gerarchia genitore-figlio delle directory:
-```
+
+```shell
 $ cd sua
 ```
 
@@ -509,7 +547,8 @@ Adesso ci troviamo nella directory `sua` contenuta nella directory mia, il path 
 `home/tua_home_directory/mia/sua`.
 
 Per ritornare direttamente alla `tua_home_directory`:
-```
+
+```shell
 $ cd
 ```
 
@@ -518,9 +557,9 @@ Questa semplice riga di comando ci riporta alla `tua_home_directory`
 ### Spostamenti relativi e assoluti 
 Prima di continuare a vedere i prossimi comandi bisogna fare una distinzione tra gli spostamenti relativi e assoluti:
 - Gli spostamenti o percorsi assoluti: 
-  Partono sempre dalla radice (cioè da `/`) e seguono l'intero 'indirizzo' della directory.
+  ==Partono sempre dalla radice (cioè da `/`) e seguono l'intero 'indirizzo' della directory.==
   **Es:**
-```bash
+```shell
 $ cd /home/tua_home_directory/mia/esercizio2/alfa
 ```
 Il vantaggio di questo percorso è che funziona da qualsiasi posizione nel file system.
@@ -529,13 +568,13 @@ Il vantaggio di questo percorso è che funziona da qualsiasi posizione nel file 
   Partono dalla working directory corrente (dove ti trovi). 
 **Es:**
 Se ci si trova in `/home/tua_home_directory`
-```
+```shell
 $ cd mia/disney
 ```
 Ci si sposta in `/home/tua_home_directory/mia/disney`, allora in questo caso la directory `disney` diventa la working directory. 
 
 Se invece ci si trova in `/usr` e vuoi raggiungere `lib`:
-```
+```shell
 $ cd lib 
 ```
 
@@ -549,93 +588,112 @@ Ci si sposta in `/usr/lib` che diventerà la nostra working directory
 |**Relativo**|Per spostamenti rapidi tra directory vicine.|`cd mia/disney` (partendo da `tua_home_directory`)|
 
 ### Il comando `cd ./nome_directory`
-Un altro modo per spostarsi discendo nella gerarchia padre-figlio delle directory è il comando `$ cd ./nome_directory`:
+==Un altro modo per spostarsi discendo nella gerarchia padre-figlio delle directory è il comando `$ cd ./nome_directory`==:
 
 Es:
-```
+```shell
 $ cd ./mia/sua
 ```
  
  Ha lo stesso comportamento del comando
-```bash
+```shell
  $ cd mia/sua
 ```
 
-L'unica differenza è: lo si usa per una maggiore leggibilità nel codice.
+L'unica differenza è: 
+- ==lo si usa per una maggiore leggibilità nel codice.==
 Quando si scrive 
-```
+```shell
 $ cd /mia/sua
 ```
+
 il sistema assume automaticamente che si intenda `./mia/sua`.
-Quindi è del tutto consequenziale chiedersi: *Ma allora quando è utile usare questo tipo di comando?*.
-1. Script e automazioni:
-   Per evitare ambiguità, specialmente in script complessi dove è sempre meglio essere espliciti per migliorare la leggibilità del codice.
-```
-$ cd ./cartella_importante
-```
 
-2. Nomi ambigui: Quando si ha una cartella nominata come un comando di sistema (es: `ls` o `test`)
-```
-$ cd ./test
-```
+> [!faq] **Quando è utile usare questo tipo di comando?**
+> 
+> 1. Script e automazioni:
+> 	- Per evitare ambiguità, specialmente in script complessi dove è sempre meglio essere espliciti per migliorare la leggibilità del codice.
+> ```shell
+> $ cd ./cartella_importante
+> ```
+> 
+> 2. Nomi ambigui: 
+> 	- Quando si ha una cartella nominata come un comando di sistema (es: `ls` o `test`)
+> 	
+> ```shell
+> $ cd ./test
+> ```
+> 
+> In questo caso ci si sposta dentro la cartella `test`, anziché eseguire il comando `test`
+> 
+> 3. Percorsi con spazi/nomi speciali:
+> 	- Quando si hanno delle cartelle nominate con caratteri speciali e/o il nome contiene spazi.
+> ```shell
+> $ cd "./ mia cartella"
+> ```
+> 
+> Mentre invece è obbligatorio usare il `./` quando si vuole eseguire i file presenti nella directory corrente (senza `./`, il sistema cerca solo nei binari di sistema):
+> ```shell
+> ./mio_script.sh  # Senza `./` darà errore "comando non trovato"
+> ```
 
-In questo caso ci si sposta dentro la cartella `test`, anziché eseguire il comando `test`
-
-3. Percorsi con spazi/nomi speciali:
-Quando si hanno delle cartelle nominate con caratteri speciali e/o il nome contiene spazi.
-```
-$ cd "./ mia cartella"
-```
-
-Mentre invece è obbligatorio usare il `./` quando si vuole eseguire i file presenti nella directory corrente (senza `./`, il sistema cerca solo nei binari di sistema):
-```
-./mio_script.sh  # Senza `./` darà errore "comando non trovato"
-```
 #### Spostamento a ritroso nella directory
-Oltre a discendere la gerarchia padre-figlio delle directory, la si può anche risalire andando a ritroso. 
+==Oltre a discendere la gerarchia padre-figlio delle directory, la si può anche risalire andando a ritroso.== 
 Per fare ciò esiste un comando specifico
 
 ##### Il comando `cd ..`
 Questo comando permette di spostarsi dalla directory corrente a quella genitore.
 
 Es: 
-```
+```shell
 mia-sua $ cd ...
 mia $
 ```
 
-In questo esempio ci trovavamo nella directory `sua`, ma con il comando `cd ..` siamo tornati nella directory genitore `mia`.
+==In questo esempio ci trovavamo nella directory `sua`, ma con il comando `cd ..` siamo tornati nella directory genitore `mia`==.
 
 
 > [!info] Directory di Sistema – Percorsi assoluti
->-  `$ cd/`:  directory radice del sistema
-> - `$ cd /bin:` contiene i programmi di sopravvivenza per il sistema
->`$ cd /boot`: contiene i dati necessari all’avvio del sistema
->`$ cd /dev`:  contiene i cosiddetti devices
->`$ cd /etc`:  contiene i file di configurazione
->`$ cd /lib`: contiene le librerie, ovvero parti di codice condivise tra i programmi
->`$ cd /mnt`: contiene i mount-point
->`$ cd /proc`: il mount-point del file system proc
->`$ cd /root`: è la home directory dell’amministratore di sistema, utente root
->`$ cd /sbin`: contiene programmi che solitamente richiedono i privilegi di root
->`$ cd /tmp`:  contiene i file temporanei
->`$ cd /var`:  contiene alcuni file in attesa di essere processati, come file di stampa
+>  `$ cd/`:  
+> 	-  directory radice del sistema
+>  `$ cd /bin:` 
+>	-  contiene i programmi di sopravvivenza per il sistema
+>`$ cd /boot`: 
+>	-  contiene i dati necessari all’avvio del sistema
+>`$ cd /dev`:  
+>	-  contiene i cosiddetti devices
+>`$ cd /etc`:  
+>	-  contiene i file di configurazione
+>`$ cd /lib`: 
+>	-  contiene le librerie, ovvero parti di codice condivise tra i programmi
+>`$ cd /mnt`: 
+>	-  contiene i mount-point
+>`$ cd /proc`: 
+>	-  il mount-point del file system proc
+>`$ cd /root`: 
+>	-  è la home directory dell’amministratore di sistema, utente root
+>`$ cd /sbin`: 
+>	-  contiene programmi che solitamente richiedono i privilegi di root
+>`$ cd /tmp`:  
+>	-  contiene i file temporanei
+>`$ cd /var`:  
+>	-  contiene alcuni file in attesa di essere processati, come file di stampa
 
 
 ### Verifica del tipo di file 
 Per verificare di che tipo sia un file (eseguibili, dati, directory) si può utilizzare il comando `file`.
 
 Es: 
-```bash
+```shell
 $ file prova2.txt #Output: prova2.txt: ASCII text
 ```
 
 
 ### Permessi sui file espressi in forma di stringa
-Ad ogni file o directory in un sistema Linux sono associati permessi in base a tre categorie standard del sistema, che sono:
-- possessore del file stesso (u);
-- membri del suo gruppo (g) ;
-- altri utenti (o);
+[[#File System information|Come abbiamo già visto sopra]] ad ogni file o directory in un sistema Linux sono associati permessi in base a tre categorie standard del sistema, che sono:
+- **possessore del file stesso (u)**;
+- **membri del suo gruppo (g)** ;
+- **altri utenti (o)**;
 
 I permessi vengono suddivisi, all'interno di queste tre categorie, in coppie di tre.
 Guardiamo questa immagine per capire meglio:
@@ -665,7 +723,7 @@ esecuzione (-)
 #### Definire i permessi
 Per definire i permessi di un file su Linux bisogna usare il comando `$ chmod`.
 La sintassi è:
-```
+```shell
 $ chmod [ugoa] [+-=] [rwx] [nome_file]
 ```
 
@@ -685,61 +743,63 @@ Per ultimo `[r w x]` indica:
 - `e`: ==execute==
 
 ### Copiare un file: comando `cp`
-Permette di copiare un file. 
+==Permette di copiare un file.== 
 La sintassi è:
-```bash
+```shell
 $ cp [file da copiare] [file copia] [nome percorso della copia -opzionale]
 ```
 Es: 
-```
+```shell
 $ cp prova1.txt pluto3.txt
 ```
-In questo caso crea il file `pluto3.txt` che è una copia del file `prova1.txt`.
+
+- ==In questo caso crea il file `pluto3.txt` che è una copia del file `prova1.txt`.==
 
 ###### Con il comando `cp` si può copiare un file in una directory:
-```bash
+```shell
 $ cp prova.txt prova3.txt mia 
 ```
 
 Crea una copia del file `prova.txt`, `prova3.txt` all’interno della directory `mia`. 
-```
+```shell
 $ cp *mia/sua
 ```
-In questo caso  copia tutti i file nella directory corrente dentro la directory
-`sua`
+==In questo caso  copia tutti i file nella directory corrente dentro la directory==
+==`sua`==
 
-```
+```shell
 $ cp pl* mia/sua 
 ```
 
-copia tutti i file il cui nome inizia per pl nella directory `sua`.
+==copia tutti i file il cui nome inizia per pl nella directory `sua`.==
 
 ###### Inoltre è possibile, con il comando `cp` copiare una directory:
 la sintassi è 
-```
+```shell
 $ cp -r [dir1] [dir2]
 ```
 
-Es. se `dir2` non esiste:
-```
+Es. **se `dir2` non esiste:**
+```shell
 $ cp -r mia mia2
 ```
-copia solo il contenuto della directory `mia` in una nuova directory `mia2`.
+
+- ==copia solo il contenuto della directory `mia` in una nuova directory `mia2`.==
 
 Es. se `dir2` esiste:
 
-```
+```shell
 $ cp -r mia tua
 ```
 
-copia la directory `mia` e il suo contenuto dentro la directory `tua`. 
+==copia la directory `mia` e il suo contenuto dentro la directory `tua`.== 
 
 ![[cp comand.png]]
 
 ### Eliminare i file: il comando `rm`
 ==Questo comando permette di eliminare un file o una directory.==
 La sintassi è:
-```
+```shell
 $ rm [nome_file] #Per eliminare un file
 $ rm -r[nome_directory] #Per eliminare una directory
 $ rmdir [nome_directory] #Per eliminare una directory vuota
@@ -747,7 +807,7 @@ $ rm -ri [nome_directory] #Per eliminare una directory e i suo contenuto chieden
 ```
 
 Es: 
-```bash
+```shell
 $ rm prova.txt  #elimina il file prova.txt
 
 $ rm *  #elimina tutti i file nella directory corrente
@@ -759,7 +819,7 @@ $ rmdir new  #elimina la directory new (solo se vuota)
 $ rm -r mia2 #elimina la directory mia2 con tutto il suo contenuto
 ```
 
-```
+```shell
 $ rm -ri tua
 ```
 
@@ -768,15 +828,19 @@ $ rm -ri tua
 
 > [!attention] ATTENZIONE!!!!
 Da utente privilegiato non eseguire MAI i comandi:
->`$ rm -rf .*` :  cancella tutti i file e le directory nella working directory
->`$ rm -rf /`:  cancellerà tutti i file e le directory nel file system a partire dalla root /
->`$ rm -rf --no-preserve-root /`:  come sopra ma bypassando meccanismi di protezione
+>`$ rm -rf .*` : 
+>	- ==cancella tutti i file e le directory nella working directory==
+>`$ rm -rf /`:  
+>	- ==cancellerà tutti i file e le directory nel file system a partire dalla `root /`==
+>`$ rm -rf --no-preserve-root /`:  
+>	- ==come sopra ma bypassando meccanismi di protezione==
 
 ### Spostare e/o rinominare un file 
-Il comando `mv` (a.k.a. move): ==permette di rinominare o spostare un file o una directory.==
+Il comando `mv` (a.k.a. move):
+>==permette di rinominare o spostare un file o una directory.==
 
 Le opzioni di questo comando sono :
-```bash
+```shell
 $ mv [file1] [file2] # rinomina il file1 in file2
 $ mv [file1] [dir1/dir2] # sposta file1 dalla directory corrente alla directory dir1/dir2
 $ mv [file1] [dir1/dir2/file2] 
@@ -784,25 +848,27 @@ $ mv [file1] [dir1/dir2/file2]
 ```
 
 ### Il comando `grep`
+
 Questo comando ==è utilizzato per la ricerca di stringhe all'interno di un file.==
-```
+```shell
 Esempio: $ grep volta ./disney/cenerentola.txt
 ```
-Ricerca la stringa volta all’interno del file cenerentola.txt, contenuto nella directory `/home/User/disney`.
+Ricerca la stringa volta all’interno del file `cenerentola.txt`, contenuto nella directory `/home/User/disney`.
 
-Mentre per ricercare espressioni contenenti **spazi** o **Tab** si usano gli apici (`' '`).
-```bash
+==Mentre per ricercare espressioni contenenti **spazi** o **Tab** si usano gli apici (`' '`)==.
+```shell
 $ grep ‘uomo ricco’ ./disney/cenerentola.txt
 ```
 
-Ricerca la stringa 'uomo ricco all'interno del file cenerentola.
+- Ricerca la stringa `'uomo ricco'` all'interno del file cenerentola.
 
 #### L'opzione `-i`
-Serve ad ignorare i caratteri maiuscoli o minuscoli.
-```bash
+==Serve ad ignorare i caratteri maiuscoli o minuscoli.==
+```shell
  $ grep –i pettinaci ./disney/cenerentola.txt
 ```
-Ricerca la stringa pettinaci all'interno del file, nel nostro caso questa parola inizia con la P maiuscola, ignorando se le lettere sono maiuscole o minuscole.
+
+- Ricerca la stringa `'pettinaci'` all'interno del file, nel nostro caso questa parola inizia con la P maiuscola, ignorando se le lettere sono maiuscole o minuscole.
 
 
 ### Commando `find`
@@ -812,12 +878,15 @@ $ find [nomedir] [maxdepth] –name [nomefile]
 ```
 La sintassi è:
  - `[nomedir]` :
-   è il percorso della directory da cui effettuare la ricerca
+	  -  ==è il percorso della directory da cui effettuare la ricerca==
 -  `[maxdepth]`:
-  è il numero di livelli di directory in cui cercare
+	  - ==è il numero di livelli di directory in cui cercare==
 -  `[nomefile]`: 
-  è il nome del file da cercare.
-Se non mostra nulla vuol dire che non esiste nessun file in quella posizione, per cercare il file nelle directory si usa l'opzione `maxdepth`:
+	 -  ==è il nome del file da cercare.==
+	 
+==Se non mostra nulla vuol dire che non esiste nessun file in quella posizione==.
+
+Per cercare il file nelle directory si usa l'opzione `maxdepth`:
 ```bash
 $ find . -maxdepth 1 -namepluto
 ```
@@ -830,7 +899,7 @@ $ find . -name pluto
 Cerca il file `pluto` nella working directory e nelle sue sotto directory.
 
 #### L'opzione `-empty`
-Cerca i file vuoti nella working directory e sub-directory.
+==Cerca i file vuoti nella working directory e sub-directory.==
 ```
 $ find . -empty
 ```
@@ -840,28 +909,31 @@ $ find . -empty
 $ find . -name pluto -exec cat {} \;
 ```
 cerca il file `pluto` ed esegue il comando [[#Il comando `$ cat`|`cat`]] 
-- `\;`: chiude la sequenza di comandi da eseguire
+- `\;`: ==chiude la sequenza di comandi da eseguire==
 
 ### Il comando `tree`
-Serve per esplorare in maniera grafica, ad albero, una directory specificata.
+==Serve per esplorare in maniera grafica, ad albero, una directory specificata.==
 
 > [!info] Se il comando no viene trovato lo si può installare con il comando: `sudo apt install tree`
 
-```
-$ tree - stampa l’albero della working director
-```
 
+
+```shell
+$ tree - 
 ```
+- ==Stampa l’albero della working directory==
+
+```shell
 $ tree [dir]  
 ```
-Stampa l’albero della directory `dir` specificata
+- ==Stampa l’albero della directory `dir` specificata==
 
 
-```
+```shell
 $ tree -d  
 ```
 
-Mostra solo le directory senza mostrare i file.
+- ==Mostra solo le directory senza mostrare i file.==
 
 
 
@@ -880,32 +952,39 @@ Per re-direzionare lo standard si utilizza il simbolo `<`.
 Il comando che precede il simbolo `<` considera come input il contenuto del file specificato subito dopo. 
 #### Esempio di casi d'uso
 1.  Inserire nella directory `/home/[tua_home_directory]` i file `sum.sh` e `number.txt`
-2. Definire i permessi di esecuzione per il file `sum.sh`: 
+2. [[#Definire i permessi|Definire i permessi]] di esecuzione per il file `sum.sh`: 
 	  Per fare ciò bisogna usare [[#Definire i permessi|il comando `chmod`]] 
-```
+```shell
 $ chmod u+x sum.sh
 ```
-In questo modo stiamo dando i permessi all'utente (`u`) 
-- `+`: stiamo assegnando i permessi all'utente 
-- `x`: gli stiamo dando i permessi di esecuzione.
-3. Scrivere `$./sum.sh < number.txt`.
-4. Lo script viene eseguito prendendo in input il numero `10` contenuto nel file `number.txt`.
+In questo modo stiamo dando i permessi all'utente (`u`):
+ 
+- `+`: ==stiamo assegnando i permessi all'utente== 
+- `x`: ==gli stiamo dando i permessi di esecuzione.==
+  
+3. Scrivere: 
+```shell
+$./sum.sh < number.txt.
+```
+3. ==Lo script viene eseguito prendendo in input il numero `10` contenuto nel file `number.txt`.==
 
 ### Standard Output
 ==Per re-direzionare lo standard output si utilizzano i simboli: `>` oppure `>>`==.
-L'output del comando che precede il simbolo `>` viene re-diretto nel file specificato subito dopo, creandolo o sovrascrivendolo.
+==L'output del comando che precede il simbolo `>` viene re-diretto nel file specificato subito dopo, creandolo o sovrascrivendolo==.
 
 #### Esempi di casi d'uso.
-```
+```shell
 $ ls > folder_list.txt
 ```
-L'output del comando [[#Comando `$ ls`|`ls`]] viene scritto nel nuovo file `folder_list.txt`, e se questo file non esiste lo crea o può sovrascrivere il suo contenuto se è presente
 
-```bash
+- ==L'output del comando [[#Comando `$ ls`|`ls`]] viene scritto nel nuovo file `folder_list.txt`.== 
+- ==Se questo file non esiste lo crea o può sovrascrivere il suo contenuto se è presente==
+
+```shell
 $ echo 20 > number.txt
 ```
 
-l’output del comando `echo` è stato scritto nel file esistente `number.txt` che viene sovrascritto.
+l’output del comando [[#Il comando `echo`.|`echo`]] è stato scritto nel file esistente `number.txt` che viene sovrascritto.
 ```bash
 $ echo "20" > number.txt
 $ cat number.txt
@@ -913,9 +992,10 @@ $ cat number.txt
 20
 ```
 
-Quindi il numero `20` viene aggiunto al file number.txt e sovrascrive il suo contenuto.
+- Quindi il numero `20` viene aggiunto al file `number.txt` e sovrascrive il suo contenuto.
 
-Mentre se si vuole aggiungere contenuto senza sovrascrivere nulla si usano i simboli `>>`.
+
+Mentre quando si vuole aggiungere contenuto senza sovrascrivere il contenuto già presente nel file, si usano i simboli `>>`.
 ```bash
 $ echo 30 >> number.txt
 #Output:
@@ -923,47 +1003,63 @@ $ echo 30 >> number.txt
 30
 ```
 
+- Quindi il file `number.txt` contiene il numero `20`, scrivendo questa riga di comando si va ad aggiungere il numero 30 al file
 
 ### Il comando `echo`.
-Il comando `echo` viene utilizzato per visualizzare una linea di testo o una variabile nel terminale.
-```bash
+Il comando `echo`:
+- ==viene utilizzato per visualizzare una linea di testo o una variabile nel terminale.==
+  
+```shell
 $ echo Ciao Mondo!
 ```
 
-Stampa su terminale "Ciao Mondo!"
+- Stampa su terminale "Ciao Mondo!"
 
-```
+```shell
 $ echo Ciao Mondo > mio_file.txt
 ```
 
-"Ciao Mondo" viene scritto all'interno di `mio_file.txt` sovrascrivendolo.
+- "Ciao Mondo" viene scritto all'interno di `mio_file.txt` sovrascrivendolo.
 
-```
+```shell
 $ echo mi aggiungo al file! >> mio_file.txt
 ```
 
-
+- Stessa cosa per la stringa `mi aggiungo al file!`
 
 
 ---
 ## Pipeline
-Generalmente pensiamo a una pipeline di produzione, ovvero la catena di montaggio: si pensi a una azienda che sviluppi software dove per realizzare un prodotto software si devono seguire dei passaggi( progettazione, design ed implementazione.).
-Tutti questi passaggi sono sequenziali tra loro.
-In shell programming io posso incolonnare una serie di comandi legandoli tra loro:
-Si ha un primo comando che produce un output che deve diventare l'input del comando numero due e cosi via.
+Nel linguaggio comune, una _pipeline_ richiama l’idea di una **catena di montaggio:** 
+- ==un processo composto da più fasi sequenziali, dove l’output di una fase diventa l’input della successiva.==  
+Ad esempio, in un’azienda che sviluppa software, la realizzazione di un prodotto segue più passaggi — **progettazione**, **design** e **implementazione** — collegati tra loro in modo ordinato.
+
+Nel **shell programming**, il concetto è analogo.  
+- ==Una **pipeline** permette di **collegare più comandi** in sequenza, in modo che **l’output di un comando diventi automaticamente l’input del successivo**.==  
+In questo modo è possibile combinare comandi semplici per ottenere elaborazioni più complesse in un’unica linea di codice.
+![[Pipeline.png]]
 ### Esempi:
-Scrivere, utilizzando la pipe, il comando per visualizzare da un elenco esteso della directory `/home` tutti i file e le directory che nel loro nome contengono le lettere
-*li*.
+1. Scrivere, utilizzando la pipe, il comando per visualizzare da un elenco esteso della directory `/home` tutti i file e le directory che nel loro nome contengono le lettere *li*.
 Per ovviare a questo problema si deve usare i comandi:
 ```bash
 $ ls -al | grep li
 ```
 
-### Lista di commandi
-Seguendo questo conetto della pipeline si possono scrivere una lista di comandi separati tra loro dal punto e virgola (`;`).
-Questi comandi sono eseguiti nell’ordine in cui appaiono nella sequenza.
 
-```bash
+2. Scrivere, utilizzando la pipe, il comando per cercare la parole *Cenerentola* nella prima riga del file `cenerentola.txt`
+```shell
+cat./disney/cenerentola.txt | head-1 | grep Cenerentola
+```
+
+
+### Lista di commandi
+Seguendo lo stesso principio delle **pipeline**, è possibile eseguire più comandi in sequenza all’interno di una **lista di comandi**, separandoli con il punto e virgola (`;`).
+
+- ==Una **lista di comandi** è dunque una sequenza composta da uno o più comandi, scritti sulla stessa riga e separati da `;`.==  
+
+Ogni comando viene eseguito **nell’ordine in cui appare**, indipendentemente dal successo o dal fallimento di quello precedente.
+
+```shell
 command1 ; command2 ; command3 ; …
 ```
 
@@ -972,62 +1068,82 @@ command1 ; command2 ; command3 ; …
 $ echo Buongiorno! ; echo La data di oggi! ; date ; cal
 ```
 
-In questo caso viene stampato in output il messaggio "Buongiorno!", il messaggio "Data di oggi!", la data del giorno corrente e il calendario del mese corrente.
+In questo caso il terminale:
+
+1. stampa il messaggio _“Buongiorno!”_;
+    
+2. stampa il messaggio _“La data di oggi è:”_;
+    
+3. mostra la data corrente;
+    
+4. visualizza il calendario del mese in corso.
 
 > [!note] se il comando cal non viene trovato è possibile installarlo mediante `sudo apt install ncal`
 
 #### Le opzioni delle parentesi per le liste di comandi.
 
-Le parentesi tonde `(command1 ; command2 ; command3)` nella shell vengono utilizzate per raggruppare comandi insieme in modo che vengano eseguiti in una sotto-shell. 
-Una sotto-shell è un ambiente separato che esegue i comandi come se fossero un singolo comando.
-```
+Le parentesi tonde `(command1 ; command2 ; command3)` nella shell vengono utilizzate per raggruppare comandi insieme in modo che vengano eseguiti in una sotto-shell: 
+- ==si intende un ambiente separato che esegue i comandi come se fossero un singolo comando.==
+
+Ad esempio: 
+
+```shell
  $ echo Ciao ; echo Caro! > out_file.txt
 ```
 
-Esegue entrambi i comandi, ma "Ciao" viene visualizzato su terminale, mentre l’output dell’ultimo echo: "Caro!" viene scritto in un file `out_file.txt`.
-Utilizzando le parentesi si sta indicando che entrambi gli output del comando `$echo` devono essere scritti nel file `out_file.txt`:
-```
+Questa riga di comando esegue entrambi i comandi, ma:
+- `"Ciao"` viene visualizzato su terminale, 
+- mentre l’output dell’ultimo `echo`: "Caro!" viene scritto in un file `out_file.txt`.
+==Utilizzando le parentesi si sta indicando che entrambi gli output del comando `$echo` devono essere scritti nel file `out_file.txt`==:
+
+```shell
  $ (echo Ciao ; echo ‘’ Caro!’’) > out_file.txt
 ```
 Esegue entrambi i comandi e scrive l’output complessivo, formato dalle parole
-Ciao e Caro!, nel file `out_file.txt`.
+`"Ciao"` e `"Caro!"`, nel file `out_file.txt`.
 
 ### Gli operatori logici 
 #### L'operatore AND (&&)
-Questo operatore esegue il comando successivo solo se il comando precendente è stato eseguito con successo.
-```
+==Questo operatore esegue il comando successivo solo se il comando precedente è stato eseguito con successo.==
+
+```shell
 command1 && command2 
 ```
-In questo caso `command2` viene eseguito solo se `command1` è stato eseguito con successo.
-#### Esempio
-Se `out_file.txt` esiste:
 
-```
+- In questo caso `command2` viene eseguito solo se `command1` è stato eseguito con successo.
+#### Esempio
+Se `out_file.txt` **esiste**:
+
+```shell
 $ rm out_file.txt && echo il file è stato eliminato!
 ```
-L'output sarà : *"Il file è stato eliminato*
+L'output sarà : *`"Il file è stato eliminato"`* 
+
 Questo perché il comando [[#Eliminare i file il comando `rm`|`$ rm out_file.txt`]] è stato eseguito con successo.
-Mentre se il file non esiste:
-```
+
+Mentre se il file **non esiste**:
+```shell
 $ rm
 out_file.txt && echo il file è stato eliminato!
 ```
 
-L'output sarà: *impossibile rimuovere file out_file.txt*
-Questo perché il comando `rm` non è stato eseguito con successo
+L'output sarà: *`impossibile rimuovere file out_file.txt`*
+
+Questo perché il comando `rm` non è stato eseguito con successo.
 
 #### L'operatore logico OR (`||`)
-L’operatore `||` esegue il comando successivo solo se l’esecuzione del comando precedente è fallita.
-```
+==L’operatore `||` esegue il comando successivo solo se l’esecuzione del comando precedente è fallita.== 
+```shell
 command1 || command2
 ```
-command2 viene eseguito solo se command1 è stato eseguito senza successo
 
-Se il file `out_text.txt` non esiste:
-```
+- ==`command2` viene eseguito solo se `command1` è stato eseguito senza successo==
+
+Se il file `out_text.txt` **non esiste**:
+```shell
 $ rm out_file.txt || echo il file non esiste!
 ```
 
-L'output sarà: *Il file non esiste*
+L'output sarà: *`"Il file non esiste"`*
 Questo perché non è stato possibile eseguire il comando `rm`
 

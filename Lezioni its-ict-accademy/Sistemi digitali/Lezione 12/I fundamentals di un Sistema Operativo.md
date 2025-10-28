@@ -278,8 +278,8 @@ Inoltre i sistemi operativi vengono anche classificati in base alle loro funzion
 
 
 5. **Multi-User Operating System:**  ^multi-user-OS
-	-  Consentono l’accesso e l’esecuzione simultanea di programmi da parte di più utenti. 
-	-  Ogni utente può avere sessioni indipendenti e risorse allocate in modo sicuro.  
+	-  ==Consentono l’accesso e l’esecuzione simultanea di programmi da parte di più utenti.== 
+	-  ==Ogni utente può avere sessioni indipendenti e risorse allocate in modo sicuro.==  
 	  
 > [!example] **Esempio**
 > UNIX, [[Linux]], Windows Server.

@@ -43,6 +43,18 @@
       "width": "",
       "height": "",
       "wrap": false
+    },
+    "327a53c4373f3a55f9e119219830cd44": {
+      "position": "center",
+      "width": "",
+      "height": "",
+      "wrap": false
+    },
+    "691c2e687632dbbb2cd71f18c5f8e0ea": {
+      "position": "right",
+      "width": "",
+      "height": "",
+      "wrap": true
     }
   },
   "Web Development/Javascript/Lezione 3; Array, Indexing, Attributo Length, Operatori, Conversione tra tipi di variabili.md": {
@@ -312,6 +324,26 @@
       "position": "center",
       "width": "519px",
       "height": "334px",
+      "wrap": false
+    }
+  },
+  "Sistemi digitali/Lezione 17/Servizi e funzioni del Sistema Operativo.md": {
+    "e7b3e6816d6cdd061adfb8db39d6f91a": {
+      "position": "center",
+      "width": "",
+      "height": "",
+      "wrap": false
+    },
+    "a469c14ff376cecaa1cf0788caea783c": {
+      "position": "center",
+      "width": "",
+      "height": "",
+      "wrap": false
+    },
+    "b1912912bafd477a1ebc607e257cca01": {
+      "position": "center",
+      "width": "",
+      "height": "",
       "wrap": false
     }
   }

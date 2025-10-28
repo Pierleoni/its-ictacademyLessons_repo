@@ -737,7 +737,7 @@ Quindi la destrutturazione è molto utile quando lavori con oggetti strutturati,
 
 Un’altra caratteristica fondamentale di JavaScript (introdotta con ES6) è **l’operatore di spread**, rappresentato da tre punti: `...`.
 
-Serve per **espandere** (cioè "spargere") gli elementi di un **array** o le **proprietà di un oggetto** all’interno di un altro array o oggetto.
+==Serve per **espandere** (cioè "spargere") gli elementi di un **array** o le **proprietà di un oggetto** all’interno di un altro array o oggetto.==
 
 #### Spread con gli array
 Immaginiamo di avere due array di hobby e di volerli unire:
