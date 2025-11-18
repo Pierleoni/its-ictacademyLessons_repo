@@ -26,10 +26,17 @@ Esempio di "informazione":
 
 - un valore associato ai gradi Celsius (ad esempio, 35°C) rappresenta un valore di temperatura.
 
-==La conoscenza è la comprensione e l'intuizione acquisita dall'interpretazione delle informazioni, rendendole utili per prendere decisioni. La conoscenza risponde a domande come "cosa," "chi," "quando" e "quanto."==  
-Esempio di "conoscenza":
+==La conoscenza è la comprensione e l'intuizione acquisita dall'interpretazione delle informazioni, rendendole utili per prendere decisioni. ==
+La conoscenza risponde a domande come 
+- "cosa," 
+- "chi," 
+- "quando" 
+- e "quanto."  
 
-- un valore di temperatura come 35°C diventa conoscenza quando viene interpretato come un ambiente caldo.  
+> [!example] Esempio di "conoscenza":
+> 
+> 
+> - un valore di temperatura come 35°C diventa conoscenza quando viene interpretato come un ambiente caldo.  
 
 ---
 
@@ -49,14 +56,14 @@ Un singolo BIT può esistere in uno dei **2 stati**: `0` o `1`.
 
 #### Bit e Combinazioni: 
 Quando utilizziamo più bit insieme, il numero di combinazioni cresce in maniera esponenziale.  
-Infatti, con **N bit** possiamo rappresentare **$2^N$ combinazioni distinte**.
+Infatti, ==con **N bit** possiamo rappresentare **$2^N$ combinazioni distinte==**.
 
 ###### Esempi:  
 o 1 bit: $2^1$ = 2 combinazioni (`0`, `1`)  
 o 2 bit: $2^2$ = 4 combinazioni (`00`, `01`, `10`, `11`)  
-o 3 bit: $2^3$ = 8 combinazioni (000, 001, 010, 011, 100, 101, 110, 111)
+o 3 bit: $2^3$ = 8 combinazioni (`000`, `001`, `010`, `011`, `100`, `101`, `110`, `111`)
 
-#### Intervallo di Valori Rappresetnabili:  
+#### Intervallo di Valori Rappresentabili:  
 Oltre a contare le combinazioni, è importante sapere **quali valori numerici possiamo rappresentare** con N bit.
 ==Con N bit, i valori rappresentabili vanno da `0` a $2^N − 1$==.
 
@@ -86,13 +93,14 @@ Esempi includono TAB (tabulazione orizzontale), LF (line feed), CR (ritorno a ca
 ## Comprendere le Dimensioni dei Dati Digitali
 
 Questa tabella fornisce un confronto tra le dimensioni dei dati utilizzando diversi prefissi, le loro dimensioni decimali, le approssimazioni binarie e gli esempi pratici.  
-• Un gruppo di 8 bit è chiamato Byte;  
+> ==Un gruppo di 8 bit è chiamato Byte;==  
+
 ![[Tab bit.png]] 
 
 All'interno di ogni dispositivo, le informazioni sono rappresentate da un insieme fisso di byte:  
-• 16 bit (2 byte)  
-• 32 bit (4 byte)  
-• 64 bit (8 byte)
+-  ==16 bit (2 byte)==  
+-  ==32 bit (4 byte)==  
+-  ==64 bit (8 byte)==
 
 ==Il numero di byte indica la "potenza" di un dispositivo.== 
 Maggiore è il numero di byte:  
@@ -125,18 +133,20 @@ Inoltre, il sistema binario supporta le quattro operazioni di base:
 Per convertire un numero decimale (base 10) in un numero binario (base 2), segui questi passaggi:
 
 1. Dividi il numero per 2.
-2. Annota il resto (0 o 1). Questo sarà il bit meno significativo (LSB).
+2. Annota il resto (0 o 1). 
+	- Questo sarà il bit meno significativo (**LSB**).
 3. Continua a dividere il quoziente ottenuto nel passaggio precedente per 2, annotando i resti.
 4. Ripeti fino a quando il quoziente non è 0.
 5. Scrivi i resti in ordine inverso: dal più recente al primo ottenuto.  
    Questo rappresenta il numero in binario.
 
+
 **Conversione da Decimale a Binario**  
 Convertiamo **13** in binario:  
-13 ÷ 2 = 6, resto = 1  
-6 ÷ 2 = 3, resto = 0  
-3 ÷ 2 = 1, resto = 1  
-1 ÷ 2 = 0, resto = 1  
+$13 ÷ 2 = 6, \quad resto = 1$  
+$6 ÷ 2 = 3, \quad resto = 0$  
+$3 ÷ 2 = 1, \quad resto = 1$  
+$1 ÷ 2 = 0, \quad resto = 1$  
 Risultato in binario: **1101₂**.
 
 > [!NOTE] NOTA
@@ -146,15 +156,16 @@ Risultato in binario: **1101₂**.
 
 Per convertire un numero binario (base 2) in un numero decimale (base 10), segui questi passaggi:
 
-6. Scrivi il numero binario.
-7. Elenca le potenze di 2 da destra a sinistra, iniziando con $2^0$ sotto il bit più a destra.
-8. Moltiplica ogni bit per la corrispondente potenza di 2.
-9. Somma i risultati per ottenere il numero decimale.
+1. Scrivi il numero binario.
+2. Elenca le potenze di 2 da destra a sinistra, iniziando con $2^0$ sotto il bit più a destra.
+3. Moltiplica ogni bit per la corrispondente potenza di 2.
+4. Somma i risultati per ottenere il numero decimale.
 
 **Conversione da Binario a Decimale**  
 Convertiamo **1101₂** in decimale:  
-1101 = 1 ∙ 2^3 + 1 ∙ 2^2 + 0 ∙ 2^1 + 1 ∙ 2^0  
-= 8 + 4 + 0 + 1 = 13  
+
+$$1101 = 1 * 2^3 + 1 * 2^2 + 0 * 2^1 + 1 * 2^0  
+= 8 + 4 + 0 + 1 = 13 $$
 Risultato in decimale: **13₁₀**.  
 
 ### L'addizione binaria
@@ -169,7 +180,7 @@ Prendi i due numeri binari che vuoi sommare.
 
 2. Continua sommando i bit successivi e considerando eventuali riporto dalle colonne precedenti. Se dopo aver sommato l'ultimo bit rimane un riporto, scrivilo nella colonna più a sinistra del risultato.  
 Esempio dell'addizione binaria:  
-```
+```plaintext
 Binary Addition/2
 Example 1 (1011 + 1101):
 1011
@@ -178,7 +189,7 @@ Example 1 (1011 + 1101):
 11000 (Result: carry applied)
 ```
 
-```
+```plaintext
 Step-by-step addition with carry:
 1 + 1 = 0 (carry 1)
 1 + 0 + 1 (carry) = 0 (carry 1)
@@ -187,7 +198,7 @@ Step-by-step addition with carry:
 column)
 ```
 
-```
+```text
 Example 2 (1011 + 101):
 1011
 + 0101
@@ -195,7 +206,7 @@ Example 2 (1011 + 101):
 10000 (Result: carry applied)
 ```
 
-```
+```text
 Step-by-step addition with carry:
 1 + 1 = 0 (carry 1)
 1 + 0 + 1 (carry) = 0 (carry 1)
@@ -210,11 +221,12 @@ Prendi i due numeri binari che vuoi sottrarre.
 > [!note] NOTA: Assicurati che entrambi i numeri abbiano la stessa lunghezza.  
 >Se non lo sono, aggiungi zeri iniziali al numero più corto fino a che non abbiano la stessa lunghezza.
 
-12. Inizia a sottrarre i bit dalla parte destra (bit meno significativo) dei due numeri binari, seguendo queste regole:  
+1. Inizia a sottrarre i bit dalla parte destra (bit meno significativo) dei due numeri binari, seguendo queste regole:  
 
 ![[Bin sub.png]]
-13. Continua sottraendo i bit successivi e considerando eventuali prestiti dalle colonne precedenti. Se dopo aver sottratto l'ultimo bit rimane un prestito, scrivilo nella colonna più a sinistra del risultato.  
-```
+2. Continua sottraendo i bit successivi e considerando eventuali prestiti dalle colonne precedenti. 
+3. Se dopo aver sottratto l'ultimo bit rimane un prestito, scrivilo nella colonna più a sinistra del risultato.  
+```text
 Example 1 (1110 – 1001):
 1110
 - 1001
@@ -222,7 +234,7 @@ Example 1 (1110 – 1001):
 0101 (Result: borrow applied)
 ```
 
-```
+```text
 
 Step-by-step subtraction with borrow:
 0 - 1 = 1 (borrow 1)

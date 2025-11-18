@@ -109,7 +109,7 @@ vincitore():Privato|None
 ```
 
 In python diventa in asta:
-```py
+```python
 def conclusa(self) -> bool:
 	if self.scadenza()<=datetime.now():
 		return True

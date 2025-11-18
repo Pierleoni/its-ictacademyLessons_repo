@@ -2,7 +2,8 @@
 ## Introduzione 
 
 ## Network Architecture
-L'architettura di rete è un framework che delinea la struttura e il funzionamento di una rete, composta da un insieme di livelli e protocolli che stabiliscono come i dati vengono trasmessi e ricevuti. 
+L'architettura di rete è:
+- ==un framework che delinea la struttura e il funzionamento di una rete, composta da un insieme di livelli e protocolli che stabiliscono come i dati vengono trasmessi e ricevuti.== 
 ![[Network Architeture.png]] 
 - Il modello **ISO/OSI** (International Organization for Standardization / Open Systems Interconnection) si inserisce all'interno di questo contesto: 
  ==è un'architettura di rete teorica suddivisa in **7 livelli**, utile per standardizzare la comunicazione tra dispositivi diversi.== 
@@ -71,7 +72,7 @@ Ogni livello svolge una funzione specifica e interagisce con il livello adiacent
    ==Si occupa dell'instradamento dei pacchetti e dell'indirizzamento logico, utilizzando protocolli come **IP**==.  ^networkLayer
    
    
-4. **[[Network, Transport, Session, Presentation, Application Layers#Transport Layer|Livello di Trasporto (Transport)]]**:
+4. **[[Network, Transport, Session, Presentation, Application Layers#ISO E OSI Model transportLayer Transport Layer|Livello di Trasporto (Transport)]]**:
    ==Assicura la consegna affidabile dei dati tra i dispositivi, con protocolli come **TCP** e **UDP**==.  ^transportLayer
    
 5. **[[Network, Transport, Session, Presentation, Application Layers#Session Layer|Livello di Sessione (Session)]]**:
@@ -89,7 +90,7 @@ Ogni livello svolge una funzione specifica e interagisce con il livello adiacent
 
 > [!remember] **Trucco Mnemonico in inglese per ricodare tutti e 7 i livelli**
 > **“<mark style="background: #FFB8EBA6;">P</mark>lease <mark style="background: #ABF7F7A6;">D</mark>o <mark style="background: #ADCCFFA6;">N</mark>ot <mark style="background: #D2B3FFA6;">T</mark>hrow <mark style="background: #E5FF00A6;">S</mark>ausage <mark style="background: #FF0000A6;">P</mark>izza <mark style="background: #00FF02A6;">A</mark>way”**  
-   (<mark style="background: #FFB8EBA6;">Presentation</mark>, <mark style="background: #ABF7F7A6;">Data Link</mark>, <mark style="background: #ADCCFFA6;">Network</mark>, <mark style="background: #D2B3FFA6;">Transport</mark>, <mark style="background: #E5FF00A6;">Session</mark>, <mark style="background: #FF0000A6;">Presentation</mark>, <mark style="background: #00FF02A6;">Application</mark>).
+   (<mark style="background: #FFB8EBA6;">Physical</mark>, <mark style="background: #ABF7F7A6;">Data Link</mark>, <mark style="background: #ADCCFFA6;">Network</mark>, <mark style="background: #D2B3FFA6;">Transport</mark>, <mark style="background: #E5FF00A6;">Session</mark>, <mark style="background: #FF0000A6;">Presentation</mark>, <mark style="background: #00FF02A6;">Application</mark>).
 
 
 Nei primi tre livelli (Fisico, Data Link e Rete), il dato viene generalmente chiamato **bit, frame o pacchetto**, mentre nei livelli superiori può essere chiamato **segmento, messaggio o dato** a seconda del contesto.
@@ -99,8 +100,9 @@ Mentre gli ultimi 4 livelli sono detti **"Host Layers"** perché si occupano del
 I dispositivi finali, come **computer e smartphone**, operano su tutti e sette i livelli del modello.
 ## I primi 2 livelli del modello ISO/OSI
 ## [[#^livelloFisico|Livello fisico]] 
-Il **livello fisico** è responsabile della connessione fisica tra i dispositivi. Si occupa della trasmissione e della ricezione di **flussi di bit grezzi** su un mezzo fisico.
-
+- Il **livello fisico** è responsabile della connessione fisica tra i dispositivi. 
+- Si occupa della trasmissione e della ricezione di **flussi di bit grezzi** su un mezzo fisico.
+ 
 **Principali mezzi fisici di trasmissione:**
 
 - **Cavi in rame** (es. [[#Cavi coassiali ed Ethernet|Ethernet, cavo coassiale]]).  ^caviRame
@@ -150,7 +152,7 @@ Le tecnologie più diffuse che utilizzano RF per abilitare la comunicazione wire
 
 - **Bande di frequenza**: I==l Wi-Fi opera principalmente nelle bande di frequenza 2.4 GHz e 5 GHz, con i nuovi standard che utilizzano anche la banda 6 GHz. La banda a 2.4 GHz è particolarmente nota per la sua stabilità==.
 - **Range**: ==Tipicamente copre una distanza fino a 100 metri all'interno degli edifici, a seconda dell'ambiente e degli ostacoli presenti==.
-- **Tipo di rete**: ==Di solito fa parte di una rete locale (LAN), dove più dispositivi si connettono a un router centrale o a un punto di accesso==.
+- **Tipo di rete**: ==Di solito fa parte di una [[Reti di computer#Reti e classificazione geografica|rete locale (LAN)]], dove più dispositivi si connettono a un router centrale o a un punto di accesso==.
 - **Applicazioni**: ==Accesso a Internet, servizi di streaming, giochi online, connettività per smart home e networking aziendale==.
 
 #### Bluetooth
@@ -281,7 +283,7 @@ Il livello di Data Link è il secondo strato del modello OSI e ==si occupa della
 
 Il livello di Data Link è suddiviso in due sottolivelli principali:
 
-1. **[[#^LLC-expl|Logical Link Control (LLC)]]**:
+1. **[[#LLC Framing|Logical Link Control (LLC)]]**:
     
     - ==Il sottolivello LLC gestisce la comunicazione tra il livello di Data Link e il[[Network, Transport, Session, Presentation, Application Layers#Network layer|livello di rete]]==. 
     - Si occupa di funzioni come: 
@@ -295,13 +297,13 @@ Il livello di Data Link è suddiviso in due sottolivelli principali:
     - ==Il sottolivello MAC controlla come i dispositivi accedono al mezzo fisico di trasmissione==. 
     - ==Determina le modalità di accesso alla rete per evitare collisioni==.
     - Utilizza protocolli come:
-	    - CSMA/CD (Carrier Sense Multiple Access with Collision Detection) per reti cablate 
-	    - CSMA/CA (Carrier Sense Multiple Access with Collision Avoidance) per reti wireless.
+	    - **[[ISO E OSI Model#^csma-cd|CSMA/CD]]** (Carrier Sense Multiple Access with Collision Detection) per reti cablate 
+	    - **[[ISO E OSI Model#^csma-ca|CSMA/CA]]** (Carrier Sense Multiple Access with Collision Avoidance) per reti wireless.
      ^MAC-List
---- 
-
-## LLC Framing 
-Il processo di framing nel sottolivello [[#^LLC-List|Logical Link Control (LLC)]] è fondamentale per la corretta trasmissione dei dati tra i dispositivi di rete. Ogni frame è composto da un header, dai dati e da un trailer, e include diverse informazioni chiave.
+### LLC Framing 
+Il processo di framing nel sottolivello [[#^LLC-List|Logical Link Control (LLC)]]: 
+- ==è fondamentale per la corretta trasmissione dei dati tra i dispositivi di rete==. 
+- Ogni frame è composto da un header, dai dati e da un trailer, e include diverse informazioni chiave.
 
 ![[LLC Framing.png]]
 ^frame-img
@@ -310,11 +312,11 @@ Il processo di framing nel sottolivello [[#^LLC-List|Logical Link Control (LLC)]
 [[#^frame-img|Riprendendo l'immagine]] analizziamo la struttura del frame:
 #### Struttura del Frame
 
-1. **Preamble**: 
+1. **Preamble (preambolo)**: 
     
     - ==Il preambolo è una serie di bit che prepara il dispositivo ricevente a comprendere i dati in arrivo==. 
     - ==Si trova all'inizio del frame e garantisce che il mittente e il ricevente siano sincronizzati prima dell'inizio del messaggio effettivo==.
-2. **Header**:
+2. **Header(intestazione)**:
     
     - **Destination MAC Address**: 
 	    - ==L'indirizzo fisico del dispositivo destinatario sulla rete.== 
@@ -339,7 +341,7 @@ Il processo di framing nel sottolivello [[#^LLC-List|Logical Link Control (LLC)]
 			- ==produce un valore di dimensione fissa e unica per un dato input==. 
 			- Questo valore è unidirezionale: ==il che significa che non è possibile risalire all'input originale a partire dal checksum==.
 
-### Meccanismi di Controllo del Flusso
+#### Meccanismi di Controllo del Flusso
 
 Il controllo del flusso è essenziale per garantire che i dati vengano trasmessi in modo efficiente e senza congestioni nella rete. 
 Due meccanismi principali utilizzati nel livello di Data Link sono:
@@ -372,15 +374,17 @@ Due meccanismi principali utilizzati nel livello di Data Link sono:
 
 ##### Metodi di esempio:
 
-- **CSMA/CD (Carrier Sense Multiple Access with Collision Detection)**: 
-	 -  ==Utilizzato nelle reti Ethernet per gestire la trasmissione dei dati e rilevare le collisioni.==
-- **CSMA/CA (Carrier Sense Multiple Access with Collision Avoidance)**: 
-	-   ==Utilizzato nelle reti Wi-Fi per evitare collisioni aspettando un canale libero prima di trasmettere==. 
+- **CSMA/CD (Carrier Sense Multiple Access with Collision Detection)**:  ^csma-cd
+	 -  ==Utilizzato nelle reti Ethernet per gestire la trasmissione dei dati e rilevare le collisioni.==  
+	   
+- **CSMA/CA (Carrier Sense Multiple Access with Collision Avoidance)**:  ^csma-ca
+	-   ==Utilizzato nelle reti Wi-Fi per evitare collisioni aspettando un canale libero prima di trasmettere==.  
+	  
 -  **Delimitazione dei frame**: 
 	- ==Definisce l'inizio e la fine di un frame, garantendo che i dati siano interpretati correttamente.==
 
 
-## Network Switch
+#### Network Switch
 Gli switch di rete sono dispositivi fondamentali in una rete locale (LAN). ==Consentono la comunicazione tra diversi dispositivi all'interno della stessa rete.==
 
 In sostanza Uno switch di rete è un dispositivo che: 
@@ -391,7 +395,7 @@ In sostanza Uno switch di rete è un dispositivo che:
 
 ![[Network Switch.png]]
 
-### Funzionamento base di uno switch
+#### Funzionamento base di uno switch
 
 - ==Riceve un frame di dati da un dispositivo connesso==.  
 - ==Legge l'indirizzo MAC di destinazione del frame==.  

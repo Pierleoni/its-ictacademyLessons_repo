@@ -30,8 +30,11 @@ Tuttavia esistono casi particolari che vanno presi in considerazione in fase di 
  Ad esempio, in un diagramma UML delle classi viene creata la classe `Corso` e una classe `Studente`:
  ![[Esempio diagramma delle classi Ristrutturato.png]]
   
-  Innanzitutto in  un corso il numero di studenti che l'ha passato non lo si  conosce  appena creato l'oggetto di corso mentre il numero di matricola è certamente una proprietà immutabile dell'oggetto `studente`.
-Quindi, come possiamo notare,  una dimensione sono se le proprietà di un oggetto sono immutabili, mutabili o mutabili ad evoluzione vincolata e un'altra dimensione sono  certamente nota alla nascita, possibilmente non nota alla nascita, certamente non nota alla nascita.
+  Innanzitutto, in  un corso il numero di studenti che l'ha passato non lo si  conosce  appena creato l'oggetto di `Corso`, mentre il numero di matricola è certamente una proprietà immutabile dell'oggetto `studente`.
+Quindi, come possiamo notare,  una dimensione sono:
+- se le proprietà di un oggetto sono immutabili, mutabili o mutabili ad evoluzione vincolata 
+e un'altra dimensione sono:
+- certamente nota alla nascita, possibilmente non nota alla nascita, certamente non nota alla nascita.
 
 Infatti le proprietà di questo diagramma evolvono così:
 ![[Esempio diagramma delle classi ristrutturato_2.png]]
@@ -51,13 +54,14 @@ Per mantenere il diagramma delle classi ristrutturato leggibile e velocizzare la
 Innanzitutto quando nasce l'oggetto della classe `Studente` esso non ha link verso l'oggetto della classe `Esame`, mettendo il vincolo di molteplicità `0..*` diciamo che quando nasce l'oggetto studente non è certamente noto il corso superato.
 Di conseguenza dobbiamo distinguere tra 
 - **proprietà singole:** 
-attributi (di classe o di associazioni) e associazioni (o meglio ruoli) con molteplicità `1..1`. 
+	==attributi (di classe o di associazioni) e associazioni (o meglio ruoli) con molteplicità `1..1`.== 
+
 - **proprietà con molteplicità minima pari a zero:**
-  attributi (di classe o di associazioni) e associazioni (o meglio ruoli) con molteplicità `0..1`, `0..*`, `0..2`, etc.
+	  ==attributi (di classe o di associazioni) e associazioni (o meglio ruoli) con molteplicità `0..1`, `0..*`, `0..2`, etc.==
 Detto ciò le nostre assunzioni di default, ovvero che valgono in assenza di ulteriori elementi, sono:
-- Tutte le proprietà sono mutabili
-- Le proprietà singole (`1..1` ) o quelle con molteplicità minima pari a 1 (come ad esempio `1..*`) sono note alla nascita (questo per via della molteplicità `1..1`).
-- Le proprietà con molteplicità minima pari a 0 sono possibilmente non note alla nascita 
+- ==Tutte le proprietà sono mutabili==
+- ==Le proprietà singole (`1..1` ) o quelle con molteplicità minima pari a 1 (come ad esempio `1..*`) sono note alla nascita (questo per via della molteplicità `1..1`).==
+- ==Le proprietà con molteplicità minima pari a `0` sono possibilmente non note alla nascita== 
 
 I valori diversi dai default vengono contrassegnati nel diagramma con la dicitura `<<immutable>>` o nota UML ([[Esempio diagramma delle classi ristrutturato_2.png|vedi l'immagine sopra]]).
 

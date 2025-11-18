@@ -211,11 +211,11 @@ Questo meccanismo regola la quantità di dati inviati, evitando di sovraccaricar
 **Il Time To Live (TTL):**  
 ==Il [[Network, Transport, Session, Presentation, Application Layers#^timeToLive|TTL]] è un campo nei pacchetti che determina il numero massimo di salti che un pacchetto può fare sulla rete prima di essere scartato==.  ^timetoLive2
 
-### Servizi non orientati alla connessione(connectionless):
+## Servizi non orientati alla connessione(connectionless):
 ==In questi servizi non è richiesta una connessione permanente (o establishement di una connessione dedicata) tra i dispositivi che comunicano prima di inviare i dati.==  
 
 ![[Servizi non orientati alla connessione.png]]
-Ogni pacchetto di dati viene trattato in modo indipendente e contiene tutte le informazioni necessarie per raggiungere la destinazione. 
+==Ogni pacchetto di dati viene trattato in modo indipendente== e contiene tutte le informazioni necessarie per raggiungere la destinazione. 
 ==**I pacchetti con la stessa sorgente e destinazione possono percorrere vie diverse e arrivare in tempi differenti.**== 
 ==**Questi servizi sono preferibili quando si privilegia la velocità rispetto all'affidabilità**==, poiché ==non viene eseguito un processo di handshake, risultando in **una latenza inferiore rispetto ai servizi orientati alla connessione**==. 
 Sono utilizzati in applicazioni dove la velocità è più importante della garanzia di consegna, come nel caso dello **streaming e dei servizi di gaming online**.

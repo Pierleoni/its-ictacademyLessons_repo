@@ -4,71 +4,41 @@
     "type": "split",
     "children": [
       {
-        "id": "2dc2fa42e2c7782d",
+        "id": "83ced301d3a27305",
         "type": "tabs",
         "children": [
           {
-            "id": "9ac4beb4f96a8eaa",
+            "id": "18ecebfb66eeff92",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Web Development/Progettazione/Lezione 2; Applicazioni Web, Caratteristiche di un’applicazione a servizi, Frontend vs. Backend, il ruolo del Browser e del Server Web, differenza tra siti Web Statici e Applicazioni Dinamiche.md",
+                "file": "Web Development/React/Lezione 3 - Hooks.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Lezione 2; Applicazioni Web, Caratteristiche di un’applicazione a servizi, Frontend vs. Backend, il ruolo del Browser e del Server Web, differenza tra siti Web Statici e Applicazioni Dinamiche"
+              "title": "Lezione 3 - Hooks"
             }
           },
           {
-            "id": "689a9660b31591d0",
+            "id": "5a30a7d7f1a65ebf",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/Lezione 8_Ereditarietà delle classi/Polimorfismo.md",
+                "file": "Web Development/React/Lezione 3 - Hooks.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Polimorfismo"
+              "title": "Lezione 3 - Hooks"
             }
           },
           {
-            "id": "6af9e6e35700073d",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Sistemi digitali/Lezione 19/Modello TCP-IP.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
-              },
-              "icon": "lucide-file",
-              "title": "Modello TCP-IP"
-            }
-          },
-          {
-            "id": "f118e2c53a574dea",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Sistemi digitali/Lezione 11/Internetwork-Protocols.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
-              },
-              "icon": "lucide-file",
-              "title": "Internetwork-Protocols"
-            }
-          },
-          {
-            "id": "c1f4bee630f2d1dc",
+            "id": "4d33cbc49dcaab83",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -76,44 +46,23 @@
                 "file": "Python/Lezione 23 Flask/Introduzione a Flask.md",
                 "mode": "source",
                 "source": false,
-                "backlinks": false
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
               },
               "icon": "lucide-file",
               "title": "Introduzione a Flask"
             }
-          },
-          {
-            "id": "13d972fd899fc69d",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Sistemi digitali/Lezione 22/Linux 2.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
-              },
-              "icon": "lucide-file",
-              "title": "Linux 2"
-            }
-          },
-          {
-            "id": "7739ada69d9cdb6a",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Sistemi digitali/Lezione 12/I fundamentals di un Sistema Operativo.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
-              },
-              "icon": "lucide-file",
-              "title": "I fundamentals di un Sistema Operativo"
-            }
           }
         ],
-        "currentTab": 6
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -298,37 +247,38 @@
       "daily-notes:Open today's daily note": false
     }
   },
-  "active": "7739ada69d9cdb6a",
+  "active": "4d33cbc49dcaab83",
   "lastOpenFiles": [
-    "Sistemi digitali/Lezione 11/Internetwork-Protocols.md",
-    "Sistemi digitali/Lezione 11/Il modello di Von Neumann.md",
-    "Sistemi digitali/Lezione 10/Le architetture di un Computer.md",
-    "Sistemi digitali/Lezione 7/Spiegazione per i vantaggi e svantaggi dei modelli Client server e P2P, spiegazione delle tre entità di spotify..md",
-    "Sistemi digitali/Lezione 7/Reti di computer.md",
-    "Sistemi digitali/Lezione 7/Complemento a 2 e Reti di calcolatori.md",
-    "Sistemi digitali/Lezione 22/Linux 2.md",
-    "img/Sistemi Digitali/Lezione 22/Struttura for.png",
-    "img/Sistemi Digitali/Lezione 22/Struttura case.png",
+    "Python/Lezione 23 Flask/Flask Lezione 2.md",
     "Web Development/React/Lezione 3 - Hooks.md",
-    "Python/Lezione 3/Cicli e condizionali.md",
-    "Sistemi digitali/Lezione 21/Linux.md",
-    "img/Sistemi Digitali/Lezione 21/Pipeline.png",
-    "Sistemi digitali/Lezione 17/Servizi e funzioni del Sistema Operativo.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Vincoli di molteplicità sulle associazioni e sugli attributi.md",
-    "Progettazione/Analisi concettuale/Lezione1/Introduzione e cenni di  ingegneria del software.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Documenti di specifica.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Diagramma use-case.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Associazioni con attributi in UML.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Analisi dei requisiti mediante UML.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Generalizzazioni.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Operazioni di classe e Specializzazioni degli attributi, di associazioni e operazioni.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Tipi di dato concettuale.md",
-    "Sistemi digitali/Lezione 12/I fundamentals di un Sistema Operativo.md",
-    "Sicurezza/Crittografia.md",
     "Web Development/React/Lezione 2 - Il Props Object.md",
     "Web Development/React/Lezione 1- Componenti Funzionali in React React.md",
+    "Web Development/React/Lezione 4 - useEffect.md",
+    "Sicurezza/Sistemi operativi.md",
+    "dependency array.md",
+    "Docker.md",
+    "img/Diagram.svg",
+    "Bandwidth (Larghezza di banda).md",
+    "`_esame`.md",
+    "Progettazione/Analisi concettuale/Lezione 2/Documenti di specifica.md",
+    "Progettazione/Design di applicazioni in Python/Responsabilità.md",
+    "Progettazione/Design di applicazioni in Python/Associazione a responsabilità singola.md",
     "Python/Lezione 23 Flask/Introduzione a Flask.md",
-    "Web Development/Javascript/Lezione 6; DOM e ripasso JS.md",
+    "Sistemi digitali/Lezione 17/Servizi e funzioni del Sistema Operativo.md",
+    "Inglese/Riassunto capitoli/Capitolo 11.md",
+    "Progettazione/Analisi concettuale/Lezione 2/Generalizzazioni.md",
+    "Progettazione/Design di applicazioni in Python/Evoluzione delle proprietà e visibilità delle proprietà.md",
+    "Sistemi digitali/Lezione 12/ISO E OSI Model.md",
+    "Sistemi digitali/Lezione 16/Network, Transport, Session, Presentation, Application Layers.md",
+    "Progettazione/Design di applicazioni in Python/Associazioni a responsabilità doppia.md",
+    "Progettazione/Design di applicazioni in Python/Ristrutturazione delle specifiche di classi e di use-case.md",
+    "Progettazione/Design di applicazioni in Python/Ristrutturazione di generalizzazioni.md",
+    "Progettazione/Design di applicazioni in Python/Implementazione delle classi.md",
+    "Progettazione/Design di applicazioni in Python/Impl. le classi astratte in Python.md",
+    "Progettazione/Design di applicazioni in Python/Design di applicazioni in Python.md",
+    "img/Sistemi Digitali/Lezione 22/Struttura for.png",
+    "img/Sistemi Digitali/Lezione 22/Struttura case.png",
+    "img/Sistemi Digitali/Lezione 21/Pipeline.png",
     "Web Development/React",
     "img/Python/Lezione 23/Framework per costruire le web app in Python.png",
     "img/Python/Lezione 23/MVC.png",
@@ -340,7 +290,6 @@
     "img/Web Dev/Progettazione/Lezione 2/Applicazioni web.png",
     "img/Web Dev/Progettazione/Lezione 2",
     "img/F di x.svg",
-    "img/Web Dev/Progettazione/architettura a 3 livelli.png",
     "img/Web Dev/Progettazione",
     "Web Development/Progettazione",
     "img/Docker/Docker Containers.png.~tmp",

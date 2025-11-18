@@ -172,12 +172,12 @@ app.run(debug=True, host='127.0.0.1', port=5000)
 	- `host='127.0.0.1'` limita l’accesso al solo computer locale.
     
 	- `port=5000` specifica la porta su cui il server ascolta.
-In produzione la modialità debug deve essere settata a False perché permette di eseguire codice aribitrario
+In produzione la modalità debug deve essere settata a False perché permette di eseguire codice arbitrario
 
 ### Eseguire l'applicazione flask
 
-Per esguire il codice su terminale 
-```
+Per eseguire il codice su terminale 
+```shell
 python3 nomeFile.py
 ```
 
@@ -185,39 +185,42 @@ Il codice viene eseguito e viene creato l'oggetto flask con valore `__name__`
 
 #### Definire le route statiche 
 
-Una volta creata la web app bisogna definire le risorse : si usano i decorators 
+Una volta creata la web app bisogna definire le risorse : si usano i [[#I Le Classi **Utilizzo dei Decoratori** `@property` **per Getter e Setter** decorators in Flask|decorators]] 
 ad esempio: 
 ```python
 from flask import Flask
 app = Flask(__name__)
 @app.route('/')
 def home() -> str:
-return "<h3>Hello, world!</h3>"
+	return "<h3>Hello, world!</h3>"
 ```
+
+
+> [!NOTE] `@app.route` è un metodo GET dell'HTTP
 
 
 Dobbiamo sempre definire la route, quindi deve sempre portare alla homepage.
-Levando app.run possiamo eseguire il codice nel modo visto prima, levando l'app.run si deve essere il comando: 
-```
+Levando `app.run` possiamo eseguire il codice nel modo visto prima, levando l'`app.run` si deve essere il comando: 
+```shell
 flask --app main run
 ```
 
 In questo modo il server si avvia non in modalità debug.
 
-Supponiamo di avere un main.py che contiene la nostra applicazione, finchè c'è l'`app.run()` possiamo avviare l'applicazione tramite riga di comando `python3 main.py`, in questo modo però se cambiamo i valori di defualt dobbiamo sempre salvare e rilanciare l'app.
+Supponiamo di avere un `main.py` che contiene la nostra applicazione, finchè c'è l'`app.run()` possiamo avviare l'applicazione tramite riga di comando `python3 main.py`, in questo modo però se cambiamo i valori di defualt dobbiamo sempre salvare e rilanciare l'app.
 Eliminare l'`app.run()` abbiamo due modi per lanciare l'app:
-```
+```shell
 flask --app MAIN run --port 4000
 ```
 In questo modo posso cambiare la porta senza dover cambiare il codice.
 L'altro metodo prevede: 
 il file main.py deve essere rinominato app.py e quando eseguo il comando 
-```
+```shell
 flask run
 ```
 l'app viene lanciata e non si deve specificare il nome del file, basta che il nome del file si chiami app.py.
 Ovviamente anche con questo comando posso cambiare altri valori come il numero della porta.
-```
+```shell
 flask run --port 4000
 ```
 
@@ -325,8 +328,9 @@ La funzione `url_for()` costruisce dinamicamente i percorsi:
 
 
 
-### I decorators in Flask
-Le funzioni sono first class objects: ovvero una funzione può essere passata come parametro di un altra funzione, non il valore di ritorno della funzione ma la funzione stessa.
+### I [[Le Classi#**Utilizzo dei Decoratori** `@property` **per Getter e Setter**|decorators]] in Flask
+Le funzioni sono **first class objects:** 
+- ==una funzione può essere passata come parametro di un altra funzione, non il valore di ritorno della funzione ma la funzione stessa.==
 Quindi si può scrivere una cosa del genere: 
 ```python
 def fun1()->str:
@@ -379,7 +383,7 @@ QUanda la funzione parent è stata eseguita tutta se non trovo il modo di tirare
 I deocrators vanno ad espandere le funzionalità delle funzioni, l'esempio è il cronometro, usando un decoratrs sulla funzione del cronometro posso, ad esempio vedere il tempo di runnig della inner function cronometro().
 
 Andiamo a vedere come fare un decorator cronometro: 
-```
+```python
 import time
 def cronometro(fun): #è il decorators (@cronometro)
 	def wrapper() #avvolge la funzione che si vuole decorare
@@ -448,4 +452,45 @@ ciao()
 
 
 Questo è un disegn pattern per risparmiare codice.
+
+### Implementare i verbi HTTP in Flask
+Se in Flask scrivessimo 
+```Python
+@app.route ('/libri', method = 'GET')
+	def get_libri():
+	#corpo della funzione
+```
+
+Automaticamente quando arriva una richiesta GET al server Flask richiemera questa funzione
+Ora mettiamo che: 
+```python
+@app.route ('/libri', method = 'GET')
+	def get_libri():
+		libri = db.get_libri()
+		return jsonify(libri), 200
+```
+
+In questo modo noi costruimao un dizionario `libri` e restituisce la risposta HTTP, 
+Il 200 è lo status code.
+Il flusso è: 
+Il client fa una richiesta, 
+la richiesta viene creata automaticamente
+la richiesta arriva al codice Flask
+Flask manda la richiesta al DB
+il DB manda a Flask la risposta 
+Flask construisce e rimanda la risposta in forma JSON al client 
+
+Metodo app.route non restituisce niente, se metto `return "Hello Wordl"` flask è abbastanza intelligente da sapere che deve costruire la risposta con quella stringa
+```python
+@app.route ('/')
+	def home():
+		return "Hello World"
+```
+
+Ora creaimo un server con Flask
+```
+from Flask 
+```
+
+
 

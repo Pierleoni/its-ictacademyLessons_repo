@@ -111,9 +111,9 @@ Come accennato poco fa in questa nelle pre-condizioni si specifica  come è fatt
 
 2. Per impostare la post-condizione di questa operazione, bisogna chiedersi: 
 	 Questa operazione modifica i dati? 
-		   In questo caso no, perché non crea nuovi dati nel sistema, quindi non modifica il livello estensionale.
+		   ==In questo caso no, perché non crea nuovi dati nel sistema, quindi non modifica il livello estensionale.==
 	Cosa restituisce esattamente ? 
-		Un valore medio calcolato concettualmente.
+		==Un valore medio calcolato concettualmente.==
 Quindi il livello estensionale rimane invariato (nessuna modifica a oggetti o relazioni),
 inoltre va definito il valore del risultato (`result`) dell'operazione:
  - Sia `E` l'insieme dei link di associazione `"esame"` che coinvolgono "`this`" tali da avere un valore per l'attributo `"data"` non successivo al valore `d` (`data` ≤ `d` ) 

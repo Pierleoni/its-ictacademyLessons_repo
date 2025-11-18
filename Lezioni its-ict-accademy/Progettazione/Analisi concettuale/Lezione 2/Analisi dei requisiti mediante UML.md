@@ -114,7 +114,7 @@ circostanze, un oggetto è istanza di più classi, ma in ogni caso, tra le class
 istanza, esiste sempre la classe più specifica).
 
 
-![[Diagram.svg]]
+![[img/Diagram.svg]]
 Prendendo questa immagine come riferimento possiamo notare:
 - **div_comm:** 
   ==è l'identificatore dell'oggetto== (scelto

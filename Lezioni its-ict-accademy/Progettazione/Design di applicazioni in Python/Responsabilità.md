@@ -16,7 +16,7 @@ In generale per ogni associazione, almeno una delle due classi deve esserne resp
 
 
 ### In quali casi serve la responsabilità?
-Serve se c'è un operazione di classe o un use-case e si ha bisogno in qualche modo che un oggetto della classe possa accedere ai link in qualche modo.
+==Serve se c'è un operazione di classe o un use-case e si ha bisogno in qualche modo che un oggetto della classe possa accedere ai link in qualche modo.==
 Ad esempio: 
 ![[Operazioni di classe_Responsabilità.png]]
 

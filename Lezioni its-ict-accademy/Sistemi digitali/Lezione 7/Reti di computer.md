@@ -298,17 +298,17 @@ Un’**architettura di rete** definisce il modo in cui i dispositivi comunicano 
 
 ==È un’architettura centralizzata in cui più dispositivi, chiamati **client**, richiedono servizi o risorse a un **server**, che ha il compito di gestire processi, dati e sicurezza==.
 
-- **Client**:
+- **Client**: ^81dc1c
     
     - ==Richiede servizi o risorse.==
         
     - ==Invia le richieste al server.==
         
-- **Server**:
+- **Server**: ^b4e999
     
     - ==Fornisce risorse e servizi==.
         
-    - ==Gestisce l’elaborazione dei dati e lo storage.== → [[Lezione 2; Applicazioni Web, Caratteristiche di un’applicazione a servizi, Frontend vs. Backend, il ruolo del Browser e del Server Web, differenza tra siti Web Statici e Applicazioni Dinamiche#Interoperabilità del sistema Reti di computer 1. Modello Client/Server Client-Server|Interoperabilità del sistema Client-Server (SOAP e REST)]]
+    - ==Gestisce l’elaborazione dei dati e lo storage.== → [[Lezione 2; Applicazioni Web, Caratteristiche di un’applicazione a servizi, Frontend vs. Backend, il ruolo del Browser e del Server Web, differenza tra siti Web Statici e Applicazioni Dinamiche#Interoperabilità del sistema Reti di computer 1. Modello Client/Server Client-Server|Interoperabilità del sistema Client-Server (SOAP e REST)]] 
         
     - ==Restituisce i risultati al client.==
         

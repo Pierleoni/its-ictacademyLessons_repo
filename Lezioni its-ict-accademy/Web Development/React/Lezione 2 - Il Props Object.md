@@ -10,7 +10,7 @@ In React, **le props** (abbreviazione di _properties_, cioè _proprietà_) rappr
 Ogni **[[Lezione 1- Componenti Funzionali in React React#Componenti Funzionali|componente React]]** possiede un oggetto chiamato `props`, ==che contiene tutti i dati passati al componente dal suo elemento genitore.==  
 Possiamo quindi dire che:
 
->✅ Le _props_ sono un oggetto che mantiene le informazioni relative a un componente.
+>✅ ==Le _props_ sono un oggetto che mantiene le informazioni relative a un componente.==
 
 ##### Esempio concreto:
 Consideriamo un semplice elemento HTML:
@@ -1055,19 +1055,19 @@ export default Talker
 
 In questo esempio:
 
-- `Talker` è il **componente padre**, che definisce la funzione `talk()`.
+- ==`Talker` è il **componente padre**, che definisce la funzione `talk()`.==
     
-- La funzione viene poi **passata come prop** al componente figlio `<Button />`.
-- Nel componente figlio `Button` l'evento viene gestito tramite l'event listeners `onClick`; quindi ogni volta che l’utente clicca sul pulsante, React **esegue la funzione** `talk()` passata tramite la prop.
+- ==La funzione viene poi **passata come prop** al componente figlio `<Button />`.==
+- ==Nel componente figlio `Button` l'evento viene gestito tramite l'event listeners `onClick`; quindi ogni volta che l’utente clicca sul pulsante, React **esegue la funzione** `talk()` passata tramite la prop.==
 
 > [!check] In questo modo, la logica dell’evento (`talk`) rimane nel componente genitore, mentre il componente figlio (`Button`) si occupa solo della parte grafica (il rendering del bottone).
 
 #### Naming convention : `handleEvent`, `onEvent`, e `props.event` 
 Quando si lavora con Event Handler in React, esistono due nomi da scegliere:
 
-1. **Il nome della funzione handler**, definita nel componente padre.
+1. ==**Il nome della funzione handler**, definita nel componente padre.==
     
-2. **Il nome della prop**, con cui si passa la funzione al componente figlio.
+2. ==**Il nome della prop**, con cui si passa la funzione al componente figlio.==
 
 ##### Nome della funzione handler 
 La convenzione in React vuole che le funzioni che gestiscono eventi abbiano un nome composto da:
@@ -1154,7 +1154,8 @@ In questo caso l'attributo `onClick` è veramente collegato a un  **event listen
 
 > [!remember] **Event Listeners vs. Event Handler**
 > 1. Gli event Listeners: 
-> 	==Un event listener (“ascoltatore di eventi”) è un meccanismo del browser (parte del DOM) che “ascolta” un determinato evento — ad esempio un click, un input da tastiera o il passaggio del mouse==.
+> 	==Un event listener (“ascoltatore di eventi”) è un meccanismo del browser (parte del DOM) che “ascolta” un determinato evento — ad esempio un click, un input da tastiera o il passaggio del mouse==.  
+> 	^eventListeners
 >
 >
 >> [!info] In JavaScript puro (senza React) puoi aggiungere un listener così: 
@@ -1222,6 +1223,9 @@ button.addEventListener('click', function() {
    > 
 >3. Quando trova l’elemento `<button>` con `onClick={handleClick}`, **invoca la funzione handler**.
 >
+
+^eventHandlerVsEventListeners
+
 
 
 > [!abstract] ### Oggetto e evento dell'oggetto

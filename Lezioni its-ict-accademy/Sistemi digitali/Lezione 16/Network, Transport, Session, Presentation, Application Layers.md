@@ -214,7 +214,7 @@ Esistono diversi classi di indirizzi che determinano lo scopo della rete e il su
 - **[[#Classe A|Classe A]]**: da `0.0.0.0` a `127.255.255.255`
     
 - **[[#Classe B|Classe B]]**: da **128.0.0.0** a **191.255.255.255**
-    
+     
 - **[[#Classe C|Classe C]]**: da **192.0.0.0** a **223.255.255.255**
     
 - **[[#Classe D|Classe D]]**: da **224.0.0.0** a **239.255.255.255** (_Multicast_)
@@ -311,8 +311,8 @@ In questo esempio, i primi tre ottetti (`192.168.1`) rappresentano la rete, ment
 - **Range**: `128.0.0.0` a `191.255.255.255`
 - **Primo Ottetto**: da 128 a 191
 - **Subnet Mask Predefinita**: `255.255.0.0`
-- **Numero di Reti**: 16.384 (2^14)
-- **Host per Rete**: Oltre 65.000 (2^16 - 2)
+- **Numero di Reti**: 16.384 ($2^{14}$)
+- **Host per Rete**: Oltre 65.000 ($2^{16} - 2$)
 - **Utilizzo**: ==Adatta per reti di medie dimensioni, come università o grandi aziende==.
 - **Esempio**: `172.16.0.1`
 
@@ -443,10 +443,10 @@ Le dimensioni totali del header occupano 32 bit, le componenti principali sono:
 3. **Other Header Fields (Altri Campi dell'Header)**:
 	- ==Includono informazioni aggiuntive necessarie per il corretto instradamento e gestione del segmento==.
 	- ==Questi campi possono includere numeri di sequenza, numeri di [[Internetwork-Protocols#Il servizio ACK (Acknowledgment)|ack]], flags di controllo, e informazioni sulla dimensione dell'header stesso==.
-	- Dipendono dai protocolli  TCP o UDP 
+	- Dipendono dai protocolli  [[Modello TCP-IP#TCP (Transmission Control Protocol)|TCP]] o [[Modello TCP-IP#UDP (User Datagram Protocol)|UDP]] 
 ## [[ISO E OSI Model#^sessionLayer|Session Layer]] 
 ==Gestisce e controlla le connessioni e la comunicazione tra applicazioni, quindi controlla la connessione logica tra le applicazioni: due applicazioni devono comunicare e avvia la sessione di comunicazioni==. 
-Nel session iniziamo a parlare di connessioni tra applicazioni. 
+**Nel session iniziamo a parlare di connessioni tra applicazioni.** 
 Qui avvia la sessione tra applicazioni e definisce se questo dialogo deve essere:
 
 1. **Half Duplex Mode**: 
@@ -469,7 +469,7 @@ Quindi
 - **Traduce:**
   ==Converte i formati dei dati da formati specifici dell'applicazione a formati di rete e viceversa==.
 - **Encripta/decripta**: 
-  ==Garantisce la sicurezza dei dati crittografandoli dati prima della trasmissione e decrittografandoli al momento della ricezione==.
+  ==Garantisce la sicurezza dei dati crittografandoli prima della trasmissione e de-crittografandoli al momento della ricezione==.
 - **Comprime:**
   ==Riduce la dimensione dei dati da trasmettere per ottimizzare l'uso delle risorse di rete==.
 

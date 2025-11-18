@@ -1,4 +1,3 @@
-# [[ISO E OSI Model|ISO/OSI]] Model vs TCP/IP Model
 
 Il modello TCP/IP è un framework essenziale utilizzato per standardizzare e garantire una comunicazione dati affidabile attraverso reti interconnesse moderne, incluso Internet. 
 Difatti è progettato per garantire uno scambio dati **standardizzato, affidabile e scalabile** tra sistemi eterogenei.
@@ -59,10 +58,10 @@ Questo livello è il più vicino all’utente ed è responsabile della gestione 
 - **[[#ftp File Transfer Protocol (FTP)|FTP (File Transfer Protocol)]]:** 
 	- ==trasferimento di file==.   ^ftp
     
-- **SMTP/POP3/IMAP:** 
+- **[[#^smtp|SMTP]]/[[#^pop3|POP3]]/[[#^imap|IMAP]]:** 
 	- ==protocolli per l’invio e la ricezione di e-mail==.   ^smtp-pop3-imap
     
-- **DHCP (Dynamic Host Configuration Protocol):** 
+- **[[#DHCP (Dynamic Host Configuration Protocol)|DHCP (Dynamic Host Configuration Protocol)]]:** 
 	- ==gestione e assegnazione dinamica degli indirizzi IP.==    ^dhcp
 
 ### [[#^DNS|Domain Name System (DNS)]]
@@ -170,15 +169,15 @@ Le fasi di questo livello del modello TCP/IP sono conseguenziali:
 ### [[#^smtp-pop3-imap|SMTP/POP3/IMAP]]
 Quando parliamo di posta elettronica, entrano in gioco tre protocolli principali che collaborano per permettere l’invio e la ricezione dei messaggi:
 1. **[[#Cos'è il protocollo SMTP (Simple Mail Transfer Protocol)|SMTP (Simple Mail Transfer Protocol)]]:** 
-	- protocollo di invio della posta
+	- ==protocollo di invio della posta==
 	  ^smtp
    
 2. **[[#**POP3 (Post Office Protocol v3)**|POP3 (Post Office Protocol v3)]]:** 
-	- ricezione della posta con download locale
+	- ==ricezione della posta con download locale==
 	  ^pop3
 	  
 3. **[[#**IMAP (Internet Message Access Protocol)**|IMAP (Internet Message Access Protocol)]]:** 
-	- icezione della posta mantenendo i messaggi sul server. 
+	- ==ricezione della posta mantenendo i messaggi sul server.== 
 	  ^imap
 
 Spieghiamo in dettaglio questi tre protocolli usando questa immagine: 
@@ -190,15 +189,17 @@ L’immagine illustra il flusso di comunicazione tra client e server.
     
 -  Opera in due scenari distinti:
     
-    1. **Dal client al server di posta** → quando l’utente preme “Invia”, il client (MUA, Mail User Agent) trasmette il messaggio al server (MTA, Mail Transfer Agent).
+	1. **Dal client al server di posta** → 
+		- ==quando l’utente preme “Invia”, il client (MUA, Mail User Agent) trasmette il messaggio al server (MTA, Mail Transfer Agent).==
         
-    2. **Da server a server** → gli MTA possono scambiarsi il messaggio fino a raggiungere il server del destinatario.
+	2. **Da server a server** → 
+		- ==gli MTA possono scambiarsi il messaggio fino a raggiungere il server del destinatario.==
         
 - **Porte utilizzate:**
     
-    - 25 (standard per inoltro server-server)
+    - ==25 (standard per inoltro server-server)==
         
-    - 587 (invio autenticato, consigliato).
+    - ==587 (invio autenticato, consigliato).==
  
 Nell'[[SMTP-POP3-IMAP.png|immagine]]: 
 - Il **Mail User Agent (MUA)** del mittente (es. Outlook, Thunderbird, Gmail client) invia la mail tramite **SMTP** al **Mail Transfer Agent (MTA)**.
@@ -211,13 +212,13 @@ Nell'[[SMTP-POP3-IMAP.png|immagine]]:
     
 - **Funzionamento tipico:**
 
-	- Il client scarica i messaggi dal server.
+	- ==Il client scarica i messaggi dal server.==
     
-	- Dopo il download, i messaggi vengono normalmente eliminati dal server.
+	- ==Dopo il download, i messaggi vengono normalmente eliminati dal server.==
     
-	- Di conseguenza, la posta resta **solo sul dispositivo locale**.
+	- ==Di conseguenza, la posta resta **solo sul dispositivo locale**.==
     
-- Porta tipica: **110** (oppure **995** se si utilizza una connessione sicura SSL/TLS).
+- Porta tipica: ==**110** (oppure **995** se si utilizza una connessione sicura SSL/TLS).==
 Nell'[[SMTP-POP3-IMAP.png|immagine]]: 
 - Il secondo **Mail Transfer Agent (MTA)** a cui è stata inoltrata l'email del mittente tramite il primo MTA diventa un **Mail Delivery Agent (MDA)**, ovvero consegna la mail al destinatario Mail User Agent (MUA).
 - Il MUA del destinatario si connette al server e, tramite POP3, **scarica definitivamente il messaggio**.
@@ -227,17 +228,17 @@ Nell'[[SMTP-POP3-IMAP.png|immagine]]:
 
 #### **IMAP (Internet Message Access Protocol)**
 
-- - È una **versione più moderna e flessibile** del protocollo POP3.
+-  È una **versione più moderna e flessibile** del protocollo POP3.
     
 - Caratteristiche principali:
     
-    - I messaggi **rimangono memorizzati sul server**.
+    - ==I messaggi **rimangono memorizzati sul server**.==
         
-    - L’utente può visualizzarli, spostarli e organizzarli come se fossero locali.
+    - ==L’utente può visualizzarli, spostarli e organizzarli come se fossero locali.==
         
-    - Permette l’accesso allo stesso account da più dispositivi (PC, smartphone, tablet) mantenendo tutto sincronizzato.
+    - ==Permette l’accesso allo stesso account da più dispositivi (PC, smartphone, tablet) mantenendo tutto sincronizzato.==
         
-- **Porta tipica:** 143 (oppure 993 se si usa SSL/TLS).
+- **Porta tipica:** ==143 (oppure 993 se si usa SSL/TLS).==
 
 
 Nell'[[SMTP-POP3-IMAP.png|immagine]]: 
@@ -286,17 +287,17 @@ Per comprendere meglio questi passaggi prendiamo come esempio questa immagine:
 **Spiegazione:**
 
 - Quando un **DHCP Client** (ad esempio un laptop appena acceso) entra in una rete, non conosce l’indirizzo del server DHCP.  
-    - Per questo invia un **messaggio broadcast [[#^dhcpDiscover|DHCP Discover]]** sulla rete locale, chiedendo se esista un server in grado di fornirgli un indirizzo IP.
+    - ==Per questo invia un **messaggio broadcast [[#^dhcpDiscover|DHCP Discover]]** sulla rete locale, chiedendo se esista un server in grado di fornirgli un indirizzo IP.==
     
-- Il **DHCP Server** (spesso coincide con il router domestico o aziendale) riceve la richiesta e risponde con un **[[#^dhcpOffer|DHCP Offer]]**, cioè una proposta che contiene:
+- Il **DHCP Server** (spesso coincide con il router domestico o aziendale) ==riceve la richiesta e risponde con un **[[#^dhcpOffer|DHCP Offer]]**,== cioè una proposta che contiene:
     
-    - un indirizzo IP libero,
+    - ==un indirizzo IP libero,==
         
-    - la subnet mask,
+    - ==la subnet mask,==
         
-    - il gateway predefinito,
+    - ==il gateway predefinito,==
         
-    - e altri parametri come i server DNS.
+    - ==e altri parametri come i server DNS.==
         
 - Il client, dopo aver ricevuto l’offerta, invia un **[[#^dhcpRequest|DHCP Request]]**, dichiarando esplicitamente che intende accettare quell’assegnazione di IP da quel server.
     
@@ -337,24 +338,24 @@ Per comprendere meglio questi passaggi prendiamo come esempio questa immagine:
 Il Transport Layer è il secondo livello del modello TCP/IP (l'equivalente del [[Network, Transport, Session, Presentation, Application Layers#ISO E OSI Model transportLayer Transport Layer|Transport Layer]] nel modello ISO/OSI).
 
 ##### Funzioni principali 
-- Fornisce **trasmissione dati** tra host.
+- ==Fornisce **trasmissione dati** tra host.==
     
-- Può essere **affidabile(protocollo TCP)** o **non affidabile(protocollo UDP)**, a seconda del protocollo utilizzato.
+- ==Può essere **affidabile(protocollo TCP)** o **non affidabile(protocollo UDP)**, a seconda del protocollo utilizzato.==
     
-- Include meccanismi per assicurare che i dati arrivino correttamente e nell’ordine giusto (solo se il protocollo scelto è affidabile).
+- ==Include meccanismi per assicurare che i dati arrivino correttamente e nell’ordine giusto (solo se il protocollo scelto è affidabile).==
 
 
 Come anticipato all'inizio del file, la comunicazione tra processi avviene tramite **2 protocolli:**
 
-| Protocollo | Tipo di comunicazione                                                                                                 | Caratteristiche principali                                                                                                                            |
-| ---------- | --------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **TCP**    | [[Internetwork-Protocols#Connection Oriented services:\|Connection-oriented ]](orientato alla connessione)            | Affidabile; garantisce che i dati arrivino integri e nell’ordine corretto; usa meccanismi come **acknowledgment**, **sequencing** e **flow control**. |
-| **UDP**    | [[Internetwork-Protocols#Servizi non orientati alla connessione(connectionless)\|Connectionless]] (senza connessione) | Non affidabile; i dati possono arrivare fuori ordine o andare persi; basso overhead, ideale per streaming o applicazioni real-time.                   |
+| Protocollo | Tipo di comunicazione                                                                                                 | Caratteristiche principali                                                                                                                                    |
+| ---------- | --------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **TCP**    | [[Internetwork-Protocols#Connection Oriented services:\|Connection-oriented ]](orientato alla connessione)            | Affidabile; <br>garantisce che i dati arrivino integri e nell’ordine corretto; <br>usa meccanismi come **acknowledgment**, **sequencing** e **flow control**. |
+| **UDP**    | [[Internetwork-Protocols#Servizi non orientati alla connessione(connectionless)\|Connectionless]] (senza connessione) | Non affidabile; i dati possono arrivare fuori ordine o andare persi; basso overhead, ideale per streaming o applicazioni real-time.                           |
 
 
 ### TCP (Transmission Control Protocol)
 
-**Tipo:** Connection-oriented (orientato alla connessione)  
+**Tipo:** [[Internetwork-Protocols#Connection Oriented services|Connection-oriented (orientato alla connessione) ]] 
 **Funzione principale:** Trasmissione dati affidabile tra host.
 
 **Caratteristiche principali:**
@@ -390,7 +391,7 @@ Come possiamo vedere dall'[[TCP Protocol.png|immagine sottostante]] nel protocol
     
     - ==L'Host B riceve il SYN. Se è pronto ad accettare la connessione, risponde con un unico pacchetto che è sia **SYN** che **ACK** (Acknowledgment)==.
         
-    - Questo messaggio significa: _"Ok Client, ho ricevuto la tua richiesta (ACK) e sono d'accordo ad aprire la connessione. Il _mio numero di sequenza iniziale è Y."_
+    - Questo messaggio significa: _"Ok Client, ho ricevuto la tua richiesta (ACK) e sono d'accordo ad aprire la connessione. Il mio numero di sequenza iniziale è Y."_
 3.  **`Host A --> Host B: ACK`**
     
     - ==Infine, l'Host A invia un **ACK** al server per confermare la ricezione del SYN-ACK==.
@@ -681,21 +682,23 @@ Questo livello per la comunicazione e il trasferimento di dati sfrutta 3 protoco
 
 #### 1. IP(Internet Protocol - IPv4 e IPv6): 
 - **Il protocollo principale.** 
-- È responsabile dell'incapsulamento dei dati in **pacchetti** (o datagrammi), dell'assegnazione degli indirizzi di sorgente e destinazione e del loro instradamento attraverso la rete.
+- ==È responsabile dell'incapsulamento dei dati in **pacchetti** (o datagrammi), dell'assegnazione degli indirizzi di sorgente e destinazione e del loro instradamento attraverso la rete.==
     
-- È un protocollo **[[Internetwork-Protocols#Servizi non orientati alla connessione(connectionless)|connectionless]]** e **best-effort**: non stabilisce una connessione prima di inviare i dati e non garantisce la consegna (questo è compito degli strati superiori, come [[#TCP (Transmission Control Protocol)|TCP]]).
+- È un protocollo **[[Internetwork-Protocols#Servizi non orientati alla connessione(connectionless)|connectionless]]** e **best-effort**: 
+	- ==non stabilisce una connessione prima di inviare i dati e non garantisce la consegna (questo è compito degli strati superiori, come [[#TCP (Transmission Control Protocol)|TCP]]).==
 
 
 #### 2. ICMP  (Internet Control Message Protocol)
-- Il  compito di questo protocollo è **scambiare messaggi di controllo e di errore** tra dispositivi di rete (host, router). 
-- È il "meccanismo di segnalazione" fondamentale di IP.
+- ==Il  compito di questo protocollo è **scambiare messaggi di controllo e di errore** tra dispositivi di rete (host, router).== 
+- ==È il "meccanismo di segnalazione" fondamentale di IP.==
 ###### Scopo principale 
-- **Non trasporta dati applicativi** (come web, email, ecc.). Il suo unico compito è **creare report** e **diagnosticare** problemi relativi all'instradamento dei pacchetti IP.
+- **Non trasporta dati applicativi** (come web, email, ecc.). 
+- ==Il suo unico compito è **creare report** e **diagnosticare** problemi relativi all'instradamento dei pacchetti IP.==
     
-- Viene utilizzato da **tool di diagnostica di rete** per verificare la connettività e le prestazioni.
+- ==Viene utilizzato da **tool di diagnostica di rete** per verificare la connettività e le prestazioni.==
 
 ##### Come funziona 
-- Quando un router o un host rileva un problema (es. un host non raggiungibile, un pacchetto che supera il suo "time to live"), **genera un messaggio ICMP** e lo invia **alla sorgente** del pacchetto originale per notificare l'errore.
+- ==Quando un router o un host rileva un problema (es. un host non raggiungibile, un pacchetto che supera il suo "time to live"), **genera un messaggio ICMP** e lo invia **alla sorgente** del pacchetto originale per notificare l'errore.==
 - Esempio: Se un router non sa come raggiungere la rete di destinazione, scarterà il pacchetto e invierà un messaggio ICMP **`Destination Unreachable (Type 3)`** all'IP mittente per informarlo del problema.
 
 ##### Messaggi comuni del protocollo ICMP
@@ -765,13 +768,13 @@ Immagina che il **Tuo PC (`192.168.1.10`)** voglia inviare dati al **Server (`19
 
 1. **Il tuo PC controlla la sua ARP Cache:**
     
-    - Prima di tutto, il tuo PC controlla la sua tabella ARP personale per vedere se conosce già l'indirizzo MAC del Server (`192.168.1.20`).
+    - ==Prima di tutto, il tuo PC controlla la sua tabella ARP personale per vedere se conosce già l'indirizzo MAC del Server (`192.168.1.20`).==
         
     - **Se lo trova,** invia direttamente il frame al MAC trovato. Fine del processo.
         
 2. **Se NON lo trova, invia un ARP Request (broadcast):**
     
-    - Se la voce non è in cache, il tuo PC crea un pacchetto speciale chiamato **ARP Request**. Questo pacchetto contiene la domanda: _"Chi ha l'IP 192.168.1.20? Il suo MAC qual è?"_.
+    - ==Se la voce non è in cache, il tuo PC crea un pacchetto speciale chiamato **ARP Request**.== Questo pacchetto contiene la domanda: _"Chi ha l'IP 192.168.1.20? Il suo MAC qual è?"_.
         
     - Questo pacchetto viene inviato in **broadcast** all'indirizzo MAC `FF:FF:FF:FF:FF:FF`. Questo significa che **TUTTI i dispositivi** sulla rete locale ricevono e processano questa richiesta.
         
@@ -786,7 +789,7 @@ Immagina che il **Tuo PC (`192.168.1.10`)** voglia inviare dati al **Server (`19
     - Il tuo PC riceve la risposta, memorizza la coppia `IP <-> MAC` nella sua **ARP cache** e può ora inviare i dati al Server.
 
 #### ARP Cache 
-- È una **tabella temporanea** nella memoria di **ogni dispositivo**.
+- ==È una **tabella temporanea** nella memoria di **ogni dispositivo**.==
     
 - Le voci hanno una durata limitata (pochi minuti) e poi scadono. Questo perché gli indirizzi MAC possono cambiare (es., una scheda di rete sostituita) o un dispositivo può lasciare la rete.
     
@@ -835,8 +838,8 @@ Immagina che il **Tuo PC (`192.168.1.10`)** voglia inviare dati al **Server (`19
 
 ## Network Access Layer 
 - Questo è lo [[#^iso-osiANDtcp-ip|strato più basso del modello TCP/IP]].
-- È responsabile della **trasmissione dei dati sul mezzo fisico** (rame, fibra, onde radio, ecc.) 
-- e prepara i pacchetti IP del livello superiore per il viaggio attraverso la rete locale.
+- ==È responsabile della **trasmissione dei dati sul mezzo fisico** (rame, fibra, onde radio, ecc.)== 
+- ==e prepara i pacchetti IP del livello superiore per il viaggio attraverso la rete locale.==
 
 ### **Funzioni principali**
 
@@ -860,9 +863,9 @@ Immagina che il **Tuo PC (`192.168.1.10`)** voglia inviare dati al **Server (`19
         
 4. **Access Control (chi può parlare e quando):**
     
-    - Ethernet (cavo): usa **CSMA/CD** → ==ascolta prima di trasmettere, gestisce collisioni.==
+    - Ethernet (cavo): usa **[[ISO E OSI Model#^csma-cd|CSMA/CD]]** → ==ascolta prima di trasmettere, gestisce collisioni.== 
         
-    - Wi-Fi (wireless): usa **CSMA/CA** → ==ascolta e prenota il canale, riducendo le collisioni.==
+    - Wi-Fi (wireless): usa **[[ISO E OSI Model#^csma-ca|CSMA/CA]]** → ==ascolta e prenota il canale, riducendo le collisioni.==
         
 
 #### **Protocolli chiave**

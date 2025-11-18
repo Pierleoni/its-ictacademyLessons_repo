@@ -32,8 +32,9 @@ mario = Persona()
 
 Esso non può diventare una istanza di Studente perché senno sarebbe un altro oggetto.
 
-Quindi il complete in Python non esiste mentre il disjoint si.
-In UML, ovviamente, questo vincolo quando si crea una generalizzazione tra più classi (ad esempio una generalizzazione che parte da `Persona` e arriva a `Studente` e `Lavoratore`), significa che istanza di Persona può essere o un Lavoratore o uno Studente.
+Quindi il `complete` in Python non esiste mentre il `disjoint` si.
+
+In UML, ovviamente, questo vincolo quando si crea una generalizzazione tra più classi (ad esempio una generalizzazione che parte da `Persona` e arriva a `Studente` e `Lavoratore`), significa che istanza di `Persona` può essere o un `Lavoratore` o uno `Studente`.
 In Python questo comportamento non è possibile implementarlo perché:
 ==quando si crea un oggetto Python, come ad esempio `x:Studente = Studente(...)`, quell'oggetto è e resterà per sempre un istanza della classe `Studente`.==  
 Quindi non è possibile che quell'oggetto si evolva in un oggetto di un'altra classe della stessa gerarchia, in sostanza l'oggetto `x` non può e non potrà mai essere un oggetto della classe `Lavoratore` o `Persona`.
@@ -284,21 +285,32 @@ Ovviamente bisogna poi **controllare i vincoli** a runtime nel costruttore o tra
 
 
 
-
+### Caso 4: Generalizzazioni con vincolo `{complete}`
 Nel complete:
 ![[Ristr complete.png]]
 
-In questo caso cambia solo il vincolo estenro perchè può essere sia docente che Studente, quindi si aggiunge un vincolo che per ogni p:Persona:
-p.is_docente = True oppure p.is_studente = True
+In questo caso cambia solo il vincolo esterno perché può essere sia `Docente` che `Studente`, quindi si aggiunge un vincolo in più rispetto al caso precedente che per:
+`ogni p:Persona:p.is_docente = True oppure p.is_studente = True`
+
+
+
+
+
+### Caso 5: Generalizzazioni tra associazioni 
 
 Nelle generalizzaioni di assoc.: 
 non cambia nulla 
 e se invece: 
 ![[Ristr assoc. con generalizzazioni.png]]
-In questo caso ArticoloNuovo si è fuso con ArticoloInVendita, e Utente si è fuso con VenditoreProfessionale.
-Inolte ArticoloInVendita ha l'attributo condizione(cond) che è un tipo enumerativo che mi dice che l'articolo e nuovo o usato. Stessa cosa per Utente che ha acqusito l'attributo tipo che mi dice se l'utente e un venditore professionale o un smeplice utente.
-Avendo fuso queste due classi si deve fondere anche l'associazione, pero attenzione: dobbiamo mettere nella specifica dei vincoli estenri 
+In questo caso `ArticoloNuovo` si è fuso con `ArticoloInVendita`, e `Utente` si è fuso con `VenditoreProfessionale`.
+Inoltre `ArticoloInVendita` ha l'attributo condizione(`cond`) che è un tipo enumerativo che descrive se l'articolo è nuovo o usato. 
+Stessa cosa per Utente che ha acquisito l'attributo `tipo` che descrive se l'utente e un venditore professionale o un semplice utente.
+Avendo fuso queste due classi si deve fondere anche l'associazione, pero attenzione: 
+>dobbiamo mettere nella specifica dei vincoli esterni.
+
+```plain
 per ogni a:ArticoloInVendita:
 	- se a.cond = 'nuovo' allora a.anni_garanzia di tipo IntGE2
 	- se a.cond = 'nuovo' allora il link (a,u): venditore nel quale 'a' è coinvolto è tale che u.tipo = 'prof'. 
-In questo caso sto dicendo che se la condzione dell'articolo è 'nuovo' allora l'istnaza di venditore che partecipa al link di associazione in cui è è coinvolto è tale che il vlaore dell'attributo tipo di Utente è professionale
+```
+In questo caso sto dicendo che se la condizione dell'articolo è `'nuovo'` allora l'istanza di venditore che partecipa al link di associazione in cui è è coinvolto è tale che il valore dell'attributo tipo di Utente è professionale
