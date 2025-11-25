@@ -1153,7 +1153,7 @@ In questo caso l'attributo `onClick` è veramente collegato a un  **event listen
 
 
 > [!remember] **Event Listeners vs. Event Handler**
-> 1. Gli event Listeners: 
+> 1. Gli [[Lezione 6 - API#**API Asincrone**|event]] Listeners: 
 > 	==Un event listener (“ascoltatore di eventi”) è un meccanismo del browser (parte del DOM) che “ascolta” un determinato evento — ad esempio un click, un input da tastiera o il passaggio del mouse==.  
 > 	^eventListeners
 >
@@ -1176,7 +1176,7 @@ button.addEventListener('click', function() {
   >  
 >- Il browser lo registra e lo attiva automaticamente al verificarsi dell’evento.
 >  
-> 2. Gli event handler: 
+> 2. Gli [[Lezione 6 - API#**API Asincrone**|event]] handler: 
 >    ==Un **event handler** (“gestore di evento”) è semplicemente **la funzione che gestisce l’evento** — cioè **il codice da eseguire** quando l’evento si verifica.==
 >
 >Nel codice sopra, la funzione anonima passata a [[#^handleCode|`addEventListener`]] è proprio **l’handler**:

@@ -15,7 +15,7 @@ E bisogna conoscere:
 Per capire come funziona React è utile avere una conoscenza di base di come i browser interpretano il codice per creare interfacce utente interattive.
 
 Quando un utente visita una pagina web, il server restituisce al browser un file HTML. Il browser lo legge e costruisce il [[DOM|Document Object Model]] (o DOM):  
-una rappresentazione strutturata della pagina web sotto forma di un **albero di oggetti**.  
+- ==una rappresentazione strutturata della pagina web sotto forma di un **albero di oggetti**.==  
 Ogni elemento presente nel codice HTML (o XML) diventa un **nodo** all’interno di questo albero, con **relazioni padre-figlio** che ne definiscono la gerarchia.
 
 ![[DOM.png]]

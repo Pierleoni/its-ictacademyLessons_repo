@@ -28,13 +28,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Web Development/React/Lezione 3 - Hooks.md",
+                "file": "Web Development/React/Lezione 2 - Il Props Object.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Lezione 3 - Hooks"
+              "title": "Lezione 2 - Il Props Object"
             }
           },
           {
@@ -43,7 +43,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/Lezione 23 Flask/Introduzione a Flask.md",
+                "file": "Web Development/Progettazione/Lezione 7 - Sistemi REST.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -53,16 +53,31 @@
                   "sortOrder": "alphabetical",
                   "showSearch": false,
                   "searchQuery": "",
-                  "backlinkCollapsed": false,
+                  "backlinkCollapsed": true,
                   "unlinkedCollapsed": true
                 }
               },
               "icon": "lucide-file",
-              "title": "Introduzione a Flask"
+              "title": "Lezione 7 - Sistemi REST"
+            }
+          },
+          {
+            "id": "ff646a81d260181c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Web Development/Progettazione/Lezione 4 - Protocollo HTTP 2 parte.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "Lezione 4 - Protocollo HTTP 2 parte"
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -247,35 +262,37 @@
       "daily-notes:Open today's daily note": false
     }
   },
-  "active": "4d33cbc49dcaab83",
+  "active": "ff646a81d260181c",
   "lastOpenFiles": [
-    "Python/Lezione 23 Flask/Flask Lezione 2.md",
-    "Web Development/React/Lezione 3 - Hooks.md",
+    "Web Development/Progettazione/Lezione 4 - Protocollo HTTP 2 parte.md",
+    "Web Development/Progettazione/Lezione 7 - Sistemi REST.md",
+    "Web Development/Progettazione/Lezione 6 - API.md",
     "Web Development/React/Lezione 2 - Il Props Object.md",
+    "Web Development/React/Lezione 3 - Hooks.md",
+    "Web Development/Progettazione/Lezione 5 - Il Formato JSON.md",
+    "Web Development/API.md",
+    "Python/Notazione async.md",
+    "Python/Lezione 23 Flask/Introduzione a Flask.md",
+    "Sistemi digitali/Lezione 7/Reti di computer.md",
+    "img/Web Dev/Progettazione/Lezione 4/Rest API Model.png",
+    "img/Web Dev/Progettazione/Lezione 4",
+    "Web Development/Javascript/Lezione 6; DOM e ripasso JS.md",
+    "Web Development/Javascript/Lezione 7; React.md",
     "Web Development/React/Lezione 1- Componenti Funzionali in React React.md",
+    "Web Development/Javascript/Lezione 5; Le funzioni in Javascript.md",
+    "Web Development/Javascript/Lezione 4 ; Espressioni e operatori, statements e cicli.md",
+    "SQL/Join Espliciti.md",
+    "SQL/Il linguaggio SQL.md",
+    "SQL/Query.md",
+    "Progettazione/Base dati/Lezione 4.md",
+    "Progettazione/Base dati/Lezione 3; Traduzione diretta del diagramma UML delle classi ristrutturato.md",
+    "Progettazione/Base dati/Lezione 2; La fase di progettazione.md",
+    "Progettazione/Base dati/Lezione 1; Introduzione e modello relazionale.md",
+    "Python/Lezione 8_Ereditarietà delle classi/Classi astratte.md",
+    "Python/Lezione 23 Flask/Flask Lezione 2.md",
     "Web Development/React/Lezione 4 - useEffect.md",
     "Sicurezza/Sistemi operativi.md",
-    "dependency array.md",
-    "Docker.md",
     "img/Diagram.svg",
-    "Bandwidth (Larghezza di banda).md",
-    "`_esame`.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Documenti di specifica.md",
-    "Progettazione/Design di applicazioni in Python/Responsabilità.md",
-    "Progettazione/Design di applicazioni in Python/Associazione a responsabilità singola.md",
-    "Python/Lezione 23 Flask/Introduzione a Flask.md",
-    "Sistemi digitali/Lezione 17/Servizi e funzioni del Sistema Operativo.md",
-    "Inglese/Riassunto capitoli/Capitolo 11.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Generalizzazioni.md",
-    "Progettazione/Design di applicazioni in Python/Evoluzione delle proprietà e visibilità delle proprietà.md",
-    "Sistemi digitali/Lezione 12/ISO E OSI Model.md",
-    "Sistemi digitali/Lezione 16/Network, Transport, Session, Presentation, Application Layers.md",
-    "Progettazione/Design di applicazioni in Python/Associazioni a responsabilità doppia.md",
-    "Progettazione/Design di applicazioni in Python/Ristrutturazione delle specifiche di classi e di use-case.md",
-    "Progettazione/Design di applicazioni in Python/Ristrutturazione di generalizzazioni.md",
-    "Progettazione/Design di applicazioni in Python/Implementazione delle classi.md",
-    "Progettazione/Design di applicazioni in Python/Impl. le classi astratte in Python.md",
-    "Progettazione/Design di applicazioni in Python/Design di applicazioni in Python.md",
     "img/Sistemi Digitali/Lezione 22/Struttura for.png",
     "img/Sistemi Digitali/Lezione 22/Struttura case.png",
     "img/Sistemi Digitali/Lezione 21/Pipeline.png",
@@ -289,12 +306,10 @@
     "img/Web Dev/Progettazione/Lezione 3",
     "img/Web Dev/Progettazione/Lezione 2/Applicazioni web.png",
     "img/Web Dev/Progettazione/Lezione 2",
-    "img/F di x.svg",
     "img/Web Dev/Progettazione",
     "Web Development/Progettazione",
     "img/Docker/Docker Containers.png.~tmp",
     "img/Docker/Docker Images.png.~tmp",
-    "img/Sistemi Digitali/Lezione 19",
     "Untitled.canvas"
   ]
 }

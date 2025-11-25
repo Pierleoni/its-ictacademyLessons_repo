@@ -379,21 +379,21 @@ Quando una Certificate Authority (CA) emette un certificato, esegue un processo 
 
 ### Protocollo HTTP: descrizione
 
-1. **Ruolo del server**
+1. **Ruolo del server**  ^server
     
-    - Il server è il componente che offre servizi o risorse (ad esempio, dati su utenti, prodotti, post di un blog).
+    - Il [[Reti di computer#^b4e999|server]] è il componente che offre servizi o risorse (ad esempio, dati su utenti, prodotti, post di un blog).
         
     - Rimane “in attesa” delle richieste dei client, pronto a rispondere ogni volta che ne arriva una.
         
-2. **Ruolo del client**
+2. **Ruolo del client** ^client
     
-    - Il client è colui che richiede un servizio al server. Può essere un’applicazione web, un’app mobile o un altro server.
+    - Il [[Reti di computer#^81dc1c|client]] è colui che richiede un servizio al server. Può essere un’applicazione web, un’app mobile o un altro server.
         
     - Per richiedere un servizio, il client deve specificare **dove** e **cosa** vuole fare.
         
 3. **URL: dove andare**
     
-    - L’URL indica **esattamente la risorsa** sul server a cui il client vuole accedere.
+    - ==L’URL indica **esattamente la risorsa** sul server a cui il client vuole accedere.==
         
     - Si compone di:
         
@@ -410,22 +410,22 @@ Quando una Certificate Authority (CA) emette un certificato, esegue un processo 
 http://192.168.1.10:8080/users/123
 ```
 
-4. . **VERB (metodi HTTP): cosa fare**
+4. . **VERB (metodi HTTP): cosa fare**   ^verbiHTTP
     
-    - Il protocollo HTTP definisce alcune parole chiave (chiamate **verbi o metodi**) per indicare quale azione si vuole compiere sulla risorsa.
+    - ==Il protocollo HTTP definisce alcune parole chiave (chiamate **verbi o metodi**) per indicare quale azione si vuole compiere sulla risorsa.==
         
     - In REST, i principali sono:
         
-        - **GET** → leggere la risorsa (es. ottenere dati di un utente).
+        - **GET** → leggere la risorsa (es. ottenere dati di un utente). 
+             ^04d1a5
+        - **POST** → creare una nuova risorsa (es. aggiungere un nuovo utente).  
+             ^9ffd01
+        - **PUT** → aggiornare **tutta** la risorsa (es. modificare tutti i dati di un utente).  
+             ^523224
+        - **PATCH** → aggiornare **parzialmente** la risorsa (es. cambiare solo l’email di un utente).  ^patch
             
-        - **POST** → creare una nuova risorsa (es. aggiungere un nuovo utente).
-            
-        - **PUT** → aggiornare **tutta** la risorsa (es. modificare tutti i dati di un utente).
-            
-        - **PATCH** → aggiornare **parzialmente** la risorsa (es. cambiare solo l’email di un utente).
-            
-        - **DELETE** → eliminare la risorsa (es. cancellare un utente).
-            
+        - **DELETE** → eliminare la risorsa (es. cancellare un utente).  
+             ^595c2b
 
 
 
@@ -434,3 +434,134 @@ In pratica, il client dice al server:
 > “Voglio fare questa azione (**VERB**) su questa risorsa (**URL**)”.
 
 Il server riceve la richiesta, la elabora e restituisce una risposta appropriata, spesso con dati in formato JSON o XML.
+
+
+### Struttura delle Request e delle Response HTTP
+
+Ogni comunicazione HTTP — ==sia in ingresso (**request**) sia in uscita (**response**)== — è composta da due parti fondamentali: 
+
+
+
+1. **Header**  ^header
+    - Contiene i _metadati_:
+	    - ==cioè informazioni strutturate che descrivono la richiesta o la risposta.==  
+    Alcuni esempi: tipo di contenuto, metodi di autenticazione, lunghezza del body, lingua, cache, user-agent del client.
+    
+2. **Body**  ^body
+    - ==Contiene il _contenuto vero e proprio_ trasportato.==
+    
+    - In passato si utilizzavano formati come **XML**.
+        
+    - Nelle architetture REST moderne, lo standard di fatto è **JSON**, grazie alla sua leggerezza e leggibilità.
+
+#### Come il client può inviare dati al server 
+Il client dispone di **tre modalità principali** per trasmettere dati all’interno di una richiesta HTTP. 
+La scelta dipende dal tipo di azione e dal contesto applicativo. ![[Rest API Model.png]]
+
+1. **Query String (parametri nella URL)**  
+    ==I dati vengono aggiunti dopo il simbolo `?` nella URL sotto forma di coppie chiave-valore.==  
+    Esempio:
+```shell
+http://ip:port/path/resource?var1=aaa&var2=bbb
+```
+
+- ==Viene tipicamente usata per filtrare, cercare o ordinare informazioni (operazioni idempotenti).==
+    
+2. **Parametri nel percorso della URL (Path Parameters)**  
+    ==I dati sono incorporati direttamente nella struttura del percorso.==  
+    Esempio:
+```shell
+http://ip:port/path/resource/aaa/bbb
+```
+
+- ==Usata generalmente per identificare in modo univoco una risorsa, come `/users/42/orders/3`.==
+
+3. **Body della richiesta**  
+	- ==I dati vengono inseriti nel corpo della request==.  
+	È il metodo preferito quando si inviano payload complessi (creazione o modifica di risorse), solitamente in formato JSON.  
+	Esempio:
+```json
+{
+  "nome": "Luca",
+  "email": "test@example.com"
+}
+```
+
+#### Come il server invia dati al client
+
+Il server ha un’unica modalità principale per restituire i dati:
+
+- ==**inserirli nel body della response**.==
+    
+
+Il body della risposta contiene l’informazione richiesta dal client, tipicamente anch’essa in formato **JSON** nelle API REST.
+
+L’header della response, come nella request, trasporta invece i metadati (es. `Content-Type`, codice di stato HTTP, eventuali cookie, informazioni sulla cache, ecc.).
+
+### Status Code HTTP
+
+Ogni volta che il server riceve una richiesta, è obbligato a restituire uno **status code:** 
+- cioè un codice numerico che comunica al client l’esito dell’operazione.  
+Questi codici sono suddivisi per fasce di 100, e ogni fascia rappresenta una categoria di risposta.
+
+#### 1. Codici 2xx - Successo
+Indicano che la richiesta è stata compresa, accettata ed eseguita correttamente.
+
+- **200 – OK**  
+    - Risposta standard per un'operazione conclusa con successo.  
+    - Viene usato soprattutto nella lettura di risorse ([[#^04d1a5|GET]]).
+    
+- **201 – Created**  
+    - Indica che una nuova risorsa è stata creata con successo.  
+    - È tipico delle operazioni [[#^9ffd01|POST]].
+    
+- **203 – Non-Authoritative Information**  
+    - La richiesta è stata completata, ma le informazioni provengono da una copia non autorevole (proxy o cache).
+    
+- **204 – No Content**  
+    - L’operazione è avvenuta con successo, ma il server non invia alcun contenuto nel body della risposta.  
+    - Utile per operazioni di DELETE o update.
+
+
+#### 2. Codici 4xx - Errori lato client
+==Segnalano che la richiesta contiene un errore o non rispetta le regole del server.==  
+**Sono problemi imputabili al client.**
+
+- **400 – Bad Request**  
+    - ==La richiesta non è valida o è formata in modo errato (JSON malformato, parametri mancanti, sintassi sbagliata).==
+    
+- **401 – Unauthorized**  
+    ==L’autenticazione è richiesta, ma non è stata fornita o è invalida.==
+    
+- **403 – Forbidden**  
+    - ==Il server ha compreso la richiesta, ma rifiuta di autorizzarla.==  
+    - ==Qui l’autenticazione può essere presente, ma i permessi non sono sufficienti.==
+    
+- **404 – Not Found**  
+    - ==La risorsa richiesta non esiste o l’endpoint è errato.==
+    
+- **409 – Conflict**  
+    - ==La richiesta non può essere completata perché in conflitto con lo stato attuale del server (ad esempio un valore che deve essere univoco).==
+
+#### 3. Codici 5xx - Errori lato server 
+
+==Indicano che la richiesta era valida, ma il server non è riuscito ad elaborarla per un problema interno.==
+
+- **500 – Internal Server Error**  
+    - Errore generico: 
+	    - ==qualcosa è andato storto all’interno del server.==
+    
+- **501 – Not Implemented**  
+    - ==Il server non riconosce o non supporta il metodo richiesto.==
+    
+- **502 – Bad Gateway**  
+    - ==Il server sta operando come gateway o proxy, ma ha ricevuto una risposta non valida da un altro server a monte.==
+    
+- **503 – Service Unavailable**  
+    - ==Il server è temporaneamente non disponibile (sovraccarico, manutenzione, ecc.).==
+    
+- **504 – Gateway Timeout**  
+    - ==Il server, funzionando da proxy, non ha ricevuto una risposta in tempo dal server a monte.==
+    
+- **599 – Network Timeout**  
+    - ==Errore non standard, usato da alcuni server e proxy per indicare un timeout di rete.==

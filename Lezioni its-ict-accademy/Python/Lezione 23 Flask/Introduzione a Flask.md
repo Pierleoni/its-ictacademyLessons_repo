@@ -453,7 +453,7 @@ ciao()
 
 Questo è un disegn pattern per risparmiare codice.
 
-### Implementare i verbi HTTP in Flask
+### Implementare [[Lezione 4 - Protocollo HTTP 2 parte#^verbiHTTP|i verbi HTTP]] in Flask
 Se in Flask scrivessimo 
 ```Python
 @app.route ('/libri', method = 'GET')
@@ -461,7 +461,7 @@ Se in Flask scrivessimo
 	#corpo della funzione
 ```
 
-Automaticamente quando arriva una richiesta GET al server Flask richiemera questa funzione
+Automaticamente quando arriva una richiesta [[Lezione 4 - Protocollo HTTP 2 parte#^04d1a5|GET]] al server Flask richiamerà questa funzione
 Ora mettiamo che: 
 ```python
 @app.route ('/libri', method = 'GET')
@@ -471,7 +471,7 @@ Ora mettiamo che:
 ```
 
 In questo modo noi costruimao un dizionario `libri` e restituisce la risposta HTTP, 
-Il 200 è lo status code.
+Il 200 è lo [[Lezione 4 - Protocollo HTTP 2 parte#Status Code HTTP|status code]].
 Il flusso è: 
 Il client fa una richiesta, 
 la richiesta viene creata automaticamente
