@@ -416,15 +416,16 @@ http://192.168.1.10:8080/users/123
         
     - In REST, i principali sono:
         
-        - **GET** → leggere la risorsa (es. ottenere dati di un utente). 
+        - **GET** → ==leggere la risorsa (es. ottenere dati di un utente)==. 
              ^04d1a5
-        - **POST** → creare una nuova risorsa (es. aggiungere un nuovo utente).  
+        - **POST** → ==creare una nuova risorsa (es. aggiungere un nuovo utente).==  
              ^9ffd01
         - **PUT** → aggiornare **tutta** la risorsa (es. modificare tutti i dati di un utente).  
              ^523224
-        - **PATCH** → aggiornare **parzialmente** la risorsa (es. cambiare solo l’email di un utente).  ^patch
-            
-        - **DELETE** → eliminare la risorsa (es. cancellare un utente).  
+        - **PATCH** → ==aggiornare **parzialmente** la risorsa (es. cambiare solo l’email di un utente).==   
+              
+             ^6cfc05
+        - **DELETE** → ==eliminare la risorsa (es. cancellare un utente).==  
              ^595c2b
 
 
@@ -499,6 +500,8 @@ Il body della risposta contiene l’informazione richiesta dal client, tipicamen
 L’header della response, come nella request, trasporta invece i metadati (es. `Content-Type`, codice di stato HTTP, eventuali cookie, informazioni sulla cache, ecc.).
 
 ### Status Code HTTP
+
+
 
 Ogni volta che il server riceve una richiesta, è obbligato a restituire uno **status code:** 
 - cioè un codice numerico che comunica al client l’esito dell’operazione.  

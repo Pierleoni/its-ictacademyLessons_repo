@@ -859,7 +859,7 @@ const Contatore = () => {
 
 - Da notare come entrambi funzionano in scenari semplici
     
-- La differenza vera emerge quando lo stato viene aggiornato **asincronamente**
+- ==La differenza vera emerge quando lo stato viene aggiornato **asincronamente**==
 
 Che significa; assumiamo di avere un componente `Contatore` e di aggiungere a questo componente un `setTimeout` di 2 secondi per simulare un aggiornamento asincrono.
 ```jsx
@@ -996,6 +996,160 @@ In questo caso:
 >>La forma estesa permette condizioni, log. return multipli, ecc. 
 
 ^Implicit-explicitReturn
+
+
+
+> [!warning] 
+> #### Differenza tra “valore precedente” e “valore attuale dello stato”
+> Abbiamo detto che per aggiornare uno stato dal valore precedente a quello corrente è solito scrivere, ad esempio, `setVariableState (prev=>prev +1)`
+> Questa terminologia in realtà non è del tutto corretta: 
+> ###### “Valore precedente” (termine didattico, semplificato)
+> Prendiamo ad esempio questo codice: 
+>```jsx
+>import React, { useState } from 'react'
+>
+ > 
+>
+>const ToggleButton = () => {
+>
+>	    // Dichiaro variabile di stato e la inizializzo a false
+>
+>	    const [isOn, setIsOn] = useState(false);
+>
+ > 
+>
+>	    // Dichiaro variabile di stato e la inizializzo come stringa con valore "OFF"
+>
+>	    const [showMsg, setShowMsg] = useState("OFF")
+>
+>	    // Event handler che gestisce l'aggiornamento della variabile di stato booleana (da false a true e viceversa)
+>
+>	    const handleClick = ()=>{
+>
+>		        // Aggiorno lo stato prendendo il suo valore attuale:
+>
+>			        // Se il suo valore attuale è true allora diventa false e se è false diventa true
+>
+>		        setIsOn(prev=>!prev);
+>
+>		        // Aggiorno lo stato prendendo il suo valore attuale:
+>
+>			        // Se il valore attuale è uguale a "OFF" viene aggiornato a "ON"
+>
+>		        setShowMsg(prev=>(prev === "OFF"? "ON": "OFF"))
+>
+>	    }
+>
+>    return (
+>
+>	    <div>
+>
+>	        {/* Se isOn = false AND showMsg uguale a "OFF":
+>
+>		            Viene visualizzato un paragrafo con il valore corrente dello stato showMsg
+>
+>		            Altrimenti viene visualizzato un altro paragrafo con il valore corrente aggiornato della variabile di stato showMsg*/}
+>
+>	        <div>{!isOn&&showMsg === "OFF"? <p>Initially: {showMsg}</p>: <p>After clicking the button: {showMsg}</p>}</div>
+>
+>      
+>
+>	        {/* L'event listenr onClick richiama l'event handler handleClick */}
+>
+>	        <button className="btn btn-warning" onClick={handleClick}>Clicca qui</button>
+>
+>	    </div>
+>
+    )
+>
+>}
+>
+ > 
+>
+>export default ToggleButton
+> ```
+> 
+> In questo caso, come negli altri la variabile `prev` per semplificazione didattica possiamo anche vederla come _il valore che lo stato aveva prima dell'aggiornamento_ . 
+> Non è propriamente sbagliato; è solo un modo semplice per introdurre il concetto.
+> 
+> ###### Valore attuale dello stato” (termine concettualmente corretto)
+> In realtà, `prev` non rappresenta _il passato_, ma rappresenta:
+> -  ==il valore attuale, consistente e garantito, dello stato nel momento in cui React esegue l’update.==
+>   
+>> [!faq] **Perché è importante**
+>> Perché:
+>>
+>>- ==in React gli update possono essere batchati,==
+  >>  
+>>- ==lo stato non si aggiorna mai in modo sincrono,==
+  >>  
+>>- ==se fai più `setState()` consecutivi, i valori si accodano, e React li calcola correttamente usando sempre **lo stato corrente al momento dell’elaborazione**, non quello "precedente" in senso temporale umano.==
+>>  
+>>
+>>Per questo il termine **“attuale”** è più preciso di *“precedente”*.
+>
+>
+>>[!Example] **Esempio chiarificatore**
+>>**Caso sbagliato**
+>>```jsx
+>>setCount(count + 1);
+setCount(count + 1);
+>>```
+>>
+>>Se `count=0` in questo caso l'expected output dovrebbe essere `2`,
+>>in realtà React vede due volte lo stesso valore (`0`) → quindi il risultato finale è 1, non 2. 
+>>
+>>**Caso corretto:**
+>>```jsx
+>>setCount(prev => prev + 1);
+setCount(prev => prev + 1);
+>>
+>>```
+>>Qui React usa ad ogni step **il valore attuale al momento dell’update**:
+>>
+>>- prima esecuzione: prev = 0 → count = 1
+  >>  
+>>- seconda esecuzione: prev = 1 → count = 2
+  >>  
+>>
+>>Funziona perché `prev` è **lo stato attuale garantito**, non solo "quello precedente".
+>>
+>
+>
+>Quindi: 
+>>==`prev` è il valore attuale dello stato nel momento dell’update, non un valore “storico”.==
+>
+>È lo stato corrente _per React_, non necessariamente quello che vedi tu sullo schermo, perché il re-render avviene _dopo_ che tutti gli aggiornamenti sono stati processati.
+>
+>##### Valore Attuale vs. Valore Corrente dello stato
+>1. **Valore Attuale**
+> Quindi il valore attuale dello stato è il valore durante l'update: 
+> 	- È il valore che react passa a: 
+>```jsx
+> setState(prev => ...)
+>
+>```
+>
+>Questo valore:
+>
+>- ==è **garantito da React** anche se ci sono più update accodati,==
+  >  
+>- ==è **coerente nel momento in cui React sta calcolando l’update**,==
+  >  
+>- ==non coincide necessariamente con ciò che sta mostrando l’interfaccia _in quell’istante_.==
+   > 
+>
+>==Quindi è il valore “vero” che React usa internamente prima del re-render.==
+>
+>1. **Valore corrente:**
+>Mentre il valore corrente dello stato è il valore dopo il re-render del componente. 
+>Quindi è il valore che: 
+>- vedi in JSX, 
+>- il valore che si legge stampando lo stato dopo il re-render, 
+>- Rappresenta ciò che l'interfaccia mostra. 
+>In sintesi è lo stato "visibile"; cioè quello che React ha già applicato e ridisegnato. 
+
+
 
 
 

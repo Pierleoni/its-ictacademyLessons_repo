@@ -43,7 +43,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Web Development/Progettazione/Lezione 7 - Sistemi REST.md",
+                "file": "Web Development/React/Lezione 3 - Hooks.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -58,7 +58,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Lezione 7 - Sistemi REST"
+              "title": "Lezione 3 - Hooks"
             }
           },
           {
@@ -77,7 +77,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -262,10 +262,16 @@
       "daily-notes:Open today's daily note": false
     }
   },
-  "active": "ff646a81d260181c",
+  "active": "4d33cbc49dcaab83",
   "lastOpenFiles": [
-    "Web Development/Progettazione/Lezione 4 - Protocollo HTTP 2 parte.md",
+    "Java/Lezione 2/Lezione 2 - Sintassi e costrutti di base.md",
+    "Java/Lezione 1/Lezione 1 - Introduzione a Java.md",
+    "Java/Lezione 2",
+    "Web Development/Javascript/Gli oggetti in Javascript.md",
     "Web Development/Progettazione/Lezione 7 - Sistemi REST.md",
+    "Java/Lezione 1",
+    "Java",
+    "Web Development/Progettazione/Lezione 4 - Protocollo HTTP 2 parte.md",
     "Web Development/Progettazione/Lezione 6 - API.md",
     "Web Development/React/Lezione 2 - Il Props Object.md",
     "Web Development/React/Lezione 3 - Hooks.md",
@@ -289,9 +295,6 @@
     "Progettazione/Base dati/Lezione 2; La fase di progettazione.md",
     "Progettazione/Base dati/Lezione 1; Introduzione e modello relazionale.md",
     "Python/Lezione 8_Ereditarietà delle classi/Classi astratte.md",
-    "Python/Lezione 23 Flask/Flask Lezione 2.md",
-    "Web Development/React/Lezione 4 - useEffect.md",
-    "Sicurezza/Sistemi operativi.md",
     "img/Diagram.svg",
     "img/Sistemi Digitali/Lezione 22/Struttura for.png",
     "img/Sistemi Digitali/Lezione 22/Struttura case.png",
@@ -307,9 +310,6 @@
     "img/Web Dev/Progettazione/Lezione 2/Applicazioni web.png",
     "img/Web Dev/Progettazione/Lezione 2",
     "img/Web Dev/Progettazione",
-    "Web Development/Progettazione",
-    "img/Docker/Docker Containers.png.~tmp",
-    "img/Docker/Docker Images.png.~tmp",
     "Untitled.canvas"
   ]
 }
