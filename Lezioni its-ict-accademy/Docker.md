@@ -199,9 +199,9 @@ docker build -t nome-immagine .
 Quando questa immagine viene "attivata", cioè **eseguita in un ambiente containerizzato**, essa diventa un **container**.
 
 > [!example] Analogia con la programmazione OOP
-> Il Dockerfile è come una **[[Le Classi|classe Python]]**,  
+> Il Dockerfile è come una **[[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi|classe Python]]**,  
 >	l'immagine è come la **definizione della classe**,  
->		e il container è **[[Le Classi#Istanze di una classe|l'istanza reale]]**, ovvero l'oggetto in memoria.
+>		e il container è **[[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi#Istanze di una classe|l'istanza reale]]**, ovvero l'oggetto in memoria.
 
 Inoltre, le immagini create localmente possono essere **pubblicate su repository remoti**, in modo da essere condivise o riutilizzate su altri ambienti.  
 Il più noto è il [Docker Hub](https://hub.docker.com/repositories), una **registry pubblica gratuita per uso personale**, dove si possono trovare migliaia di immagini ufficiali e di terze parti.

@@ -328,7 +328,7 @@ La funzione `url_for()` costruisce dinamicamente i percorsi:
 
 
 
-### I [[Le Classi#**Utilizzo dei Decoratori** `@property` **per Getter e Setter**|decorators]] in Flask
+### I [[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi#**Utilizzo dei Decoratori** `@property` **per Getter e Setter**|decorators]] in Flask
 Le funzioni sono **first class objects:** 
 - ==una funzione può essere passata come parametro di un altra funzione, non il valore di ritorno della funzione ma la funzione stessa.==
 Quindi si può scrivere una cosa del genere: 

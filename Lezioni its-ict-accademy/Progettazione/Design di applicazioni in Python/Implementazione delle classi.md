@@ -22,7 +22,7 @@ class Studente:
 ```
 
 ### I metodi getter 
-Per gli attributi [[Evoluzione delle proprietà e visibilità delle proprietà#^attrUMLpubblici|pubblici]] dobbiamo usare i [[Le Classi#**Gestione degli Attributi con Getter e Setter**|getter]]:
+Per gli attributi [[Evoluzione delle proprietà e visibilità delle proprietà#^attrUMLpubblici|pubblici]] dobbiamo usare i [[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi#**Gestione degli Attributi con Getter e Setter**|getter]]:
 come abbiamo già detto nelle lezioni di Python [[Ereditarietà delle classi#Gli attributi protetti|Ereditarietà delle classi]] e nei paragrafi [[Public, Private and Class Attibutes, Class and Static Methods#Gli attributi pubblici|Gli attributi pubblici]] e [[Public, Private and Class Attibutes, Class and Static Methods#Attributi privati|Gli attributi privati]], non esiste il concetto in Python di "pubblico" o "privato" impostato dal linguaggio (come in altri linguaggi tipo Java o C++), ma si usa la convenzione di rendere tutti gli attributi protetti (con il simbolo del singolo underscore `_`) e si gestisce l'acceso solo tramite i [[Public, Private and Class Attibutes, Class and Static Methods#Accesso agli attributi Privati Getter e Setter|metodi getter e, eventualmente,  i setter ]]. 
 ```run-python
 class Studente:

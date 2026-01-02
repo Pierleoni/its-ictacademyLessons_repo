@@ -377,7 +377,7 @@ Quando una Certificate Authority (CA) emette un certificato, esegue un processo 
  >   Un’API esposta su HTTP denota trascuratezza nella sicurezza. Molti client moderni (browser, app mobile) bloccano le richieste non sicure, rendendo l’API inefficace o inutilizzabile.
 
 
-### Protocollo HTTP: descrizione
+### [[Modello TCP-IP#Http-https HyperText Transfer Protocol (HTTP)|Protocollo HTTP]]: descrizione
 
 1. **Ruolo del server**  ^server
     

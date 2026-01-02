@@ -390,8 +390,8 @@ create table Studente(
 Ora riprendiamo gli esempi dei vincoli `1..1{id1}`: in questo modo sono obbligato ad accorpare l'associazione dentro `Studente`, quindi è un ereditarietà. 
 Se avessimo una diagramma del genere
 ![[Screenshot 2025-07-14 at 18-38-08 Meet - bmb-xnne-ahh.png]]
-
-In questo modo possiamo identificare uno studente tramite il codice fiscale o il nmero di matricola.
+![[Screenshot 2025-07-14 at 18-38-08 Meet - bmb-xnne-ahh.png]]
+In questo modo possiamo identificare uno studente tramite il codice fiscale o il numero di matricola.
 
 
 

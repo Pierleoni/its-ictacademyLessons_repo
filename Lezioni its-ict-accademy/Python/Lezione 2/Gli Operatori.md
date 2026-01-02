@@ -172,10 +172,10 @@ Gli operatori di confronto sono utilizzati:
 In Python ci sono tre principali operatori logici:
 
 
-|   and   |   restituisce vero se entrambi gli operatori sono vero   |
-| :-----: | :------------------------------------------------------: |
-| **or**  | **restituisce vero se entrambi gli operatori sono vero** |
-| **not** |       **restituisce vero se l'operatore è falso**        |
+|   and   | restituisce vero se entrambi gli operatori sono vero |
+| :-----: | :--------------------------------------------------: |
+| **or**  |  **restituisce vero se uno degli operatori è vero**  |
+| **not** |     **restituisce vero se l'operatore è falso**      |
 ![[Operatori Logici.png]]
 ^boolean-operator
 

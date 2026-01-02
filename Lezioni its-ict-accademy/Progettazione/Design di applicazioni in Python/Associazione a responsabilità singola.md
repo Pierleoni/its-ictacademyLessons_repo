@@ -188,11 +188,11 @@ def nome(self) -> str:
 **Spiegazione:**
 - `def nome(self) -> str: return self._nome`:  
 	 
-	 [[Le Classi#**Gestione degli Attributi con Getter e Setter**|Restituisce il valore]] dell'attributo privato `_nome` dell'istanza
+	 [[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi#**Gestione degli Attributi con Getter e Setter**|Restituisce il valore]] dell'attributo privato `_nome` dell'istanza
 	   
 - `def set_nome(self, nome: str) -> None:  self._nome = nome`:
 	  
-	[[Le Classi#**Gestione degli Attributi con Getter e Setter**|Imposta]] l'attributo privato `_nome` con il valore passato come argomento.
+	[[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi#**Gestione degli Attributi con Getter e Setter**|Imposta]] l'attributo privato `_nome` con il valore passato come argomento.
 	  
 - `def esami(self)->frozenset[_esame]: return frozenset(self._esami.values()`:
 	 Restituisce un `frozenset` contenente tutti gli oggetti [[`_esame`]] ([[Impl Resp Singola.png|derivati dalla association class]]). 
@@ -294,7 +294,7 @@ Il corpo della funzione viene gestito dentro un blocco di `try-except` per cattu
 	 return f"Studente({self.nome()})"
 ```
 Questo metodo speciale restituisce una rappresentazione testuale tecnica dell’oggetto, utile per i programmatori, ad esempio durante il debugging.
-A differenza del metodo speciale [[Le Classi#Il metodo `__str__`|`__str__()`]] che è pensato per una rappresentazione più leggibile per l’utente finale.
+A differenza del metodo speciale [[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi#Il metodo `__str__`|`__str__()`]] che è pensato per una rappresentazione più leggibile per l’utente finale.
 ### La classe `Modulo`
 ```python
 class Modulo:
@@ -433,11 +433,11 @@ Insieme, rappresentano il fatto che **quello studente ha sostenuto quell’esame
 	==restituisce l’oggetto `Modulo` associato.==
 
 **Metodi speciali:**
-- [[Le Classi#La funzione `__hash__(self)`|`__hash__`]] : 
+- [[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi#La funzione `__hash__(self)`|`__hash__`]] : 
 	  Viene usato il metodo hash per generare un hash basato su **studente e modulo**, in modo da poter usare oggetti `_esame` come chiavi in dizionari o membri di insiemi (`set`).  
 	  Il voto non contribuisce all’hash perché **non definisce l’identità univoca dell’associazione**.
 	  ==Qui si calcola l’hash **basandosi sugli oggetti di `Studente` e di `Modulo`**, quindi se due esami sono relativi **agli stessi oggetti**, il loro hash sarà uguale.==
-- [[Le Classi#Il metodo `__eq__(self, other)`|`__eq__`]]: 
+- [[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi#Il metodo `__eq__(self, other)`|`__eq__`]]: 
 	  Viene implementato il metodo `__eq__` per confrontare due oggetti `_esame`.
 	  Questi oggetti sono considerati uguali se:
 		  - ==Sono della stessa classe e hanno lo stesso hash (quindi stessi oggetti di `Modulo` e `Studente`).==

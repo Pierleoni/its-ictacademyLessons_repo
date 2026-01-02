@@ -1,89 +1,397 @@
 
-Tutte le funzioni che scriviamo deve semrpe stare dentro una classe 
+# Introduzione
 
+[[Lezione 1 - Introduzione a Java|Nella lezione precedente]] abbiamo visto una panoramica su **Java**, le sue caratteristiche principali e i motivi per cui, dagli anni ’90 a oggi, è diventato uno dei linguaggi più utilizzati.
 
-#### Commenti 
-`//`: per commenti una riga
-`/**/`: commenti multilinea 
+Ora ci concentreremo sul **linguaggio vero e proprio**, analizzando la sua sintassi e i costrutti di base.
 
-Documentazione javadoc: 
+## Sintassi e costrutti di base
+
+Come tutti i linguaggi di programmazione, anche Java segue precise **regole di sintassi**. Rispetto a [[Introduzione a Python|Python]], Java ha uno stile più simile al **C** ed è un linguaggio **fortemente tipizzato**, il che significa che ogni variabile e ogni funzione devono dichiarare esplicitamente il tipo di dati che utilizzano.
+
+In altre parole, Java richiede maggiore rigore rispetto a Python, dove è possibile scrivere codice in modo più flessibile. Questa struttura più rigorosa permette però di prevenire molti errori a tempo di compilazione e rende il codice più chiaro e sicuro.
+
+Nei paragrafi seguenti esploreremo i principali **costrutti del linguaggio Java**, partendo dalle basi fino alle funzionalità più avanzate.
+
+### Il metodo `main` in Java
+
+A differenza di **[[Introduzione a Python|Python]]**, dove è possibile scrivere codice direttamente nel file senza doverlo inserire in una funzione specifica, in **Java** il **metodo `main`** rappresenta l’**entry point della JVM**. Questo significa che l’esecuzione di un programma Java inizia sempre dal metodo `main`.
+
+Un esempio di struttura di base di un programma Java:
+
 ```java
-/**Commenti javadoc: 
-* invocando uno speciale tool (javadoc.exe) sul codice commentato con questa formattazione viene prodotta una documentazione standard 
-* Si utilizzano inoltre speciali tag definire caratteristiche delle classi 
-*
+public class Prova {
+    public static void main(String[] args) {
+        // istruzione1
+        // istruzione2
+    }
 
-*
-*
-*
-*
-*/ 
+    // altre funzioni
+    funzione1();
+    funzione2();
+}
 ```
+
+Alcuni punti importanti:
+
+- Tutte le istruzioni e le funzioni devono essere **definite all’interno di una classe**, perché in Java non esistono funzioni libere come in Python.
+    
+- Il metodo `main` deve avere **questa esatta firma**: `public static void main(String[] args)`
+    
+    - `public` indica che il metodo è accessibile alla JVM dall’esterno.
+        
+    - `static` significa che il metodo può essere eseguito senza creare un’istanza della classe.
+        
+    - `void` indica che il metodo non restituisce valori.
+        
+    - `String[] args` permette di passare eventuali **argomenti da linea di comando**.
+        
+
+In sintesi, il metodo `main` è fondamentale per avviare un programma Java e tutte le istruzioni devono essere strutturate all’interno della classe a cui appartengono.
+
+### Stile di codifica in Java
+
+In Java, lo **stile di codifica** è importante per rendere il codice leggibile e comprensibile, sia per il compilatore sia per chi legge il programma. 
+Alcune regole fondamentali sono:
+
+- **Spaziature**: 
+	- gli elementi del codice devono essere separati da almeno uno spazio, per migliorare la leggibilità.
+    
+- **Terminazione delle istruzioni**: 
+	- ogni istruzione deve terminare con un punto e virgola `;`.
+    
+- **Organizzazione del codice**: 
+	- anche se è possibile scrivere più istruzioni sulla stessa riga, è buona pratica mettere **una sola istruzione per riga**, così il codice risulta più chiaro e facile da mantenere.
+    
+
+Seguire queste regole non è obbligatorio per la compilazione, ma aiuta a scrivere codice più ordinato e professionale, soprattutto in progetti condivisi con altri sviluppatori.
+
+### Commenti in Java
+
+In Java esistono diversi tipi di commenti, utilizzati per **annotare il codice** senza influenzarne l’esecuzione:
+
+1. **Commenti su una singola riga**
+    
+    - Sintassi: `//`
+        
+    - Tutto il testo che segue `//` sulla stessa riga viene ignorato dal compilatore.
+
+```java
+// Questo è un commento su una riga
+```
+
+2. **Commenti multilinea**
+
+- Sintassi: `/* ... */`
+    
+- Permette di commentare più righe contemporaneamente.
+```java
+/* Questo è un commento 
+   su più righe */
+```
+
+
+3. **Commenti Javadoc**
+
+- Sintassi: `/** ... */`
+    
+- Servono a generare **documentazione HTML standard** tramite lo strumento `javadoc.exe`.
+    
+- Consentono di aggiungere **tag speciali** per descrivere classi, metodi e parametri.
+
+
+```java
+/**
+ * Questa è una classe di esempio.
+ * @author Marco
+ * @version 1.0
+ */
+public class Esempio {
+    // codice della classe
+}
+```
+
+I commenti Javadoc sono particolarmente utili per creare documentazione leggibile e professionale, conforme agli standard Java, senza modificare il comportamento del programma.
+
+
 
 ### Tipi di dato primitivi
-Non sono oggetti
-1. Interi: int, short, long, byte
-	Ce ne sono tanti perché ognuno di questi occupano diversi byte in memoria 
-2. Float
-3. Carattere 
-4. Logico: boolean
+In Java i **tipi primitivi** rappresentano i dati di base del linguaggio. 
+A differenza di Python dove ogni dato è un oggetto, in Java i tipi di dato primitivi non sono oggetti ma anche qui e costituiscono i mattoni fondamentali per costruire variabili ed espressioni. 
+I principali tipi primitivi sono:
 
-Interi: 
+1. **[[#Tipi Interi|Interi]]**: `int`, `short`, `long`, `byte`
+    
+    - Permettono di memorizzare numeri senza decimali.
+        
+    - Esistono diverse dimensioni perché occupano **diversi spazi di memoria** e consentono di ottimizzare l’uso delle risorse:
+        
+        - `byte`: 1 byte
+            
+        - `short`: 2 byte
+            
+        - `int`: 4 byte
+            
+        - `long`: 8 byte
+            
+2. **[[#Tipi in virgola mobile|Virgola mobile]]**: `float`, `double`
+    
+    - Permettono di memorizzare numeri con **decimali**, utili per calcoli scientifici o approssimazioni.
+        
+    - `float` occupa meno memoria di `double` e ha precisione minore.
+        
+3. **Carattere**: `char`
+    
+    - Memorizza un singolo **carattere Unicode**, come una lettera o un simbolo.
+        
+4. **Logico**: `boolean`
+    
+    - Può assumere solo due valori: `true` o `false`.
+        
+    - Utile per controllare condizioni e flussi di programma.
+        
 
-| Tipo  | Requisiti | Intervallo(inclusivo)              |
-| ----- | --------- | ---------------------------------- |
-| int   | 4 byte    | Da -2.147.483.648 a +2.147.483.648 |
-| short | 2 Byte    | Da -32.768 a +32.768               |
-| long  | 8 byte    |                                    |
-| byte  | 1byte     | Da -128 a +127                     |
+Questi tipi primitivi sono alla base della programmazione in Java e vengono spesso combinati per creare strutture dati più complesse o per definire variabili nelle classi.
+#### Tipi Interi (`int`, `short`, `long`, `byte`): 
+I tipi interi in Java permettono di memorizzare **numeri senza decimali**. Esistono diverse varianti per ottimizzare l’uso della memoria a seconda delle esigenze del programma:
 
-Float
+| Tipo  | Requisiti | Intervallo(inclusivo)                                              |
+| ----- | --------- | ------------------------------------------------------------------ |
+| int   | 4 byte    | Da -2.147.483.648 a +2.147.483.648                                 |
+| short | 2 Byte    | Da -32.768 a +32.768                                               |
+| long  | 8 byte    | - - 9.223.372.036.854.775.808L a<br>+ + 9.223.372.036.854.775.807L |
+| byte  | 1byte     | Da -128 a +127                                                     |
 
-| Tipo   | Requisiti<br> | Intervallo(inclusivo)<br> |
-| ------ | ------------- | ------------------------- |
-| float  | 4 byte        |                           |
-| double | 8 byte        |                           |
+> [!NOTE] Nota: il suffisso `L` indica che il numero è di tipo `long`.
+> 
 
-Le stringhe in Java sono oggetti non primitivi, in molte linguaggi le stringhe sono assimiliti ai primitivi ma la sun e la oracle le hanno preferito definire le stringhe come classi quindi il primitivo di tipo carattere è il char
+#### Tipi in virgola mobile (`float`, `double`): 
+I tipi a virgola mobile servono per memorizzare **numeri con decimali**, utili per calcoli scientifici o approssimazioni. 
+Java distingue tra precisione singola (`float`) e doppia (`double`):
+
+| Tipo   | Requisiti<br> | Intervallo(inclusivo)<br>                                              |
+| ------ | ------------- | ---------------------------------------------------------------------- |
+| float  | 4 byte        | circa +- 3.40282347E+38 F<br>(6-7 cifre decimali significative)        |
+| double | 8 byte        | circa +- 1.79769313486231570E+308<br>(15 cifre decimali significative) |
+
+> [!NOTE] Nota: il suffisso `F` indica che il numero è di tipo `float`.
+> 
 
 
-#### Tipo carattere 
-È un carattere dello schema unicode (raccoglie tutti i caratteri esistenti), si rappresenta su 2 bytes.
-I caratteri occupano 2 byte in memoria 
-A differneza di python per i caratteri si usano i singoli apici
+> [!info] In Java essendoci questa distinzione tra `float` e `double` per numeri decimali si utilizza per lo più il tipo `double` (in Python utilizzavamo solo il `float`, anche perché per rappresentare e memorizzare i numeri decimali esiste solo il tipo `float`)
+>
+
+#### Tipo carattere (`char`): 
+
+
+Il tipo **`char`** in Java rappresenta un **singolo carattere Unicode**, permettendo di memorizzare qualsiasi simbolo o lettera esistente.
+
+- Ogni `char` occupa **2 byte** in memoria.
+    
+- I caratteri si scrivono tra **apici singoli**:
+    
+
 ```java
 char c1 = 'A';
-char c2 = 'a'; 
+char c2 = 'a';
+char nullo = '\0';     // carattere nullo
+char nulloUnicode = '\u0000';  // stesso valore in Unicode
 ```
 
-Fanno eccezzione le sequenze di escape.
+##### Sequenze di escape 
+Per rappresentare caratteri speciali o non stampabili, Java utilizza **sequenze di escape**. Alcuni esempi comuni:
 
-#### Il tipo booleano
-Assume sotanto due valori: 
-1. true
-2. false 
-Per dichiararlo: 
+| Sequenza | Nome               | Valore Unicode |
+| -------- | ------------------ | -------------- |
+| `\b`     | backspace          | `\u0008`       |
+| `\t`     | tabulazione        | `\u0009`       |
+| `\n`     | nuova riga         | `\u000a`       |
+| `\r`     | ritorno carrello   | `\u000d`       |
+| `\"`     | virgolette doppie  | `\u0022`       |
+| `\'`     | virgolette singole | `\u0027`       |
+| `\\`     | backslash          | `\u005c`       |
+Queste sequenze permettono di inserire nel codice caratteri che altrimenti sarebbero difficili da digitare o interpretabili come istruzioni speciali.
+
+
+#### Tipo logico (`boolean`)
+
+Il tipo **`boolean`** rappresenta un valore logico, che può assumere solo due possibili stati:
+
+- `true` (vero)
+    
+- `false` (falso)
+    
+
+Al contrario di `char` o stringhe, i valori booleani **non richiedono apici né virgolette**.
 ```java
-boolean flag = false; 
+boolean flag = false;
+boolean attivo = true;
+```
+I valori booleani sono utilizzati principalmente nelle **istruzioni di controllo di flusso**, come `if`, `while` e `do`, e sono spesso il risultato di **operatori comparativi**:
+```java
+int a = 5;
+int b = 10;
+boolean confronto = (a < b); // true
 ```
 
-Tendezialmente si usano nelle istruzioni di controllo (if, while, do)
-Gli operatori comparativi restituiscono 
+In questo esempio, l’espressione `(a < b)` restituisce un valore booleano (`true`), che può essere usato per decidere l’esecuzione di determinate parti del programma.
 
-#### Dichiarazione variabili 
-R
-Tutte le variabili devono essere dichiarate 
-Una variaible viene definita da: 
-- un tipo 
-- identificatore 
-Regole delgi identificatori: 
-- sono
+> [!faq] Perché le stringhe non sono tra i tipi di dato primitivi in Java 
+> In Java le **stringhe** non sono tipi primitivi, ma **oggetti**.  
+>In molti linguaggi (come C o C++) le stringhe possono essere trattate come tipi primitivi, mentre Sun e Oracle hanno deciso di implementarle come **classi**, per offrire maggiore flessibilità e funzionalità.  
+>Il tipo primitivo di base per i caratteri singoli rimane il **`char`**.  
+>In linguaggi come Python, invece, tutti i tipi, compresi quelli numerici e le stringhe, sono oggetti, quindi il concetto di tipo primitivo non esiste allo stesso modo.
 
 
-#### Blocchi di istruzioni 
-Le parentesi graffe delimitano blocchi di istruzioni
-Racchiudono classi
+### Dichiarazione delle variabili
 
+In Java **tutte le variabili devono essere dichiarate esplicitamente** prima di poter essere utilizzate.  
+La dichiarazione di una variabile è composta da due elementi fondamentali:
+
+- **il tipo**, che specifica quale genere di dato la variabile può contenere
+    
+- **l’identificatore**, cioè il nome della variabile
+```java
+int maxValoreCalcolato;
+```
+In questo esempio:
+
+- `int` è il **tipo**
+    
+- `maxValoreCalcolato` è l’**identificatore**
+
+#### Regole per gli identificatori
+
+Gli identificatori in Java devono rispettare alcune regole sintattiche:
+
+- sono **case-sensitive** (`valore` e `Valore` sono variabili diverse)
+    
+- possono contenere **lettere, numeri, `_` e `$`**
+    
+- **non possono iniziare con un numero**
+    
+
+> [!done] **Esempi validi:**
+>```java
+int valore1;
+int _contatore;
+int $somma;
+>```
+> 
+
+
+> [!failure] **Esempi non validi:**
+>```java
+> int 1valore;   // errore
+>
+>```
+
+#### Convenzioni di denominazione
+
+Oltre alle regole obbligatorie, Java segue alcune **convenzioni di stile** per migliorare la leggibilità del codice:
+
+- l’identificatore inizia sempre con una **lettera minuscola**
+    
+- se il nome è composto da più parole, si utilizza la **camelCase** (prima parola minuscola, le successive con iniziale maiuscola)
+    
+
+Esempio:
+```java
+int maxValoreCalcolato;
+```
+
+Seguire queste convenzioni non è obbligatorio per il compilatore, ma è una **buona pratica** ampiamente adottata nello sviluppo professionale in Java.
+
+### Scope (ambito) delle variabili
+
+In Java, lo **scope** di una variabile rappresenta il suo **ambito di visibilità ed esistenza**, cioè la porzione di codice in cui la variabile è accessibile e può essere utilizzata.
+
+Lo scope è determinato dal **blocco di istruzioni** delimitato dalle parentesi graffe `{ }` in cui la variabile viene dichiarata.
+
+#### Blocchi di istruzioni
+
+I **blocchi di istruzioni** in Java sono delimitati dalle parentesi graffe `{ }` e servono a raggruppare più istruzioni in un’unica unità logica.
+
+Le parentesi graffe vengono utilizzate per delimitare:
+
+- **classi**
+    
+- **metodi**
+    
+- **costrutti di controllo** (`if`, `for`, `while`)
+    
+- **blocchi di codice generici**
+```java
+{
+    // blocco di istruzioni
+}
+```
+
+Ogni blocco di codice definisce un **ambito di visibilità** per le variabili dichiarate al suo interno. In particolare, una variabile:
+
+- è visibile **solo all’interno del blocco** in cui viene dichiarata
+    
+- rimane utilizzabile anche dopo eventuali blocchi interni
+    
+- **cessa di esistere** quando l’esecuzione esce dal suo blocco
+    
+
+Quando lo scope termina:
+
+- la variabile non è più accessibile
+    
+- la memoria associata viene **deallocata**
+
+#### Blocchi annidati e regole sui nomi
+
+In Java **non è consentito dichiarare una variabile con lo stesso nome in un blocco annidato**, se esiste già una variabile con quel nome in un blocco esterno.
+
+Esempio **non valido**:
+
+```java
+{
+    int a = 10;
+    {
+        int a = 20; // ERRORE: variabile già dichiarata
+    }
+}
+
+```
+
+In questo caso, la variabile `a` è già definita nel blocco esterno e non può essere ridefinita in quello interno.
+
+> Nota: in alcuni altri linguaggi di programmazione questo comportamento è permesso, ma **Java lo vieta** per evitare ambiguità e rendere il codice più chiaro e sicuro.
+
+#### Esempio di scope
+
+```java
+{
+    statement 1;
+    statement 2;
+    int a;
+
+    {
+        statement 3;
+        statement 4;
+    }
+
+    statement 5;
+    a = 10;   // OK: a è ancora nello scope
+    statement 6;
+}
+
+System.out.println(a); // ERRORE: a non esiste più
+```
+
+In questo esempio:
+
+- la variabile `a` è dichiarata nel **blocco esterno**
+    
+- può essere utilizzata per tutta la durata del blocco
+    
+- può essere usata anche dopo un blocco interno
+    
+- **non è accessibile al di fuori del blocco** in cui è stata dichiarata
 
 #### Operatori
 `=`: assegnazione 

@@ -1,4 +1,4 @@
-
+====
 # Internetwork
 ==Internetwork o Internet è una una raccolta di diverse reti collegate tramite un gateway==. 
 Ogni rete utilizza hardware diverso e, cosa ancora più importante, protocolli diversi per gestire la comunicazione interna.

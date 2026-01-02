@@ -1,3 +1,6 @@
+
+
+
 # Introduzione
 Una volta conclusa la fase di [[Analisi dei requisiti mediante UML|Analisi dei requisiti]] , e completato lo **schema concettuale** del sistema (rappresentato tramite **diagrammi UML** e **specifiche formali**), inizia la **fase di progettazione**.
 Questa fase rappresenta un passaggio fondamentale nell'ingegneria del software: si tratta di stabilire **come** realizzare il sistema informativo, a partire da **ciò che esso deve fare**, come definito durante l'analisi.

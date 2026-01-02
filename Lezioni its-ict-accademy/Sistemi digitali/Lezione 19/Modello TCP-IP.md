@@ -52,7 +52,7 @@ Questo livello è il più vicino all’utente ed è responsabile della gestione 
 - **[[#Domain Name System (DNS)|DNS (Domain Name System)]]:**
 	-  ==risoluzione dei nomi di dominio==.   ^DNS
     
-- **[[#HyperText Transfer Protocol (HTTP)|HTTP/HTTPS (HyperText Transfer Protocol)]]:**
+- **[[#Http-https HyperText Transfer Protocol (HTTP)|HTTP/HTTPS (HyperText Transfer Protocol)]]:** 
 	-  ==navigazione web==.    ^Http-https
     
 - **[[#ftp File Transfer Protocol (FTP)|FTP (File Transfer Protocol)]]:** 

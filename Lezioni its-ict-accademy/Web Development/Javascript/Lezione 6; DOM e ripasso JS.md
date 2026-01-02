@@ -385,7 +385,7 @@ persona.mostraNome(); // Output: "Max" dopo 1 secondo
 
 In questo caso, la funzione freccia dentro `setTimeout` **eredita** il valore di `this` dal metodo `mostraNome`, permettendo di accedere a `this.nome`.
 ##### Confronto con `self` in Python
-Possiamo vedere il `this` di JS come il [[Le Classi#**`Self` in Python**|`Self`]] in Python:
+Possiamo vedere il `this` di JS come il [[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi#**`Self` in Python**|`Self`]] in Python:
 - entrambi si riferiscono all'oggetto (istanza)
 - Permettono l'accesso agli attributi e metodi dell'oggetto
 - Sono usati nei metodi degli oggetti
@@ -450,13 +450,14 @@ Questo oggetto può essere stampato nella console per ispezionarne il contenuto.
 Si può anche accedere ai suoi **singoli campi** usando la **notazione a punti**, come:
 ````js`
 console.log(utente.nome); // Output: "Rob"
-```
-
-#### Metodi: Funzioni dentro oggetti
-Oltre a contenere semplici coppie **chiave-valore**, ==gli oggetti possono anche contenere **funzioni**, che in questo contesto vengono chiamate **metodi**==.
-Esempio:
 
 ```js
+
+/* Metodi: Funzioni dentro oggetti
+Oltre a contenere semplici coppie **chiave-valore**, ==gli oggetti possono anche contenere **funzioni**, che in questo contesto vengono chiamate **metodi**==.
+Esempio:*/
+
+
 const utente = {
   nome: "Rob",
   eta: 46,
@@ -503,7 +504,7 @@ Qui:
     
 - Il metodo `saluta()` può accedere a `this.nome` perché fa parte della stessa istanza.
 
-A differenza di **Python**, dove il riferimento all’istanza corrente (`self`) è passato **esplicitamente** come **primo parametro** nei metodi (incluso [[Le Classi#**Definizione di una Classe e il Costruttore** `__init__()`|il costruttore `__init__()`]] ), in JavaScript il riferimento all’oggetto viene gestito **in automatico** tramite la parola chiave `this`.
+A differenza di **Python**, dove il riferimento all’istanza corrente (`self`) è passato **esplicitamente** come **primo parametro** nei metodi (incluso [[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi#**Definizione di una Classe e il Costruttore** `__init__()`|il costruttore `__init__()`]] ), in JavaScript il riferimento all’oggetto viene gestito **in automatico** tramite la parola chiave `this`.
 
 >[!NOTE]  
 >Questo rende `this` in JavaScript **più potente ma anche più insidioso** rispetto a `self` in Python, soprattutto se usi funzioni freccia (\=>) o perdi il contesto.
