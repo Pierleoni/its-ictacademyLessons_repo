@@ -6,13 +6,13 @@ Esistono principalmente **due modalità di comunicazione** nelle reti:
 	   
 ![[Point to point.png]]
 
-- La rete è strutturata come una serie di **nodi** (PC, switch, router, ecc.) collegati tra loro.
+- La rete è strutturata come una serie di **nodi** (PC, [[ISO E OSI Model#Network Switch|switch]], router, ecc.) collegati tra loro.
     
 - ==Ogni collegamento unisce due soli dispositivi alla volta==.
     
 
 > [!abstract] Glossario
-> - **Switch:** ==collega più dispositivi all’interno della stessa rete locale.==
+> - **[[ISO E OSI Model#Network Switch|Switch]]:** ==collega più dispositivi all’interno della stessa rete locale.==
 >     
 > - **Router:** ==collega reti differenti.==
 
@@ -35,8 +35,8 @@ Una rete **point-to-point** è organizzata tramite una serie di **nodi** e **col
     
 - Lo **switch:** ==collega più dispositivi **all’interno della stessa rete locale (LAN)**.==
     
-- Il **router:** ==mette in comunicazione **reti diverse** tra loro.==
-    
+- Il **router:** ==mette in comunicazione **reti diverse** tra loro.==  
+     ^9d3cf6
 
 
 ![[Point-to-Point2.png]]

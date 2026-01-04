@@ -1,4 +1,4 @@
-%%  %%# Introduzione 
+# Introduzione 
 Nella **[[Lezione 7 - Sistemi REST|lezione precedente]]** abbiamo analizzato i **sistemi REST** dal punto di vista architetturale, concentrandoci sui principi che regolano la comunicazione tra client e server nel Web moderno.
 
 In particolare, abbiamo visto:
@@ -88,10 +88,10 @@ Ad esempio:
 - per **inviare dati a un server**, si può specificare:
     
     - **l’opzione `-X`:**
-	    - per indicare il metodo HTTP (come `POST` o `PUT`);
+	    - ==per indicare il metodo HTTP (come `POST` o `PUT`);==
         
     - **l’opzione `-d`:**
-	    - per includere i dati nel body della richiesta.
+	    - ==per includere i dati nel body della richiesta.==
 
 #### Esempi di chiamate cURL 
 ###### Ottenere tutti gli utenti ([[Lezione 7 - Sistemi REST#Il metodo GET leggere una risorsa|GET]])

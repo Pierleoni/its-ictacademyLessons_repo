@@ -23,33 +23,48 @@
             }
           },
           {
-            "id": "c5d42717bc3d10f9",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Web Development/Progettazione/Lezione 5 - Il Formato JSON.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
-              },
-              "icon": "lucide-file",
-              "title": "Lezione 5 - Il Formato JSON"
-            }
-          },
-          {
             "id": "cc451d476e757882",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Web Development/Progettazione/Lezione 9 - Same Origin Policy e CORS.md",
+                "file": "Sistemi digitali/Lezione 7/Reti di computer.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Lezione 9 - Same Origin Policy e CORS"
+              "title": "Reti di computer"
+            }
+          },
+          {
+            "id": "69fcf5caa3c3e1c8",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Web Development/Cloud/Lezione 3 - Modelli di deployment del cloud.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "Lezione 3 - Modelli di deployment del cloud"
+            }
+          },
+          {
+            "id": "7660c42259b7c3a1",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Web Development/Cloud/Lezione 1 - Introduzione al Cloud Computing.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "Lezione 1 - Introduzione al Cloud Computing"
             }
           }
         ],
@@ -238,13 +253,30 @@
       "daily-notes:Open today's daily note": false
     }
   },
-  "active": "cc451d476e757882",
+  "active": "69fcf5caa3c3e1c8",
   "lastOpenFiles": [
-    "Web Development/Progettazione/Lezione 8 - Chiamate Curl.md",
+    "Web Development/Cloud/Lezione 2 - Data center astratto.md",
+    "Web Development/Cloud/Lezione 3 - Modelli di deployment del cloud.md",
+    "Sistemi digitali/Lezione 7/Reti di computer.md",
+    "Sistemi digitali/Lezione 19/Modello TCP-IP.md",
+    "Sistemi digitali/Lezione 17/Servizi e funzioni del Sistema Operativo.md",
+    "Sistemi digitali/Lezione 16/Network, Transport, Session, Presentation, Application Layers.md",
+    "Sistemi digitali/Lezione 12/ISO E OSI Model.md",
+    "Sistemi digitali/Lezione 12/I fundamentals di un Sistema Operativo.md",
+    "Sistemi digitali/Lezione 11/Internetwork-Protocols.md",
+    "Sistemi digitali/Lezione 11/Il modello di Von Neumann.md",
+    "Sistemi digitali/Lezione 11/Esercizi su conversione e operazioni binarie.md",
+    "Sistemi digitali/Lezione 10/Le architetture di un Computer.md",
+    "Web Development/Cloud/Lezione 1 - Introduzione al Cloud Computing.md",
+    "Sistemi digitali/Lezione 21/Linux.md",
     "Web Development/Progettazione/Lezione 9 - Same Origin Policy e CORS.md",
+    "Docker.md",
     "Web Development/Progettazione/Lezione 5 - Il Formato JSON.md",
-    "Web Development/Progettazione/Lezione 6 - API.md",
+    "Web Development/Cloud",
+    "Web Development/Progettazione/Lezione 10 - Proxy in React.md",
+    "Web Development/Progettazione/Lezione 8 - Chiamate Curl.md",
     "Web Development/Progettazione/Lezione 7 - Sistemi REST.md",
+    "Web Development/Progettazione/Lezione 6 - API.md",
     "Web Development/Progettazione/Lezione 4 - Protocollo HTTP 2 parte.md",
     "Java/Lezione 2/Lezione 2 - Sintassi e costrutti di base.md",
     "Java/Lezione 1/Lezione 1 - Introduzione a Java.md",
@@ -258,22 +290,6 @@
     "img/Java/Lezione 1",
     "img/Java/Untitled.md",
     "Python/Flask/Flask Lezione 2.md",
-    "Sistemi digitali/Lezione 11/Internetwork-Protocols.md",
-    "Sistemi digitali/Lezione 19/Modello TCP-IP.md",
-    "Python/Flask/Come impostare le richieste.md",
-    "Eliminare un utente.md",
-    "dependency array.md",
-    "Python/Lezione 2/Gli Operatori.md",
-    "Python/Lezione 2/I modificatori.md",
-    "Python/Lezione 1/Introduzione generale.md",
-    "SQL/Il linguaggio SQL.md",
-    "SQL/Join Espliciti.md",
-    "SQL/Query.md",
-    "Web Development/React/Lezione 4 - useEffect.md",
-    "Java/Lezione 8 Ereditarietà e Poliforfismo/Ereditarietà e polimorfismo.md",
-    "Web Development/Javascript/Gli oggetti in Javascript.md",
-    "Web Development/Javascript/Lezione 6; DOM e ripasso JS.md",
-    "Web Development/Javascript/Lezione 5; Le funzioni in Javascript.md",
     "Java/Lezione 8 Ereditarietà e Poliforfismo",
     "img/Java/Lezione 7/ImpiegatoJava.png",
     "img/Java/Lezione 7",
@@ -285,7 +301,6 @@
     "Web Development/React Native",
     "img/Java/Lezione 4/nuovo approcio.png",
     "img/Java/Lezione 4/approcio.png",
-    "img/Java/Lezione 4",
     "Untitled.canvas"
   ]
 }

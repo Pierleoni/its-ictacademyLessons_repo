@@ -227,7 +227,6 @@ Motivi del preflight:
     
 	- `Content-Type: application/json`
     
-	- `Content-Type: application/json`.
 3. Oppure entrambi: 
 	- Esempio tipico: 
 ```js
@@ -248,13 +247,78 @@ Qui **Preflight obbligatoria**, perché:
 
 #### Cos’è una Preflight Request
 
-Una **Preflight Request** è una richiesta HTTP **[[Lezione 8 - Chiamate Curl#Il metodo OPTIONS|OPTIONS]]** che il browser invia **automaticamente prima della richiesta reale**.
+Una **Preflight Request**, quindi, è una richiesta HTTP **[[Lezione 8 - Chiamate Curl#Il metodo OPTIONS|OPTIONS]]** che il browser invia **automaticamente prima della richiesta reale del client**.
 
 Il suo scopo è semplice:
 
-> ==**chiedere al server se la richiesta che il client vuole inviare è consentita**.==
+> ==**verificare preventivamente** se il server autorizza una determinata operazione **cross-origin**.==
+
+In altre parole, il browser sta chiedendo al server:
+
+> _“Posso davvero eseguire questa richiesta, con questo metodo e questi header, provenendo da questa origine?”_
 
 L’utente o lo sviluppatore **non la scrive manualmente**: è il browser a gestire tutto il processo.
+Il browser, quindi, **non si fida ciecamente** e chiede prima il permesso al server.
+
+#### Flusso concettuale (alto livello)
+
+Immaginiamo questa chiamata nel codice JavaScript:
+```js
+fetch('/api/users', { method: 'DELETE' });
+```
+
+Dal punto di vista del browser:
+
+1. Il client **intende eseguire un’operazione potenzialmente pericolosa** (`DELETE`);
+    
+2. Il browser decide di **non inviare subito la richiesta**
+    
+3. Invia invece una richiesta **[[Lezione 8 - Chiamate Curl#Il metodo OPTIONS|OPTIONS]]** (preflight);
+    
+4. Attende la risposta del server;
+    
+5. Solo se il server autorizza l’operazione, invia la richiesta originale.
+
+##### Cosa contiene una Preflight Request
+La richiesta **OPTIONS** inviata dal browser contiene informazioni fondamentali, tra cui:
+
+- l’**origine** della richiesta (`Origin`);
+    
+- il **metodo HTTP** che il client vorrebbe usare (`Access-Control-Request-Method`);
+    
+- gli **header personalizzati** che verranno inviati (`Access-Control-Request-Headers`).
+Esempio concettuale:
+```http
+OPTIONS /api/users HTTP/1.1
+Origin: https://myapp.com
+Access-Control-Request-Method: DELETE
+```
+
+##### Cosa deve fare il server 
+Il server **deve rispondere esplicitamente** alla preflight request, indicando cosa è consentito.
+
+Esempio di risposta corretta:
+```http
+HTTP/1.1 200 OK
+Access-Control-Allow-Origin: https://myapp.com
+Access-Control-Allow-Methods: GET, POST, DELETE
+Access-Control-Allow-Headers: Authorization, Content-Type
+```
+
+Questa risposta equivale a dire:
+
+> “Sì, accetto richieste DELETE da questa origine, con questi header.”
+
+##### Solo dopo il browser invia la richiesta reale
+
+**Se (e solo se)** la risposta alla preflight è positiva, il browser procede con la richiesta originale:
+```http
+DELETE /api/users HTTP/1.1
+Origin: https://myapp.com
+Authorization: Bearer abc123
+```
+
+==Se invece il server **non risponde correttamente** o **nega il permesso**, la richiesta reale **non viene mai inviata**.==
 
 ##### Flusso completo di una Preflight Request
 
@@ -311,32 +375,81 @@ Durante questo scambio, entrano in gioco alcuni header fondamentali:
 
 ##### Header inviati dal browser (preflight)
 
-- `Origin`
+- `Origin`: 
+	- Indica **l’origine della richiesta**, cioè **da dove proviene il codice client** che sta effettuando la chiamata.
+
+	- L’**origin** è composta da:
+
+		- protocollo (`http` / `https`)
     
-- `Access-Control-Request-Method`
+		- dominio
     
-- `Access-Control-Request-Headers`
+		- porta
+    
+> [!warning] Nota:
+>
+>- `Origin` **non è impostato manualmente** dal client JavaScript;
+  >  
+>- viene aggiunto **automaticamente dal browser**;
+  >  
+>- strumenti come `cURL` o `Postman` **non applicano CORS** e possono inviarlo solo manualmente.
+
+
+- `Access-Control-Request-Method`: 
+	- Specifica **quale [[Lezione 7 - Sistemi REST#Livello 2 Verbi HTTP(HTTP Verbs)|metodo HTTP]]** il client **intende utilizzare nella richiesta reale**.
+	- Se il metodo non è incluso nell’elenco restituito dal server, **il browser blocca la richiesta reale.**
+    
+- `Access-Control-Request-Headers`: 
+	- Indica **quali header HTTP personalizzati** il client **intende inviare nella richiesta reale**.
+	- Se l’header non è presente nell’elenco consentito dal server, **il browser blocca l’operazione prima dell’invio**.
     
 
 ##### Header restituiti dal server
 
-- `Access-Control-Allow-Origin`
+- `Access-Control-Allow-Origin` : 
+	- Indica quali origini (origin) sono autorizzate ad accedere alla risorsa.
+	-  Può essere:
+		  - un’origin specifica (`http://localhost:3000`)
+		  - `*` (tutte le origin, **solo se non si usano credenziali**)
     
-- `Access-Control-Allow-Methods`
+- `Access-Control-Allow-Methods`: 
+	- Specifica quali metodi HTTP il server consente per le richieste cross-origin(`GET`, `POST`, `PUT`, etc.)
+	- Se il metodo non è elencato, la richiesta reale non verrà inviata. 
+	-  Questo header è **fondamentale nelle preflight request**.
     
-- `Access-Control-Allow-Headers`
+- `Access-Control-Allow-Headers`: 
+	- Indica quali **header HTTP personalizzati** il client è autorizzato a inviare.
+	- Se l'header non è presente nell'elenco il browser **blocca la richiesta**.
     
-- `Access-Control-Allow-Credentials`
+- `Access-Control-Allow-Credentials`: 
+	- ==Indica se il server **consente l’invio di credenziali** nella richiesta.==
+	- Per credenziali si intendono: 
+		-  cookie;
     
-- `Access-Control-Max-Age`
+		- header `Authorization`;
+    
+		- certificati client-side.
+	
+> [!info] **Regole fondamentali**
+> - se è `true`, il browser **può inviare credenziali**;
+>  
+>- se è `false` o assente, le credenziali vengono **bloccate**;
+>  
+>- **non può essere usato insieme a** `Access-Control-Allow-Origin: *`
+
+    
+- `Access-Control-Max-Age`: 
+	- ==Indica **per quanto tempo (in secondi)** il risultato della preflight request può essere **memorizzato in cache dal browser**.==
+	- ==È particolarmente utile in applicazioni con molte chiamate ripetute.==
     
 
-Questi header **determinano se la richiesta verrà eseguita o bloccata**.
+Questi header determinano **se il browser è autorizzato a inviare la richiesta reale oppure se deve bloccarla per motivi di sicurezza**.
 
 
 > [!example] **In sintesi:**
-> Le **Simple Requests** (come la maggior parte delle `GET`): vengono inviate direttamente dal browser perché utilizzano metodi e header considerati **a basso rischio**.
+> Le **Simple Requests** (come la maggior parte delle `GET`): 
+> - ==vengono inviate direttamente dal browser perché utilizzano metodi e header considerati **a basso rischio**.==
 >
->Le richieste che usano **metodi non sicuri** (`PUT`, `PATCH`, `DELETE`) o **header non standard** fanno invece scattare una **Preflight Request (OPTIONS)**.
+>==Le richieste che usano **metodi non sicuri** (`PUT`, `PATCH`, `DELETE`) o **header non standard** fanno invece scattare una **Preflight Request (OPTIONS)**.==
 >
 >In questi casi, il browser **chiede preventivamente al server se l’operazione è consentita**, prima di inviare la richiesta reale.

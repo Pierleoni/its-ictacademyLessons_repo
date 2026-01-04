@@ -23,7 +23,7 @@ Che l'applicazione venga eseguita dal tuo computer o nel cloud,**  il suo compor
 - **VM** (Macchine Virtuali)
     
 - **Hypervisor** (Software di virtualizzazione)
-    
+     ^03d5ec
 - **Hardware e OS host** (la macchina fisica utilizzata per creare le VM)
     
 

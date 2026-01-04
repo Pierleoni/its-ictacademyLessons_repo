@@ -95,7 +95,7 @@ Ogni livello svolge una funzione specifica e interagisce con il livello adiacent
 
 Nei primi tre livelli (Fisico, Data Link e Rete), il dato viene generalmente chiamato **bit, frame o pacchetto**, mentre nei livelli superiori può essere chiamato **segmento, messaggio o dato** a seconda del contesto.
 
-I primi tre livelli sono spesso detti **"media layers"**, perché gestiscono il trasporto dei dati attraverso la rete e includono dispositivi come **router e switch**. 
+I primi tre livelli sono spesso detti **"media layers"**, perché gestiscono il trasporto dei dati attraverso la rete e includono dispositivi come **router e [[#Network Switch|switch]]**. 
 Mentre gli ultimi 4 livelli sono detti **"Host Layers"** perché si occupano della elaborazione dei dati e del loro utilizzo delle applicazioni e dell'utente; in parole povere si lavorano a livello software per garantire che i dati vengano **trasferiti, elaborati e presentati correttamente** all'utente.
 I dispositivi finali, come **computer e smartphone**, operano su tutti e sette i livelli del modello.
 ## I primi 2 livelli del modello ISO/OSI
@@ -395,7 +395,7 @@ In sostanza Uno switch di rete è un dispositivo che:
 
 ![[Network Switch.png]]
 
-#### Funzionamento base di uno switch
+##### Funzionamento base di uno switch
 
 - ==Riceve un frame di dati da un dispositivo connesso==.  
 - ==Legge l'indirizzo MAC di destinazione del frame==.  

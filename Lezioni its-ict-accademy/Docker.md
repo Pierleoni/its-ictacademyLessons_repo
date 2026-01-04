@@ -6,9 +6,9 @@ Prima di spiegare cos’è Docker, è importante comprendere **perché** questa 
 La risposta a questa prima domanda è:
 ==Docker è una tecnologia di virtualizzazione.==
 La virtualizzazione è una tecnica che consente di: 
-- ==**astrarre l’hardware fisico** e creare ambienti virtuali isolati all’interno di un sistema operativo. 
+- ==**astrarre l’hardware fisico** e creare ambienti virtuali isolati all’interno di un sistema operativo.== 
 
-==In questi ambienti, i programmi **credono di essere eseguiti direttamente su una macchina fisica**, con una propria CPU, RAM, disco, ecc., ma in realtà stanno utilizzando risorse **virtualizzate** fornite da un software intermedio.== 
+==In questi ambienti, i programmi **credono di essere eseguiti direttamente su una macchina fisica**, con una propria [[Il modello di Von Neumann#CPU (Central Processing Unit)|CPU]], [[Il modello di Von Neumann#RAM|RAM]], disco, ecc., ma in realtà stanno utilizzando risorse **virtualizzate** fornite da un software intermedio.== 
 Quindi la  virtualizzazione **serve per astrarre il concetto di computer fisico:** 
 -  ==in concreto, permette di creare un ambiente virtuale dentro il SO della macchina.== 
 In altre parole: 
