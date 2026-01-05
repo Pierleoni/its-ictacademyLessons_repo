@@ -156,7 +156,7 @@ switch (espressione) {
     
 - `break`: 
 	  ==interrompe l'esecuzione del blocco `switch` e impedisce l'esecuzione dei casi successivi.==
-    
+     ^7f53b0
 - `default`: 
 	  ==è opzionale e rappresenta il blocco di codice da eseguire se nessun `case` corrisponde.==
 

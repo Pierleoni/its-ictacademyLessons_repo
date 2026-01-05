@@ -42,8 +42,8 @@ Gli statement di **_Control Flow_**, in Python, sono:
 > ```
 
 4. `break`, `continue`, `pass` - Controllo del flusso all'interno dei loop
-   - `break`: interrompe un loop immediatamente 
-   - `continue`: salta all'iterazione successiva
+   - `break`: interrompe un loop immediatamente  ^c9c2ce
+   - `continue`: salta all'iterazione successiva ^9f9e9b
    - `pass`: [[#^pass|segnaposto che non fa nulla]] 
 > [!example] Esempio
 > ```python

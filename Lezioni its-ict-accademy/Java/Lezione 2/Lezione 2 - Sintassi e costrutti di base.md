@@ -393,227 +393,925 @@ In questo esempio:
     
 - **non è accessibile al di fuori del blocco** in cui è stata dichiarata
 
-#### Operatori
-`=`: assegnazione 
-Artimetici : 
-- `+` : somma 
-- `-`: sottrazione 
-- `/`: la divisione, se gli operando sono interi la divisione è intera ma se uno dei due è floating point il risultato sarà floatign point 
-- `%`: ritorna il resto della divsione intera 
+### Operatori in Java 
+In Java, gli **operatori** servono a manipolare valori e variabili. Possiamo raggrupparli in varie categorie: **assegnazione, aritmetici e incremento/decremento**.
+####  Operatori di assegnazione
 
-Incremento/decremento: 
-- `++`: incremento di una unità
-- `--`: decremento di una unità
-- `+=`: incremento di un valore a scelta 
-- `-=`: decremento di un valore a scelta 
-- `*=`: moltplico con un valore a scelta 
-
-
-### Operatori relazionali 
-Permettoni il confronto tra due valori che stabiliscono relazioni di ugaglianza e d'ordine 
-- `==`: uguale a 
-- `!=`: diverso da
-- `>`: maggiore 
-- `<`: minore
-- `>=`: maggiore o uguale 
-- `<=`: minore o uguale 
-
-
-### Operatori booleani
-- `||`: OR sc → Short circuit; otimmizza controllo delle condizioni in OR e in AND
-- `&&`: AND sc 
-- `!`: NOT 
-- `^`: XOR; da true se una condizione è vera mentre l'altra no indipendetemente dall'ordine
-- `|`: OR
-- `&`: AND 
-
-> [!info] Short circuit
-> Supponiamo che 
->```java
->int a = 7; 
->int b = 10; 
->//Allora
->(a==7) && (b>0) //→true
->(a==7) || (b>0) //→true
->!(a<4) //→true
->(a==7) ^(b>0) →false
-> 
->```
-
-### Controlli di flusso 
-1. Istruzioni condizionali
-Istruzioni if-else: 
-Se ci sono più di una istruzione
+L’operatore di base è `=`: 
+- ==serve ad **assegnare un valore a una variabile**:==
 ```java
-if (condizione){
-	//istruzione1;
-	//istruzione2
-}
+int a = 5; // assegna 5 alla variabile 'a'
 ```
-
-Se c'è una sola istruzione: 
-```java
-if (condizione)
-	//	istruzione;
-```
-
-Come in JS anche java non conta l'indentazione.
-Se si vogliono mettere più condizioni dopo l'if si usa `else if` 
-```java
-if (condizione){
-	//istruzione1;
-	//istruzione2;
-}else if (condizione){
-	//istruzione;
-}else{
-	//istruzione
-}
-```
-
-
-### Istruzione switch
-
-```java
-switch (choice){
-	case 1:
-		istruz1;
-		break;
-	case2: 
-		istruz2;
-		break; 
-	case 3:
-		istruz3; 
-		break;
-	case 4: 
-		istruz4; 
-		break; 
-	defualt: 
-		//input errato
-}
-```
-Il defualt è l'else, è opzionale 
-Anche lui avrebbe il break ma essendo l'ultimo non è obbligatorio
-
-Da java 12 diventa un espressione: può utilizzare la keyword break seguita da un valore
-```java
-String d = switch(day){
-	case "Monday":
-		break "Weekday";
-	case "Tuesday":
-		break "Weekday";
-	case "Thursday": 
-		break "Weekday"
-
-}
-```
-
-Inoltre lo switch può gestire più casi multipli, non si puo utilizzare il range dei valori 
-Si utilizza la virgola per separare le costanti 
-```
-String s=switch (day){
-	case "Monday", "Tuesday", "We"
-}
-```
-
-IE ancora dal java 12 viene introdotto l'operatore arrow (freccia )
-### Il blocco `do - while` 
-Il while esegue una verifica iniziale
-```java
-while (condizione)
-{
-	//blocco instruzione
-}
-```
-
-Mentre il do-while prima esegue, poi controlla e poi lo riesegue 
-```
-do 
-{
-	//blocco istruzioni
-	
-}
-while (condizione); 
-```
-Da notare il punto e virgola dopo la condizione while: se questa condizione è vera esegue quella istruzione ma logicamente errata ma il compilatore di java compila.
-Quindi esegue mentre la condizone è vera risale e riesegue l'istruzione. 
-
-### Il ciclo for 
-```
-for(inizio; iterazione; passo)
-{
-	//istruzione
-}
-```
+È possibile combinare l’assegnazione con operazioni aritmetiche usando operatori abbreviati:
+- `+=` → somma e assegna
+    
+- `-=` → sottrae e assegna
+    
+- `*=` → moltiplica e assegna
+    
+- `/=` → divide e assegna
 
 Esempio: 
 ```java
-for (int i = 1; i<=10, i++)
-{
-	System.out.println(i)
-}
+int x = 10;
+x += 5; // equivalente a x = x + 5
 ```
-Nota ho dichiarato una variabile i dentro il ciclo for e questa variaible vive solo dentro il ciclo for 
-Se volgio usare la variabile `i` fuori dal for 
+
+#### Operatori aritmetici 
+Gli operatori aritmetici permettono di eseguire operazioni matematiche:
+
+- `+` somma
+    
+- `-` sottrazione
+    
+- `*` moltiplicazione
+    
+- `/` divisione
+    
+- `%` modulo (resto della divisione)
+
+> [!NOTE] **Nota sulla divisione**:
+> 
+> 
+> - Se entrambi gli operandi sono **interi**, il risultato sarà un intero (la parte decimale viene scartata).
+>     
+> - Se almeno uno degli operandi è in **virgola mobile** (`float` o `double`), il risultato sarà un numero decimale.
+
+Esempi: 
 ```java
-int i = 1;
-for (;i<=10, i++)
-{
-	System.out.println(i);
-}
-System.out.println(i);
+int a = 7, b = 2;
+int risultato1 = a / b;   // 3
+double risultato2 = a / 2.0; // 3.5
+int resto = a % b;       // 1
 ```
 
-continue: 
-Consente di procedere all'iterazione successiva del ciclo dove compare (eseguendo una sorta di salto)
-Per effettuare un salto di 2 cicli, è nmecessario il costrutto label-continue
+#### Operatori di incremento e decremento
+
+Java fornisce operatori speciali per **aumentare o diminuire il valore di una variabile di 1**:
+
+- `++`:  incremento di 1
+
+- `--`: decremento di 1
+
+- `+=`: incrementa di un valore a scelta 
+
+- `-=`: decrementa di un valore a scelta 
+
+- `*=`: moltiplica con un valore a scelta 
+
+Esempi: 
 ```java
-for (int i = 0; i<20, i++)
-{
-	for (int j = 0;j<10;j++)
-	{
-		if (i ==12 && j ==5)
-			continue 
-		System.out.println(j);
-	}
-	System.out.println("--"+i);
-}
+int n = 5;
+n++; // equivalente a n = n + 1 → n = 6
+n--; // equivalente a n = n - 1 → n = 5
+n+= 5; // equivalente a n = n+5= 10
+n-=2; // equivalente a n = n-2 = 8
+n*=2; // equivalente a n = n*2 = 16 
 ```
 
-#### Label-continue 
-Attraverso un'eticchetta posso identificare un loop e eseguire il continue al loop etichettato 
-L'etichetta deve avere un nome composto da una sola parola deve essere seguito da "`:`"
+
+> [!abstract] **Promozione automatica dei tipi**
+> 
+> 
+> Quando si eseguono operazioni tra **tipi di dati diversi**, ==Java effettua automaticamente la **promozione al tipo più grande** (quello più preciso) tra gli operandi==:
+> 
+> - `int + byte` → `int`
+>     
+> - `float + short` → `float`
+>     
+> - `int + double` → `double`
+>     
+> 
+> La scala di precisione dei tipi primitivi è:
+> 
+> ```text
+> byte < short < int < long < float < double
+> ```
+> ==Questo significa che Java converte automaticamente il tipo minore in quello maggiore per **evitare perdita di informazione**.==
+> 
+>> [!warning] **Attenzione:** 
+>> anche quando gli operandi sono dello stesso tipo, alcune operazioni possono produrre un tipo diverso:
+>>
+>>- `byte + byte` → `int`
+  >>  
+>>- `short + short` → `int`
+  >>  
+>>- `int + int` → `int`
+  >>  
+>>- `long + long` → `long`
+   >> 
+>>- `float + float` → `float`
+  >>  
+>>- `double + double` → `double`
+  >>  
+>>
+>>==Questo comportamento serve a **ridurre errori di overflow** e garantire che il risultato sia sempre rappresentabile nel tipo più appropriato==.
+^promozioneAutomatica
+#### Cast (conversione di tipo)
+
+In Java, a volte è necessario **convertire un valore da un tipo a un altro**. 
+Questo processo si chiama **cast**. 
+Esistono due casi principali:
+
+1. **[[#^promozioneAutomatica|Promozione automatica]]**: 
+   - ==quando si assegna un tipo “più piccolo” a un tipo “più grande”, Java fa la conversione automaticamente, senza richiedere azioni speciali.==  
+    Esempi:
 ```java
-etichetta: 
-for (int i = 0; i<20, i++)
-{
-	for (int j = 0;j<10;j++)
-	{
-		if (i ==12 && j ==5)
-			continue etichetta;
-		System.out.println(j);
-	}
-	System.out.println("--"+i);
-}
+int a;
+int b = 10;
+a = b;   // OK: int ← int
+
+int a = 4;
+short b = 10;
+a = b;   // OK: short → int, promozione automatica
 ```
 
-#### Break 
-Questa istruzione interrompe il loop dove compare
+2. **Cast esplicito**: 
+   - ==quando si vuole assegnare un tipo “più grande” a uno “più piccolo” o due tipi incompatibili, Java richiede di **forzare la conversione**, perché potrebbe comportare perdita di dati o overflow==.
+Esempio: 
 ```java
+byte a;
+int b = 10;
 
-for (int i = 0; i<20, i++)
-{
-	for (int j = 0;j<10;j++)
-	{
-		if (i ==12 && j ==5)
-			break;
-		System.out.println(j);
-	}
-	System.out.println("--"+i);
+a = b;       // ERRORE: non si può assegnare direttamente
+a = (byte)b; // OK: cast esplicito, rischio di perdita di dati
+```
+Il cast è quindi una **forzatura locale di tipo:** 
+- ==indica al compilatore: “So cosa sto facendo e voglio convertire questo valore”.==  
+La sintassi prevede di scrivere il tipo di destinazione tra parentesi prima della variabile:
+```java
+int x = 10;
+byte y = (byte)x;
+```
+
+
+> [!warning] **Attenzione:** il cast può portare a risultati inattesi se il valore originale non è rappresentabile nel tipo di destinazione.
+> Esempio con operazioni tra `byte`:
+>```java
+> byte a = 18;
+byte b = 10;
+byte c = a + b;       // ERRORE: a + b viene promosso a int
+int c = a + b;        // CORRETTO
+byte c2 = (byte)(a+b); // CORRETTO ma attenzione al valore
+>
+>```
+
+#### Operatori relazionali 
+==Gli **operatori relazionali** servono a confrontare due valori e stabilire relazioni di uguaglianza o ordine.== 
+==Restituiscono sempre un valore booleano (`true` o `false`).== 
+
+|Operatore|Significato|
+|---|---|
+|`==`|uguale a|
+|`!=`|diverso da|
+|`>`|maggiore di|
+|`<`|minore di|
+|`>=`|maggiore o uguale a|
+|`<=`|minore o uguale a|
+
+> [!warning] **Nota importante:**
+>  **in Java gli operatori di assegnazione e di confronto sono diversi**.
+> 
+> - `=` → ==assegna un valore a una variabile==
+>     
+> - `==` → ==verifica se due valori sono uguali==
+
+Esempio: 
+```java
+int a = 7;
+
+if (a == 7) {
+    System.out.println("a è uguale a 7"); // true
+}
+
+// if (a = 7) { ... }  // ERRORE: non compila!
+```
+
+> [!info] Questo controllo evita errori comuni presenti in altri linguaggi in cui l’assegnazione accidentale in un `if` può causare comportamenti inattesi.
+> 
+
+#### Operatori booleani
+==Gli **operatori booleani** permettono di combinare o negare condizioni logiche, restituendo sempre un valore di tipo `boolean` (`true` o `false`).==
+
+| Operatore | Significato | Note                                                                                  |
+| --------- | ----------- | ------------------------------------------------------------------------------------- |
+| \|\|      | OR sc       | **Short-circuited**, il secondo operando non viene valutato se il primo è già `false` |
+| `&&`      | AND         | **Short-circuited**, il secondo operando non viene valutato se il primo è già `false` |
+| `!`       | NOT         | Negazione logica:<br>Inverte il segno dell'operando da `true` a `false` e viceversa   |
+| `^`       | XOR         | OR esclusivo: `true` se i due operandi sono diversi                                   |
+| \|        | OR          | Restituisce `true` se uno dei due operandi è `true`                                   |
+| `&`       | AND         | Restituisce `true` se entrambi gli operandi sono `true`                               |
+
+> [!NOTE] **Nota:**
+> gli operatori **short-circuited** (`&&`, `||`) migliorano l’efficienza evitando valutazioni non necessarie.
+
+
+## Controllo di flusso
+
+Il **controllo di flusso** in Java, come in [[Cicli e condizionali#Conditional Statements|Python]] e in [[Lezione 4 ; Espressioni e operatori, statements e cicli#If statements|JavaScript]], permette di modificare l’ordine di esecuzione delle istruzioni in base a condizioni logiche o ripetizioni. 
+Le principali strutture di controllo includono:
+
+- **Istruzioni condizionali**: `if`, `if-else`, `else if`, `switch`
+    
+- **Loop (cicli)**: `for`, `while`, `do-while`
+    
+- **Salti indeterminati**: `break`, `continue`, `return`
+
+### Istruzione `if-else`
+L’istruzione `if` consente di eseguire un **blocco di codice solo se una condizione è vera**.
+```java
+if (condizione) {
+    // istruzioni eseguite solo se la condizione è vera
+    istruzione1;
+    istruzione2;
+}
+```
+- ==La **condizione deve sempre essere racchiusa tra parentesi tonde** `()`.==
+    
+- ==Se il blocco contiene **una sola istruzione**, le parentesi graffe `{}` possono essere omesse.==
+    
+- ==Il blocco `else` è **opzionale** e viene eseguito solo se la condizione dell’`if` è falsa o viceversa.==
+    
+- ==È possibile usare **`else if`, come in JavaScript,** per gestire più condizioni alternative.==
+
+**Esempio:**
+```java
+if (a > 0) {
+    System.out.println("a è positivo");
+} else if (a < 0) {
+    System.out.println("a è negativo");
+} else {
+    System.out.println("a è zero");
 }
 ```
 
-#### LAbel -break 
-Posso etichettare il break come per il continue 
+La logica di questo blocco `if-else if-else` è: 
+- Se la variabile  `a` è maggiore di `0` → stampa il messaggio `"a è positivo"`
+- Se la variabile `a` è minore di `0` → stampa il messaggio `"a è negativo"` 
+- Se la variabile `a` non è né maggiore né minore di `0`; quindi è uguale a `0` (`==`) → stampa il messaggio `"a è zero"`. 
+
+### Istruzione `switch`
+Come in Python con il [[Match Statement|`match statement`]] e come nello [[Lezione 4 ; Espressioni e operatori, statements e cicli#Switch case|`switch` di JavaScript]], anche Java mette a disposizione l’**istruzione `switch`**, 
+- ==un costrutto di **controllo condizionale multiplo**.==
+
+==Lo `switch` consente di confrontare il valore di una variabile con un insieme di **costanti**, eseguendo il blocco di codice associato al valore corrispondente.==  
+È particolarmente utile quando si devono gestire **più casi alternativi sulla stessa variabile**, risultando più leggibile ed espressivo rispetto a una lunga catena di `if – else if`.
+
+A differenza di un blocco `if – else if – else`, lo `switch` **non valuta sequenzialmente tutte le condizioni logiche**: 
+il valore dell’espressione viene confrontato direttamente con i `case` disponibili, rendendo il controllo più chiaro dal punto di vista semantico.
 
 
-### Stampe e formattazzioni 
+> [!info]  Tipi di variabile ammessi
+>
+>In Java, la variabile utilizzata nello `switch` può essere di tipo:
+>
+>- `char`
+  >  
+>- `byte`, `short`, `int`
+  >  
+>- `enum` (a partire da Java 7)
+   > 
+>- `String` (a partire da Java 7)
+   > 
+>
+>Non è possibile usare:
+>
+>- `long`
+   > 
+>- tipi floating point (`float`, `double`)
+  >  
+>- intervalli di valori
+
+#### Sintassi di base 
+```java
+int choice = 2;
+
+switch (choice) {
+    case 1:
+        System.out.println("Hai scelto 1");
+        break;
+    case 2:
+        System.out.println("Hai scelto 2");
+        break;
+    case 3:
+        System.out.println("Hai scelto 3");
+        break;
+    case 4:
+        System.out.println("Hai scelto 4");
+        break;
+    default:
+        System.out.println("Scelta non valida");
+}
+```
+- ==Ogni **`case`** rappresenta un possibile valore della variabile su cui si effettua il confronto.==
+    
+- L’istruzione **`break`** interrompe l’esecuzione dello `switch`, evitando il cosiddetto **fall-through**.
+    
+    - ==In assenza di `break`, anche se un `case` corrisponde, **tutti i `case` successivi vengono eseguiti in cascata**.==
+        
+- Il **`default`** è opzionale e viene eseguito quando nessun `case` corrisponde al valore dell’espressione.
+
+> [!link] **Nota comparativa**
+> - In **[[Match Statement|Python]]**, il `match` è più flessibile: 
+> 	- supporta pattern, strutture e condizioni più complesse.
+  >  
+>- In **[[Lezione 4 ; Espressioni e operatori, statements e cicli#Switch case|JavaScript]]**, lo `switch` è molto simile a quello di Java e condivide lo stesso comportamento di _fall-through_.
+  >  
+>- In **Java**, lo `switch` è più rigido sui tipi ammessi, ma garantisce maggiore sicurezza statica.
+
+#### L'istruzione `break`
+Come in [[Cicli e condizionali#^c9c2ce|Python]] e in [[Lezione 4 ; Espressioni e operatori, statements e cicli#^7f53b0|JS]], lo statement `break` serve interrompere immediatamente il flusso di un ciclo condizionale o di un loop.
+
+==All’interno dell’istruzione `switch`, l’uso del **`break`** è **opzionale**, ma nella maggior parte dei casi **fortemente consigliato**.==
+
+Il `break` serve a **uscire dallo `switch`** una volta eseguito il codice del `case` corrispondente.  
+Se il `break` **non viene inserito**, l’esecuzione **non si ferma** al `case` trovato, ma **prosegue nel `case` successivo**: questo comportamento è noto come **fall-through**.
+
+==Nella pratica, poiché ogni `case` rappresenta solitamente un **caso indipendente**, è buona norma inserire un `break` al termine di ciascun `case`.==
+
+##### Fall-through intenzionale
+In alcuni casi, il comportamento di _fall-through_ può essere **sfruttato volontariamente** per eseguire lo stesso codice per **più valori distinti** della variabile.  
+In questo scenario, è possibile **raggruppare più `case` consecutivi** e utilizzare **un solo `break`**.
+Esempio:
+```java
+switch (choice) {
+    case 1:
+    case 2:
+        // stesso comportamento per 1 e 2
+        istruzioni;
+        break;
+    case 3:
+        istruz3;
+        break;
+    default:
+        // input errato
+}
+```
+Se `choice` vale `1`, l’esecuzione entra nel `case 1`, **cade nel `case 2`** e viene eseguito il blocco comune, per poi uscire dallo `switch`.
+
+#### `switch` come espressione (da Java 12)
+A partire da **Java 12**, lo `switch` non è più solo uno _statement_, ma può essere utilizzato anche come **espressione**, cioè può **restituire un valore**.
+
+In questo caso, il `break` viene utilizzato insieme a un **valore di ritorno**.
+Esempio:
+```java
+String d = switch (day) {
+    case "Monday":
+        break "Weekday";
+    case "Tuesday":
+        break "Weekday";
+    case "Wednesday":
+        break "Weekday";
+    case "Thursday":
+        break "Weekday";
+    case "Friday":
+        break "Weekday";
+    case "Saturday":
+        break "Weekend";
+    case "Sunday":
+        break "Weekend";
+    default:
+        break "unknown";
+};
+```
+==Poiché lo `switch` valorizza una variabile, è **fondamentale prevedere sempre il `default`**, per garantire che l’espressione restituisca un valore in ogni caso.==
+
+####  Case multipli (da Java 12)
+
+Sempre da Java 12, è possibile specificare **più valori per uno stesso `case`**, separandoli con la **virgola**.
+
+Questo rende il codice più compatto e leggibile.
+```java
+String s = switch (day) {
+    case "Monday", "Tuesday", "Wednesday", "Thursday", "Friday":
+        break "Weekday";
+    case "Saturday", "Sunday":
+        break "Weekend";
+};
+```
+
+#### Uso dell’operatore arrow `->` (da Java 12)
+
+Con le versioni più recenti di Java viene introdotto l’operatore **arrow `->`**, già noto per le _lambda expression_.
+
+L’operatore `->`:
+
+- ==sostituisce i due simboli `:` e `break`==
+    
+- ==elimina completamente il rischio di _fall-through_==
+    
+- ==rende lo `switch` più espressivo e sicuro==
+    
+
+**Esempio:**
+```java
+String s = switch (day) {
+    case "Monday" -> "Weekday";
+    case "Tuesday" -> "Weekday";
+    case "Wednesday" -> "Weekday";
+    case "Thursday" -> "Weekday";
+    case "Friday" -> "Weekday";
+    case "Saturday" -> "Weekend";
+    case "Sunday" -> "Weekend";
+    default -> "unknown";
+};
+```
+Con questa sintassi:
+
+- ==ogni `case` restituisce direttamente un valore==
+    
+- ==non è necessario usare `break`==
+    
+- ==il codice è più simile al [[Match Statement|`match` di Python ]]e più sicuro rispetto allo `switch` classico==
+    
+
+> Nota: fino a **Java 13** queste funzionalità erano opzionali; a partire da **Java 14** sono diventate **definitive**.
+
+### Loop Indeterminati 
+In Java, i **loop indeterminati** sono: 
+- ==strutture di controllo che permettono di ripetere un blocco di istruzioni **finché una condizione rimane vera**, senza sapere a priori quante volte il ciclo verrà eseguito.==
+
+Rientrano in questa categoria i costrutti
+- `while` 
+- `do-while`, 
+==che si differenziano principalmente per il **momento in cui viene valutata la condizione**.== 
+
+#### Il ciclo `while`
+==Il ciclo `while` esegue una **verifica iniziale della condizione** prima di entrare nel blocco di istruzioni.==
+Sintassi:
+```java
+while (condizione) {
+    // blocco di istruzioni
+}
+```
+Il comportamento è il seguente:
+
+- ==la **condizione viene valutata prima** di ogni iterazione==
+    
+- ==se la condizione è `false` fin dall’inizio, **il blocco non viene mai eseguito**==
+    
+- ==il ciclo continua a iterare **finché la condizione resta `true==`**
+
+
+> [!link] Confronto con Python e JavaScript
+> Il ciclo `while` in Java è concettualmente identico a quello presente in Python e JavaScript:
+> - In [[Cicli e condizionali#While Loops|Python]]: 
+>```python
+>   while condizione:
+ >   # istruzioni
+>
+>```
+>
+>- In [[Lezione 4 ; Espressioni e operatori, statements e cicli#Il ciclo `while`|JavaScript]]: 
+>```js
+>  while (condizione) {
+ >   // istruzioni
+>}
+>
+>```
+>
+>La differenza principale sta nella **sintassi**: Java richiede parentesi tonde per la condizione e parentesi graffe per il blocco.
+
+> [!info] ==Questo tipo di ciclo è utile quando **non si conosce in anticipo il numero di iterazioni**, ma si sa quando fermarsi.==
+> 
+
+#### Il blocco `do - while` 
+A differenza di Python, che ha il solo ciclo `while`, ma invece [[Lezione 4 ; Espressioni e operatori, statements e cicli#Il ciclo `do...while`|molto similarmente a JS(inoltre con una sintassi molto simile a Java)]],
+Il ciclo `do-while` è una variante del `while` che 
+- ==**posticipa la verifica della condizione** a dopo l’esecuzione del blocco.==
+```java
+do {
+    // blocco di istruzioni
+} while (condizione);
+```
+In questo caso:
+
+- ==il blocco di istruzioni viene **eseguito almeno una volta**==
+    
+- ==la condizione viene valutata **solo al termine** dell’iterazione==
+    
+- ==se la condizione è `true`, il ciclo continua; se è `false`, il ciclo termina==
+
+> [!info] ==Questo costrutto è utile quando è necessario **eseguire almeno una volta un’azione**, ad esempio per leggere un input o inizializzare uno stato prima di verificare una condizione.==
+> 
+
+##### Esempi 
+1. `while`: la condizione è falsa dall’inizio
+```java
+int x = 10;
+
+while (x < 5) {
+    System.out.println("x vale: " + x);
+}
+```
+
+**Cosa succede:**
+
+- ==la condizione `x < 5` viene valutata **prima** di entrare nel ciclo==
+    
+- ==poiché `x` vale `10`, la condizione è **false**==
+    
+- ==il blocco **non viene mai eseguito**==
+    
+- ==**nessuna stampa** viene prodotta==
+    
+
+Il ciclo `while` può quindi eseguire il blocco **zero volte**.
+
+2. ### `do-while`: la condizione è falsa, ma il blocco viene eseguito
+
+```java
+int x = 10;
+
+do {
+    System.out.println("x vale: " + x);
+} while (x < 5);
+```
+    
+**Cosa succede:**
+
+- il blocco viene eseguito **prima** del controllo della condizione
+    
+- viene stampato:
+```shell
+x vale: 10
+```
+- solo dopo l’esecuzione viene valutata la condizione `x < 5`
+    
+- la condizione è `false`, quindi il ciclo termina.
+
+
+> [!info] Il ciclo `do-while` garantisce **almeno una esecuzione**, anche se la condizione è falsa.
+
+3. Caso tipico: lettura di input
+```java
+Scanner sc = new Scanner(System.in);
+int numero;
+
+do {
+    System.out.print("Inserisci un numero positivo: ");
+    numero = sc.nextInt();
+} while (numero <= 0);
+```
+
+**Perché usare `do-while` qui:**
+
+- ==la richiesta di input **deve essere eseguita almeno una volta**==
+    
+- ==la condizione ha senso solo **dopo** aver letto un valore==
+    
+- ==il ciclo continua finché l’utente inserisce un numero non valido==
+    
+
+
+
+Con un `while`, il codice sarebbe meno naturale.
+
+> [!example] **In sintesi**
+> 
+>
+>- usa **`while`** quando il blocco può anche **non essere eseguito**
+  >  
+>- usa **`do-while`** quando il blocco **deve essere eseguito almeno una volta**
+
+
+### Loop determinati (`for`)
+
+Dopo aver visto i **loop indeterminati**, in cui il numero di iterazioni **non è noto a priori** e dipende da una condizione ([[#Il ciclo `while`|`while`]], [[#Il blocco `do - while`|`do-while`]]), passiamo ai **loop determinati**.
+
+Un **loop determinato** è: 
+- ==un ciclo in cui il **numero di iterazioni è noto o facilmente prevedibile**, perché controllato da una variabile di iterazione che segue regole precise.==
+
+
+In Java, il loop determinato per eccellenza è il **`for`**.
+
+#### Struttura del ciclo for
+```java
+for (inizializzazione; condizione; incremento) {
+    // blocco di istruzioni
+}
+```
+Il ciclo `for` è composto da **tre parti fondamentali**:
+
+1. **Inizializzazione**  
+    - ==Viene eseguita **una sola volta** all’inizio del ciclo==  
+    - (es. `int i = 0`)
+    
+2. **Condizione**  
+    - ==Viene valutata **prima di ogni iterazione**==  
+    - ==Se è `true`, il ciclo continua; se è `false`, il ciclo termina==
+    
+3. **Incremento (o passo)**  
+    - ==Viene eseguito **alla fine di ogni iterazione**==  
+    - (es. `i++`, `i += 2`, `i--`)
+##### Esempio base di ciclo `for` 
+
+```java
+for (int i = 1; i <= 10; i++) {
+    System.out.println(i);
+}
+```
+**Comportamento del ciclo:**
+
+- ==`i` viene inizializzata a `1`==
+    
+- ==finché `i <= 10` il ciclo viene eseguito==
+    
+- ==a ogni iterazione `i` viene incrementata di `1`==
+    
+- ==vengono stampati i numeri da `1` a `10`==
+    
+
+> La variabile di iterazione (`i`) può essere **dichiarata direttamente nelle parentesi del `for`** ed è visibile **solo all’interno del ciclo**.
+> 
+
+> [!NOTE] **Nota**
+>  Tornando allo scope delle variabili: 
+>  dichiarando una variabile `i` dentro il ciclo `for`, `while` o `do-while` la variabile `i` vive solo dentro il loop
+> Se si volesse usare la variabile `i` fuori dal for 
+> sarebbe impossibile è il compilatore darebbe errore 
+
+
+> [!link] **Confronto con Python e JavaScript**
+> In **Python**, il [[Cicli e condizionali#For Loops|`for`]] lavora tipicamente su **[[Collections|collezioni]] o range**:
+>```python
+> for i in range(1, 11):
+>    print(i)
+>
+>```
+>In **JavaScript**, il [[Lezione 4 ; Espressioni e operatori, statements e cicli#Il ciclo `for`|`for`]] è molto simile a quello di Java:
+>```js
+>for (let i = 1; i <= 10; i++) {
+ >   console.log(i);
+>}
+>
+>```
+>Java utilizza una sintassi più **rigida e tipizzata**, ma concettualmente il funzionamento è analogo.
+
+### L'istruzione `continue`
+Come per [[Cicli e condizionali#^9f9e9b|Python]] e JS l’istruzione **`continue`:** 
+- ==consente di **saltare l’iterazione corrente** del ciclo e passare direttamente alla **successiva**, senza eseguire le istruzioni rimanenti del blocco.==
+
+```java
+for (int i = 0; i < 20; i++) {
+    for (int j = 0; j < 10; j++) {
+        if (i == 12 && j == 5)
+            continue;
+        System.out.println(j);
+    }
+    System.out.println(" -- " + i);
+}
+}
+```
+
+In questo esempio:
+
+- ==quando `i == 12` e `j == 5`==
+    
+- ==la stampa di `j` viene **saltata**==
+    
+- ==il ciclo interno continua con `j = 6`==
+    
+
+Il `continue` agisce **solo sul ciclo più interno** in cui compare.
+### Label-continue 
+==In presenza di **cicli annidati**, Java consente di usare una **etichetta (label)** per indicare **a quale ciclo applicare il `continue`**.== 
+L'etichetta deve avere: 
+- un nome composto da una sola parola
+- deve essere seguito da "`:`"
+```java
+esterno:
+for (int i = 0; i < 20; i++) {
+    for (int j = 0; j < 10; j++) {
+        if (i == 12 && j == 5)
+            continue esterno;
+        System.out.println(j);
+    }
+    System.out.println(" -- " + i);
+}
+
+}
+```
+In questo caso:
+
+- ==quando `i == 12` e `j == 5`==
+    
+- ==si salta direttamente all’iterazione successiva del ciclo **esterno**==
+    
+- ==**non vengono stampati** `j = 5...9`==
+    
+- ==**non viene stampato** `i = 12`==
+#### Istruzione `break`
+
+Come abbiamo gia visto nell' [[#Istruzione `switch`#L'istruzione `break`|istruzione `switch`]]: 
+- ==l’istruzione **`break`** interrompe **completamente il ciclo** in cui compare.==
+
+```java
+for (int i = 0; i < 20; i++) {
+    for (int j = 0; j < 10; j++) {
+        if (i == 12 && j == 5)
+            break;
+        System.out.println(j);
+    }
+    System.out.println(" -- " + i);
+}
+
+```
+In questo esempio:
+
+- quando `i == 12` e `j == 5`
+    
+- il ciclo interno su `j` viene **terminato**
+    
+- il ciclo esterno su `i` continua normalmente
+#### `label-break` (break etichettato)
+Come per `continue`, anche `break` può essere **etichettato** per interrompere un ciclo esterno.
+L'etichetta deve avere: 
+- ==un nome composto da una sola parola==
+- ==deve essere seguito da "`:`"== 
+```java
+esterno:
+for (int i = 0; i < 20; i++) {
+    for (int j = 0; j < 10; j++) {
+        if (i == 12 && j == 5)
+            break esterno;
+        System.out.println(j);
+    }
+    System.out.println(" -- " + i);
+}
+```
+
+In questo caso:
+
+- ==quando `i == 12` e `j == 5`==
+    
+- ==viene interrotto **il ciclo esterno**==
+    
+- ==entrambi i cicli terminano immediatamente==
+
+### Passaggio dei parametri in Java
+Quando si passa un parametro a un metodo in Java, è fondamentale comprendere **come avviene il passaggio dei valori**, perché questo influisce direttamente sulle modifiche che un metodo può o non può apportare ai dati del chiamante.
+
+#### Passaggio per valore
+
+- ==In Java, **tutti i parametri vengono sempre passati per valore**.==
+
+Per i **tipi primitivi** (`int`, `double`, `char`, `boolean`, ecc.) questo significa che:
+
+- ==al metodo viene passata **una copia del valore**==
+    
+- ==il metodo lavora **solo sulla copia**==
+    
+- ==eventuali modifiche effettuate **non sono visibili** all’esterno del metodo==
+    
+
+In altre parole, il metodo **non può modificare direttamente** la variabile originale del chiamante.
+**Esempio di passaggio per valore con tipo primitivo:**
+```java
+public class PassaggioPerValore {
+
+    public static void main(String[] args) {
+        int n = 30;
+        System.out.println("n vale " + n);   // stampa 30
+
+        nonModifica(n);
+
+        System.out.println("n vale ancora " + n); // stampa 30
+    }
+
+    public static void nonModifica(int i) {
+        System.out.println("i vale " + i);   // stampa 30
+        i = 0;
+        System.out.println("adesso i vale " + i); // stampa 0
+    }
+}
+```
+
+**Cosa succede passo per passo:**
+
+1. ==La variabile `n` vale `30`==
+    
+2. ==`n` viene passata al metodo `nonModifica`==
+    
+3. ==Il parametro `i` riceve **una copia di `n`**==
+    
+4. ==La modifica `i = 0` riguarda **solo la copia**==
+    
+5. ==Terminato il metodo, `n` resta invariata==
+    
+
+> [!link] **Confronto concettuale con Python e JavaScript**
+> - In **Python**, i tipi immutabili (`int`, `float`, `str`, `tuple`) si comportano in modo simile: la modifica all’interno della funzione non influenza il chiamante.
+>    
+>- In **JavaScript**, i tipi primitivi (`number`, `string`, `boolean`) sono anch’essi passati per valore.
+ >   
+
+Java mantiene una distinzione molto netta e rigorosa, utile per scrivere codice affidabile.
+
+Questo comportamento è coerente e prevedibile ed evita **effetti collaterali indesiderati**.
+
+### Stampe e formattazioni 
+Quando si lavora con l’output standard in Java, spesso `System.out.println()` è sufficiente per stampare valori in modo semplice e immediato.  
+==Tuttavia, **quando è necessario controllare il formato dei numeri**, in particolare dei **valori decimali**, è preferibile utilizzare il metodo **`printf()`**.== 
+#### Perché usare `printf()`
+
+`printf()` consente di:
+
+- ==stabilire **quante cifre stampare**==
+    
+- ==controllare **il numero di decimali**==
+    
+- ==definire **l’allineamento e la precisione**==
+    
+- ==ottenere un output **più leggibile e professionale**==
+    
+
+Questo è particolarmente utile in:
+
+- report numerici
+    
+- log
+    
+- stampe tabellari
+    
+- applicazioni scientifiche o finanziarie
+
+####  Struttura del metodo `printf()`
+
+Il metodo `printf()` riceve due elementi fondamentali:
+
+1. **Una stringa di formattazione**
+    
+2. **Uno o più valori da formattare**
+```java
+System.out.printf("stringa di formattazione", valore);
+```
+
+La stringa di formattazione contiene dei **segnaposto**, introdotti dal carattere `%`, che indicano **come deve essere stampato il valore**.
+
+##### Formattazione dei numeri decimali
+
+Tra i formati più utilizzati per i numeri decimali troviamo:
+
+- **`%f`** → ==formato _floating point_ (decimale classico)==
+    
+- **`%g`** → ==formato _general_ (sceglie automaticamente la rappresentazione più compatta)==
+    
+
+Questi formati permettono di controllare la **precisione** del numero stampato.
+
+#### Specifica della precisione
+La precisione si indica **tra il simbolo `%` e la lettera finale (`f` o `g`)**, secondo la forma generale:
+```css
+%X.Yf
+%X.Yg
+```
+
+Dove:
+
+- `X`: 
+	- ==indica il **numero minimo di cifre intere**==
+    
+- `Y` indica:
+    
+    - con `%f`: ==il **numero di cifre decimali**==
+        
+    - con `%g`: ==il **numero totale di cifre significative**==
+        
+
+**Esempio pratico:**
+
+```java
+double x = 12.345;
+
+// stampa senza formattazione
+System.out.println(x);
+
+// stampa con formattazione GENERAL
+System.out.printf("%3.3g%n", x);
+
+// stampa con formattazione FLOATING POINT
+System.out.printf("%2.2f%n", x);
+```
+
+**Output prodotto:**
+
+- `12.345`  
+    → stampa senza alcuna formattazione
+    
+- `12.3`  
+    → formato **general (`%g`)** con 3 cifre totali significative
+    
+- `12.35`  
+    → formato **floating point (`%f`)** con 2 cifre decimali  
+    (il valore viene arrotondato)
+
+
+> [!abstract] **Differenza concettuale tra `%f` e `%g`**
+> - `%f`  
+>    → ==mantiene sempre la **notazione decimale**, mostrando esattamente il numero di cifre dopo la virgola richieste==
+  >  
+>- `%g`  
+ >   → ==privilegia una rappresentazione **più compatta**, limitando il numero totale di cifre e adattando il formato==
+ >> [!note] **Nota sull'arrotondamento**
+ >> Quando si riduce il numero di cifre decimali, Java applica automaticamente le **regole di arrotondamento matematico**, rendendo `printf()` affidabile per la presentazione dei dati numerici.

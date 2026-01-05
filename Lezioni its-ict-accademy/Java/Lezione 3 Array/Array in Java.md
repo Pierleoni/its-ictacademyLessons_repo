@@ -1,28 +1,67 @@
 
-Gli array in Java sono un tipo speciale che aggrega un gruppo di variabili dello stesso tipo.
-In java gli array sono oggetti e non primitivi!
-La loro dimensione è fissa, viene stabilita in fase di creazione e non può mutare
+# Introduzione
+Fino a questo punto abbiamo visto come [[Lezione 2 - Sintassi e costrutti di base#Dichiarazione delle variabili|dichiarare variabili]] di tipo primitivo e oggetti, gestire lo **[[Lezione 2 - Sintassi e costrutti di base#Scope (ambito) delle variabili|scope]]**, usare cicli e strutture condizionali. Tuttavia, molto spesso capita di dover memorizzare **più valori dello stesso tipo** e di volerli gestire in modo ordinato e indicizzabile.
+## Gli array in Java 
+In Java, questo compito è svolto dagli **array**, un tipo speciale di struttura dati che permette di raggruppare più variabili dello stesso tipo sotto un unico nome.  
+Gli array in Java hanno alcune caratteristiche fondamentali:
 
-Una variabile array deve indicare il tipo di variabili che conterrà (primitivi o oggetti)
-SI può definire 
-```java
-int[] arrayOfInt; // stile più usato
-int arrayOfInt; // vecchio stile (C like)
-```
-Ovviamente questo può essere scomodo perché immagine il carello di un e commerce, se si usessero gli array classici avremo un tetto massimo di prodotti da mettere dentro inoltre i prodotti possono essere di diversi tipi. 
+- ==Sono **oggetti**, non tipi primitivi, anche quando contengono valori primitivi.==
+    
+- ==La **dimensione** dell’array è **fissa** e viene definita al momento della creazione.== 
+	- Non è possibile modificarla successivamente.
+    
+- ==Ogni array contiene valori **omogenei**, cioè dello stesso tipo, che può essere sia un tipo primitivo (`int`, `double`, `boolean`, ecc.) sia un oggetto.==
 
-Gli array classici non possono avere tipi diversi; nell esempio sopra abbiamo dichiarato un array di interi quindi non potra storare altri tipi di dati.
-Per indicare il tipo devo infatti prima mettere il tipo di dato seguito dalle parentesi quadre (`[]`)
+
+
+### Dichiarazione degli array
+Per dichiarare un array, bisogna indicare:
+
+1. Il **tipo di elementi** che conterrà
+    
+2. Il nome della variabile array
+    
+
+Esempi di dichiarazione:
 ```java
-int[] arrayOfInt; 
-String[] arrayOfInt; 
-float[] arrayOfFloat; 
-//e così via...
+int[] arrayOfInt;    // stile più moderno e consigliato
+int arrayOfInt[];    // stile "vecchio", simile al C
 ```
-Un array può essere una matrice di array a sua volta. 
+
+- La prima forma (`int[] arrayOfInt`) è:  
+	- ==quella **più usata in Java moderno** ed è più chiara, perché indica subito che si tratta di un array di `int`.==
+    
+- La seconda forma (`int arrayOfInt[]`): 
+	- ==viene ereditata dal linguaggio C e funziona ancora, ma oggi è considerata meno leggibile.==
+
+Gli array classici hanno alcune limitazioni importanti:
+
+- **Dimensione fissa**: 
+	- ==una volta creato, un array può contenere solo un numero prestabilito di elementi.== 
+	- Ad esempio, se immaginiamo il carrello di un e-commerce, usare un array classico significherebbe avere un “tetto massimo” di prodotti.
+    
+- **Tipi omogenei**: 
+	- ==tutti gli elementi devono essere dello stesso tipo==. 
+	- ==Non è possibile inserire interi, stringhe e oggetti diversi nello stesso array.==
+    
+
+Per definire un array, si scrive prima il tipo di dato seguito dalle parentesi quadre `[]`:
 ```java
-int[][] arrayOfArrayInt; 
+int[] arrayOfInt;
+String[] arrayOfString;
+float[] arrayOfFloat;
 ```
+
+Gli array possono anche essere **multidimensionali:** 
+- ==cioè contenere a loro volta altri array==, come nel caso delle matrici:
+```java
+int[][] matrix;   // matrice di interi
+```
+
+
+In sintesi, un array in Java è :
+- ==**un contenitore ordinato di elementi omogenei**, indicizzabile tramite numeri interi==
+e rappresenta un passo importante verso strutture dati più complesse come **liste, matrici e collezioni** che vedremo in seguito.
 ### Creare un array
 Per creare un array si utilizza l'operatore `new`: 
 ```java

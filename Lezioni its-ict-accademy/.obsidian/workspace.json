@@ -38,21 +38,6 @@
             }
           },
           {
-            "id": "69fcf5caa3c3e1c8",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Web Development/Cloud/Lezione 3 - Modelli di deployment del cloud.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
-              },
-              "icon": "lucide-file",
-              "title": "Lezione 3 - Modelli di deployment del cloud"
-            }
-          },
-          {
             "id": "7660c42259b7c3a1",
             "type": "leaf",
             "state": {
@@ -66,9 +51,24 @@
               "icon": "lucide-file",
               "title": "Lezione 2 - Data center astratto"
             }
+          },
+          {
+            "id": "c8a8caf166b2093f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Java/Lezione 3 Array/Array in Java.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "Array in Java"
+            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -125,7 +125,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 257.5
   },
   "right": {
     "id": "8ef8bc59cd79fc10",
@@ -253,11 +253,14 @@
       "daily-notes:Open today's daily note": false
     }
   },
-  "active": "69fcf5caa3c3e1c8",
+  "active": "c8a8caf166b2093f",
   "lastOpenFiles": [
-    "Web Development/Cloud/Lezione 4.md",
-    "Web Development/Cloud/Lezione 3 - Modelli di deployment del cloud.md",
     "Web Development/Cloud/Lezione 2 - Data center astratto.md",
+    "Web Development/Cloud/Lezione 4 - Modelli dei servizi di cloud.md",
+    "Java/Lezione 1/Lezione 1 - Introduzione a Java.md",
+    "Java/Lezione 2/Lezione 2 - Sintassi e costrutti di base.md",
+    "Python/Lezione 2/I modificatori.md",
+    "Web Development/Cloud/Lezione 3 - Modelli di deployment del cloud.md",
     "Web Development/Cloud/Lezione 1 - Introduzione al Cloud Computing.md",
     "Sistemi digitali/Lezione 7/Reti di computer.md",
     "Sistemi digitali/Lezione 19/Modello TCP-IP.md",
@@ -279,8 +282,6 @@
     "Web Development/Progettazione/Lezione 7 - Sistemi REST.md",
     "Web Development/Progettazione/Lezione 6 - API.md",
     "Web Development/Progettazione/Lezione 4 - Protocollo HTTP 2 parte.md",
-    "Java/Lezione 2/Lezione 2 - Sintassi e costrutti di base.md",
-    "Java/Lezione 1/Lezione 1 - Introduzione a Java.md",
     "img/Java/Lezione 2",
     "img/Java/Lezione 1/Linguaggio e tecnologie.png",
     "img/Java/Lezione 1/Indipendenza dalla piattaforma.png",
@@ -289,7 +290,6 @@
     "img/Java/Lezione 1/Esempio linguaggio compilato in C.png",
     "img/Java/Lezione 1/Linguaggio macchina e linguaggi ad alto livello.png",
     "img/Java/Lezione 1",
-    "img/Java/Untitled.md",
     "Java/Lezione 8 Ereditarietà e Poliforfismo",
     "img/Java/Lezione 7/ImpiegatoJava.png",
     "img/Java/Lezione 7",
