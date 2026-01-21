@@ -7,13 +7,15 @@ Un’**applicazione web (web app)** è un programma software accessibile tramite
 
 La differenza principale rispetto a un’applicazione desktop tradizionale è **dove viene eseguito il codice**:
 
-- Un’app desktop viene **installata ed eseguita interamente sul computer** dell’utente.
+- ==Un’app desktop viene **installata ed eseguita interamente sul computer** dell’utente.==
     
 - Una web app, invece, è **distribuita**:
     
-    - Il **backend** (la logica, la gestione dei dati, le operazioni pesanti) risiede su un **server remoto**.
+    - Il **[[#Backend|backend]]:**  ^backend
+	    - ==(la logica, la gestione dei dati, le operazioni pesanti) risiede su un **server remoto**.==
         
-    - Il **frontend** (l’interfaccia grafica con cui interagisce l’utente) gira nel **browser**.
+    - Il **[[#Frontend (Lato Client)|frontend]]:**  ^frontend
+	    - ==(l’interfaccia grafica con cui interagisce l’utente) gira nel **browser**==.
 
 ### La caratteristica distintiva: l'interattività
 Un sito web tradizionale può limitarsi a mostrare informazioni statiche, come una pagina di sola lettura.  
@@ -32,19 +34,21 @@ Esempi comuni:
 - **Trello** (gestione progetti e task management)
 
 #### Caratteristiche principali di una Web App
-- **Nessuna installazione richiesta** → basta un browser.
+1. **Nessuna installazione richiesta** → ==basta un browser.==
     
-- **Accessibilità universale** → funziona da qualsiasi dispositivo connesso a Internet (PC, smartphone, tablet).
+2. **Accessibilità universale** → ==funziona da qualsiasi dispositivo connesso a Internet (PC, smartphone, tablet).==
     
-- **Aggiornamenti centralizzati** → quando viene aggiornata sul **server**, tutti gli utenti vedono subito la nuova versione, senza bisogno di reinstallare nulla.
+3.  **Aggiornamenti centralizzati** → ==quando viene aggiornata sul **server**, tutti gli utenti vedono subito la nuova versione, senza bisogno di reinstallare nulla.==
 
 ### Le applicazioni web 
 La maggior parte delle applicazioni web utilizzano l'[[Reti di computer#1. Modello Client/Server|architettura client - server]] 
 Le caratteristiche di queste applicazioni sono: 
 1. Utilizzano il protocollo [[Modello TCP-IP|TCP/IP]] 
 2. Si dividono in 2 famiglie principali: 
-	1. Applicazioni a pagine: il client è l’utente che, attraverso il browser, chiede un servizio al server e riceve in risposta una pagina web
-	2. Applicazioni a servizi: il client è un programma che chiede un servizio al server e riceve in risposta dati.
+	-  **Applicazioni a pagine:**  ^59dd26
+		- ==il client è l’utente che, attraverso il browser, chiede un servizio al server e riceve in risposta una pagina web.==
+	-  **Applicazioni a servizi:**  ^bd8d1a
+		- ==il client è un programma che chiede un servizio al server e riceve in risposta dati.==
 
 
 #### Spiegazione delle applicazioni web
@@ -54,11 +58,11 @@ Per comprendere meglio come queste 2 tipologie lavorano prendiamo ad esempio que
 ![[Applicazioni web.png]]
 
 ##### Parte alta dell'immagine: Applicazioni a pagine (esempio Ryanair)
-- **Client** → l’utente con il suo browser (Chrome, Firefox, ecc.).
+- **Client** → ==l’utente con il suo browser (Chrome, Firefox, ecc.).==
     
-- L’utente invia una richiesta HTTP al server di Ryanair (es. chiede i voli disponibili).
+- ==L’utente invia una [[Lezione 1; Fondamenti delle Applicazioni Web#Flusso di comunicazione|richiesta HTTP]] al server di Ryanair (es. chiede i voli disponibili).==
     
-- Il server Ryanair elabora la richiesta e risponde con una **pagina HTML** già pronta.
+- ==Il server Ryanair elabora la richiesta e risponde con una **[[HTML|pagina HTML]]** già pronta.==
     
 - Quindi il browser mostra quella pagina all’utente.
 
@@ -66,17 +70,17 @@ Per comprendere meglio come queste 2 tipologie lavorano prendiamo ad esempio que
 > L’utente riceve interfacce grafiche già pronte, ma non dati “puri”.
 
 
-##### Parte bassa: Applicazioni a servizi (Esempio Skyscanner)
+##### [[Applicazioni web.png|Parte bassa]]: Applicazioni a servizi (Esempio Skyscanner)
 
 Qui la logica è più complessa:
 
-- L’utente accede a **Skyscanner** tramite il browser.
+- ==L’utente accede a **Skyscanner** tramite il browser.==
     
-- Skyscanner non ha un suo database di voli: per rispondere alle richieste degli utenti, interroga i **web service** delle varie compagnie aeree (Ryanair, EasyJet, ecc.).
+- **Skyscanner non ha un suo database di voli:** ==per rispondere alle richieste degli utenti, interroga i **web service** delle varie compagnie aeree (Ryanair, EasyJet, ecc.).==
     
-- Ogni compagnia fornisce un **servizio** via API (Application Programming Interface), cioè non restituisce una pagina HTML, ma **dati grezzi** in formato strutturato (tipicamente JSON o XML).
+- ==Ogni compagnia fornisce un **servizio** via [[Lezione 6 - API#API (Application Programming Interface)|API (Application Programming Interface)]], cioè non restituisce una pagina HTML, ma **dati grezzi** in formato strutturato (tipicamente [[Lezione 5 - Il Formato JSON|JSON]] o XML).==
     
-- Skyscanner raccoglie i dati da Ryanair, EasyJet e altre compagnie, li elabora e poi costruisce la pagina che l’utente vede nel browser.
+- ==Skyscanner raccoglie i dati da Ryanair, EasyJet e altre compagnie, li elabora e poi costruisce la pagina che l’utente vede nel browser.==
 
 > [!abstract] Questo modello è detto **applicazione a servizi**, perché il “client” non è un utente umano che riceve pagine già pronte, ma è un **programma** che dialoga con altri server e scambia **dati**.
 
@@ -102,90 +106,93 @@ In questo scenario, **client e server si scambiano esclusivamente dati**, non pa
 Un vantaggio fondamentale di questo modello è che è **interoperabile**:
 
 > [!done] In che senso è **interoperabile?**
-> - Il client e il server non devono essere scritti nello stesso linguaggio di programmazione o sulla stessa infrastruttura.
+> - ==Il client e il server non devono essere scritti nello stesso linguaggio di programmazione o sulla stessa infrastruttura.==
  >   
->- Ad esempio, un’app mobile in **Kotlin** (Android) o **Swift** (iOS) può comunicare con un server sviluppato in **Node.js**, **Java**, **Python** o qualsiasi altra tecnologia, purché entrambi rispettino lo stesso **protocollo di comunicazione** (tipicamente HTTP).
+>- Ad esempio, ==un’app mobile in **Kotlin** (Android) o **Swift** (iOS) può comunicare con un server sviluppato in **Node.js**, **Java**, **Python** o qualsiasi altra tecnologia, purché entrambi rispettino lo stesso **protocollo di comunicazione** (tipicamente HTTP)==.
 
 Questa indipendenza permette di integrare sistemi eterogenei e di farli collaborare senza vincoli tecnologici.
 
 ##### Stili di Realizzazione: SOAP e REST
 
-La comunicazione client-server per applicazioni a servizi segue solitamente due principali stili architetturali:
+La comunicazione Client-Server per applicazioni a servizi segue solitamente due principali stili architetturali:
 
-1. **SOAP (Simple Object Access Protocol)** – lo stile classico
+1. **[[Lezione 6 - API#SOAP (Simple Object Access Protocol)|SOAP (Simple Object Access Protocol)]]** – lo stile classico
     
-    - Basato su XML.
+    - ==Basato su XML.==
         
-    - Più “verboso” e rigido, con regole precise su formati e protocolli.
+    - ==Più “verboso” e rigido, con regole precise su formati e protocolli.==
         
-    - Ancora usato in ambiti enterprise e in contesti che richiedono molta formalità (es. banche, assicurazioni).
+    - ==Ancora usato in ambiti entreprise e in contesti che richiedono molta formalità (es. banche, assicurazioni).==
         
-2. **REST (Representational State Transfer)** – lo stile moderno
+2. **[[Lezione 7 - Sistemi REST#Sistemi REST|REST (Representational State Transfer)]]** – **lo stile moderno**
     
-    - Basato su HTTP standard.
+    - ==Basato su [[Modello TCP-IP#Http-https HyperText Transfer Protocol (HTTP)|HTTP standard]].==
         
-    - Usa formati leggeri e semplici, come JSON.
+    - ==Usa formati leggeri e semplici, come [[Lezione 5 - Il Formato JSON#Cos’è il JSON e perché viene utilizzato|JSON]].==
         
-    - Più flessibile, veloce e facile da integrare, oggi è lo standard de facto per le API web.
+    - ==Più flessibile, veloce e facile da integrare, oggi è lo standard de facto per le [[Lezione 6 - API#1. API Web( Modello TCP-IP HTTP - based)|API web]].==
 
 
 ### Frontend vs. Backend nella applicazioni web
 Nelle architetture **Client-Server**, le applicazioni web si dividono in due aree principali di sviluppo: 
-1. **Frontend** (lato client) 
- 2. **Backend** (lato server). 
+1. **[[#^frontend|Frontend]]** (lato client) 
+ 2. **[[#^backend|Backend]]** (lato server). 
  Queste due componenti collaborano per fornire all’utente un’esperienza completa, combinando interfaccia visiva e logica applicativa.
 
 #### Frontend (Lato Client)
-Il **Frontend** è tutto ciò che l’utente vede e con cui interagisce nel browser. 
-Si può paragonare alla **parte visibile dell’iceberg**: quello che appare davanti ai suoi occhi.
+==Il **Frontend** è tutto ciò che l’utente vede e con cui interagisce nel browser.== 
+Si può paragonare alla **parte visibile dell’iceberg**: 
+- quello che appare davanti ai suoi occhi.
 
-**Ruolo principale:** Creare l’interfaccia utente (UI) e assicurare una buona esperienza utente (UX).
+**Ruolo principale:** 
+- ==Creare l’interfaccia utente (UI)== 
+- ==assicurare una buona esperienza utente (UX).==
 
 **Responsabilità principali:**
 
-- **Struttura dei contenuti:** organizzare testi, immagini, tabelle, pulsanti e form.
+- **Struttura dei contenuti:** ==organizzare testi, immagini, tabelle, pulsanti e [[I form in HTML|form]].==
     
-- **Stile e layout:** curare colori, font, posizionamento e adattabilità ai diversi dispositivi (responsive design).
+- **Stile e layout:** ==curare colori, font, posizionamento e adattabilità ai diversi dispositivi (responsive design).==
     
-- **Interattività:** gestire click, animazioni, aggiornamenti dinamici della pagina senza ricaricare completamente il browser (es. usando AJAX o fetch).
+- **Interattività:** ==gestire click, animazioni, aggiornamenti dinamici della pagina senza ricaricare completamente il browser (es. usando AJAX o fetch).==
     
 
 **Tecnologie principali:**
 
-- **HTML** (HyperText Markup Language): definisce la struttura dei contenuti.
+- **[[HTML|HTML (HyperText Markup Language):]]** ==definisce la struttura dei contenuti.==
     
-- **CSS** (Cascading Style Sheets): cura l’aspetto grafico e il layout.
+- **[[CSS|CSS (Cascading Style Sheets)]]**: ==cura l’aspetto grafico e il layout.==
     
-- **JavaScript:** permette di aggiungere dinamismo e interattività.
+- **[[Lezione 1 I fondamenti Javascript|JavaScript]]:** ==permette di aggiungere dinamismo e interattività.==
     
-    - Framework moderni come **React**, **Angular** e **Vue.js** semplificano la creazione di interfacce complesse e reattive.
+    - ==Framework moderni come **[[Lezione 7; React#Introduzione a React JS|React]]**, **Angular** e **Vue.js** semplificano la creazione di interfacce complesse e reattive.==
         
 
 > [!link]  **Collegamento con le applicazioni web**
-> Nel modello delle **applicazioni a pagine:**
+> Nel modello delle **[[#^59dd26|applicazioni a pagine:]]**
 > 	il frontend riceve direttamente HTML pronto dal server.  
-> Nel modello delle **applicazioni a servizi:**
-> 	 il frontend può invece essere un programma che richiede **dati grezzi (JSON/XML)** al backend e costruisce la pagina dinamicamente.
+> Nel modello delle **[[#^bd8d1a|applicazioni a servizi:]]**
+> 	 il frontend può invece essere un programma che richiede **dati grezzi ([[Lezione 5 - Il Formato JSON#Cos’è il JSON e perché viene utilizzato|JSON]]/XML)** al backend e costruisce la pagina dinamicamente.
 
 #### Backend
-Il **Backend** è il “cervello” dell’applicazione, la parte **invisibile** all’utente, o la **porzione sommersa dell’iceberg**.
+Il **Backend** è il “cervello” dell’applicazione, ==la parte **invisibile** all’utente, o la **porzione sommersa dell’iceberg**.==
 
-**Ruolo principale:** gestire logica applicativa, dati e sicurezza.
+**Ruolo principale:** ==gestire logica applicativa, dati e sicurezza.==
 
 **Responsabilità principali:**
 
-- **Logica applicativa:** eseguire operazioni principali dell’applicazione, come elaborare pagamenti o registrare utenti.
+- **Logica applicativa:** ==eseguire operazioni principali dell’applicazione, come elaborare pagamenti o registrare utenti.==
     
-- **Gestione del database:** creare, leggere, aggiornare e cancellare dati (es. prodotti, post di blog, informazioni degli utenti).
+- **Gestione del database:** ==creare, leggere, aggiornare e cancellare dati (es. prodotti, post di blog, informazioni degli utenti).==
     
-- **Autenticazione e autorizzazione:** verificare chi è l’utente e cosa può fare.
+- **Autenticazione e autorizzazione:** ==verificare chi è l’utente e cosa può fare.==
     
-- **Esposizione di API:** creare endpoint che il frontend può interrogare per leggere o scrivere dati.
+- **Esposizione di API:** ==creare [[Lezione 6 - API#Endpoint|endpoint]] che il frontend può interrogare per leggere o scrivere dati.==
     
 
 **Tecnologie principali:**
 
-- **Linguaggi e framework:** Python (Django, Flask), JavaScript (Node.js), Java (Spring), PHP (Laravel), C# (.NET).
+- **Linguaggi e framework:** Python (Django, [[Introduzione a Flask|Flask]]), JavaScript ([[Lezione 7; React#Creazione di un'applicazione React con Node.js|Node.js]]), [[Lezione 1 - Introduzione a Java|Java]] (Spring), PHP (Laravel), C# (.NET).
     
 - **Database:** SQL (PostgreSQL, MySQL), NoSQL (MongoDB, Redis).
     
@@ -194,19 +201,19 @@ Il **Backend** è il “cervello” dell’applicazione, la parte **invisibile**
 
 > [!link] **Collegamento con le applicazioni web:**
 > 
-> - Nelle **applicazioni a pagine**, il server restituisce direttamente pagine HTML pronte.
+> - Nelle **[[#^59dd26|applicazioni a pagine]]**, ==il server restituisce direttamente pagine HTML pronte.==
 >     
-> - Nelle **applicazioni a servizi**, il backend fornisce **dati grezzi tramite API**, che il frontend usa per costruire dinamicamente le interfacce.
+> - Nelle **[[#^bd8d1a|applicazioni a servizi]]**, ==il backend fornisce **dati grezzi tramite [[Lezione 6 - API#API (Application Programming Interface)|API]]**, che il frontend usa per costruire dinamicamente le interfacce.==
 >
 
 
 
 > [!link] #### **Il ponte tra Frontend e Backend: le API**
-> Le **API (Application Programming Interface)** sono il canale di comunicazione tra frontend e backend.
+> ==Le **[[Lezione 6 - API#API (Application Programming Interface)|API (Application Programming Interface)]]** sono il canale di comunicazione tra frontend e backend.==
 >
->- Permettono al frontend di ottenere o inviare dati senza accedere direttamente al database.
+>- ==Permettono al frontend di ottenere o inviare dati senza accedere direttamente al database.==
  >   
->- Rendono possibile l’interoperabilità: frontend e backend possono essere sviluppati con linguaggi diversi e ospitati su infrastrutture differenti, purché rispettino lo stesso protocollo di comunicazione (tipicamente HTTP/HTTPS).
+>- Rendono possibile l’interoperabilità: ==[[#Frontend (Lato Client)|frontend]] e [[#Backend|backend]] possono essere sviluppati con linguaggi diversi e ospitati su infrastrutture differenti, purché rispettino lo stesso protocollo di comunicazione (tipicamente [[Modello TCP-IP#Http-https HyperText Transfer Protocol (HTTP)|HTTP/HTTPS]]).==
  >   
 >
 >> [!example] **Esempi di client:**
@@ -218,23 +225,24 @@ Il **Backend** è il “cervello” dell’applicazione, la parte **invisibile**
 
 ### Il ruolo del browser web e server web
 Nell’architettura **Client-Server**, oltre all’utente e alla logica applicativa, esistono due attori software fondamentali:
-1. **il browser web** (il client software) 
-2. **il server web** (il backend software). 
+1. **[[#1. Browser web (Client Software)|il browser web]]** (il client software) 
+2. **[[#2. Server Web (Backend Software)|il server web]]** (il backend software). 
 Questi due componenti operano insieme per gestire le richieste e le risposte tra frontend e backend.
 
 #### 1. Browser web (Client Software)
-Il **browser** è il software che funge da lato client dell’architettura: rappresenta il “volto visibile” dell’applicazione per l’utente.
+Il **browser** è il software che funge da lato client dell’architettura: 
+- ==rappresenta il “volto visibile” dell’applicazione per l’utente.==
 
 **Funzioni principali:**
 
 1. **Invio delle richieste:** 
-	- ogni volta che l’utente digita un URL o clicca su un link, il browser invia una richiesta **HTTP** al server per ottenere la risorsa desiderata.
+	- ==ogni volta che l’utente digita un URL o clicca su un link, il browser invia una richiesta **HTTP** al server per ottenere la risorsa desiderata.==
     
 2. **Ricezione e interpretazione della risposta:**
-	-  il browser riceve dal server codice HTML, CSS e JavaScript. Il suo compito è **renderizzare** questi contenuti, trasformandoli in una pagina web completa, visivamente corretta e interattiva.
+	-  ==il browser riceve dal server codice HTML, CSS e JavaScript. Il suo compito è **renderizzare** questi contenuti, trasformandoli in una pagina web completa, visivamente corretta e interattiva.==
     
 3. **Esecuzione del codice JavaScript:** 
-	- gestisce la logica di interattività definita dal frontend, come animazioni, aggiornamenti dinamici della pagina e richieste AJAX o fetch verso le API del backend.
+	- ==gestisce la logica di interattività definita dal frontend, come animazioni, aggiornamenti dinamici della pagina e richieste AJAX o fetch verso le API del backend.==
     
 
 > [!link] Collegamento con la sezione precedente: 
@@ -242,19 +250,25 @@ Il **browser** è il software che funge da lato client dell’architettura: rapp
 
 
 #### 2. Server Web (Backend Software)
-Il **server web** è il software che gestisce le richieste sul lato server. Esempi comuni sono **Apache** o **Nginx**, che girano su macchine server dedicate.
+==Il **server web** è il software che gestisce le richieste sul lato server==. 
+Esempi comuni sono **Apache** o **Nginx**, che girano su macchine server dedicate.
 
 **Funzioni principali:**
 
-1. **Ascolto delle richieste:** il server è sempre in ascolto delle richieste HTTP in arrivo dai browser.
+1. **Ascolto delle richieste:**
+	- ==il server è sempre in ascolto delle richieste HTTP in arrivo dai browser.==
     
-2. **Gestione dei file statici:** se la richiesta riguarda un file statico (immagine, foglio di stile CSS, script JS), il server lo recupera e lo invia direttamente al browser.
+2. **Gestione dei file statici:** 
+	- ==se la richiesta riguarda un file statico (immagine, foglio di stile CSS, script JS), il server lo recupera e lo invia direttamente al browser.==
     
-3. **Gestione delle risorse dinamiche:** se la richiesta riguarda una risorsa dinamica (ad esempio `/api/products/123`), il server inoltra la richiesta all’applicazione backend vera e propria (scritta in Python, Java, Node.js, ecc.). L’applicazione elabora la richiesta, genera i dati di risposta (spesso in **JSON**) e li restituisce al server, che a sua volta li invia al browser del client.
+3. **Gestione delle risorse dinamiche:** 
+	- ==se la richiesta riguarda una risorsa dinamica (ad esempio `/api/products/123`), il server inoltra la richiesta all’applicazione backend vera e propria (scritta in Python, Java, Node.js, ecc.).== 
+	- ==L’applicazione elabora la richiesta, genera i dati di risposta (spesso in **[[Lezione 5 - Il Formato JSON|JSON]]**) e li restituisce al server, che a sua volta li invia al browser del client.==
     
 
 > [!link] **Collegamento con la sezione precedente:** 
-> il server web rappresenta il **backend**, gestendo la logica applicativa, la sicurezza e l’accesso ai dati. Attraverso le **API**, fornisce al frontend le informazioni necessarie per costruire le interfacce dinamiche viste dall’utente.
+> il server web rappresenta il **backend**, gestendo la logica applicativa, la sicurezza e l’accesso ai dati. 
+> ==Attraverso le **[[Lezione 6 - API#API (Application Programming Interface)|API]]**, fornisce al frontend le informazioni necessarie per costruire le interfacce dinamiche viste dall’utente.==
 
 
 > [!example] **In sintesi**
@@ -269,38 +283,39 @@ La distinzione tra **siti web statici** e **applicazioni web dinamiche** è fond
 
 #### Sito web statico 
 
-Un **sito web statico** è costituito da file già pronti: HTML, CSS e JavaScript pre-costruiti.
+==Un **sito web statico** è costituito da file già pronti: HTML, CSS e JavaScript pre-costruiti.==
 
 **Caratteristiche principali:**
 
-- Quando un utente richiede una pagina, il **server web** recupera il file corrispondente e lo invia al browser **così com’è**, senza elaborazioni aggiuntive.
+- ==Quando un utente richiede una pagina, il **[[#2. Server Web (Backend Software)|server web]]** recupera il file corrispondente e lo invia al browser **così com’è**, senza elaborazioni aggiuntive.==
     
-- Il contenuto **non cambia** in base all’utente o alle sue interazioni: ogni visitatore vede esattamente la stessa pagina.
+- ==Il contenuto **non cambia** in base all’utente o alle sue interazioni: ogni visitatore vede esattamente la stessa pagina.==
     
 - **Analogia:** una brochure o un volantino digitale.
     
-- **Uso ideale:** siti di presentazione, portfolio, documentazione, landing page. Questi siti **non richiedono un backend complesso** né un database.
+- **Uso ideale:** siti di presentazione, portfolio, documentazione, landing page. Questi siti **non richiedono un [[#Backend|backend]] complesso** né un database.
     
 
 > [!link] **Collegamento con il [[#Frontend (Lato Client)|Frontend]]/[[#Backend|Backend]]:** 
 > il browser mostra direttamente i contenuti inviati dal server web; non c’è logica dinamica né interazione personalizzata, quindi il backend rimane minimale.
 
 #### Applicazione Web Dinamica
-Un’**applicazione web dinamica** genera pagine o dati **“al volo”**, rispondendo alle richieste dell’utente in modo personalizzato.
+==Un’**applicazione web dinamica** genera pagine o dati **“al volo”**, rispondendo alle richieste dell’utente in modo personalizzato.==
 
 **Caratteristiche principali:**
 
-- Quando un utente richiede una risorsa, la **richiesta passa al backend**, che esegue la logica applicativa.
+- ==Quando un utente richiede una risorsa, la **richiesta passa al backend**, che esegue la logica applicativa.==
     
-- Il backend può interrogare un **database**, personalizzare i contenuti in base all’utente (es. “Ciao, Marco!”) e costruire la risposta, che può essere HTML già pronto o **dati strutturati** (JSON/XML).
+- ==Il backend può interrogare un **database**, personalizzare i contenuti in base all’utente (es. “Ciao, Marco!”) e costruire la risposta, che può essere HTML già pronto o **dati strutturati** (JSON/XML).==
     
-- Il contenuto è quindi **dinamico e interattivo**.
+- ==Il contenuto è quindi **dinamico e interattivo**.==
     
-- **Analogia:** una conversazione: la risposta dipende da chi sei e da cosa chiedi.
+- **Analogia:** ==una conversazione: la risposta dipende da chi sei e da cosa chiedi.==
     
 - **Uso ideale:** social network, e-commerce, piattaforme di online banking, dashboard e qualsiasi applicazione che richieda personalizzazione e interattività.
     
 
 > [!link] **Collegamento con le API:** 
-> nelle applicazioni moderne, le **API REST** permettono al frontend di richiedere e manipolare i dati in modo strutturato e prevedibile. Il backend elabora la richiesta, interroga il database se necessario, e restituisce la risposta al client, garantendo interoperabilità e flessibilità.
+> ==nelle applicazioni moderne, le **API REST** permettono al frontend di richiedere e manipolare i dati in modo strutturato e prevedibile.== 
+> ==Il backend elabora la richiesta, interroga il database se necessario, e restituisce la risposta al client, garantendo interoperabilità e flessibilità.==
 

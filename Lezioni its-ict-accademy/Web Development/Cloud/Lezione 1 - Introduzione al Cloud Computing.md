@@ -20,11 +20,11 @@ Studiare il cloud computing significa quindi capire **come vengono fornite, gest
 
 Il **cloud** può essere visto come un’**astrazione delle risorse informatiche fondamentali**:
 
-- potenza di calcolo;
+- ==potenza di calcolo;==
     
-- spazio di archiviazione;
+- ==spazio di archiviazione;==
     
-- rete.
+- ==rete.==
     
 
 Invece di preoccuparci di server fisici, dischi o cablaggi di rete, il cloud ci permette di lavorare con queste risorse in modo **virtuale**, come servizi accessibili via Internet.
@@ -47,7 +47,7 @@ Nel cloud:
     
 - ==inviamo semplicemente il nostro **carico di lavoro** (applicazioni, API, servizi);==
     
-- il provider cloud si occupa di tutto il resto: hardware, manutenzione, ridondanza, guasti.
+- **il provider cloud si occupa di tutto il resto: hardware, manutenzione, ridondanza, guasti.**
     
 
 Questo approccio consente di concentrarsi **sullo sviluppo del software**, lasciando la complessità infrastrutturale al provider.
@@ -60,7 +60,8 @@ Il cloud computing si basa su tre componenti fondamentali, che rappresentano la 
 Il **Compute** rappresenta la capacità di elaborazione: 
 - [[Il modello di Von Neumann#CPU (Central Processing Unit)|CPU]] e [[Il modello di Von Neumann#RAM|memoria RAM]] [[Docker#La virtualizzazione|virtualizzate]].
 
-Nel cloud possiamo creare **server virtuali on-demand**, senza acquistare hardware fisico. La potenza di calcolo può essere **scalata dinamicamente**:
+Nel cloud possiamo creare **server virtuali on-demand**, senza acquistare hardware fisico. 
+La potenza di calcolo può essere **scalata dinamicamente**:
 
 - ==da un piccolo sito web con esigenze minime;==
     
@@ -74,40 +75,40 @@ Nel concreto, il compute serve a **far girare il codice** della nostra applicazi
 
 Lo **Storage** è lo spazio dedicato alla conservazione dei dati:
 
-- file;
+- ==file;==
     
-- immagini;
+- ==immagini;==
     
-- video;
+- ==video;==
     
-- backup;
+- ==backup;==
     
-- dati applicativi.
+- ==dati applicativi.==
     
 
-Nel cloud lo spazio di archiviazione è **praticamente illimitato** e viene pagato in base all’uso effettivo.  
+==Nel cloud lo spazio di archiviazione è **praticamente illimitato** e viene pagato in base all’uso effettivo.==  
 Esistono diverse tipologie di storage, ottimizzate per esigenze differenti: prestazioni elevate, costi ridotti, archiviazione a lungo termine.
 
 #### 3. Network – Connettività e Rete
 
 Il **Network** gestisce tutta la comunicazione tra i componenti del sistema:
 
-- come i server comunicano tra loro;
+- ==come i server comunicano tra loro;==
     
-- come gli utenti accedono alle applicazioni;
+- ==come gli utenti accedono alle applicazioni;==
     
-- come i dati viaggiano in modo sicuro.
+- ==come i dati viaggiano in modo sicuro.==
     
 
 Include strumenti fondamentali come:
 
-- load balancer;
+- ==load balancer;==
     
-- firewall;
+- ==firewall;==
     
-- reti private virtuali;
+- ==reti private virtuali;==
     
-- CDN per la distribuzione globale dei contenuti.
+- ==CDN per la distribuzione globale dei contenuti.==
     
 
 Nel cloud è possibile definire reti virtuali completamente personalizzate.  
@@ -125,7 +126,7 @@ La **virtualizzazione** rappresenta il vero **fondamento tecnologico del cloud c
 Senza virtualizzazione, il cloud moderno non sarebbe possibile: mancherebbero la flessibilità, la scalabilità e l’efficienza che caratterizzano i servizi cloud.
 ## Cosa si intende per Virtualizzazione
 
-[[Docker#La virtualizzazione|La virtualizzazione]] è la tecnologia che consente di **suddividere un singolo computer fisico in più computer virtuali indipendenti**, chiamati **[[Docker#Le macchine virtuali (VM)|macchine virtuali (VM)]]**.
+==[[Docker#La virtualizzazione|La virtualizzazione]] è la tecnologia che consente di **suddividere un singolo computer fisico in più computer virtuali indipendenti**, chiamati **[[Docker#Le macchine virtuali (VM)|macchine virtuali (VM)]]**.==
 
 Un’analogia efficace è quella di un **palazzo**:
 
@@ -138,41 +139,41 @@ Un’analogia efficace è quella di un **palazzo**:
 
 Ogni macchina virtuale dispone di:
 
-- un proprio sistema operativo;
+- ==un proprio sistema operativo;==
     
-- risorse dedicate (CPU, RAM, storage virtuale);
+- ==risorse dedicate (CPU, RAM, storage virtuale);==
     
-- isolamento rispetto alle altre VM.
+- ==isolamento rispetto alle altre VM.==
 #### Prima e Dopo la Virtualizzazione
 
 ##### Prima della virtualizzazione
 
-Nel modello tradizionale:
+**Nel modello tradizionale:**
 
-- **1 server fisico = 1 sistema operativo = 1 applicazione**
+- ==**1 server fisico = 1 sistema operativo = 1 applicazione**==
     
-- utilizzo delle risorse estremamente basso (circa **10–15%**);
+- ==utilizzo delle risorse estremamente basso (circa **10–15%**);==
     
-- costi elevati per l’acquisto e la manutenzione dell’hardware;
+- ==costi elevati per l’acquisto e la manutenzione dell’hardware;==
     
-- scarsa flessibilità in caso di variazioni del carico.
+- ==scarsa flessibilità in caso di variazioni del carico.==
     
 
 Questo modello portava a un enorme **spreco di risorse** e a tempi di risposta molto lenti alle nuove esigenze.
 
 ### Con la virtualizzazione
 
-Con l’introduzione della virtualizzazione:
+==Con l’introduzione della virtualizzazione:==
 
-- **1 server fisico può ospitare 10, 50 o più macchine virtuali**;
+- ==1 server fisico può ospitare 10, 50 o più macchine virtuali;==
     
-- utilizzo delle risorse molto più efficiente (**80–90%**);
+- ==utilizzo delle risorse molto più efficiente (80–90%);==
     
-- CPU, RAM e storage vengono condivisi in modo intelligente;
+- ==CPU, RAM e storage vengono condivisi in modo intelligente;==
     
-- le VM possono essere **spostate automaticamente** tra host fisici;
+- ==le VM possono essere spostate automaticamente tra host fisici;==
     
-- non è più rilevante sapere su quale server fisico gira una VM.
+- ==non è più rilevante sapere su quale server fisico gira una VM.==
     
 
 Questo approccio abilita un modello molto più **flessibile, economico e scalabile**, tipico del cloud.
@@ -217,13 +218,13 @@ Un’altra conseguenza diretta della virtualizzazione è la possibilità di otte
 Grazie alle VM, il cloud permette di:
 
 - **[[#Scaling Up (Scalabilità Verticale)|Scaling Up]]**: 
-	- aumentare le risorse di una [[Docker#Le macchine virtuali (VM)|VM]] esistente;
+	- ==aumentare le risorse di una [[Docker#Le macchine virtuali (VM)|VM]] esistente;==
     
 - **[[#Scaling Out (Scalabilità Orizzontale) aggiungere nuove macchine|Scaling Out]]**: 
-	- creare nuove [[Docker#Le macchine virtuali (VM)|VM]] in pochi secondi;
+	- ==creare nuove [[Docker#Le macchine virtuali (VM)|VM]] in pochi secondi;==
     
 - **[[#Auto-scaling il pilota automatico delle risorse|Auto-scaling]]**: 
-	- creare o distruggere automaticamente [[Docker#Le macchine virtuali (VM)|VM]] in base al carico.
+	- ==creare o distruggere automaticamente [[Docker#Le macchine virtuali (VM)|VM]] in base al carico.==
     
 
 Questo trasforma la gestione delle risorse IT da un modello **statico e lento** a uno **dinamico e immediato**.
@@ -251,20 +252,20 @@ Questa operazione avviene tramite il pannello di controllo del cloud provider, s
 
 La vera rivoluzione è la **tempestività**:
 
-- l’operazione richiede pochi minuti;
+- ==l’operazione richiede pochi minuti;==
     
-- spesso è sufficiente un semplice riavvio della VM (o talvolta neanche quello);
+- ==spesso è sufficiente un semplice riavvio della VM (o talvolta neanche quello);==
     
-- non è necessario acquistare nuovo hardware o intervenire fisicamente sui server.
+- ==non è necessario acquistare nuovo hardware o intervenire fisicamente sui server.==
     
 
 In sintesi, lo Scaling Up permette di **“potenziare” una macchina esistente** in modo rapido e trasparente, ad esempio in previsione di:
 
-- un picco di traffico;
+- **un picco di traffico;**
     
-- una campagna di marketing;
+- **una campagna di marketing;**
     
-- l’elaborazione di grandi volumi di dati.
+- **l’elaborazione di grandi volumi di dati.**
 
 #### Scaling Out (Scalabilità Orizzontale): aggiungere nuove macchine
 
@@ -281,16 +282,17 @@ Nel cloud, le macchine virtuali vengono create a partire da **immagini o templat
 
 Il processo è il seguente:
 
-- si parte da una VM “base”;
+- ==si parte da una VM “base”;==
     
-- l’hypervisor utilizza il template per **creare cloni identici**;
+- ==l’hypervisor utilizza il template per **creare cloni identici**;==
     
-- le nuove VM vengono avviate in **secondi o minuti**;
+- ==le nuove VM vengono avviate in **secondi o minuti**;==
     
-- un **load balancer** (bilanciatore di carico) distribuisce il traffico in ingresso tra tutte le VM disponibili.
+- ==un **load balancer** (bilanciatore di carico) distribuisce il traffico in ingresso tra tutte le VM disponibili.==
     
 
-Il load balancer ha il compito di evitare che una singola macchina venga sovraccaricata, migliorando **prestazioni** e **affidabilità**.
+Il **load balancer** ha il compito di: 
+- ==evitare che una singola macchina venga sovraccaricata, migliorando **prestazioni** e **affidabilità**.==
 
 > [!done] **Il vero vantaggio: “secondi, non settimane”**
 > Questo approccio rappresenta una rottura netta rispetto all’IT tradizionale.
@@ -376,11 +378,11 @@ Un aspetto fondamentale della virtualizzazione è l’**isolamento completo tra 
 Ogni VM è separata dalle altre, anche se condividono lo stesso hardware fisico.  
 Un’analogia efficace è quella di una **nave a compartimenti stagni**:
 
-- ogni VM è una stanza sigillata;
+- ==ogni VM è una stanza sigillata;==
     
-- se una stanza ha un problema, l’acqua non invade le altre;
+- ==se una stanza ha un problema, l’acqua non invade le altre;==
     
-- l’intera nave rimane operativa.
+- ==l’intera nave rimane operativa.==
     
 
 #### Come viene garantito l’isolamento
@@ -396,15 +398,15 @@ L’hypervisor fornisce a ogni VM:
 - ==un **disco virtuale**.==
     
 
-La VM “crede” di avere hardware dedicato e **non è consapevole dell’esistenza delle altre VM**.
+==La VM “crede” di avere hardware dedicato e **non è consapevole dell’esistenza delle altre VM**.==
 
 Inoltre, l’hypervisor agisce come un **controllore del traffico estremamente rigoroso**:
 
-- ogni accesso all’hardware fisico passa attraverso di lui;
+- ==ogni accesso all’hardware fisico passa attraverso di lui;==
     
-- una VM può usare solo le risorse che le sono state assegnate;
+- ==una VM può usare solo le risorse che le sono state assegnate;==
     
-- è impossibile interferire direttamente con le altre VM.
+- ==è impossibile interferire direttamente con le altre VM.==
 
 > [!done] **Vantaggi pratici dell’isolamento**
 > 

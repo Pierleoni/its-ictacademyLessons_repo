@@ -121,7 +121,7 @@ Proprio come accade per questi documenti!
     In una normale applicazione, ogni cambiamento allo stato comporta aggiornamenti diretti al DOM, che possono rallentare le prestazioni.  
     React utilizza invece un **DOM virtuale**, una copia leggera in memoria del DOM reale.  
     ==Quando lo [[Lezione 7; React#Il concetto di stato in React|stato]] cambia, React aggiorna prima il Virtual DOM, confronta le differenze con il DOM reale e applica **solo le modifiche necessarie**.== Questo approccio migliora notevolmente la performance.
-    
+     ^ed66ba
 - **Rendering delle visualizzazioni:**  
     Le **view** sono gli elementi che l’utente vede nel browser.  
     In React, la visualizzazione è legata al concetto di **rendering di componenti**: 

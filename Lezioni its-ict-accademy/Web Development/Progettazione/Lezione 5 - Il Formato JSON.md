@@ -2,15 +2,16 @@
 
 Nella [[Lezione 4 - Protocollo HTTP 2 parte|lezione precedente]] abbiamo visto come funziona la comunicazione tra _[[Lezione 4 - Protocollo HTTP 2 parte#^client|client]]_ e _[[Lezione 4 - Protocollo HTTP 2 parte#^server|server]]_ tramite il protocollo HTTP: ogni richiesta e risposta contiene un **[[Lezione 4 - Protocollo HTTP 2 parte#^header|header]]**, che trasporta metadati, e un **[[Lezione 4 - Protocollo HTTP 2 parte#^body|body]]**, che contiene l’eventuale contenuto vero e proprio.
 
-Il body può trasportare informazioni in molti formati. Storicamente si è utilizzato spesso l’**XML**, un formato strutturato ma relativamente pesante. Con l’evoluzione delle architetture web, in particolare con l’affermazione delle API REST, è emersa la necessità di un formato:
+Il body può trasportare informazioni in molti formati. 
+Storicamente si è utilizzato spesso l’**XML**, un formato strutturato ma relativamente pesante. Con l’evoluzione delle architetture web, in particolare con l’affermazione delle [[Lezione 6 - API#**• REST (REpresentational State Transfer)**|API REST]], è emersa la necessità di un formato:
 
-- più leggero,
+- ==più leggero,==
     
-- più veloce da trasmettere,
+- ==più veloce da trasmettere,==
     
-- semplice da leggere e scrivere,
+- ==semplice da leggere e scrivere,==
     
-- facilmente gestibile nelle applicazioni JavaScript (ma non solo).
+- ==facilmente gestibile nelle applicazioni JavaScript (ma non solo).==
     
 
 Per soddisfare queste esigenze si è affermato **JSON (JavaScript Object Notation)**, che oggi rappresenta il formato standard per lo scambio dei dati tramite HTTP in ambito web e REST.
@@ -32,7 +33,7 @@ I principali vantaggi sono:
 
 ### **Struttura di un documento JSON**
 
-Un oggetto JSON è racchiuso tra parentesi graffe `{ … }`.  
+==Un oggetto JSON è racchiuso tra parentesi graffe `{ … }`.==  
 Al suo interno contiene **proprietà** espresse con la sintassi:
 
 ```json
@@ -45,17 +46,17 @@ Le proprietà sono separate da virgole.
 
 Un valore JSON può essere:
 
-- un numero
+- ==un numero==
     
-- una stringa (sempre tra doppi apici `" "`)
+- ==una stringa (sempre tra doppi apici `" "`)==
     
-- un valore booleano (`true` / `false`)
+- ==un valore booleano (`true` / `false`)==
     
-- `null`
+- ==`null`==
     
-- un **oggetto** JSON annidato
+- ==un **oggetto** JSON annidato==
     
-- un **array** (`[ ... ]`) contenente elementi dello stesso tipo o misti
+- ==un **array** (`[ ... ]`) contenente elementi dello stesso tipo o misti==
 
 ###### Esempio di formato JSON 
 ```json
@@ -72,8 +73,8 @@ Un valore JSON può essere:
 ```
 
 ### JSON nelle richieste e risposte HTTP
-Sia il _client_ sia il _server_ possono inviare e ricevere dati in formato JSON.  
-Affinché la comunicazione sia corretta, è necessario dichiarare esplicitamente questo formato nell’header HTTP.
+**Sia il _client_ sia il _server_** possono inviare e ricevere dati in formato JSON.  
+Affinché la comunicazione sia corretta, è necessario dichiarare esplicitamente questo formato nell’[[Lezione 7 - Sistemi REST#Gli header HTTP informazioni aggiuntive|header]] HTTP.
 
 #### Dichiarare il formato JSON quando si inviano dati
 Chi invia una richiesta o una risposta che contiene JSON **deve** dichiarare il `Content-Type`:

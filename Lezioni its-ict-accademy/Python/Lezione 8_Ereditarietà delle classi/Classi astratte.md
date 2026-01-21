@@ -42,18 +42,24 @@ Questa classe deve **imporre l’esistenza** del metodo `draw()` nelle classi fi
 from abc import ABC, abstractmethod
 
 class FormaGenerica(ABC):
+    def __init__(self, shape: str) -> None:
+        if not shape:
+            raise ValueError("Shape non può essere una stringa vuota")
+        self.shape = shape
+
     @abstractmethod
     def draw(self) -> None:
-        pass  # Metodo astratto: nessun contenuto qui
+        pass
 
     def setShape(self, shape: str) -> None:
         if shape:
             self.shape = shape
         else:
-            print("Shape non può essere una stringa vuota")
+            raise ValueError("Shape non può essere una stringa vuota")
 
     def getShape(self) -> str:
         return self.shape
+
 ```
 
 **Analisi**:

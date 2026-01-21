@@ -31,11 +31,11 @@ Un modo efficace per comprenderne il ruolo è pensare a cURL come a un **browser
 invece di cliccare su pulsanti o compilare moduli, si inviano richieste HTTP scrivendo comandi testuali.  
 Questa caratteristica lo rende particolarmente adatto a:
 
-- testare e analizzare il comportamento delle API;
+- ==testare e analizzare il comportamento delle API;==
     
-- automatizzare operazioni ripetitive;
+- ==automatizzare operazioni ripetitive;==
     
-- comprendere in modo esplicito il funzionamento del protocollo HTTP.
+- ==comprendere in modo esplicito il funzionamento del protocollo HTTP.==
 
 
 
@@ -83,9 +83,10 @@ curl [opzioni] [URL]
 
 Ad esempio:
 
-- per **recuperare una risorsa**, è sufficiente indicare l’URL;
+- ==per **recuperare una risorsa**, è sufficiente indicare l’URL;==
     
-- per **inviare dati a un server**, si può specificare:
+- ==per **inviare dati a un server**,== 
+- si può specificare:
     
     - **l’opzione `-X`:**
 	    - ==per indicare il metodo HTTP (come `POST` o `PUT`);==
@@ -277,11 +278,11 @@ Oltre ai metodi più comuni, HTTP mette a disposizione il metodo **OPTIONS:**
 
 Una richiesta OPTIONS permette di chiedere al server:
 
-- quali **metodi HTTP** sono consentiti su un endpoint;
+- ==quali **metodi HTTP** sono consentiti su un endpoint;==
     
-- quali **header** possono essere inviati;
+- ==quali **header** possono essere inviati;==
     
-- da quali **origini (domini)** sono accettate le richieste.
+- ==da quali **origini (domini)** sono accettate le richieste.==
     
 
 Questo metodo è fondamentale nel contesto di **CORS** e ==viene spesso inviato **automaticamente dai browser** prima di richieste complesse==.
@@ -307,11 +308,11 @@ Access-Control-Allow-Headers: Content-Type, Authorization
 
 Il server sta comunicando che:
 
-- sull’endpoint `/api/users` sono consentiti i metodi `GET`, `POST`, `PUT`, `DELETE` e `OPTIONS`;
+- ==sull’endpoint `/api/users` sono consentiti i metodi `GET`, `POST`, `PUT`, `DELETE` e `OPTIONS`;==
     
-- accetta richieste da qualsiasi dominio (`*`);
+- ==accetta richieste da qualsiasi dominio (`*`);==
     
-- permette l’uso degli header `Content-Type` e `Authorization`.
+- ==permette l’uso degli header `Content-Type` e `Authorization`.==
 
 
 > [!info] Come inviare una richiesta OPTIONS con cURL
@@ -331,9 +332,9 @@ Il server sta comunicando che:
 >>curl -X OPTIONS https://jsonplaceholder.typicode.com/users
 >>```
 >>Non mostra nessun output di per se, questo perché: 
->>- `OPTIONS` è un **metodo informativo**
->>  Di conseguenza non modifica lo stato del server e serve a render l'[[Lezione 6 - API|API]] auto-descrittiva. 
->>  Quindi `OPTIONS`, è uno strumento di "scoperta" dell'API, non di utilizzo diretto.
+>>- `OPTIONS` ==è un **metodo informativo**==
+>>  ==Di conseguenza non modifica lo stato del server e serve a render l'[[Lezione 6 - API|API]] auto-descrittiva.== 
+>>  Quindi `OPTIONS`, **è uno strumento di "scoperta" dell'API, non di utilizzo diretto.**
 >>Per mostrare gli [[Lezione 7 - Sistemi REST#Gli header HTTP informazioni aggiuntive|header HTTP]] possiamo digitare questo commando: 
 >>```shell
 >>curl -i -X OPTIONS https://jsonplaceholder.typicode.com/users
@@ -374,15 +375,15 @@ Il server sta comunicando che:
 
 #### Il metodo OPTIONS nella pratica 
 Nella maggior parte dei casi, **non è necessario inviare manualmente una richiesta OPTIONS**.  
-OPTIONS è un metodo pensato soprattutto per **descrivere le capacità di un [[Lezione 6 - API|endpoint]]**, non per eseguire operazioni sui dati.
+==OPTIONS è un metodo pensato soprattutto per **descrivere le capacità di un [[Lezione 6 - API|endpoint]]**, non per eseguire operazioni sui dati.==
 
 Può tuttavia essere utilizzato **esplicitamente** in alcuni contesti specifici:
 
-- **Debug**: per verificare quali [[Lezione 7 - Sistemi REST#Livello 2 Verbi HTTP(HTTP Verbs)|metodi HTTP]] sono consentiti su un determinato endpoint;
+- **Debug**: ==per verificare quali [[Lezione 7 - Sistemi REST#Livello 2 Verbi HTTP(HTTP Verbs)|metodi HTTP]] sono consentiti su un determinato endpoint;==
     
-- **Sviluppo**: per comprendere il comportamento e i limiti di un’[[Lezione 6 - API#API (Application Programming Interface)|API]];
+- **Sviluppo**: ==per comprendere il comportamento e i limiti di un’[[Lezione 6 - API#API (Application Programming Interface)|API]];==
     
-- **Tool di test e ispezione**: per analizzare la configurazione del server (metodi ammessi, header consentiti, policy di sicurezza).
+- **Tool di test e ispezione**: ==per analizzare la configurazione del server (metodi ammessi, header consentiti, policy di sicurezza).==
     
 
 In altre parole, OPTIONS serve a rispondere alla domanda:
@@ -409,7 +410,7 @@ In altre parole, OPTIONS serve a rispondere alla domanda:
 
 Il ruolo più importante di OPTIONS emerge nel contesto dei **browser**, in particolare con le **richieste cross-origin**.
 
-Quando un’applicazione web effettua una richiesta che il browser considera “potenzialmente pericolosa” (ad esempio `DELETE`, `PUT`, oppure `POST` con header particolari), **il browser interviene automaticamente** inviando una richiesta OPTIONS preliminare, detta **preflight request**.
+Quando un’applicazione web effettua una richiesta che il browser considera “potenzialmente pericolosa” (ad esempio `DELETE`, `PUT`, oppure `POST` con header particolari), ==**il browser interviene automaticamente** inviando una richiesta OPTIONS preliminare, detta **[[Lezione 9 - Same Origin Policy e CORS#Cos’è una Preflight Request|preflight request]]**.==
 
 Questo comportamento è **automatico** e fa parte del meccanismo di sicurezza [[Lezione 9 - Same Origin Policy e CORS#Cos’è CORS (Cross-Origin Resource Sharing)|CORS]].
 
@@ -421,16 +422,16 @@ fetch('/api/users', { method: 'DELETE' })
 
 Il flusso reale è il seguente:
 
-1. Il browser rileva che `DELETE` è un metodo sensibile;
+1. ==Il browser rileva che `DELETE` è un metodo sensibile;==
     
 2. **invia automaticamente**:
 ```http
 OPTIONS /api/users
 ```
 
-3. Il server risponde indicando se `DELETE` è consentito;
+3. ==Il server risponde indicando se `DELETE` è consentito;==
     
-4. **solo se la risposta è positiva**, il browser invia la richiesta reale:
+4. ==**solo se la risposta è positiva**, il browser invia la richiesta reale:==
 ```http
 DELETE /api/users
 ```

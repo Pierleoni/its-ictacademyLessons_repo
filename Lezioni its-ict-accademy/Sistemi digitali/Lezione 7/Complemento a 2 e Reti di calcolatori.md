@@ -20,7 +20,7 @@ Il complemento a 2 è un metodo usato nella Computer Science e nell'elettronica 
 
 2. **Intervallo di rappresentazione:**
    - In un sistema binario a N bit, il complemento a 2 consente di rappresentare i numeri da: 
-	   - `-2^(N-1)` a `2^(N-1)-1` 
+	   - $-2^{(N-1)}$ a $2^{(N-1)}-1$ 
 
 $2^5$
 ###### Esempi:

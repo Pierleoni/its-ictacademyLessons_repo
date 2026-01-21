@@ -23,11 +23,11 @@ In termini semplici:
 
 Due URL sono considerati della **stessa origine** solo se **tutti e tre** questi elementi coincidono:
 
-- **protocollo** (`http` / `https`);
+1.  ==**protocollo** (`http` / `https`);==
     
-- **dominio**;
+2.  ==**dominio**;==
     
-- **porta**.
+3.  ==**porta**.==
     
 
 #### Esempi
@@ -52,7 +52,7 @@ https://example.com/page2
 ###  Perché esiste la Same-Origin Policy
 
 La Same-Origin Policy è uno dei **pilastri della sicurezza del Web**.  
-Il suo obiettivo è **proteggere l’utente** da comportamenti malevoli.
+Il suo obiettivo ==è **proteggere l’utente** da comportamenti malevoli.==
 
 Senza questa politica, un sito potrebbe:
 
@@ -63,7 +63,7 @@ Senza questa politica, un sito potrebbe:
 - ==accedere a risorse private o riservate.==
     
 
-In altre parole, la SOP impedisce che una pagina web possa **“spiare” o manipolare** risorse appartenenti ad altre origini.
+In altre parole, la SOP ==impedisce che una pagina web possa **“spiare” o manipolare** risorse appartenenti ad altre origini.==
 
 ## Cos’è CORS (Cross-Origin Resource Sharing)
 
@@ -197,7 +197,7 @@ Se la richiesta rientra in questi criteri, il browser **non invia alcuna preflig
 
 
 ### Richieste non semplici e Preflight Request
-Quando una richiesta **esce dai criteri delle Simple Requests**, il browser la considera **potenzialmente pericolosa**.
+Quando una richiesta ==**esce dai criteri delle Simple Requests**, il browser la considera **potenzialmente pericolosa**.==
 
 In questi casi entra in gioco il meccanismo delle **Preflight Requests**.
 
@@ -214,18 +214,18 @@ fetch('http://localhost:3001/users', {
 Motivi del preflight:
 
 1.  metodo non "semplice" ;
-	-  `PUT`
+	-  ==`PUT`==
     
-	- `PATCH`
+	- ==`PATCH`==
     
-	- `DELETE` 
+	- ==`DELETE`== 
     
 2.  header personalizzati: 
-	-  `Authorization`
+	-  ==`Authorization`==
     
-	- `X-Custom-Header`
+	- ==`X-Custom-Header`==
     
-	- `Content-Type: application/json`
+	- ==`Content-Type: application/json`==
     
 3. Oppure entrambi: 
 	- Esempio tipico: 
@@ -255,10 +255,11 @@ Il suo scopo è semplice:
 
 In altre parole, il browser sta chiedendo al server:
 
-> _“Posso davvero eseguire questa richiesta, con questo metodo e questi header, provenendo da questa origine?”_
+> **_“Posso davvero eseguire questa richiesta, con questo metodo e questi header, provenendo da questa origine?”_**
 
-L’utente o lo sviluppatore **non la scrive manualmente**: è il browser a gestire tutto il processo.
-Il browser, quindi, **non si fida ciecamente** e chiede prima il permesso al server.
+L’utente o lo sviluppatore **non la scrive manualmente**: 
+- ==è il browser a gestire tutto il processo.==
+Il browser, quindi, ==**non si fida ciecamente** e chiede prima il permesso al server.==
 
 #### Flusso concettuale (alto livello)
 
@@ -269,24 +270,24 @@ fetch('/api/users', { method: 'DELETE' });
 
 Dal punto di vista del browser:
 
-1. Il client **intende eseguire un’operazione potenzialmente pericolosa** (`DELETE`);
+1. ==Il client **intende eseguire un’operazione potenzialmente pericolosa** (`DELETE`);==
     
-2. Il browser decide di **non inviare subito la richiesta**
+2. ==Il browser decide di **non inviare subito la richiesta**==
     
-3. Invia invece una richiesta **[[Lezione 8 - Chiamate Curl#Il metodo OPTIONS|OPTIONS]]** (preflight);
+3. ==Invia invece una richiesta **[[Lezione 8 - Chiamate Curl#Il metodo OPTIONS|OPTIONS]]** (preflight);==
     
-4. Attende la risposta del server;
+4. ==Attende la risposta del server;==
     
-5. Solo se il server autorizza l’operazione, invia la richiesta originale.
+5. ==Solo se il server autorizza l’operazione, invia la richiesta originale==.
 
 ##### Cosa contiene una Preflight Request
 La richiesta **OPTIONS** inviata dal browser contiene informazioni fondamentali, tra cui:
 
-- l’**origine** della richiesta (`Origin`);
+- ==l’**origine** della richiesta (`Origin`);==
     
-- il **metodo HTTP** che il client vorrebbe usare (`Access-Control-Request-Method`);
+- ==il **metodo HTTP** che il client vorrebbe usare (`Access-Control-Request-Method`);==
     
-- gli **header personalizzati** che verranno inviati (`Access-Control-Request-Headers`).
+- ==gli **header personalizzati** che verranno inviati (`Access-Control-Request-Headers`).==
 Esempio concettuale:
 ```http
 OPTIONS /api/users HTTP/1.1
@@ -295,7 +296,7 @@ Access-Control-Request-Method: DELETE
 ```
 
 ##### Cosa deve fare il server 
-Il server **deve rispondere esplicitamente** alla preflight request, indicando cosa è consentito.
+==Il server **deve rispondere esplicitamente** alla preflight request, indicando cosa è consentito.==
 
 Esempio di risposta corretta:
 ```http
@@ -307,11 +308,11 @@ Access-Control-Allow-Headers: Authorization, Content-Type
 
 Questa risposta equivale a dire:
 
-> “Sì, accetto richieste DELETE da questa origine, con questi header.”
+> **“Sì, accetto richieste DELETE da questa origine, con questi header.”**
 
 ##### Solo dopo il browser invia la richiesta reale
 
-**Se (e solo se)** la risposta alla preflight è positiva, il browser procede con la richiesta originale:
+==**Se (e solo se)** la risposta alla preflight è positiva, il browser procede con la richiesta originale==:
 ```http
 DELETE /api/users HTTP/1.1
 Origin: https://myapp.com
@@ -376,50 +377,50 @@ Durante questo scambio, entrano in gioco alcuni header fondamentali:
 ##### Header inviati dal browser (preflight)
 
 - `Origin`: 
-	- Indica **l’origine della richiesta**, cioè **da dove proviene il codice client** che sta effettuando la chiamata.
+	- ==Indica **l’origine della richiesta**, cioè **da dove proviene il codice client** che sta effettuando la chiamata.==
 
 	- L’**origin** è composta da:
 
-		- protocollo (`http` / `https`)
+		- ==protocollo (`http` / `https`)==
     
-		- dominio
+		- ==dominio==
     
-		- porta
+		- ==porta==
     
 > [!warning] Nota:
 >
->- `Origin` **non è impostato manualmente** dal client JavaScript;
+>- `Origin` ==**non è impostato manualmente** dal client JavaScript;==
   >  
->- viene aggiunto **automaticamente dal browser**;
+>- ==viene aggiunto **automaticamente dal browser**;==
   >  
->- strumenti come `cURL` o `Postman` **non applicano CORS** e possono inviarlo solo manualmente.
+>- ==strumenti come `cURL` o `Postman` **non applicano CORS** e possono inviarlo solo manualmente.==
 
 
 - `Access-Control-Request-Method`: 
-	- Specifica **quale [[Lezione 7 - Sistemi REST#Livello 2 Verbi HTTP(HTTP Verbs)|metodo HTTP]]** il client **intende utilizzare nella richiesta reale**.
-	- Se il metodo non è incluso nell’elenco restituito dal server, **il browser blocca la richiesta reale.**
+	- ==Specifica **quale [[Lezione 7 - Sistemi REST#Livello 2 Verbi HTTP(HTTP Verbs)|metodo HTTP]]** il client **intende utilizzare nella richiesta reale**.==
+	- ==Se il metodo non è incluso nell’elenco restituito dal server, **il browser blocca la richiesta reale.**==
     
 - `Access-Control-Request-Headers`: 
-	- Indica **quali header HTTP personalizzati** il client **intende inviare nella richiesta reale**.
-	- Se l’header non è presente nell’elenco consentito dal server, **il browser blocca l’operazione prima dell’invio**.
+	- ==Indica **quali header HTTP personalizzati** il client **intende inviare nella richiesta reale**.==
+	- ==Se l’header non è presente nell’elenco consentito dal server, **il browser blocca l’operazione prima dell’invio**.==
     
 
 ##### Header restituiti dal server
 
 - `Access-Control-Allow-Origin` : 
-	- Indica quali origini (origin) sono autorizzate ad accedere alla risorsa.
+	- ==Indica quali origini (origin) sono autorizzate ad accedere alla risorsa.==
 	-  Può essere:
 		  - un’origin specifica (`http://localhost:3000`)
 		  - `*` (tutte le origin, **solo se non si usano credenziali**)
     
 - `Access-Control-Allow-Methods`: 
-	- Specifica quali metodi HTTP il server consente per le richieste cross-origin(`GET`, `POST`, `PUT`, etc.)
-	- Se il metodo non è elencato, la richiesta reale non verrà inviata. 
-	-  Questo header è **fondamentale nelle preflight request**.
+	- ==Specifica quali metodi HTTP il server consente per le richieste cross-origin(`GET`, `POST`, `PUT`, etc.)==
+	- ==Se il metodo non è elencato, la richiesta reale non verrà inviata.== 
+	-  ==Questo header è **fondamentale nelle preflight request**.==
     
 - `Access-Control-Allow-Headers`: 
-	- Indica quali **header HTTP personalizzati** il client è autorizzato a inviare.
-	- Se l'header non è presente nell'elenco il browser **blocca la richiesta**.
+	- ==Indica quali **header HTTP personalizzati** il client è autorizzato a inviare.==
+	- ==Se l'header non è presente nell'elenco il browser **blocca la richiesta**.==
     
 - `Access-Control-Allow-Credentials`: 
 	- ==Indica se il server **consente l’invio di credenziali** nella richiesta.==
@@ -431,11 +432,11 @@ Durante questo scambio, entrano in gioco alcuni header fondamentali:
 		- certificati client-side.
 	
 > [!info] **Regole fondamentali**
-> - se è `true`, il browser **può inviare credenziali**;
+> - ==se è `true`, il browser **può inviare credenziali**;==
 >  
->- se è `false` o assente, le credenziali vengono **bloccate**;
+>- ==se è `false` o assente, le credenziali vengono **bloccate**;==
 >  
->- **non può essere usato insieme a** `Access-Control-Allow-Origin: *`
+>- ==**non può essere usato insieme a** `Access-Control-Allow-Origin: *`==
 
     
 - `Access-Control-Max-Age`: 

@@ -23,7 +23,7 @@ Immagina di dover organizzare una festa:
 
 1. **A casa tua**  
     Devi comprare tutto, cucinare, pulire prima e dopo.  
-    → **Cloud Privato**
+    → **[[#Cloud Privato|Cloud Privato]]**
     
 2. **Affittare una sala**  
     Paghi solo per la serata e qualcun altro gestisce pulizie e logistica.  
@@ -31,11 +31,11 @@ Immagina di dover organizzare una festa:
     
 3. **Usare entrambe le soluzioni**  
     Antipasti a casa, cena nella sala.  
-    → **Cloud Ibrido**
+    → **[[#Cloud Ibrido|Cloud Ibrido]]**
     
 4. **Affittare più sale contemporaneamente**  
     Una per il pranzo, una per la cena, magari da gestori diversi.  
-    → **Multi-Cloud**
+    → **[[#Multi-Cloud|Multi-Cloud]]**
     
 
 Allo stesso modo, nel cloud un’azienda può decidere **come combinare risorse proprie e risorse esterne**, in base a costi, sicurezza, flessibilità e vincoli normativi.
@@ -77,7 +77,7 @@ Quindi le risorse **non risiedono fisicamente presso l’azienda**,
 >     
 > 
 > Il cliente non accede mai direttamente all’hardware fisico: 
-> - interagisce con l’infrastruttura **solo tramite console web o [[Lezione 6 - API#API (Application Programming Interface)|API]]**.
+> - **interagisce con l’infrastruttura solo tramite console web o [[Lezione 6 - API#API (Application Programming Interface)|API]].**
 
 In sintesi, nel cloud pubblico: 
 - ==**l’azienda si concentra sull’uso delle risorse**,== 
@@ -89,21 +89,21 @@ Dal punto di vista pratico, l’utilizzo del cloud pubblico segue un flusso ben 
 
 Il processo tipico è il seguente:
 
-1. si accede alla **[[Lezione 2 - Data center astratto#La soluzione dell’astrazione il Pannello di Controllo Unificato (console web del cloud provider)|console web del cloud provider]]** oppure si utilizzano le relative **[[Lezione 6 - API#API (Application Programming Interface)|API]]**;
+1. ==si accede alla **[[Lezione 2 - Data center astratto#La soluzione dell’astrazione il Pannello di Controllo Unificato (console web del cloud provider)|console web del cloud provider]]** oppure si utilizzano le relative **[[Lezione 6 - API#API (Application Programming Interface)|API]]**;==
     
-2. si seleziona il **tipo di risorsa** da creare (ad esempio una **[[Docker#Le macchine virtuali (VM)|macchina virtuale]]**);
+2. ==si seleziona il **tipo di risorsa** da creare (ad esempio una **[[Docker#Le macchine virtuali (VM)|macchina virtuale]]**);==
     
-3. si configurano i principali parametri:
+3. **si configurano i principali parametri:**
     
-    - potenza di calcolo (CPU e RAM),
+    - ==potenza di calcolo (CPU e RAM),==
         
-    - sistema operativo,
+    - ==sistema operativo,==
         
-    - rete e regole di accesso;
+    - ==rete e regole di accesso;==
         
-4. si conferma la creazione della risorsa;
+4. ==si conferma la creazione della risorsa;==
     
-5. **nel giro di pochi minuti** il server virtuale è operativo e pronto all’uso.
+5. ==**nel giro di pochi minuti** il server virtuale è operativo e pronto all’uso.==
     
 
 #### Modello di costo: _Pay-as-you-go_
@@ -120,18 +120,18 @@ Il principio è analogo a quello di una **bolletta elettrica**:
 > ==**usi la risorsa → consumi → paghi**==
 
 Questo modello elimina gli investimenti iniziali elevati e rende i costi **proporzionali all’uso reale**, favorendo 
-- sperimentazione, 
-- scalabilità 
-- controllo della spesa.
+- ==sperimentazione,== 
+- ==scalabilità== 
+- ==controllo della spesa.==
 
 ##### Vantaggi del cloud pubblico
 
 > [!done] **Nessun investimento iniziale**
-> - non è necessario acquistare hardware;
+> - ==non è necessario acquistare hardware;==
  >   
->- non servono decine di migliaia di euro in anticipo;
+>- ==non servono decine di migliaia di euro in anticipo;==
   >  
->- puoi partire con costi minimi (anche pochi euro al mese).
+>- ==puoi partire con costi minimi (anche pochi euro al mese).==
    > 
 >
 >Questo abbassa drasticamente la **barriera di ingresso**, soprattutto per startup e piccoli progetti.
@@ -147,11 +147,11 @@ Questo modello elimina gli investimenti iniziali elevati e rende i costi **propo
 >
 >Questo consente di:
 >
->- testare idee rapidamente;
+>- ==testare idee rapidamente;==
   >  
->- ridurre il time-to-market;
+>- ==ridurre il time-to-market;==
   >  
->- reagire velocemente al mercato.
+>- ==reagire velocemente al mercato.==
 
 
 > [!done] **Scalabilità automatica**
@@ -159,11 +159,11 @@ Questo modello elimina gli investimenti iniziali elevati e rende i costi **propo
 >
 >Il cloud pubblico cresce e si riduce insieme al carico:
 >
->- pochi utenti → poche risorse;
+>- ==pochi utenti → poche risorse;==
    > 
->- picchi improvvisi → molte risorse create automaticamente;
+>- ==picchi improvvisi → molte risorse create automaticamente;==
    > 
->- fine del picco → risorse eliminate.
+>- ==fine del picco → risorse eliminate.==
   >  
 >
 >Il tutto avviene senza interventi manuali e senza sprechi strutturali.
@@ -173,13 +173,13 @@ Questo modello elimina gli investimenti iniziali elevati e rende i costi **propo
 > [!done] **Manutenzione delegata**
 > Il provider si occupa di:
 >
->- sostituzione dell’hardware guasto;
+>- ==sostituzione dell’hardware guasto;==
   >  
->- aggiornamenti dell’infrastruttura;
+>- ==aggiornamenti dell’infrastruttura;==
    > 
->- alimentazione e continuità elettrica;
+>- ==alimentazione e continuità elettrica;==
    > 
->- raffreddamento e sicurezza fisica.
+>- ==raffreddamento e sicurezza fisica.==
    > 
 >
 >Dal punto di vista dell’azienda, l’infrastruttura **semplicemente funziona**.
@@ -371,23 +371,23 @@ Il modello è quindi **rigido e pianificato**, non elastico.
 > [!done] **Controllo totale dell’infrastruttura**
 > - l’azienda **sceglie ogni componente**:
  >   
-  >  - marca dei server;
+  >  - ==marca dei server;==
   >      
-  >  - configurazione hardware;
+  >  - ==configurazione hardware;==
  >       
- >   - rete e firewall;
+ >   - ==rete e firewall;==
 >        
->- i server sono **fisicamente accessibili**;
+>- ==i server sono **fisicamente accessibili**;==
   >  
->- nessuna dipendenza da provider esterni.
+>- ==nessuna dipendenza da provider esterni.==
 
 
 > [!done] **Massimo controllo sui dati**
-> - i dati risiedono **fisicamente all’interno dell’azienda**;
+> - ==i dati risiedono **fisicamente all’interno dell’azienda**;==
  >   
->- l’accesso fisico è limitato e controllato;
+>- ==l’accesso fisico è limitato e controllato;==
  >   
->- non esiste il rischio di co-locazione con dati di terzi.
+>- ==non esiste il rischio di co-locazione con dati di terzi.==
   >  
 >
 >Questo aspetto è cruciale per:
@@ -417,11 +417,11 @@ Il modello è quindi **rigido e pianificato**, non elastico.
 
 
 > [!done] **Operatività locale**
-> - i sistemi interni possono funzionare anche:
+> - **i sistemi interni possono funzionare anche:**
 >    
- >   - senza connessione Internet;
+ >   - ==senza connessione Internet;==
  >       
- >   - in reti isolate (intranet).
+ >   - ==in reti isolate (intranet).==
  >       
 >
 >Questo è un vantaggio in contesti industriali o critici.
@@ -432,7 +432,7 @@ Il modello è quindi **rigido e pianificato**, non elastico.
 
 > [!failure] **Investimento iniziale elevato**
 >
->- l’infrastruttura va acquistata **prima di sapere se servirà davvero**;
+>- ==l’infrastruttura va acquistata **prima di sapere se servirà davvero**;==
   >  
 >- investimento tipico:
 >    
@@ -440,9 +440,9 @@ Il modello è quindi **rigido e pianificato**, non elastico.
  >       
 >- se il progetto fallisce:
 >    
->    - l’investimento è già stato sostenuto;
+>    - ==l’investimento è già stato sostenuto;==
 >        
->    - l’hardware perde rapidamente valore.
+>    - ==l’hardware perde rapidamente valore.==
 
 
 
@@ -548,22 +548,22 @@ Una banca di medie dimensioni:
 >
 >Il **cloud privato** offre:
 >
->- massimo controllo;
+>- ==massimo controllo;==
  >   
->- massima sicurezza fisica;
+>- ==massima sicurezza fisica;==
   >  
->- costi prevedibili.
+>- ==costi prevedibili.==
   >  
 >
 >Ma richiede:
 >
->- grandi investimenti iniziali;
+>- ==grandi investimenti iniziali;==
   >  
->- tempi lunghi;
+>- ==tempi lunghi;==
   >  
->- personale specializzato;
+>- ==personale specializzato;==
    > 
->- scarsa elasticità.
+>- ==scarsa elasticità.==
    > 
 >
 >È una soluzione **potente ma rigida**, adatta solo a contesti in cui **controllo e compliance** sono più importanti di **flessibilità e velocità**.

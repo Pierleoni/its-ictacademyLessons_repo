@@ -76,7 +76,7 @@ In pratica, quando vogliamo visitare un sito web ci basta ricordare il nome di d
 > `www.cisco.com` → `198.133.219.25`
 
 
-Seguendo l'esempio fornito:  all'utente serve il nome di dominio (`www.cisco.com`) Il DSN lo traduce in indirizzo IP corrispondente, necessario per stabilire la connessione.
+Seguendo l'esempio fornito:  all'utente serve il nome di dominio (`www.cisco.com`) ==Il DSN lo traduce in indirizzo IP corrispondente, necessario per stabilire la connessione.==
 Questo perché il nome si compone di domini: 
 - `.com` è il **Top-Level Domain (TLD)**
     
@@ -84,7 +84,7 @@ Questo perché il nome si compone di domini:
 
 ![](https://i.imgur.com/4ymJgVT.png)
 #### Come funziona il DNS (passaggi principali)
-Il DNS è un **componente critico di Internet**: senza di esso gli utenti sarebbero costretti a ricordare solo gli indirizzi IP.
+Il DNS è un **componente critico di Internet**: ==senza di esso gli utenti sarebbero costretti a ricordare solo gli indirizzi IP==.
 Supponiamo di voler navigare su un sito web: apriamo il browser → componiamo l'URL→ premiamo invio:
 Il flusso prevede **6 passaggi** che sono i seguenti: 
 1. **DNS Query:** 

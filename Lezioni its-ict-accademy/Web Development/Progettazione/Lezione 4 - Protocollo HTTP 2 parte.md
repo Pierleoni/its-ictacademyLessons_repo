@@ -4,27 +4,27 @@ Ora approfondiamo meglio il Protocollo HTTP.
 
 ## HTTPS – HyperText Transfer Protocol Secure
 - Definizione: 
-	- non è un protocollo nuovo, ma una versione di **HTTP con sicurezza aggiuntiva** fornita da SSL/TLS.
+	- ==non è un protocollo nuovo, ma una versione di **HTTP con sicurezza aggiuntiva** fornita da SSL/TLS.==
     
 - **Funzionamento:**
-	-  HTTP si occupa della trasmissione di pagine web.
+	-  ==HTTP si occupa della trasmissione di pagine web.==
     
-	- Con HTTPS, tutte le comunicazioni tra **client (browser)** e **server** vengono **crittografate**, impedendo che possano essere intercettate o modificate da terzi.
+	- Con HTTPS, ==tutte le comunicazioni tra **client (browser)** e **server** vengono **crittografate**, impedendo che possano essere intercettate o modificate da terzi==.
 
 - **Come si riconosce:**
 
-	- Presenza del prefisso `https://` nell’URL.
+	- **Presenza del prefisso `https://` nell’URL.**
     
-	- Icona del **lucchetto (🔒)** nella barra degli indirizzi del browser.
+	- **Icona del lucchetto (🔒) nella barra degli indirizzi del browser.**
 
 
 ### Livello di sicurezza
 
 - **SSL (Secure Sockets Layer):** 
-	- prima versione, oggi **obsoleta e insicura**.
+	- ==prima versione, oggi **obsoleta e insicura**.==
     
 - **TLS (Transport Layer Security):** 
-	- versione più recente e sicura, attuale standard.
+	- ==versione più recente e sicura, attuale standard.==
     
 
 > [!NOTE] **Nota:**
@@ -36,25 +36,25 @@ HTTPS fornisce tre garanzie di sicurezza fondamentali:
 
 1. **Crittografia (Encryption)** 🔒
     
-    - Rende i dati **illeggibili** a chi intercetta la comunicazione.
+    - ==Rende i dati **illeggibili** a chi intercetta la comunicazione.==
         
     - Funziona grazie a **2** meccanismi combinati:
         
-        - **Crittografia Asimmetrica (chiave pubblica/privata):** usata all’avvio per scambiare in modo sicuro la chiave di sessione.
+        - **Crittografia Asimmetrica (chiave pubblica/privata):** ==usata all’avvio per scambiare in modo sicuro la chiave di sessione.==
             
-        - **Crittografia Simmetrica (chiave condivisa):** più veloce; una volta stabilita la chiave segreta, viene usata per crittografare tutto il traffico della sessione.
+        - **Crittografia Simmetrica (chiave condivisa):** ==più veloce; una volta stabilita la chiave segreta, viene usata per crittografare tutto il traffico della sessione.==
             
 2. **Autenticazione (Authentication)** ✅
     
-    - Garantisce che il client stia parlando **con il server giusto** (es. google.com) e non con un impostore.
+    - ==Garantisce che il client stia parlando **con il server giusto** (es. google.com) e non con un impostore.==
         
-    - Si basa sul **certificato digitale SSL/TLS** emesso da un’autorità di certificazione (CA).
+    - ==Si basa sul **certificato digitale SSL/TLS** emesso da un’autorità di certificazione (CA).==
         
 3. **Integrità (Integrity)** 🛡️
     
-    - Assicura che i dati **non vengano alterati** durante il transito.
+    - ==Assicura che i dati **non vengano alterati** durante il transito.==
         
-    - Ogni messaggio include un **Message Authentication Code (MAC)**, cioè una sorta di “firma digitale” che il destinatario può verificare.
+    - ==Ogni messaggio include un **Message Authentication Code (MAC)**, cioè una sorta di “firma digitale” che il destinatario può verificare.==
 
 ##### Il certificato SSL/TLS Handshake
 
@@ -63,41 +63,41 @@ Esattamente come per i due passaggi ([[Modello TCP-IP#**1. TCP Connection Establ
 
 1. **Client Hello** 👋
     
-    - Il browser (client) contatta il server.
+    - ==Il browser (client) contatta il server.==
         
-    - Comunica le versioni TLS e gli algoritmi di crittografia che supporta.
+    - ==Comunica le versioni TLS e gli algoritmi di crittografia che supporta.==
         
 2. **Server Hello** 📜
     
-    - Il server risponde scegliendo la versione TLS e l’algoritmo.
+    - ==Il server risponde scegliendo la versione TLS e l’algoritmo.==
         
-    - Invia il suo **Certificato SSL/TLS** e la **chiave pubblica**.
+    - ==Invia il suo **Certificato SSL/TLS** e la **chiave pubblica**.==
         
 3. **Verifica del Certificato** ✅
     
     - Il browser controlla che il certificato:
         
-        - non sia scaduto,
+        - ==non sia scaduto,==
             
-        - sia valido per il dominio richiesto,
+        - ==sia valido per il dominio richiesto,==
             
-        - sia firmato da una **Certificate Authority (CA)** fidata.
+        - ==sia firmato da una **Certificate Authority (CA)** fidata.==
             
 4. **Scambio della Chiave di Sessione** 🔒
     
-    - Se tutto è ok, il browser genera una **chiave segreta di sessione**.
+    - ==Se tutto è ok, il browser genera una **chiave segreta di sessione**.==
         
-    - La crittografa con la **chiave pubblica del server** e la invia.
+    - ==La crittografa con la **chiave pubblica del server** e la invia.==
         
     - Esistono diversi metodi di scambio chiavi (es. RSA, Diffie-Hellman, ECDHE), ma lo scopo è sempre lo stesso: stabilire una chiave condivisa in modo sicuro.
         
 5. **Sessione Sicura** 🚀
     
-    - Solo il server, con la sua **chiave privata**, può decifrare.
+    - ==Solo il server, con la sua **chiave privata**, può decifrare.==
         
-    - Ora client e server condividono la stessa chiave segreta.
+    - ==Ora client e server condividono la stessa chiave segreta.==
         
-    - Da qui in poi tutta la comunicazione avviene con **crittografia simmetrica** (più veloce).
+    - ==Da qui in poi tutta la comunicazione avviene con **crittografia simmetrica** (più veloce).==
         
 
 >[!example] **In sintesi**: 
@@ -150,11 +150,11 @@ I certificati SSL/TLS **commerciali** sono rilasciati da **Certificate Authority
     
 - **Gamma più ampia di prodotti**:
     
-    - certificati convalidati sul dominio (DV),
+    - ==certificati convalidati sul dominio (DV),==
         
-    - convalidati sull’organizzazione (OV),
+    - ==convalidati sull’organizzazione (OV),==
         
-    - convalidati estesi (EV, con la “barra verde” nei browser più datati).
+    - ==convalidati estesi (EV, con la “barra verde” nei browser più datati).==
         
 - Offrono **servizi aggiuntivi**: garanzie economiche, supporto tecnico, soluzioni aziendali avanzate.
     
@@ -174,11 +174,11 @@ I certificati SSL/TLS **commerciali** sono rilasciati da **Certificate Authority
     
 - 🔧 La soluzione è **SNI (Server Name Indication)**:
     
-    - Estensione di TLS.
+    - ==Estensione di TLS.==
         
-    - Permette al browser di comunicare al server il **dominio richiesto**.
+    - ==Permette al browser di comunicare al server il **dominio richiesto**.==
         
-    - Il server risponde presentando il **certificato corretto**.
+    - ==Il server risponde presentando il **certificato corretto**.==
 
 
 #### I livelli di validazione dei certificati: DV, OV ed EV
@@ -187,26 +187,26 @@ Quando una Certificate Authority (CA) emette un certificato, esegue un processo 
 1. **Domain Validation(DV):**
 - **Cos’è**
 
-	- È il livello **più semplice e diffuso** di certificato SSL/TLS.
+	- ==È il livello **più semplice e diffuso** di certificato SSL/TLS.==
     
-	- La **CA verifica solo il controllo del dominio**, non l’identità reale del proprietario.
+	- ==La **CA verifica solo il controllo del dominio**, non l’identità reale del proprietario.==
     
 
 -  **Come funziona la verifica**
 
 	- Tutto il processo è **automatizzato**.
     
-	- La CA controlla che il richiedente abbia il dominio in gestione, ad esempio:
+	- ==La CA controlla che il richiedente abbia il dominio in gestione, ad esempio:==
     
-	    - Rispondendo a un’email inviata a indirizzi standard (es. admin@dominio.it
+	    - Rispondendo a un’email inviata a indirizzi standard (es. `admin@dominio.it`
 
 - **Caratteristiche**
 
-	- **Veloce**: ottenibile in pochi minuti.
+	- **Veloce**: ==ottenibile in pochi minuti.==
     
 	- **Economico (spesso gratuito)**: es. Let's Encrypt.
     
-	- Garantisce **crittografia sicura** del traffico.
+	- ==Garantisce **crittografia sicura** del traffico.==
     
 	- ❌ Non fornisce alcuna informazione sull’identità dell’organizzazione (solo il dominio è verificato).
     
@@ -228,9 +228,9 @@ Quando una Certificate Authority (CA) emette un certificato, esegue un processo 
 2. **Organization Validation (OV):**
 - **Cos’è**
 
-	- Include **tutte le verifiche del DV** (controllo del dominio).
+	- ==Include **tutte le verifiche del DV** (controllo del dominio).==
     
-	- Aggiunge una **verifica manuale** dell’organizzazione da parte della CA.
+	- ==Aggiunge una **verifica manuale** dell’organizzazione da parte della CA.==
     
 	- Un operatore umano controlla l’esistenza legale e la legittimità dell’organizzazione tramite:
 	    
@@ -267,7 +267,7 @@ Quando una Certificate Authority (CA) emette un certificato, esegue un processo 
 3. **Extended Validation (EV)** 
 - **Cos’è**
 
-	- Livello di validazione **più rigoroso e standardizzato**.
+	- ==Livello di validazione **più rigoroso e standardizzato**.==
 	    
 	- La CA effettua un controllo approfondito dell’organizzazione, secondo linee guida severe, verificando:
     
@@ -381,29 +381,29 @@ Quando una Certificate Authority (CA) emette un certificato, esegue un processo 
 
 1. **Ruolo del server**  ^server
     
-    - Il [[Reti di computer#^b4e999|server]] è il componente che offre servizi o risorse (ad esempio, dati su utenti, prodotti, post di un blog).
+    - ==Il [[Reti di computer#^b4e999|server]] è il componente che offre servizi o risorse (ad esempio, dati su utenti, prodotti, post di un blog).==
         
-    - Rimane “in attesa” delle richieste dei client, pronto a rispondere ogni volta che ne arriva una.
+    - ==Rimane “in attesa” delle richieste dei client, pronto a rispondere ogni volta che ne arriva una.==
         
 2. **Ruolo del client** ^client
     
-    - Il [[Reti di computer#^81dc1c|client]] è colui che richiede un servizio al server. Può essere un’applicazione web, un’app mobile o un altro server.
+    - ==Il [[Reti di computer#^81dc1c|client]] è colui che richiede un servizio al server. Può essere un’applicazione web, un’app mobile o un altro server.==
         
-    - Per richiedere un servizio, il client deve specificare **dove** e **cosa** vuole fare.
+    - ==Per richiedere un servizio, il client deve specificare **dove** e **cosa** vuole fare.==
         
-3. **URL: dove andare**
+3. **URL: dove andare**  ^url
     
     - ==L’URL indica **esattamente la risorsa** sul server a cui il client vuole accedere.==
         
     - Si compone di:
         
-        - **protocollo** (es. `http` o `https`) → indica come comunicare.
+        - **protocollo** (es. `http` o `https`) → ==indica come comunicare.==
             
-        - **IP o dominio** → identifica il server.
+        - **IP o dominio** → ==identifica il server.==
             
-        - **porta** → opzionale, indica la porta del servizio sul server.
+        - **porta** → ==opzionale, indica la porta del servizio sul server.==
             
-        - **path/resource** → indica la risorsa specifica, ad esempio `/users/123` per l’utente con ID 123.
+        - **path/resource** → ==indica la risorsa specifica, ad esempio `/users/123` per l’utente con ID 123.==
             
     - Esempio completo:
 ```
@@ -420,7 +420,7 @@ http://192.168.1.10:8080/users/123
              ^04d1a5
         - **POST** → ==creare una nuova risorsa (es. aggiungere un nuovo utente).==  
              ^9ffd01
-        - **PUT** → aggiornare **tutta** la risorsa (es. modificare tutti i dati di un utente).  
+        - **PUT** → ==aggiornare **tutta** la risorsa== (es. modificare tutti i dati di un utente).  
              ^523224
         - **PATCH** → ==aggiornare **parzialmente** la risorsa (es. cambiare solo l’email di un utente).==   
               
@@ -453,7 +453,7 @@ Ogni comunicazione HTTP — ==sia in ingresso (**request**) sia in uscita (**res
     
     - In passato si utilizzavano formati come **XML**.
         
-    - Nelle architetture REST moderne, lo standard di fatto è **JSON**, grazie alla sua leggerezza e leggibilità.
+    - Nelle architetture REST moderne, lo standard di fatto è **[[Lezione 5 - Il Formato JSON#Cos’è il JSON e perché viene utilizzato|JSON]]**, grazie alla sua leggerezza e leggibilità.
 
 #### Come il client può inviare dati al server 
 Il client dispone di **tre modalità principali** per trasmettere dati all’interno di una richiesta HTTP. 
@@ -479,7 +479,7 @@ http://ip:port/path/resource/aaa/bbb
 
 3. **Body della richiesta**  
 	- ==I dati vengono inseriti nel corpo della request==.  
-	È il metodo preferito quando si inviano payload complessi (creazione o modifica di risorse), solitamente in formato JSON.  
+	È il metodo preferito quando si inviano [[Lezione 6 - API#Payload|payload]] complessi (creazione o modifica di risorse), solitamente in formato JSON.  
 	Esempio:
 ```json
 {
@@ -495,35 +495,33 @@ Il server ha un’unica modalità principale per restituire i dati:
 - ==**inserirli nel body della response**.==
     
 
-Il body della risposta contiene l’informazione richiesta dal client, tipicamente anch’essa in formato **JSON** nelle API REST.
+Il body della risposta contiene l’informazione richiesta dal client, tipicamente anch’essa in formato **JSON** nelle [[Lezione 6 - API#**• REST (REpresentational State Transfer)**|API REST]].
 
 L’header della response, come nella request, trasporta invece i metadati (es. `Content-Type`, codice di stato HTTP, eventuali cookie, informazioni sulla cache, ecc.).
 
 ### Status Code HTTP
 
-
-
 Ogni volta che il server riceve una richiesta, è obbligato a restituire uno **status code:** 
-- cioè un codice numerico che comunica al client l’esito dell’operazione.  
-Questi codici sono suddivisi per fasce di 100, e ogni fascia rappresenta una categoria di risposta.
+- ==cioè un codice numerico che comunica al client l’esito dell’operazione.==  
+Questi codici sono suddivisi **per fasce di 100**, e ogni fascia rappresenta una categoria di risposta.
 
 #### 1. Codici 2xx - Successo
-Indicano che la richiesta è stata compresa, accettata ed eseguita correttamente.
+==Indicano che la richiesta è stata compresa, accettata ed eseguita correttamente.==
 
 - **200 – OK**  
-    - Risposta standard per un'operazione conclusa con successo.  
-    - Viene usato soprattutto nella lettura di risorse ([[#^04d1a5|GET]]).
+    - ==Risposta standard per un'operazione conclusa con successo.==  
+    - **Viene usato soprattutto nella lettura di risorse ([[#^04d1a5|GET]]).**
     
 - **201 – Created**  
-    - Indica che una nuova risorsa è stata creata con successo.  
-    - È tipico delle operazioni [[#^9ffd01|POST]].
+    - ==Indica che una nuova risorsa è stata creata con successo.==  
+    - **È tipico delle operazioni [[#^9ffd01|POST]].**
     
 - **203 – Non-Authoritative Information**  
-    - La richiesta è stata completata, ma le informazioni provengono da una copia non autorevole (proxy o cache).
+    - ==La richiesta è stata completata, ma le informazioni provengono da una copia non autorevole (proxy o cache).==
     
 - **204 – No Content**  
-    - L’operazione è avvenuta con successo, ma il server non invia alcun contenuto nel body della risposta.  
-    - Utile per operazioni di DELETE o update.
+    - ==L’operazione è avvenuta con successo, ma il server non invia alcun contenuto nel body della risposta==.  
+    - **Utile per operazioni di DELETE o update.**
 
 
 #### 2. Codici 4xx - Errori lato client

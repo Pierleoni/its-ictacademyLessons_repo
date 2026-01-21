@@ -114,4 +114,4 @@ La classe `java.lang.Object`:
 
 ### Virtual Method invocation 
 La virtual method invocation è azione della macchina virtuale Java(JVM)
-Conisite nell'ivocazione 
+Consiste nell’invocazione della versione corretta di un metodo sovrascritto, tenendo in considerazione la natura dell’oggetto chiamante e non la sua reference

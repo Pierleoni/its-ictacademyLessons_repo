@@ -66,10 +66,10 @@ Osservando lo schema:
 Possiamo descrivere il processo passo per passo:
 
 1. **Client (es. il browser)**  
-    L’utente digita un indirizzo web, ad esempio `http://mywebsite.com`, e invia una **richiesta HTTP GET** al server per ottenere la homepage.
+    - L’utente digita un indirizzo web, ad esempio `http://mywebsite.com`, e invia una **richiesta HTTP GET** al server per ottenere la homepage.
     
 2. **Backend (Flask + Python)**  
-    L’app Flask riceve la richiesta, la elabora e individua quale funzione (detta _view function_) deve essere eseguita per rispondere alla route richiesta (`/` in questo caso).  
+    - L’app Flask riceve la richiesta, la elabora e individua quale funzione (detta _view function_) deve essere eseguita per rispondere alla route richiesta (`/` in questo caso).  
     Questa funzione restituisce una **risposta HTTP**, che può essere:
     
     - una pagina HTML generata dinamicamente, oppure
@@ -77,11 +77,11 @@ Possiamo descrivere il processo passo per passo:
     - dati in formato JSON (nel caso di un’API), ecc.
         
 3. **Server (Web Server o WSGI Server)**  
-    Il server riceve la risposta da Flask e la invia al client.  
-    In ambiente di sviluppo, Flask include un piccolo server integrato; in produzione, invece, si usa solitamente un server WSGI come _Gunicorn_ o _uWSGI_.
+    - Il server riceve la risposta da Flask e la invia al client.  
+    - In ambiente di sviluppo, Flask include un piccolo server integrato; in produzione, invece, si usa solitamente un server WSGI come _Gunicorn_ o _uWSGI_.
     
 4. **Client (Frontend)**  
-    Il browser riceve la risposta e la interpreta: se è HTML, renderizza la pagina visibile all’utente (es. “Hello, world!”).
+    - Il browser riceve la risposta e la interpreta: se è HTML, renderizza la pagina visibile all’utente (es. “Hello, world!”).
 
 
 
@@ -320,11 +320,11 @@ Quindi printa su terminale i diversi percorsi URL permettendoti di costruire din
 **Interpretazione:**
 La funzione `url_for()` costruisce dinamicamente i percorsi:
 
-- `url_for('home')` → restituisce la route `/`
+- `url_for('home')` → ==restituisce la route `/`==
     
-- `url_for('show_user_profile', username='John Doe')` → sostituisce il parametro `<username>` con il valore fornito
+- `url_for('show_user_profile', username='John Doe')` → ==sostituisce il parametro `<username>` con il valore fornito==
     
-- `url_for('show_post', post_id=42)` → sostituisce il parametro `<post_id>` con `42`
+- `url_for('show_post', post_id=42)` → ==sostituisce il parametro `<post_id>` con `42`==
 
 
 
@@ -452,45 +452,4 @@ ciao()
 
 
 Questo è un disegn pattern per risparmiare codice.
-
-### Implementare [[Lezione 4 - Protocollo HTTP 2 parte#^verbiHTTP|i verbi HTTP]] in Flask
-Se in Flask scrivessimo 
-```Python
-@app.route ('/libri', method = 'GET')
-	def get_libri():
-	#corpo della funzione
-```
-
-Automaticamente quando arriva una richiesta [[Lezione 4 - Protocollo HTTP 2 parte#^04d1a5|GET]] al server Flask richiamerà questa funzione
-Ora mettiamo che: 
-```python
-@app.route ('/libri', method = 'GET')
-	def get_libri():
-		libri = db.get_libri()
-		return jsonify(libri), 200
-```
-
-In questo modo noi costruimao un dizionario `libri` e restituisce la risposta HTTP, 
-Il 200 è lo [[Lezione 4 - Protocollo HTTP 2 parte#Status Code HTTP|status code]].
-Il flusso è: 
-Il client fa una richiesta, 
-la richiesta viene creata automaticamente
-la richiesta arriva al codice Flask
-Flask manda la richiesta al DB
-il DB manda a Flask la risposta 
-Flask construisce e rimanda la risposta in forma JSON al client 
-
-Metodo app.route non restituisce niente, se metto `return "Hello Wordl"` flask è abbastanza intelligente da sapere che deve costruire la risposta con quella stringa
-```python
-@app.route ('/')
-	def home():
-		return "Hello World"
-```
-
-Ora creaimo un server con Flask
-```
-from Flask 
-```
-
-
 

@@ -3,7 +3,7 @@ Le classi in python e quindi anche gli oggetti sono un concetto astratto, ci son
 in fase di analisi ci concentriamo sulle classi che sugli oggetti:
 ==gli oggetti servono essenzialmente per descrivere elementi singoli particolarmente significativi==
 ==oppure per descrivere esempi.== 
-È un approccio simile al paradigma della programmazione [[Introduzione a Python#Object-Oriented|objected-oriented]] (es:[[Introduzione a Python|Python]], Java,etc.).
+È un approccio simile al paradigma della programmazione [[Introduzione a Python#Object-Oriented|objected-oriented]] (es:[[Introduzione a Python|Python]], Java, etc.).
 ==Quindi un programma si scrive definendo un insieme si classi (o class), non di oggetti poiché questi vengono creati, modificati e distrutti durante l'esecuzione del programma.== 
 In UML ci sono tanti costrutti delle classi e degli oggetti ma ne andremmo ad escluderne molti in modo di avere un significato univoco per ogni diagramma. 
 ## Cos'è un oggetto in UML

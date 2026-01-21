@@ -9,7 +9,7 @@ Un’API, ovvero un’**Interfaccia di Programmazione di un’Applicazione**, è
 
 In altre parole, un’API funziona come un **contratto**: 
 - ==stabilisce quali operazioni possono essere richieste, come devono essere formulate e quali risposte ci si deve aspettare.== 
-- Grazie a questo contratto, due sistemi possono interagire senza conoscere i dettagli interni del loro funzionamento.
+- Grazie a questo contratto, ==due sistemi possono interagire senza conoscere i dettagli interni del loro funzionamento.==
 
 L’idea alla base delle API si manifesta soprattutto in un contesto oggi fondamentale: 
 - ==la comunicazione tra applicazioni distinte, che spesso risiedono su computer diversi e dialogano attraverso una rete come Internet.==
@@ -61,8 +61,8 @@ In senso più ampio, un’API definisce
 - ==**come uno sviluppatore può accedere e utilizzare le funzionalità messe a disposizione da una libreria, da un framework o dal sistema operativo** all’interno del proprio programma.==
 
 Possiamo immaginare l’API come una vera e propria **cassetta degli attrezzi**:  
-non solo contiene gli strumenti che il software offre, ma include anche il **manuale** che spiega come usarli correttamente. 
-Grazie all’API, lo sviluppatore può integrare funzioni complesse senza dover conoscere nei dettagli la loro implementazione interna.
+- non solo contiene gli strumenti che il software offre, ma include anche il **manuale** che spiega come usarli correttamente. 
+- **Grazie all’API, lo sviluppatore può integrare funzioni complesse senza dover conoscere nei dettagli la loro implementazione interna.**
 
 #### Esempio pratico:  la libreria React
 
@@ -71,23 +71,25 @@ React fornisce due API distinte per creare componenti:
 1. **Componenti a Classe (Class Components)**  
     È l’API “storica” di React. Lo sviluppatore definisce una classe JavaScript che estende `React.Component` e utilizza metodi specifici, come:
     
-    - `render()` → per descrivere cosa mostrare a schermo;
+    - `render()` → ==per descrivere cosa mostrare a schermo;==
         
-    - `componentDidMount()` e altri metodi del ciclo di vita → per gestire eventi particolari;
+    - `componentDidMount()` ==e altri metodi del ciclo di vita → per gestire eventi particolari;==
         
-    - `this.state` e `this.setState()` → per manipolare lo stato interno del componente.
+    - `this.state` e `this.setState()` → ==per manipolare lo stato interno del componente.==
         
 2. **Componenti Funzionali con Hooks (Functional Components)**  
-    È l’API moderna. I componenti sono funzioni semplici che, tramite gli **Hooks**, possono gestire lo stato o altre capacità avanzate:
+    - **È l’API moderna**. 
+    - I componenti sono funzioni semplici che, tramite gli **[[Lezione 3 - Hooks#Cosa sono gli Hooks|Hooks]]**, possono gestire lo stato o altre capacità avanzate:
     
-    - `useState()` per memorizzare valori interni,
+	    - `useState()` per memorizzare valori interni,
         
-    - `useEffect()` per gestire effetti collaterali come fetch o timer.
+	    - `useEffect()` per gestire effetti collaterali come fetch o timer.
         
 
-Le due modalità consentono di ottenere lo stesso risultato (creare componenti), ma sono **API diverse**: due modi differenti di comunicare con le funzionalità interne di React, senza dover conoscere la complessità del suo funzionamento interno.
+Le due modalità consentono di ottenere lo stesso risultato (creare componenti), ma sono **API diverse**: 
+- ==due modi differenti di comunicare con le funzionalità interne di React, senza dover conoscere la complessità del suo funzionamento interno.==
 
-Un altro esempio quotidiano è rappresentato dall’**API del DOM**: i browser espongono funzioni come `document.getElementById()` per manipolare elementi di una pagina web. Anche qui l’API funge da livello di astrazione che permette agli sviluppatori di lavorare senza conoscere in dettaglio il motore del browser.
+Un altro esempio quotidiano è rappresentato dall’**API del [[DOM|DOM]]**: i browser espongono funzioni come `document.getElementById()` per manipolare elementi di una pagina web. Anche qui l’API funge da livello di astrazione che permette agli sviluppatori di lavorare senza conoscere in dettaglio il motore del browser.
 
 ### **Il ruolo dell’API come livello di astrazione**
 
@@ -95,7 +97,7 @@ Che si parli di un “cameriere” che trasporta le richieste verso un server re
 - ==**fornire un livello di astrazione** che semplifica l’interazione con sistemi complessi.==
 
 L’API **nasconde la complessità interna** del sistema.  
-Non è necessario conoscere la struttura dei server di Google per usare Google Maps, così come non occorre studiare il codice sorgente di Vue o React per costruire un’interfaccia.  
+Non è necessario conoscere la struttura dei server di Google per usare Google Maps, così come non occorre studiare il codice sorgente di Vue o [[Lezione 7; React|React]] per costruire un’interfaccia.  
 È sufficiente seguire le regole definite dall’API, e questa garantirà un risultato preciso.
 
 In sintesi, un’API rappresenta una promessa chiara nel mondo del software:
@@ -108,22 +110,22 @@ Le API non sono solo un meccanismo tecnico, ma un approccio strategico alla prog
 
 ##### ● Riutilizzo (Reusability)
 
-Una volta che una funzionalità è stata sviluppata e resa disponibile tramite un’API (esempio: un sistema di pagamento, un motore di ricerca o un servizio di geolocalizzazione), può essere riutilizzata da altre applicazioni infinite volte.  
-Questo evita di “reinventare la ruota” e riduce drasticamente tempi e costi di sviluppo.
+==Una volta che una funzionalità è stata sviluppata e resa disponibile tramite un’API (esempio: un sistema di pagamento, un motore di ricerca o un servizio di geolocalizzazione), può essere riutilizzata da altre applicazioni infinite volte.==  
+**Questo evita di “reinventare la ruota” e riduce drasticamente tempi e costi di sviluppo.**
 
 ##### **● Modularità (Modularity)**
 
-Le API favoriscono sistemi composti da moduli indipendenti.  
-Ogni componente svolge un compito specifico e comunica con gli altri tramite API chiaramente definite.  
-Questo approccio facilita aggiornamenti, manutenzione e scalabilità, poiché è possibile modificare un singolo modulo senza compromettere l’intero sistema.
+**Le API favoriscono sistemi composti da moduli indipendenti.**  
+==Ogni componente svolge un compito specifico e comunica con gli altri tramite API chiaramente definite.==  
+**Questo approccio facilita aggiornamenti, manutenzione e scalabilità, poiché è possibile modificare un singolo modulo senza compromettere l’intero sistema.**
 
 ##### **● Sviluppo Parallelo (Parallel Development)**
 
 Poiché l’API funge da contratto, i diversi team possono lavorare in contemporanea:
 
-- il team frontend può sviluppare interfacce e logiche di visualizzazione;
+- ==il team [[Lezione 2; Applicazioni Web, Caratteristiche di un’applicazione a servizi, Frontend vs. Backend, il ruolo del Browser e del Server Web, differenza tra siti Web Statici e Applicazioni Dinamiche#Frontend (Lato Client)|frontend]] può sviluppare interfacce e logiche di visualizzazione;== 
     
-- il team backend può definire la logica e i dati del server.
+- ==il team [[Lezione 2; Applicazioni Web, Caratteristiche di un’applicazione a servizi, Frontend vs. Backend, il ruolo del Browser e del Server Web, differenza tra siti Web Statici e Applicazioni Dinamiche#Backend|backend]] può definire la logica e i dati del server.==
     
 
 È sufficiente che entrambi conoscano il “contratto” dell’API per procedere in parallelo. L’intero sistema può avanzare più velocemente e in modo più coordinato.
@@ -137,29 +139,31 @@ Le API possono essere raggruppate in base a vari criteri:
 Comprendere queste distinzioni è essenziale per orientarsi nello sviluppo moderno, dove le API rappresentano il principale punto di contatto tra servizi, applicazioni e componenti software.
 
 #### 1. API Web([[Modello TCP-IP|HTTP]] - based)
-La categoria più diffusa oggi è costituita dalle **API Web**, ovvero quelle che utilizzano il protocollo **HTTP**, lo stesso usato dai browser per visitare un sito Internet. Questo tipo di API sfrutta gli standard del Web per permettere a sistemi anche molto diversi tra loro di comunicare in modo semplice e interoperabile.
+La categoria più diffusa oggi è costituita dalle **API Web:**
+ovvero quelle che utilizzano il [[Modello TCP-IP#Http-https HyperText Transfer Protocol (HTTP)|protocollo **HTTP**]], lo stesso usato dai browser per visitare un sito Internet. 
+==Questo tipo di API sfrutta gli standard del Web per permettere a sistemi anche molto diversi tra loro di comunicare in modo semplice e interoperabile.==
 
 All'interno di questa famiglia troviamo approcci architetturali differenti, ognuno con caratteristiche e scopi specifici.
 
 ##### SOAP (Simple Object Access Protocol)
 
-È uno dei primi standard per creare API. 
+==È uno dei primi standard per creare API.== 
 **Si basa su un protocollo molto rigido, con regole severe sulla struttura dei messaggi.**  
 Caratteristiche principali:
 
 - ==utilizza principalmente XML;==
     
-- ==offre robustezza e funzionalità avanzate, soprattutto in ambito enterprise;==
+- ==offre robustezza e funzionalità avanzate, soprattutto in ambito entreprise;==
     
 - ==è più complesso e produce messaggi più “pesanti”.==
     
 
-##### **• REST (REpresentational State Transfer)**
+##### **• [[Lezione 7 - Sistemi REST#Sistemi REST|REST (REpresentational State Transfer)]]**
 
 ==Non è uno standard, ma uno stile architettonico.== 
-È più flessibile e intuitivo rispetto a SOAP, e sfrutta i metodi nativi di HTTP ([[Lezione 4 - Protocollo HTTP 2 parte#^04d1a5|GET]], [[Lezione 4 - Protocollo HTTP 2 parte#^9ffd01|POST]], [[Lezione 4 - Protocollo HTTP 2 parte#^523224|PUT]], [[Lezione 4 - Protocollo HTTP 2 parte#^595c2b|DELETE]], …).  
-Di solito utilizza il formato JSON, più leggero e facile da trattare rispetto a XML.  
-È attualmente lo stile dominante per le API moderne, soprattutto nel web e nel mobile.
+- È più flessibile e intuitivo rispetto a SOAP, e sfrutta i metodi nativi di HTTP ([[Lezione 4 - Protocollo HTTP 2 parte#^04d1a5|GET]], [[Lezione 4 - Protocollo HTTP 2 parte#^9ffd01|POST]], [[Lezione 4 - Protocollo HTTP 2 parte#^523224|PUT]], [[Lezione 4 - Protocollo HTTP 2 parte#^595c2b|DELETE]], …).  
+- ==Di solito utilizza il formato [[Lezione 5 - Il Formato JSON#Cos’è il JSON e perché viene utilizzato|JSON]], più leggero e facile da trattare rispetto a XML.==  
+- È attualmente lo stile dominante per le API moderne, soprattutto nel web e nel mobile.
 
 ##### **• GraphQL**
 
@@ -184,18 +188,17 @@ Questa distinzione riguarda **come** il client riceve la risposta dal server.
 Seguono il modello classico _richiesta–risposta_.  
 ==Il client invia la richiesta e rimane in attesa finché il server non ha completato l’operazione e fornito l’esito finale.==
 
-- È il comportamento tipico delle API REST.
+- È il comportamento tipico delle [[#**• REST (REpresentational State Transfer)**|API REST]].
     
-- L’applicazione resta “in pausa” finché non arriva la risposta.
+- ==L’applicazione resta “in pausa” finché non arriva la risposta.==
     
 
 È ideale per operazioni rapide.
 
 ##### **API Asincrone**
-
-==Il client invia la richiesta e non resta bloccato.==  
-Il server risponde subito con un messaggio che conferma la presa in carico (“ok, sto lavorando”), ed elabora il resto in background.  
-Quando l’operazione è terminata, il server invia il risultato tramite meccanismi come:
+- ==Il client invia la richiesta e non resta bloccato.==  
+- **Il server risponde subito con un messaggio che conferma la presa in carico (“ok, sto lavorando”), ed elabora il resto in background.**  
+==Quando l’operazione è terminata, il server invia il risultato tramite meccanismi come:==
 
 - **callback**,
     
@@ -204,13 +207,13 @@ Quando l’operazione è terminata, il server invia il risultato tramite meccani
 - **[[Lezione 2 - Il Props Object#^eventHandlerVsEventListeners|eventi]]**. 
     
 
-Questo modello è perfetto per operazioni lunghe, come:
+**Questo modello è perfetto per operazioni lunghe**, come:
 
-- elaborazione video,
+- ==elaborazione video,==
     
-- generazione di report,
+- ==generazione di report,==
     
-- analisi dati complesse.
+- ==analisi dati complesse.==
 
 
 #### API Pubbliche vs Private
@@ -256,7 +259,7 @@ Tra questi, due elementi sono particolarmente importanti:
 #### Endpoint 
 ==Un _endpoint_ rappresenta il punto di accesso a una determinata risorsa esposta da un’API.== 
 In termini pratici:
-- ==è un URL che identifica in maniera univoca “dove” il client deve inviare la richiesta.== 
+- ==è un [[Lezione 4 - Protocollo HTTP 2 parte#^url|URL]] che identifica in maniera univoca “dove” il client deve inviare la richiesta.== 
 Possiamo considerarlo come l’indirizzo di una casa: 
 ==indica con precisione al client il luogo in cui trovare l’informazione desiderata o dove inviare dei dati da elaborare.==
 
@@ -276,11 +279,12 @@ La chiarezza con cui vengono definiti è essenziale affinché il client sappia e
 #### Payload
 Il _payload_ è:
 - ==il contenuto informativo vero e proprio che viene scambiato tra client e server.== 
-Se l’endpoint rappresenta l’indirizzo, il payload è il messaggio contenuto nella “busta”: i dati che devono essere elaborati o restituiti.
+Se l’endpoint rappresenta l’indirizzo, il payload è il messaggio contenuto nella “busta”: 
+- ==i dati che devono essere elaborati o restituiti.==
 
 ##### **Request Payload**
 
-È il contenuto inviato dal client al server, generalmente all’interno del body di una richiesta **POST**, **PUT** o **PATCH**.  
+- ==È il contenuto inviato dal client al server, generalmente all’interno del body di una richiesta **POST**, **PUT** o **PATCH**.==  
 Ad esempio, nella creazione di un nuovo utente, il request payload potrebbe includere:
 ```json
 {
@@ -291,14 +295,14 @@ Ad esempio, nella creazione di un nuovo utente, il request payload potrebbe incl
 
 ##### Response Payload
 
-È il contenuto inviato dal server al client come risposta. 
+- ==È il contenuto inviato dal server al client come risposta.== 
 Nel caso di una richiesta **[[Lezione 4 - Protocollo HTTP 2 parte#^04d1a5|GET]]** all’endpoint `/users`, il response payload includerà la lista degli utenti disponibili.
 
 ##### Formati più comuni del payload
 
 I dati contenuti nel payload possono essere rappresentati in vari formati, tra cui:
 
-- **JSON (JavaScript Object Notation)**  
+- **[[Lezione 5 - Il Formato JSON|JSON (JavaScript Object Notation)]]**  
     ==È oggi il formato dominante nelle API REST per leggerezza, semplicità e facilità di utilizzo sia lato client che server.==
     
 - **XML (eXtensible Markup Language)**  

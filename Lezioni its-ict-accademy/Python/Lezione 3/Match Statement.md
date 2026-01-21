@@ -93,7 +93,7 @@ Il match statement può essere usato in qualsiasi contesto (match annidati, `if,
 ### Match statements e [[Gli Operatori#Gli operatori logici|OR]](`|`)
 Si può usare l'operatore `|`(OR) per combinare più pattern in un singolo caso. Questo è utile quando vogliamo gestire più valori nello stesso modo. 
 #### Gestione di codici di stato HTTP
-Supponiamo di avere uno stato HTTP da gestire.
+Supponiamo di avere [[Lezione 4 - Protocollo HTTP 2 parte#Status Code HTTP|uno stato HTTP]] da gestire.
 Posso confrontare più valori associati a quello stato in 2 modi:
 1. **Primo Modo:**
 ```python

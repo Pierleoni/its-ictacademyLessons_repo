@@ -3,7 +3,8 @@ Nella [[Lezione 2; Applicazioni Web, Caratteristiche di un’applicazione a serv
 In questa lezione affronteremo il protocollo HTTP.
 
 # Il concetto di protocollo e TCP/IP
-Un **protocollo** è un insieme di regole che stabilisce **come due sistemi devono dialogare** tra loro.  
+Un **protocollo** è: 
+- ==un insieme di regole che stabilisce **come due sistemi devono dialogare** tra loro.==  
 Senza un protocollo condiviso, la comunicazione non sarebbe possibile, perché i due sistemi “parlerebbero lingue diverse”.
 ## Protocollo TCP/IP
 Sul web, la comunicazione avviene tramite la **famiglia di protocolli [[Modello TCP-IP|TCP/IP]]**, che si basa su un principio fondamentale:
@@ -11,7 +12,8 @@ Sul web, la comunicazione avviene tramite la **famiglia di protocolli [[Modello 
 > [!ticket] **Il client invoca il server (mai il contrario).**  
 > È sempre il client che invia una richiesta, a cui il server risponde.
 
-TCP/IP non è un singolo protocollo, ma un insieme organizzato in **4 livelli**, ognuno con responsabilità precise e con i propri sotto-protocolli. La comunicazione funziona solo se **sia il mittente che il destinatario usano gli stessi protocolli corrispondenti a ciascun livello** (come due persone che parlano la stessa lingua).
+TCP/IP non è un singolo protocollo, ma ==un insieme organizzato in **[[Modello TCP-IP#Struttura del modello TCP/IP|4 livelli]]**, ognuno con responsabilità precise e con i propri sotto-protocolli.== 
+La comunicazione funziona solo se **sia il mittente che il destinatario usano gli stessi protocolli corrispondenti a ciascun livello** (come due persone che parlano la stessa lingua).
 
 ### I [[Modello TCP-IP#Struttura del modello TCP/IP|4 livelli]] del modello TCP/IP  
 ![[I 4 livelli del protocollo TCP-IP.png]]
@@ -20,39 +22,39 @@ Come abbiamo gia visto nella lezione [[Modello TCP-IP]] in Sistemi digitali il m
 
 1. **[[Modello TCP-IP#^applicationLayer|Livello Fisico]]**
     
-    - Si occupa della trasmissione fisica dei dati (cavi, Wi-Fi, segnali). 
+    - ==Si occupa della trasmissione fisica dei dati (cavi, Wi-Fi, segnali).== 
         
-    - Utilizza protocolli **nativi** delle tecnologie di rete (es. Ethernet, Wi-Fi).
+    - ==Utilizza protocolli **nativi** delle tecnologie di rete (es. Ethernet, Wi-Fi).==
         
 2. **[[Modello TCP-IP#^InternetLayer|Livello Rete]]**
     
-    - Identifica gli indirizzi dei dispositivi nella rete.
+    - ==Identifica gli indirizzi dei dispositivi nella rete.==
         
-    - Protocollo principale: **IP (Internet Protocol)**.
+    - Protocollo principale: **[[Modello TCP-IP#1. IP(Internet Protocol - IPv4 e IPv6)|IP (Internet Protocol)]]**.
         
     - Esempio: sapere a quale indirizzo inviare il “pacchetto”.
         
 3. **[[Modello TCP-IP#^0f712f|Livello Trasporto]]** 
     
-    - Garantisce il trasferimento corretto dei dati da un’applicazione all’altra.
+    - ==Garantisce il trasferimento corretto dei dati da un’applicazione all’altra.==
         
     - Protocolli principali:
         
-        - **TCP (Transmission Control Protocol):** affidabile, garantisce che i pacchetti arrivino nell’ordine corretto.
+        - **[[Modello TCP-IP#TCP (Transmission Control Protocol)|TCP (Transmission Control Protocol):]]** ==affidabile, garantisce che i pacchetti arrivino nell’ordine corretto.==
             
-        - **UDP (User Datagram Protocol):** più veloce, ma non garantisce l’ordine (usato per streaming, chiamate audio/video).
+        - **[[Modello TCP-IP#UDP (User Datagram Protocol)|UDP (User Datagram Protocol)]]:** ==più veloce, ma non garantisce l’ordine (usato per streaming, chiamate audio/video)==.
             
 4. **[[Modello TCP-IP#^applicationLayer|Livello Applicazione]]**
     
-    - È quello più vicino all’utente finale.
+    - ==È quello più vicino all’utente finale.==
         
     - Qui troviamo i protocolli che servono per **esigenze specifiche di applicazioni**:
         
-        - **HTTP** → per trasferire pagine e contenuti web.
+        - **[[Modello TCP-IP#Http-https HyperText Transfer Protocol (HTTP)|HTTP]]** → per trasferire pagine e contenuti web.
             
-        - **FTP** → per trasferire file di grandi dimensioni.
+        - **[[Modello TCP-IP#ftp File Transfer Protocol (FTP)|FTP]]** → per trasferire file di grandi dimensioni.
             
-        - **SMTP** → per inviare e ricevere e-mail.
+        - **[[Modello TCP-IP#Cos'è il protocollo SMTP (Simple Mail Transfer Protocol)|SMTP]]** → per inviare e ricevere e-mail.
             
         - …e molti altri.
 
@@ -61,22 +63,22 @@ Ora approfondiamo meglio ognuno di questi livelli partendo dal livello più alto
 ### Livello di applicazione (Application Layer)
 
 Il **[[Modello TCP-IP#Application layer|livello di applicazione]]** è: 
-- quello più vicino all’utente finale ed è responsabile di fornire i **servizi di rete direttamente alle applicazioni software**, come ad esempio browser web, client di posta elettronica o programmi per il trasferimento di file.
+- ==quello più vicino all’utente finale ed è responsabile di fornire i **servizi di rete direttamente alle applicazioni software**, come ad esempio browser web, client di posta elettronica o programmi per il trasferimento di file.==
 
 In altre parole, è il livello che: 
-- mette in comunicazione le applicazioni con la rete, occupandosi non solo della trasmissione dei dati, ma anche di come questi vengono rappresentati e interpretati.
+- ==mette in comunicazione le applicazioni con la rete, occupandosi non solo della trasmissione dei dati, ma anche di come questi vengono rappresentati e interpretati.==
 
 #### Funzioni principali
 
-- **Interfaccia con l’utente**  
-    Fornisce i protocolli che permettono alle applicazioni di scambiarsi dati in rete. È grazie a questo livello che un browser può richiedere una pagina web o un client di posta inviare un’e-mail.
+1. **Interfaccia con l’utente**  
+    - ==Fornisce i protocolli che permettono alle applicazioni di scambiarsi dati in rete. È grazie a questo livello che un browser può richiedere una pagina web o un client di posta inviare un’e-mail.==
     
-- **Gestione della sessione e della presentazione**  
-    A differenza del modello OSI, nel TCP/IP queste funzioni sono incluse nello stesso livello:
+2. **Gestione della sessione e della presentazione**  
+    - A differenza del modello OSI, nel TCP/IP queste funzioni sono incluse nello stesso livello:
     
-    - _Gestione della sessione:_ apertura, mantenimento e chiusura della connessione tra due host.
+	    - _**Gestione della sessione:**_ ==apertura, mantenimento e chiusura della connessione tra due host.==
         
-    - _Presentazione dei dati:_ formattazione, traduzione e, se necessario, crittografia o compressione dei dati trasmessi.
+	    - _==Presentazione dei dati:==_ ==formattazione, traduzione e, se necessario, crittografia o compressione dei dati trasmessi.==
 
 
 
@@ -93,49 +95,51 @@ In altre parole, è il livello che:
   >  
 >- **DNS (Domain Name System):** sistema che traduce i nomi di dominio (es. `www.google.com`) nei corrispondenti indirizzi IP numerici.
 
+^4fdfec
+
 
 > [!example] **In sintesi:**
 > Il livello di applicazione è ciò che rende **utilizzabile Internet dall’utente finale**. Senza di esso, non avremmo protocolli standardizzati per navigare, scambiare file o comunicare via e-mail. È quindi il punto in cui le esigenze pratiche delle persone (consultare un sito, inviare una mail, scaricare un documento) vengono tradotte in regole comprensibili e utilizzabili dai computer.
 
 ### Livello di trasporto (Transport Layer)
 Il **[[Modello TCP-IP#TransportLayer Transport Layer|livello di trasporto]]** ha il compito di:
-- gestire la comunicazione **tra due processi** (cioè applicazioni) che si trovano su host diversi.  
+- ==gestire la comunicazione **tra due processi** (cioè applicazioni) che si trovano su host diversi.==  
 In altre parole: 
-- fornisce un **canale logico di comunicazione** che permette ai dati di fluire in modo ordinato, affidabile e coerente tra mittente e destinatario.
+- ==fornisce un **canale logico di comunicazione** che permette ai dati di fluire in modo ordinato, affidabile e coerente tra mittente e destinatario.==
 
-Se il livello di rete si occupa di consegnare i pacchetti “da computer a computer”, il livello di trasporto si assicura che questi pacchetti arrivino **dal programma corretto del mittente al programma corretto del destinatario**, garantendo quindi un dialogo completo tra applicazioni.
+Se il livello di rete si occupa di consegnare i pacchetti “da computer a computer”, ==il livello di trasporto si assicura che questi pacchetti arrivino **dal programma corretto del mittente al programma corretto del destinatario**, garantendo quindi un dialogo completo tra applicazioni.==
 
 
 #### Funzioni principali 
 
-- **Segmentazione dei dati**  
-    I dati provenienti dal livello di applicazione vengono suddivisi in segmenti più piccoli e gestibili, per poter essere trasmessi in rete in modo efficiente.
+1. **Segmentazione dei dati**  
+    - ==I dati provenienti dal livello di applicazione vengono suddivisi in segmenti più piccoli e gestibili, per poter essere trasmessi in rete in modo efficiente.==
     
-- **Controllo di flusso**  
-    Regola la velocità di invio dei dati, così da non sovraccaricare il destinatario in caso di capacità di elaborazione inferiore.
+2. **Controllo di flusso**  
+    - ==Regola la velocità di invio dei dati, così da non sovraccaricare il destinatario in caso di capacità di elaborazione inferiore.==
     
-- **Controllo di errore e affidabilità**  
-    Si occupa di verificare che i segmenti arrivino a destinazione **senza errori**, **in ordine** e **senza duplicati**.
+3. **Controllo di errore e affidabilità**  
+    - ==Si occupa di verificare che i segmenti arrivino a destinazione **senza errori**, **in ordine** e **senza duplicati**.==
 
 
 > [!link] **Protocolli Principali**
 > - **[[Modello TCP-IP#TCP (Transmission Control Protocol)|TCP (Transmission Control Protocol)]]**
  >   
- >   - Protocollo **orientato alla connessione** e **affidabile**.
+ >   - ==Protocollo **[[Internetwork-Protocols#Connection Oriented services|orientato alla connessione]]** e **affidabile**.==
  >       
- >   - Prima di inviare i dati, stabilisce una connessione tramite il processo di **“three-way handshake”**.
+ >   - ==Prima di inviare i dati, stabilisce una connessione tramite il processo di **“[[Modello TCP-IP#**1. TCP Connection Establishment (Three-Way Handshake)**|three-way handshake]]”**.==
   >      
-  >  - Garantisce che ogni pacchetto venga ricevuto correttamente, richiedendo la ritrasmissione in caso di perdita.
+  >  - ==Garantisce che ogni pacchetto venga ricevuto correttamente, richiedendo la ritrasmissione in caso di perdita.==
  >       
- >   - Utilizzato dalla maggior parte delle applicazioni comuni, come la **navigazione web** (HTTP/HTTPS) e la **posta elettronica**.
+ >   - ==Utilizzato dalla maggior parte delle applicazioni comuni, come la **navigazione web** (HTTP/HTTPS) e la **posta elettronica**.==
  >       
 >- **[[Modello TCP-IP#UDP (User Datagram Protocol)|UDP (User Datagram Protocol)]]**
  >   
- >   - Protocollo **senza connessione (connectionless)** e **non affidabile**.
+ >   - ==Protocollo **[[Internetwork-Protocols#Servizi non orientati alla connessione(connectionless)|senza connessione (connectionless)]]** e **non affidabile**.==
  >       
- >   - Invia i dati (detti datagrammi) senza verificare che arrivino a destinazione.
+ >   - ==Invia i dati (detti datagrammi) senza verificare che arrivino a destinazione.==
  >       
-  >  - È molto più veloce del TCP, ma non garantisce la consegna né l’ordine.
+  >  - ==È molto più veloce del [[Modello TCP-IP#TCP (Transmission Control Protocol)|TCP]], ma non garantisce la consegna né l’ordine.==
   >      
   >  - Usato in applicazioni dove conta la **velocità** e qualche perdita di pacchetto è accettabile, come **streaming video**, **giochi online** e **chiamate VoIP**.
 
@@ -148,25 +152,27 @@ Se il livello di rete si occupa di consegnare i pacchetti “da computer a compu
 
 ### Livello di Rete o Internet (Network/Internet Layer)
 Il **[[Modello TCP-IP#Internet Layer|livello di rete]]** è considerato il **cuore del modello TCP/IP:** 
-- si occupa di garantire che i dati possano essere instradati correttamente da un host di origine a un host di destinazione, anche attraverso più reti interconnesse.
+- ==si occupa di garantire che i dati possano essere instradati correttamente da un host di origine a un host di destinazione, anche attraverso più reti interconnesse.==
 
-La sua responsabilità principale è dunque l’**indirizzamento logico** dei dispositivi e la scelta del **percorso migliore (routing)** che i pacchetti devono seguire per arrivare a destinazione.
+La sua responsabilità principale è dunque l’==**indirizzamento logico** dei dispositivi e la scelta del **percorso migliore (routing)** che i pacchetti devono seguire per arrivare a destinazione.==
 
 #### Funzioni principali
 
-- **Indirizzamento logico**  
-    Ogni dispositivo connesso a una rete riceve un **indirizzo IP univoco**, necessario per identificarlo e permettere la comunicazione con altri host.
+1. **Indirizzamento logico**  
+    - ==Ogni dispositivo connesso a una rete riceve un **[[Modello TCP-IP#1. IP(Internet Protocol - IPv4 e IPv6)|indirizzo IP]] univoco**, necessario per identificarlo e permettere la comunicazione con altri host.==
     
-- **Instradamento (Routing)**  
-    Determina il percorso più efficiente che i pacchetti devono seguire per raggiungere la destinazione, anche passando attraverso router e reti intermedie.
+2. **Instradamento (Routing)**  
+    - ==Determina il percorso più efficiente che i pacchetti devono seguire per raggiungere la destinazione, anche passando attraverso router e reti intermedie.==
     
-- **Frammentazione e ri-assemblaggio dei pacchetti**  
-    Se un pacchetto è troppo grande per essere gestito da una rete intermedia, viene suddiviso in **frammenti** più piccoli. Alla destinazione, i frammenti vengono ri-assemblati per ricostruire i dati originali.
+3. **Frammentazione e ri-assemblaggio dei pacchetti**  
+    - ==Se un pacchetto è troppo grande per essere gestito da una rete intermedia, viene suddiviso in **frammenti** più piccoli.== 
+    - ==Alla destinazione, i frammenti vengono ri-assemblati per ricostruire i dati originali.==
 
 
 > [!link] **Protocolli Principali:**
 > - **[[Modello TCP-IP#1. IP(Internet Protocol - IPv4 e IPv6)|IP (Internet Protocol)]]**  
-> 	-   È il protocollo centrale di questo livello. Incapsula i segmenti provenienti dal livello di trasporto in pacchetti (chiamati **datagrammi**) e aggiunge le informazioni di indirizzo (IP di origine e IP di destinazione).  
+> 	-   ==È il protocollo centrale di questo livello.== 
+> 	- ==Incapsula i segmenti provenienti dal livello di trasporto in pacchetti (chiamati **datagrammi**) e aggiunge le informazioni di indirizzo (IP di origine e IP di destinazione).==  
  >   Esistono due versioni principali:
 >    
 > 	 - **IPv4:** basato su indirizzi a 32 bit (es. `192.168.1.1`).
@@ -174,10 +180,11 @@ La sua responsabilità principale è dunque l’**indirizzamento logico** dei di
 > 	 - **IPv6:** basato su indirizzi a 128 bit, pensato per superare l’esaurimento degli indirizzi IPv4.
   >      
 >- **[[Modello TCP-IP#2. ICMP (Internet Control Message Protocol)|ICMP (Internet Control Message Protocol)]]**  
-> 	 -  Utilizzato per inviare messaggi di controllo ed errore. Ad esempio, viene impiegato dal comando **ping** per verificare la raggiungibilità di un host.
+> 	 -  ==Utilizzato per inviare messaggi di controllo ed errore==. 
+> 	 - Ad esempio, viene impiegato dal comando **ping** per verificare la raggiungibilità di un host.
   >  
 >- **[[Modello TCP-IP#3. Address Resolution Protocol ARP|ARP (Address Resolution Protocol)]]**  
-> 	-  Serve a tradurre un indirizzo IP in un **[[Modello TCP-IP#ARP Cache|indirizzo fisico (MAC address]])** all’interno di una rete locale, così che i pacchetti possano essere effettivamente consegnati all’interfaccia corretta.
+> 	-  ==Serve a tradurre un indirizzo IP in un **[[Modello TCP-IP#ARP Cache|indirizzo fisico (MAC address]])** all’interno di una rete locale, così che i pacchetti possano essere effettivamente consegnati all’interfaccia corretta.==
 
 
 
@@ -188,7 +195,7 @@ La sua responsabilità principale è dunque l’**indirizzamento logico** dei di
 ### Il Livello di Accesso alla Rete (Network Access Layer) 
 
 Il **[[Modello TCP-IP#Network Access Layer|livello di accesso alla rete]]** è il più basso del modello TCP/IP.  
-- Si occupa di **tutti gli aspetti fisici e di collegamento** necessari per trasmettere i dati da un dispositivo a un altro all’interno della stessa rete locale.
+- ==Si occupa di **tutti gli aspetti fisici e di collegamento** necessari per trasmettere i dati da un dispositivo a un altro all’interno della stessa rete locale.==
 
 > [!caution] **Importante**
 > Nel **modello TCP/IP** questo livello **raggruppa due livelli del modello OSI**:
@@ -200,17 +207,17 @@ Il **[[Modello TCP-IP#Network Access Layer|livello di accesso alla rete]]** è i
 
 #### Funzioni principali
 
-- **Interfacciamento con l’hardware**  
-    Gestisce la comunicazione diretta con la **scheda di rete (NIC)** e con il mezzo fisico utilizzato (Ethernet via cavo, Wi-Fi, fibra, ecc.).
+1. **Interfacciamento con l’hardware**  
+    - ==Gestisce la comunicazione diretta con la **scheda di rete (NIC)** e con il mezzo fisico utilizzato (Ethernet via cavo, Wi-Fi, fibra, ecc.).==
     
-- **Indirizzamento fisico (MAC Address)**  
-    Ogni scheda di rete possiede un **indirizzo univoco** chiamato MAC, che permette di identificare i dispositivi all’interno di una stessa rete locale.
+2. **Indirizzamento fisico (MAC Address)**  
+    - ==Ogni scheda di rete possiede un **indirizzo univoco** chiamato MAC, che permette di identificare i dispositivi all’interno di una stessa rete locale.==
     
-- **Framing**  
-    I dati ricevuti dai livelli superiori vengono impacchettati in **frame** (unità logiche di trasmissione) che includono indirizzo sorgente, indirizzo destinatario e informazioni di controllo.
+3. **Framing**  
+    - ==I dati ricevuti dai livelli superiori vengono impacchettati in **frame** (unità logiche di trasmissione) che includono indirizzo sorgente, indirizzo destinatario e informazioni di controllo.==
     
-- **Trasmissione fisica**  
-    I frame vengono trasformati in **segnali elettrici, luminosi o radio** a seconda del mezzo di trasmissione e inviati sul canale di comunicazione.
+4. **Trasmissione fisica**  
+    - ==I frame vengono trasformati in **segnali elettrici, luminosi o radio** a seconda del mezzo di trasmissione e inviati sul canale di comunicazione.==
 
 
 > [!link] **Protocolli e standard comuni**
@@ -240,11 +247,11 @@ Il modello **[[ISO E OSI Model|OSI (Open Systems Interconnection)]]** è stato s
 
 A differenza del TCP/IP, che è nato da **esigenze pratiche** ed è diventato uno **standard de facto** per il funzionamento di Internet, il modello OSI aveva un obiettivo più ampio:
 
-- creare uno **standard universale** per la progettazione dei protocolli di rete,
+- ==creare uno **standard universale** per la progettazione dei protocolli di rete,==
     
-- garantire l’**interoperabilità** tra sistemi di produttori diversi,
+- ==garantire l’**interoperabilità** tra sistemi di produttori diversi,==
     
-- fornire un quadro concettuale chiaro per suddividere i compiti della comunicazione.
+- ==fornire un quadro concettuale chiaro per suddividere i compiti della comunicazione.==
 #### Caratteristica fondamentale 
 
 Il modello OSI suddivide la comunicazione di rete in **[[ISO-OSI Reference Model.png|sette livelli (layer) astratti.]]** 
@@ -270,9 +277,9 @@ Il modello OSI è formato da **7 livelli numerati dal basso verso l’alto**.
 
 #### **7 – [[Network, Transport, Session, Presentation, Application Layers#ISO E OSI Model applicationLayer Application Layer|Livello di Applicazione (Application Layer)]]** 
 
-- **Scopo:** È il livello più alto e fornisce l’**interfaccia diretta tra le applicazioni e la rete**. È quello con cui l’utente finale interagisce in modo visibile.
+- **Scopo:** ==È il livello più alto e fornisce l’**interfaccia diretta tra le applicazioni e la rete**. È quello con cui l’utente finale interagisce in modo visibile.==
     
-- **Funzioni:** Gestisce i protocolli specifici dei servizi che usiamo ogni giorno, ad esempio:
+- **Funzioni:** ==Gestisce i protocolli specifici dei servizi che usiamo ogni giorno, ad esempio:==
     
     - **HTTP** → per la navigazione web.
         
@@ -290,15 +297,15 @@ Il modello OSI è formato da **7 livelli numerati dal basso verso l’alto**.
 
 #### **6 – [[Network, Transport, Session, Presentation, Application Layers#ISO E OSI Model presentationLayer Presentation Layer|Livello di Presentazione (Presentation Layer)]]**
 
-- **Scopo:** Si assicura che i dati inviati da un sistema siano **comprensibili** per il livello Applicazione del sistema destinatario.
+- **Scopo:** ==Si assicura che i dati inviati da un sistema siano **comprensibili** per il livello Applicazione del sistema destinatario.==
     
 - **Funzioni principali:**
     
-    - **Traduzione dei dati** → converte i dati in un formato standard, così che sistemi diversi possano capirsi (es. da ASCII a EBCDIC).
+    - **Traduzione dei dati** → ==converte i dati in un formato standard, così che sistemi diversi possano capirsi (es. da ASCII a EBCDIC).==
         
-    - **Crittografia/Decrittografia** → applica o rimuove la cifratura dei dati per garantire sicurezza e privacy.
+    - **Crittografia/Decrittografia** → ==applica o rimuove la cifratura dei dati per garantire sicurezza e privacy.==
         
-    - **Compressione** → riduce la quantità di bit da trasmettere, rendendo la comunicazione più veloce ed efficiente.
+    - **Compressione** → ==riduce la quantità di bit da trasmettere, rendendo la comunicazione più veloce ed efficiente.==
         
 
 > [!example]  **In sintesi:**
@@ -308,13 +315,13 @@ Il modello OSI è formato da **7 livelli numerati dal basso verso l’alto**.
 
 #### **5 – [[Network, Transport, Session, Presentation, Application Layers#ISO E OSI Model sessionLayer Session Layer|Livello di Sessione (Session Layer)]]**
 
-- **Scopo:** Gestisce la **comunicazione continua** (la “sessione”) tra due applicazioni in rete.
+- **Scopo:** ==Gestisce la **comunicazione continua** (la “sessione”) tra due applicazioni in rete.==
     
 - **Funzioni principali:**
     
-    - **Controllo del dialogo** → decide chi può trasmettere e per quanto tempo, regolando lo scambio.
+    - **Controllo del dialogo** → ==decide chi può trasmettere e per quanto tempo, regolando lo scambio.==
         
-    - **Sincronizzazione** → inserisce dei “checkpoint” nel flusso dei dati, così che in caso di errore la trasmissione possa riprendere dall’ultimo punto valido invece di ricominciare da zero.
+    - **Sincronizzazione** → ==inserisce dei “checkpoint” nel flusso dei dati, così che in caso di errore la trasmissione possa riprendere dall’ultimo punto valido invece di ricominciare da zero.==
         
 
 > [!example] **In sintesi:**
@@ -322,15 +329,15 @@ Il modello OSI è formato da **7 livelli numerati dal basso verso l’alto**.
 
 #### **4 – [[Network, Transport, Session, Presentation, Application Layers#ISO E OSI Model transportLayer Transport Layer|Livello di Trasporto (Transport Layer)]]**
 
-- **Scopo:** Garantisce un **trasporto affidabile e trasparente** dei dati **end-to-end**, cioè da un processo (programma) su un computer a un processo su un altro computer.
+- **Scopo:** ==Garantisce un **trasporto affidabile e trasparente** dei dati **end-to-end**, cioè da un processo (programma) su un computer a un processo su un altro computer.==
     
 - **Funzioni principali:**
     
-    - **Segmentazione e riassemblaggio** dei dati in unità gestibili.
+    - ==**Segmentazione e riassemblaggio** dei dati in unità gestibili.==
         
-    - **Controllo di flusso** → regola la quantità di dati trasmessi per evitare congestioni.
+    - **Controllo di flusso** → ==regola la quantità di dati trasmessi per evitare congestioni.==
         
-    - **Controllo degli errori** → rileva e gestisce perdite o duplicazioni di dati.
+    - **Controllo degli errori** → ==rileva e gestisce perdite o duplicazioni di dati.==
         
 - **Protocolli principali:**
     
@@ -344,13 +351,13 @@ Il modello OSI è formato da **7 livelli numerati dal basso verso l’alto**.
 
 #### **3 – [[Network, Transport, Session, Presentation, Application Layers#Network layer|Livello di Rete (Network Layer)]]**
 
-- **Scopo:** Gestire l’**indirizzamento logico** dei dispositivi e scegliere il percorso migliore (**routing**) per i dati attraverso la rete.
+- **Scopo:** ==Gestire l’**indirizzamento logico** dei dispositivi e scegliere il percorso migliore (**routing**) per i dati attraverso la rete.==
     
 - **Funzioni principali:**
     
-    - **Indirizzamento logico** tramite **indirizzi IP**.
+    - ==**Indirizzamento logico** tramite **indirizzi IP**.==
         
-    - **Instradamento (routing)** dei pacchetti da una rete all’altra.
+    - **==Instradamento (routing)** dei pacchetti da una rete all’altra.==
         
 - **Protocollo principale:**
     
@@ -362,15 +369,15 @@ Il modello OSI è formato da **7 livelli numerati dal basso verso l’alto**.
 
 #### **2 – [[ISO E OSI Model#dataLink-layer Livello data link|Livello di Collegamento Dati (Data Link Layer)]]**
 
-- **Scopo:** Fornire un **trasporto affidabile** dei dati lungo un singolo collegamento fisico (rete locale).
+- **Scopo:** ==Fornire un **trasporto affidabile** dei dati lungo un singolo collegamento fisico (rete locale).==
     
 - **Funzioni principali:**
     
-    - **Framing** → organizza i bit in unità logiche chiamate _frame_.
+    - **Framing** → ==organizza i bit in unità logiche chiamate _frame_.==
         
-    - **Indirizzamento fisico** → utilizza gli **indirizzi MAC** per identificare i dispositivi all’interno della rete locale.
+    - **Indirizzamento fisico** → ==utilizza gli **indirizzi MAC** per identificare i dispositivi all’interno della rete locale.==
         
-    - **Controllo degli errori** → rileva (e a volte corregge) errori di trasmissione provenienti dal livello fisico.
+    - **Controllo degli errori** → ==rileva (e a volte corregge) errori di trasmissione provenienti dal livello fisico.==
         
 
 > [!example] **In sintesi:**
@@ -379,19 +386,19 @@ Il modello OSI è formato da **7 livelli numerati dal basso verso l’alto**.
 
 #### **[[ISO E OSI Model#livelloFisico Livello fisico|1 – Livello Fisico (Physical Layer)]]**
 
-- **Scopo:** Trasmettere e ricevere i **bit grezzi non strutturati** attraverso un mezzo fisico.
+- **Scopo:** ==Trasmettere e ricevere i **bit grezzi non strutturati** attraverso un mezzo fisico.==
     
 - **Funzioni principali:**
     
-    - Definisce le **specifiche elettriche, meccaniche e funzionali**:
+    - ==Definisce le **specifiche elettriche, meccaniche e funzionali**:==
         
-        - Cavi (rame, fibra ottica).
+        - **Cavi (rame, fibra ottica).**
             
-        - Segnali elettrici o ottici.
+        - **Segnali elettrici o ottici.**
             
-        - Frequenze radio (Wi-Fi).
+        - **Frequenze radio (Wi-Fi).**
             
-        - Connettori e interfacce.
+        - **Connettori e interfacce.**
             
 
 > [!example] **In sintesi:**
@@ -407,30 +414,30 @@ Da qui, i dati scendono uno per volta attraverso i vari livelli: Presentazione, 
 
 Ad ogni passaggio, il livello in questione **aggiunge informazioni proprie**.
 
-- Il Trasporto aggiunge ad esempio un numero di porta.
+- ==Il Trasporto aggiunge ad esempio un numero di porta.==
     
-- Il livello Rete aggiunge l’indirizzo IP.
+- ==Il livello Rete aggiunge l’indirizzo IP.==
     
-- Il livello Collegamento Dati aggiunge l’indirizzo MAC.
+- ==Il livello Collegamento Dati aggiunge l’indirizzo MAC.==
     
 
 Questo processo si chiama **incapsulamento**: 
-- i dati vengono “impacchettati” con sempre più informazioni, un po’ come mettere un oggetto dentro a una serie di scatole sempre più grandi.
+- ==i dati vengono “impacchettati” con sempre più informazioni, un po’ come mettere un oggetto dentro a una serie di scatole sempre più grandi.== 
 
 Sul computer destinatario il processo è opposto: 
-- i dati risalgono dal [[ISO E OSI Model#^livelloFisico|livello Fisico]] fino all’[[ISO E OSI Model#^applicationLayer|Applicazione]]. 
-- Ogni livello legge solo le informazioni che riguardano lui, le rimuove (de-capsulamento) e passa il resto al livello superiore.
+- ==i dati risalgono dal [[ISO E OSI Model#^livelloFisico|livello Fisico]] fino all’[[ISO E OSI Model#^applicationLayer|Applicazione]].== 
+- ==Ogni livello legge solo le informazioni che riguardano lui, le rimuove (de-capsulamento) e passa il resto al livello superiore.==
 
 
 ####  2. Comunicazione orizzontale (tra due computer)
 
-Un aspetto cruciale del modello OSI è che, anche se fisicamente i dati passano per **tutti i livelli**, **concettualmente** ogni livello “parla” solo con il suo corrispondente sull’altro computer.
+Un aspetto cruciale del modello OSI è che, anche se fisicamente i dati passano per **tutti i livelli**, **concettualmente ogni livello “parla” solo con il suo corrispondente sull’altro computer.**
 
 Esempio:
 
-- Il **livello Trasporto** sul PC mittente non “vede” cosa fanno gli altri livelli. Per lui la comunicazione avviene direttamente con il livello Trasporto del PC destinatario (es. TCP che invia segmenti a TCP).
+- ==Il **livello Trasporto** sul PC mittente non “vede” cosa fanno gli altri livelli. Per lui la comunicazione avviene direttamente con il livello Trasporto del PC destinatario (es. TCP che invia segmenti a TCP).==
     
-- Lo stesso vale per il livello Rete (IP con IP), per il livello Collegamento Dati (MAC con MAC), ecc.
+- ==Lo stesso vale per il livello Rete (IP con IP), per il livello Collegamento Dati (MAC con MAC), ecc.==
     
 
 Questa comunicazione tra pari viene detta **peer-to-peer**.
@@ -551,91 +558,3 @@ Questo significa che:
 > - e risolvere problemi nelle reti, perché ciascun livello ha compiti ben definiti e isolati dagli altri.
 
 
-### Confronto tra il Modello OSI e il Modello TCP/IP
-
-Anche se **Internet funziona principalmente sul modello TCP/IP**, il modello OSI rimane molto utile per comprendere la struttura e il funzionamento delle reti in modo più dettagliato.
-
-### Livelli corrispondenti
-
-- **[[Modello TCP-IP#Application layer|Livello Applicazione (TCP/IP)]]**  
-    Questo livello raggruppa le funzionalità dei **tre livelli superiori dell’OSI**:
-    
-    - **[[Network, Transport, Session, Presentation, Application Layers#ISO E OSI Model applicationLayer Application Layer|Livello 7 - Applicazione (OSI):]]** Fornisce interfaccia e servizi di rete per le applicazioni utente (es. browser, client email, HTTP, SMTP).
-        
-    - **[[Network, Transport, Session, Presentation, Application Layers#ISO E OSI Model presentationLayer Presentation Layer|Livello 6 - Presentazione (OSI):]]** Gestisce formattazione, crittografia e compressione dei dati.
-        
-    - **[[Network, Transport, Session, Presentation, Application Layers#ISO E OSI Model sessionLayer Session Layer|Livello 5 - Sessione (OSI):]]** Stabilisce, gestisce e termina il dialogo tra host.
-        
-- **[[Modello TCP-IP#TransportLayer Transport Layer|Livello Trasporto (TCP/IP)]]**  
-    Corrisponde al **[[Network, Transport, Session, Presentation, Application Layers#ISO E OSI Model transportLayer Transport Layer|Livello 4 - Trasporto (OSI)]]**: garantisce comunicazione end-to-end affidabile e controllo del flusso dei dati tramite protocolli come [[Modello TCP-IP#TCP (Transmission Control Protocol)|TCP]] e [[Modello TCP-IP#UDP (User Datagram Protocol)|UDP]].
-    
-- **[[Modello TCP-IP#Internet Layer|Livello Internet (TCP/IP)]]**  
-    Coincide con il **[[Network, Transport, Session, Presentation, Application Layers#Network layer|Livello 3 - Rete (OSI)]]**: gestisce l’indirizzamento logico (IP), l’instradamento e il percorso dei pacchetti attraverso le reti.
-    
-- **[[Modello TCP-IP#Network Access Layer|Livello di Accesso alla Rete (TCP/IP)]]**  
-    Raggruppa le responsabilità dei due livelli inferiori dell’OSI:
-    
-    - **[[ISO E OSI Model#dataLink-layer Livello data link|Livello 2 - Collegamento Dati (OSI):]]** gestione del framing e dell’indirizzamento fisico locale (MAC address).
-        
-    - **[[ISO E OSI Model#livelloFisico Livello fisico|Livello 1 - Fisico (OSI):]]** trasmissione dei bit attraverso il mezzo fisico (cavi, Wi-Fi, ecc.).
-        
-
-#### Differenze principali
-
-- **Modello teorico vs pratico:** 
-	- OSI è un modello di riferimento concettuale, 
-	- mentre TCP/IP è quello utilizzato realmente su Internet.
-    
-- **Numero di livelli:** 
-	- OSI ha 7 livelli distinti, offrendo una separazione più netta delle funzionalità; 
-	- TCP/IP ne ha 4 (o 5 se si distingue tra Collegamento Dati e Fisico), combinando alcune funzioni.
-    
-
-> Anche nel TCP/IP, come nell’OSI, ogni livello dialoga logicamente con il suo pari sul sistema remoto (peer-to-peer) mentre i dati viaggiano fisicamente **dal livello superiore a quello inferiore** sul mittente e **dal basso verso l’alto** sul destinatario, secondo lo schema di **incapsulamento e decapsulamento**.
-
-
-### Comunicazione tra livelli nel modello TCP/IP
-
-Il principio di **comunicazione a livelli** nel modello TCP/IP è molto simile a quello del modello OSI, anche se ci sono differenze nella suddivisione e nel numero dei livelli.
-
-#### 1. Comunicazione verticale (tra livelli adiacenti)
-
-- I dati **scendono dall’alto verso il basso** attraverso i livelli dello stack sul mittente.
-    
-- Ogni livello aggiunge **informazioni di controllo** (intestazioni, header) ai dati ricevuti dal livello superiore. Questo processo si chiama **incapsulamento**.
-    
-- Al destinatario, i dati **risalgono dal basso verso l’alto** e ogni livello rimuove le intestazioni aggiunte dal corrispondente livello del mittente. Questo processo si chiama **decapsulamento**.
-    
-- Ogni livello utilizza i servizi del livello inferiore e fornisce servizi al livello superiore.
-    
-
-#### 2. Comunicazione orizzontale (logica "peer-to-peer")
-
-- Concettualmente, ogni livello comunica **con il corrispondente livello sul sistema remoto**.
-    
-- Questa comunicazione logica è regolata dai **protocolli specifici** di ciascun livello.
-    
-- **Esempi:**
-    
-    - **Livello di Trasporto (TCP/UDP):** gestisce affidabilità, controllo di sequenza e integrità tra i processi di trasporto dei due sistemi.
-        
-    - **Livello Rete (IP):** coordina l’instradamento dei pacchetti tra host remoti.
-        
-
-##### Differenze principali tra TCP/IP e OSI
-
-- **Numero di livelli:**
-    
-    - TCP/IP: 4 o 5 livelli (Applicazione, Trasporto, Internet, Accesso alla Rete; oppure con separazione di Collegamento Dati e Fisico).
-        
-    - OSI: 7 livelli (Applicazione, Presentazione, Sessione, Trasporto, Rete, Collegamento Dati, Fisico).
-        
-- **Combinazione di livelli:**
-    
-    - Il **livello Applicazione** del TCP/IP include Applicazione, Presentazione e Sessione dell’OSI.
-        
-    - Il **livello di Accesso alla Rete** del TCP/IP include Collegamento Dati e Fisico dell’OSI.
-        
-
->[!example] **In sintesi:** 
->pur con differenze di nomi e numeri di livelli, il **principio fondamentale rimane lo stesso**: comunicazione verticale tra livelli adiacenti e comunicazione logica peer-to-peer tra livelli corrispondenti.

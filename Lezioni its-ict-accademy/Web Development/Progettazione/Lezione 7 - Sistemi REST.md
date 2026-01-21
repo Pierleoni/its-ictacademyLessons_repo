@@ -1,12 +1,13 @@
-# Introduzione 
+  # Introduzione 
 Nelle lezioni precedenti abbiamo analizzato i meccanismi fondamentali alla base della comunicazione tra client e server: il funzionamento del [[Lezione 3; Protocollo HTTP; il Modello TCP- IP, il Modello ISO-OSI e la comunicazione tra livelli|protocollo HTTP]], la struttura delle richieste e delle risposte, il ruolo degli [[Lezione 4 - Protocollo HTTP 2 parte#^header|header]] e del [[Lezione 4 - Protocollo HTTP 2 parte#^body|body]], fino ad arrivare al [[Lezione 5 - Il Formato JSON|formato JSON]] come standard moderno per lo scambio dei dati. 
 Abbiamo inoltre introdotto il concetto di [[Lezione 6 - API|API]] e visto come queste espongano risorse accessibili tramite [[Lezione 6 - API#Endpoint|endpoint]] ben definiti, utilizzando [[Lezione 6 - API#Payload|payload]] strutturati per trasmettere informazioni in modo chiaro e interoperabile.
 
-Il passo successivo consiste nel comprendere **come organizzare** questi elementi in un vero e proprio modello architetturale. In altre parole: quando progettiamo un sistema basato su API, quali regole seguiamo per rendere la comunicazione semplice, prevedibile e scalabile?
+Il passo successivo consiste nel comprendere **come organizzare** questi elementi in un vero e proprio modello architetturale. 
+In altre parole: quando progettiamo un sistema basato su [[Lezione 6 - API#API (Application Programming Interface)|API]], quali regole seguiamo per rendere la comunicazione semplice, prevedibile e scalabile?
 
-A questa esigenza risponde **REST (REpresentational State Transfer)**:
-uno stile architetturale che si è affermato come lo standard de facto per la realizzazione delle API web moderne. 
-REST fornisce un insieme di principi e convenzioni che guidano la progettazione di servizi web facilmente utilizzabili, interoperabili e aderenti ai meccanismi naturali del protocollo HTTP.
+A questa esigenza risponde **[[Lezione 6 - API#**• REST (REpresentational State Transfer)**|REST (REpresentational State Transfer)]]**:
+- ==uno stile architetturale che si è affermato come lo standard de facto per la realizzazione delle [[Lezione 6 - API#1. API Web( Modello TCP-IP HTTP - based)|API web]] moderne.== 
+**REST fornisce un insieme di principi e convenzioni che guidano la progettazione di servizi web facilmente utilizzabili, interoperabili e aderenti ai meccanismi naturali del protocollo HTTP.**
 
 ## Sistemi REST 
 ==REST (_REpresentational State Transfer_) è uno **stile architetturale** basato su un insieme di vincoli, linee guida e buone pratiche pensate per progettare sistemi distribuiti semplici da usare, scalabili e coerenti.== 
@@ -14,7 +15,7 @@ REST fornisce un insieme di principi e convenzioni che guidano la progettazione 
 Non è un protocollo, non è un framework, non è una libreria:  
 - ==è un **modello di progettazione** che definisce come strutturare un sistema affinché sia prevedibile, chiaro e soprattutto interoperabile.==
 
-L’obiettivo principale di REST è offrire un riferimento comune per evitare che ogni sviluppatore implementi API a modo proprio, generando sistemi incoerenti, difficili da integrare e complicati da mantenere nel tempo. 
+==L’obiettivo principale di REST è offrire un riferimento comune per evitare che ogni sviluppatore implementi API a modo proprio, generando sistemi incoerenti, difficili da integrare e complicati da mantenere nel tempo.== 
 Quando un servizio rispetta i vincoli e i principi di questo modello, si dice che è un sistema **RESTful**.
 
 
@@ -50,11 +51,11 @@ Quando un servizio rispetta i vincoli e i principi di questo modello, si dice ch
 >#### Prima di REST:  un panorama frammentato e complesso
 >Prima del 2000, la realizzazione di sistemi distribuiti era spesso un percorso tortuoso. Tra le tecnologie più utilizzate:
 >
->- **CORBA**: molto potente, ma estremamente complessa e difficile da manutenere
+>- **CORBA**: ==molto potente, ma estremamente complessa e difficile da manutenere==
   >  
->- **RPC (Remote Procedure Call)**: cercava di nascondere la natura distribuita, provocando problemi di affidabilità
+>- **RPC (Remote Procedure Call)**: ==cercava di nascondere la natura distribuita, provocando problemi di affidabilità==
   >  
->- **SOAP**: formalmente rigoroso, ma eccessivamente verboso e basato su messaggi XML pesanti
+>- **[[Lezione 6 - API#SOAP (Simple Object Access Protocol)|SOAP]]**: ==formalmente rigoroso, ma eccessivamente verboso e basato su messaggi XML pesanti==
   >  
 >- Tecnologie proprietarie: ogni azienda implementava protocolli personalizzati, incompatibili tra loro
  >   
@@ -64,15 +65,15 @@ Quando un servizio rispetta i vincoli e i principi di questo modello, si dice ch
 > #### I problemi che REST voleva risolvere
 >REST nacque quindi con l’obiettivo di affrontare alcune criticità ricorrenti nei sistemi distribuiti:
 >
->- **eccessiva complessità** delle tecnologie dell’epoca
+>- ==**eccessiva complessità** delle tecnologie dell’epoca==
   >  
->- **accoppiamento troppo stretto** tra client e server
+>- ==**accoppiamento troppo stretto** tra client e server==
   >  
->- **scarsa scalabilità**, soprattutto sotto carichi elevati
+>- ==**scarsa scalabilità**, soprattutto sotto carichi elevati==
   >  
->- **difficoltà di interoperabilità** tra sistemi diversi
+>- ==**difficoltà di interoperabilità** tra sistemi diversi==
   >  
->- **mancanza di un modello condiviso** per la progettazione delle API
+>- ==**mancanza di un modello condiviso** per la progettazione delle API==
   >  
 >
 >Analizzando ciò che aveva reso il web così efficace, Fielding estrasse una serie di principi che – se applicati correttamente – avrebbero permesso di creare sistemi semplici, prevedibili e facili da integrare.  
@@ -123,10 +124,10 @@ Alcuni principi chiave che permettono questa scalabilità sono:
 
 > [!done] Caratteristiche
 > - **Indipendenza di piattaforma e linguaggio**: 
-> 	- Un client JavaScript può comunicare con un server Python, Java o qualsiasi altra tecnologia senza problemi.
+> 	- ==Un client JavaScript può comunicare con un server Python, Java o qualsiasi altra tecnologia senza problemi.==
 >     
 > - **Evoluzione indipendente**: 
-> 	- Client e server possono essere aggiornati separatamente, purché il contratto dell’API non venga rotto.
+> 	- ==Client e server possono essere aggiornati separatamente, purché il contratto dell’API non venga rotto.==
 >     
 > 
 
@@ -177,7 +178,7 @@ Tra questi vincoli, uno dei più importanti è quello della **statelessness**.
 REST organizza il sistema attorno al concetto di **risorsa:** 
 - ==ciascuna identificata da un URL unico.== ^risorsa
 
-Le operazioni sulle risorse seguono i verbi standard di HTTP, che conferiscono coerenza e prevedibilità all’interfaccia.
+Le operazioni sulle risorse seguono i [[#Livello 2 Verbi HTTP(HTTP Verbs)|verbi standard di HTTP]], che conferiscono coerenza e prevedibilità all’interfaccia.
 
 - `GET /utenti/123` → Recupera la risorsa “utente 123”
     
@@ -277,7 +278,7 @@ In un’architettura **stateful**:
 > #### Perché i Servizi Stateless Sono Più Convenienti ed Efficienti
 > Uno dei motivi principali per cui i sistemi REST hanno avuto così grande successo è il **vantaggio economico** associato al modello **stateless**.
 >
->Nei sistemi **[[#**Architettura Stateful (Con Stato)**|stateful]]**, ogni volta che un client interagisce con un server:
+>Nei sistemi **[[Lezione 7 - Sistemi REST#**Architettura Stateful (Con Stato)**|stateful]]**, ogni volta che un client interagisce con un server:
 >==quest’ultimo deve mantenere una **sessione attiva**, cioè uno spazio di memoria dedicato in cui conservare informazioni sullo stato della conversazione (dati parziali, preferenze, step già completati, ecc.).==  
 >Questa gestione dello stato, però, ha un costo molto elevato:
 >
@@ -334,8 +335,8 @@ Questo modello è conosciuto come **Scala di Maturità di Richardson** (Richards
 
 ==Al livello zero troviamo i sistemi con il più basso grado di maturità.==  
 In questa categoria rientrano le API che trattano l'interfaccia remota come un unico punto di accesso:
-- spesso utilizzando un solo endpoint generico (ad esempio `POST /api`) per eseguire qualunque operazione.  
-In questi sistemi **non esistono vere e proprie risorse**, né una differenziazione tra operazioni basate sui metodi HTTP. 
+- ==spesso utilizzando un solo [[Lezione 6 - API#Endpoint|endpoint]] generico (ad esempio `POST /api`) per eseguire qualunque operazione.==  
+In questi sistemi **non esistono vere e proprie [[#Il concetto di Risorsa in REST|risorse]]**, né una differenziazione tra operazioni basate sui [[#Livello 2 Verbi HTTP(HTTP Verbs)|metodi HTTP]]. 
 I vincoli REST sono completamente assenti e coesistono stili architetturali molto diversi, da qui il nome “Far West”.
 
 ### Livello 1 – Risorse
@@ -343,7 +344,7 @@ I vincoli REST sono completamente assenti e coesistono stili architetturali molt
 Il primo passo verso REST consiste nell'introduzione del concetto di **[[#^risorsa|risorsa]]:**
 - ==rappresentata tramite URI specifici.==  
 
-A questo livello l’API dispone di endpoint distinti per gli elementi del dominio (ad esempio `/clienti`, `/ordini`, `/prodotti`).  
+A questo livello l’API dispone di [[Lezione 6 - API#Endpoint|endpoint]] distinti per gli elementi del dominio (ad esempio `/clienti`, `/ordini`, `/prodotti`).  
 Tuttavia, pur iniziando a separare le entità, **le operazioni sono ancora accentrate**: 
 - ==spesso tutte le interazioni avvengono tramite un unico metodo HTTP (di solito `POST`).==  
 Il sistema migliora in organizzazione, ma non sfrutta ancora la semantica del protocollo HTTP.
@@ -354,16 +355,16 @@ Il livello 2 introduce un elemento fondamentale dello stile REST:
 - la **[[Lezione 4 - Protocollo HTTP 2 parte#^verbiHTTP|semantica dei metodi HTTP]]**.  
 Ogni operazione viene espressa tramite il verbo più appropriato:
 
-- [[Lezione 4 - Protocollo HTTP 2 parte#^04d1a5|`GET`]] per recuperare risorse
+- ==[[Lezione 4 - Protocollo HTTP 2 parte#^04d1a5|`GET`]] per recuperare risorse==
     
-- [[Lezione 4 - Protocollo HTTP 2 parte#^9ffd01|`POST`]] per crearle
+- ==[[Lezione 4 - Protocollo HTTP 2 parte#^9ffd01|`POST`]] per crearle==
     
-- [[Lezione 4 - Protocollo HTTP 2 parte#^523224|`PUT`]] o [[Lezione 4 - Protocollo HTTP 2 parte#^6cfc05|`PATCH`]] per aggiornarle
+- ==[[Lezione 4 - Protocollo HTTP 2 parte#^523224|`PUT`]] o [[Lezione 4 - Protocollo HTTP 2 parte#^6cfc05|`PATCH`]] per aggiornarle==
     
-- [[Lezione 4 - Protocollo HTTP 2 parte#^595c2b|`DELETE`]] per eliminarle
+- ==[[Lezione 4 - Protocollo HTTP 2 parte#^595c2b|`DELETE`]] per eliminarle==
     
 
-Inoltre, il sistema utilizza i **[[Lezione 4 - Protocollo HTTP 2 parte#Status Code HTTP|codici di stato HTTP]]** per comunicare l’esito delle operazioni (ad esempio `200 OK`, `404 Not Found`, `201 Created`).  
+==Inoltre, il sistema utilizza i **[[Lezione 4 - Protocollo HTTP 2 parte#Status Code HTTP|codici di stato HTTP]]** per comunicare l’esito delle operazioni (ad esempio `200 OK`, `404 Not Found`, `201 Created`).==  
 Questo livello rappresenta nella pratica il traguardo raggiunto dalla maggior parte delle API moderne ed è già sufficiente per ottenere un'interfaccia ben progettata, chiara e comprensibile.
 
 ### Livello 3 – HATEOAS (Hypermedia as the Engine of Application State)
@@ -383,21 +384,22 @@ Approfondiamo ogni livello
 ### [[#Livello 0 – Il “Far West”|Livello 0 – La “Palude” del POX (The Swamp of POX)]]
 Il Livello 0 rappresenta il punto di partenza della Scala di Maturità REST: 
 - ==è il gradino più basso, quello in cui un sistema utilizza il [[Lezione 3; Protocollo HTTP; il Modello TCP- IP, il Modello ISO-OSI e la comunicazione tra livelli|protocollo HTTP]] nel modo più semplice (e più limitato) possibile.== 
-- L’acronimo **POX** significa **_Plain Old XML_** – anche se oggi potremmo parlare indifferentemente di _Plain Old JSON_ – e descrive un approccio in cui il server e il client si scambiano semplici messaggi strutturati senza alcuna attenzione ai principi del web.
+- L’acronimo **POX** significa **_Plain Old XML_** – anche se oggi potremmo parlare indifferentemente di _Plain Old JSON_ – e ==descrive un approccio in cui il server e il client si scambiano semplici messaggi strutturati senza alcuna attenzione ai principi del web.==
 
 #### **Come funziona un sistema POX**
 
-A questo livello, l’HTTP non viene sfruttato come protocollo applicativo dotato di semantica propria, ma viene trattato come un semplice “tunnel” per invocare funzioni remote, in stile RPC (Remote Procedure Call).  
+A questo livello, ==l’HTTP non viene sfruttato come protocollo applicativo dotato di semantica propria, ma viene trattato come un semplice “tunnel” per invocare funzioni remote, in stile RPC (Remote Procedure Call).==  
 Le caratteristiche fondamentali sono:
 
-- **Un unico endpoint**: 
+- **Un unico [[Lezione 6 - API#Endpoint|endpoint]]**: 
 	- ==esiste un solo URL che riceve tutte le richieste, indipendentemente dall’operazione da eseguire.==
     
 - **Uso quasi esclusivo del metodo POST**: 
 	- ==che si tratti di leggere, creare o eliminare dati, le richieste vengono inviate sempre allo stesso modo.==
     
 - **Assenza del concetto di risorsa**: 
-	- ==il sistema non espone elementi del dominio tramite URI significativi; lavora invece su “funzioni” o “comandi”.==
+	- ==il sistema non espone elementi del dominio tramite [[#**L’identificatore univoco l’URI**|URI]]
+	- significativi; lavora invece su “funzioni” o “comandi”. 
     
 - **Messaggi sincroni**: 
 	- ==client e server comunicano tramite scambio immediato di dati via HTTP, senza alcun meccanismo di navigazione tra stati.==
@@ -449,7 +451,7 @@ I sistemi che rientrano nel Livello 0 condividono alcune caratteristiche struttu
 	- ==il protocollo viene usato solo come mezzo di trasporto per scambiare messaggi. Nessuna delle sue funzionalità applicative viene realmente valorizzata.==
     
 - **Assenza del concetto di risorsa:** 
-	- ==invece di esporre elementi del dominio tramite URL significativi, il sistema lavora con “funzioni” o “operazioni” remote, come in un classico modello RPC.==
+	- ==invece di esporre elementi del dominio tramite [[Lezione 4 - Protocollo HTTP 2 parte#^url|URL]] significativi, il sistema lavora con “funzioni” o “operazioni” remote, come in un classico modello RPC.==
     
 - **Uso minimo dei verbi HTTP:** 
 	- ==tipicamente l’interazione si riduce a GET e soprattutto POST, utilizzati indistintamente per qualsiasi tipo di operazione (lettura, creazione, cancellazione).==
@@ -462,17 +464,17 @@ Questi aspetti rendono il sistema funzionante, ma poco chiaro e scarsamente stru
 ##### **Esempio pratico del Livello 0**
 
 Per capire come si comporta un’API POX, immaginiamo un sistema che gestisce utenti.  
-Un’API di Livello 0 espone **un unico endpoint**, responsabile di tutte le operazioni:
+==Un’API di Livello 0 espone **un unico endpoint**, responsabile di tutte le operazioni:==
 ```plain
 https://api.example.com/userService
 ```
 
-Il client invia sempre lo stesso tipo di richiesta e indica l’azione da eseguire all’interno del payload.
+Il client invia sempre lo stesso tipo di richiesta e indica l’azione da eseguire all’interno del [[Lezione 6 - API#Payload|payload]].
 
 
 1. **Richiedere i dati di un utente:**  ^fd15ec
-    - Anche se è un’operazione di sola lettura, si utilizza comunque il metodo **POST**.  
-    - Nel corpo della richiesta viene indicata l’azione, ad esempio `"getUser"`. 
+    - ==Anche se è un’operazione di sola lettura, si utilizza comunque il metodo **POST**.==  
+    - ==Nel corpo della richiesta viene indicata l’azione, ad esempio `"getUser"`.== 
 ```json
 POST /useService
 Host: api.example.com
@@ -486,8 +488,8 @@ Content-Type: application/json
 
 
 2. **Creare un nuovo utente:**       ^451662
-    - La struttura della richiesta non cambia: sempre un POST allo stesso URL.  
-    - Nel payload compare l’istruzione `"createUser"` e i dati necessari alla creazione.
+    - ==La struttura della richiesta non cambia: sempre un POST allo stesso URL.==  
+    - ==Nel [[Lezione 6 - API#Payload|payload]] compare l’istruzione `"createUser"` e i dati necessari alla creazione.==
 ```json
 POST /useService
 Host: api.example.com
@@ -502,7 +504,7 @@ Content-Type: application/json
 ```
     
 3. **Eliminare un utente:**       
-    Ancora un POST verso lo stesso endpoint, con `"deleteUser"` specificato nel corpo.
+    ==Ancora un POST verso lo stesso endpoint, con `"deleteUser"` specificato nel corpo.==
      ^95db92
 ```json
 POST /useService
@@ -521,7 +523,7 @@ In tutti i casi:
 
 ### Livello 1 – Risorse (Resources)
 Il **Livello 1** rappresenta il **primo, fondamentale passo** per uscire dalla _“palude del POX”_ vista nel Livello 0.  
-In questa fase, l’API smette di essere un insieme confuso di chiamate a funzioni remote e inizia a **organizzare il servizio attorno al concetto di risorsa**, che è il pilastro di ogni architettura REST.
+In questa fase, l’API smette di essere un insieme confuso di chiamate a funzioni remote e ==inizia a **organizzare il servizio attorno al [[#Il concetto di Risorsa in REST|concetto di risorsa]]**, che è il pilastro di ogni architettura REST.==
 
 #### **Dal Livello 0 al Livello 1: cosa cambia davvero**
 
@@ -543,12 +545,12 @@ Nel Livello 1:
 - ==**ogni [[#**Il concetto di Risorsa in REST**|risorsa]] ottiene un proprio indirizzo univoco (URI)**.==
     
 
-Non si inviano più istruzioni del tipo _“esegui questa operazione”_, ma si interagisce direttamente con **indirizzi che rappresentano ciò su cui si sta operando**.
+Non si inviano più istruzioni del tipo _“esegui questa operazione”_, ==ma si interagisce direttamente con **indirizzi che rappresentano ciò su cui si sta operando**.==
 
 #### Il concetto di Risorsa in REST
 
 In un’architettura REST, una **risorsa** non è un metodo, una funzione o un’azione.  
-È **un’informazione, un dato o un concetto del dominio applicativo** che il sistema decide di rendere accessibile e manipolabile tramite il web.
+==È **un’informazione, un dato o un concetto del dominio applicativo** che il sistema decide di rendere accessibile e manipolabile tramite il web.==
 
 In altre parole:
  
@@ -556,11 +558,11 @@ In altre parole:
 
 Una risorsa può rappresentare:
 
-- un’entità concreta (un professore, un prodotto, un ordine);
+- ==un’entità concreta (un professore, un prodotto, un ordine);==
     
-- un’entità logica (una sessione d’esame, un corso);
+- ==un’entità logica (una sessione d’esame, un corso);==
     
-- una collezione di entità (tutti i professori);
+- ==una collezione di entità (tutti i professori);==
     
 - uno stato o una rappresentazione di dati (previsioni meteo, statistiche, report).
 
@@ -570,19 +572,19 @@ Una risorsa può rappresentare:
 >
 > **La risorsa non coincide con il dato fisico memorizzato nel database.**
 >
->- il database è un **dettaglio implementativo del server**;
+>- ==il database è un **dettaglio implementativo del server**;==
 >    
->- la risorsa è un’**astrazione**, ovvero ciò che il client percepisce e utilizza.
+>- ==la risorsa è un’**astrazione**, ovvero ciò che il client percepisce e utilizza.==
  >   
 >
 >Ad esempio:
 >
->- un professore può essere memorizzato in più tabelle;
+>- ==un professore può essere memorizzato in più tabelle;==
  >   
->- può essere ricostruito tramite query complesse;
+>- ==può essere ricostruito tramite query complesse;==
   >  
->- ma per il client rimane semplicemente  
-  >  **“il professore con id 123”**.
+>- ==ma per il client rimane semplicemente==  
+  >  ==**“il professore con id 123”**.==
  >   
 >
 >REST separa quindi **il modello interno** dalla **rappresentazione esterna**.
@@ -613,22 +615,22 @@ Una risorsa può rappresentare:
 >La risorsa diventa quindi **l’elemento centrale** del modello REST.
 
 ####  **L’identificatore univoco: l’URI**
-Affinché una risorsa possa essere utilizzata, deve essere **identificabile in modo univoco**.  
+==Affinché una [[#Il concetto di Risorsa in REST|risorsa]] possa essere utilizzata, deve essere **identificabile in modo univoco**.==  
 In REST, questo avviene tramite un **URI (Uniform Resource Identifier)**.
 
-> **L’URI è il nome univoco di una risorsa all’interno del web.**
+> ==**L’URI è il nome univoco di una risorsa all’interno del web.**==
 
-L’URI non descrive l’azione da compiere, ma **identifica la risorsa stessa**.
+==L’URI non descrive l’azione da compiere, ma **identifica la [[#Il concetto di Risorsa in REST|risorsa]] stessa**.==
 
-La regola fondamentale del Livello 1 del Richardson Maturity Model è:
+La regola fondamentale del Livello 1 del [[#^richardsonMaturityLevel|Richardson Maturity Model]] è:
 
-> **Ogni risorsa deve avere un identificatore univoco, chiamato URI.**
+> ==**Ogni risorsa deve avere un identificatore univoco, chiamato URI.**==
 
 #### **Struttura di un URI**
 
 Un **URI (Uniform Resource Identifier):** 
 - ==è l’identificatore univoco di una risorsa nel web.==  
-Nel contesto delle API REST, un URI viene quasi sempre espresso come **URL**, perché utilizza il protocollo HTTP per indicare anche dove reperire la risorsa.
+Nel contesto delle API REST, un URI viene quasi sempre espresso come **[[Lezione 4 - Protocollo HTTP 2 parte#^url|URL]]**, perché utilizza il [[Lezione 3; Protocollo HTTP; il Modello TCP- IP, il Modello ISO-OSI e la comunicazione tra livelli#^4fdfec|protocollo HTTP]] per indicare anche dove reperire la risorsa.
 
 Un URI è composto concettualmente da due parti:
 
@@ -669,10 +671,10 @@ L’URI, da solo, comunica **su cosa** si sta operando, indipendentemente dall�
 >
 >**Definizione corretta**
 >
->- **URI (Uniform Resource Identifier)**  
-> 	   - Identifica una risorsa in modo univoco.
->- **URL (Uniform Resource Locator)**  
-> 	   - È un tipo particolare di URI che indica **anche dove e come** accedere alla risorsa.
+>- **[[#**L’identificatore univoco l’URI**|URI (Uniform Resource Identifier)]]**  
+> 	   - ==Identifica una risorsa in modo univoco.==
+>- **[[Lezione 4 - Protocollo HTTP 2 parte#^url|URL (Uniform Resource Locator)]]**  
+> 	   - ==È un tipo particolare di URI che indica **anche dove e come** accedere alla risorsa.==
 >    
 >
 >>[!ticket] **Tutti gli URL sono URI, ma non tutti gli URI sono URL.**
@@ -720,14 +722,14 @@ Per rendere un’API coerente, leggibile e prevedibile, si seguono alcune best p
 ```
     
 3.  **Body della richiesta per dati complessi**  
-    - Usato, ad esempio, per inviare un oggetto JSON durante la creazione o modifica di una risorsa.
+    - ==Usato, ad esempio, per inviare un oggetto [[Lezione 5 - Il Formato JSON#Cos’è il JSON e perché viene utilizzato|JSON]] durante la creazione o modifica di una risorsa.==
     
 
 Queste regole non sono obblighi formali dello standard HTTP, ma **convenzioni consolidate** che migliorano la chiarezza dell’API.
 
 #####  **URI progressivi e risorse correlate**
 
-**Le risorse sono spesso collegate tra loro da relazioni logiche**  
+==**Le risorse sono spesso collegate tra loro da relazioni logiche**==  
 (esempio: _un professore insegna delle materie_).
 
 Queste relazioni vengono rappresentate direttamente nella struttura dell’URI.
@@ -757,28 +759,28 @@ http://universita.napoli.it/professori/123/materie
 ```plain
 urn:isbn:9780132350884
 ```
-- identifica un libro tramite ISBN;
+- ==identifica un libro tramite ISBN;==
     
-- non dice dove trovarlo;
+- ==non dice dove trovarlo;==
     
-- non usa HTTP.
+- ==non usa HTTP.==
 
 **Esempio di URL (quindi anche URI):**
 ```text
 https://myUniversity.it/professors/123
 ```
-- identifica una risorsa;
+- ==identifica una [[#Il concetto di Risorsa in REST|risorsa]];==
     
-- indica il protocollo (`https`);
+- ==indica il protocollo (`https`);==
     
-- indica dove reperirla (`myUniversity.it`).
+- ==indica dove reperirla (`myUniversity.it`).==
     
 
 Nel contesto REST:
 
-- **si usano quasi sempre URL**;
+- ==**si usano quasi sempre URL**;==
     
-- ma concettualmente REST parla di **URI**, perché il punto centrale è l’identificazione, non il trasporto.
+- ==ma concettualmente REST parla di **URI**, perché il punto centrale è l’identificazione, non il trasporto.==
 
 
 > [!example] **URI e Risorsa: come leggere correttamente gli esempi**
@@ -824,14 +826,14 @@ Nel contesto REST:
 
 L’uso di **URI ben progettati e standardizzati** è uno degli elementi che rende il Web — e in particolare i sistemi REST — estremamente potenti e flessibili.
 
-Un URI non è soltanto una stringa tecnica, ma un vero e proprio **contratto di comunicazione** tra client e server, con diversi vantaggi fondamentali.
+Un URI non è soltanto una stringa tecnica, ==ma un vero e proprio **contratto di comunicazione** tra client e server, con diversi vantaggi fondamentali.==
 
 ### Perché gli URI sono così potenti
 
 Un URI offre benefici su più livelli:
 
 1. **Comprensibilità per gli esseri umani**  
-    Un URI ben strutturato è leggibile e auto-esplicativo.  
+    - ==Un URI ben strutturato è leggibile e auto-esplicativo.==  
     Ad esempio:
 ```
 /users/123
@@ -840,10 +842,10 @@ Un URI offre benefici su più livelli:
 fa immediatamente intuire che si sta parlando dell’utente con identificativo `123`.
 
 2. **Interpretabilità da parte delle macchine**  
-    I client (browser, app mobile, servizi backend) sanno che un indirizzo che inizia con `http://` o `https://` rappresenta una risorsa accessibile tramite il protocollo [[Modello TCP-IP#Http-https HyperText Transfer Protocol (HTTP)|HTTP]].
+    - ==I client (browser, app mobile, servizi backend) sanno che un indirizzo che inizia con `http://` o `https://` rappresenta una risorsa accessibile tramite il protocollo [[Modello TCP-IP#Http-https HyperText Transfer Protocol (HTTP)|HTTP]].==
     
 3. **Standard globale**  
-    Gli URI permettono di identificare e richiamare risorse distribuite su **qualsiasi server nel mondo**, senza ambiguità, rendendo possibile l’interoperabilità tra sistemi diversi.
+    - ==Gli URI permettono di identificare e richiamare risorse distribuite su **qualsiasi server nel mondo**, senza ambiguità, rendendo possibile l’interoperabilità tra sistemi diversi.==
 In altre parole, l’URI risponde sempre alla domanda:
 
 > **“Qual è la risorsa con cui sto interagendo?”**
@@ -854,18 +856,18 @@ Un aspetto fondamentale è che gli URI sono strettamente legati al protocollo **
 
 ### Cos’è la Content Type Negotiation
 
-La negoziazione del contenuto consente a **client e server di “parlare la stessa lingua”**, 
-scegliendo il formato più adatto per rappresentare una risorsa.
+La negoziazione del contenuto consente a ==**client e server di “parlare la stessa lingua”**,== 
+==scegliendo il formato più adatto per rappresentare una risorsa.==
 
 Non tutte le applicazioni comprendono gli stessi formati:
 
-- un browser comprende bene l’HTML;
+- ==un browser comprende bene l’[[HTML|HTML]];==
     
-- molte API lavorano con JSON;
+- ==molte [[Lezione 6 - API#API (Application Programming Interface)|API]] lavorano con [[Lezione 5 - Il Formato JSON#Cos’è il JSON e perché viene utilizzato|JSON]];==
     
-- alcuni sistemi utilizzano XML;
+- ==alcuni sistemi utilizzano XML;==
     
-- altri possono restituire immagini, video o file binari.
+- ==altri possono restituire immagini, video o file binari.==
 
 
 #### Come funziona la negoziazione
@@ -1025,9 +1027,9 @@ Il **Livello 2** supera questo limite:
 
 In altre parole:
 
-- **l’URI continua a indicare _su cosa_ si opera**;
+- ==**l’URI continua a indicare _su cosa_ si opera**;==
     
-- **il verbo HTTP indica _che cosa_ si vuole fare**.
+- **==il verbo HTTP indica _che cosa_ si vuole fare**.==
 
 #### Come funziona il livello 2
 In un’API di Livello 2, ogni operazione utilizza il **verbo HTTP più appropriato**, sfruttando appieno la semantica del protocollo:
