@@ -1,6 +1,6 @@
-
 # Introduzione
-Fino a questo punto abbiamo visto come [[Lezione 2 - Sintassi e costrutti di base#Dichiarazione delle variabili|dichiarare variabili]] di tipo primitivo e oggetti, gestire lo **[[Lezione 2 - Sintassi e costrutti di base#Scope (ambito) delle variabili|scope]]**, usare cicli e strutture condizionali. Tuttavia, molto spesso capita di dover memorizzare **più valori dello stesso tipo** e di volerli gestire in modo ordinato e indicizzabile.
+Fino a questo punto abbiamo visto come [[Lezione 2 - Sintassi e costrutti di base#Dichiarazione delle variabili|dichiarare variabili]] di tipo primitivo e oggetti, gestire lo **[[Lezione 2 - Sintassi e costrutti di base#Scope (ambito) delle variabili|scope]]**, usare cicli e strutture condizionali. 
+Tuttavia, molto spesso capita di dover memorizzare **più valori dello stesso tipo** e di volerli gestire in modo ordinato e indicizzabile.
 ## Gli array in Java 
 In Java, questo compito è svolto dagli **array**, un tipo speciale di struttura dati che permette di raggruppare più variabili dello stesso tipo sotto un unico nome.  
 Gli array in Java hanno alcune caratteristiche fondamentali:
@@ -11,8 +11,6 @@ Gli array in Java hanno alcune caratteristiche fondamentali:
 	- Non è possibile modificarla successivamente.
     
 - ==Ogni array contiene valori **omogenei**, cioè dello stesso tipo, che può essere sia un tipo primitivo (`int`, `double`, `boolean`, ecc.) sia un oggetto.==
-
-
 
 ### Dichiarazione degli array
 Per dichiarare un array, bisogna indicare:
@@ -63,90 +61,279 @@ In sintesi, un array in Java è :
 - ==**un contenitore ordinato di elementi omogenei**, indicizzabile tramite numeri interi==
 e rappresenta un passo importante verso strutture dati più complesse come **liste, matrici e collezioni** che vedremo in seguito.
 ### Creare un array
-Per creare un array si utilizza l'operatore `new`: 
+Per creare un array in Java si utilizza l’operatore `new`, ==specificando il **tipo degli elementi** e la **dimensione dell’array**==.
+
 ```java
-int[] array = new int[100]; //crea un array che contiene 100 numeri interi
+int[] array = new int[100]; // crea un array che contiene 100 numeri interi
 ```
-Cosi pero la istanzaiato: è andato in memoria ed ha allocato 100 int in memoria. 
-Inoltre la gia inizializzato con i valori di defualt: 
-0 per i tipi int e float 
-Quindi prima di un'asseganzione tutti gli elementi sono zero, se sono numeri
-sono rifierimenti a null, se sono oggetti
-Una forma abbreviata di costruzione e inizializzazione: sintassi di array anonimo
+Con questa istruzione l’array viene **istanziato**:
+
+- viene allocata memoria sufficiente per contenere **100 elementi di tipo `int`**;
+    
+- tutti gli elementi dell’array vengono **inizializzati automaticamente** con i **valori di default** del tipo.
+###### Valori di default negli array
+
+Quando un array viene creato con `new`, i suoi elementi assumono automaticamente un valore iniziale:
+
+- `0` ==per i tipi numerici interi (`int`, `short`, `byte`, `long`)==
+    
+- `0.0` ==per i tipi in virgola mobile (`float`, `double`)==
+    
+- `false` ==per il tipo `boolean`==
+    
+- `'\u0000'` ==per il tipo `char`==
+    
+- `null` ==per i tipi riferimento (oggetti)==
+    
+
+Di conseguenza, **prima di qualsiasi assegnazione esplicita**, tutti gli elementi dell’array contengono già un valore valido.
+
+#### Inizializzazione abbreviata: array anonimo
+
+Java consente una forma abbreviata di creazione e inizializzazione di un array, detta **sintassi dell’array anonimo**:
 ```java
 int[] smallPrime = {2,3,5} //ometto la new
 ```
+In questo caso:
 
-L'array anonimo si usa quando si sa quanti sono gli elementi e quali sono. 
-Un esempio può essere l'array con i giorni della settiamana. 
-Difatti in un array anonimo è utile quando deve contenere costanti e non variabili mutabili. 
+- l’uso dell’operatore `new` è implicito;
+    
+- la dimensione dell’array viene dedotta automaticamente dal numero di elementi forniti;
+    
+- l’array viene creato e inizializzato in un’unica istruzione.
+
+> [!faq] **Quando usare un array anonimo**
+>  
+> L’array anonimo è particolarmente utile quando:
+> 
+> - si conoscono **a priori** il numero degli elementi e i loro valori;
+>     
+> - l’array deve contenere **valori costanti**;
+>     
+> - non è necessario modificare frequentemente il contenuto.
+>   
+> Un esempio tipico è un array che rappresenta i **giorni della settimana** o altri insiemi di valori fissi.
+
 ### Accesso agli elementi 
-Gli elementi sono accessibili mediante indice 
-Per convenzione gli indici sono da 0 a (liunghezza -1)
-L'accesso all'elemento contenste di leggerlo, stamparlo e modificarlo.
+Gli elementi di un array sono accessibili tramite un **indice**.
+
+- Per convenzione (e per definizione del linguaggio), gli indici vanno da:
+    
+    **0** a **`lunghezza - 1`**
+    
+- Tramite l’indice è possibile:
+    
+    - leggere un valore
+        
+    - stamparlo
+        
+    - modificarlo
+        
+
+Esempio di assegnazione dei valori a un array:
+```java
+for (int i = 0; i < 100; i++) {
+    array[i] = i;
+}
+
 ```
-for (int i=0; i<100; i++0)
-	array[i] = i;
-```
-Tuttavia  utilizzare un array senza averlo creato, generare un errore di compilazione(oltre che logico)
+In questo esempio:
+
+- `i` rappresenta l’indice
+    
+- `array[i]` rappresenta l’elemento in posizione `i`
+    
+- a ogni cella dell’array viene assegnato il valore dell’indice stesso
 ```java
 int[] array; 
 array = 3
 ```
 
-### Proprieta length 
-Questa proprietà è la lunghezza fissata di un array si può leggere accedendo alla proprietà length secodno la sintassi 
+### Proprietà `length` 
+Ogni array possiede la proprietà `length`: 
+- ==indica il **numero di elementi** dell’array.==
+
+- ==È una proprietà **read-only**==
+    
+- La sua sintassi è:
 ```java
 nomeArray.length
 ```
-QUesta proprietà e read-only. 
+- Il valore di `length` è **fisso** e viene stabilito al momento della creazione dell’array
+    
+- Non può essere modificato successivamente
 
 #### Stampare un array
-Sebbene l'array sia un oggetto la stampa tramite printIn non stampa gli elementi, ma stampa solo una locazione di memoria
-Per visualizzaee gli elementi bisogna stampari uno alla volta tramite un loop
+Sebbene un array sia un oggetto, la stampa diretta **non mostra il contenuto**:
 ```java
-for (int i = 0; i<array.length; i++)
-{
-	System.out.println(array)
+System.out.println(array);
+```
 
+Questa istruzione stampa solo una **rappresentazione interna dell’oggetto** (tipo + riferimento in memoria), non gli elementi.
+
+### Stampa corretta degli elementi
+
+Per visualizzare i valori contenuti nell’array è necessario iterare sugli elementi:
+```java
+for (int i = 0; i < array.length; i++) {
+    System.out.println(array[i]);
+}
+```
+#### Il costrutto `for-each`
+Il costrutto **`for-each`** (detto anche _enhanced for_) rappresenta un’evoluzione del ciclo `for` tradizionale ed è utilizzato per ==**scorrere sequenzialmente** gli elementi di un array==.
+
+- Non è necessario:
+    
+    - ==dichiarare un indice==
+        
+    - ==incrementare manualmente il contatore==
+        
+- L’iterazione avviene automaticamente su tutti gli elementi dell’array
+```java
+int[] giorniMese = { 31, 28, 30 };
+
+for (int giorni : giorniMese) {
+    System.out.println(giorni);
 }
 ```
 
+In questo esempio:
 
-#### Il cpstruttore forEach
-Come in JS, è l'evoluzione del costrutto for
-Viene usato usato per scorrere gli elementi di un Array 
-Non bisonga definire ne incrementare l'indice
-```java
-int[] giorniMese = {31,28,30}
-for (int giorni: giorniMese){
-	System.out.println(giorni);
-}
-```
+- `giorni` ==è una variabile che assume, a ogni iterazione, il valore dell’elemento corrente==
+    
+- `giorniMese` ==è l’array da scorrere==
 
-Il limite del forEach, come in JS, è che si scorre dalla posizione 0 fino alla posizione n-1 socrrendo tutti gli elementi della lista uno per uno.
+> [!info] **Limiti del `for-each`**
+> 
+> 
+> Il `for-each` presenta alcune limitazioni:
+> 
+> - ==scorre **sempre** dall’indice `0` all’indice `n - 1`==
+>     
+> - non consente:
+>     
+>     - ==accesso diretto all’indice==
+>         
+>     - ==modifiche strutturali dell’array==
+>         
+>     - ==salti condizionati sugli indici==
+>         
+> 
+> Per questi motivi, quando è necessario lavorare sugli indici, il ciclo `for` classico resta più adatto.
 
-### Sfondamento
-Se si tenta di accedere ad un elemento chwe non esiste, cioè fuori da range, si avra un errore di run-time 
+### Sfondamento dell’array
+Se si tenta di accedere a un elemento **fuori dall’intervallo valido** degli indici, il programma genera un errore **a runtime**.
+Esempio di errore: 
 ```shell
 ArrayIndexOutOfBoundsException
 ```
 
+Questo avviene quando:
 
+- ==l’indice è negativo==
+    
+- ==l’indice è maggiore o uguale alla lunghezza dell’array==
 ### Array multidimensionali
-In Java si possono creare array multidimensionali: essi sono modellati come array di array 
-Si può creare un array di array qualsiasi dimensione (2,3,4...n)
-Per ogni dimensioni bidogna specificare il valore 
-Per modelallrw una matrice dimensioni(2), bisonga indicare il numero delle righe 
-#### Accesso elementi
-La proprietà lenght di una matrice è il valore della prima dimensione 
-Nel caso di una matrice si riferisce alla lunghezza dell'array di array, cioè al numro di righe 
+n Java è possibile creare **array multidimensionali**, che sono modellati come **array di array**.
+
+- È possibile creare array a:
+    
+    - ==2 dimensioni (matrici)==
+        
+    - ==3, 4 o più dimensioni==
+        
+- ==Ogni dimensione rappresenta un livello di annidamento==
+    
+
+Esempio di array bidimensionale (matrice):
+```java
+int[][] matrix = new int[3][4]; // 3 righe, 4 colonne
 ```
-for (int i = 0; j<matrix.length; i++)
-{
-	for (int j = 0; j<matrix[i].length; j++)
-	{
-		System.out.println()
-	}
+
+
+> [!NOTE] **Proprietà `length` negli array multidimensionali**
+> Per una matrice:
+>
+>- `matrix.length` ==indica il **numero di righe**==
+ >   
+>- `matrix[i].length` ==indica il **numero di colonne** della riga `i`==
+
+#### Accesso agli elementi di una matrice
+Per accedere correttamente agli elementi di un array bidimensionale si utilizzano due cicli annidati:
+```java
+for (int i = 0; i < matrix.length; i++) {
+    for (int j = 0; j < matrix[i].length; j++) {
+        System.out.println(matrix[i][j]);
+    }
 }
+
 ```
+
+In questo esempio:
+
+- `i` ==rappresenta l’indice della riga==
+    
+- `j` ==rappresenta l’indice della colonna==
+    
+- `matrix[i][j]` ==identifica il singolo elemento della matrice==
+
+### Matrici frastagliate (Jagged Array)
+In Java è possibile creare **matrici frastagliate:** 
+- ==ovvero array bidimensionali in cui **le righe possono avere lunghezze diverse**==.  
+Questo è possibile perché, internamente, una matrice è modellata come un **array di array**.
+
+#### Dichiarazione e creazione
+La matrice viene prima dichiarata specificando **solo il numero di righe**:
+```java
+int[][] matrix = new int[4][];
+```
+Successivamente, ogni riga viene inizializzata separatamente, assegnando un array di lunghezza diversa:
+```java
+matrix[0] = new int[3];
+matrix[1] = new int[1];
+matrix[2] = new int[4];
+matrix[3] = new int[2];
+```
+
+A questo punto la matrice è completamente utilizzabile.
+
+##### Osservazioni sulla proprietà `length`
+Nelle matrici frastagliate:
+
+- `matrix.length` ==indica **il numero di righe**==
+    
+- `matrix[i].length` ==indica **la lunghezza della riga `i==`**
+    
+
+Nel caso specifico:
+
+- `matrix[0].length` → 3
+    
+- `matrix[1].length` → 1
+    
+- `matrix[2].length` → 4
+    
+- `matrix[3].length` → 2
+    
+
+mentre:
+
+- `matrix.length` → 4
+
+##### Considerazioni
+
+Le matrici frastagliate:
+
+- ==consentono un **uso più flessibile della memoria**==
+    
+- ==sono utili quando le righe **non hanno tutte lo stesso numero di elementi**==
+    
+- ==richiedono attenzione nell’accesso agli elementi, poiché ogni riga può avere una lunghezza diversa==
+    
+
+Per questo motivo, quando si scorre una matrice frastagliata, è fondamentale usare sempre:
+```java
+matrix[i].length
+```
+
+e **non assumere una dimensione fissa delle colonne**.

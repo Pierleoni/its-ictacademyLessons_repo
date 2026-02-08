@@ -7,7 +7,9 @@ Ora ci concentreremo sul **linguaggio vero e proprio**, analizzando la sua sinta
 
 ## Sintassi e costrutti di base
 
-Come tutti i linguaggi di programmazione, anche Java segue precise **regole di sintassi**. Rispetto a [[Introduzione a Python|Python]], Java ha uno stile più simile al **C** ed è un linguaggio **fortemente tipizzato**, il che significa che ogni variabile e ogni funzione devono dichiarare esplicitamente il tipo di dati che utilizzano.
+Come tutti i linguaggi di programmazione, anche Java segue precise **regole di sintassi**. 
+Rispetto a [[Introduzione a Python|Python]], Java ha uno stile più simile al **C** ed è un linguaggio **fortemente tipizzato:** 
+- ==significa che ogni variabile e ogni funzione devono dichiarare esplicitamente il tipo di dati che utilizzano.==
 
 In altre parole, Java richiede maggiore rigore rispetto a Python, dove è possibile scrivere codice in modo più flessibile. Questa struttura più rigorosa permette però di prevenire molti errori a tempo di compilazione e rende il codice più chiaro e sicuro.
 
@@ -15,7 +17,8 @@ Nei paragrafi seguenti esploreremo i principali **costrutti del linguaggio Java*
 
 ### Il metodo `main` in Java
 
-A differenza di **[[Introduzione a Python|Python]]**, dove è possibile scrivere codice direttamente nel file senza doverlo inserire in una funzione specifica, in **Java** il **metodo `main`** rappresenta l’**entry point della JVM**. Questo significa che l’esecuzione di un programma Java inizia sempre dal metodo `main`.
+A differenza di **[[Introduzione a Python|Python]]**, dove è possibile scrivere codice direttamente nel file senza doverlo inserire in una funzione specifica, in ==**Java** il **metodo `main`** rappresenta l’**entry point della [[Lezione 1 - Introduzione a Java#La JVM e l’indipendenza dalla piattaforma|JVM]]**==. 
+Questo significa che l’esecuzione di un programma Java inizia sempre dal metodo `main`.
 
 Un esempio di struttura di base di un programma Java:
 
@@ -32,20 +35,21 @@ public class Prova {
 }
 ```
 
-Alcuni punti importanti:
-
-- Tutte le istruzioni e le funzioni devono essere **definite all’interno di una classe**, perché in Java non esistono funzioni libere come in Python.
-    
-- Il metodo `main` deve avere **questa esatta firma**: `public static void main(String[] args)`
-    
-    - `public` indica che il metodo è accessibile alla JVM dall’esterno.
-        
-    - `static` significa che il metodo può essere eseguito senza creare un’istanza della classe.
-        
-    - `void` indica che il metodo non restituisce valori.
-        
-    - `String[] args` permette di passare eventuali **argomenti da linea di comando**.
-        
+> [!NOTE] **Alcuni punti importanti:**
+> 
+> 
+> - Tutte le istruzioni e le funzioni devono essere **definite all’interno di una classe**, perché in Java non esistono funzioni libere come in Python.
+>     
+> - Il metodo `main` deve avere **questa esatta firma**: `public static void main(String[] args)`
+>     
+>     - `public`: ==indica che il metodo è accessibile alla JVM dall’esterno==.
+>         
+>     - `static`: ==significa che il metodo può essere eseguito senza creare un’istanza della classe==.
+>         
+>     - `void`: ==indica che il metodo non restituisce valori==.
+>         
+>     - `String[] args`: ==permette di passare eventuali **argomenti da linea di comando**==.
+>         
 
 In sintesi, il metodo `main` è fondamentale per avviare un programma Java e tutte le istruzioni devono essere strutturate all’interno della classe a cui appartengono.
 
@@ -55,13 +59,13 @@ In Java, lo **stile di codifica** è importante per rendere il codice leggibile 
 Alcune regole fondamentali sono:
 
 - **Spaziature**: 
-	- gli elementi del codice devono essere separati da almeno uno spazio, per migliorare la leggibilità.
+	- ==gli elementi del codice devono essere separati da almeno uno spazio, per migliorare la leggibilità==.
     
 - **Terminazione delle istruzioni**: 
-	- ogni istruzione deve terminare con un punto e virgola `;`.
+	- ==ogni istruzione deve terminare con un punto e virgola `;`==.
     
 - **Organizzazione del codice**: 
-	- anche se è possibile scrivere più istruzioni sulla stessa riga, è buona pratica mettere **una sola istruzione per riga**, così il codice risulta più chiaro e facile da mantenere.
+	- ==anche se è possibile scrivere più istruzioni sulla stessa riga, è buona pratica mettere **una sola istruzione per riga**, così il codice risulta più chiaro e facile da mantenere==.
     
 
 Seguire queste regole non è obbligatorio per la compilazione, ma aiuta a scrivere codice più ordinato e professionale, soprattutto in progetti condivisi con altri sviluppatori.
@@ -115,43 +119,80 @@ I commenti Javadoc sono particolarmente utili per creare documentazione leggibil
 
 
 
+
 ### Tipi di dato primitivi
 In Java i **tipi primitivi** rappresentano i dati di base del linguaggio. 
-A differenza di Python dove ogni dato è un oggetto, in Java i tipi di dato primitivi non sono oggetti ma anche qui e costituiscono i mattoni fondamentali per costruire variabili ed espressioni. 
-I principali tipi primitivi sono:
+A differenza di Python dove **ogni dato è un oggetto**, in Java i tipi di dato primitivi non sono oggetti ma anche qui e costituiscono i mattoni fondamentali per costruire variabili ed espressioni. 
+Java mette a disposizione **8 tipi primitivi**, che possono essere raggruppati in **4 macro-categorie**, in base alla natura del dato rappresentato.
 
-1. **[[#Tipi Interi|Interi]]**: `int`, `short`, `long`, `byte`
+[![Screenshot-2026-02-07-at-11-23-32-Microsoft-Power-Point-Java-02-Sintassi-Compatibility-Mode-Java.png](https://i.postimg.cc/TY3LhHt5/Screenshot-2026-02-07-at-11-23-32-Microsoft-Power-Point-Java-02-Sintassi-Compatibility-Mode-Java.png)](https://postimg.cc/jCBdFv0R)
+
+1. **[[#Tipi Interi|Interi]]**: 
     
-    - Permettono di memorizzare numeri senza decimali.
-        
-    - Esistono diverse dimensioni perché occupano **diversi spazi di memoria** e consentono di ottimizzare l’uso delle risorse:
-        
-        - `byte`: 1 byte
-            
-        - `short`: 2 byte
-            
-        - `int`: 4 byte
-            
-        - `long`: 8 byte
-            
-2. **[[#Tipi in virgola mobile|Virgola mobile]]**: `float`, `double`
+    - Comprendono: `byte`, `short`, `int`, `long`
+
+	- Permettono di memorizzare **numeri interi** (senza parte decimale).
     
-    - Permettono di memorizzare numeri con **decimali**, utili per calcoli scientifici o approssimazioni.
-        
-    - `float` occupa meno memoria di `double` e ha precisione minore.
-        
-3. **Carattere**: `char`
+	- Si differenziano per lo **spazio di memoria occupato** e per l’intervallo di valori rappresentabili.
     
-    - Memorizza un singolo **carattere Unicode**, come una lettera o un simbolo.
+	- Sono tutti **con segno** (signed).
         
-4. **Logico**: `boolean`
+|  Tipo   | Dimensione |
+| :-----: | :--------: |
+| `byte`  |   1 byte   |
+| `short` |   2 byte   |
+|  `int`  |   4 byte   |
+| `long`  |   8 byte   |
+- `int` è il tipo intero più utilizzato di default.
+            
+2. **[[#Tipi in virgola mobile|Virgola mobile]]**: 
+    Comprendono: `float`, `double`
+
+	- ==Permettono di memorizzare **numeri reali**, cioè con la parte decimale.==
     
-    - Può assumere solo due valori: `true` o `false`.
+	- ==Sono utilizzati per calcoli scientifici o valori approssimati==.
+    
+	- Differiscono per **precisione** e **consumo di memoria**:
+
+| Tipo     | Dimensione | Precisione |
+| -------- | ---------- | ---------- |
+| `float`  | 4 byte     | minore     |
+| `double` | 8 byte     | maggiore   |
+- `double` è il tipo predefinito per i numeri decimali.
         
-    - Utile per controllare condizioni e flussi di programma.
+3. **[[#Tipo carattere (`char`)|Carattere]]**:
+    - Comprende: `char`
+
+	- Memorizza **un singolo carattere Unicode**.
+    
+	- Occupa **2 byte**, poiché Java utilizza la codifica Unicode (UTF-16).
+    
+	- Può rappresentare lettere, numeri, simboli e caratteri speciali.
+```JAVA
+char lettera = 'A';
+```
+        
+4. **[[#Tipo logico (`boolean`)|Logico]]**:
+    
+    - Comprende: `boolean`
+
+		- Può assumere **solo due valori**: `true` o `false`.
+    
+		- È utilizzato per:
+    
+	    - condizioni (`if`, `while`, `for`)
+        
+	    - controllo del flusso di esecuzione
+        
+	    - espressioni logiche
+Esempio: 
+```java
+boolean valido = true;
+```
         
 
 Questi tipi primitivi sono alla base della programmazione in Java e vengono spesso combinati per creare strutture dati più complesse o per definire variabili nelle classi.
+
 #### Tipi Interi (`int`, `short`, `long`, `byte`): 
 I tipi interi in Java permettono di memorizzare **numeri senza decimali**. Esistono diverse varianti per ottimizzare l’uso della memoria a seconda delle esigenze del programma:
 
@@ -186,7 +227,7 @@ Java distingue tra precisione singola (`float`) e doppia (`double`):
 
 Il tipo **`char`** in Java rappresenta un **singolo carattere Unicode**, permettendo di memorizzare qualsiasi simbolo o lettera esistente.
 
-- Ogni `char` occupa **2 byte** in memoria.
+- ==Ogni `char` occupa **2 byte** in memoria.==
     
 - I caratteri si scrivono tra **apici singoli**:
     
@@ -199,7 +240,8 @@ char nulloUnicode = '\u0000';  // stesso valore in Unicode
 ```
 
 ##### Sequenze di escape 
-Per rappresentare caratteri speciali o non stampabili, Java utilizza **sequenze di escape**. Alcuni esempi comuni:
+Per rappresentare caratteri speciali o non stampabili, Java utilizza **sequenze di escape**. 
+Alcuni esempi comuni:
 
 | Sequenza | Nome               | Valore Unicode |
 | -------- | ------------------ | -------------- |
@@ -217,9 +259,9 @@ Queste sequenze permettono di inserire nel codice caratteri che altrimenti sareb
 
 Il tipo **`boolean`** rappresenta un valore logico, che può assumere solo due possibili stati:
 
-- `true` (vero)
+- ==`true` (vero)==
     
-- `false` (falso)
+- ==`false` (falso)==
     
 
 Al contrario di `char` o stringhe, i valori booleani **non richiedono apici né virgolette**.
@@ -227,6 +269,7 @@ Al contrario di `char` o stringhe, i valori booleani **non richiedono apici né 
 boolean flag = false;
 boolean attivo = true;
 ```
+
 I valori booleani sono utilizzati principalmente nelle **istruzioni di controllo di flusso**, come `if`, `while` e `do`, e sono spesso il risultato di **operatori comparativi**:
 ```java
 int a = 5;
@@ -248,9 +291,11 @@ In questo esempio, l’espressione `(a < b)` restituisce un valore booleano (`tr
 In Java **tutte le variabili devono essere dichiarate esplicitamente** prima di poter essere utilizzate.  
 La dichiarazione di una variabile è composta da due elementi fondamentali:
 
-- **il tipo**, che specifica quale genere di dato la variabile può contenere
+1.  **il tipo:** 
+	- ==che specifica quale genere di dato la variabile può contenere==
     
-- **l’identificatore**, cioè il nome della variabile
+2.  **l’identificatore:**
+	- ==cioè il nome della variabile==
 ```java
 int maxValoreCalcolato;
 ```
@@ -264,11 +309,11 @@ In questo esempio:
 
 Gli identificatori in Java devono rispettare alcune regole sintattiche:
 
-- sono **case-sensitive** (`valore` e `Valore` sono variabili diverse)
+- ==sono **case-sensitive** (`valore` e `Valore` sono variabili diverse)==
     
-- possono contenere **lettere, numeri, `_` e `$`**
+- ==possono contenere **lettere, numeri, `_` e `$==`**
     
-- **non possono iniziare con un numero**
+- ==**non possono iniziare con un numero**==
     
 
 > [!done] **Esempi validi:**
@@ -290,9 +335,9 @@ int $somma;
 
 Oltre alle regole obbligatorie, Java segue alcune **convenzioni di stile** per migliorare la leggibilità del codice:
 
-- l’identificatore inizia sempre con una **lettera minuscola**
+- ==l’identificatore inizia sempre con una **lettera minuscola**==
     
-- se il nome è composto da più parole, si utilizza la **camelCase** (prima parola minuscola, le successive con iniziale maiuscola)
+- ==se il nome è composto da più parole, si utilizza la **camelCase** (prima parola minuscola, le successive con iniziale maiuscola)==
     
 
 Esempio:
@@ -304,13 +349,14 @@ Seguire queste convenzioni non è obbligatorio per il compilatore, ma è una **b
 
 ### Scope (ambito) delle variabili
 
-In Java, lo **scope** di una variabile rappresenta il suo **ambito di visibilità ed esistenza**, cioè la porzione di codice in cui la variabile è accessibile e può essere utilizzata.
+In Java, lo **scope** di una variabile rappresenta il suo **ambito di visibilità ed esistenza:**
+- ==cioè la porzione di codice in cui la variabile è accessibile e può essere utilizzata==.
 
-Lo scope è determinato dal **blocco di istruzioni** delimitato dalle parentesi graffe `{ }` in cui la variabile viene dichiarata.
+- ==Lo scope è determinato dal **blocco di istruzioni** delimitato dalle parentesi graffe `{ }` in cui la variabile viene dichiarata==.
 
 #### Blocchi di istruzioni
 
-I **blocchi di istruzioni** in Java sono delimitati dalle parentesi graffe `{ }` e servono a raggruppare più istruzioni in un’unica unità logica.
+I **blocchi di istruzioni** in Java sono delimitati dalle parentesi graffe `{ }` ==e servono a raggruppare più istruzioni in un’unica unità logica==.
 
 Le parentesi graffe vengono utilizzate per delimitare:
 
@@ -318,7 +364,7 @@ Le parentesi graffe vengono utilizzate per delimitare:
     
 - **metodi**
     
-- **costrutti di controllo** (`if`, `for`, `while`)
+- **costrutti di controllo** ([[#Istruzione `if-else`|`if`]], [[#Loop determinati (`for`)|`for`]], [[#Il ciclo `while`|`while`]])
     
 - **blocchi di codice generici**
 ```java
@@ -327,24 +373,25 @@ Le parentesi graffe vengono utilizzate per delimitare:
 }
 ```
 
-Ogni blocco di codice definisce un **ambito di visibilità** per le variabili dichiarate al suo interno. In particolare, una variabile:
+Ogni blocco di codice definisce un **ambito di visibilità** per le variabili dichiarate al suo interno. 
+In particolare, una variabile:
 
-- è visibile **solo all’interno del blocco** in cui viene dichiarata
+- ==è visibile **solo all’interno del blocco** in cui viene dichiarata==
     
-- rimane utilizzabile anche dopo eventuali blocchi interni
+- ==rimane utilizzabile anche dopo eventuali blocchi interni==
     
-- **cessa di esistere** quando l’esecuzione esce dal suo blocco
+- ==**cessa di esistere** quando l’esecuzione esce dal suo blocco==
     
 
 Quando lo scope termina:
 
-- la variabile non è più accessibile
+- ==la variabile non è più accessibile==
     
-- la memoria associata viene **deallocata**
+- ==la memoria associata viene **deallocata**==
 
 #### Blocchi annidati e regole sui nomi
 
-In Java **non è consentito dichiarare una variabile con lo stesso nome in un blocco annidato**, se esiste già una variabile con quel nome in un blocco esterno.
+In Java ==**non è consentito dichiarare una variabile con lo stesso nome in un blocco annidato**, se esiste già una variabile con quel nome in un blocco esterno==.
 
 Esempio **non valido**:
 
@@ -360,7 +407,7 @@ Esempio **non valido**:
 
 In questo caso, la variabile `a` è già definita nel blocco esterno e non può essere ridefinita in quello interno.
 
-> Nota: in alcuni altri linguaggi di programmazione questo comportamento è permesso, ma **Java lo vieta** per evitare ambiguità e rendere il codice più chiaro e sicuro.
+> Nota: in alcuni altri linguaggi di programmazione questo comportamento è permesso, ma ==**Java lo vieta** per evitare ambiguità e rendere il codice più chiaro e sicuro.==
 
 #### Esempio di scope
 
@@ -385,16 +432,18 @@ System.out.println(a); // ERRORE: a non esiste più
 
 In questo esempio:
 
-- la variabile `a` è dichiarata nel **blocco esterno**
+- ==la variabile `a` è dichiarata nel **blocco esterno**==
     
-- può essere utilizzata per tutta la durata del blocco
+- ==può essere utilizzata per tutta la durata del blocco==
     
-- può essere usata anche dopo un blocco interno
+- ==può essere usata anche dopo un blocco interno==
     
-- **non è accessibile al di fuori del blocco** in cui è stata dichiarata
+- ==**non è accessibile al di fuori del blocco** in cui è stata dichiarata==
 
 ### Operatori in Java 
-In Java, gli **operatori** servono a manipolare valori e variabili. Possiamo raggrupparli in varie categorie: **assegnazione, aritmetici e incremento/decremento**.
+In Java, gli **operatori** servono a manipolare valori e variabili. 
+Possiamo raggrupparli in varie categorie: **assegnazione, aritmetici e incremento/decremento**.
+[![Screenshot-2026-02-07-at-11-42-20-Microsoft-Power-Point-Java-02-Sintassi-Compatibility-Mode-Java.png](https://i.postimg.cc/mZYZRNR9/Screenshot-2026-02-07-at-11-42-20-Microsoft-Power-Point-Java-02-Sintassi-Compatibility-Mode-Java.png)](https://postimg.cc/LhsF3PJ4)
 ####  Operatori di assegnazione
 
 L’operatore di base è `=`: 
@@ -403,13 +452,13 @@ L’operatore di base è `=`:
 int a = 5; // assegna 5 alla variabile 'a'
 ```
 È possibile combinare l’assegnazione con operazioni aritmetiche usando operatori abbreviati:
-- `+=` → somma e assegna
+- `+=` → ==somma e assegna==
     
-- `-=` → sottrae e assegna
+- `-=` → ==sottrae e assegna==
     
-- `*=` → moltiplica e assegna
+- `*=` → ==moltiplica e assegna==
     
-- `/=` → divide e assegna
+- `/=` → ==divide e assegna==
 
 Esempio: 
 ```java
@@ -420,15 +469,15 @@ x += 5; // equivalente a x = x + 5
 #### Operatori aritmetici 
 Gli operatori aritmetici permettono di eseguire operazioni matematiche:
 
-- `+` somma
+- `+`→ ==somma==
     
-- `-` sottrazione
+- `-`→ ==sottrazione==
     
-- `*` moltiplicazione
+- `*`→ ==moltiplicazione==
     
-- `/` divisione
+- `/`→ ==divisione==
     
-- `%` modulo (resto della divisione)
+- `%`→ ==modulo (resto della divisione)==
 
 > [!NOTE] **Nota sulla divisione**:
 > 
@@ -449,15 +498,15 @@ int resto = a % b;       // 1
 
 Java fornisce operatori speciali per **aumentare o diminuire il valore di una variabile di 1**:
 
-- `++`:  incremento di 1
+- `++`:  ==incremento di 1==
 
-- `--`: decremento di 1
+- `--`: ==decremento di 1==
 
-- `+=`: incrementa di un valore a scelta 
+- `+=`: ==incrementa di un valore a scelta== 
 
-- `-=`: decrementa di un valore a scelta 
+- `-=`: ==decrementa di un valore a scelta== 
 
-- `*=`: moltiplica con un valore a scelta 
+- `*=`: ==moltiplica con un valore a scelta== 
 
 Esempi: 
 ```java
@@ -611,14 +660,16 @@ if (a == 7) {
 Il **controllo di flusso** in Java, come in [[Cicli e condizionali#Conditional Statements|Python]] e in [[Lezione 4 ; Espressioni e operatori, statements e cicli#If statements|JavaScript]], permette di modificare l’ordine di esecuzione delle istruzioni in base a condizioni logiche o ripetizioni. 
 Le principali strutture di controllo includono:
 
-- **Istruzioni condizionali**: `if`, `if-else`, `else if`, `switch`
+- **Istruzioni condizionali**: `if`, [[#Istruzione `if-else`|`if-else`]], `else if`, [[#Istruzione `switch`|`switch`]]
     
-- **Loop (cicli)**: `for`, `while`, `do-while`
+- **Loop (cicli)**: [[#Loop determinati (`for`)|`for`]], [[#Il ciclo `while`|`while`]], [[#Il blocco `do - while`|`do-while`]]
     
-- **Salti indeterminati**: `break`, `continue`, `return`
+- **Salti indeterminati**: [[#L'istruzione `break`|`break`]], `continue`, `return`
 
 ### Istruzione `if-else`
-L’istruzione `if` consente di eseguire un **blocco di codice solo se una condizione è vera**.
+
+L’istruzione `if` ==consente di eseguire un **blocco di codice solo se una condizione è vera**==.
+
 ```java
 if (condizione) {
     // istruzioni eseguite solo se la condizione è vera
@@ -645,7 +696,7 @@ if (a > 0) {
 }
 ```
 
-La logica di questo blocco `if-else if-else` è: 
+La logica di questo blocco `if- else if - else` è: 
 - Se la variabile  `a` è maggiore di `0` → stampa il messaggio `"a è positivo"`
 - Se la variabile `a` è minore di `0` → stampa il messaggio `"a è negativo"` 
 - Se la variabile `a` non è né maggiore né minore di `0`; quindi è uguale a `0` (`==`) → stampa il messaggio `"a è zero"`. 
@@ -658,7 +709,7 @@ Come in Python con il [[Match Statement|`match statement`]] e come nello [[Lezio
 È particolarmente utile quando si devono gestire **più casi alternativi sulla stessa variabile**, risultando più leggibile ed espressivo rispetto a una lunga catena di `if – else if`.
 
 A differenza di un blocco `if – else if – else`, lo `switch` **non valuta sequenzialmente tutte le condizioni logiche**: 
-il valore dell’espressione viene confrontato direttamente con i `case` disponibili, rendendo il controllo più chiaro dal punto di vista semantico.
+- ==il valore dell’espressione viene confrontato direttamente con i `case` disponibili, rendendo il controllo più chiaro dal punto di vista semantico.==
 
 
 > [!info]  Tipi di variabile ammessi
@@ -724,13 +775,15 @@ Come in [[Cicli e condizionali#^c9c2ce|Python]] e in [[Lezione 4 ; Espressioni e
 
 ==All’interno dell’istruzione `switch`, l’uso del **`break`** è **opzionale**, ma nella maggior parte dei casi **fortemente consigliato**.==
 
-Il `break` serve a **uscire dallo `switch`** una volta eseguito il codice del `case` corrispondente.  
-Se il `break` **non viene inserito**, l’esecuzione **non si ferma** al `case` trovato, ma **prosegue nel `case` successivo**: questo comportamento è noto come **fall-through**.
+Il `break`: 
+- ==serve a **uscire dallo `switch`** una volta eseguito il codice del `case` corrispondente.==  
+Se il `break` **non viene inserito**, l’esecuzione **non si ferma** al `case` trovato, ma **prosegue nel `case` successivo**: 
+- questo comportamento è noto come **fall-through**.
 
 ==Nella pratica, poiché ogni `case` rappresenta solitamente un **caso indipendente**, è buona norma inserire un `break` al termine di ciascun `case`.==
 
 ##### Fall-through intenzionale
-In alcuni casi, il comportamento di _fall-through_ può essere **sfruttato volontariamente** per eseguire lo stesso codice per **più valori distinti** della variabile.  
+In alcuni casi, ==il comportamento di _fall-through_ può essere **sfruttato volontariamente** per eseguire lo stesso codice per **più valori distinti** della variabile.==  
 In questo scenario, è possibile **raggruppare più `case` consecutivi** e utilizzare **un solo `break`**.
 Esempio:
 ```java
@@ -747,10 +800,12 @@ switch (choice) {
         // input errato
 }
 ```
-Se `choice` vale `1`, l’esecuzione entra nel `case 1`, **cade nel `case 2`** e viene eseguito il blocco comune, per poi uscire dallo `switch`.
+
+==Se `choice` vale `1`, l’esecuzione entra nel `case 1`, **cade nel `case 2`** e viene eseguito il blocco comune, per poi uscire dallo `switch`.==
 
 #### `switch` come espressione (da Java 12)
-A partire da **Java 12**, lo `switch` non è più solo uno _statement_, ma può essere utilizzato anche come **espressione**, cioè può **restituire un valore**.
+
+A partire da **Java 12**, lo `switch` non è più solo uno _statement_, ==ma può essere utilizzato anche come **espressione**, cioè può **restituire un valore**.==
 
 In questo caso, il `break` viene utilizzato insieme a un **valore di ritorno**.
 Esempio:
@@ -774,11 +829,12 @@ String d = switch (day) {
         break "unknown";
 };
 ```
+
 ==Poiché lo `switch` valorizza una variabile, è **fondamentale prevedere sempre il `default`**, per garantire che l’espressione restituisca un valore in ogni caso.==
 
 ####  Case multipli (da Java 12)
 
-Sempre da Java 12, è possibile specificare **più valori per uno stesso `case`**, separandoli con la **virgola**.
+Sempre da Java 12, ==è possibile specificare **più valori per uno stesso `case`**, separandoli con la **virgola**==.
 
 Questo rende il codice più compatto e leggibile.
 ```java
@@ -879,6 +935,7 @@ Il comportamento è il seguente:
 A differenza di Python, che ha il solo ciclo `while`, ma invece [[Lezione 4 ; Espressioni e operatori, statements e cicli#Il ciclo `do...while`|molto similarmente a JS(inoltre con una sintassi molto simile a Java)]],
 Il ciclo `do-while` è una variante del `while` che 
 - ==**posticipa la verifica della condizione** a dopo l’esecuzione del blocco.==
+
 ```java
 do {
     // blocco di istruzioni
@@ -918,7 +975,7 @@ while (x < 5) {
 
 Il ciclo `while` può quindi eseguire il blocco **zero volte**.
 
-2. ### `do-while`: la condizione è falsa, ma il blocco viene eseguito
+2.  `do-while`: ==la condizione è falsa, ma il blocco viene eseguito==
 
 ```java
 int x = 10;
@@ -962,8 +1019,6 @@ do {
     
 - ==il ciclo continua finché l’utente inserisce un numero non valido==
     
-
-
 
 Con un `while`, il codice sarebbe meno naturale.
 
@@ -1028,8 +1083,7 @@ for (int i = 1; i <= 10; i++) {
 > [!NOTE] **Nota**
 >  Tornando allo scope delle variabili: 
 >  dichiarando una variabile `i` dentro il ciclo `for`, `while` o `do-while` la variabile `i` vive solo dentro il loop
-> Se si volesse usare la variabile `i` fuori dal for 
-> sarebbe impossibile è il compilatore darebbe errore 
+> Se si volesse usare la variabile `i` fuori dal for sarebbe impossibile è il compilatore darebbe errore 
 
 
 > [!link] **Confronto con Python e JavaScript**
@@ -1077,8 +1131,9 @@ Il `continue` agisce **solo sul ciclo più interno** in cui compare.
 ### Label-continue 
 ==In presenza di **cicli annidati**, Java consente di usare una **etichetta (label)** per indicare **a quale ciclo applicare il `continue`**.== 
 L'etichetta deve avere: 
-- un nome composto da una sola parola
-- deve essere seguito da "`:`"
+- ==un nome composto da una sola parola==
+- ==deve essere seguito da "`:`"==
+
 ```java
 esterno:
 for (int i = 0; i < 20; i++) {
@@ -1150,7 +1205,7 @@ In questo caso:
 - ==entrambi i cicli terminano immediatamente==
 
 ### Passaggio dei parametri in Java
-Quando si passa un parametro a un metodo in Java, è fondamentale comprendere **come avviene il passaggio dei valori**, perché questo influisce direttamente sulle modifiche che un metodo può o non può apportare ai dati del chiamante.
+Quando si passa un parametro a un metodo in Java, è fondamentale comprendere **come avviene il passaggio dei valori**, ==perché questo influisce direttamente sulle modifiche che un metodo può o non può apportare ai dati del chiamante==.
 
 #### Passaggio per valore
 

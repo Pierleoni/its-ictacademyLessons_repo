@@ -539,7 +539,7 @@ persona4 = Person("Flavio", "Adducci", 31)
 In Python, ==gli attributi di un oggetto sono generalmente accessibili direttamente, ma è buona pratica utilizzare metodi specifici per leggere e modificare i valori.== 
 Questo permette di applicare controlli e garantire un accesso sicuro ai dati.
 Esistono 2 metodi principali per gestire gli attributi:
-1. **Getter:** 
+1. **Getter:**   
    ==permettono di ottenere il valore di un attributo.==
    In altre parole è un ==metodo **read-only,** restituisce il valore dell'attributo e permette di leggerlo senza modificarlo.==  ^getterMethod-Def
 

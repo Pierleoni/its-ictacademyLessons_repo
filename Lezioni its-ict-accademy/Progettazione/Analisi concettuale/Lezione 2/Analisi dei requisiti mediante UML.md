@@ -12,6 +12,8 @@ Un oggetto (istanza di una classe) in UML modella un elemento del dominio di ana
 > [!deep]- **Significato di Dominio di analisi**
 >  ==è l'insieme degli oggetti di interesse che si trovano nella porzione di mondo che il sistema deve rappresentare==
 
+^0241e6
+
 - un oggetto "ha vita propria": 
   ==cioè  può essere interpretato e compreso indipendentemente dagli altri oggetti del sistema e si risolve indipendentemente dagli altri oggetti.== 
 un oggetto in UML è: se prendo un telefono e l'ho metto in uno spazio nero quel telefono ha vita propria perché ha le sue app, il suo orario, etc. e se lo metti in relazione ad altri oggetti simili costituisci una classe.

@@ -8,63 +8,63 @@
         "type": "tabs",
         "children": [
           {
-            "id": "7b4005e6e9c5cfc6",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Web Development/Progettazione/Lezione 8 - Chiamate Curl.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
-              },
-              "icon": "lucide-file",
-              "title": "Lezione 8 - Chiamate Curl"
-            }
-          },
-          {
             "id": "cc451d476e757882",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Web Development/Progettazione/Lezione 9 - Same Origin Policy e CORS.md",
+                "file": "Java/Lezione 13 - Map/Lezione 13 - Le map in Java.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Lezione 9 - Same Origin Policy e CORS"
+              "title": "Lezione 13 - Le map in Java"
             }
           },
           {
-            "id": "9104428297527748",
+            "id": "fd91ccec13c03c11",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/Flask/Flask Lezione 3.md",
+                "file": "Java/Lezione 4 Oggetti e Classi/Oggetti e Classi.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Flask Lezione 3"
+              "title": "Oggetti e Classi"
             }
           },
           {
-            "id": "d94dcc580d1d42e5",
+            "id": "ade3db1228d061e5",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/Flask/Introduzione a Flask.md",
+                "file": "Java/Lezione 6 Le stringhe/Le stringhe.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Introduzione a Flask"
+              "title": "Le stringhe"
+            }
+          },
+          {
+            "id": "4b4c9d8ee5c5e1af",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Java/Lezione 3 Array/Array in Java.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "Array in Java"
             }
           }
         ],
@@ -253,39 +253,44 @@
       "daily-notes:Open today's daily note": false
     }
   },
-  "active": "9104428297527748",
+  "active": "ade3db1228d061e5",
   "lastOpenFiles": [
-    "Python/Flask/Come impostare le richieste.md",
-    "Python/Flask/Introduzione a Flask.md",
-    "Python/Flask/Flask Lezione 3.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Analisi dei requisiti mediante UML.md",
-    "Web Development/Progettazione/Lezione 4 - Protocollo HTTP 2 parte.md",
-    "Python/Flask/Flask Lezione 2.md",
-    "Progettazione/Analisi concettuale/Lezione1/Introduzione e cenni di  ingegneria del software.md",
-    "Web Development/Progettazione/Lezione 7 - Sistemi REST.md",
-    "Sicurezza/Mutua autenticazione, firma digitale e hashing.md",
-    "Java/Lezione 10 Classi Astratte e Interfacce/Lezione 10 - Classi astratte e interfaccie.md",
-    "Web Development/React Native/Lezione 1.md",
+    "Java/Lezione 5 Le classi/Le classi.md",
+    "Java/Lezione 3 Array/Array in Java.md",
+    "Java/Lezione 4 Oggetti e Classi/Oggetti e Classi.md",
+    "Java/Lezione 1/Lezione 1 - Introduzione a Java.md",
+    "Web Development/React Native/Untitled.md",
     "Clippings/Imgur The magic of the Internet.md",
+    "Progettazione/Analisi concettuale/Lezione 2/Analisi dei requisiti mediante UML.md",
+    "Java/Lezione 2/Lezione 2 - Sintassi e costrutti di base.md",
+    "Web Development/Javascript/Lezione 8 - L'asincronia in JS.md",
+    "Web Development/React Native/Lezione 1 - Introduzione a React Native.md",
+    "Java/Lezione 13 - Map/Lezione 13 - Le map in Java.md",
+    "Java/Lezione 12 Collection/Lezione 12 - Collection.md",
+    "Java/Lezione 13 - Map",
+    "Web Development/React Native/Lezione 2 - Le basi di React Native.md",
+    "Web Development/React Native.zip",
+    "Web Development/React.zip",
+    "Java/Lezione 10 Classi Astratte e Interfacce/Lezione 10 - Classi astratte e interfaccie.md",
+    "Java/Lezione 11 Gli Errori in Java/Lezione 11 - Gestire gli Errori.md",
+    "Java/Lezione 11 Gli Errori in Java",
+    "Python/Lezione 8_Ereditarietà delle classi/Classi astratte.md",
+    "Python/Flask/Introduzione a Flask.md",
+    "Java/Lezione 12 Collection",
+    "Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi.md",
+    "Python/Lezione 3/Match Statement.md",
+    "Python/Flask/Lezione 4 - Flask RESTful.md",
+    "Python/Flask/Come impostare le richieste.md",
+    "Python/Flask/Flask Lezione 3.md",
+    "Python/Flask/Flask Lezione 2.md",
+    "Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/I decoratori di Python.md",
+    "Web Development/Progettazione/Lezione 8 - Chiamate Curl.md",
+    "Web Development/Progettazione/Lezione 7 - Sistemi REST.md",
     "Clippings",
     "img/Java/Lezione 10/Esempio.png",
     "img/Java/Lezione 10/Interfacce(diagramma).png",
     "img/Java/Lezione 10",
-    "img/Java/Untitled.md",
     "Java/Lezione 10 Classi Astratte e Interfacce",
-    "Sicurezza/Ripasso.md",
-    "Sistemi digitali/Lezione 7/Complemento a 2 e Reti di calcolatori.md",
-    "Progettazione/Base dati/Lezione 3; Traduzione diretta del diagramma UML delle classi ristrutturato.md",
-    "Progettazione/Base dati/Lezione 2; La fase di progettazione.md",
-    "Progettazione/Base dati/Lezione 1; Introduzione e modello relazionale.md",
-    "SQL/Il linguaggio SQL.md",
-    "Web Development/Javascript/Lezione 7; React.md",
-    "Web Development/Cloud/Lezione 1 - Introduzione al Cloud Computing.md",
-    "Java/Lezione 9 Ereditarietà e Poliforfismo/Ereditarietà e polimorfismo.md",
-    "Sicurezza/Untitled.md",
-    "Sicurezza/U2F.md",
-    "Sicurezza/Sistemi operativi.md",
-    "Sicurezza/Crittografia.md",
     "Web Development/Cloud",
     "img/Java/Lezione 2",
     "img/Java/Lezione 1/Linguaggio e tecnologie.png",
@@ -294,12 +299,7 @@
     "img/Java/Lezione 1/JVM.png",
     "img/Java/Lezione 1/Esempio linguaggio compilato in C.png",
     "img/Java/Lezione 1/Linguaggio macchina e linguaggi ad alto livello.png",
-    "img/Java/Lezione 1",
-    "Java/Lezione 9 Ereditarietà e Poliforfismo",
     "img/Java/Lezione 7/ImpiegatoJava.png",
-    "img/Java/Lezione 7",
-    "Java/Lezione 7 I costruttori e modificatori",
-    "Java/Lezione 6 Le stringhe",
     "Progettazione/Base dati/Combinazione del On Delete e On Update.png",
     "Untitled.canvas"
   ]

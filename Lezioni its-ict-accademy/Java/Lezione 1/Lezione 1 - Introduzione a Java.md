@@ -8,7 +8,7 @@ L’OOP (Object-Oriented Programming) non è solo una tecnica di programmazione,
 
 Una delle caratteristiche più importanti di Java fin dall’inizio è stata la **portabilità**: il codice scritto in Java può essere eseguito su qualsiasi piattaforma senza modifiche. 
 Negli anni '80, invece, i software erano sviluppati in maniera artigianale: ciascun programma era progettato per una **macchina o server specifico**, rendendo difficile la distribuzione su scala più ampia. 
-Con la diffusione di Internet negli anni '90, questa esigenza è diventata cruciale: un software house doveva poter distribuire il proprio prodotto **indipendentemente dall’hardware del client**. Java risolveva questo problema permettendo al client di eseguire il codice tramite una **Java Virtual Machine (JVM)**, senza preoccuparsi della piattaforma sottostante.
+Con la diffusione di Internet negli anni '90, questa esigenza è diventata cruciale: un software house doveva poter distribuire il proprio prodotto **indipendentemente dall’hardware del client**. Java risolveva questo problema permettendo al client di eseguire il codice tramite una **[[#La JVM e l’indipendenza dalla piattaforma|Java Virtual Machine (JVM)]]**, senza preoccuparsi della piattaforma sottostante.
 Java nasce nel 1991 con il nome di OAK, adesso la sua gloria è scesa a causa di Python. 
 
 ### Storia di Java
@@ -70,7 +70,7 @@ Java è un linguaggio molto apprezzato per una serie di caratteristiche che ne h
     Java è completamente **tipizzato**, il che significa che i tipi di dati sono definiti in fase di compilazione, aumentando la sicurezza e la leggibilità del codice. 
     Un limite è che, essendo un linguaggio ad alto livello, Java ha un accesso ridotto alle funzionalità di basso livello; in questi casi si può ricorrere a **JNI (Java Native Interface)** per integrare codice nativo.
     
-3. **Indipendente dalla piattaforma**  
+1. **[[#Indipendenza dalla piattaforma|Indipendente dalla piattaforma]]**  
     Uno dei punti di forza principali di Java è la **portabilità**. 
     Grazie alla **Java Virtual Machine (JVM)**, ==un programma scritto in Java può essere eseguito su qualsiasi piattaforma senza modifiche al codice sorgente.== 
     In pratica, si scrive il programma **una volta sola**, e la ==JVM si occupa di tradurre le istruzioni in un formato eseguibile sul sistema operativo sottostante, sia esso **Windows**, **Linux** o **macOS**.==
@@ -85,15 +85,15 @@ public class Studente {
 
 Questo codice potrà girare su qualsiasi piattaforma che disponga di una JVM compatibile, senza necessità di ricompilazione.
 
-4. **Robusto e sicuro**  
-    Java include meccanismi di gestione degli errori e controlli di sicurezza che riducono i rischi di crash e vulnerabilità, contribuendo a creare applicazioni stabili.
+4. **[[#Robusto (affidabile)|Robusto e sicuro]]**  
+    - Java include meccanismi di gestione degli errori e controlli di sicurezza che riducono i rischi di crash e vulnerabilità, contribuendo a creare applicazioni stabili.
     
-5. **Concorrente**  
-    Java supporta il **multithreading**: 
-    - ==cioè la possibilità di eseguire più processi in parallelo all’interno dello stesso programma, sfruttando al meglio le risorse hardware moderne==.
+5. **[[#Concorrente (Multithreading)|Concorrente]]**  
+    - Java supporta il **multithreading**: 
+	    - ==cioè la possibilità di eseguire più processi in parallelo all’interno dello stesso programma, sfruttando al meglio le risorse hardware moderne==.
     
 6. **Gratuito e open source**  
-    Infine, Java è disponibile liberamente e con licenze open source, il che ne favorisce l’adozione e lo sviluppo di librerie e framework da parte della comunità.
+    - Infine, Java è disponibile liberamente e con licenze open source, il che ne favorisce l’adozione e lo sviluppo di librerie e framework da parte della comunità.
 
 ### Linguaggi di programmazione e traduzione per la macchina
 
@@ -122,8 +122,9 @@ Un linguaggio compilato utilizza un **compilatore**, un programma speciale con d
 	- ==Converte il codice sorgente in un formato eseguibile direttamente dalla [[Il modello di Von Neumann#CPU (Central Processing Unit)|CPU]], come un file `.exe` su Windows.==
     
 
-Un esempio classico di linguaggio compilato è il **C**. È importante ricordare che un file compilato è **specifico per la piattaforma**: 
-- un programma creato su Windows non funzionerà automaticamente su Linux o macOS senza una ricompilazione per la piattaforma di destinazione.
+Un esempio classico di linguaggio compilato è il **C**. 
+È importante ricordare che un file compilato è **specifico per la piattaforma**: 
+- ==un programma creato su Windows non funzionerà automaticamente su Linux o macOS senza una ricompilazione per la piattaforma di destinazione==.
 
 ![[Esempio linguaggio compilato in C.png]]
 
@@ -132,11 +133,11 @@ I linguaggi interpretati, come **Java**, utilizzano un meccanismo diverso che li
 
 Il flusso di esecuzione è il seguente:
 
-1. Il programmatore scrive il **codice sorgente** (ad esempio `Esempio.java`).
+1. ==Il programmatore scrive il **codice sorgente**== (ad esempio `Esempio.java`).
     
-2. Il codice sorgente viene **compilato in bytecode** (`Esempio.class`), un formato intermedio indipendente dalla piattaforma.
+2. ==Il codice sorgente viene **compilato in bytecode** (`Esempio.class`), un formato intermedio indipendente dalla piattaforma.==
     
-3. Il **bytecode** viene eseguito dalla **Java Virtual Machine (JVM)**, istruzione per istruzione, senza creare un file eseguibile specifico.
+3. ==Il **bytecode** viene eseguito dalla **[[#La JVM e l’indipendenza dalla piattaforma|Java Virtual Machine (JVM)]]**, istruzione per istruzione, senza creare un file eseguibile specifico==.
     
 
 Il compilatore Java, come quello dei linguaggi compilati, ha due compiti principali:
@@ -199,7 +200,9 @@ Il bytecode viene interpretato **istruzione per istruzione**, senza creare un fi
 Come già detto in precedenza una delle caratteristiche che ha reso Java un linguaggio rivoluzionario  è l’**indipendenza dalla piattaforma**. 
 ==Questo significa che lo stesso codice sorgente può essere eseguito su sistemi operativi diversi senza modifiche, grazie all’uso del **bytecode** e della **[[#La JVM e l’indipendenza dalla piattaforma|Java Virtual Machine (JVM)]]**.==
 
-Il processo funziona così: il codice sorgente (`.java`) viene compilato in **bytecode** (`.class`), un formato intermedio che non dipende dal sistema operativo. Successivamente, ogni piattaforma utilizza la propria implementazione della **JVM** per interpretare il bytecode e tradurlo in istruzioni macchina specifiche per quel sistema operativo.
+Il processo funziona così: 
+1. ==il codice sorgente (`.java`) viene compilato in **bytecode** (`.class`), un formato intermedio che non dipende dal sistema operativo.== 
+2. ==Successivamente, ogni piattaforma utilizza la propria implementazione della **JVM** per interpretare il bytecode e tradurlo in istruzioni macchina specifiche per quel sistema operativo.==
 
 Ad esempio:
 
@@ -220,21 +223,25 @@ Java è un linguaggio **robusto**, cioè:
 - ==progettato per ridurre al minimo errori e crash durante l’esecuzione dei programmi.== 
 Questo si ottiene attraverso diversi meccanismi:
 
-- Il **rilevamento degli errori** e il **type checking** avvengono sia a **tempo di compilazione** che a **runtime**, garantendo che il codice rispetti le regole dei tipi di dati e riducendo bug potenziali.
+- ==Il **rilevamento degli errori** e il **type checking** avvengono sia a **tempo di compilazione** che a **runtime**, garantendo che il codice rispetti le regole dei tipi di dati e riducendo bug potenziali==.
     
-- Java **maschera i puntatori all’utente**, evitando manipolazioni dirette della memoria che potrebbero causare instabilità.
+- ==Java **maschera i puntatori all’utente**, evitando manipolazioni dirette della memoria che potrebbero causare instabilità==.
 
 
 > [!faq] **Cos' e il mascheramento dei puntatori** 
 > In Java (così come in Python), non si lavora direttamente con **puntatori** come nei linguaggi di basso livello (ad esempio C o C++).
 >
->Un **puntatore** è l’indirizzo di memoria in cui risiede una variabile. Nei linguaggi di basso livello è possibile manipolare direttamente questi indirizzi, ma ciò comporta rischi elevati, come accessi non controllati alla memoria o corruzione dei dati.
+>Un **puntatore**: 
+>- ==è l’indirizzo di memoria in cui risiede una variabile==. 
+>Nei linguaggi di basso livello è possibile manipolare direttamente questi indirizzi, ma ciò comporta rischi elevati, come accessi non controllati alla memoria o corruzione dei dati.
 >
->Java e Python **mascherano i puntatori** tramite il concetto di **reference**. Una reference non è l’indirizzo di memoria vero e proprio, ma un “**telecomando**” che permette di interagire con l’oggetto a cui punta. In altre parole:
+>Java e Python **mascherano i puntatori** tramite il concetto di **reference**. 
+>==Una **reference** non è l’indirizzo di memoria vero e proprio, ma un “**telecomando**” che permette di interagire con l’oggetto a cui punta==. 
+>In altre parole:
 >
 >- L’indirizzo è troppo “basso livello” e pericoloso per l’utente.
   >  
->- La reference permette di **pilotare l’oggetto**, eseguendo azioni sul suo contenuto senza accedere direttamente alla memoria.
+>- ==La reference permette di **pilotare l’oggetto**, eseguendo azioni sul suo contenuto senza accedere direttamente alla memoria.==
   >  
 >
 >Ad esempio, in Python:
@@ -243,22 +250,26 @@ Questo si ottiene attraverso diversi meccanismi:
 >p = Persona()
 >```
 >
->Qui, `p` non è l’indirizzo della memoria dove si trova l’oggetto `Persona`, ma una **reference** che permette di manipolare l’oggetto in modo sicuro e controllato.
+>Qui, ==`p` non è l’indirizzo della memoria dove si trova l’oggetto `Persona`, ma una **reference** che permette di manipolare l’oggetto in modo sicuro e controllato.==
 >
 >Questo approccio contribuisce alla **robustezza e sicurezza** del linguaggio, evitando errori comuni nella gestione diretta della memoria.
 >
     
-- La **gestione delle eccezioni** permette agli sviluppatori di intercettare e gestire errori in modo controllato, senza bloccare l’intero programma.
+- La **gestione delle eccezioni:** 
+	- ==permette agli sviluppatori di intercettare e gestire errori in modo controllato, senza bloccare l’intero programma.==
    
-- La **gestione della memoria**, con allocazione automatica e **garbage collector (GC)**, libera automaticamente la memoria non più utilizzata, riducendo il rischio di memory leak e crash.
+- La **gestione della memoria:** 
+	- con allocazione automatica e **garbage collector (GC)**, libera automaticamente la memoria non più utilizzata, riducendo il rischio di memory leak e crash.
 
 > [!faq] **Gestione della memoria (allocazione e garbage collector)**
 > In Java, come in Python, la **gestione della memoria** è automatica e sicura, grazie al meccanismo di **allocazione e garbage collector (GC)**.
 >
->Quando si crea un oggetto, il programmatore **non decide direttamente dove allocarlo in memoria**: questa scelta è delegata alla JVM. 
->Una volta allocato, l’oggetto rimane in memoria finché esiste almeno una **reference** che lo punti.
+>Quando si crea un oggetto, il programmatore **non decide direttamente dove allocarlo in memoria**: 
+>- ==questa scelta è delegata alla JVM.== 
+>- ==Una volta allocato, l’oggetto rimane in memoria finché esiste almeno una **reference** che lo punti.==
 >
->Gli oggetti **non più referenziati** vengono automaticamente identificati dal **garbage collector** come **riutilizzabili**. La memoria occupata da questi oggetti può quindi essere **sovrascritta** per allocare nuovi dati.
+>Gli oggetti **non più referenziati** vengono automaticamente identificati dal **garbage collector** come **riutilizzabili**. 
+>==La memoria occupata da questi oggetti può quindi essere **sovrascritta** per allocare nuovi dati==.
 >
 >Questo meccanismo riduce notevolmente i problemi tipici dei linguaggi di basso livello, come i **memory leak** o gli accessi a zone di memoria non valide, contribuendo alla **robustezza e affidabilità** dei programmi Java.
 
@@ -276,7 +287,7 @@ Ad esempio, quando ti colleghi a un sito come `amazon.com`, tu vedi la pagina co
 Ogni connessione può essere considerata un thread separato che viene eseguito in parallelo agli altri.
 
 Java mette a disposizione **API specifiche per il multithreading:**  
-- permettono di creare e gestire thread in modo semplice e sicuro, senza doversi preoccupare della complessità della gestione dei processi a basso livello.
+- ==permettono di creare e gestire thread in modo semplice e sicuro, senza doversi preoccupare della complessità della gestione dei processi a basso livello==.
 
 Questo rende Java particolarmente adatto per applicazioni che richiedono **esecuzioni parallele**, come server web, applicazioni scientifiche, software di calcolo intensivo e qualsiasi programma che debba sfruttare al massimo le risorse del processore.
 ### Sicuro
@@ -316,13 +327,13 @@ In sintesi, quando si parla di Java non si parla soltanto di un linguaggio, ma d
 l **Java Development Kit (JDK)** ==è il kit base necessario per sviluppare applicazioni Java.== 
 Può essere scaricato dal sito ufficiale di Oracle e include tutto il necessario per scrivere, compilare ed eseguire programmi Java:
 
-- **Il compilatore Java** (`javac`), che trasforma il codice sorgente in bytecode.
+- ==**Il compilatore Java** (`javac`), che trasforma il codice sorgente in bytecode.==
     
-- **L’interprete Java**, cioè la **[[#La JVM e l’indipendenza dalla piattaforma|JVM]]** specifica per la piattaforma in uso, che esegue il bytecode.
+- ==**L’interprete Java**, cioè la **[[#La JVM e l’indipendenza dalla piattaforma|JVM]]** specifica per la piattaforma in uso, che esegue il bytecode==.
     
-- **La libreria standard** di Java, che contiene classi e API pronte all’uso.
+- ==**La libreria standard** di Java, che contiene classi e API pronte all’uso.==
     
-- **Altri strumenti utili** per lo sviluppo e il debug.
+- ==**Altri strumenti utili** per lo sviluppo e il debug.==
     
 
 Il JDK è disponibile per diverse piattaforme, come **Linux, Windows e macOS**, e viene rilasciato in diverse versioni principali: 8 (2014), 11 (2018), 13 (2019), 15 (2020) e 19 (2022).
@@ -342,11 +353,11 @@ Quando si utilizza un **IDE** come **Eclipse**, il JDK è già integrato e confi
 ==Il **Java Runtime Environment (JRE)** rappresenta l’**ambiente di esecuzione** necessario per lanciare programmi Java già compilati.== 
 Include:
 
-- L’interprete Java (`java` e `javaw`)
+- ==L’interprete Java (`java` e `javaw`)==
     
-- Le librerie di runtime (`rt.jar`)
+- ==Le librerie di runtime (`rt.jar`)==
     
-- La JVM per la piattaforma in uso
+- ==La JVM per la piattaforma in uso==
     
 
 Il JRE non contiene il compilatore, quindi è sufficiente per **eseguire** applicazioni Java, ma non per **svilupparle**.

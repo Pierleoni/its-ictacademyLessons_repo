@@ -7,7 +7,7 @@ In particolare abbiamo visto:
 - Come [[Introduzione a Flask#Scrivere la prima applicazione in Flask|istanziare l'app Flask]], 
 - Come definire [[Introduzione a Flask#Definire le route statiche|route statici]] e [[Introduzione a Flask#Route dinamici|route dinamiche]], 
 - L' utilizzo della funzione  [[Introduzione a Flask#`url_for()` — Ricostruire dinamicamente gli URL|`url_for()`]] per la ricostruzione degli URL
-- L'uso dei [[Introduzione a Flask#I Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi **Utilizzo dei Decoratori** `@property` **per Getter e Setter** decorators in Flask|decorators]] in Flask 
+- L'uso dei [[I decoratori di Python|decorators]] in Flask 
 - e infine come flask possa essere utilizzato per implementare **API RESTful**, seguendo i principi dell’architettura REST.
 Queste basi ci permettono ora di comprendere meglio la struttura e la filosofia del framework.
 ## Flask – Il Microframework Python

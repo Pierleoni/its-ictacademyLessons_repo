@@ -7,7 +7,7 @@ In questa lezione approfondiamo l’[[Lezione 7 - Sistemi REST#Sistemi REST|arch
 - ==è un’architettura per costruire applicazioni web che consente al client di richiedere risorse a un server.==  
 Si basa sul [[Reti di computer#1. Modello Client/Server|modello Client-Server]], dove il client invia richieste e il server gestisce dati e servizi.
 #### Risorse
-- Una **[[Lezione 7 - Sistemi REST#Il concetto di Risorsa in REST|risorsa]]** è qualsiasi elemento che può essere identificato e manipolato: pagine web, utenti, documenti, ecc.
+- ==Una **[[Lezione 7 - Sistemi REST#Il concetto di Risorsa in REST|risorsa]]** è qualsiasi elemento che può essere identificato e manipolato: pagine web, utenti, documenti, ecc.==
     
 - Le risorse sono identificate da **[[Lezione 7 - Sistemi REST#**Struttura di un URI**|URI]]** (Uniform Resource Identifier).
     
@@ -49,7 +49,7 @@ REST si fonda su alcuni principi chiave:
 	- ==le risposte possono essere memorizzate temporaneamente dal client per ridurre il numero di richieste al server.== 
 	- Ad esempio, i browser utilizzano cache locali per migliorare le prestazioni.
 3. **Uniform Interface**: 
-	- l’interfaccia tra client e server è standardizzata, semplificando lo sviluppo e la manutenzione delle applicazioni
+	- ==l’interfaccia tra client e server è standardizzata, semplificando lo sviluppo e la manutenzione delle applicazioni==
 
 Ogni richiesta del client deve essere **completa**, contenendo tutte le informazioni necessarie riguardo alla risorsa. La comunicazione avviene tramite il **protocollo HTTP**, utilizzando i metodi principali: `GET`, `POST`, `PUT` e `DELETE`.
 

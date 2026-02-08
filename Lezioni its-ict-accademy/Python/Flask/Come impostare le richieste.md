@@ -1,5 +1,5 @@
 # Introduzione
-Nelle lezioni precedenti abbiamo visto come definire **route statiche e dinamiche** in Flask e come gestire **richieste e risposte JSON**. Ora ci spostiamo su un concetto fondamentale per costruire **API RESTful**: i **verbi HTTP**.
+Nelle lezioni precedenti abbiamo visto come definire **[[Introduzione a Flask#Definire le route statiche|route statiche]] e [[Introduzione a Flask#Route dinamiche in Flask|dinamiche]]** in Flask e come gestire **richieste e risposte JSON**. Ora ci spostiamo su un concetto fondamentale per costruire **API RESTful**: i **verbi HTTP**.
 
 ## Implementare [[Lezione 4 - Protocollo HTTP 2 parte#^verbiHTTP|i verbi HTTP]] in Flask
 I verbi HTTP (`GET`, `POST`, `PUT`, `DELETE`, ecc.) definiscono ==**l’azione che il client vuole eseguire su una risorsa**.== 
@@ -27,13 +27,13 @@ def get_libri():
 
 **Come funziona questo codice:**
 
-1. Il client invia una **richiesta HTTP `GET`** all’endpoint `/libri`.
+1. ==Il client invia una **richiesta HTTP `GET`** all’endpoint `/libri`.==
     
-2. Flask intercetta la richiesta e chiama automaticamente la funzione `get_libri()`.
+2. ==Flask intercetta la richiesta e chiama automaticamente la funzione `get_libri()`.==
     
-3. All’interno della funzione, viene costruita una **lista di dizionari** che rappresenta i dati dei libri.
+3. ==All’interno della funzione, viene costruita una **lista di dizionari** che rappresenta i dati dei libri.==
     
-4. La funzione usa `jsonify()` per convertire la lista in JSON, che è il formato standard per le risposte delle API REST.
+4. La funzione usa `jsonify()` ==per convertire la lista in JSON, che è il formato standard per le risposte delle API REST.==
     
 5. Flask restituisce la risposta al client insieme allo **status code 200**, che indica che la richiesta è andata a buon fine.
     
@@ -52,14 +52,15 @@ In questo caso, la stringa `"Hello World"` viene inviata al client con lo status
 Questa introduzione ai verbi HTTP è fondamentale per comprendere come costruire API RESTful più complesse, in cui **diverse azioni su una stessa risorsa** (come leggere, creare, aggiornare o cancellare un libro) vengono gestite attraverso **route uniche e verbi HTTP appropriati**, migliorando chiarezza, manutenzione e compatibilità con strumenti web standard come la cache.
 ### Effettuare richieste HTTP verso il server Flask
 
-Dopo aver creato il server Flask con le route e le API, spesso è utile testare le API **da un client Python**. Per farlo possiamo usare la libreria [`requests`](https://docs.python-requests.org/), che permette di inviare **richieste HTTP** come `GET` o `POST` e ricevere le risposte.
+Dopo aver creato il server Flask con le route e le API, spesso è utile testare le API **da un client Python**. Per farlo possiamo usare la libreria [`requests`](https://docs.python-requests.org/), che:
+- ==permette di inviare **richieste HTTP** come `GET` o `POST` e ricevere le risposte.==
 Per installarla:
 ```bash
 pip install requests
 ```
 
 1. **Preparare le intestazioni (headers)**
-Le **intestazioni HTTP** servono a: 
+Le **[[Lezione 7 - Sistemi REST#Gli header HTTP informazioni aggiuntive|intestazioni HTTP]]** servono a: 
 - ==comunicare al server il tipo di dati che stiamo inviando e quello che ci aspettiamo in risposta.== 
 Per le API REST in JSON, possiamo definire:
 ```python 
@@ -121,7 +122,7 @@ print("Risposta POST:", response_post.json())
  **4. Opzione avanzata con `json.dumps()`**
 
 In alternativa, possiamo serializzare manualmente il payload con `json.dumps()`. 
-Questo approccio offre **maggiore controllo** sul formato dei dati e sugli headers, utile per API più complesse:
+==Questo approccio offre **maggiore controllo** sul formato dei dati e sugli headers, utile per API più complesse==:
 ```python
 payload = {
     "nome": "Mario",
@@ -167,13 +168,13 @@ def update_libro(libro_id):
 ```
 **Logica:**
 
-1. Il client invia una richiesta `PUT` a `/libri/<libro_id>` con tutti i dati aggiornati nel payload JSON.
+1. ==Il client invia una richiesta `PUT` a `/libri/<libro_id>` con tutti i dati aggiornati nel payload JSON.==
     
-2. Flask cerca il libro corrispondente nella “lista simile a database”.
+2. ==Flask cerca il libro corrispondente nella “lista simile a database”.==
     
-3. Se il libro esiste, sovrascrive i campi con i nuovi valori.
+3. ==Se il libro esiste, sovrascrive i campi con i nuovi valori.==
     
-4. Flask restituisce la risorsa aggiornata con **status code 200**.
+4. ==Flask restituisce la risorsa aggiornata con **status code 200**.==
 
 **6. Metodo PATCH**
 `PATCH` serve quando vogliamo modificare **solo alcuni campi** di una risorsa, senza sovrascrivere l’intero oggetto.
@@ -197,11 +198,11 @@ def patch_libro(libro_id):
 
 **Logica:**
 
-1. Il client invia una richiesta `PATCH` con solo i campi da aggiornare.
+1. ==Il client invia una richiesta `PATCH` con solo i campi da aggiornare.==
     
-2. Flask identifica il libro e aggiorna **solo i campi forniti** nel payload.
+2. ==Flask identifica il libro e aggiorna **solo i campi forniti** nel payload.==
     
-3. La risposta JSON contiene la risorsa aggiornata con **status code 200**.
+3. ==La risposta JSON contiene la risorsa aggiornata con **status code 200**.==
 
 **7. Metodo DELETE**
 Il verbo `DELETE` serve a **rimuovere una risorsa** dal server.
@@ -222,13 +223,13 @@ def delete_libro(libro_id):
 
 **Logica:**
 
-1. Il client invia una richiesta `DELETE` all’endpoint `/libri/<libro_id>`.
+1. ==Il client invia una richiesta `DELETE` all’endpoint `/libri/<libro_id>`.==
     
-2. Flask verifica se la risorsa esiste.
+2. ==Flask verifica se la risorsa esiste.==
     
-3. Se esiste, la elimina e restituisce **status code 204 No Content**, senza corpo della risposta.
+3. ==Se esiste, la elimina e restituisce **status code 204 No Content**, senza corpo della risposta.==
     
-4. Se non esiste, restituisce **404 Not Found**.
+4. ==Se non esiste, restituisce **404 Not Found**.==
 
 > [!NOTE] **Nota importante:**  
 >Prima di eseguire qualsiasi client Python per testare le API, **il server Flask deve essere attivo**, altrimenti le richieste falliranno. Prima si avvia il server (`python app.py`), poi si eseguono i client che inviano GET o POST.
@@ -240,19 +241,19 @@ def delete_libro(libro_id):
 Quando un client interagisce con un server Flask tramite HTTP, la comunicazione segue un flusso ben definito:
 
 1. **Creazione della richiesta da parte del client**  
-    - Il client costruisce la richiesta HTTP, specificando il **verbo** (`GET`, `POST`, `PUT`, `DELETE`), eventuali **headers** e, se necessario, un **payload** JSON con i dati da inviare.
+    - I==l client costruisce la richiesta HTTP, specificando il **verbo** (`GET`, `POST`, `PUT`, `DELETE`), eventuali **headers** e, se necessario, un **payload** JSON con i dati da inviare.==
     
 2. **Arrivo della richiesta al server Flask**  
-    - La richiesta viene ricevuta dal server Flask, che la intercetta e la instrada verso la funzione corrispondente alla **route** indicata nell’URL.
+    - ==La richiesta viene ricevuta dal server Flask, che la intercetta e la instrada verso la funzione corrispondente alla **route** indicata nell’URL.==
     
 3. **Esecuzione della logica della route**  
-    - La funzione associata alla route esegue le operazioni richieste: ad esempio, leggere dati da un database, filtrare risultati, creare o aggiornare una risorsa.
+    - ==La funzione associata alla route esegue le operazioni richieste: ad esempio, leggere dati da un database, filtrare risultati, creare o aggiornare una risorsa.==
     
 4. **Preparazione della risposta**  
-    - Flask converte il risultato della funzione in una risposta HTTP, generalmente in formato **JSON**, e assegna lo **status code** corretto (ad esempio `200 OK`, `201 Created` o `404 Not Found`).
+    - ==Flask converte il risultato della funzione in una risposta HTTP, generalmente in formato **JSON**, e assegna lo **status code** corretto (ad esempio `200 OK`, `201 Created` o `404 Not Found`).==
     
 5. **Invio della risposta al client**  
-    - Il server restituisce la risposta al client, che può elaborarla o mostrarla all’utente.
+    - ==Il server restituisce la risposta al client, che può elaborarla o mostrarla all’utente.==
     
 
 > ⚠️ **Importante:** il server Flask deve essere **attivo e in esecuzione** prima che il client invii richieste, altrimenti la connessione fallirà.
