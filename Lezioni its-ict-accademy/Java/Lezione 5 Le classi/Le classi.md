@@ -548,3 +548,123 @@ In questo caso:
 >- ==la **flessibilità dei metodi all’interno della stessa classe**==, 
 >Mentre overriding riguarda: 
 >  - ==la **personalizzazione del comportamento ereditato dalle classi padre**==.
+
+###  Introduzione ai modificatori di accesso
+
+I **modificatori di accesso** servono a **controllare la visibilità** di classi, attributi, metodi e costruttori, stabilendo **da dove** e **da chi** possano essere utilizzati.
+
+In Java esistono **4 livelli di accesso**:
+
+1. `public`
+    
+2. `protected`
+    
+3. _default_ (nessun modificatore)
+    
+4. `private`
+    
+I modificatori di accesso possono essere applicati a:
+
+- ==**classi**==
+    
+- ==**attributi**==
+    
+- ==**metodi**==
+    
+- ==**costruttori**==
+Questi modificatori sono uno strumento fondamentale per applicare il **[[#Incapsulamento|principio di incapsulamento]]**, già visto in precedenza:  
+- ==l’oggetto espone solo ciò che è necessario e nasconde i dettagli interni==.
+
+> [!NOTE] 
+> Le **classi top-level** (cioè non annidate) possono essere dichiarate solo `public` oppure con accesso _default_.  
+> Non è possibile dichiarare una classe top-level `private` o `protected`.
+
+#### `public`
+
+Un membro dichiarato `public` è **accessibile ovunque**:
+
+- ==all’interno della stessa classe==
+    
+- ==da altre classi dello stesso package==
+    
+- ==da classi di package diversi==
+```java
+public class Impiegato {
+    public String nome;
+
+    public void stampaNome() {
+        System.out.println(nome);
+    }
+}
+```
+
+tipicamente usato per:
+
+- ==classi==
+    
+- ==metodi che rappresentano l’**interfaccia pubblica** dell’oggetto==
+
+####  `private`
+
+==Un membro `private` è accessibile **solo all’interno della classe in cui è dichiarato**==.
+
+```java
+public class Impiegato {
+    private double salario;
+
+    public double getSalario() {
+        return salario;
+    }
+}
+```
+
+È il modificatore più importante per l’**[[#Incapsulamento|incapsulamento]]**:
+
+- ==impedisce accessi diretti dall’esterno==
+    
+- ==obbliga a usare metodi controllati (getter e setter)==
+    
+
+In pratica:  
+
+> [!ticket] _lo stato interno dell’oggetto non deve essere manipolato direttamente._
+
+>[!NOTE]  
+>Un metodo `private` **non può essere soggetto a overriding**, perché non è visibile alle sottoclassi.
+#### Accesso _default_ (nessun modificatore)
+
+Se **non viene specificato alcun modificatore**, l’accesso è consentito:
+
+- ==all’interno della stessa classe==
+    
+- ==a tutte le classi dello **stesso package**==
+```java
+class Impiegato {
+    int matricola;
+}
+```
+
+Non è accessibile da classi di package diversi.
+
+Questo livello di accesso favorisce la **collaborazione tra classi dello stesso package**, ma offre meno isolamento rispetto a `private`.  
+È molto usato **all’interno di librerie**, ma meno frequente nelle applicazioni commerciali.
+
+## `protected`
+
+Un membro `protected` è accessibile:
+
+- ==all’interno della stessa classe==
+    
+- ==alle classi dello stesso package==
+    
+- ==alle **sottoclassi**, anche se si trovano in package diversi==
+```java
+public class Persona {
+    protected String nome;
+}
+```
+
+È strettamente legato al concetto di **[[Ereditarietà e polimorfismo|ereditarietà]]** delle classi.
+>[!NOTE]  
+>Nell’overriding **non è possibile ridurre la visibilità** di un metodo:  
+>- ==ad esempio, un metodo `public` non può diventare `protected` o `private` nella sottoclasse==.

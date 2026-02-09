@@ -416,7 +416,7 @@ Ogni **oggetto** possiede un **proprio stato**, rappresentato dai **valori dei s
 >
 >- Lo **stato** di un oggetto ==è ciò che lo distingue concretamente dagli altri oggetti della stessa classe.==
   >  
->- I **metodi della classe** ==definiscono **come lo stato può cambiare**, permettendo di manipolare gli attributi senza violare l’incapsulamento==.
+>- I **metodi della classe** ==definiscono **come lo stato può cambiare**, permettendo di manipolare gli attributi senza violare l’[[Java/Lezione 5 Le classi/Le classi#Incapsulamento|incapsulamento]]==.
 
 
 ### Inventare i tipi 
@@ -736,7 +736,7 @@ Le altre classi definite nello stesso file:
 - ==sono visibili solo all’interno dello stesso [[#Definizione di pacchetto|package]]==
     
 
-Questo meccanismo permette di organizzare il codice mantenendo visibilità e incapsulamento sotto controllo.
+Questo meccanismo permette di organizzare il codice mantenendo visibilità e [[Java/Lezione 5 Le classi/Le classi#Incapsulamento|incapsulamento]] sotto controllo.
 
 ###  Definizione di pacchetto
 
@@ -852,7 +852,7 @@ Dal punto di vista sintattico questa operazione è lecita, ma **è fortemente sc
 
 - ==espone direttamente lo stato interno dell’oggetto==
     
-- ==riduce l’incapsulamento==
+- ==riduce l’[[Java/Lezione 5 Le classi/Le classi#Incapsulamento|incapsulamento]]==
     
 - ==rende la classe meno robusta e più difficile da mantenere==
     

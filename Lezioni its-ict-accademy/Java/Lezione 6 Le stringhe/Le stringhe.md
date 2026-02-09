@@ -105,13 +105,13 @@ String s = "amazing";
 ```
 
 1. `length()`: 
-	- Restituisce la lunghezza della stringa, cioè il numero di caratteri che contiene.
+	- ==Restituisce la lunghezza della stringa, cioè il numero di caratteri che contiene.==
 ```java
 int l = s.length();  // output: 7
 ```
 
 2.  `charAt (int i)`: 
-	   - Permette di accedere al carattere che si trova in una determinata posizione della stringa.  
+	   - ==Permette di accedere al carattere che si trova in una determinata posizione della stringa.==  
 
 > [!remember] Ricorda che gli indici partono da **0**, quindi il primo carattere è alla posizione 0.
 >
@@ -121,7 +121,7 @@ char c = s.charAt(2);  // output: 'a' (il terzo carattere)
 ```
 
 3.  `substring(int i)`: 
-	   - Restituisce una **sotto-stringa** a partire dalla posizione indicata fino alla fine della stringa.
+	   - ==Restituisce una **sotto-stringa** a partire dalla posizione indicata fino alla fine della stringa.==
 ```java
 String ss = s.substring(3);  // output: "zing" (dalla posizione 3 in poi)
 ```
@@ -134,19 +134,19 @@ String s = "amazing";
 ```
 
 1. `indexOf(char c)`: 
-	- Restituisce l’indice della **prima occorrenza** del carattere `c`.
+	- ==Restituisce l’indice della **prima occorrenza** del carattere `c`.==
 ```java
 int i = s.indexOf('m');  // output: 1
 ```
 
 2. `indexOf(char c, int i)`: 
-	- Restituisce l’indice della prima occorrenza del carattere `c`, **a partire dalla posizione `i`**. 
+	- ==Restituisce l’indice della prima occorrenza del carattere `c`, **a partire dalla posizione `i`**.== 
 ```java
 int i = s.indexOf('a', 1);  // output: 2
 ```
 
 3.  `lastIndex(char c)`: 
-	   - Restituisce l’indice dell’**ultima occorrenza** del carattere `c`.
+	   - ==Restituisce l’indice dell’**ultima occorrenza** del carattere `c`.==
 
 ```java
 int i = s.lastIndexOf('a');  // output: 5
@@ -178,19 +178,206 @@ String valore = "3.14";
 double d = Double.parseDouble(valore);  // d == 3.14
 ```
 Anche qui, se la stringa non è un numero valido, viene sollevata una `NumberFormatException`.
-Questi metodi sono fondamentali quando leggiamo input da console o file e vogliamo trattarlo come valori numerici.
-### Confrotro fra stringhe
-Nella classe String sono disponibili: 
-- boolean equals (String anotherString)
-	- torna `true/false` se il contenuto delle Stringhe è uguale/diverso. 
-- `int compareTo(String anotherString)`: 
-	- confronta le stringhe rispetto all'ordine alfabetico 
-L'istruzione `s == t` fa un confrono tra riferimenti 
-Due riferimenti uguali "puntano" alla stessa stringa 
-Due stringhe uguali potrebbero non avere lo stesso riferimento.
-Quindi l'operatore `==` sulle stringhe confronta le reference mentre il `equals` fa un confrotno più profondo: 
-confronta partendo dal primo carattere fino all'ultimo e vede se coincidono tutti i caratteri delle due stringhe 
 
-Il compareTo torna un intero: se torna 0 le stringhe sono uguali (ad esempio per un palindromo)
-poi `>0`: se la stringa che chiama è maggiore del parametro (`this>parametro`)
-- `<0`: se la stringa che chiama è minore del parametro(`this<parametro`). 
+Questi metodi sono fondamentali quando leggiamo input da console o file e vogliamo trattarlo come valori numerici.
+### Confronto fra stringhe
+
+La classe `String` mette a disposizione metodi specifici per confrontare correttamente le stringhe.
+
+I principali sono:
+
+- **`boolean equals(String anotherString)`**  
+    - ==Confronta il **contenuto** delle due stringhe.==  
+    - ==Ritorna `true` se le stringhe hanno **gli stessi caratteri nello stesso ordine**, `false` altrimenti.==
+    
+- **`int compareTo(String anotherString)`**  
+    - ==Confronta le stringhe in base all’**ordine alfabetico (lessicografico)**.==
+    
+
+È importante distinguere questi metodi dall’operatore `==`.
+
+#### Differenza tra `==` ed `equals`
+L’istruzione:
+```java
+s == t
+```
+
+non confronta il contenuto delle stringhe, ma i **riferimenti**.
+
+- Se `s == t` è `true`, significa che ==**le due variabili puntano allo stesso oggetto in memoria**==
+    
+- ==Due stringhe possono avere lo **stesso contenuto** ma **riferimenti diversi**==
+    
+
+Per questo motivo:
+
+- `==` → ==confronta le **reference**==
+    
+- `equals()` → ==confronta il **contenuto reale** della stringa, carattere per carattere==
+    
+
+#### Il metodo `compareTo`
+
+Il metodo `compareTo` restituisce un intero:
+
+- `0` → ==le due stringhe sono uguali==
+    
+- valore **> 0** → ==la stringa chiamante è **maggiore** del parametro (`this > parametro`)==
+    
+- valore **< 0** → ==la stringa chiamante è **minore** del parametro (`this < parametro`)==
+    
+
+Il confronto avviene carattere per carattere, seguendo l’ordine alfabetico (basato sui valori Unicode).
+
+Questo metodo è molto usato per **ordinare stringhe**, ad esempio in collezioni o algoritmi di sorting.
+
+### La classe `StringBuffer`
+
+Dopo aver visto che le stringhe in Java (`String`) sono **immutabili**, entra in gioco `StringBuffer`, che nasce proprio per risolvere questo limite.
+
+`StringBuffer` rappresenta: 
+- ==una **sequenza di caratteri modificabile**, pensata per tutti quei casi in cui una stringa deve essere costruita o alterata dinamicamente (ad esempio concatenazioni ripetute, inserimenti, modifiche progressive).==
+
+A differenza di `String`, quindi, un oggetto `StringBuffer` ==**non crea una nuova istanza a ogni modifica**, ma lavora sulla stessa area di memoria==, risultando più efficiente in molti scenari.
+####  Capacità e lunghezza
+
+Un concetto importante di `StringBuffer` è la distinzione tra:
+
+- **lunghezza** (`length()`): 
+	- ==numero di caratteri effettivamente contenuti==
+    
+- **capacità** (`capacity()`): 
+	- ==spazio allocato in memoria per contenere i caratteri==
+    
+
+La capacità viene gestita automaticamente e può **aumentare** se necessario. Questo significa che la lunghezza non è rigidamente fissata: il buffer può espandersi quando servono più caratteri.
+
+####  Costruttori principali
+
+Vediamo ora i costruttori elencati nelle slide, chiarendone il significato pratico.
+
+- **`StringBuffer()`**  
+    - ==Crea un buffer vuoto con una capacità iniziale di **16 caratteri**.==  
+    - ==È utile quando non si conosce a priori la dimensione della stringa finale.==
+    
+- **`StringBuffer(int length)`**  
+    - ==Crea un buffer vuoto con una capacità iniziale pari a `length`.==  
+    - Questo costruttore è utile quando si ==può stimare la dimensione finale della stringa, riducendo il numero di riallocazioni in memoria.==
+    
+- **`StringBuffer(String str)`**  
+    - ==Inizializza il buffer con il contenuto della stringa `str`.==  
+    - ==La capacità iniziale sarà pari a `str.length() + 16`, lasciando spazio per eventuali append successive.==
+#### Metodi fondamentali
+
+##### `append(tipoDato var)`
+
+Il metodo `append` aggiunge in **coda** al buffer il valore passato come parametro.
+
+- ==Accetta **qualsiasi tipo di dato** (int, double, char, boolean, oggetti, ecc.)==
+    
+- ==Il valore viene automaticamente convertito in `String`==
+    
+- Il buffer viene modificato **in place**, senza creare nuovi oggetti
+    
+
+È il metodo più utilizzato per costruire stringhe dinamicamente.
+
+#### `insert(int offset, tipoDato var)`
+
+Il metodo `insert` ==consente di inserire un valore in una posizione specifica del buffer.==
+
+- `offset` ==indica l’indice a partire dal quale avviene l’inserimento==
+    
+- ==Anche in questo caso il valore viene convertito in `String`==
+    
+- I caratteri successivi vengono automaticamente spostati
+##### Perché `StringBuffer` è importante
+
+In sintesi, `StringBuffer` è pensato per:
+
+- ==costruzione dinamica di stringhe==
+    
+- ==modifiche frequenti==
+    
+- ==evitare sprechi di memoria e overhead dovuti all’immutabilità di `String`==
+    
+
+### La classe `StringBuilder`
+
+`StringBuilder` può essere vista come l’**evoluzione naturale di `StringBuffer`**.  
+Nasce per lo stesso identico scopo: 
+- ==gestire **stringhe modificabili**, evitando i problemi di inefficienza legati all’immutabilità di `String`.==
+
+Dal punto di vista concettuale, quindi, `StringBuilder` e `StringBuffer` fanno la stessa cosa:
+
+- ==consentono modifiche dinamiche della stringa==
+    
+- ==lavorano sullo stesso oggetto in memoria==
+    
+- ==offrono praticamente **gli stessi costruttori e metodi** (`append`, `insert`, `delete`, `reverse`, ecc.)==
+
+#### Differenza chiave: thread-safety
+
+La differenza fondamentale, evidenziata anche nelle slide, è questa:
+
+- **`StringBuffer` è thread-safe**
+    
+    - ==i suoi metodi sono **sincronizzati**==
+        
+    - ==più thread possono accedere allo stesso oggetto senza causare inconsistenze==
+        
+    - questa sicurezza ha un **costo in termini di prestazioni**
+        
+- **`StringBuilder` NON è thread-safe**
+    
+    - ==i metodi **non sono sincronizzati**==
+        
+    - ==non offre protezione in ambienti multithread==
+        
+    - è **più veloce** rispetto a `StringBuffer`
+        
+
+In altre parole, `StringBuilder` sacrifica la sicurezza in ambienti concorrenti per ottenere migliori prestazioni.
+#### Quando usare `StringBuilder`
+
+`StringBuilder` è la scelta consigliata nella maggior parte dei casi, in particolare quando:
+
+- ==l’applicazione è **single-thread**==
+    
+- ==oppure l’oggetto è usato da un solo thread==
+    
+- ==servono molte concatenazioni o modifiche di stringhe==
+    
+
+È per questo che, nello sviluppo moderno, `StringBuilder` è spesso preferito a `StringBuffer`.
+
+
+
+> [!example] Riepilogo
+> 
+> - **`String`**
+ >   
+ >   - immutabile
+ >       
+>    - semplice e sicura
+ >       
+>
+>- inefficiente per modifiche frequenti
+  >      
+>- **`StringBuffer`**
+>    
+ >   - mutabile
+  >      
+  >  - thread-safe
+>        
+ >   - più lento per via della sincronizzazione
+  >      
+>- **`StringBuilder`**
+>    
+>    - mutabile
+ >       
+ >   - non thread-safe
+ >       
+ >   - più veloce
+ >       
+  >  - scelta standard in contesti non concorrenti

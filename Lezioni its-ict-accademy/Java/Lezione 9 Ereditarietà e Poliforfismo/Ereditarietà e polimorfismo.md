@@ -1,22 +1,77 @@
+
 ## Concetto di ereditarietà
-È uno dei punti di forza di Java e dell'OOP 
-Infatti consente di: 
-1. Massimizzare il riutilizzo del codice 
-	- divide gli aspetti da quelli specifici 
-	- Quindi se una Persona ha competenza sul proprio dominio riesce a classificare questi elementi in classi e sottoclassi 
-Quindi quando faccio le classi e le relative sottoclassi stiamo suddividendo gli elementi del dominio in un elemento generico in sotto elementi più specifici. 
-2. Predisporsi facilmente ad evolutive
-	- Aggiunge funzionalità, non comporta modifiche al codice preesistente
-### Definizione 
-L'ereditarietà consente di creare nuove classi che riutilizzano, estendono e modificano(overriding) il comportamento definito di altre classi. 
-Le classi i cui membri vengono ereditati è denominanta classe base (o classe padre), mentre la classe che eredita i membri è denominata classe derivata (o classe figlia). 
-Si dice super classe perchè nei diagrammi si disegna sopra alla sotto classe. 
-Questa gerarchia di delle classi padre-filgie si estende alla classe figlie che a loro volta possono diventare genitori, 
+L’**ereditarietà** è uno dei punti di forza principali di Java e, più in generale, della programmazione orientata agli oggetti (OOP).
+
+Essa permette di creare **nuove classi** partendo da classi già esistenti, riutilizzando codice e strutturando meglio il dominio dell’applicazione. In pratica, una classe **figlia** eredita attributi e metodi dalla classe **padre**, e può aggiungerne di nuovi o ridefinirne alcuni.
+
+I principali vantaggi dell’ereditarietà sono:
+
+1. **Massimizzare il riutilizzo del codice**
+    
+    - Separando gli aspetti generici da quelli specifici, possiamo definire classi base con funzionalità comuni (es. `Persona`) e poi creare sottoclassi più specializzate (es. `Studente` o `Docente`).
+        
+    - Questo approccio ci permette di organizzare gli elementi del dominio in maniera logica: **gli elementi generici in classi base, gli aspetti specifici nelle sottoclassi**.
+        
+    - In questo modo, ogni classe si concentra sul proprio ambito di responsabilità.
+        
+2. **Facilità di evoluzione e manutenzione**
+    
+    - L’aggiunta di nuove funzionalità avviene **estendendo le classi esistenti**, senza modificare il codice già testato.
+        
+    - Questo riduce i rischi di introdurre errori e rende il software più **manutenibile e scalabile**.
+### Definizione di ereditarietà
+
+L’**ereditarietà** permette di creare nuove classi che **riutilizzano**, **estendono** e, se necessario, **modificano** (tramite [[Java/Lezione 5 Le classi/Le classi#Overriding dei metodi|overriding]]) il comportamento di altre classi già esistenti.
+
+- La classe i cui membri (attributi e metodi) vengono ereditati è detta **classe base** o **classe padre**.
+    
+- La classe che eredita questi membri è detta **classe derivata** o **classe figlia**.
+    
+
+Si parla di **superclasse** perché nei [[Generalizzazioni#Il concetto di generalizzazione|diagrammi UML]] viene rappresentata **sopra** alla sottoclasse.
+
+Questa gerarchia può estendersi ulteriormente:
+
+- una **classe figlia** può a sua volta diventare **classe padre** per altre classi, creando una **catena di ereditarietà**.
+    
+- In questo modo, possiamo costruire strutture a più livelli, dove ogni livello aggiunge funzionalità specifiche senza duplicare il codice comune.
 
 ### Esempio 1 : dividere apsetti generali e specifici 
 
-Volendo ottimizare il diagramma si può creare una classe Persona più generale che conterra struttura 
+Supponiamo di voler modellare alcune entità del **dominio universitario**, come **studenti** e **professori**:
 
+- **In comune** hanno: `nome` e `cognome`.
+    
+- **Specifico per lo studente**: `matricola` e `corso di laurea`.
+    
+- **Specifico per il professore**: `materia insegnata`.
+    
+[![Screenshot-2026-02-09-at-12-56-01-Microsoft-Power-Point-Java-09-Ereditarieta-Compatibility-Mode-J.png](https://i.postimg.cc/wvyhMRGj/Screenshot-2026-02-09-at-12-56-01-Microsoft-Power-Point-Java-09-Ereditarieta-Compatibility-Mode-J.png)](https://postimg.cc/47GKFyGD)
+
+Se creassimo le due classi separatamente, copiando e incollando tutti i campi comuni, avremmo **ridondanza di dati**.
+
+> [!fail] Il copia-incolla **non è riuso del codice**: aumenta il rischio di errori e rende difficile la manutenzione.
+> 
+
+Per ottimizzare, possiamo creare una **classe più generale**, chiamata `Persona`, che contenga **attributi e metodi comuni**.  
+Le classi `Studente` e `Professore` diventeranno **sottoclassi** di `Persona`:
+
+[![Screenshot-2026-02-09-at-12-58-00-Microsoft-Power-Point-Java-09-Ereditarieta-Compatibility-Mode-J.png](https://i.postimg.cc/2yYVYqpP/Screenshot-2026-02-09-at-12-58-00-Microsoft-Power-Point-Java-09-Ereditarieta-Compatibility-Mode-J.png)](https://postimg.cc/FdP9gHHZ)
+- **Ereditano** attributi e metodi della superclasse (`nome`, `cognome`, eventuali metodi comuni).
+    
+- **Aggiungono** attributi e comportamenti specifici (`matricola`, `corso di laurea`, `materia`).
+    
+- **Possono modificare** (override) comportamenti ereditati se necessario.
+    
+
+> [!done] In questo modo:
+> 
+> 
+> - Si riduce la **ridondanza**.
+>     
+> - Si favorisce il **riuso del codice**.
+>     
+> - Si ottiene una struttura più **chiara e manutenibile**.
 
 ### Esempio 2: 
 Abbiamo una classe Impiegato che modella il dipendente di una azienda 
