@@ -7,262 +7,301 @@ A partire da queste basi, la lezione attuale introduce nuovi concetti chiave per
 i **modificatori `static` e `final`**, il loro significato e il loro impatto sul comportamento di attributi, metodi e costruttori. 
 Questi elementi permettono un controllo più preciso sul ciclo di vita degli oggetti e sulla struttura delle classi, risultando fondamentali per scrivere codice robusto, chiaro e manutenibile.
 
+## Esempio: classe Impiegato 
+Per spiegare in modo concreto l’uso dei **modificatori** in Java, partiamo dalla modellizzazione di una semplice classe `Impiegato`.
 
-## I modificatori
-Abbiamo visto che in Java esistono i **modificatori di accesso**, cioè quelle parole chiave che regolano la **visibilità** delle classi, degli attributi e dei metodi.
-
-I principali sono:
-
-- **`private`**  
-    - ==Utilizzato soprattutto per gli **attributi**==. 
-    - ==Un membro `private` è accessibile **solo all’interno della classe** in cui è dichiarato.==  
-    - ==È il modificatore più usato nella programmazione orientata agli oggetti perché favorisce l’**[[Java/Lezione 5 Le classi/Le classi#Incapsulamento|incapsulamento]]**.==
-    
-- **`public`**  
-    - ==Può essere applicato a **classi, metodi e attributi**==. 
-    - ==Un membro `public` è accessibile **da qualsiasi altra classe**==.  
-    - In genere:
-    
-	    - ==le classi principali sono `public`==
-        
-	    - ==i metodi che definiscono il comportamento pubblico di un oggetto sono `public`==
-        
-- **`protected`**  
-    Rende visibile un membro:
-    
-    - ==alle classi dello **stesso [[Oggetti e Classi#Definizione di pacchetto|package]]**==
-        
-    - ==alle **sottoclassi**, anche se si trovano in package diversi==  
-        - È meno usato nelle applicazioni comuni ed è più frequente nello sviluppo di **framework o librerie**.
-        
-- **visibilità di default (package-private)**  
-    - ==Se non viene specificato alcun modificatore, il membro è visibile **solo all’interno dello stesso package**.==  
-    - Anche questa modalità è poco usata nelle applicazioni commerciali, ma può essere utile nella progettazione di librerie.
-
-In pratica, nello sviluppo di applicazioni “classiche”, i modificatori più usati sono **`private`** e **`public`**, mentre `protected` e il default hanno un ruolo più di nicchia.
-
-Oltre ai modificatori di accesso, Java mette a disposizione **altri due modificatori fondamentali**, che non riguardano la visibilità ma il **comportamento** delle classi e dei membri:
-
-1. **`static`**
-    
-2. **`final`**
-    
-
-Questi modificatori:
-
-- ==possono essere usati **insieme**==
-    
-- ==possono essere usati **separatamente**==
-    
-- ==oppure **non essere usati affatto**==
-    
-
-Possono essere applicati a:
-
-- ==attributi==
-    
-- ==metodi==
-    
-- ==(in alcuni casi) classi==
-
-### Esempio: classe Impiegato 
-Vogliamo rappresentare un **impiegato** che possiede i seguenti attributi:
+Vogliamo rappresentare un **impiegato** che possiede i seguenti attributi fondamentali:
 
 - `nome : String`
     
 - `salario : double`
     
 - `dataAssunzione : Date`
+    
 
-Nel [[Analisi dei requisiti mediante UML|diagramma UML]] la classe viene rappresentata con: 
-- **attributi privati**
+Nel [[Analisi dei requisiti mediante UML|diagramma UML]] la classe viene rappresentata secondo le seguenti scelte progettuali:
+
+- **attributi privati**, per rispettare il principio di [[Java/Lezione 5 Le classi/Le classi#Incapsulamento|incapsulamento]]
     
-- **metodi pubblici**
+- **metodi pubblici**, che costituiscono l’interfaccia della classe
     
-- un **costruttore**
+- un **costruttore**, responsabile dell’inizializzazione dell’oggetto
     
-- un metodo per **modificare il salario**
+- un metodo per **modificare il salario** dell’impiegato
+    
+
 ![[ImpiegatoJava.png]]
 
-#### Uso dei modificatori nella classe `Impiegato`
+Questa classe verrà utilizzata come riferimento per introdurre e comprendere il ruolo dei principali **modificatori Java** (`private`, `public`, `final`, `static`) e il loro impatto sulla progettazione delle classi.
+![[ImpiegatoJava.png]]
 
-Gli attributi vengono dichiarati `private` per rispettare il principio di **[[Java/Lezione 5 Le classi/Le classi#Incapsulamento|incapsulamento]]**:
+
+### Costruttori
+
+Come in [[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi#**Definizione di una Classe e il Costruttore** `__init__()`|Python]] e in JavaScript, il **costruttore** è: 
+- ==un metodo speciale che ha il compito di **inizializzare un oggetto nel momento in cui viene creato**.==  
+In Java, ogni classe possiede **almeno un costruttore**, esplicito o implicito.
+
+### Proprietà dei costruttori
+
+Un costruttore in Java ha alcune caratteristiche fondamentali:
+
+- **Il nome coincide sempre con il nome della classe**  
+    - ==Questo permette al compilatore di riconoscerlo come costruttore.==
+    
+- **Non si specifica alcun tipo di ritorno**  
+    - Il costruttore non restituisce valori: ==il suo scopo è creare e inizializzare l’oggetto.==
+    
+- **Ha il compito di valorizzare tutti gli attributi della classe**  
+    - ==Un oggetto, dopo l’esecuzione del costruttore, deve trovarsi in uno stato valido.==
+##### Esempio costruttore in Java: 
 ```java
-public class Impiegato {
+public Impiegato(String n, double s, Date d) {
+    nome = n;
+    salario = s;
+    dataAss = d;
+}
+```
+In questo esempio:
 
-    private final String nome;
-    private double salario;
-    private Date dataAssunzione;
+- il costruttore si chiama `Impiegato`, come la classe
+    
+- riceve come parametri i valori iniziali degli attributi
+    
+- assegna tali valori agli attributi dell’oggetto appena creato
+    
+
+Quando viene eseguita un’istruzione come:
+```java
+Impiegato i = new Impiegato("Mario Rossi", 1500.0, new Date());
 ```
 
-#### Il modificatore `final`
+avviene quanto segue:
 
-Il modificatore `final` viene utilizzato per indicare che: 
-- ==**un attributo, una volta inizializzato, non può più essere modificato** durante la vita dell’oggetto.==
-
-Nel caso degli **attributi di istanza**, `final` significa che:
-
-- ==il valore **può essere assegnato una sola volta**==
+1. ==viene allocata la memoria per l’oggetto `Impiegato`==
     
-- ==dopo l’inizializzazione **non è più possibile riassegnarlo**==
+2. ==viene invocato il costruttore==
+    
+3. ==gli attributi `nome`, `salario` e `dataAss` vengono inizializzati==
     
 
-In altre parole, l’attributo fa parte dello **stato “immutabile”** dell’oggetto.
+In questo modo l’oggetto nasce **già pronto all’uso**, senza stati intermedi incoerenti.
+### La keyword `this`
 
-Nel nostro esempio, l’attributo `nome` è dichiarato `final` perché:
+La keyword **`this`** viene utilizzata all’interno dei metodi (e in particolare nei costruttori) ==per **riferirsi all’oggetto chiamante**, cioè all’istanza corrente della classe.==
 
-- ==viene deciso **al momento della creazione dell’oggetto**==
+In altre parole:
+
+- ==`this` rappresenta **l’oggetto su cui il metodo è stato invocato**==
     
-- ==rappresenta un’informazione **stabile**, che non deve cambiare nel tempo==
-    
-- ==eventuali tentativi di modifica genererebbero un errore di compilazione==
+- ==permette di accedere esplicitamente agli **attributi e ai metodi dell’oggetto**==
     
 
-> [!NOTE]  
-> Il modificatore `final` **non rende l’attributo una costante a compile-time** (come accade per `static final`),  
-> ma impedisce semplicemente che venga riassegnato dopo l’inizializzazione.
+#### Problema dello _shadowing_
 
-##### Inizializzazione di un attributo `final`
+In Java è possibile dichiarare i **parametri di un metodo con lo stesso nome degli attributi della classe**.  
+Questa situazione prende il nome di **shadowing** (ombreggiamento):
 
-Proprio perché un attributo `final` **non può rimanere non inizializzato**, Java impone una regola precisa:
-
-- un attributo `final` **deve essere inizializzato obbligatoriamente**
+- ==il parametro locale **“nasconde”** l’attributo della classe==
     
-    - ==**nella dichiarazione**==
-        
-    - ==**oppure all’interno del costruttore**==
-        
+- ==senza `this`, il compilatore fa riferimento **alla variabile locale**, non all’attributo==
+    
 
-Non è possibile rimandare l’assegnazione a un metodo successivo.
-#### Ruolo del costruttore
-
-Il costruttore ha il compito di: 
-- ==**inizializzare completamente lo stato dell’oggetto**, e questo è particolarmente importante quando sono presenti attributi `final`.==
+Esempio tipico nel costruttore:
 ```java
-public Impiegato(String nome, double salario, Date dataAssunzione) {
+public Impiegato(String nome, double salario, Date dataAss) {
     this.nome = nome;
     this.salario = salario;
-    this.dataAssunzione = dataAssunzione;
+    this.dataAss = dataAss;
 }
 ```
-In questo costruttore:
 
-- `this.nome = nome` è **obbligatorio**, perché `nome` è `final`
+Qui accade quanto segue:
+
+- ==`nome` (a destra) è il **parametro del costruttore**==
     
-- gli altri attributi vengono inizializzati normalmente
+- ====`this.nome` (a sinistra) è l’**attributo dell’oggetto**
     
-- l’uso della keyword `this`:
+- ==l’assegnazione serve a copiare il valore del parametro nell’attributo==
     
-    - ==distingue gli attributi di istanza dai parametri del costruttore==
-        
-    - ==risolve il problema dello **shadowing**==
-        
 
-Se `this.nome` **non venisse inizializzato**, il codice **non compilerebbe**, perché Java garantisce che ogni oggetto venga creato in uno stato valido e completo.
-
-
-> [!abstract]  Idea chiave
->
->
->- `final` serve a **fissare parti dello stato dell’oggetto**
-  >  
->- il costruttore è il **luogo naturale** in cui inizializzare questi valori
-  >  
->- in questo modo si ottengono oggetti:
->    
- >   - più sicuri
- >       
-  >  - più prevedibili
- >      
-  >  - più facili da mantenere
-
-
-##### Metodo `incrSalario`
-
-L’ultimo metodo, `incrSalario`, serve a **modificare il salario** dell’impiegato:
+Senza l’uso di `this`, l’istruzione:
 ```java
-public void incrSalario(double incremento) {
-    salario += incremento;
+nome = nome;
+```
+assegnerebbe il parametro a sé stesso, **senza modificare l’attributo**, rendendo il costruttore inefficace.
+
+#### Quando `this` è necessario
+
+- ==`this` è **obbligatorio** quando esiste shadowing tra attributi e parametri==
+    
+- ==è **facoltativo** quando i nomi sono diversi, ma spesso viene usato comunque per chiarezza==
+    
+
+Esempio senza shadowing:
+```java
+public Impiegato(String n, double s, Date d) {
+    nome = n;
+    salario = s;
+    dataAss = d;
 }
 ```
-Questo metodo:
 
-- è `public` perché fa parte dell’**interfaccia pubblica** della classe
+Qui `this` non è necessario perché non c’è ambiguità, ma molti programmatori preferiscono comunque scrivere:
+```java
+this.nome = n;
+```
+per rendere esplicito che si sta lavorando sugli attributi dell’oggetto.
+
+> [!abstract] **Significato concettuale di `this`**
+> Dal punto di vista concettuale, `this` rafforza l’idea che:
+>
+>- ogni oggetto possiede **il proprio stato**
+  >  
+>- il metodo sta operando **su quell’istanza specifica**
+  >  
+>- l’oggetto “sa chi è” mentre esegue il codice
+  >  
+>
+>Questo concetto diventerà ancora più importante quando si parlerà di:
+>
+>- **[[Java/Lezione 5 Le classi/Le classi#Overloading dei metodi|overloading]] dei costruttori** (`this(...)`)
+  >  
+>- **[[Ereditarietà e polimorfismo#Concetto di ereditarietà|ereditarietà]]** (`super`)
+ >   
+>- **[[Ereditarietà e polimorfismo|polimorfismo]]**
+### Valori di default degli attributi
+
+In Java, ==**ogni attributo di una classe viene sempre inizializzato**, anche quando il programmatore **non assegna esplicitamente un valore nel costruttore**.==
+
+Se nel costruttore **non si valorizza un attributo**, il compilatore (più precisamente la [[Lezione 1 - Introduzione a Java#La JVM e l’indipendenza dalla piattaforma|JVM]]) assegna automaticamente un **valore di default**, che dipende dal tipo dell’attributo:
+
+- ==`null` per tutti i **tipi oggetto**==  
+    - (incluse le `String`)
     
-- **non ritorna nulla** (`void`)
+- ==`false` per il tipo `boolean`==
     
-- modifica lo stato interno dell’oggetto in modo **controllato**
+- ==`'\u0000'` (carattere nullo) per il tipo `char`==
     
-
-> [!NOTE]  
-> Anche se `salario` è `private`, può essere modificato dai metodi della classe stessa.
-
-### Teorema delle classi 
-In Java vale una regola fondamentale, spesso chiamata **teorema delle classi**:
-
-- ==**tutte le classi hanno almeno un costruttore**==
+- ==`0` per tutti i **tipi numerici** (`int`, `double`, `long`, ecc.)==
     
 
-Questo significa che **non può esistere una classe senza costruttore**.
-
-#### Costruttore di default
-
-Se **il programmatore non scrive alcun costruttore**, il compilatore:
-
-- ==**aggiunge automaticamente un costruttore di default**==
-    
-- il costruttore di default:
-    
-    - ==**non ha parametri**==
-        
-    - ==inizializza tutti gli attributi ai **valori di default**==
-        
-        - `0` per i numeri
-            
-        - `false` per i boolean
-            
-        - `'\u0000'` per i `char`
-            
-        - `null` per i riferimenti a oggetti
-            
-
-Questo costruttore **non è visibile nel codice sorgente**, ma viene inserito nel file `.class`.
->[!NOTE]  
->Il costruttore di default è spesso chiamato anche costruttore di _emergenza_ o _disperazione_.
-
-#### Più costruttori nella stessa classe
-==Una classe **può avere più di un costruttore**, purché abbiano **liste di parametri diverse**==  
-([[Java/Lezione 5 Le classi/Le classi#Overloading dei metodi|overloading]] dei costruttori).
 Esempio:
+```java
+public class Impiegato {
+    private String nome;
+    private double salario;
+    private boolean assunto;
+}
+```
+
+Se istanzio un oggetto senza inizializzare esplicitamente gli attributi:
+```java
+Impiegato i = new Impiegato();
+```
+gli attributi assumeranno automaticamente questi valori:
+
+- `nome → null`
+    
+- `salario → 0.0`
+    
+- `assunto → false`
+    
+
+Questo comportamento è **diverso da molte altre variabili locali**, che invece **devono essere inizializzate manualmente** prima dell’uso.
+#### Il costruttore di default
+
+Come già anticipato nella lezione [[Java/Lezione 5 Le classi/Le classi#Il costruttore di default|sulle classi in Java]], 
+==se **non viene scritto alcun costruttore** all’interno della classe, il compilatore **aggiunge automaticamente un costruttore di default**.== 
+
+Il costruttore di default ha le seguenti caratteristiche:
+
+- **non ha parametri**
+    
+- **inizializza tutti gli attributi con i valori di default**
+    
+- esiste solo nel **bytecode (`.class`)**, non è visibile nel file `.java`
+    
+
+Esempio:
+```java
+public class Impiegato {
+    private String nome;
+    private double salario;
+}
+```
+
+Anche se non è scritto, il compilatore genera implicitamente qualcosa di equivalente a:
+```java
+public Impiegato() {
+    nome = null;
+    salario = 0.0;
+}
+```
+
+#### Overloading dei costruttori
+
+Riprendo il concetto di [[Java/Lezione 5 Le classi/Le classi#Overloading dei metodi|overloading]] definito nella lezione sulle classi, in Java è possibile definire **più costruttori all’interno della stessa classe**, purché abbiano **una lista di parametri diversa**.  
+Questa caratteristica prende il nome di **overloading dei costruttori**.
+
+Le regole sono le stesse viste per l’[[Java/Lezione 5 Le classi/Le classi#Overloading dei metodi|overloading dei metodi]]:
+
+- ==il **nome del costruttore è sempre uguale al nome della classe**;==
+    
+- ==ciò che distingue un costruttore da un altro è **la lista dei parametri** (numero, tipo o ordine);==
+    
+- ==**non esiste un tipo di ritorno**, quindi questo aspetto non è rilevante.==
+    
+
+##### Esempio di overloading del costruttore 
 ```java
 public class Impiegato {
 
     private String nome;
     private double salario;
+    private Date dataAss;
 
-    public Impiegato() {
-        nome = "sconosciuto";
-        salario = 0;
-    }
-
-    public Impiegato(String nome) {
+    // Costruttore completo
+    public Impiegato(String nome, double salario, Date dataAss) {
         this.nome = nome;
-        salario = 0;
+        this.salario = salario;
+        this.dataAss = dataAss;
     }
 
+    // Costruttore con nome e salario
     public Impiegato(String nome, double salario) {
         this.nome = nome;
         this.salario = salario;
+        this.dataAss = null;
+    }
+
+    // Costruttore con solo il nome
+    public Impiegato(String nome) {
+        this.nome = nome;
+        this.salario = 0;
+        this.dataAss = null;
     }
 }
 ```
-In questo caso:
+In questo esempio:
 
-- ==**esistono tre costruttori**==
+- tutti i costruttori hanno **lo stesso nome** (`Impiegato`);
     
-- ==il compilatore **non aggiunge** il costruttore di default==
+- ogni costruttore ha una **firma diversa**;
     
-- ==il programmatore controlla esplicitamente **come nasce l’oggetto**==
+- l’oggetto può essere creato in modi differenti, a seconda delle informazioni disponibili.
+    
+
+> [!link] **Collegamento con i valori di default**
+>  
+> 
+> L’overloading dei costruttori è spesso utilizzato per:
+> 
+> - consentire diverse modalità di creazione dell’oggetto;
+>     
+> - inizializzare solo una parte degli attributi;
+>     
+> - lasciare alcuni attributi ai **valori di default** quando non sono disponibili informazioni complete.
 
 
 > [!faq] **Perché mettere più costruttori nella stessa classe**
@@ -316,258 +355,391 @@ In questo caso:
 >>- **Leggibilità:** 
 >>	- ==chi legge il codice capisce subito quali dati servono per creare un certo oggetto.==
 
-### Note sui costruttori 
-Come abbiamo già visto nella lezione sulle [[Java/Lezione 5 Le classi/Le classi#Costruttori e modificatori|classi in Java]], in Java **ogni oggetto viene inizializzato tramite un solo costruttore al momento della creazione**.  
-Tuttavia, è possibile richiamare **un altro costruttore della stessa classe** usando la [[Java/Lezione 5 Le classi/Le classi#La keyword `this`|keyword `this`]].  
-==In questo modo possiamo **riutilizzare il codice** e evitare duplicazioni quando vogliamo costruire oggetti con valori predefiniti o parziali==.
 
+### “Teorema” delle classi (costruttori)
+
+Alla luce di quanto visto sui **costruttori**, sui **valori di default** e sull’**overloading**, è possibile enunciare alcune proprietà generali che valgono per **tutte le classi Java**.
+
+- ==**Ogni classe possiede almeno un costruttore**.==
+    
+    - Se il programmatore **non definisce esplicitamente alcun costruttore**, il compilatore ne inserisce automaticamente uno **di default**:
+        
+        - ==senza parametri;==
+            
+        - ==che inizializza tutti gli attributi ai rispettivi **valori di default** (null, 0, false, ecc.), come visto in precedenza.==
+            
+- **Una classe può definire più costruttori**.  
+    - ==Questo permette di creare oggetti della stessa classe in modi diversi, a seconda delle informazioni disponibili al momento dell’istanziazione.==
+    
+- **I costruttori di una classe sono sempre in overloading**.  
+    - Come per i metodi, anche i costruttori:
+    
+	    - ==hanno lo **stesso nome** (quello della classe);==
+        
+	    - ==si distinguono esclusivamente per la **lista dei parametri**.==  
+        - ==Il tipo di ritorno non è rilevante, poiché i costruttori non ne dichiarano uno esplicito.==
+
+#### Esempio: overloading dei costruttori nella classe `Date`
+
+Un esempio concreto di quanto descritto è fornito dalla classe `java.util.Date`, che mette a disposizione più costruttori:
 ```java
-public class Impiegato {
+Date()
+Date(int year, int month, int day)
+Date(int year, int month, int day, int hours, int minutes)
+```
 
-    private String nome;
-    private double salario;
-    private Date dataAss;
+In questo caso:
 
-    // Costruttore principale
-    public Impiegato(String nome, double salario, Date data) {
-        this.nome = nome;
-        this.salario = salario;
-        this.dataAss = data;
-    }
+- ==tutti i costruttori hanno lo stesso nome (`Date`);==
+    
+- ==ciascun costruttore accetta una diversa combinazione di parametri;==
+    
+- ==il programmatore può scegliere il costruttore più adatto in base al livello di dettaglio richiesto.==
 
-    // Costruttore che usa la data odierna
-    public Impiegato(String nome, double salario) {
-        this(nome, salario, new Date());
-    }
+
+### Note sui costruttori
+
+Dopo aver visto che una classe può definire **[[#Overloading dei costruttori|più costruttori in overloading]]**, è importante chiarire alcune regole fondamentali sul loro utilizzo in Java.
+
+- **Un oggetto può essere costruito una sola volta**.  
+    - Il costruttore viene invocato esclusivamente al momento della **creazione dell’oggetto** tramite l’operatore `new`.  
+    - Una volta che l’oggetto è stato istanziato, **non è possibile richiamare nuovamente un costruttore** sullo stesso oggetto: l’inizializzazione avviene una sola volta.
+    
+- **Un costruttore può chiamare un altro costruttore della stessa classe**.  
+    - Java mette a disposizione questo meccanismo, detto **cross calling dei costruttori**, tramite la keyword `this`.  
+    - In questo caso `this(...)` non fa riferimento all’oggetto, ma viene utilizzato per:
+    
+    - riutilizzare codice di inizializzazione già scritto;
+        
+    - evitare duplicazioni;
+        
+    - centralizzare la logica di costruzione dell’oggetto.
+        
+
+> [!important] **La chiamata a `this(...)` deve essere sempre la prima istruzione del costruttore.**
+
+
+#### Cross calling dei costruttori: esempio con `Impiegato`
+
+Riprendendo la classe `Impiegato`, consideriamo un costruttore “completo” che inizializza tutti gli attributi:
+```java
+public Impiegato(String nome, double salario, Date dataAss){
+    this.nome = nome;
+    this.salario = salario;
+    this.dataAss = dataAss;
 }
 ```
 
-Qui:
+Supponiamo ora di voler permettere la creazione di un `Impiegato` senza specificare la data di assunzione, assumendo implicitamente la **data odierna**.  
+Invece di riscrivere la logica di inizializzazione, possiamo delegarla al costruttore precedente:
+```java
+// Costruttore di Impiegato con data odierna
+public Impiegato(String nome, double salario){
+    this(nome, salario, new Date());
+}
+```
 
-- ==Il **primo costruttore** inizializza tutti gli attributi, incluso `dataAss`.==
-    
-- ==Il **secondo costruttore** accetta solo nome e salario e **richiama il primo costruttore** tramite `this`, impostando automaticamente la data odierna senza doverla passare manualmente.==
-    
+In questo caso:
 
-> [!important] **Importante:**
+- ==il secondo costruttore **non inizializza direttamente** gli attributi;==
+    
+- ==richiama il primo costruttore passando come terzo parametro `new Date()`;==
+    
+- ==la logica di inizializzazione rimane concentrata in un unico punto.==
+
+> [!done] **Vantaggi del cross calling**
 > 
-> - `this(...)` ==deve essere **la prima istruzione** all’interno del costruttore.==
+> 
+> L’uso del cross calling dei costruttori:
+> 
+> - riduce il **copia-incolla**;
 >     
-> - ==È diverso da `super(...)`, che richiama invece un costruttore della superclasse.==
+> - rende il codice più **manutenibile**;
+>     
+> - garantisce che tutti gli oggetti vengano inizializzati in modo coerente;
+>     
+> - sfrutta pienamente il concetto di **overloading dei costruttori** visto nei paragrafi precedenti.
+
+    
+
+In questo modo, la classe offre più modalità di creazione degli oggetti, senza sacrificare chiarezza e qualità del codice.
+### I modificatori
+Abbiamo visto che in Java esistono i **modificatori**, cioè parole chiave che descrivono le proprietà di un’entità (_classe, attributo o metodo_).  
+In particolare, i modificatori servono a definire tre aspetti fondamentali:
+
+1. **la visibilità**
+    
+2. **la modificabilità**
+    
+3. **l’appartenenza alla classe o agli oggetti**
+
+
+#### Modificatori di accesso (visibilità)
+
+I **modificatori di accesso** regolano ==**chi può vedere e utilizzare** una classe, un attributo o un metodo==.  
+Sono strettamente legati al concetto di **[[Java/Lezione 5 Le classi/Le classi#Incapsulamento|incapsulamento]]**.
+
+I principali sono:
+
+- **`private`** ^aa0b63
+    
+    - ==Utilizzato soprattutto per gli **attributi**==
+        
+    - ==Un membro `private` è accessibile **solo all’interno della classe** in cui è dichiarato==
+        
+    - ==È il modificatore più usato nella programmazione orientata agli oggetti perché favorisce l’**incapsulamento**==
+        
+- **`public`**
+    
+    - ==Può essere applicato a **classi, metodi e attributi**==
+        
+    - ==Un membro `public` è accessibile **da qualsiasi altra classe**==
+        
+    - In genere:
+        
+        - ==le classi principali sono `public`==
+            
+        - ==i metodi che rappresentano il comportamento “esterno” di un oggetto sono `public`==
+            
+- **`protected`**  
+    Rende visibile un membro:
+    
+    - ==alle classi dello **stesso package**==
+        
+    - ==alle **sottoclassi**, anche se si trovano in package diversi==
+        
+    
+    È meno usato nelle applicazioni comuni ed è più frequente nello sviluppo di **framework o librerie**, dove l’ereditarietà gioca un ruolo centrale.
+    
+- **Visibilità di default (package-private)**
+    
+    - ==Se non viene specificato alcun modificatore, il membro è visibile **solo all’interno dello stesso package**==
+        
+    - Anche questa modalità è poco usata nelle applicazioni commerciali, ma può risultare utile nella progettazione di librerie.
+
+
+> [!info] In pratica, nello sviluppo di applicazioni “classiche”, i modificatori più usati sono **`private`** e **`public`**, mentre `protected` e il default hanno un ruolo più di nicchia.
+
+
+#### Modificatore `final` (modificabilità)
+
+Oltre alla visibilità, Java permette di controllare **se un’entità può essere modificata nel tempo**.
+
+- **`final`** specifica che:
+    
+    - ==un **attributo** non può cambiare valore dopo l’inizializzazione;==
+        
+    - ==un **metodo** non può essere ridefinito (`overriding`) nelle sottoclassi;==
+        
+    - ==una **classe** non può essere estesa.==
+        
+
+Nel caso degli attributi, `final` indica che: 
+- ==lo stato dell’oggetto **non evolve** per quella proprietà.==  
+Questo rafforza la **sicurezza e la coerenza del modello**.
+
+
+#### Modificatore `static` (appartenenza alla classe)
+
+Il modificatore **`static`** riguarda invece l’**appartenenza**:
+
+- **`static`** specifica che un attributo o un metodo:
+    
+    - ==appartiene alla **classe**==
+        
+    - ==e **non alle singole istanze** (oggetti)==
+        
+
+Questo significa che:
+
+- ==esiste **una sola copia** del membro `static`;==
+    
+- ==tale copia è **condivisa da tutte le istanze** della classe;==
+    
+- ==può essere utilizzata **senza creare un oggetto**, accedendo direttamente alla classe.==
+
+##### Uso combinato dei modificatori
+
+I modificatori `static` e `final`:
+
+- ==possono essere usati **insieme**==
+    
+- ==possono essere usati **separatamente**==
+    
+- ==oppure non essere usati affatto==
+    
+
+Possono essere applicati a:
+
+- ==attributi==
+    
+- ==metodi==
+    
+- ==e, in alcuni casi, alle classi==
+    
+
+Questa combinazione consente di esprimere con precisione:
+
+- **chi può accedere** a un membro,
+    
+- **se può cambiare nel tempo**,
+    
+- **a chi appartiene** (classe o oggetto).
+
+
+### Uso di `final`
+
+Il modificatore **`final`** in Java può essere applicato a: 
+- ==**attributi**,== 
+- ==**metodi**== 
+- ==**classi**,== 
+ma il suo effetto varia a seconda del contesto.
+#### 1. Attributi `final`
+
+- Se un attributo **primitivo** è `final`:
+	- ==il suo valore diventa **costante** e non può più essere modificato dopo l’inizializzazione==
+**Esempio:**
+
+```java
+final int giorniSettimana = 7;
+```
+
+==Se un attributo è un **riferimento ad un oggetto** e dichiarato `final`, **[[Oggetti e Classi#Le reference|il riferimento]] non può cambiare**, cioè non può puntare a un altro oggetto.==
+
+
+> [!warning] Tuttavia, **lo stato interno dell’oggetto può comunque essere modificato**:
+>```java
+> final List<String> nomi = new ArrayList<>();
+nomi.add("Marco"); // OK, modifico l’oggetto
+// nomi = new ArrayList<>(); // ERRORE, non posso cambiare il riferimento
 >
+>```
 
-Questo approccio rende i costruttori più **modulari e leggibili**, evitando di duplicare codice quando vogliamo fornire valori predefiniti o calcolati automaticamente.
+#### 2. Metodi `final`
 
-### Modificatori 
-==I **modificatori** servono a descrivere le proprietà di un’entità in Java, che può essere una **classe**, un **metodo** o un **attributo**==.  
-Si riferiscono principalmente a tre aspetti: **visibilità**, **modificabilità** e **appartenenza alla classe**.
-
-#### 1. Visibilità
-
-- `private`  
-    - ==Indica che l’entità è accessibile **solo all’interno della classe** in cui è dichiarata.==  
-    - Questo è fondamentale per applicare il **[[Java/Lezione 5 Le classi/Le classi#Incapsulamento|principio di incapsulamento]]**, proteggendo lo stato interno dell’oggetto e obbligando a usare **metodi controllati** (getter e setter) per accedere agli attributi.
-    
-
-#### 2. Modificabilità
-
-- `final`  
-    Specifica che l’entità **non può essere modificata dopo l’inizializzazione**.
-    
-    - Per un attributo, significa che il suo **valore rimane costante** una volta assegnato.
-        
-    - Ad esempio, se l’attributo `nome` di un `Impiegato` è `final`, il nome **non potrà mai cambiare** dopo la creazione dell’oggetto.
-        
-    - In pratica, `final` **impedisce l’implementazione di setter** per quell’attributo, mentre i getter rimangono possibili per leggerne il valore.
-        
-    - Il compilatore utilizza `final` anche come protezione: segnala immediatamente eventuali tentativi di modifica non consentiti.
-        
-
-#### 3. Appartenenza alla classe
-
-- `static`  
-    Indica che l’entità **appartiene alla classe stessa**, e non agli oggetti creati da quella classe.
-    
-    - Un attributo `static` è condiviso da **tutti gli oggetti** della classe.
-        
-    - Un metodo `static` può essere invocato **senza creare un’istanza** della classe, semplicemente usando `NomeClasse.metodo()`.
-
-### `Static`
-Il modificatore `static` indica che: 
-- ==un’entità **appartiene alla classe stessa** e non agli oggetti creati da quella classe.== 
-Può essere applicato a:
-
-- ==**Classi interne (inner class)**==
-    
-- ==**Attributi**==
-    
-- ==**Metodi**==
-    
-
-#### Metodi statici
-
-==Un **metodo statico** può essere invocato **senza creare un oggetto** della classe==.  
-Un esempio classico è `Math.pow(2, 3)`:
+Un **metodo `final`:**
+- ==non può essere ridefinito nelle sottoclassi.==  
+Questo è utile per **bloccare comportamenti chiave** di una classe che non devono essere modificati da chi estende la classe:
 ```java
-double risultato = Math.pow(2, 3); // ritorna 8
-```
-==Non serve istanziare `Math` perché tutti i metodi della classe sono statici, e il costruttore di `Math` è privato.==  
-In Java, i metodi statici sono spesso usati per operazioni **matematiche o di utilità**, come in JS `Math.floor()` o `Math.random()`.
-
-#### Variabili statiche
-
-Se dichiari un attributo `static`, significa che: 
-- ==**c’è un solo valore condiviso tra tutti gli oggetti della classe**.==  
-Ad esempio, immagina una **stanza in un corso**: tutti gli studenti e il professore condividono la stessa stanza.
-```java
-public class Corso {
-    static String aula = "Aula 101";
+public final void stampaSalario() {
+    System.out.println(salario);
 }
 ```
 
-- ==Tutti gli oggetti `Corso` puntano alla stessa variabile `aula`.==
-    
-- ==Se un oggetto cambia `aula`, il cambiamento è visibile a tutti gli altri oggetti.==
-    
-- La variabile statica viene **creata insieme alla classe**, non all’oggetto.
-#### Combinazione `static` + `final`
+#### 3. Classi `final`
 
-Spesso si usa `static` insieme a `final` per creare **costanti condivise**:
-```java
-public class Matematica {
-    public static final double PI = 3.1415926535;
+==Una **classe `final`** non può essere estesa.==  
+Questo può servire per: 
+- motivi di **progetto** → ==per evitare che qualcuno crei sottoclassi non previste,== 
+- o per motivi di **performance**→  p==erché il compilatore può ottimizzare alcune chiamate a metodi `final`==:
+```jAVA
+public final class Utility {
+    public static double piGreco = 3.14159;
 }
 ```
 
-- ==`PI` appartiene alla classe `Matematica` e **non può essere modificata**==.
+>[!example] In sintesi:
+> 
+> - `final` sugli **attributi** → il valore o il riferimento non cambia
+>     
+> - `final` sui **metodi** → il comportamento è bloccato
+>     
+> - `final` sulle **classi** → la classe non può essere estesa
+>     
+
+Questa distinzione è importante perché **`final` non significa sempre “costante” nel senso assoluto**, ma **“immutabile” rispetto alla struttura a cui viene applicato**.
+
+### Uso di `static`
+
+Il modificatore **`static`** serve a indicare che: 
+- ==un **membro appartiene alla classe** e non a una specifica istanza dell’oggetto.==  
+Questo significa che **c’è una sola copia** dell’attributo o del metodo, condivisa tra tutte le istanze della classe.
+
+#### 1. Attributi `static`
+
+- Un attributo `static`:
+	- ==è **condiviso da tutti gli oggetti** della classe.==
     
-- ==È un esempio classico di variabile **condivisa e immutabile**.==
-
-### Modificatori `final` e `static` in Java
-Quindi per comprendere al meglio questi due modificatori in Java, riassumiamo quanto detto finora: 
-#### Il modificatore `final`
-
-==Il modificatore `final` indica che un elemento **non può evolvere nel tempo==.**
-Può essere assegnato sia agli attributi che ai metodi di una classe con le seguenti caratteristiche:
-
-- **Attributi:** 
-	- ==una volta inizializzati (direttamente nella dichiarazione o nel costruttore), il loro valore **non può più cambiare**==.  
-    - Ad esempio, se dichiariamo il `nome` di un `Impiegato` come `final`, una volta assegnato nel costruttore, non sarà più modificabile.
+- ==Non è necessario creare un oggetto per accedervi: si utilizza direttamente la classe.==
     
-- **Metodi:** 
-	- ==non possono essere **sovrascritti** dalle sottoclassi, garantendo che il comportamento originale resti invariato==.
-    
-
-> [!ticket] **In pratica, `final` è uno strumento di protezione**:
-> -  ==il compilatore impedirà ogni tentativo di modifica successiva, rendendo più sicuro e prevedibile il comportamento dell’oggetto==.
-
-> [!NOTE] **Nota:**
-> -  ==un attributo `final` **può avere solo un getter**, perché non ha senso fornire un setter per qualcosa che non deve cambiare==
-##### Esempio `final` su attributi e metodi
-```java
-public class Impiegato {
-
-    // Attributo final: non può cambiare dopo l'inizializzazione
-    private final String nome;
-
-    public Impiegato(String nome) {
-        this.nome = nome;
-    }
-
-    // Metodo final: non può essere sovrascritto in una sottoclasse
-    public final void stampaNome() {
-        System.out.println("Nome: " + nome);
-    }
-
-    // Non possiamo fare:
-    // this.nome = "Altro";  --> ERRORE!
-}
-```
-
-**Spiegazione:**
-
-- ==`nome` è `final`, quindi il costruttore deve assegnargli un valore e poi non potrà più cambiare==.
-    
-- ==`stampaNome()` è `final`, quindi eventuali sottoclassi non possono modificare questo metodo.==
-
-#### Il modificatore `static`
-
-Il modificatore `static` indica invece che: 
-- ==un elemento **appartiene alla classe e non alle singole istanze**==
-
-
-- ==Non serve creare un oggetto per utilizzarlo; lo si può richiamare direttamente con `Classe.attributo` o `Classe.metodo()`==.
-    
-- ==Tutte le istanze della classe **condividono la stessa variabile o metodo**.== Se un oggetto modifica una variabile statica, la modifica è visibile da tutti gli altri oggetti della classe.
-    
-- I metodi statici sono utili quando il comportamento **non dipende dai dati specifici dell’oggetto**, come ad esempio i metodi matematici (`Math.pow()`, `Math.random()`).
-
-##### Esempio `static` su attributi e metodi
+- Esempio:
 ```java
 public class Contatore {
-
-    // Attributo statico condiviso da tutte le istanze
-    public static int totaleOggetti = 0;
+    public static int totale = 0;
 
     public Contatore() {
-        totaleOggetti++; // ogni volta che creo un oggetto, aumento il contatore
-    }
-
-    // Metodo statico: non serve un oggetto per invocarlo
-    public static void stampaTotale() {
-        System.out.println("Totale oggetti: " + totaleOggetti);
+        totale++; // Aggiorna il contatore globale
     }
 }
 
-// Uso
-public class Main {
-    public static void main(String[] args) {
-        new Contatore();
-        new Contatore();
-        Contatore.stampaTotale(); // Output: Totale oggetti: 2
-    }
-}
+Contatore c1 = new Contatore();
+Contatore c2 = new Contatore();
+
+System.out.println(Contatore.totale); // Output: 2
 ```
-- `totaleOggetti` è condiviso tra tutte le istanze.
+
+In questo esempio, `totale` è condiviso da tutti gli oggetti `Contatore`. 
+Non c’è una copia separata per `c1` o `c2`.
+#### 2. Metodi `static`
+
+- Un metodo `static`: 
+	- ==**non richiede un oggetto per essere invocato**.==
     
-- `stampaTotale()` è un metodo di classe, quindi può essere chiamato direttamente con `Contatore.stampaTotale()` senza creare oggetti.
-#### `static` + `final`
-
-Combinando i due modificatori otteniamo elementi che sono **condivisi da tutte le istanze** e **immutabili**:
-
-- Tipico esempio: una costante matematica
+- All’interno di un metodo `static`:
+    
+    - ==Non si può usare `this` (perché non c’è un oggetto associato)==
+        
+    - ==Non si possono richiamare direttamente membri non statici==
 ```java
-public static final double PI = 3.14159;
-```
-
-- Significa che **c’è un solo valore condiviso** per tutti gli oggetti e **non può cambiare** nel tempo.
-    
-
-In altre parole:
-
-- `final` → “non cambiare mai”
-    
-- `static` → “c’è uno solo per tutti”
-    
-- `static final` → “c’è uno solo per tutti e non può cambiare mai”
-
-##### Combinazione `static final` (costanti)
-```java
-public class Matematica {
-
-    // Costante: unica per tutti e immutabile
-    public static final double PI = 3.14159;
-
-    public static void main(String[] args) {
-        System.out.println("Il valore di PI è: " + PI);
-
-        // Non possiamo fare:
-        // PI = 3.14;  --> ERRORE!
+public class MathUtil {
+    public static int quadrato(int n) {
+        return n * n;
     }
 }
-```
-**Spiegazione:**
 
-- `PI` è un valore **immutabile** (`final`) e **condiviso da tutte le istanze della classe** (`static`).
+int risultato = MathUtil.quadrato(5); // Output: 25
+```
+#### 3. Classi `static`
+
+- In Java **solo le [[Java/Lezione 5 Le classi/Le classi#Inner Class (Classi annidate)|inner class]] possono essere dichiarate `static`**.
     
-- È il tipico caso di costante in Java, molto simile alle `const` in altri linguaggi.
+- Una inner class statica non è legata a un’istanza della classe esterna, quindi può essere istanziata senza creare un oggetto esterno.
+
+> [!example] **In sintesi:**
+> 
+> 
+> - `static` → appartiene alla classe, non agli oggetti
+>     
+> - Attributi statici → **una sola copia condivisa**
+>     
+> - Metodi statici → possono essere invocati **senza oggetto**
+>     
+> - Le inner class possono essere statiche → indipendenti dall’oggetto esterno
+
+### Costanti di classe (`static final`)
+
+In Java, è possibile creare delle **costanti di classe**, cioè variabili **condivise da tutte le istanze** della classe e **immutabili**.  
+Per farlo, si combinano i modificatori `static` e `final`:
+```java
+public class CostantiMatematiche {
+    public static final double PI_GRECO = 3.14159;
+    public static final int MAX_STUDENTI = 30;
+}
+```
+
+Caratteristiche principali:
+
+1. **`static`** → ==appartiene alla classe e **non agli oggetti**, quindi **tutte le istanze condividono lo stesso valore**==.
+    
+2. **`final`** → ==il valore **non può essere modificato** dopo l’inizializzazione.==
+    
+3. **Inizializzazione obbligatoria** → ==la costante deve essere assegnata **in fase di dichiarazione** (non può essere lasciata vuota)==.
+    
+4. **Accesso tramite la classe** → non serve un oggetto per utilizzarla:
+```java
+System.out.println(CostantiMatematiche.PI_GRECO); // Output: 3.14159
+System.out.println(CostantiMatematiche.MAX_STUDENTI); // Output: 30
+```
+
+
+Le costanti di classe sono molto utili per definire valori **universali e immutabili** all’interno di un programma, come limiti, parametri fissi o valori matematici.

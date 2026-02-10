@@ -821,7 +821,8 @@ Gli ambienti di sviluppo (come Eclipse, IntelliJ, VS Code):
 In questo modo lo sviluppatore lavora a livello logico (package e classi), mentre l’IDE e il compilatore si occupano della corretta organizzazione fisica dei file
 
 ### Attributi di una classe
-Gli **attributi** rappresentano ==lo **stato** degli oggetti di una classe e vengono dichiarati all’interno della classe stessa.==
+Gli **attributi** rappresentano: 
+- ==lo **stato** degli oggetti di una classe e vengono dichiarati all’interno della classe stessa.==
 
 La loro dichiarazione ha la forma:
 ```java
@@ -831,11 +832,11 @@ tipo2 nomeVariabile2;
 
 Il tipo di un attributo può essere:
 
-- un **tipo primitivo** (`int`, `double`, `boolean`, …)
+- ==un **tipo primitivo** (`int`, `double`, `boolean`, …)==
     
-- una **classe di libreria** (ad esempio `Date`)
+- ==una **classe di libreria** (ad esempio `Date`)==
     
-- una **classe definita dal programmatore**
+- ==una **classe definita dal programmatore**==
     
 
 Per poter usare una classe che appartiene a un altro package è necessario **importarla**, a meno che non si trovi nel package di default o nello stesso package della classe corrente.
@@ -862,7 +863,8 @@ Per questo motivo, in genere, gli attributi vengono resi non accessibili diretta
 
 ### Metodi di una classe
 
-I **metodi** definiscono il **comportamento** degli oggetti di una classe.
+I **metodi** definiscono: 
+- ==il **comportamento** degli oggetti di una classe.==
 
 Un metodo:
 

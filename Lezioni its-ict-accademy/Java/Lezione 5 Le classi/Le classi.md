@@ -668,3 +668,58 @@ public class Persona {
 >[!NOTE]  
 >Nell’overriding **non è possibile ridurre la visibilità** di un metodo:  
 >- ==ad esempio, un metodo `public` non può diventare `protected` o `private` nella sottoclasse==.
+
+
+### Inner Class (Classi annidate)
+
+In Java ==è possibile definire una **classe all’interno di un’altra classe**==.  
+La classe esterna viene chiamata **Top-level class**, mentre la classe interna prende il nome di **inner class**.
+
+#### Perché usare le inner class?
+
+- ==Permettono di **raggruppare logicamente classi correlate**.==
+    
+- ==Consentono di **controllare la visibilità** della classe interna: l’accesso è subordinato alla classe esterna e ai suoi metodi.==
+    
+- ==Possono accedere **direttamente ai membri privati della classe esterna**, rendendo più semplice la gestione di dati strettamente correlati.==
+    
+
+#### Regole principali
+
+1. ==Non può esistere un’**istanza della inner class** senza un’istanza della **outer class**.==
+    
+2. ==La dichiarazione di una inner class può usare anche i modificatori di accesso (`private`, `public`, `protected`), quindi si può rendere visibile solo all’interno della classe esterna, al package o ovunque==.
+    
+
+##### Esempio
+```java
+public class Universita {
+
+    private String nome;
+
+    public Universita(String nome) {
+        this.nome = nome;
+    }
+
+    // Inner class
+    public class Studente {
+        private String matricola;
+
+        public Studente(String matricola) {
+            this.matricola = matricola;
+        }
+
+        public void stampaInfo() {
+            // L'inner class può accedere direttamente ai membri privati della outer class
+            System.out.println("Studente matricola: " + matricola + ", Università: " + nome);
+        }
+    }
+}
+```
+
+Uso dell’ inner class:
+```java
+Universita uni = new Universita("Sapienza");
+Universita.Studente s = uni.new Studente("12345");
+s.stampaInfo(); // Output: Studente matricola: 12345, Università: Sapienza
+```
