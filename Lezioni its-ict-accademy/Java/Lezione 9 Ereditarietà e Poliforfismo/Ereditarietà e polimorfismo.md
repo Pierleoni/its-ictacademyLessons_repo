@@ -1,24 +1,36 @@
+# Introduzione
+Nelle lezioni precedenti abbiamo approfondito il concetto di **[[Oggetti e Classi#^classe|classe]]** e di **[[Oggetti e Classi#^715e05|oggetto]]**, evidenziando l’importanza dell’**[[Lezione 8 - L'incapsulamento|incapsulamento]]** per proteggere lo stato interno di un oggetto, e l’uso dei **[[Costruttori e modificatori#Modificatori di accesso (visibilità)|modificatori di accesso]]** per controllarne la visibilità. Abbiamo inoltre visto come gli **[[Costruttori e modificatori#1. Attributi `static`|attributi statici]]** e i **[[Costruttori e modificatori#2. Metodi `static`|metodi statici]]** consentano di condividere dati e comportamenti a livello di classe, e come le **[[Java/Lezione 5 Le classi/Le classi#Inner Class (Classi annidate)|inner class]]** possano essere utilizzate per raggruppare logicamente classi strettamente correlate.
+
+Partendo da questi concetti, la lezione di oggi introduce **l’ereditarietà**, uno dei pilastri della programmazione orientata agli oggetti. 
+L’ereditarietà permette di: 
+- ==creare nuove classi a partire da classi esistenti, riutilizzandone attributi e metodi e specializzandoli secondo necessità.== 
+Questo apre la strada al **polimorfismo:** 
+- ==cioè alla capacità di trattare oggetti di classi diverse in modo uniforme e di far invocare automaticamente il comportamento corretto in base alla classe reale dell’oggetto.== 
+Alla base di questo meccanismo ci sono due concetti chiave della [[Lezione 1 - Introduzione a Java#La JVM e l’indipendenza dalla piattaforma|JVM]]: il **binding dinamico**, che determina a run-time quale metodo invocare, e la **Virtual Method Invocation**, che realizza concretamente l’invocazione del metodo corretto.
+
+Questi concetti consentono di scrivere codice più flessibile, modulare e facilmente estendibile, permettendo di aggiungere nuove classi e comportamenti senza modificare il codice già esistente.
 
 ## Concetto di ereditarietà
 L’**ereditarietà** è uno dei punti di forza principali di Java e, più in generale, della programmazione orientata agli oggetti (OOP).
 
-Essa permette di creare **nuove classi** partendo da classi già esistenti, riutilizzando codice e strutturando meglio il dominio dell’applicazione. In pratica, una classe **figlia** eredita attributi e metodi dalla classe **padre**, e può aggiungerne di nuovi o ridefinirne alcuni.
+==Essa permette di creare **nuove classi** partendo da classi già esistenti, riutilizzando codice e strutturando meglio il dominio dell’applicazione.== 
+In pratica, una classe **figlia** eredita attributi e metodi dalla classe **padre**, e può aggiungerne di nuovi o ridefinirne alcuni.
 
 I principali vantaggi dell’ereditarietà sono:
 
 1. **Massimizzare il riutilizzo del codice**
     
-    - Separando gli aspetti generici da quelli specifici, possiamo definire classi base con funzionalità comuni (es. `Persona`) e poi creare sottoclassi più specializzate (es. `Studente` o `Docente`).
+    - ==Separando gli aspetti generici da quelli specifici, possiamo definire classi base con funzionalità comuni (es. `Persona`) e poi creare sottoclassi più specializzate (es. `Studente` o `Docente`).==
         
-    - Questo approccio ci permette di organizzare gli elementi del dominio in maniera logica: **gli elementi generici in classi base, gli aspetti specifici nelle sottoclassi**.
+    - Questo approccio ci permette di organizzare gli elementi del dominio in maniera logica: ==**gli elementi generici in classi base, gli aspetti specifici nelle sottoclassi**.==
         
     - In questo modo, ogni classe si concentra sul proprio ambito di responsabilità.
         
 2. **Facilità di evoluzione e manutenzione**
     
-    - L’aggiunta di nuove funzionalità avviene **estendendo le classi esistenti**, senza modificare il codice già testato.
+    - ==L’aggiunta di nuove funzionalità avviene **estendendo le classi esistenti**, senza modificare il codice già testato.==
         
-    - Questo riduce i rischi di introdurre errori e rende il software più **manutenibile e scalabile**.
+    - ==Questo riduce i rischi di introdurre errori e rende il software più **manutenibile e scalabile**.==
 ### Definizione di ereditarietà
 
 L’**ereditarietà** permette di creare nuove classi che **riutilizzano**, **estendono** e, se necessario, **modificano** (tramite [[Java/Lezione 5 Le classi/Le classi#Overriding dei metodi|overriding]]) il comportamento di altre classi già esistenti.
@@ -763,11 +775,67 @@ Salario manager incrementato di: 150.0
 > - ==lo stesso nome di metodo può produrre comportamenti differenti a seconda della classe concreta dell’oggetto==.
 
 
-> [!NOTE] **In sintesi**
-> 1. **Overriding**:  
+
+> [!abstract] **Binding Dinamico vs Virtual Method Invocation (VMI)**  
+Finora abbiamo analizzato separatamente il **binding dinamico** e la **Virtual Method Invocation (VMI)**.  
+Poiché i due concetti sono strettamente collegati, è naturale chiedersi:
+>
+>- Qual è la loro differenza?
+>    
+>- In che modo interagiscono tra loro?
+>1. **Binding dinamico:**
+>    - È il ==principio secondo cui la [[Lezione 1 - Introduzione a Java#La JVM e l’indipendenza dalla piattaforma|JVM]] decide a run-time quale implementazione di un metodo eseguire.==
+ >   
+>- Il collegamento tra la ==**chiamata al metodo** e la **sua implementazione concreta** viene stabilito **durante l’esecuzione del programma**, non in fase di compilazione.==
+ >   
+>- Senza binding dinamico:
+ >   
+>  - ==il compilatore dovrebbe determinare in anticipo quale metodo invocare;==
+>       
+>   - ==l’overriding non produrrebbe effetti reali;==
+>       
+>   - ==il polimorfismo sarebbe solo apparente.==
+>      
+>
+>Il binding dinamico è quindi la **condizione necessaria** per l’esistenza del polimorfismo in Java.
+>    
+>
+> 2. **Virtual Method Invocation (VMI)**
+>   - ==È il **meccanismo operativo utilizzato dalla [[Lezione 1 - Introduzione a Java#La JVM e l’indipendenza dalla piattaforma|JVM]] quando un metodo viene invocato su un oggetto**.==
+ >   
+>- Consiste nel:
+  >  
+  >  1. ==leggere il tipo reale dell’oggetto a run-time;==
+  >      
+   > 2. ==cercare nella sua classe l’implementazione più specifica del metodo;==
+>        
+  >  3. ==invocare quella versione.==
+  >      
+>- La VMI **si basa sul binding dinamico**, poiché utilizza le informazioni disponibili a run-time per effettuare la scelta corretta.
+>> [!faq]  **Come lavorano insieme**
+>>
+>>- ==Il **[[#Binding dinamico in Java|binding dinamico]]** stabilisce _che_ la scelta del metodo avviene a run-time.==
+>>  
+>>- ==La **[[#Virtual Method invocation|Virtual Method Invocation]]** è _come_ la JVM realizza concretamente quella scelta.==
+>
+>
+>> [!ticket] Regola D'Oro
+>> - **Il binding dinamico** è:
+>> 	- ==il _principio teorico_ secondo cui l’associazione tra chiamata di metodo e implementazione concreta viene stabilita **a run-time**, in base al tipo reale dell’oggetto==.
+>>    
+>>- **La Virtual Method Invocation (VMI)** è: 
+>> 	 - ==il _meccanismo operativo della JVM_ che realizza concretamente quel principio quando un metodo viene invocato su un oggetto.==
+>
+>In altre parole: 
+>>Il [[#Binding dinamico in Java|binding dinamico]] è la regola teorica;  
+>> la [[#Virtual Method invocation|Virtual Method Invocation]] è il modo in cui la [[Lezione 1 - Introduzione a Java#La JVM e l’indipendenza dalla piattaforma|JVM]] utilizza per applicare quella regola.
+
+
+> [!example] **In sintesi**
+> 2. **Overriding**:  
  >   La **classe figlia** ridefinisce un metodo della superclasse, modificandone il comportamento.
  >   
->2.  **Reference di tipo padre**:  
+>3.  **Reference di tipo padre**:  
 >    Quando dichiari una variabile come tipo della superclasse e le assegni un oggetto della sottoclasse, ad esempio:
 >```java
 >Impiegato imp = new Manager();
@@ -776,7 +844,7 @@ Salario manager incrementato di: 150.0
 >
 >qui `imp` è **di tipo Impiegato**, ma il **tipo reale dell’oggetto è Manager**.
 >
->3. **Invocazione del metodo**:  
+>4. **Invocazione del metodo**:  
 >   Quando chiami il metodo overridato:
 >```java
 >imp.incrementaSalario(100);
@@ -798,7 +866,7 @@ Il **polimorfismo** è una delle caratteristiche fondamentali della programmazio
 - ==indica la capacità di un oggetto di assumere **molte forme**, cioè di appartenere a più categorie==.
 
 In Java, il polimorfismo è una **diretta conseguenza dell’ereditarietà**: 
-- grazie alla possibilità di definire classi figlie che estendono e modificano il comportamento delle classi padre, un oggetto può essere trattato in modi diversi a seconda del contesto in cui viene utilizzato.
+- ==grazie alla possibilità di definire classi figlie che estendono e modificano il comportamento delle classi padre, un oggetto può essere trattato in modi diversi a seconda del contesto in cui viene utilizzato.==
 
 I principali vantaggi del polimorfismo sono:
 
@@ -847,3 +915,427 @@ Questo significa che:
 
 In pratica, questo esempio mostra come il **polimorfismo renda il codice più flessibile, modulare e facilmente estendibile**: 
 - ==possiamo aggiungere nuove sottoclassi di `Impiegato` senza modificare il loop o la logica di gestione dei salari.==
+
+### Assegnare un oggetto a un riferimento più generico
+Abbiamo già visto nell'esempio della VMI e binding dinamico che è possibile assegnare a una variabile (reference) di tipo **superclasse** un oggetto istanza di una **sottoclasse**.
+Esempio:
+```java
+Impiegato imp = new Manager(...);
+```
+
+In questo caso:
+
+- `Manager` **è un** `Impiegato` → relazione _is-a_ 
+    
+- quindi l’assegnazione è lecita.
+#### Cosa succede realmente?
+
+- In [[Il modello di Von Neumann#RAM|memoria]] viene creato un oggetto di tipo **Manager**.
+    
+- La variabile `imp` ==è una [[Oggetti e Classi#Le reference|reference]] di tipo **Impiegato**.==
+    
+- ==La reference punta comunque a un oggetto `Manager`.==
+    
+
+Quindi:
+
+- **Tipo della reference** → `Impiegato`
+    
+- **Tipo reale dell’oggetto** → `Manager`
+
+#### Regola fondamentale 
+Un riferimento può essere di tipo più generico **solo se quel tipo appartiene alla gerarchia dell’oggetto**.
+
+> [!done] **Valido**
+>```java
+>Impiegato imp = new Manager(...);
+>Object obj = new Manager(...);
+>```
+
+
+> [!fail] **Non valido**
+>```java
+> Manager m = new Impiegato(...); // ERRORE
+>
+>```
+>
+>Perché non ogni Impiegato è un Manager.
+
+####  Effetto dell’uso di un tipo più generico
+
+Quando si utilizza una reference di tipo più generale rispetto all’oggetto reale (ad esempio `Impiegato imp = new Manager(...)`), si verificano due effetti distinti.
+
+##### 1️. Gli attributi specifici vengono “oscurati”
+
+Gli attributi definiti solo nella sottoclasse:
+
+- ==**non vengono eliminati dall’oggetto**,==
+    
+- ==ma **non sono accessibili tramite una reference della superclasse**.==
+    
+
+Il motivo è che:
+
+- ==il compilatore verifica gli accessi basandosi esclusivamente sul tipo della reference.==
+Esempio:
+```java
+imp.secretaryName;   // ERRORE
+```
+
+L’attributo `secretaryName` esiste nell’oggetto `Manager`, ma il compilatore vede `imp` come un `Impiegato`, e quindi non ne consente l’accesso.
+
+##### 2️. I metodi specifici non sono invocabili
+Allo stesso modo:
+```java
+imp.getSecretary();  // NON COMPILA
+```
+
+Il metodo `getSecretary()` non è dichiarato nella classe `Impiegato`, quindi il compilatore blocca l’invocazione.
+Anche qui vale la stessa regola:
+
+- ==la verifica della disponibilità di un metodo avviene in base al tipo della reference, non al tipo reale dell’oggetto.==
+
+
+> [!warning] **Attenzione: qui entra in gioco il binding dinamico**
+> Se invece il metodo è dichiarato nella superclasse ed è stato **sovrascritto (override)** nella sottoclasse:
+>```java
+> imp.incrementaSalario(100);
+>```
+>Allora accade quanto segue:
+>
+>- ==il compilatore controlla che `Impiegato` possieda il metodo `incrementaSalario` ==
+>    
+>- a run-time, la [[Lezione 1 - Introduzione a Java#La JVM e l’indipendenza dalla piattaforma|JVM]] verifica il tipo reale dell’oggetto (che è `Manager`)
+  >  
+>- ==tramite **[[#Binding dinamico in Java|binding dinamico]] e [[#Virtual Method invocation|Virtual Method Invocation]]**, viene eseguita la versione del metodo definita in `Manager`==
+>
+>Quindi:
+>
+>- **visibilità a compile-time → dipende dal tipo della reference**
+ >   
+>- **implementazione eseguita a run-time → dipende dal tipo reale dell’oggetto**
+  >  
+>
+
+
+Questo meccanismo costituisce la base del **polimorfismo per sottotipo**.
+
+Possiamo scrivere codice che lavora su `Impiegato`, ma che funziona correttamente anche con:
+
+- `Manager`
+    
+- `Programmatore`
+    
+- `Segretaria`
+    
+- qualunque altra sottoclasse
+    
+
+Senza dover introdurre controlli espliciti sul tipo dell’oggetto.
+
+Ed è proprio questa separazione tra:
+
+- ciò che è visibile staticamente,
+    
+- e ciò che viene deciso dinamicamente,
+    
+
+a rendere il polimorfismo uno strumento potente e sicuro nella progettazione orientata agli oggetti.
+
+### Tipo più specifico (Downcasting)
+
+Abbiamo visto che è sempre possibile assegnare a una reference più generica un oggetto più specifico:
+```java
+Impiegato imp = new Manager(...);
+```
+Questa operazione è lecita perché un `Manager` **è un** `Impiegato` (_relazione is-a_).
+
+Ma è possibile fare l’operazione inversa?
+```java
+Manager m1 = imp;   // NON COMPILA
+```
+
+#### Perché non compila?
+==Perché il compilatore considera `imp` come un oggetto di tipo `Impiegato`.==
+
+==A compile-time non può garantire che l’oggetto referenziato sia effettivamente un `Manager`.==  
+Per questo motivo l’assegnazione viene bloccata: sarebbe potenzialmente insicura.
+
+
+
+#### Quando è possibile?
+
+È possibile solo se **l’oggetto referenziato è realmente un `Manager`**.
+
+In tal caso è necessario un **cast esplicito:**
+- cioè un’operazione con cui si comunica al compilatore che si è consapevoli del tipo reale dell’oggetto:
+```java
+Manager m1 = (Manager) imp;   // CORRETTO (se imp punta a un Manager)
+```
+
+Questo processo si chiama **downcasting:**
+-  ==si scende nella gerarchia verso un tipo più specifico.==
+
+> [!bug] **Attenzione: rischio a run-time**
+> Se `imp` non punta realmente a un `Manager`, il codice compila ma genera un errore a run-time:
+>```java
+> ClassCastException
+>
+>```
+>Esempio:
+>```java
+>Impiegato imp = new Impiegato(...);
+>Manager m1 = (Manager) imp;   // Compila, ma errore a run-time
+>```
+>
+>>[!done] Per evitare questo problema si utilizza il controllo con `instanceof`:
+>>```java
+>>if (imp instanceof Manager) {
+ >>   Manager m1 = (Manager) imp;
+>>}
+>>```
+
+###  Origine dell’oggetto: identità reale
+
+Come fa la JVM a gestire correttamente questi tipi?
+
+Ogni oggetto in Java:
+
+- ==conserva internamente l’informazione sulla **classe concreta da cui è stato istanziato**;==
+    
+- ==tale informazione è **immutabile**;==
+    
+- ==non dipende dal tipo della reference che lo sta puntando.==
+    
+
+In memoria abbiamo quindi una distinzione netta tra:
+
+```scss
+Reference (Impiegato)  →  Oggetto reale (Manager)
+```
+
+L’oggetto è un `Manager`, anche se viene referenziato come `Impiegato`.
+
+#### L’oggetto “porta con sé” il proprio tipo
+
+Ogni oggetto possiede internamente un riferimento alla propria **classe concreta**.
+
+Questa informazione viene utilizzata dalla [[Lezione 1 - Introduzione a Java#La JVM e l’indipendenza dalla piattaforma|JVM]] per:
+
+- ==eseguire il **[[#Binding dinamico in Java|binding dinamico]]**;==
+    
+- ==determinare quale metodo invocare (Virtual Method Invocation);==
+    
+- ==verificare la correttezza dei cast;==
+    
+- ==supportare il polimorfismo.==
+    
+
+È possibile leggere questa informazione tramite:
+```java
+imp.getClass();
+```
+
+Esempio:
+```java
+System.out.println(imp.getClass());
+```
+Output (esempio):
+```text
+class Manager
+```
+
+
+> [!ticket] **Concetto fondamentale**
+> L’oggetto ha una **identità reale** che:
+>
+>- non cambia nel tempo
+ >   
+>- non dipende dal tipo della reference
+  >  
+>- viene usata dalla JVM per:
+ >   
+ >   - scegliere il metodo corretto (VMI)
+  >      
+  >  - verificare la validità dei cast
+  >      
+  >  - supportare il polimorfismo
+
+
+> [!link] **Collegamento logico**
+> - La **reference** determina cosa è visibile a compile-time.
+ >   
+>- L’**oggetto reale** determina quale comportamento viene eseguito a run-time.
+  >  
+>- Il cast è una dichiarazione al compilatore:
+>    
+ >   > “So che questo oggetto è più specifico di quanto appare.”
+ >   
+>
+>Tuttavia, la JVM verifica comunque a run-time che tale affermazione sia corretta.
+
+### Polimorfismo e overriding
+Consideriamo la seguente gerarchia:
+[![Screenshot-2026-02-11-at-11-25-16-Microsoft-Power-Point-Java-09-Ereditarieta-Compatibility-Mode-J.png|201x375](https://i.postimg.cc/nL3dympR/Screenshot-2026-02-11-at-11-25-16-Microsoft-Power-Point-Java-09-Ereditarieta-Compatibility-Mode-J.png)](https://postimg.cc/qtCXnzty)
+La classe `Manager` **sovrascrive** il metodo `incrSalario()` ereditato da `Impiegato`, fornendo una propria implementazione.
+
+Ora analizziamo il seguente codice:
+```java
+Impiegato imp = new Manager(...);
+imp.incrSalario(800);
+```
+
+#### Quale metodo viene chiamato?
+
+A prima vista potremmo pensare che venga chiamato il metodo di `Impiegato`, perché:
+
+- la reference `imp` è di tipo `Impiegato`
+    
+- il compilatore controlla i metodi in base al tipo della reference
+    
+
+Infatti, a **compile-time**, il compilatore verifica che:
+
+- ==`Impiegato` possieda il metodo `incrSalario()` ✔==
+    
+- ==quindi la chiamata sia formalmente corretta ✔==
+    
+
+Ma la decisione finale non viene presa in fase di compilazione.
+
+#### Cosa accade a run-time?
+
+Quando il metodo viene invocato, entra in gioco:
+
+- il **[[#Binding dinamico in Java|binding dinamico]]**
+    
+- la **[[#Virtual Method invocation|Virtual Method Invocation (VMI)]]**
+    
+
+La [[Lezione 1 - Introduzione a Java#La JVM e l’indipendenza dalla piattaforma|JVM]]:
+
+1. ==osserva il **tipo reale dell’oggetto in memoria**==
+    
+2. ==verifica da quale classe è stato istanziato==
+    
+3. ==cerca il metodo partendo da quella classe concreta==
+    
+
+Nel nostro caso:
+
+- ==l’oggetto è un `Manager`==
+    
+- ==quindi la JVM cerca `incrSalario()` nella classe `Manager`==
+    
+- ==lo trova==
+    
+- ==e invoca **la versione sovrascritta**==
+
+Quindi viene eseguito: 
+```java
+Manager.incrSalario()
+```
+Nonostante la reference sia di tipo `Impiegato`.
+
+> [!ticket] **Principio chiave del polimorfismo**
+> In Java:
+>
+>- ==**la validità della chiamata** dipende dal tipo della reference (compile-time)==
+ >   
+>- ==**l’implementazione eseguita** dipende dal tipo reale dell’oggetto (run-time)==
+  >  
+>
+>Questo è il cuore del **polimorfismo per sottotipo**:
+>
+>==possiamo trattare oggetti diversi come se fossero dello stesso tipo generale,==  
+>==ma ciascuno si comporterà secondo la propria implementazione specifica.==
+
+### Disabilitare l’ereditarietà
+
+In Java è possibile impedire che una classe venga estesa, cioè che vengano create sottoclassi a partire da essa.
+
+Per ottenere questo risultato si utilizza il modificatore **[[Costruttori e modificatori#Uso di `final`|`final`]]** applicato alla dichiarazione della classe.
+
+La sintassi è la seguente:
+```java
+public final class NomeClasse {
+}
+```
+
+Quando una classe viene dichiarata [[Costruttori e modificatori#3. Classi `final`|`final`]], ==il compilatore impedisce qualsiasi tentativo di estenderla.==  
+Di conseguenza, nessun'altra classe potrà utilizzare la parola chiave `extends` per derivare da essa.
+
+####  Esempio concreto
+
+Un esempio molto importante presente nella libreria standard di Java è la classe:
+```java
+java.lang.String
+```
+La classe `String` è dichiarata `final`. 
+Questo significa che:
+
+- ==non è possibile creare una sottoclasse di `String`;==
+    
+- ==non è possibile modificarne il comportamento tramite ereditarietà;==
+    
+- ==il suo comportamento rimane garantito e immutabile dal punto di vista strutturale.==
+    
+
+Questa scelta progettuale è legata a motivi di sicurezza, coerenza e affidabilità.
+
+## Metodo `final` e overriding
+
+Come gia sappiamo il modificatore `final` può essere applicato [[Costruttori e modificatori#3. Classi `final`|non solo alle classi]], ma anche ai [[Costruttori e modificatori#2. Metodi `final`|metodi]].
+
+Quando un **metodo** viene dichiarato `final`, significa che:
+
+- ==può essere ereditato dalle sottoclassi;==
+    
+- ==**non può essere ridefinito (overridden)** in una sottoclasse.==
+    
+
+Esempio:
+```java
+public class Impiegato {
+
+    public final void calcolaStipendio() {
+        // implementazione
+    }
+}
+```
+
+Se una classe `Manager` estende `Impiegato`, potrà utilizzare il metodo `calcolaStipendio()`, ma non potrà fornirne una nuova implementazione.
+
+Se si tenta di fare overriding di un metodo dichiarato `final`, il compilatore genera un errore.
+
+
+> [!remember] Differenza concettuale
+>
+>È importante distinguere i due casi:
+>
+>- **Classe `final`** → ==impedisce l’ereditarietà.==
+ >   
+>- **Metodo `final`** → ==permette l’ereditarietà ma impedisce l’[[Java/Lezione 5 Le classi/Le classi#Overriding dei metodi|overriding]].==
+ >   
+>
+>==Nel primo caso si blocca la creazione di sottoclassi.==  
+>==Nel secondo caso si consente la creazione di sottoclassi, ma si impedisce la modifica di uno specifico comportamento.==
+### Conclusioni sul Polimorfismo
+
+-  ==Il polimorfismo rappresenta una diretta conseguenza del meccanismo di ereditarietà.==  
+Infatti, è proprio grazie alla relazione _is-a_ tra superclassi e sottoclassi che ==diventa possibile trattare oggetti di classi diverse attraverso un riferimento comune, tipicamente quello della superclass==e.
+
+-  ==Attraverso il polimorfismo è possibile estendere e rendere più flessibili le applicazioni orientate agli oggetti con uno sforzo minimo==.  
+Questo perché il codice può essere scritto facendo riferimento al tipo generale (superclasse o interfaccia), lasciando alle sottoclassi la possibilità di fornire implementazioni specifiche dei metodi tramite overriding.
+
+-  ==Di conseguenza, per introdurre nuove classi o nuovi comportamenti, non è necessario modificare le classi già esistenti.==  
+È sufficiente creare nuove sottoclassi che estendono quelle esistenti e ridefiniscono (se necessario) i metodi opportuni.
+
+Questo principio è strettamente collegato al **principio Open/Closed** della programmazione orientata agli oggetti:
+
+- le classi dovrebbero essere **aperte all’estensione**,
+    
+- ma **chiuse alla modifica**.
+    
+
+In questo modo si ottiene un sistema più modulare, manutenibile ed estendibile nel tempo, riducendo il rischio di introdurre errori nel codice già consolidato.
