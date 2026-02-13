@@ -1,4 +1,22 @@
+# Introduzione 
+Fino a questo momento abbiamo studiato i concetti fondamentali della programmazione orientata agli oggetti in Java: [[Oggetti e Classi#^classe|definizione di classi]], [[Oggetti e Classi#Attributi di una classe|attributi]] e [[Oggetti e Classi#Metodi|metodi]], [[Java/Lezione 5 Le classi/Le classi#Costruttori e modificatori|costruttori]], [[Lezione 8 - L'incapsulamento#Incapsulamento e consistenza degli oggetti|incapsulamento]], [[Java/Lezione 5 Le classi/Le classi#Overriding dei metodi|overriding]] e [[Ereditarietà e polimorfismo#Concetto di ereditarietà|meccanismo di ereditarietà]]. Abbiamo visto come modellare oggetti e come organizzare il codice in modo strutturato, ma abbiamo sempre dato per scontato che il programma venisse eseguito in condizioni ideali, senza errori durante l’esecuzione.
 
+Nella realtà, però, un programma può trovarsi in situazioni impreviste: input non valido, accesso a un indice fuori dai limiti di un array, divisione per zero, file non trovati, riferimenti nulli. Questi problemi non vengono rilevati in fase di compilazione, ma emergono durante l’esecuzione del programma, generando errori a runtime.
+
+Per affrontare in modo controllato queste situazioni, Java mette a disposizione il **meccanismo delle eccezioni**, che consente di:
+
+- ==segnalare un errore nel momento in cui si verifica (`throw`);==
+    
+- ==dichiarare che un metodo può generare un’eccezione (`throws`);==
+    
+- ==intercettare e gestire l’errore senza interrompere bruscamente il programma (`try-catch`);==
+    
+- ==garantire l’esecuzione di codice critico tramite il blocco `finally`.==
+    
+
+Introdurremo inoltre la distinzione tra **eccezioni [[#1. Eccezioni Checked|checked]] e [[#2. Eccezioni Unchecked|unchecked]]**, analizzeremo il meccanismo di **propagazione lungo la catena delle chiamate**, vedremo come creare **eccezioni personalizzate** e quali vincoli si applicano in caso di **overriding** dei metodi.
+
+In questo modo completiamo il modello di esecuzione di un programma Java, passando dalla semplice definizione di strutture e comportamenti alla gestione strutturata delle situazioni di errore.
 ##  Eccezioni e gestione degli errori in Java
 
 In un programma reale è inevitabile che si verifichino situazioni anomale: input non validi, dispositivi non disponibili, condizioni impreviste durante l’esecuzione.

@@ -144,7 +144,7 @@ public abstract void send();
 Oltre alle classi astratte, in Java esistono le **interfacce:**
 - ==permettono di definire un **contratto formale** tra più entità anche **non collegate da una relazione di ereditarietà**.==
 
-Un’interfaccia definisce **cosa deve essere fatto**, senza specificare **come farlo**. 
+==Un’interfaccia definisce **cosa deve essere fatto**, senza specificare **come farlo**.== 
 Un’interfaccia consente a classi diverse, anche appartenenti a gerarchie differenti, di **interagire attraverso un insieme comune di metodi**, senza conoscere i dettagli della loro implementazione. 
 In questo senso, l’interfaccia funge da **collegamento** tra:
 
