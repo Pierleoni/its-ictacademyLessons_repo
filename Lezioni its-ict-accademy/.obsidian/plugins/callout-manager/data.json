@@ -32,7 +32,7 @@
       "attention": [
         {
           "changes": {
-            "color": "255, 0, 0"
+            "color": "176, 81, 17"
           }
         }
       ],
@@ -133,7 +133,7 @@
       "hint": [
         {
           "changes": {
-            "icon": "lucide-pencil"
+            "icon": "lucide-biceps-flexed"
           }
         }
       ]

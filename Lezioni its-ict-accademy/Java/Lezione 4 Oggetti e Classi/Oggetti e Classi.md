@@ -277,7 +277,7 @@ public class Studente {
 - ==La classe definisce sia **come creare gli oggetti** (costruttore) sia **i comportamenti** che gli oggetti possono eseguire (metodi della classe)==.
 ##### Metodi
 
-- I **metodi** sono **funzioni associate a una classe**.
+- ==I **metodi** sono **funzioni associate a una classe**.==
     
 - Si chiamano metodi perché **appartengono agli oggetti della classe**.
     

@@ -390,6 +390,28 @@ Consideriamo il diagramma seguente:
 - ==Le linee tratteggiate con freccia vuota rappresentano **implementazione di interfacce** (is-a debole)==.
     
 - In questo modo, `Libro` combina **stato e comportamenti ereditati da Media** con **comportamenti astratti definiti dalle interfacce**, ottenendo sia polimorfismo che flessibilità di progettazione.
+
+### Interfacce funzionali
+
+Un’interfaccia funzionale ==è un’**interfaccia che contiene un solo metodo astratto**.==  
+Questo singolo metodo rappresenta **il comportamento principale** che quell’interfaccia vuole modellare.
+
+- ==Può avere anche **metodi default** o **statici**, ma **solo un metodo astratto**.==
+    
+- ==Il metodo astratto è quello che viene implementato tramite **lambda expression**.== 
+**Sintassi generica**
+
+```java
+@FunctionalInterface
+public interface NomeInterfaccia {
+    void metodoUnico(); // metodo astratto
+}
+```
+
+> [!info] L’annotazione `@FunctionalInterface` non è obbligatoria, ma serve a indicare chiaramente che l’interfaccia è pensata per essere funzionale.  
+> 
+> Il compilatore segnalerà un errore se ci sono più di un metodo astratto.
+
 ### Estensioni di interfacce
 In Java è possibile **creare interfacce che specializzano altre interfacce**, in modo simile a come le classi astratte possono essere estese dalle sottoclassi. Questo permette di costruire gerarchie di interfacce e definire comportamenti sempre più specifici senza dover scrivere codice concreto.
 **Esempio di base**

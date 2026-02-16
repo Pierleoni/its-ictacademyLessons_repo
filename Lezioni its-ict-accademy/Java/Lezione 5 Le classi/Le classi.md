@@ -488,7 +488,7 @@ In altre parole:
     
 3. ==Il metodo della superclasse non può essere `final` (perché i metodi finali non si possono sovrascrivere)==.
     
-4. La visibilità della sottoclasse deve essere **uguale o più permissiva** di quella del metodo della superclasse.
+4. ==La visibilità della sottoclasse deve essere **uguale o più permissiva** di quella del metodo della superclasse.==
 **Esempio:**
 ```java
 class Animale {

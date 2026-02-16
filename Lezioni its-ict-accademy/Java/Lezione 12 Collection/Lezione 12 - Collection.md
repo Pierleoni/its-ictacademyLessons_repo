@@ -1,4 +1,26 @@
 
+# Introduzione alle Collection in Java
+Nelle lezioni precedenti abbiamo rivisto i concetti fondamentali di **[[Oggetti e Classi|oggetti e classi]]**, imparando a creare [[Oggetti e Classi#Metodi di una classe|metodi]], [[Java/Lezione 5 Le classi/Le classi#Costruttori e modificatori|costruttori]] e [[Oggetti e Classi#Attributi di una classe|attributi]], e a [[Lezione 11 - Gestire gli Errori#Eccezioni e gestione degli errori in Java|gestire le **eccezioni**]] tramite [[Lezione 11 - Gestire gli Errori#Intercettare le eccezioni con `try-catch`|`try-catch`]], [[Lezione 11 - Gestire gli Errori#2. Propagazione con `throws`|`throws`]],  [[Lezione 11 - Gestire gli Errori#Il blocco `finally` in Java|`finally`]]. 
+Abbiamo anche visto come confrontare oggetti con il metodo [[Le stringhe#Differenza tra `==` ed `equals`|`equals()`]], e come utilizzare le **liste dinamiche** come `ArrayList` per memorizzare e manipolare insiemi di oggetti in modo più flessibile rispetto agli array tradizionali.
+
+In questa lezione introduciamo le **Collection**, ovvero le strutture dati di Java progettate per contenere e gestire **insiemi di oggetti** in maniera efficiente. Analizzeremo:
+
+- L’interfaccia **Collection** come base comune di tutte le collezioni
+    
+- Le principali sotto-interfacce, in particolare **List**, e le loro implementazioni concrete: [[#Classe `ArrayList`|`ArrayList`]], [[#Classe `LinkedList<E>`|`LinkedList`]] e [[#Classe `Vector<E>`|`Vector`]]
+    
+- I **metodi principali** per inserire, leggere, cercare e rimuovere elementi
+    
+- L’uso di **[[#Iterator|Iterator]]** e del **[[#Il costrutto `foreach`|costrutto foreach]]** per navigare tra gli elementi
+    
+- L’importanza dei **[[#Collection e Generics|generics]]**, che consentono di definire il tipo di oggetti contenuti in una collezione e riducono la necessità di cast
+    
+- Le problematiche legate ai **tipi primitivi** e la soluzione offerta da **[[#^autoBoxing|autoboxing]]** e **[[#^unBoxing|unboxing]]**
+    
+
+> In pratica, passeremo dalla gestione manuale degli array a una gestione più flessibile, tipizzata e orientata agli oggetti, grazie alle strutture della gerarchia delle Collection.
+
+
 ## Collection (Java)
 
 In Java, `Collection` è un’interfaccia del package `java.util` ==che modella un **insieme di oggetti**.==
@@ -6,7 +28,7 @@ In Java, `Collection` è un’interfaccia del package `java.util` ==che modella 
 Rappresenta la **radice (root) della gerarchia delle strutture dati dinamiche:** 
 - ==cioè il punto di partenza comune per tutte le principali collezioni del linguaggio.==
 
-Quando si parla di Collection, non si fa riferimento a una struttura dati specifica (come un array o una lista), ==ma a un **contratto generale** che definisce cosa significa “gestire un insieme di elementi==”.
+Quando si parla di Collection, non si fa riferimento a una struttura dati specifica (come un array o una lista), ==ma a un **contratto generale** che definisce cosa significa “gestire un insieme di elementi”.==
 
 > L’interfaccia `Collection` ==stabilisce quali operazioni di base devono essere disponibili in qualunque struttura dati che contenga oggetti.==
 
@@ -53,7 +75,7 @@ L’interfaccia `Collection` definisce una serie di **operazioni di base**, vali
     
 - ==verificare se la collezione è vuota==
     
-- ==ottenere un oggetto per la navigazione sequenziale (`Iterator`)==
+- ==ottenere un oggetto per la navigazione sequenziale ([[#Iterator|`Iterator`]])==
     
 
 Questi metodi non dipendono dalla struttura concreta (lista, insieme, coda…), ma rappresentano il **minimo comune denominatore** di tutte le Collection.
@@ -257,7 +279,7 @@ Il ciclo continua finché esistono elementi.
 >
 >```
 >
->Quindi il `for-each` ==è solo una sintassi più compatta sopra l'iterator==.
+>Quindi il [[#Il costrutto `foreach`|`for-each`]] ==è solo una sintassi più compatta sopra l'iterator==.
 >Un altro motivo fondamentale è: 
 >- ==L'Iterator permette di rimuovere elementi durante l'iterazione in modo sicuro.==
 >```java
@@ -279,6 +301,8 @@ Il ciclo continua finché esistono elementi.
 >- ==fare modifiche durante l’attraversamento==
 > Allora l'Iterator è lo strumento corretto
 >
+
+^f2edd4
 
 ### Architettura delle Collection
 Per comprendere meglio cosa sono le Collection e come sono organizzate, è utile osservare la **gerarchia delle interfacce** che compongono il framework.
@@ -323,7 +347,7 @@ Per ciascuna di queste sotto-interfacce esistono diverse **classi concrete** che
 
 Ad esempio:
 
-- `List` → `ArrayList`, `LinkedList`
+- [[#Interface `List`|`List`]] → `ArrayList`, `LinkedList`
     
 - `Set` → `HashSet`, `TreeSet`
     
@@ -336,14 +360,14 @@ Questo significa che:
 > ==le classi concrete definiscono il _comportamento reale_ (come viene fatto).==
 
 
-### Interface `List`
+### Interfaccia `List`( Interface `List`)
 
 ```java
 public interface List<E> extends Collection<E>
 ```
 
 L’interfaccia `List` rappresenta: 
-- una **collezione sequenziale di oggetti**, cioè una struttura dati in cui gli elementi vengono mantenuti in un ordine ben preciso.
+- ==una **collezione sequenziale di oggetti**, cioè una struttura dati in cui gli elementi vengono mantenuti in un ordine ben preciso.==
 
 A differenza di altre Collection, una `List` è caratterizzata dal fatto che:
 
@@ -367,7 +391,7 @@ list.add(2, y);   // inserisce un elemento in una posizione specifica
 L’accesso indicizzato è ciò che distingue concettualmente una `List` da un `Set`, dove non esiste il concetto di posizione.
 
 #### Duplicati
-Una `List` può contenere più volte lo stesso elemento:
+==Una `List` può contenere più volte lo stesso elemento==:
 ```java
 list.add("A");
 list.add("A");
@@ -393,7 +417,7 @@ Queste operazioni sono possibili proprio perché la `List` ha una struttura sequ
 
 #### `ListIterator`
 
-Oltre all’`Iterator` standard, una `List` fornisce un iteratore più potente: `ListIterator`.
+Oltre all’[[#Iterator|`Iterator` standard]], una `List` fornisce un iteratore più potente: `ListIterator`.
 
 ==`ListIterator` è una specializzazione di `Iterator` che aggiunge funzionalità avanzate.==
 
@@ -415,353 +439,1015 @@ Inoltre permette:
 
 Questo è possibile solo nelle `List`, perché solo esse hanno un ordine e un concetto di posizione.
 
----
 
-#### Metodi principali (concettuali)
-cco i metodi più importanti che tutte le Collection offrono:
+## Le `List`
 
-- `add(E e)` → aggiunge un elemento alla Collection
+Come abbiamo visto, `List` è un’[[Lezione 10 - Classi astratte e interfaccie#Le interfacce|interfaccia]].  
+==Per poterla utilizzare concretamente è necessario istanziare una **classe che la implementi**==.
+
+Le implementazioni più note dell’interfaccia `List` sono:
+
+- `ArrayList<E>`
     
-- `remove(Object o)` → rimuove un elemento specifico
+- `Vector<E>`
     
-- `contains(Object o)` → verifica se un elemento è presente
-    
-- `size()` → restituisce il numero di elementi
-    
-- `isEmpty()` → controlla se la Collection è vuota
-    
-- `iterator()` → restituisce un **Iterator**, cioè un oggetto che permette di scorrere gli elementi uno alla volta
-
-
-
-#### Implementazione
-L’interfaccia `Collection` **non ha implementazioni dirette**: non puoi creare un oggetto di tipo `Collection` da sola.
-
-Al contrario, esistono:
-
-- **Sottointerfacce**, come `List`, `Set` e `Queue`, che definiscono comportamenti più specifici
-    
-- **Classi concrete** che le implementano, ad esempio `ArrayList`, `HashSet` o `LinkedList`
+- `LinkedList<E>`
     
 
-Ogni classe concreta decide **come memorizzare gli elementi** e **quali regole rispettare**, ad esempio se accettare duplicati o mantenere l’ordine di inserimento.
+Ognuna di queste classi rispetta il contratto definito da `List`, ==ma utilizza **una struttura dati interna diversa**, con conseguenze sulle prestazioni e sul comportamento==.
 
+#### `ArrayList<E>`
 
-#### Duplicati
-Non tutte le Collection si comportano allo stesso modo rispetto ai duplicati:
+È l’implementazione più utilizzata.
 
-- Alcune Collection **consentono duplicati**, come `List` (possono esserci più copie dello stesso elemento)
+- ==Internamente è basata su un **array dinamico**.==
     
-- Altre **non li consentono**, come `Set`, dove ogni elemento è unico
+- ==Offre accesso rapido tramite indice.==
     
-
-Questa differenza è fondamentale da ricordare quando si sceglie la Collection più adatta a un certo problema.
-
-
-
-### Iterator
-
-#### Cos’è un Iterator
-Un **Iterator** è un’interfaccia che serve a **navigare sequenzialmente all’interno di una Collection**.
-
-- Ogni Collection può fornire un Iterator tramite il metodo `iterator()`.
-    
-- L’Iterator permette di scorrere gli elementi **senza conoscere come la Collection li memorizza internamente**.
-    
-- È lo strumento principale per leggere gli elementi in modo sicuro e controllato.
-    
-
-
-##### Come si ottiene
+- ==L’inserimento o la rimozione in mezzo alla lista può essere meno efficiente, perché richiede lo spostamento degli elementi==.
+**Esempio Pratico con `ArrayList`**
 ```java
-Iterator<E> it = collection.iterator();
+import java.util.ArrayList;
+import java.util.List;
+
+public class EsempioArrayList {
+
+    public static void main(String[] args) {
+
+        // Creazione di una ArrayList
+        List<String> lista = new ArrayList<>();
+
+        // 1️⃣ Inserimento elementi (array dinamico)
+        lista.add("A");
+        lista.add("B");
+        lista.add("C");
+        lista.add("D");
+
+        System.out.println("Lista iniziale: " + lista);
+
+        // 2️⃣ Accesso rapido tramite indice (O(1))
+        String elemento = lista.get(2);   // accesso diretto alla posizione 2
+        System.out.println("Elemento in posizione 2: " + elemento);
+
+        // 3️⃣ Inserimento in posizione intermedia
+        lista.add(1, "X");   // inserisce "X" in posizione 1
+
+        System.out.println("Lista dopo inserimento in mezzo: " + lista);
+
+        // 4️⃣ Rimozione in posizione intermedia
+        lista.remove(2);
+
+        System.out.println("Lista dopo rimozione: " + lista);
+    }
+}
 ```
 
-- L’iteratore è **indipendente dalla struttura interna** della Collection.
-    
-- Permette di attraversare gli elementi **senza conoscerne l’implementazione**.
-    
+==È generalmente la scelta predefinita quando non ci sono esigenze particolari.==
+#### `Vector<E>`
 
-
-
-#### Metodi dell’interfaccia Iterator
-I metodi principali di un Iterator sono:
-
-- `hasNext()` → ritorna `true` se c’è ancora almeno un elemento da leggere
+- ==Strutturalmente simile ad `ArrayList`.==
     
-- `next()` → restituisce l’elemento corrente e sposta l’iteratore al successivo
+- ==È **sincronizzato**, quindi thread-safe.==
     
-- `remove()` → rimuove l’elemento restituito dall’ultimo `next()` dalla Collection
+- ==Oggi è poco utilizzato perché il costo della sincronizzazione lo rende meno performante nella maggior parte dei casi.==
     
 
-> Nota: `remove()` funziona solo subito dopo aver chiamato `next()`.
 
-
-#### Regole importanti
-
-- **Un Iterator è monouso:** una volta terminata l’iterazione, non può essere riutilizzato.  
-    Per scansionare di nuovo la Collection, bisogna crearne uno nuovo.
-    
-- Usare un Iterator è **più sicuro** rispetto a un ciclo `for` tradizionale se stai rimuovendo elementi durante la navigazione.  
-    Questo evita errori di **modifica concorrente**, tipici quando si altera una Collection mentre la si sta scorrendo.
-    
-
-### Architetture delle Collection
-Per comprendere meglio l'architettura delle collection riferiamoci a questa immagine: 
-
-[![Archiettettura-delle-collection-pdf.png](https://i.postimg.cc/8c1VRS9T/Archiettettura-delle-collection-pdf.png)](https://postimg.cc/KksVbdmW)
-**Per ognuna di queste interfacce ci sono diverse implementazioni concrete**
-
-### Interface List 
+**Esempio base di utilizzo di `Vector`**
 ```java
-public interface List extends Collection
+import java.util.Vector;
+
+public class EsempioVector {
+
+    public static void main(String[] args) {
+
+        Vector<String> vector = new Vector<>();
+
+        vector.add("A");
+        vector.add("B");
+        vector.add("C");
+
+        System.out.println("Vector: " + vector);
+
+        // Accesso tramite indice (come ArrayList)
+        System.out.println("Elemento in posizione 1: " + vector.get(1));
+
+        // Inserimento in posizione specifica
+        vector.add(1, "X");
+
+        System.out.println("Dopo inserimento: " + vector);
+    }
+}
 ```
 
-Una **List** è una **collezione sequenziale di oggetti**, cioè una struttura in cui gli elementi sono ordinati in base all’ordine di inserimento.
 
-- L’accesso agli elementi avviene **tramite indice**, simile a un array: 
-	- puoi leggere, aggiornare o rimuovere un elemento conoscendone la posizione.
-    
-- ==Una List **ammette duplicati**, quindi è possibile inserire più volte lo stesso oggetto.==
-    
-- Oltre alle funzionalità ereditate da `Collection` (aggiungere, rimuovere, cercare, iterare…), `List` offre **metodi specifici per l’inserimento e la ricerca** in posizioni precise, ad esempio:
-    
-    - `get(int index)` → ==restituisce l’elemento in una posizione specifica==
-        
-    - `add(int index, E element)` → ==inserisce un elemento in una posizione specifica==
-        
-    - `indexOf(Object o)` → ==restituisce l’indice della prima occorrenza di un elemento==
-        
-- Per scorrere una List esiste un **iteratore speciale**, il `ListIterator`, che **estende Iterator** e permette uno **scorrimento bidirezionale** (sia in avanti che indietro), oltre a consentire modifiche durante l’iterazione.
+> [!NOTE] **Nota:**
+> È considerato una classe “legacy”, mantenuta per compatibilità con versioni precedenti di Java.
 
-###  Le Liste in Java
+#### `LinkedList<E>`
 
-Le **Liste** sono rappresentate da diverse implementazioni concrete, tra le più comuni troviamo:
-
-- `ArrayList<E>` → una lista basata su array dinamici, ideale per accessi rapidi tramite indice
+- ==Internamente è basata su una **lista doppiamente collegata**.==
     
-- `Vector<E>` → simile ad ArrayList, ma **thread-safe** (sincronizzata)
+- ==Non offre accesso rapido tramite indice.==
     
-- `LinkedList<E>` → una lista basata su nodi collegati, più efficiente per inserimenti e cancellazioni frequenti all’interno della lista
+- ==È più efficiente nelle operazioni di inserimento e rimozione frequenti.==
     
 
-> Il simbolo `E` rappresenta il **tipo generico degli elementi** contenuti nella lista.  
-> Quando si crea una lista concreta, è buona pratica specificare il tipo degli oggetti che conterrà, ad esempio:
+Può essere utilizzata anche come implementazione di `Queue`, grazie alla sua struttura.
+**Esempio base con `LinkedList`**
+
+```java
+import java.util.LinkedList;
+
+public class EsempioLinkedList {
+
+    public static void main(String[] args) {
+
+        LinkedList<String> lista = new LinkedList<>();
+
+        lista.add("A");
+        lista.add("B");
+        lista.add("C");
+
+        System.out.println("Lista iniziale: " + lista);
+
+        // Inserimento in testa (molto efficiente)
+        lista.addFirst("START");
+
+        // Inserimento in coda (molto efficiente)
+        lista.addLast("END");
+
+        System.out.println("Dopo inserimenti: " + lista);
+
+        // Rimozione del primo elemento
+        lista.removeFirst();
+
+        System.out.println("Dopo rimozione: " + lista);
+    }
+}
+```
+### Il ruolo del generico `<E>`
+
+==Il simbolo `<E>` rappresenta un **tipo generico**.==
+
+Indica il tipo di elemento che la lista conterrà.
+
+Esempio:
 ```java
 List<String> nomi = new ArrayList<>();
-List<Integer> numeri = new LinkedList<>();
+```
+
+In questo caso:
+
+- ==`E` diventa `String`==
+    
+- ==la lista potrà contenere solo oggetti di tipo `String`==
+    
+- ==il compilatore garantisce la **type safety**==
+    
+
+L’uso dei generics evita il casting esplicito e riduce il rischio di errori a runtime.
+
+> [!hint]  Osservazione importante
+>
+>È buona pratica dichiarare il tipo tramite l’interfaccia:
+>
+>```java
+>List<String> lista = new ArrayList<>();
+>```
+>
+>e non:
+>
+>```java
+>ArrayList<String> lista = new ArrayList<>();
+>```
+>
+>In questo modo il codice rimane più flessibile: si può cambiare implementazione senza modificare la logica del programma.
+### Classe `ArrayList`
+
+`ArrayList` è una classe concreta che: 
+- ==**implementa l’interfaccia `List`** utilizzando internamente un **array a dimensione variabile**==.
+
+Questo significa che:
+
+- ==gli elementi sono memorizzati in un [[Array in Java#Gli array in Java|array]]==
+    
+- ==quando lo spazio disponibile termina, l’array viene automaticamente ridimensionato==
+    
+- ==l’accesso tramite indice è molto efficiente==
+    
+
+A differenza di un array tradizionale, quindi, ==la dimensione non è fissa ma cresce dinamicamente in base alle necessità==.
+
+#### Costruttori principali
+
+##### 1️. `ArrayList()`
+```java
+ArrayList<E> list = new ArrayList<>();
+```
+==Costruisce una lista con **capacità iniziale pari a 10**.==
+
+> [!NOTE] Questo non significa che la lista contenga già 10 elementi, ==ma che l’array interno è inizialmente in grado di ospitarne fino a 10 prima di dover essere ridimensionato==.
+> 
+
+##### 2️⃣ `ArrayList(Collection<E> c)`
+```java
+ArrayList<E> list = new ArrayList<>(collezione);
+```
+
+==Costruisce una nuova `ArrayList` copiando gli elementi di una Collection esistente.==
+
+È utile quando si vuole:
+
+- ==creare una copia di una collezione==
+    
+- ==convertire una Collection generica in una `ArrayList`==
+    
+
+==La dimensione iniziale sarà pari al numero di elementi contenuti nella Collection passata.==
+
+##### 3️⃣ `ArrayList(int initialCapacity)`
+```java
+ArrayList<E> list = new ArrayList<>(50);
+```
+
+==Costruisce una lista vuota specificando la **capacità iniziale** dell’array interno.==
+
+Questo è utile quando si conosce in anticipo il numero approssimativo di elementi da inserire, perché:
+
+- ==si evita il ridimensionamento automatico==
+    
+- ==si migliora leggermente l’efficienza== 
+
+
+> [!deep] **Capacita vs Dimensione**
+> È importante distinguere tra:
+>
+>- **Capacity (capacità)** → ==dimensione dell’array interno==
+  >  
+>- **Size (dimensione reale)** → ==numero effettivo di elementi presenti nella lista==
+  >  
+>
+>Esempio:
+>```java
+>ArrayList<String> list = new ArrayList<>(10);
+>
+>```
+>- Capacity = 10
+ >   
+>- Size = 0
+>  
+> Dopo: 
+>```java
+> list.add("A");
+>
+>```
+>- Capacity = 10
+ >   
+>- Size = 1
+>
+>>[!faq]  Come funziona il ridimensionamento?
+>>
+>>Quando la capacità viene superata:
+>>
+>>- ==viene creato un nuovo array più grande==
+   >> 
+>>- ==gli elementi vengono copiati nel nuovo array==
+  >>  
+>>- ==il riferimento viene aggiornato==
+   >> 
+>>
+>>Questa operazione ha un costo, motivo per cui specificare la capacità iniziale può essere utile in alcuni casi.
+
+#### Metodi degli `ArrayList`
+Come abbiamo detto, `ArrayList` è basato su un array dinamico, quindi molte operazioni implicano uno shift degli elementi.
+A differenza dei classici Array che invece hanno una capacità fissa e immutabile.
+Inoltre questa classe implementa diversi metodi molto utili per inserire, ricercare, leggere e rimuovere gli elementi.
+Andiamo ad analizzare quelli più noti: 
+
+##### Metodi di inserimento degli `ArrayList`
+1. `add(E element)`
+	- ==Aggiunge un elemento in fondo alla lista==
+```java
+ArrayList<String> lista = new ArrayList<>();
+lista.add("A");
+lista.add("B");
+```
+
+> [!info] ==Complessità media: O(1)==
+
+2. `add(int index, E element)`
+	- Inserisce un elemento in una posizione specifica 
+	- Gli elementi successivi, con questo metodo, vengono spostati a destra (shift).
+```java
+lista.add(1, "X");  
+// Se lista = [A, B]
+// Dopo → [A, X, B]
 ```
 
 
-Il vantaggio di `E` tra `Object`è: 
-Object è la classe padre di tutti gli oggetti di Java, potremo anche tipizzare la lista come lista di Object ma poi se in questa lista ci metto una stringa, il telecomando punta all'oggetto String ma con una freccia Object, Quindi per poter usare i metodi delle stringhe dovrei fare il casting dell'oggetto di Object a stringa e poi utilizzare i metodi delle stringhe. 
-Per questo i programmatori della Oracle hanno implementato il placeholder `E`. 
-Difatti `E` è solo un placeholder per indicare che la lista o l'ArrayList o la collection prende un qualsiasi tipo di dati 
-
-### Classe ArrayList 
-
-mplementa List attraverso array di dimensione variabile
-**Costruttori:**
-1. `ArrayList()`: 
-	- Costruisce un array di dimensione iniziale 10
-2.  `ArrayList(Collection<E> c)`:
-	- Costruisce un array a partire da una collezione data di oggetti
-3. `ArrayList(int initialCapacity)` :
-	- Costruisce un array vuoto specificando la capacità iniziale.
-Gli array list ogni volta che lo inizializziamo a 10 elementi e ci mettiamo l'undicesimo, l'array list butta il vecchio array e ne inizializza uno nuovo di undici elementi e cosi via per ogni singolo elemento inserito dopo la inizializzazione. 
-Per questo il costruttore n.3 serve per migliorare le prestazioni ma non cambia la sostanza 
-Il secondo costruttore invece non trasfomara o castizza le collection ma sfrutta il principio dell'albero binario 
-#### Metodi 
-**Per l'inserimento**: 
-- `public void add(int index, E element)`
-	- In base all'indice scala gli elementi gia presenti e aggiunge il nuovo elemento al primo posto libero e non lascia buchi 
-- `public boolean add(E element)`: 
-	- Aggiunge gli elementi in coda 
-
-- `public E set(int Index, E element)`: 
+> [!bug] ❌ Eccezione:
+>
+>- `IndexOutOfBoundsException` se:
+>    
+>    - index < 0
+>        
+>    - index > size()
 
 
-### Classe LinkedList
-La classe **`LinkedList`** è un’implementazione dell’interfaccia `List` basata su una **lista concatenata (linked list)**.  
-In questa struttura, ogni elemento è collegato al precedente e al successivo, anziché essere memorizzato in posizioni contigue di memoria come avviene negli array.
-#### Caratteristiche principali
+> [!info] **==Complessità: O(n)==**
 
-- Implementa l’interfaccia `List` utilizzando una **lista linkata**.
-    
-- Oltre ai metodi standard ereditati da `List`, mette a disposizione **metodi specifici** per:
-    
-    - inserire elementi all’inizio e alla fine della lista
-        
-    - leggere elementi all’inizio e alla fine della lista
-        
-    - rimuovere elementi all’inizio e alla fine della lista
-        
-- È particolarmente adatta per gestire:
-    
-    - **code (queue)** → inserimento in coda e rimozione in testa
-        
-    - **pile (stack)** → inserimento e rimozione in testa
-        
-- I **costruttori** sono simili a quelli di `ArrayList` (vuota, oppure inizializzata con un’altra Collection).
-    
-- Come `ArrayList`, **non è sincronizzata**, quindi non è thread-safe di default.
-
-##### Metodi specifici di `LinkedList`
-
-`LinkedList` fornisce metodi aggiuntivi che operano direttamente sugli estremi della lista:
-
-- `addFirst(E element)`  
-    → inserisce un elemento all’inizio della lista
-    
-- `addLast(E element)`  
-    → inserisce un elemento alla fine della lista
-    
-- `getFirst()`  
-    → restituisce il primo elemento senza rimuoverlo
-    
-- `getLast()`  
-    → restituisce l’ultimo elemento senza rimuoverlo
-    
-- `removeFirst()`  
-    → rimuove e restituisce il primo elemento
-    
-- `removeLast()`  
-    → rimuove e restituisce l’ultimo elemento
-
-
-### Interfaccia `Set` in Java
-
-- **Cos’è**:  
-    - ==`Set` è un’interfaccia che estende `Collection` e rappresenta una **collezione di elementi senza duplicati**.==  
-    - In altre parole, un `Set` modella un **insieme matematico**, dove ogni elemento può comparire **al massimo una volta**.
-    
-- **Regola fondamentale**:  
-    - ==Un `Set` **non può contenere due elementi `e1` ed `e2` tali che `e1.equals(e2)` restituisca `true`**.==  
-    - ==Questo significa che l’uguaglianza degli elementi viene determinata tramite il metodo `equals()`, non solo dall’identità degli oggetti.==
-    
-- **Caratteristiche principali**:
-    
-    - **Non mantiene un ordine specifico degli elementi** (eccetto alcune implementazioni, come `LinkedHashSet` e `TreeSet`).
-        
-    - Garantisce l’unicità degli elementi automaticamente: ==se provi ad aggiungere un duplicato, l’operazione sarà ignorata.==
-        
-- **Implementazioni comuni**:
-    
-    1. **`HashSet`**:
-        
-        - ==Basato su hash table.==
-            
-        - ==Operazioni veloci (`add`, `remove`, `contains` in media O(1)).==
-            
-        - ==Non mantiene alcun ordine degli elementi.==
-            
-    2. **`LinkedHashSet`**:
-        
-        - Simile a `HashSet`, ma mantiene l’**ordine di inserimento**.
-            
-        - Utile se vuoi iterare sugli elementi nello stesso ordine in cui li hai aggiunti.
-            
-    3. **`TreeSet`**:
-        
-        - Basato su **albero rosso-nero** (struttura ordinata).
-            
-        - ==Mantiene gli elementi **ordinati secondo l’ordine naturale** o un comparatore personalizzato.==
-            
-        - ==Operazioni più lente (O(log n)) rispetto a `HashSet`.==
-
-[![Screenshot-2026-01-28-at-15-06-11-Java-12-Collection-Java-12-Collection-pdf.png|458x273](https://i.postimg.cc/ZnskhBfM/Screenshot-2026-01-28-at-15-06-11-Java-12-Collection-Java-12-Collection-pdf.png)](https://postimg.cc/m19pYDWY)
-
-Un set non ragiona con equals, abbiamo detto che i set non accettano doppioni.
-Come fa: 
-guardando l'immagine possiamo vedere che l'interfaccia Set ha implementazioni filgie di HashSet e TreeSet
-
-> [!NOTE] Title
-> Il suffisso Hash, Tree indica l'implementazione mentre la seconda parte indica che appartiene all' interfaccia padre Set.
-
-Co'è un HashSet?
-Immagianiamo a uno schedario con vari cassetti dove vi sono varie schede, la struttura dati che lo rappresenta è un array i cui elementi sono liste, ciascuna lista è un bucket.
-Immaginiamo che in questo schedario contenga libri per ordine alfabetico degli autori, cosi quando andiamo a chiedere un libro del manzoni andiamo al casetto M. 
-La suddivsione in casetti ed un ulteriore divisione interna rende più facile l'estrazione del singolo elemento e la ricerca di quell'elemento.
-Ogni elemento lo infila in una LinkedList. 
-Lo HashSet non ha lettere ma numeri: associa che ogni oggetto entrate abbia un codice numerico; tutti gli oggetti in ingresso con codice da 1 a 200 li mette nel primo casetto e cosi via. 
-Il codice in questione è l'hashcode
-#### Hashcode 
-È un metodo di Object che non ha parametri ma restiusice un long.
-L'hashcode è un codice non univoco; due oggetti possono essere diversi ma avere lo stesso hashcode.
-Implementarlo non è banale 
-A cosa serve? A dare un codice abbastabza univoco all'oggetto.
-Riprendendo l'esempio dello schedario se un oggetto ha un hashcode 55 va messo nel primo casetto ma un altro oggetto pouò avere lo stesso codice.
-Quindi lavorare con un equals per gli array è sufficiente ma non per gli hashset. 
-
-La regola è che due oggetti uguali per la equals allora devono avere lo stesso hashcode.
-Questo si cihama il contratto che collega a filo doppio gli oggetti. 
-Quindi facendo l'overriding questa regola deve sempre essere rispettata.
-Se $A=>B$ e la stessa cosa nel dire $not B => not A$ 
-Quindi se due oggetti hanno due hashcode diversi allora sono due oggetti diversi. 
-Quindi in un oggetto Impiegato applica prima l'hashcode che l'equals.
-Primo scenario: 
-Nessun oggetto ha lo stesso hashcode :
-L'oggetto entrate non condivide l'hahscode con nessun oggetto dentro il primo casetto dello scheadrio allora prima applica il teorema all'incotrario, quindi vuol dire che non sono uguali e lo mette nel rpimo casetto 
-Seconda scenraio:
-L'oggetto entrate condivide lo stesso hashcode con un oggetto già presente nello stesso casetto. 
-Quindi in questi casi applica l'equals e vede se: 
-I due oggetti hanno lo stesso hashcode ma diverso equals l'oggetto nuvo entra nello schedario 
-I due oggetti hanno lo stesso hashcode ma equals uguale, allora l'oggetto entrante è un doppio e non verrà storato. 
-Ricordiamoci che equals confronta più valori, campo campo, mentre l'hashcode confronta solo un numero, quindi l'hashcode è più veloce di equals; equals è l'ultima spiaggia per casi al limite. 
-Caso limite:
-Supponiamo di implementare da solo il metodo hashcode della classe con un return 5, il problema è che tutti gli oggetti hanno lo stesso hashcode quindi chiamerebbe sempre equals e il codice diventerebbe molto lento. 
-Inoltre leveremmo la priorità agli oggetti entrati e già storati.
-Difatti un hashcode fatto bene è un codice abbastanza univoco: 
-possono esserci doppioni ma comunque molti oggetti non condivideranno lo stesso hahscode.
-Quindi gli oggetti dell'isnieme hashset dovrebbero ridefinire: 
-- il metodo boolean equals Object : per distinguere "doppioni"
-- Il metodo int hashcode : per gestione dei buckets
-
-
-**Esempio d'uso di HashSet**
+3. `addAll(Colletion<E> c)`
+	- Aggiunge  in fondo tutti gli elementi della Lista passata come argomento alla lista che chiamante
 ```java
-HashSet<String> ha = new HashSet<String>();
-ha.add("serpente");
-ha.add("ape");
-ha.add("farfalla");
-ha.add("farfalla"); // NON viene aggiunto!
-ha.add("furetto");
-ha.add(“gattino");
-for (String entry: ha) {
-	System.out.println(“elemento: “ + entry);
+ArrayList<String> altraLista = new ArrayList<>();
+altraLista.add("C");
+altraLista.add("D");
+
+lista.addAll(altraLista);
+```
+
+4. `addAll(int index, Collection<E> c)`
+	- Inserisce una collezione passata come argomento a partire da un indice, alla collezione chiamante
+```java
+ArrayList<String> altraLista = new ArrayList<>();
+altraLista.add("C");
+altraLista.add("D");
+
+lista.addAll(1,altraLista);
+```
+
+- Anche qui avviene lo shift (spostamento a destra) degli elementi presenti nella collezione chiamante. 
+
+5. `set(int index, E element)`
+	- Sostituisce un elemento senza effettuare lo shift degli elementi già presenti nella collezione 
+```java
+lista.set(0, "Z");
+```
+
+Quindi: 
+- non cambia la dimensione dell' `ArrayList`
+- Non sposta gli elementi già presenti 
+
+> [!bug] **Eccezzione**
+> 
+> `IndexOutOfBoundsException` se index non valido
+
+##### Metodi di lettura dell'`ArrayList`
+1. `get(int index)`
+	- Restituisce l'elemento presente alla  posizione specifica (indice) passato come argomento della funzione
+```java
+String valore = lista.get(1);
+```
+
+
+> [!info] **Complessità: O(1)**  
+>(perché è accesso diretto su array)
+
+
+##### Metodi di ricerca dell'`ArrayList`
+1. `contains(E element)`
+	- ==Scorre tutta lista fino a che non trova l'elemento passato come argomento alla funzione==
+	- Restituisce un booleano
+```java
+boolean presente = lista.contains("A");
+```
+
+
+> [!info] **Complessita: O(n)**
+
+2. `indexOf(E element)`
+	- Restituisce l'indice della prima occorrenza dell'elemento passato come parametro alla funzione
+
+```java
+int posizione = lista.indexOf("A");
+```
+
+Se non trova nessuna occorrenza ritorna `-1`.
+
+3.  `lastIndexOf(E element)`
+
+- Restituisce l'indice dell’ultima occorrenza dell'elemento passato come argomento alla funzione
+```java
+int posizione = lista.lastIndexOf("A");
+```
+
+#### Metodi di rimozione dell'`ArrayList`
+1. `remove(int index)`
+
+	- ==Rimuove l’elemento alla posizione indicata.==
+```java
+lista.remove(1);
+```
+
+- ==Gli elementi successivi vengono spostati a sinistra.==
+
+- ==Restituisce l’elemento rimosso .== 
+
+> [!bug] **Eccezione**
+> Può lanciare `IndexOutOfBoundsException`.
+
+2.  `remove(E element)`
+	- ==Rimuove la prima occorrenza.==
+```java
+boolean eliminato = lista.remove("A");
+```
+
+Restituisce:
+
+- ==`true` se trovato e rimosso==
+    
+- ==`false` se non presente==
+    
+
+> [!NOTE] **Anche qui avviene lo shift.**
+
+3.  `clear()`
+	- ==Svuota completamente la lista.==
+```java
+lista.clear();
+```
+
+4.  `trimToSize()`
+	- ==Riduce la capacità interna dell’array alla dimensione attuale.==
+```java
+lista.trimToSize();
+```
+
+- ==Utile per ottimizzare memoria dopo molte rimozioni.==
+
+##### Altri metodi utili 
+1. `size()`
+	- Restituisce un integer che rappresenta la lunghezza (non la capacità) dell'`ArrayList`
+```java
+int dimensione = lista.size();
+```
+
+2. `isEmpty()`
+	- Restituisce un booleano e serve per vedere se la collezione è vuota 
+```java
+boolean vuota = lista.isEmpty();
+```
+
+3.  `toArray()`
+	- Converte in array.
+```java
+Object[] array = lista.toArray();
+```
+
+Oppure versione tipizzata (più corretta):
+```java
+String[] array = lista.toArray(new String[0]);
+```
+
+#### Il metodo `.equals()` e confronto tra gli oggetti 
+
+#### Il metodo `.equals()` e confronto tra gli oggetti 
+
+Come visto nei metodi di ricerca e rimozione di `ArrayList`, operazioni come:
+
+- `contains(obj)`
+    
+- `remove(obj)`
+    
+- `indexOf(obj)`
+    
+- `lastIndexOf(obj)`
+    
+
+non confrontano gli oggetti tramite `==`, ma utilizzano il metodo:
+```java
+equals(Object obj)
+```
+Questo significa che, quando la lista deve verificare se un elemento è presente o deve essere rimosso, ==[[Le stringhe#Differenza tra `` ed `equals`|non controlla se i due riferimenti puntano alla stessa area di memoria, ma invoca il metodo `equals()` per determinare se due oggetti sono logicamente equivalenti]].==
+
+
+> [!remember] 
+> - `==` → ==confronta gli indirizzi di memoria (identità dell’oggetto)==
+ >   
+>- `equals()` → ==confronta il contenuto logico dell’oggetto (uguaglianza semantica)==
+
+
+#### Quando è necessario ridefinire `equals()`
+
+Se gli elementi della lista sono oggetti appartenenti a una classe definita dal programmatore, allora è necessario ridefinire il metodo:
+```java
+public boolean equals(Object obj)
+```
+
+Infatti, la versione di default ereditata dalla classe `Object` confronta solo i riferimenti in memoria, cioè verifica se due variabili puntano **allo stesso oggetto**, esattamente come farebbe l’operatore `==`.
+
+==Questo significa che, senza override, due oggetti distinti ma con lo stesso contenuto verranno considerati diversi.==
+
+Ad esempio: 
+```java
+Studente s1 = new Studente(123);
+Studente s2 = new Studente(123);
+```
+
+Anche se rappresentano lo stesso studente (stessa matricola), sono stati creati con due `new` differenti, quindi occupano posizioni diverse in memoria.
+
+Di conseguenza:
+```java
+s1 == s2          // false
+s1.equals(s2)     // false (se equals non è ridefinito)
+```
+Di conseguenza, se inseriamo `s1` in un `ArrayList`
+```java
+lista.add(s1);
+```
+
+e poi eseguiamo:
+```java
+lista.contains(s2);
+```
+
+Il risultato sarà `false`, anche se logicamente rappresentano lo stesso studente.
+
+Questo accade perché `ArrayList` utilizza `equals()` per verificare l’uguaglianza, e se `equals()` non è stato ridefinito, il confronto avviene solo sui riferimenti.
+
+
+In conclusione, se non si ridefinisce `equals()`, metodi come `contains()` o `remove()` potrebbero non funzionare correttamente.
+```java
+equals(Object obj)
+```
+Questo significa che, per stabilire se due elementi sono “uguali”, viene invocato il metodo `equals()` dell’oggetto.
+
+
+**Esempio:**
+```java
+public class Studente {
+
+    private int matricola;
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj) return true;        // stesso oggetto
+        if (obj == null) return false;      // confronto con null
+        if (!(obj instanceof Studente)) return false; 
+
+        Studente other = (Studente) obj;
+        return this.matricola == other.matricola;
+    }
 }
 ```
 
-Il metodo add dell'interfaccia Collection ritorna un booleano: 
-- finora sempre True 
-- l'add con l'indice è void 
-- Ma con i set se inseriamo un doppione ritorna False.
-In questo esempio è ragionevole stampare il ritorno ma non è obbligatorio, infatti 
+> [!abstract] **Regole da rispettare quando si ridefinisce `equals()`**
+> Quando si esegue l’[[Java/Lezione 5 Le classi/Le classi#Overriding dei metodi|override]] di `equals()`, non si sta semplicemente riscrivendo un metodo, ma si sta ridefinendo il concetto stesso di uguaglianza per quella classe.
+>
+>Per questo motivo è necessario rispettare alcune regole fondamentali:
+>
+>- ==bisogna verificare che l’oggetto passato non sia `null`==  
+ >   Il metodo deve restituire `false` se l’oggetto di confronto è `null`, evitando errori e rispettando il contratto generale di `equals()`.
+ >   
+>- ==bisogna controllare il tipo (tramite `instanceof`)==  
+>    Prima di effettuare il confronto, è necessario assicurarsi che l’oggetto sia compatibile con la classe corrente, così da evitare `ClassCastException` e garantire un confronto coerente.
+>    
+>- ==bisogna confrontare gli attributi più significativi dell’oggetto==  
+>    L’uguaglianza deve essere definita in base agli attributi che identificano logicamente l’oggetto (es. la matricola per uno studente), non su campi secondari o irrilevanti.
+>    
+>- ==è buona pratica usare l’annotazione `@Override`==  
+>    L’annotazione permette al compilatore di verificare che si stia effettivamente ridefinendo un metodo esistente, prevenendo errori di firma.
 
 
-#### LinkedHashSet
-La differenza con gli HashSet è che questi non hanno un ordine d'inseriemnto, non è randomico ma unpredictable perché sistema gli oggetti in base all'hashcode e se li sistema nei buckets.
-Invece i LinkedHashSet qaundo ciclati mantengono l'ordine di inserimento, per il resto è uguale al padre HashSet
+> [!tip] **Contratto di equals**
+>  Oltre agli aspetti implementativi, il metodo `equals()` deve rispettare un vero e proprio contratto formale definito dalla classe `Object`.
+> 
+> Le proprietà fondamentali sono:
+> 
+> - **Riflessiva**  
+>     `x.equals(x)` deve restituire `true`.  
+>     ==Ogni oggetto deve essere uguale a sé stesso.==
+>     
+> - **Simmetrica**  
+>     Se `x.equals(y)` è `true`, allora anche `y.equals(x)` deve essere `true`.  
+>     ==L’uguaglianza non può dipendere dall’ordine del confronto.==
+>     
+> - **Transitiva**  
+>     Se `x.equals(y)` è `true` e `y.equals(z)` è `true`, allora anche `x.equals(z)` deve essere `true`.  
+>     ==L’uguaglianza deve essere logicamente coerente.==
+>     
+> - **Consistente**  
+>     ==Più invocazioni devono restituire lo stesso risultato, purché lo stato degli oggetti non cambi.==  
+>     ==Il risultato non deve essere casuale o dipendere da fattori esterni.==
+>     
+> - **Confronto con null**  
+>     Se `x` non è `null`, allora `x.equals(null)` deve restituire `false`.  
+>     ==Nessun oggetto può essere uguale a `null`.==
+>     
+>
+>Il rispetto di queste proprietà garantisce che il comportamento delle collezioni e delle strutture dati sia corretto e prevedibile.
 
-### TreeSet
-Fratello di Hashset, è ordinato in base agli alberi binari.
-I TreeSet non supporta diversi criteri di ordinamento, se volessimo creare un nuvo criterio di ordinamento bisogna fare un nuovo TreeSet.
-Il criterio di ordinamento dei TreeSet è l'abero binario: sono perfetti per gli insiemi ordinati. 
-Il metodo da implemetare rispetto al HashSet è uno solo: 
-CompareTo: se si vuole fare un TreeSet di impiegati ogni Impiegato deve avere il compareTo. 
+#### La relazione tra il metodo `equals()` e `hashCode()`
 
-**Esempio**
-VOgliamo creare un TreeSet di String
-Le stringhe sono cofrontabili e il criterio è quello che induce l'ordinaamento alfabetico 
+Quando si ridefinisce `equals()`, è necessario ridefinire anche `hashCode()`.
+
+Questo perché il contratto generale del linguaggio Java stabilisce che:
+
+> ==Se due oggetti sono uguali secondo `equals()`, allora devono avere lo stesso valore di `hashCode()`.==
+
+==In altre parole, l’uguaglianza logica deve essere coerente con il valore hash restituito dall’oggetto.==
+
+Questo aspetto è fondamentale soprattutto per strutture basate su hashing, come `HashSet` e `HashMap`, che utilizzano `hashCode()` per determinare in quale “posizione” memorizzare un oggetto e `equals()` per verificare eventuali collisioni.
+
+Se `equals()` viene ridefinito ma `hashCode()` no, si rischiano comportamenti incoerenti, come oggetti duplicati in un `HashSet` o chiavi non riconosciute in una `HashMap`.
+
+Per questo motivo, `equals()` e `hashCode()` devono sempre essere considerati come una coppia inscindibile.
+
+### Classe `Vector<E>`
+
+- Esiste dalla versione **1.0 di Java**, quindi è precedente all’introduzione del framework delle collezioni (Java 1.2).
+    
+- Funziona essenzialmente come un `ArrayList` (introdotto dalla versione 1.2).
+    
+- ==Implementa l’interfaccia `List` utilizzando un **array a dimensione variabile**.==
+    
+- ==A differenza di `ArrayList`, supporta la sincronizzazione.==
+    
+
+Dal punto di vista strutturale, `Vector` e `ArrayList` sono molto simili:
+- ==entrambi memorizzano gli elementi in un array che viene ridimensionato automaticamente quando la capacità non è più sufficiente.==
+
+La differenza principale riguarda la **gestione della concorrenza**:
+
+- ==`Vector` è **sincronizzato**, quindi i suoi metodi sono thread-safe.==
+    
+- ==`ArrayList` non è sincronizzato e quindi, in ambienti multi-thread, richiede gestione esterna della sincronizzazione.==
+    
+
+Questa sincronizzazione rende `Vector` generalmente **meno efficiente** rispetto ad `ArrayList` in contesti single-thread.
+
+#### Costruttori 
+- [[#Costruttori principali|Hanno la stessa firma e lo stesso funzionamento]] di quelli di `ArrayList` (ad esempio il costruttore senza parametri o con capacità iniziale).
+    
+- È disponibile inoltre il costruttore:
 ```java
-TreeSet<String> set = new TreeSet<String>();
-set.add("dog");
-set.add("ant");
-set.add("horse");
-set.add(“gorilla");
-for (String element: set) {
-	System.out.println(element);
+Vector(int initialCapacity, int capacityIncrement)
+```
+che costruisce un vettore vuoto specificando:
+
+- `initialCapacity` → ==la capacità iniziale dell’array==
+    
+- `capacityIncrement` → ==l’incremento con cui la capacità viene aumentata quando l’array è pieno==
+    
+
+A differenza di `ArrayList`, che raddoppia automaticamente la capacità (o la aumenta secondo una politica interna), `Vector` ==permette di controllare esplicitamente di quanto deve crescere l’array.==
+
+
+> [!NOTE] **Osservazione Didattica**
+> Oggi `Vector` è considerata una classe legacy.  
+>Nella maggior parte dei casi si preferisce usare `ArrayList`, ==eventualmente combinata con meccanismi di sincronizzazione esterni, perché più flessibile ed efficiente.==
+>
+>Tuttavia è importante conoscerla per motivi storici e di compatibilità con codice meno recente.
+
+### Classe `LinkedList<E>`
+A differenza di un `ArrayList`, che utilizza un array dinamico, `LinkedList` è composta da nodi collegati tra loro.
+Ogni nodo contiene:
+
+- il valore dell’elemento
+    
+- un riferimento al nodo successivo
+    
+- un riferimento al nodo precedente (lista doppiamente collegata).
+
+Questo comporta alcune differenze importanti:
+
+- ==L’accesso per indice (`get(i)`) è meno efficiente rispetto ad `ArrayList`, perché richiede di attraversare la lista.==
+    
+- ==Inserimenti e rimozioni all’inizio o alla fine sono molto efficienti, perché non richiedono lo spostamento degli elementi==.
+    
+
+Per questo motivo `LinkedList` è particolarmente adatta quando sono frequenti operazioni di inserimento e rimozione, soprattutto in testa o in coda.
+
+#### Metodi specifici
+
+Oltre ai metodi ereditati da `List`, `LinkedList` mette a disposizione operazioni tipiche delle strutture lineari come code e pile:
+```java
+public void addFirst(E element)
+public void addLast(E element)
+
+public E getFirst()
+public E getLast()
+
+public E removeFirst()
+public E removeLast()
+```
+
+Questi metodi permettono di:
+
+- aggiungere un elemento in testa (`addFirst`)
+    
+- aggiungere un elemento in coda (`addLast`)
+    
+- leggere il primo o l’ultimo elemento senza rimuoverlo(`getFirst()`, `getLast()`). 
+    
+- rimuovere direttamente il primo o l’ultimo elemento(`removeFirst()`, `removeLast()`). 
+
+
+La scelta tra le due classi dipende quindi dal tipo di operazioni predominanti nel problema da risolvere.
+    
+
+Grazie a questi metodi, `LinkedList` può essere utilizzata in modo naturale come:
+
+- **coda (FIFO)** → ==`addLast()` + `removeFirst()`==
+    
+- **pila (LIFO)** → ==`addFirst()` + `removeFirst()`==
+
+
+> [!example] **Confronto concettuale con `ArrayList`**
+> 
+>- `ArrayList` → migliore per accesso rapido tramite indice
+ >   
+>- `LinkedList` → migliore per inserimenti e rimozioni frequenti agli estremi
+
+
+### Collection e Generics 
+ I **generics** sono una caratteristica presente in molti linguaggi di programmazione; in Java sono stati introdotti dalla versione **1.5**.
+- ==Consentono di creare collezioni o contenitori che memorizzano **solo oggetti di un tipo specifico**.==
+Il tipo viene indicato tra parentesi angolari `<>`.
+
+**Esempio generale:**
+```java
+CollectionType<Tipo> collection = new CollectionType<Tipo>();
+```
+
+
+> [!faq] **Perche sono stati inrodotti i generics**
+> Prima di Java 1.5, le collezioni memorizzavano oggetti di tipo `Object`.  
+Questo significava che:
+>
+>- ==era possibile inserire qualsiasi tipo di oggetto nella stessa collezione==
+ >   
+>- ==al momento dell’estrazione era necessario effettuare un **cast esplicito**==
+ >   
+>- ==eventuali errori di tipo venivano rilevati solo a runtime==
+ >   
+>
+>Con i generics, invece, il controllo del tipo viene effettuato **a compile-time**, cioè durante la compilazione.
+ >```java
+>ArrayList lista = new ArrayList();
+lista.add("Mario");
+>
+>String nome = (String) lista.get(0);  // cast obbligatorio
+>```
+>Problemi:
+>
+>- Il cast è necessario.
+  >  
+>- Se nella lista fosse stato inserito un oggetto non compatibile, si avrebbe una `ClassCastException` a runtime.
+>**Esempio con generics**
+>```java
+>ArrayList<String> lista = new ArrayList<String>();
+>lista.add("Mario");
+>
+String nome = lista.get(0);  // nessun cast necessario
+>
+>```
+>
+>In questo caso:
+>
+>- ==la lista può contenere solo `String`==
+  >  
+>- ==il compilatore impedisce l’inserimento di tipi incompatibili==
+  >  
+>- ==non è necessario alcun cast in fase di lettura==
+
+Quindi grazie ai gnerics si hanno restrizioni sul tipo, ovvero: 
+supponiamo di avere un `ArrayList` di interi
+```
+ArrayList<Integer> numeri = new ArrayList<Integer>();
+```
+
+Grazie ai genrics sono sarà possibile fare: 
+```java
+numeri.add("ciao");   // errore di compilazione
+```
+
+Poiché il vincolo è verificato dal compilatore, quindi l’errore viene intercettato prima dell’esecuzione del programma.
+
+
+> [!done] **Vantaggi dei genetics**
+> - ==Non sono più necessari cast per estrarre gli oggetti dalla collezione, se sono del tipo definito==  
+ >   Il tipo è già noto al compilatore.
+>    
+>- ==Si evita l’eccezione di `ClassCastException`==  
+>    Gli errori di tipo vengono rilevati a compile-time e non a runtime.
+>    
+>- Maggiore leggibilità del codice  
+>    Il tipo di dati contenuto nella collezione è esplicitamente dichiarato.
+>    
+>- Maggiore sicurezza del tipo (type safety)  
+>    Si riduce la possibilità di errori legati alla gestione di oggetti eterogenei.
+
+Quindi i generics non modificano il funzionamento interno delle collezioni, ma introducono un **vincolo di tipo a livello di compilazione**.
+
+> [!example] **In sintesi:**
+>
+>- Prima → controllo dei tipi a runtime (meno sicuro)
+  >  
+>- Dopo → controllo dei tipi a compile-time (più sicuro e pulito)
+   > 
+>
+>Per questo motivo oggi l’uso dei generics è considerato una pratica standard e imprescindibile quando si lavora con le collezioni in Java.
+
+
+#### Esempio d’uso dei Generics con una gerarchia di classi
+Supponiamo di avere una classe `Manager` che estende la classe padre `Impiegato`.
+[![Screenshot-2026-02-15-at-14-28-42-Java-12-Collection-Java-12-Collection-pdf.png](https://i.postimg.cc/QMysRq3H/Screenshot-2026-02-15-at-14-28-42-Java-12-Collection-Java-12-Collection-pdf.png)](https://postimg.cc/p9zgjzyH)
+L'implementazione a nel codice è il seguente: 
+```java
+// creo un’ArrayList di Impiegati
+ArrayList<Impiegato> elencoDipendenti =
+    new ArrayList<Impiegato>();
+
+// carico un impiegato e un manager: OK
+elencoDipendenti.add(new Impiegato(...));
+elencoDipendenti.add(new Manager(...));
+
+// Non posso caricare oggetti non presenti nella
+// gerarchia di Impiegato: ERRORE di compilazione
+elencoDipendenti.add(new Date(...));
+
+// recupero dell’impiegato SENZA cast
+Impiegato imp = elencoDipendenti.get(0);
+
+// recupero del manager CON cast
+Manager mng = (Manager) elencoDipendenti.get(1);
+```
+
+**Analisi del comportamento**
+
+In questo esempio viene dichiarata una collezione parametrizzata con il tipo `Impiegato`:
+```java
+ArrayList<Impiegato>
+```
+
+Questo significa che la lista può contenere:
+
+- ==oggetti di tipo `Impiegato`==
+    
+- ==oggetti di qualsiasi sottoclasse di `Impiegato` (es. `Manager`)==
+
+Questo è permesso grazie al principio di **sostituibilità:**   ^sostituibilita
+-  ==una sottoclasse può essere trattata come la superclasse.==
+
+Infatti, se `Manager` estende `Impiegato`, allora è perfettamente lecito scrivere:
+```java
+elencoDipendenti.add(new Manager(...));
+```
+
+perché vale il principio di sostituibilità (una sottoclasse può essere trattata come la superclasse).
+##### Controllo dei tipi a compile-time
+Se si prova a inserire un oggetto che **non appartiene alla gerarchia di `Impiegato`**, come:
+```java
+elencoDipendenti.add(new Date(...));
+```
+
+il compilatore genera un **errore**, impedendo l’inserimento di tipi incompatibili.  
+==Questo garantisce la coerenza della collezione e riduce il rischio di errori in fase di esecuzione.==
+
+##### Recupero degli elementi
+Quando si estrae un elemento della lista:
+
+```java
+Impiegato imp = elencoDipendenti.get(0);
+```
+non è necessario alcun cast, perché il tipo della collezione è già noto.
+
+
+Se invece si vuole trattare un elemento come una **sottoclasse**, ad esempio `Manager`, allora il cast diventa necessario:
+
+```java
+Manager mng = (Manager) elencoDipendenti.get(1);
+```
+
+Qui il cast è necessario perché:
+
+- ==Il cast serve perché il metodo `get()` restituisce un `Impiegato`, e il compilatore non può sapere con certezza se l’oggetto in quella posizione sia effettivamente un `Manager`.==
+    
+
+Il cast è quindi richiesto per specificare che si vuole trattare quell’oggetto come istanza della sottoclasse.
+
+
+> [!NOTE] **Osservazione importante**
+> I generics non sono limitati ad `ArrayList`. Si applicano a tutte le strutture della gerarchia delle `Collection`, quindi:
+>
+>- liste (`List`)
+  >  
+>- insiemi (`Set`)
+  >  
+>- mappe (`Map`, dove si specificano chiave e valore)
+  >  
+>
+>In ogni caso, ==il tipo indicato tra `<>` definisce i vincoli sugli oggetti che la struttura può contenere, garantendo la sicurezza dei tipi già in fase di compilazione.==
+
+### Il costrutto `foreach`
+
+Dalla JSE 5, tutte le **Collection parametrizzate con i generics** possono utilizzare una versione “evoluta” del classico [[Lezione 2 - Sintassi e costrutti di base#Loop determinati (`for`)|`for`]], nota come **`foreach`**.
+
+La sintassi generale è la seguente:
+```java
+for(Element element : collection) {
+    // operazioni su element
 }
 ```
 
-GLi elementi inseriti verrano 
+**Come funziona:**
+
+1. Si dichiara:
+    
+    - il tipo dell’elemento (`Element element`) — tipicamente corrisponde al tipo generico della collezione
+        
+    - la collezione su cui iterare (`collection`)
+        
+2. Non è necessario:
+    
+    - dichiarare e gestire manualmente un indice
+        
+    - ottenere e usare esplicitamente un `Iterator`
+        
+
+> [!note] **Nota:** Il `foreach` può essere usato anche con gli array, non solo con le Collection.
+
+
+> [!remember] [[#^f2edd4|Il costrutto `foreach` è solo la forma compatta dell' `Iterator` per navigare una Collection]]
+
+
+
+**Esempio d'uso**
+```java
+LinkedList<Impiegato> lista = new LinkedList<>();
+
+lista.add(new Impiegato("Mario", 1500, new Date()));
+lista.add(new Impiegato("Gino", 1200, new Date()));
+lista.add(new Impiegato("Luca", 1100, new Date()));
+
+for(Impiegato dipendente : lista) {
+    System.out.println("Dipendente: " + dipendente);
+}
+```
+**Cosa succede qui:**
+
+- ==Ad ogni iterazione, la variabile `dipendente` assume **uno alla volta** i valori degli elementi presenti nella lista `lista`.==
+    
+- ==Non serve gestire un indice né creare un [[#Iterator|`Iterator`]].==
+    
+- ==Il codice è più leggibile e riduce il rischio di errori comuni come l’`IndexOutOfBoundsException`.==
+
+
+### AutoBoxing & UnBoxing
+
+Come abbiamo anticipato prima, in Java, ==le **Collection** possono contenere **solo oggetti**, non tipi primitivi come `int`, `double`, `char` ecc.==
+
+
+Questo può creare problemi quando vogliamo inserire direttamente valori primitivi in una lista o in un set, perché servirebbe sempre creare manualmente l’oggetto wrapper corrispondente (`Integer`, `Double`, `Character`…).
+
+Per ovviare a questo problema la Oracle ha introdotto i concetti di Autoboxing e Unboxing
+
+1. **Autoboxing**   ^autoBoxing
+	- ==Consente di **convertire automaticamente un tipo primitivo nel corrispondente wrapper** quando è necessario, ad esempio durante l’inserimento in una Collection.== 
+```java
+Integer wrapper = 5; // int 5 viene “trasformato” in Integer
+```
+
+2. **Unboxing**    ^unBoxing
+	- ==Consente di **estrarre automaticamente il valore primitivo da un oggetto wrapper**, ad esempio quando vogliamo usarlo in operazioni aritmetiche o assegnarlo a una variabile primitiva.==
+```java
+int i = new Integer(5); // Integer viene convertito in int
+```
+
+In pratica, il compilatore gestisce automaticamente:
+
+1. ==La costruzione del wrapper durante l’autoboxing==
+    
+2. ==Il cast automatico in primitivo durante l’unboxing==
+
+##### Esempio pratico con le collection
+```java
+import java.util.*;
+
+public class AutoBoxingExample {
+    public static void main(String[] args) {
+        // Lista di Double (wrapper), ma possiamo inserire valori primitivi
+        List<Double> numeri = new LinkedList<>();
+
+        // Autoboxing: i valori primitivi vengono convertiti automaticamente in Double
+        numeri.add(1.5);
+        numeri.add(3.61);
+        numeri.add(12.722);
+
+        // Unboxing: quando leggiamo i valori e li usiamo come primitivi
+        for(int i = 0; i < numeri.size(); i++) {
+            double valore = numeri.get(i); // il wrapper Double viene convertito automaticamente in double
+            System.out.println("Elemento " + i + ": " + valore);
+        }
+    }
+}
+```
+
+**Cosa succede:**
+
+- ==L’inserimento di valori primitivi nella Collection viene automaticamente trasformato nei wrapper corrispondenti (`Double`, `Integer`, ecc.)==
+    
+- ==All’estrazione, il valore wrapper viene convertito di nuovo nel tipo primitivo senza bisogno di cast espliciti==
