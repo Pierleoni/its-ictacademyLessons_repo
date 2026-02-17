@@ -19,8 +19,8 @@ Qui entra in gioco **JUnit**, il framework standard per il **testing unitario in
 
 ## Cos’è JUnit
 
-JUnit è il **framework di testing più diffuso nell’ecosistema Java**.  
-Fa parte della famiglia di framework **“xUnit”**, progettati per scrivere e eseguire **Unit Test automatici**, cioè test che verificano il comportamento di singole unità di codice, come **metodi o classi**.
+JUnit è ==il **framework di testing più diffuso nell’ecosistema Java**.==  
+Fa parte della famiglia di framework **“xUnit”**, ==progettati per scrivere e eseguire **Unit Test automatici**, cioè test che verificano il comportamento di singole unità di codice, come **metodi o classi**.==
 
 L’uso di JUnit è ormai uno **standard de facto** per garantire la qualità del codice Java, perché permette di individuare errori precocemente, automatizzare il controllo dei comportamenti attesi e facilitare la manutenzione.
 
@@ -482,7 +482,14 @@ La cosiddetta _Test Pyramid_ organizza i test in base a:
     - Sono più costosi e più lenti
         
     - Devono essere meno numerosi
-[![Screenshot-2026-02-16-at-17-50-10-Microsoft-Power-Point-JUnit-5-01-Framework-Compatibility-Mode.png|491x336](https://i.postimg.cc/DwSKF3jc/Screenshot-2026-02-16-at-17-50-10-Microsoft-Power-Point-JUnit-5-01-Framework-Compatibility-Mode.png)](https://postimg.cc/tsGctwH1)
+    
+[![Screenshot-2026-02-16-at-17-50-10-Microsoft-Power-Point-JUnit-5-01-Framework-Compatibility-Mode.png](https://i.postimg.cc/DwSKF3jc/Screenshot-2026-02-16-at-17-50-10-Microsoft-Power-Point-JUnit-5-01-Framework-Compatibility-Mode.png)](https://postimg.cc/tsGctwH1)
+    
+    
+    ^piramidedeiTest
+    
+    
+    
 
 > [!faq]  Perché la forma a piramide?
 >
@@ -509,4 +516,641 @@ La cosiddetta _Test Pyramid_ organizza i test in base a:
 >- ==Test di integrazione mirati==
   >  
 >- ==Pochi test end-to-end per verificare i flussi principali==
+
+
+Facendo riferimento all'immagine della piramide dei test analizziamo i seguenti livelli partendo dal basso verso l'alto
+### Test di unità (Unit Test)
+
+Gli **Unit Test** rappresentano il livello base della piramide dei test e costituiscono il primo strumento di verifica della qualità del codice.
+
+####  Obiettivo
+
+L’obiettivo principale è: 
+- ==**verificare la logica interna di un metodo o di una singola classe**.==
+
+Ad esempio:
+
+- ==verificare che il metodo `somma` restituisca il risultato corretto==
+    
+- ==controllare che `divisione` gestisca correttamente il caso di divisione per zero==
+    
+- ==assicurarsi che un metodo lanci un’eccezione quando riceve parametri non validi==
+    
+
+Il focus è sempre sull’unità minima di codice, senza considerare il comportamento dell’intero sistema.
+
+####  Isolamento
+
+Una caratteristica fondamentale degli Unit Test è l’**isolamento totale**.
+
+Questo significa che il metodo testato non deve dipendere da:
+
+- ==database reali==
+    
+- ==[[Servizi e funzioni del Sistema Operativo#File system|file system]]==
+    
+- ==servizi esterni==
+    
+- ==[[Lezione 6 - API#API (Application Programming Interface)|API]] remote==
+    
+
+Se la classe dipende da componenti esterni, questi vengono sostituiti con oggetti fittizi chiamati **Mock**, che simulano il comportamento delle dipendenze reali.
+
+L’isolamento garantisce che:
+
+- ==eventuali errori dipendano esclusivamente dalla logica della classe testata==
+    
+- ==il test sia deterministico (stesso input → stesso risultato)==
+    
+- ==non ci siano interferenze esterne==
+
+### Test d’integrazione
+
+I **Test d’integrazione** rappresentano il livello intermedio della piramide dei test.  
+Se gli Unit Test verificano una singola unità di codice in isolamento, i test d’integrazione hanno un obiettivo diverso: 
+- ==controllare che **più componenti collaborino correttamente tra loro**.==
+
+#### Obiettivo
+
+Lo scopo principale è: 
+- ==verificare che **due o più moduli si interfaccino e comunichino nel modo previsto**.==
+
+Ad esempio:
+
+- ==una classe di servizio che interagisce con un **database reale**==
+    
+- ==un componente che invoca una **[[Lezione 6 - API#API (Application Programming Interface)|API]] esterna**==
+    
+- ==un sistema che legge o scrive su **[[Servizi e funzioni del Sistema Operativo#File system|file system]]**==
+    
+- ==più classi che collaborano tra loro all’interno di uno stesso flusso logico==
+    
+
+In questo caso non stiamo più testando la logica interna di un singolo metodo, ==ma il **comportamento combinato di più parti del sistema**.==
+#####  Livello di isolamento
+
+A differenza degli Unit Test, qui l’isolamento è **basso o nullo**.
+
+- ==Non vengono utilizzati mock per simulare le dipendenze==
+    
+- ==Si lavora con componenti reali (database, servizi, file, ecc.)==
+    
+
+Questo consente di verificare:
+
+- ==che la configurazione sia corretta==
+    
+- ==che le dipendenze siano integrate correttamente==
+    
+- ==che il flusso tra i vari moduli non presenti errori==
+    
+
+Tuttavia, proprio perché si utilizzano componenti reali, il test diventa più complesso e potenzialmente meno stabile rispetto a un Unit Test.
+
+#####  Velocità
+
+I Test d’integrazione sono **più lenti** rispetto agli Unit Test.
+
+- ==L’esecuzione può richiedere secondi o minuti==
+    
+- ==Dipendono da risorse esterne (database, rete, I/O)==
+    
+- ==Possono essere influenzati dall’ambiente di esecuzione==
+    
+
+Per questo motivo:
+
+- ==Devono essere meno numerosi rispetto agli Unit Test==
+    
+- ==Vanno progettati con attenzione==
+    
+- ==Servono principalmente a verificare i punti critici di integrazione==
+
+
+#### Differenza concettuale rispetto agli Unit Test
+|Unit Test|Test d’integrazione|
+|---|---|
+|Verificano una singola unità|Verificano più moduli insieme|
+|Isolamento totale (mock)|Dipendenze reali|
+|Molto rapidi|Più lenti|
+|Numerosi|Meno numerosi|
+
+
+> [!example] **In sintesi:** 
+> mentre gli Unit Test garantiscono
+> -  ==la correttezza della **logica interna**,== 
+> i Test d’integrazione assicurano 
+> - ==che le **connessioni tra le parti del sistema funzionino correttamente**.==
+
+###  Test di componente
+
+I **Test di componente** si collocano sopra gli Unit Test nella piramide, ma non arrivano ancora al livello dei Test d’integrazione completi.  
+Rappresentano un livello intermedio in cui non si verifica più il singolo metodo, ==ma un **modulo composto da più classi che collaborano tra loro**.==
+
+####  Obiettivo
+
+Lo scopo è:
+- ==verificare che un **componente applicativo**, formato da diverse classi e responsabilità interne, funzioni correttamente nel suo insieme.==
+
+Ad esempio:
+
+- ==un modulo `GestioneOrdini` composto da service, repository e validator==
+    
+- ==un sottosistema che implementa una specifica funzionalità dell’applicazione==
+    
+- ==un layer applicativo completo (es. service layer)==
+    
+
+In questo caso non si analizza più la singola unità di codice, ma si valuta il **comportamento complessivo del modulo**, considerandolo come un blocco funzionale coerente.
+
+#####  Livello di isolamento
+
+L’isolamento è **medio o basso**.
+
+- ==Spesso si utilizzano classi reali==
+    
+- ==Può essere coinvolto un database reale o semi-reale==
+    
+- ==Si tende a isolare il modulo dal resto dell’applicazione, ma non dalle sue parti interne==
+    
+
+La logica interna del componente viene quindi testata in modo più realistico rispetto agli Unit Test, perché si verifica l’interazione tra le classi che lo compongono.
+
+#### Velocità
+
+I Test di componente sono:
+
+- più lenti degli Unit Test
+    
+- generalmente più veloci dei Test d’integrazione completi
+    
+
+L’esecuzione può richiedere secondi, perché coinvolge più oggetti, più livelli logici e talvolta risorse esterne.
+
+#####  Differenza rispetto ai Test d’integrazione
+
+La distinzione tra **Component Test** e **Integration Test** può essere sottile, perché entrambi si trovano sopra gli Unit Test nella piramide.
+
+La differenza principale risiede nel **punto di vista**:
+
+- Nel **Test di componente:**
+	- ==si considera un modulo come unità funzionale autonoma e lo si testa nel suo insieme.==
+    
+- Nel **Test d’integrazione:**
+	- si verifica principalmente la comunicazione tra sistemi o moduli distinti, con particolare attenzione alle interfacce e ai confini tra componenti.
+    
+
+In altre parole:
+
+- ==Il Test di componente guarda **all’interno di un modulo**.==
+    
+- ==Il Test d’integrazione guarda **alle connessioni tra moduli o sistemi differenti**.==
+
+
+> [!example] **In sintesi:**
+>  i Test di componente rappresentano un livello di verifica più ampio rispetto agli Unit Test, ma ancora focalizzato su una parte ben definita del sistema, senza coinvolgere l’intera applicazione.
+
+###  JUnit e la piramide di testing
+
+Quindi abbiamo detto che JUnit è uno strumento **estremamente versatile** che può essere utilizzato in tutti i livelli della piramide di testing.
+
+Tuttavia, ==il suo **ambito naturale** rimane il **[[#Test di unità (Unit Test)|Test di unità]]**, dove esprime al massimo le sue potenzialità in termini di semplicità, velocità ed efficacia.==
+#### JUnit nei diversi livelli della piramide
+
+- **Unit Test**  
+    - È il contesto in cui JUnit viene utilizzato più frequentemente.  
+    - Permette di testare metodi e classi in isolamento, con esecuzione molto rapida e feedback immediato.
+    
+- **Component Test e Integration Test**  
+    - JUnit può essere impiegato anche per testare moduli composti da più classi o per verificare l’interazione tra componenti reali.  
+    - In questi casi il framework resta lo stesso, ma cambia l’approccio e il livello di isolamento.
+    
+- **Livelli superiori**  
+    - Anche nei test più complessi JUnit può fungere da motore di esecuzione, integrandosi con altre tecnologie e strumenti.
+    
+
+####  JUnit e Mockito
+
+Per mantenere l’isolamento tipico degli Unit Test, JUnit viene spesso utilizzato insieme a **Mockito**, un framework dedicato alla creazione di oggetti **Mock**.
+
+I Mock sono oggetti fittizi che:
+
+- ==simulano il comportamento di altre classi==
+    
+- ==sostituiscono dipendenze esterne (database, API, servizi remoti)==
+    
+- ==permettono di controllare input e output in modo deterministico==
+    
+
+Ad esempio, se una classe dipende da un repository che interroga un database, con Mockito possiamo simulare il repository senza accedere realmente al database.
+
+
+> [!done] Vantaggi dell’uso dei Mock
+>
+>L’integrazione tra JUnit e Mockito consente di:
+>
+>- mantenere il **massimo isolamento**
+ >   
+>- ridurre drasticamente i tempi di esecuzione
+  >  
+>- evitare dipendenze dall’ambiente esterno
+  >  
+>- ottenere test ripetibili e affidabili
+ >   
+>
+>In questo modo si preservano le caratteristiche fondamentali degli Unit Test:
+>
+>- velocità (millisecondi)
+  >  
+>- determinismo
+  >  
+>- semplicità di manutenzione
+
+
+> [!example] **In sintesi:**
+>  JUnit rappresenta il **motore di esecuzione dei test**, mentre strumenti come Mockito permettono di controllare il livello di isolamento, adattando il test al livello desiderato della piramide.
+> Contents
+### Dettagli sulla classe di test
+
+Una **classe di test** in JUnit segue alcune regole strutturali precise, che ne garantiscono il corretto funzionamento all’interno del framework.
+
+#### Struttura della classe
+
+Una classe di test:
+
+- ==**Deve avere un solo costruttore**, generalmente quello di default==
+    
+- ==Può contenere diversi metodi dedicati ai casi di test==
+    
+- ==I metodi possono anche non essere `public`, ma **non devono essere `private`**, altrimenti JUnit non riuscirà a invocarli==
+    
+
+> [!todo] JUnit istanzia automaticamente la classe di test e gestisce l’intero ciclo di vita degli oggetti, quindi non è necessario scrivere un metodo `main`.
+> 
+
+####  L’annotazione principale: `@Test`
+
+L’annotazione fondamentale è:
+```java
+@Test
+```
+
+Essa indica che il metodo annotato rappresenta un **singolo caso di test**.
+
+Ogni metodo con `@Test`:
+
+- ==deve essere `void`==
+    
+- ==non deve avere parametri==
+    
+- ==deve contenere una o più asserzioni==
+    
+
+==JUnit esegue automaticamente tutti i metodi annotati con `@Test` quando si lancia il test.==
+
+####  Metodi del ciclo di vita (Life Cycle Methods)
+
+Oltre ai metodi di test, JUnit permette di definire metodi che vengono eseguiti in momenti specifici del ciclo di esecuzione.
+
+Questi metodi servono per:
+
+- ==inizializzare risorse==
+    
+- ==configurare l’ambiente==
+    
+- ==rilasciare risorse dopo l’esecuzione==
+    
+
+Le principali annotazioni del ciclo di vita sono:
+
+#####  `@BeforeAll`
+
+==Il metodo annotato viene eseguito **una sola volta prima di tutti i test**.==
+
+Tipicamente viene utilizzato per:
+
+- ==inizializzazioni costose==
+    
+- ==configurazioni globali==
+    
+- ==apertura di connessioni condivise==
+    
+
+
+#####  `@AfterAll`
+
+Il metodo annotato viene eseguito **una sola volta dopo tutti i test**.
+
+Serve per:
+
+- ==chiudere connessioni==
+    
+- ==liberare risorse==
+    
+- ==operazioni di cleanup globale==
+
+#####  `@BeforeEach`
+
+Il metodo viene eseguito **prima di ogni metodo annotato con `@Test`**.
+
+È utile per:
+
+- ==creare nuovi oggetti==
+    
+- ==inizializzare variabili==
+    
+- ==riportare lo stato a una condizione iniziale==
+    
+
+Questo garantisce che ogni test sia indipendente dagli altri.
+
+#####  `@AfterEach`
+
+Il metodo viene eseguito **dopo ogni test**.
+
+Serve per:
+
+- ==pulire lo stato==
+    
+- ==rilasciare risorse specifiche del singolo test==
+    
+- ==riportare il sistema in una condizione neutra==
+
+
+> [!faq] Perché il ciclo di vita è importante?
+> Il ciclo di vita consente di:
+>
+>- mantenere i test indipendenti
+  >  
+>- evitare effetti collaterali tra test diversi
+  >  
+>- migliorare la leggibilità e l’organizzazione del codice
+   > 
+>
+>In particolare, l’uso corretto di `@BeforeEach` è fondamentale per garantire che ogni test parta sempre dalle stesse condizioni iniziali.
+
+####  Esempio pratico: gestione di un Database nei test
+
+Supponiamo di voler testare un modulo che esegue **query su una tabella di un database**.
+
+In questo scenario:
+
+- ==Prima dell’esecuzione di tutti i test vogliamo **creare il database**==
+    
+- ==Dopo l’esecuzione di tutti i test vogliamo **distruggere il database**==
+    
+
+Questo è un caso tipico in cui utilizziamo i metodi del ciclo di vita `@BeforeAll` e `@AfterAll`.
+
+##### Esempio 1/2 – Creazione e distruzione del DB
+```java
+@BeforeAll
+public static void createDB() {
+    // creazione del DB
+}
+
+@AfterAll
+public static void destroyDB() {
+    // rimozione del DB
+}
+```
+
+
+> [!attention]  Caratteristiche importanti
+>
+>- I metodi devono essere `void`
+  >  
+>- Non devono avere parametri
+  >  
+>- Devono essere `static` (in JUnit 5, salvo configurazioni particolari)
+
+
+
+> [!faq] Perché `static`?
+>
+>Il motivo è legato al ciclo di vita della classe di test.
+>
+>Per impostazione predefinita, JUnit crea **una nuova istanza della classe di test per ogni metodo annotato con `@Test`**.
+>
+>Tuttavia:
+>
+>- `@BeforeAll` e `@AfterAll` devono essere eseguiti **una sola volta**, prima e dopo tutti i test
+  >  
+>- Per poterli invocare senza creare un’istanza specifica della classe, devono essere `static`
+   > 
+>
+>Un metodo `static` appartiene alla **classe**, non all’oggetto.  
+>Quindi può essere eseguito senza istanziare la classe di test.
+>
+>> [!example] In sintesi:
+>>
+>>- `@BeforeAll` e `@AfterAll` → livello di classe → `static`
+ >>   
+>>- `@BeforeEach` e `@AfterEach` → livello di istanza → non `static`
+
+#### Esempio 2/2 – Gestione della connessione per ogni test
+
+
+Oltre alla creazione del database, vogliamo:
+
+- Aprire una connessione prima di ogni test
+    
+- Chiudere la connessione dopo ogni test
+    
+
+Supponendo di avere una proprietà:
+```java
+private Connection conn;
+```
+Possiamo scrivere:
+```java
+@BeforeEach
+public void openConnection() {
+    try {
+        this.conn = DriverManager.getConnection(url, username, password);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+@AfterEach
+public void closeConnection() {
+    try {
+        this.conn.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+```
+
+**Analisi del comportamento**
+- `@BeforeEach` viene eseguito **prima di ogni metodo di test**
+    
+    - Garantisce che ogni test abbia una connessione nuova
+        
+    - Evita dipendenze tra test
+        
+- `@AfterEach` viene eseguito **dopo ogni metodo di test**
+    
+    - Chiude la connessione
+        
+    - Libera le risorse
+        
+    - Mantiene l’ambiente pulito
+
+
+> [!summary] Differenza tra livello globale e livello per test
+> |Annotazione|Frequenza|Uso tipico|
+|---|---|---|
+|`@BeforeAll`|==1 volta prima di tutti i test==|==Creazione DB, configurazioni globali==|
+|`@AfterAll`|==1 volta dopo tutti i test==|==Distruzione DB, cleanup globale==|
+|`@BeforeEach`|==Prima di ogni test==|==Apertura connessioni, inizializzazione oggetti==|
+|`@AfterEach`|==Dopo ogni test==|==Chiusura connessioni, reset stato==|
+
+
+
+> [!attention]  **Considerazione importante**
+>
+>Questo esempio mostra chiaramente perché:
+>
+>- Gli Unit Test puri tendono a evitare database reali (per mantenere alta velocità e isolamento)
+   > 
+>- Quando si lavora con DB reale si entra in un contesto più vicino ai **Test di componente o di integrazione**
+   > 
+
+### Note sul ciclo di vita della classe di test
+
+#### Perché `@BeforeAll` e `@AfterAll` devono essere `static`
+
+I metodi annotati con:
+
+- `@BeforeAll`
+    
+- `@AfterAll`
+    
+
+devono essere `static` (nel comportamento standard di JUnit 5) perché:
+
+- `@BeforeAll` ==viene eseguito **prima che venga istanziata la classe di test**==
+    
+- `@AfterAll` ==viene eseguito **dopo che l’ultima istanza della classe di test è stata distrutta**==
+    
+
+Poiché in quel momento **non esiste un oggetto della classe**, il metodo deve appartenere alla classe stessa, quindi essere `static`.
+
+Se non vengono dichiarati `static`, si ottiene un **errore a runtime**.
+
+#### Istanziazione della classe di test
+
+JUnit adotta, per impostazione predefinita, il seguente comportamento:
+
+- ==La classe di test viene **istanziata una volta per ogni metodo annotato con `@Test`**==
+    
+- ==Dopo l’esecuzione del test, l’istanza viene distrutta==
+    
+
+Questo significa che:
+
+- ==Se ho 5 metodi `@Test`, la classe verrà creata e distrutta 5 volte==
+    
+- ==Ogni test lavora su un’istanza diversa==
+    
+- ==I test sono **indipendenti tra loro**==
+    
+
+Questo meccanismo è fondamentale per evitare effetti collaterali tra test.
+
+#### Ritorno dei metodi del ciclo di vita
+
+I metodi annotati con:
+
+- `@BeforeAll`
+    
+- `@AfterAll`
+    
+- `@BeforeEach`
+    
+- `@AfterEach`
+    
+
+**non dovrebbero prevedere un valore di ritorno**.
+
+Formalmente, anche se venisse dichiarato un tipo di ritorno diverso da `void`:
+
+- ==Non verrebbe generato un errore==
+    
+- ==Il valore restituito verrebbe semplicemente **ignorato dal framework**==
+    
+
+Il comportamento corretto è quindi dichiararli `void`.
+
+####  Segnalare un fallimento
+
+I metodi del ciclo di vita possono segnalare un errore:
+
+- Sollevando un’**[[Lezione 11 - Gestire gli Errori#2. Eccezioni Unchecked|eccezione unchecked]]** (ad esempio `RuntimeException`)
+    
+
+In tal caso:
+
+- Il test (o l’intera suite) viene considerato fallito
+    
+- L’esecuzione può essere interrotta
+
+###  Note su `@BeforeEach`
+
+Annotare un metodo con `@BeforeEach` è, dal punto di vista funzionale, spesso equivalente a inizializzare direttamente un attributo nel momento della dichiarazione.
+
+Esempio:
+```java
+public class RubricaMock{
+	private Rubrica rubrica; 
+	@BeforeEach
+	void setup(){
+		rubrica = new Rubrica(1, "Giorgia", 2020, 2);
+	}
+}
+```
+
+oppure:
+```java
+private MyClass obj;
+
+@BeforeEach
+void setup() {
+    obj = new MyClass();
+}
+```
+
+Dal punto di vista progettuale, l’uso di `@BeforeEach` è generalmente preferibile perché:
+
+- ==rende esplicita la fase di inizializzazione;==
+    
+- ==migliora la leggibilità della classe di test;==
+    
+- ==separa chiaramente la configurazione iniziale dalla logica dei test;==
+    
+- ==facilita l’evoluzione verso test di integrazione o configurazioni più complesse.==
+    
+
+L’inizializzazione non è “nascosta” nella dichiarazione del campo, ma diventa una fase strutturata del ciclo di vita del test.
+
+
+####  Comportamento operativo
+
+Con `@BeforeEach`:
+
+- L’attributo viene dichiarato nella classe
+    
+- L’inizializzazione viene eseguita esplicitamente prima di ogni metodo `@Test`
+    
+
+Questo garantisce che:
+
+- ogni test parta da uno stato iniziale noto e controllato;
+    
+- non vi siano dipendenze implicite tra test diversi;
+    
+- la configurazione sia centralizzata e facilmente modificabile.
+    
 

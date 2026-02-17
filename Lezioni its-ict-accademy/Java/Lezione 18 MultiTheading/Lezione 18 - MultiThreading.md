@@ -184,3 +184,168 @@ Le fasi sono:
 4. Dead: quando finisce il running passa in questo stato ma non vuol dire che è morto l'oggetto semplicemente ha finito la sua vita da Thread 
 5. Blocked: è uno stato ulteriore, avvine quando ad esempio il Thread viene mandarto in stato `sleep()`. 
 Tuttavia il un altro metodo per mandare il Thread in Blocked è il `join`. 
+
+[![Screenshot-2026-02-17-at-09-41-33-Microsoft-Power-Point-Java-18-Thread-Compatibility-Mode-Java-18.png](https://i.postimg.cc/RV7Z1NDB/Screenshot-2026-02-17-at-09-41-33-Microsoft-Power-Point-Java-18-Thread-Compatibility-Mode-Java-18.png)](https://postimg.cc/PPqHTrH3)
+### Passaggi di Stato 
+Un Thread eseguibile oscilla continuamente tra Runnable e Running (in base all'utilizzo del processore).
+
+Un Thread viene sospeso/bloccato se: 
+- Sono stati invocati `sleep`, `join`
+- Ci sono operazioni di I/O bloccanti 
+- è stato chiamato il metodo `suspend`
+	- questo metodo sospendo il Thread e lo riesegue in un momento non specificato, per questo è stato deprecato perché non assicura quando il Thread venga rieseguito 
+- è stato chiamato il metodo wait (usato per gestione )
+
+### Metodi bloccanti 
+Si può rallentare il thread corrente (in Running), sospendendolo per un tempo prefissato, con il metodo 
+```java
+public static void sleep(long millis);
+public static void sleep(long milli, int nanos)
+```
+
+SI può raccordare il thread corrente con un thread targrt  invocando su quest'utlimo il metodo: 
+```java
+public final void join(); 
+public final void join(long milli); 
+public final void join(long milli, int nanos); 
+```
+
+### Da running a Runnable 
+Molto raramente può capitare di dover interagire con lo scheduler per la gestione dei thread.
+Il metodo: 
+```
+public static void yield()
+```
+cede il passo ad un altro thread, nel senso che suggerisce allo scheduler di operare lo switch context e mandare in esecuzione uno dei thread con priorità maggiore o uguale di quello corrente.
+
+
+### Interruzione 
+I metodi `suspend()` e `stop()` sono deprecati perché potrebbero interrompere (anche definitivamente) il thread mentre sta eseguendo un operazione atomica.
+Dalla versione 1.1 sono stati introdotti: 
+
+```java
+public void interrupt();
+public static boolean interrupted(); 
+```
+
+che offrono un meccanismo di interruzione meno "aggressivo", infatti il thread da chiudere viene sollecitato ad interrompersi, ma questo avverrà solo se (e quando) esso stesso lo consentirà. 
+
+Funzionamento: 
+- Il thread che vuole interrompere un altro thead invocherà il metodo `interrupt()` sull'oggetto relativo al thread da chiudere.
+	- In questo modo setta una flag che indica la necessità di intterompere il thread
+- Il thread 
+
+
+### La sincronizzazione 
+
+Abbiamo accenato che i thread condividendo spazio in memoria potrebbero avere problemi di sync. 
+Ad esempio due processi che lavornao per uno scopo comune si devono sincronizzare tra loro.
+
+#### Esempio: il c/c
+La classe account modellla un semplice c/c
+```java
+public class Account exteds Thread{
+	private int balance = 1000; 
+	public int getBalance(){
+		return balance;
+	}
+	
+	public void withdraw(int amount){
+		if (balance>=amount){
+			System.out.println(Thread.currentThread().getName()+ " sta per eseguire il prelievo")
+			balance = balance - amount;
+			System.out.println("prelievo ok per " + Thread.currentThread().getName() + " , saldo attuale: " + balance)
+		} 
+	}
+
+}
+```
+
+Il prelievo (withdraw) si può fare solo se c'è disponibilità → senza mandare il conto in rosso 
+I prorpietari Fred e lucy condividono il conto e volgiono fare prelievi 
+
+
+Il metodo di prelievo esegue questi step: 
+1. Controllare il saldo
+2. Se ci sono abbastanzi soldi, allora eseguire il prelievo
+Se pero si separaono i 2 step, non c'è più coerenza
+	- il controllo al punto 1; perde di senso se nel frattempo lo stato del conto è cambiato!
+Implementiamo una versione di `Accountmng` (un thread) che condividerano: 
+
+```java
+public class Accountmng extends Thread{
+	private account cc; 
+	public Accountmng(String nome, Account cc){
+		super(nome); 
+		this.cc = cc; 
+	}
+	
+	public void run(){
+		for (int x = 0; x<5; x++){
+			cc.withdraw(200); 
+			System.out.println("saldo attuale: " + cc.getBalance()); 
+		}
+	
+	}
+
+}
+```
+
+
+
+
+
+### Oggetto "occupato"
+L oswitch context operato dallo skeduler non tiene conto della logica del metodo prelievo!
+Può accadere infatti che dopo il controllo del saldo, l'esecuzione passi ad un altro thread, mentre controllo del saldo e il prelievo dovrebbero costrutire un'operazione atomica
+Per ottenere che nessun thread possa invocare il metodo prima che un altro thread abbia finito le operazioni sul conto, si può utikizzare la keyword `synchronized`.
+In questo modo l'oggetto conto risulta occupato/bloccato fino alla fine dell'esecuzione del metodo → l'esecuzione del metodo è asincrona ( i thread lavorano uno alla volta!)
+
+### La keyword synchronized
+Un metodo sync, invocato su un oggetto, può essere eseguito al massimo da un singolo Thread
+Modificando cosi nell'esempio precedente
+```
+private synchronized void withdraw(int amount); 
+```
+
+si ottiene che le operazioni sono consistenti. 
+Entrando nel metodo, il thread acquiscie il lock sull'oggetto corrente che invocato il metodo → l'oggetto è bloccato(non il metodo) e nessun altro metodo synchronized può essere invocaro sullo stesso oggetto
+Uscendo dal metodo, il thread rilascia il lock e i thread che erano attrsa hanno la chance di invocare il metofo 
+Il `synchronized` può essere fatto SOLO per i metodi, non per gli attributi ne per le classi. 
+Per le classi si dice che sono Thread-safe se i suoi metodi di accesso sono `synchronized`.
+Tornando all'esempio del Account è il metodo `withdraw` a dover essere `synchronized` per evitare di perdere la coerenza tra i diversi thread, e pure se ci andassi a mettere il `sleep` si è certi che non cambi nulla.
+Se invece si nconizzassimo `run()` in `Accountmng` vuol dire che il primo Thread(Fred o Lucy) che viene eseguito blocca il run finché non fa i 5 prelievi consententi
+Ma il `synchronized` fa usato con parsimonia.
+#### Il lock e synchronized
+Ogni oggetto ha un solo lock 
+Un thread può acquisire più lock, ma su oggetti diversi 
+Un thread in `sleep` non perde il lock sugli oggetti 
+
+
+### A prova di Thread (Thread safe)
+Una classe è thread safe se tutti i metodi che accedono a proprieità modificabili dell'oggetto sono stati implementati 
+
+
+Se il lock non può essere rialsciato ?
+Supponiamo che un thread entra in un metodo sincronizzato e ottiene il lock, ma non ci sono le condizioni per poter eseguire il lavoro.
+Cosa potrebbe fare? 
+Opzione 1: 
+- esce dal metodo, eventualemente senza lavorare e rilascia il lock
+- Problema: non sappiamo se esce con lavoro fatto o no!
+Opzione 2: 
+- rimane nel metodo, in attessa che qualscosa cambi, non rilascia il lock
+- PROBLEMA: non è detto che la situazione evolva 
+	- in questo caso si parla di Theard Starvation(il thread che attende è "affamato" per lungo tempo)
+La soluzione è: 
+- RImanere nel metodo, senza lavorare e rilasciare il lock
+- I metodi che odbbiamo usare son `wait()` e `notify()`; entrmabi metodi della classe `Object`
+
+>[!note] Nota: gli ultimi metodi di papà `Object` servono per la sync.
+>Inoltre i metodi in questione (`wait`, `notify`, `notifyAll`) sono metodi [[Costruttori e modificatori#2. Metodi `final`|`final`]]. 
+
+#### `wait()`
+Lo chiama il thread che aspetta di avere una notifica.
+In sostanza un Thread entra nel metodo sync e vede il metodo `wait()`→ rilascia il lock senza uscire del metodo e peremtte ad altri thread di entrare nel metodo sync ed eseguire le opreazioni e peremtte di completare il lavoro. 
+
+#### `Notify()`
+Questo metodo viene usato per inviare un notifica al Thread lasciato in attesa dal metodo `wait()` affinché riprenda l'esecuzione e quindi rilocka l'oggetto e finisce il suo ciclo di esecuzione 
