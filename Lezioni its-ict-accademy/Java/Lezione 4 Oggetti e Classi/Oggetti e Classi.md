@@ -2,8 +2,9 @@
 Abbiamo lavorato sugli array e visto la sintassi di base, oggi vedremo le classi e oggetti. 
 
 ## Approcci (Paradigmi di programmazione)
-Un **paradigma di programmazione** è uno **stile di programmazione**.  
-È costituito da un insieme di **concetti, principi e regole** utilizzati prima dal progettista e poi dal programmatore per la realizzazione di un software.
+==Un **paradigma di programmazione** è uno **stile di programmazione**.==  
+È costituito da: 
+- ==un insieme di **concetti, principi e regole** utilizzati prima dal progettista e poi dal programmatore per la realizzazione di un software.==
 Il paradigma:
 
 - ==definisce **come si modella un problema**==

@@ -470,7 +470,7 @@ In sintesi, **la firma del metodo in Java è definita dal nome e dalla lista dei
 
 ### Overriding dei metodi
 
-L’**overriding,** come in [[Ereditarietà delle classi#L'overriding dei metodi|Python]], è un concetto legato all’**ereditarietà:** 
+L’**overriding,** come in [[Ereditarietà delle classi#L'overriding dei metodi|Python]], è un concetto legato all’**[[Ereditarietà e polimorfismo#Concetto di ereditarietà|ereditarietà]]:** 
 - ==permette a una **sottoclasse** di fornire una **nuova implementazione di un metodo già definito nella superclasse**.==
 
 In altre parole:
