@@ -1,5 +1,5 @@
-# Object Oriented Programming 
-Abbiamo lavorato sugli array e visto la sintassi di base, oggi vedremo le classi e oggetti. 
+# Introduzione
+Abbiamo lavorato sugli [[Array in Java|array]] e visto la [[Lezione 2 - Sintassi e costrutti di base|sintassi di base]], oggi vedremo le classi e oggetti. 
 
 ## Approcci (Paradigmi di programmazione)
 ==Un **paradigma di programmazione** è uno **stile di programmazione**.==  

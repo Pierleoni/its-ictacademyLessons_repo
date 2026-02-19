@@ -1,13 +1,13 @@
 # Introduzione
 Finora abbiamo visto come definire **[[Java/Lezione 5 Le classi/Le classi#Definizione di una classe|classi in Java]]**, come creare **oggetti** tramite i **[[Costruttori e modificatori#Costruttori|costruttori]]** e come gestire la **[[Costruttori e modificatori#Modificatori di accesso (visibilità)|visibilità ]]e il comportamento dei membri** di una classe attraverso i **modificatori** (`public`, `private`, `protected`, `final`, `static`). Abbiamo approfondito concetti chiave come:
 
-- **Overloading dei [[Java/Lezione 5 Le classi/Le classi#Overloading dei metodi|metodi]] e dei [[Costruttori e modificatori#Overloading dei costruttori|costruttori]]**, che permette di fornire più versioni dello stesso metodo o costruttore con parametri diversi, garantendo flessibilità nella creazione degli oggetti.
+- **Overloading dei [[Java/Lezione 5 Le classi/Le classi#Overloading dei metodi|metodi]] e dei [[Costruttori e modificatori#Overloading dei costruttori|costruttori]]**, che ==permette di fornire più versioni dello stesso metodo o costruttore con parametri diversi, garantendo flessibilità nella creazione degli oggetti.==
     
-- **Il ruolo della [[Costruttori e modificatori#La keyword `this`|keyword `this`]]**, utile per distinguere attributi e variabili locali quando i nomi coincidono e per richiamare costruttori all’interno della stessa classe.
+- **Il ruolo della [[Costruttori e modificatori#La keyword `this`|keyword `this`]]**, ==utile per distinguere attributi e variabili locali quando i nomi coincidono e per richiamare costruttori all’interno della stessa classe.==
     
-- **[[Costruttori e modificatori#Uso di `static`|`Static`]] e [[Costruttori e modificatori#Uso di `final`|`final`]]**, che definiscono rispettivamente membri condivisi tra tutte le istanze e membri immutabili, con applicazioni pratiche per costanti e metodi utilitari.
+- **[[Costruttori e modificatori#Uso di `static`|`Static`]] e [[Costruttori e modificatori#Uso di `final`|`final`]]**, ==che definiscono rispettivamente membri condivisi tra tutte le istanze e membri immutabili, con applicazioni pratiche per costanti e metodi utilitari.==
     
-- **[[Java/Lezione 5 Le classi/Le classi#Inner Class (Classi annidate)|Inner class]]**, per raggruppare logicamente classi strettamente correlate e controllare la loro visibilità.
+- **[[Java/Lezione 5 Le classi/Le classi#Inner Class (Classi annidate)|Inner class]]**, ==per raggruppare logicamente classi strettamente correlate e controllare la loro visibilità.==
     
 
 Questi strumenti ci permettono di modellare gli oggetti in modo **chiaro, modulare e sicuro**, ma da soli non bastano a proteggere lo **stato interno degli oggetti**. 

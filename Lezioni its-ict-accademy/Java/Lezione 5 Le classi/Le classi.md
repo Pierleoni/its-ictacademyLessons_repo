@@ -105,7 +105,7 @@ Questa istruzione:
 - ==determina anche il percorso fisico in cui verrà collocato il file `.class`==
     
 
-Il nome di un package deve essere **il più possibile univoco**.  
+==Il nome di un package deve essere **il più possibile univoco**.==  
 Per questo si utilizza una convenzione basata sul **dominio inverso**, ad esempio:
 ```text
 it.nomePacchetto.nomeModulo
@@ -133,7 +133,7 @@ Se in Eclipse si crea una classe **senza specificare un package**, l’IDE la co
 - ==di conseguenza, **le classi nel default package non possono essere importate** da altre classi che si trovano in package espliciti==
     
 
-Questo accade perché Java richiede un **percorso completo** (ad esempio `java.util.Date`) per poter importare una classe, e tale percorso è definito solo se la classe appartiene a un package reale.
+Questo accade perché Java richiede un **percorso completo** (ad esempio `java.util.Date`) ==per poter importare una classe, e tale percorso è definito solo se la classe appartiene a un package reale.==
 
 Per questo motivo, l’uso del default package è accettabile solo per:
 

@@ -283,7 +283,7 @@ Con Java 8, grazie alle **lambda expression**, è possibile:
 - passare il predicato come parametro.
 #### Metodo generico con `Predicate`
 
-Java 8 introduce l’interfaccia funzionale `Predicate<T>` (nel package `java.util.function`), che rappresenta proprio un predicato.
+Java 8 introduce l’[[#1. Functional Interface|interfaccia funzionale]] `Predicate<T>` (nel package `java.util.function`), che rappresenta proprio un predicato.
 
 La firma del metodo diventa:
 ```java

@@ -439,6 +439,69 @@ Inoltre permette:
 
 Questo è possibile solo nelle `List`, perché solo esse hanno un ordine e un concetto di posizione.
 
+##### Esempio base con `ListIterator`
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
+
+public class EsempioListIterator {
+
+    public static void main(String[] args) {
+
+        List<String> lista = new ArrayList<>();
+        lista.add("uno");
+        lista.add("due");
+        lista.add("tre");
+
+        ListIterator<String> iterator = lista.listIterator();
+
+        // Scorrimento in avanti
+        while (iterator.hasNext()) {
+            String elemento = iterator.next();
+            System.out.println("Forward: " + elemento);
+
+            // Modifica elemento
+            if (elemento.equals("due")) {
+                iterator.set("DUE");
+            }
+        }
+
+        System.out.println("Lista dopo modifica: " + lista);
+
+        // Scorrimento all'indietro
+        while (iterator.hasPrevious()) {
+            String elemento = iterator.previous();
+            System.out.println("Backward: " + elemento);
+        }
+    }
+}
+ì
+```
+
+**Cosa succede:**
+- Creiamo una `ArrayList` con tre elementi.
+    
+- Otteniamo un `ListIterator` tramite `listIterator()`.
+    
+- Con `hasNext()` e `next()` scorriamo in avanti.
+    
+- Se troviamo `"due"`, lo sostituiamo con `"DUE"` usando `set()`.
+    
+- Poi usiamo `hasPrevious()` e `previous()` per scorrere la lista all’indietro.
+
+Output: 
+```java
+Forward: uno
+Forward: due
+Forward: tre
+Lista dopo modifica: [uno, DUE, tre]
+Backward: tre
+Backward: DUE
+Backward: uno
+```
+
 
 ## Le `List`
 
