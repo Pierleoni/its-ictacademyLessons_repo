@@ -368,7 +368,7 @@ Guardando l'immagine possiamo notare come ci siano almeno 8 livelli (compreso l'
 	    - ==Implementare tecniche come **paginazione** e **segmentazione**==.
 
 
-7. **Management of Processes (Gestione dei processi o anche detto Scheduler):** 
+7. **Management of Processes (Gestione dei processi o anche detto Scheduler):**   ^scheduler
 	- ==È la parte che gestisce l’esecuzione dei programmi attivi (processi)==.
     
 	- Lo **scheduler** decide: 

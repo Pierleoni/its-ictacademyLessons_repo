@@ -174,17 +174,17 @@ Di solito, si ha:
 ###  Caratteristiche principali delle interfacce in Java
 
 In Java, un’interfaccia:
-1. Rappresentano una **categoria completamente astratta**.
+1. ==Rappresentano una **categoria completamente astratta**.==
     
-2. **Dichiarano solo metodi astratti** (nelle versioni più recenti del linguaggio possono esistere anche metodi `default` e `static`, ma il principio rimane quello del contratto).
+2. ==**Dichiarano solo metodi astratti** (nelle versioni più recenti del linguaggio possono esistere anche metodi `default` e `static`, ma il principio rimane quello del contratto).==
     
-3. Non possono essere istanziate.
+3. ==Non possono essere istanziate.==
     
-4. Vengono **implementate** da una o più classi tramite la parola chiave `implements`.
+4. ==Vengono **implementate** da una o più classi tramite la parola chiave `implements`.==
     
-5. **Non possiedono attributi di istanza**; possono contenere solo **costanti `public static final`**.
+5. ==**Non possiedono attributi di istanza**; possono contenere solo **costanti `public static final`**.==
     
-6. **Non hanno costruttori**, nemmeno quello di default, perché non è possibile creare oggetti direttamente da un’interfaccia.
+6. ==**Non hanno costruttori**, nemmeno quello di default, perché non è possibile creare oggetti direttamente da un’interfaccia.==
 #### Esempio di caso d’uso: quando scegliere tra classe astratta e interfaccia
 
 Supponiamo di dover modellare una classe generica in Java e di dover scegliere se utilizzare una **classe astratta** oppure un’**interfaccia**.  
@@ -192,19 +192,19 @@ La scelta dipende principalmente dalle caratteristiche che vogliamo definire.
 
 -  **Classe astratta**:
     
-    - Condivide **attributi comuni** tra le sottoclassi.
+    - ==Condivide **attributi comuni** tra le sottoclassi.==
         
-    - Fornisce **metodi concreti** con implementazione.
+    - ==Fornisce **metodi concreti** con implementazione.==
         
-    - È adatta quando esiste uno **stato condiviso** e una base di codice comune.
+    - ==È adatta quando esiste uno **stato condiviso** e una base di codice comune.==
         
 - **Interfaccia**:
     
-    - Definisce **solo comportamenti** (metodi).
+    - ==Definisce **solo comportamenti** (metodi).==
         
-    - Non ha stato condiviso né implementazioni concrete (fatta eccezione per i metodi `default` o `static`).
+    - ==Non ha stato condiviso né implementazioni concrete (fatta eccezione per i metodi `default` o `static`).==
         
-    - È adatta quando si vuole imporre un **contratto uniforme** a classi anche molto diverse tra loro, favorendo il **disaccoppiamento** e il **polimorfismo**.
+    - ==È adatta quando si vuole imporre un **contratto uniforme** a classi anche molto diverse tra loro, favorendo il **disaccoppiamento** e il **polimorfismo**.==
     
 
 In sintesi:
@@ -260,9 +260,9 @@ public interface OggettoPrezzabile {
 ```
 **Note importanti:**
 
-- In un’interfaccia, **`abstract` è sottinteso** per tutti i metodi, quindi scriverlo esplicitamente non è necessario.
+- In un’interfaccia, **`abstract` ==è sottinteso** per tutti i metodi, quindi scriverlo esplicitamente non è necessario.==
     
-- `public` è obbligatorio per i metodi dell’interfaccia.
+- `public` ==è obbligatorio per i metodi dell’interfaccia.==
     
 - Le costanti dichiarate sono **`public static final`**:
 ```java

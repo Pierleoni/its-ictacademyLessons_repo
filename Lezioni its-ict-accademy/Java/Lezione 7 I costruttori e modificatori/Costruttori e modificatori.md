@@ -619,7 +619,7 @@ nomi.add("Marco"); // OK, modifico l’oggetto
 
 Un **metodo `final`:**
 - ==non può essere ridefinito nelle sottoclassi.==  
-Questo è utile per **bloccare comportamenti chiave** di una classe che non devono essere modificati da chi estende la classe:
+Questo è utile per ==**bloccare comportamenti chiave** di una classe che non devono essere modificati da chi estende la classe==:
 ```java
 public final void stampaSalario() {
     System.out.println(salario);

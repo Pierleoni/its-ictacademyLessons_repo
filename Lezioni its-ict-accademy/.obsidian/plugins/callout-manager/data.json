@@ -128,6 +128,22 @@
           "changes": {
             "icon": "lucide-code"
           }
+        },
+        {
+          "condition": {
+            "colorScheme": "light"
+          },
+          "changes": {
+            "color": "191, 139, 49"
+          }
+        },
+        {
+          "condition": {
+            "colorScheme": "dark"
+          },
+          "changes": {
+            "color": "171, 155, 54"
+          }
         }
       ],
       "hint": [
