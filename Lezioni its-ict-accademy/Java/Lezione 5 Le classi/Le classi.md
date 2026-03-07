@@ -34,7 +34,7 @@ All’interno della classe troviamo:
 
 È possibile scrivere **due o più classi nello stesso file**, ma vale una regola fondamentale:
 
-- ==**solo una classe può essere `public==`**
+- ==**solo una classe può essere `public`**==
     
 - ==il **nome del file deve coincidere con il nome della classe pubblica**==
     
@@ -119,7 +119,7 @@ Per utilizzare una classe che appartiene a un altro package è necessario usare 
 import myPackage.MyClass; 
 import java.util.Date
 ```
-Per utilizzare una classe che appartiene a un altro package è necessario usare l’istruzione `import`.
+
 #### Il default package
 
 Se in Eclipse si crea una classe **senza specificare un package**, l’IDE la colloca in un cosiddetto **`default package`**.
@@ -336,11 +336,11 @@ Se si dimentica di valorizzare un attributo nel costruttore:
 
 - Java assegna automaticamente **un valore di default**, proprio come avviene per gli [[Array in Java#Valori di default negli array|array]].
     
-    - Numeri (`int`, `double`, `float`) → 0
+    - ==Numeri (`int`, `double`, `float`) → 0==
         
-    - Boolean → false
+    - ==Boolean → false==
         
-    - Riferimenti a oggetti → null
+    - ==Riferimenti a oggetti → null==
         
 
 In questo esempio, il `this` non è necessario perché i nomi dei parametri (`n`, `s`, `d`) **sono diversi dai nomi degli attributi** (`nome`, `salario`, `dataAss`).  
@@ -460,14 +460,14 @@ Tutti e tre i metodi hanno lo stesso nome, ma Java li distingue grazie **alla di
 > - Nell’overloading **il tipo di ritorno non conta**.
  >   
 >- Non basta cambiare solo il tipo di ritorno, ad esempio:
->```
+>```java
 >double metodo(Date d, int i) { ... }
 >```
 >non compila se esiste già il metodo `String metodo(Date d, int i)` perché la firma del metodo (nome + lista parametri) deve essere unica.
 
 In sintesi, **la firma del metodo in Java è definita dal nome e dalla lista dei parametri**, non dal tipo restituito.
 
-
+  
 ### Overriding dei metodi
 
 L’**overriding,** come in [[Ereditarietà delle classi#L'overriding dei metodi|Python]], è un concetto legato all’**[[Ereditarietà e polimorfismo#Concetto di ereditarietà|ereditarietà]]:** 

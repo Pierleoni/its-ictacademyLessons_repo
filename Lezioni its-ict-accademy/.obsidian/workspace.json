@@ -28,13 +28,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Java/Lezione 19 Design Patterns/Lezione 19 - Design Pattern.md",
+                "file": "Java/Lezione 22 - Spring Rest/Lezione 22 - Spring Rest.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Lezione 19 - Design Pattern"
+              "title": "Lezione 22 - Spring Rest"
             }
           },
           {
@@ -43,13 +43,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Java/Lezione 10 Classi Astratte e Interfacce/Lezione 10 - Classi astratte e interfaccie.md",
+                "file": "Java/Lezione 4 Oggetti e Classi/Oggetti e Classi.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Lezione 10 - Classi astratte e interfaccie"
+              "title": "Oggetti e Classi"
             }
           },
           {
@@ -58,17 +58,32 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Sistemi digitali/Lezione 12/I fundamentals di un Sistema Operativo.md",
+                "file": "Java/Lezione 22 - Spring Rest/Lezione 22 - Spring Rest.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "I fundamentals di un Sistema Operativo"
+              "title": "Lezione 22 - Spring Rest"
+            }
+          },
+          {
+            "id": "c5de04cefd2e1914",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Java/JDBC/Lezione 21 - JDBC(Java Database Connectivity).md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "Lezione 21 - JDBC(Java Database Connectivity)"
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -91,7 +106,7 @@
                 "autoReveal": false
               },
               "icon": "lucide-folder-closed",
-              "title": "Files"
+              "title": "Esplora risorse"
             }
           },
           {
@@ -125,7 +140,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 257.5
+    "width": 224.5
   },
   "right": {
     "id": "8ef8bc59cd79fc10",
@@ -142,7 +157,7 @@
               "type": "empty",
               "state": {},
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "Nuova scheda"
             }
           },
           {
@@ -233,56 +248,57 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "bases:Create new base": false,
-      "workspaces:Manage workspace layouts": false,
-      "graph:Open graph view": false,
+      "switcher:Apri selezione rapida": false,
+      "graph:Apri vista grafo": false,
+      "canvas:Crea nuova lavagna": false,
+      "daily-notes:Apri nota del giorno": false,
+      "templates:Inserisci modello": false,
+      "command-palette:Apri riquadro comandi": false,
+      "markdown-importer:Apri importazione Markdown": false,
+      "zk-prefixer:Nuova nota univoca": false,
+      "workspaces:Gestisci layout delle aree di lavoro": false,
+      "bases:Crea nuova Base": false,
       "callout-manager:Insert Callout": false,
       "darlal-switcher-plus:Open Symbols for the active editor": false,
-      "switcher:Open quick switcher": false,
       "obsidian-importer:Open Importer": false,
       "obsidian42-text-transporter:Text Transporter": false,
-      "templates:Insert template": false,
       "table-editor-obsidian:Advanced Tables Toolbar": false,
-      "markdown-importer:Open format converter": false,
       "darlal-switcher-plus:Open in Headings Mode": false,
       "templater-obsidian:Templater": false,
-      "vscode-editor:Create Code File": false,
-      "zk-prefixer:Create new unique note": false,
-      "canvas:Create new canvas": false,
-      "command-palette:Open command palette": false,
-      "daily-notes:Open today's daily note": false
+      "vscode-editor:Create Code File": false
     }
   },
-  "active": "5ba836cb77b4a514",
+  "active": "c5de04cefd2e1914",
   "lastOpenFiles": [
-    "Java/Lezione 18 MultiTheading/Lezione 18 - MultiThreading.md",
+    "Java/Lezione 22 - Spring Rest/Lezione 22 - Spring Rest.md",
     "Java/Lezione 17 GLi Stream/Lezione 17 - Gli Streams.md",
-    "Java/Lezione 12 Collection/Lezione 12 - Collection.md",
+    "Java/Lezione 9 Ereditarietà e Poliforfismo/Ereditarietà e polimorfismo.md",
+    "Java/Lezione 5 Le classi/Le classi.md",
+    "Java/Lezione 4 Oggetti e Classi/Oggetti e Classi.md",
     "Java/Lezione 10 Classi Astratte e Interfacce/Lezione 10 - Classi astratte e interfaccie.md",
-    "Sistemi digitali/Lezione 12/I fundamentals di un Sistema Operativo.md",
-    "Sistemi digitali/Lezione 17/Servizi e funzioni del Sistema Operativo.md",
+    "Java/Lezione 13 - Map/Lezione 13 - Le map in Java.md",
+    "Java/Lezione 6 Le stringhe/Le stringhe.md",
+    "Java/Lezione 3 Array/Array in Java.md",
+    "Java/Lezione 2/Lezione 2 - Sintassi e costrutti di base.md",
+    "Java/Lezione 1/Lezione 1 - Introduzione a Java.md",
+    "Java/Lezione 19 Design Patterns/Lezione 19 - Design Pattern.md",
+    "Java/Lezione 22 - Spring Rest",
+    "Progettazione/Analisi concettuale/Lezione 2/Analisi dei requisiti mediante UML.md",
+    "Java/Lezione 12 Collection/Lezione 12 - Collection.md",
     "Java/Lezione 12 Collection/Lezione 12 parte 2 - L'interfaccia Set.md",
+    "Sistemi digitali/Lezione 12/I fundamentals di un Sistema Operativo.md",
+    "Java/Lezione 18 MultiTheading/Lezione 18 - MultiThreading.md",
+    "Sistemi digitali/Lezione 17/Servizi e funzioni del Sistema Operativo.md",
     "README.md",
     "SQL/Il linguaggio SQL.md",
-    "Java/JDBC/JDBC.md",
+    "Java/JDBC/Lezione 21 - JDBC(Java Database Connectivity).md",
     "Java/JDBC",
     "Sinta.md",
-    "Java/Lezione 1/Lezione 1 - Introduzione a Java.md",
     "Java/Lezione 16 Lambda Expression/Lambda.md",
-    "Java/Lezione 19 Design Patterns/Lezione 19 - Design Pattern.md",
     "Java/Lezione 19 Design Patterns",
     "Java/Lezione 14 JUnit/Lezione 14 parte 2 - Preparare un Test di unità.md",
     "Java/Lezione 14 JUnit/Lezione 14 - Il Framework JUnit.md",
-    "Java/Lezione 13 - Map/Lezione 13 - Le map in Java.md",
     "Java/Lezione 11 Gli Errori in Java/Lezione 11 - Gestire gli Errori.md",
-    "Java/Lezione 9 Ereditarietà e Poliforfismo/Ereditarietà e polimorfismo.md",
-    "Java/Lezione 8 Incapsulamento/Lezione 8 - L'incapsulamento.md",
-    "Java/Lezione 7 I costruttori e modificatori/Costruttori e modificatori.md",
-    "Java/Lezione 6 Le stringhe/Le stringhe.md",
-    "Java/Lezione 5 Le classi/Le classi.md",
-    "Java/Lezione 4 Oggetti e Classi/Oggetti e Classi.md",
-    "Java/Lezione 3 Array/Array in Java.md",
-    "Java/Lezione 2/Lezione 2 - Sintassi e costrutti di base.md",
     "Java/Esportazioni",
     "Java/Nuova cartella",
     "Java/Lezione 14 JUnit",
@@ -290,7 +306,6 @@
     "Java/Lezione 17 GLi Stream",
     "Java/Lezione 8 Incapsulamento",
     "Java/Lezione 16 Lambda Expression",
-    "Java/Lezione 13 - Map",
     "img/Java/Lezione 10/Esempio.png",
     "img/Java/Lezione 10/Interfacce(diagramma).png",
     "img/Java/Lezione 1/Linguaggio e tecnologie.png",

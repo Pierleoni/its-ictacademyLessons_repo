@@ -6,7 +6,8 @@ L’idea alla base era quella di creare un linguaggio **orientato agli oggetti (
 L’OOP (Object-Oriented Programming) non è solo una tecnica di programmazione, è un **paradigma:**
 ==ovvero un modello che definisce **principi e regole di progettazione** per strutturare il software in modo modulare, riutilizzabile e manutenibile.==
 
-Una delle caratteristiche più importanti di Java fin dall’inizio è stata la **portabilità**: il codice scritto in Java può essere eseguito su qualsiasi piattaforma senza modifiche. 
+Una delle caratteristiche più importanti di Java fin dall’inizio è stata la **portabilità**: 
+- ==il codice scritto in Java può essere eseguito su qualsiasi piattaforma senza modifiche.== 
 Negli anni '80, invece, i software erano sviluppati in maniera artigianale: ciascun programma era progettato per una **macchina o server specifico**, rendendo difficile la distribuzione su scala più ampia. 
 Con la diffusione di Internet negli anni '90, questa esigenza è diventata cruciale: un software house doveva poter distribuire il proprio prodotto **indipendentemente dall’hardware del client**. Java risolveva questo problema permettendo al client di eseguire il codice tramite una **[[#La JVM e l’indipendenza dalla piattaforma|Java Virtual Machine (JVM)]]**, senza preoccuparsi della piattaforma sottostante.
 Java nasce nel 1991 con il nome di OAK, adesso la sua gloria è scesa a causa di Python. 
@@ -47,14 +48,14 @@ Java è un linguaggio molto apprezzato per una serie di caratteristiche che ne h
     - ==L’OOP organizza il software attorno agli **oggetti**, che rappresentano entità reali o concettuali, e ai **metodi** che operano su di essi.== 
     - I concetti chiave includono:
     
-	    - **Incapsulamento:** 
-		    - che consente di nascondere i dettagli interni di un oggetto e di esporre solo ciò che è necessario.
+	    - **[[Lezione 8 - L'incapsulamento|Incapsulamento]]:** 
+		    - ==che consente di nascondere i dettagli interni di un oggetto e di esporre solo ciò che è necessario.==
         
-	    - **Ereditarietà:** 
-		    - che permette di creare nuove classi basate su classi esistenti, favorendo il riuso del codice.
+	    - **[[Ereditarietà e polimorfismo#Concetto di ereditarietà|Ereditarietà]]:** 
+		    - ==che permette di creare nuove classi basate su classi esistenti, favorendo il riuso del codice.==
         
-	    - **Polimorfismo:** 
-		    - che consente di trattare oggetti di classi diverse in modo uniforme quando condividono la stessa interfaccia o classe base.
+	    - **[[Ereditarietà e polimorfismo#Polimorfismo|Polimorfismo]]:** 
+		    - ==che consente di trattare oggetti di classi diverse in modo uniforme quando condividono la stessa interfaccia o classe base.==
         
     
 	Tra i linguaggi orientati agli oggetti coetanei di Java troviamo **C++**, **Objective C**, **Perl 5**, mentre linguaggi più recenti includono **Scala**, **Kotlin** e **Swift**. Alcuni linguaggi, come JavaScript, supportano l’OOP in maniera più limitata o “debole”.

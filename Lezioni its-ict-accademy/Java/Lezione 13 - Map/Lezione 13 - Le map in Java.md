@@ -280,9 +280,9 @@ Ora passiamo alle **implementazioni concrete**, cioè alle classi che effettivam
 
 Analizzando questa immagine notiamo che le principali classi che implementano `Map` sono:
 
-- `HashMap<K,V>`
+- [[#Classe `HashMap<K,V>`|`HashMap<K,V>`]]
     
-- `TreeMap<K,V>`
+- [[#Classe `TreeMap`|`TreeMap<K,V>`]]
 
 > [!info]  `TreeMap`, in particolare, implementa anche l’interfaccia `SortedMap`, quindi mantiene le chiavi ordinate.
 >

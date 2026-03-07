@@ -96,11 +96,11 @@ int[] smallPrime = {2,3,5} //ometto la new
 ```
 In questo caso:
 
-- l’uso dell’operatore `new` è implicito;
+- ==l’uso dell’operatore `new` è implicito;==
     
-- la dimensione dell’array viene dedotta automaticamente dal numero di elementi forniti;
+- ==la dimensione dell’array viene dedotta automaticamente dal numero di elementi forniti;==
     
-- l’array viene creato e inizializzato in un’unica istruzione.
+- ==l’array viene creato e inizializzato in un’unica istruzione.==
 
 > [!faq] **Quando usare un array anonimo**
 >  
@@ -119,15 +119,15 @@ Gli elementi di un array sono accessibili tramite un **indice**.
 
 - Per convenzione (e per definizione del linguaggio), gli indici vanno da:
     
-    **0** a **`lunghezza - 1`**
+    ==**0** a **`lunghezza - 1`==**
     
 - Tramite l’indice è possibile:
     
-    - leggere un valore
+    - ==leggere un valore==
         
-    - stamparlo
+    - ==stamparlo==
         
-    - modificarlo
+    - ==modificarlo==
         
 
 Esempio di assegnazione dei valori a un array:
@@ -234,7 +234,7 @@ Questo avviene quando:
     
 - ==l’indice è maggiore o uguale alla lunghezza dell’array==
 ### Array multidimensionali
-n Java è possibile creare **array multidimensionali**, che sono modellati come **array di array**.
+In Java è possibile creare **array multidimensionali**, che sono modellati come **array di array**.
 
 - È possibile creare array a:
     

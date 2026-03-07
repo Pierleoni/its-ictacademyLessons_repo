@@ -1331,11 +1331,9 @@ Questo perché il codice può essere scritto facendo riferimento al tipo general
 -  ==Di conseguenza, per introdurre nuove classi o nuovi comportamenti, non è necessario modificare le classi già esistenti.==  
 È sufficiente creare nuove sottoclassi che estendono quelle esistenti e ridefiniscono (se necessario) i metodi opportuni.
 
-Questo principio è strettamente collegato al **principio Open/Closed** della programmazione orientata agli oggetti:
+Questo principio è strettamente collegato al **principio Open/Closed** della programmazione orientata agli oggetti:  
 
-- le classi dovrebbero essere **aperte all’estensione**,
-    
-- ma **chiuse alla modifica**.
-    
+- ==le classi dovrebbero essere **aperte all’estensione**, ma **chiuse alla modifica**.==
+    ^openClose
 
 In questo modo si ottiene un sistema più modulare, manutenibile ed estendibile nel tempo, riducendo il rischio di introdurre errori nel codice già consolidato.

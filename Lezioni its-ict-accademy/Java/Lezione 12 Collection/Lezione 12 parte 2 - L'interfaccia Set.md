@@ -376,9 +376,9 @@ TreeSet<T> set = new TreeSet<>();
 ###### Quando usare il `Comparable`?
 Si usa quando:
 
-- esiste **un solo criterio naturale di ordinamento**
+- ==esiste **un solo criterio naturale di ordinamento**==
     
-- vuoi che quell’ordinamento sia “intrinseco” alla classe
+- ==vuoi che quell’ordinamento sia “intrinseco” alla classe==
     
 
 Ad esempio:
@@ -494,7 +494,7 @@ Qui il confronto non è definito nella classe stessa, ma in un oggetto esterno.
 >
 >```
 >
->Oppure con lambda (più moderno):
+>Oppure con [[Java/Lezione 16 Lambda Expression/Lambda|lambda]] (più moderno):
 >```java
 >Comparator<Studente> comparatorePerMedia =
 >    (s1, s2) -> Double.compare(s1.getMedia(), s2.getMedia());

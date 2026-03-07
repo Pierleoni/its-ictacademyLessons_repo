@@ -8,7 +8,7 @@ Tuttavia, quando si devono eseguire operazioni sui dati (filtri, trasformazioni,
 - ==si utilizzano cicli ([[Lezione 2 - Sintassi e costrutti di base#Loop determinati (`for`)|`for`]], [[Lezione 2 - Sintassi e costrutti di base#Il ciclo `while`|`while`]]), iteratori e variabili temporanee==
     
 - ==si gestisce esplicitamente il flusso di controllo==
-    
+
 
 Questo comporta codice più verboso e focalizzato sui dettagli operativi piuttosto che sull’obiettivo dell’elaborazione.
 **Esempio:** 
@@ -521,7 +521,7 @@ Qualunque operazione venga eseguita tramite uno Stream:
 > [!abstract] **Operazioni supportate**
 > Gli Stream mettono a disposizione operazioni in stile **SQL-like**, tra cui:
 >
->- filtraggio (`filter`)
+>- filtraggio ([[#Operazione intermedia `filter`|`filter`]])
   >  
 >- ordinamento (`sorted`)
   >  

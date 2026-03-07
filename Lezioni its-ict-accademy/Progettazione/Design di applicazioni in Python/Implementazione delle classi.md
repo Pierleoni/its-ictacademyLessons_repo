@@ -76,7 +76,7 @@ print(t)
 print(s)
 ```
 Ma se si scirvesse:
-```
+```python
 s = {1,2,3}
 t = s
 print(t)
@@ -88,7 +88,7 @@ print(s)
 ```
 Viene creato un nuovo oggetto set in memoria e s punta al riferimento in memoria dove si trova quell'oggetto. 
 Ma se si scrivesse:
-```
+```python
 s = {4,5,6}
 s = {4,5,6}
 print(s)

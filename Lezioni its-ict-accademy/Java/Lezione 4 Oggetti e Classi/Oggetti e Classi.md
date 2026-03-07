@@ -138,12 +138,13 @@ Riprendendo l’esempio di Amazon, l’analisi OOP si articola in:
 
 - Quali sono i **protagonisti principali** del sistema?
     
-- Quali **caratteristiche** li descrivono?
+- Quali **caratteristiche(attributi)** li descrivono?
     
-- Quali **azioni** compiono?
+- Quali **azioni (metodi)** compiono?
     
 
-Le ultime due domande rappresentano le **specifiche** della prima, ovvero servono a descrivere in modo completo ogni protagonista individuato.
+Le ultime due domande rappresentano le **specifiche** della prima: 
+- ==ovvero servono a descrivere in modo completo ogni protagonista individuato.==
 
 
 > [!tldr] **Confronto concettuale**
@@ -167,9 +168,7 @@ L’**analisi orientata agli oggetti** passa attraverso il processo di **classif
 
 Durante questa fase:
 
-- ==tutti gli oggetti che condividono **le stesse caratteristiche** e **le stesse funzionalità**==
-    
-- ==vengono raggruppati in una **stessa categoria**==
+- ==tutti gli oggetti che condividono **le stesse caratteristiche** e **le stesse funzionalità**vengono raggruppati in una **stessa categoria**==
 ####  La classe
 
 Una **classe** è il risultato del processo di classificazione e:
@@ -239,13 +238,13 @@ In altre parole:
 
 ### Costruzione delgi oggetti 
 Il passaggio dalla **classe** (concetto astratto) all’**oggetto** (entità concreta) avviene tramite una **funzione speciale della classe:** 
-- detta **metodo costruttore**.
+- ==detta **metodo costruttore**.==
 
 In un programma orientato agli oggetti:
 
-- il codice **manipola oggetti**
+- ==il codice **manipola oggetti**==
     
-- tutte le operazioni avvengono sugli oggetti.
+- ==tutte le operazioni avvengono sugli oggetti.==
 #### Le classi come “fabbriche di oggetti”
 
 Si può immaginare una classe come una **fabbrica di oggetti**, che:
@@ -261,9 +260,9 @@ Si può immaginare una classe come una **fabbrica di oggetti**, che:
 
 Il **metodo costruttore**:
 
-- crea l’oggetto in memoria
+- ==crea l’oggetto in memoria==
     
-- lo **inizializza** con i valori iniziali
+- ==lo **inizializza** con i valori iniziali==
 **Esempio in Java**
 ```java
 public class Studente {
@@ -323,7 +322,7 @@ Ogni **oggetto `c:Cliente`**:
 - ==può eseguire i **metodi definiti nella classe**==
     
 
-In questo modo, la **classe definisce cosa è possibile fare** con un cliente, mentre gli **oggetti rappresentano clienti concreti** all’interno del sistema.
+In questo modo, ==la **classe definisce cosa è possibile fare** con un cliente, mentre gli **oggetti rappresentano clienti concreti** all’interno del sistema.==
 ### Dal concetto astratto all’oggetto concreto
 Finora abbiamo visto come la **classe `Cliente`** rappresenti un **modello astratto**: 
 - ==definisce **attributi** e **metodi** comuni a tutti i clienti, senza rappresentare un cliente reale.==
@@ -381,7 +380,7 @@ Un **oggetto** è un’istanza concreta di una **classe**.
     
     - ==La **creazione dell’oggetto** è sempre a carico del programmatore, tramite il **costruttore** della classe.==
         
-    - ==La **distruzione** è spesso automatica, gestita dal **garbage collector** di Java.==
+    - ==La **distruzione** è spesso automatica, gestita dal **[[#Il Garbage Collector (GC)|garbage collector]]** di Java.==
         
 4. **Inizializzazione degli attributi**
     - Una volta istanziato, un oggetto **non può avere attributi “non definiti”**: 
@@ -650,7 +649,7 @@ Il GC:
     
 - ==ha **bassa priorità**==
     
-- è un **daemon thread:** 
+- è un **[[Lezione 18 - MultiThreading#User & daemon|daemon thread]]:** 
 	-  ==lavora in background senza interferire direttamente con il flusso principale del programma==
 ####  Controllo della memoria
 

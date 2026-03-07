@@ -10,7 +10,7 @@
       "deep": [
         {
           "changes": {
-            "icon": "lucide-user-search",
+            "icon": "lucide-microscope",
             "color": "6, 183, 148"
           }
         }
@@ -111,7 +111,7 @@
       "tip": [
         {
           "changes": {
-            "icon": "lucide-microscope"
+            "icon": "lucide-user-search"
           }
         }
       ],

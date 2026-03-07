@@ -220,6 +220,8 @@ La **[[Lezione 1 - Introduzione a Java#La JVM e l’indipendenza dalla piattafor
 
 
 
+
+
 > [!NOTE] #### Context Switch 
 > ==Il context switch è il passaggio effettivo dall’esecuzione di un thread a un altro.==
 > Quando lo scheduler decide di cambiare thread, avviene un’operazione tecnica chiamata _context switch_.
@@ -588,13 +590,14 @@ void setDaemon(boolean on)
 
 Questo metodo **deve essere invocato [[#Avviare un Thread|prima della chiamata a `start()`]]**.  
 **Se si passa `true`:** 
-- **il thread viene impostato come daemon;** 
+- ==**il thread viene impostato come daemon;**== 
 **se si passa `false`:** 
 - ==rimane un thread user.==
 
 #### Cosa significa essere un thread daemon?
 
-Un **thread daemon** è un thread di servizio, generalmente utilizzato per attività di supporto in background (ad esempio monitoraggio, pulizia di risorse, gestione di servizi interni).
+Un **thread daemon** è: 
+- ==un thread di servizio, generalmente utilizzato per attività di supporto in background (ad esempio monitoraggio, pulizia di risorse, gestione di servizi interni).==
 
 È subordinato ai thread user:
 

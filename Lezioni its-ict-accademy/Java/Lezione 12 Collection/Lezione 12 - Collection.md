@@ -116,7 +116,7 @@ Questa differenza non è definita direttamente da `Collection`, ma dalle sue sot
 
 ###  Iterator
 
-Per poter accedere agli elementi di una Collection in modo sequenziale, Java utilizza **[[Lezione 10 - Classi astratte e interfaccie#Le interfacce|l’interfaccia]]** `Iterator`, anch’essa nel package `java.util`.
+Per poter accedere agli elementi di una Collection in modo sequenziale, ==Java utilizza **[[Lezione 10 - Classi astratte e interfaccie#Le interfacce|l’interfaccia]]** `Iterator`, anch’essa nel package `java.util`.==
 
 
 > [!NOTE] **Nota**
@@ -319,7 +319,7 @@ Partendo da sinistra:
     ==Un `Set` è quindi una Collection con una regola fondamentale: **non ammette duplicati**.==
     
 - L’interfaccia `SortedSet` estende `Set`.  
-    ==Aggiunge la caratteristica dell’**ordinamento automatico degli elementi** secondo un criterio naturale o definito da un `Comparator`.==
+    ==Aggiunge la caratteristica dell’**ordinamento automatico degli elementi** secondo un criterio naturale o definito da un [[Lezione 12 parte 2 - L'interfaccia Set#2️⃣ Tramite `Comparator`|`Comparator`]].==
     
 Al centro:
 

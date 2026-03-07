@@ -127,13 +127,13 @@ Java mette a disposizione **8 tipi primitivi**, che possono essere raggruppati i
 
 [![Screenshot-2026-02-07-at-11-23-32-Microsoft-Power-Point-Java-02-Sintassi-Compatibility-Mode-Java.png](https://i.postimg.cc/TY3LhHt5/Screenshot-2026-02-07-at-11-23-32-Microsoft-Power-Point-Java-02-Sintassi-Compatibility-Mode-Java.png)](https://postimg.cc/jCBdFv0R)
 
-1. **[[#Tipi Interi|Interi]]**: 
+1. **[[#Tipi Interi (`int`, `short`, `long`, `byte`)|Interi]]**: 
     
-    - Comprendono: `byte`, `short`, `int`, `long`
+    - Comprendono: ==`byte`, `short`, `int`, `long`==
 
-	- Permettono di memorizzare **numeri interi** (senza parte decimale).
+	- ==Permettono di memorizzare **numeri interi** (senza parte decimale).==
     
-	- Si differenziano per lo **spazio di memoria occupato** e per l’intervallo di valori rappresentabili.
+	- ==Si differenziano per lo **spazio di memoria occupato** e per l’intervallo di valori rappresentabili.==
     
 	- Sono tutti **con segno** (signed).
         
@@ -143,9 +143,9 @@ Java mette a disposizione **8 tipi primitivi**, che possono essere raggruppati i
 | `short` |   2 byte   |
 |  `int`  |   4 byte   |
 | `long`  |   8 byte   |
-- `int` è il tipo intero più utilizzato di default.
+- ==`int` è il tipo intero più utilizzato di default.==
             
-2. **[[#Tipi in virgola mobile|Virgola mobile]]**: 
+2. **[[#Tipi in virgola mobile (`float`, `double`)|Virgola mobile]]**: 
     Comprendono: `float`, `double`
 
 	- ==Permettono di memorizzare **numeri reali**, cioè con la parte decimale.==
@@ -163,11 +163,11 @@ Java mette a disposizione **8 tipi primitivi**, che possono essere raggruppati i
 3. **[[#Tipo carattere (`char`)|Carattere]]**:
     - Comprende: `char`
 
-	- Memorizza **un singolo carattere Unicode**.
+	- ==Memorizza **un singolo carattere Unicode**.==
     
-	- Occupa **2 byte**, poiché Java utilizza la codifica Unicode (UTF-16).
+	- ==Occupa **2 byte**, poiché Java utilizza la codifica Unicode (UTF-16).==
     
-	- Può rappresentare lettere, numeri, simboli e caratteri speciali.
+	- ==Può rappresentare lettere, numeri, simboli e caratteri speciali.==
 ```JAVA
 char lettera = 'A';
 ```
@@ -194,7 +194,8 @@ boolean valido = true;
 Questi tipi primitivi sono alla base della programmazione in Java e vengono spesso combinati per creare strutture dati più complesse o per definire variabili nelle classi.
 
 #### Tipi Interi (`int`, `short`, `long`, `byte`): 
-I tipi interi in Java permettono di memorizzare **numeri senza decimali**. Esistono diverse varianti per ottimizzare l’uso della memoria a seconda delle esigenze del programma:
+I tipi interi in ==Java permettono di memorizzare **numeri senza decimali**.== 
+Esistono diverse varianti per ottimizzare l’uso della memoria a seconda delle esigenze del programma:
 
 | Tipo  | Requisiti | Intervallo(inclusivo)                                              |
 | ----- | --------- | ------------------------------------------------------------------ |
