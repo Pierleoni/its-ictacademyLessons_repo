@@ -645,3 +645,283 @@ Questa separazione si realizza attraverso due figure chiave:
 2. **Il DAO (Data Access Object):** 
 	- ==è l'unico componente che "parla SQL".== 
 	- ==Riceve e restituisce oggetti DTO, nascondendo completamente al resto dell'applicazione il fatto che ci sia un database dietro.==
+#### 1. Componente `Database`
+ **Il componente `Database` è il terzo strato,** ed è il più semplice ma non meno importante:
+-  Il suo unico compito è centralizzare la logica di connessione: 
+	-  URL, credenziali e tutto ciò che riguarda il "come connettersi" al database vive qui e solo qui.
+
+> [!tip] **Questo significa che se domani le credenziali cambiano, o si migra da PostgreSQL a MySQL, si tocca un solo file — senza dover cercare stringhe di connessione sparse nel codice.**
+>  È anche il motivo per cui le costanti `URL`, `USER` e `PSW` sono dichiarate `private static final`: 
+> - [[Java/Lezione 5 Le classi/Le classi#`private`|`private`]] — ==la costante non è accessibile dall'esterno della classe==
+>- [[Costruttori e modificatori#Uso di `static`|`static`]] — ==appartiene alla classe stessa, non a una sua istanza==
+>- [[Costruttori e modificatori#Uso di `final`|`final`]] — ==il valore viene assegnato una volta sola e non può essere modificato a runtime==
+> - ==In sintesi, non devono essere accessibili dall'esterno né modificabili a runtime.==
+
+```java
+public class Database {
+	// Si definisce una Stringa che rappresenta L'URL per la connessione al database(in questo caso un DB in PostgreSQL)
+    private static final String URL = "jdbc:postgresql://localhost:5432/biblioteca";
+    // Questa stringa rappresenta il nome Utente del DB
+    private static final String USER = "postgres";
+    // Questa stringa rappresenta la password per accedere al DB
+    private static final String PSW = "postgres";
+	
+	// siccome getConnection() lancia una checked exception, 
+	// siamo obbligati a dichiararla con throws o a gestirla con try-catch. 
+	// Il compilatore ce lo impone — non possiamo ignorarla.
+    public static Connection getConnection() throws SQLException {
+	    // restituisco il risultato della connessione chiamandola tramite il DriveManager e passando le costanti come argomenti della chiamata alla funzione 
+        return DriverManager.getConnection(URL, USER, PSW);
+    }
+}
+```
+
+
+> [!tip] **`getConnection()` è `static` perché non ha senso istanziare un oggetto `Database` — è un punto di accesso globale alla connessione, esattamente come `DriverManager` stesso.**
+
+
+> [!warning] `SQLException` è una **[[Lezione 11 - Gestire gli Errori#1. Eccezioni Checked|checked exception]]:** 
+> - ==il compilatore ti obbliga a gestirla esplicitamente.== 
+> È il contrario delle **[[Lezione 11 - Gestire gli Errori#2. Eccezioni Unchecked|unchecked exception]]** (come `NullPointerException` o `IllegalArgumentException`) che non richiedono né `throws` né `try-catch`.
+> 
+
+
+#### 2. Componente `LibroDTO`
+Come abbiamo già detto il `DTO` è lo strato che rappresenta l'entità nel database. 
+Il componente `LibroDTO`, quindi rappresenta l'entità `Libro` nel Database. 
+```java
+package jdbcFullStack.dto;
+
+public class LibroDTO {
+	
+	private int id;
+	
+	private String titolo;
+	
+	private String autore;
+	
+	private Double prezzo;
+
+	public LibroDTO(int id, String titolo, String autore, Double prezzo) {
+	
+		this.id = id;
+		this.titolo = titolo;
+		this.autore = autore;
+		
+		this.prezzo = prezzo;
+	}
+
+	public LibroDTO(String titolo, String autore, Double prezzo) {
+	
+		this.titolo = titolo;
+		this.autore = autore;
+		this.prezzo = prezzo;
+	}
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getTitolo() {
+		return titolo;
+	}
+
+	public void setTitolo(String titolo) {
+		this.titolo = titolo;
+	}
+
+	public String getAutore() {
+		return autore;
+	}
+
+	public void setAutore(String autore) {
+		this.autore = autore;
+	}
+
+	public Double getPrezzo() {
+		return prezzo;
+	}
+
+	public void setPrezzo(Double prezzo) {
+		this.prezzo = prezzo;
+	}
+}
+```
+
+**Analisi:**
+La classe `LibroDTO`, come possiamo notare, possiede 2 costruttori: 
+1. `public LibroDTO(int id, String titolo, String autore, Double prezzo)`: 
+	-  ==Questo costruttore inizializza gli attributi  della classe, compreso l'attributo `id`.==
+2. `public LibroDTO(String titolo, String autore, Double prezzo)`
+	- ==Il secondo costruttore invece, inizializza gli attributi escluso l'`id`.== 
+In questo modo non solo si dà la possibilità di istanziare l'oggetto sia con l'id che senza, ma questa logica applicativa a uno scopo ben preciso: 
+- possiamo già suppore che nel `DAO` ci saranno due metodi principali
+1. Un metodo di lettura 
+2. Un metodo di inserimento 
+quindi il costruttore senza `id`, si userà quando si vuole inserire un nuovo libro nel Database.
+
+> [!tip] l'`id` non esiste ancora perché lo genererà il database tramite `RETURN_GENERATED_KEYS`
+> Questo metodo, che analizzeremo a breve nel componente `DAO`, corrisponde al tipo di dato `serial` in SQL/PostgreSQL. 
+> In sostanza quando viene inserito il libro l'attributo `id` viene valorizzato in automatico e viene auto-incrementato per ogni nuovo libro che si inserisce. 
+
+Mentre il costruttore **con `id`** si usa quando si **legge** dal database: 
+- ==l'`id` esiste già nella tabella e viene passato direttamente al DTO tramite `rs.getInt("id")`==
+
+#### 3. Componente `LibroDAO`
+Il `LibroDAO` è: 
+- l'unico componente che "parla SQL"; 
+	- ==tutto il resto dell'applicazione interagisce solo con oggetti `LibroDTO`, ignaro del fatto che ci sia un database dietro.==
+
+Analizziamo i due metodi principali:
+##### `findAll()` — Lettura di tutti i libri
+```java
+public static List<LibroDTO> findAll() throws SQLException {
+    String sql = "SELECT id, titolo, autore, prezzo FROM libro ORDER BY id";
+    List<LibroDTO> libri = new ArrayList<>();
+    Connection conn = null;
+    try {
+        conn = Database.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            LibroDTO l = new LibroDTO(
+                rs.getInt("id"),
+                rs.getString("titolo"),
+                rs.getString("autore"),
+                rs.getDouble("prezzo")
+            );
+            libri.add(l);
+        }
+    } catch (Exception e) {
+        System.out.println("Errore: " + e.getMessage());
+    } finally {
+        if (conn != null) conn.close();
+    }
+    return libri;
+}
+```
+
+**Analisi passo per passo:**
+
+1. Si dichiara `conn = null` **fuori** dal `try`: 
+	- ==questo è necessario perché il blocco `finally` deve poter accedere alla reference `conn` per chiuderla.== 
+	- ==Se fosse dichiarata dentro il `try`, il `finally` non la vedrebbe.==
+2. Si ottiene la connessione tramite `Database.getConnection()` e si prepara lo `Statement` con la query SQL. 
+
+> [!NOTE] **Nota:**
+>   le colonne sono specificate esplicitamente — non si usa `SELECT *` perché **non garantisce l'ordine** delle colonne, come abbiamo visto in precedenza.
+
+
+2. Si scorre il `ResultSet` riga per riga con `rs.next()`: 
+	- ==Per ogni riga si crea un nuovo `LibroDTO` usando il costruttore **con `id`** — perché stiamo leggendo libri che esistono già nel database, quindi l'`id` è già noto.==
+3. Il blocco `finally` garantisce che la connessione venga chiusa **in ogni caso** — che il `try` sia andato a buon fine o che sia stata lanciata un'eccezione. 
+	- ==La guardia `if (conn != null)` evita un `NullPointerException` nel caso in cui la connessione non fosse mai stata aperta.==
+
+##### `insert()` — Inserimento di un nuovo libro
+```java
+public boolean insert(LibroDTO l) {
+    String sql = "INSERT INTO libro(titolo, autore, prezzo) VALUES (?, ?, ?)";
+    try (Connection conn = Database.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+        ps.setString(1, l.getTitolo());
+        ps.setString(2, l.getAutore());
+        ps.setDouble(3, l.getPrezzo());
+
+        int righe = ps.executeUpdate();
+        if (righe == 0) throw new SQLException("Nessuna riga inserita");
+
+        try (ResultSet keys = ps.getGeneratedKeys()) {
+            if (keys.next()) {
+                l.setId(keys.getInt(1)); // aggiorna il DTO con l'id generato dal DB
+                return true;
+            }
+        }
+        return false;
+
+    } catch (SQLException e) {
+        System.out.println("Errore: " + e.getMessage());
+        return false;
+    }
+}
+```
+
+**Analisi passo per passo:**
+
+1. La `Connection` e il `PreparedStatement` vengono dichiarati direttamente nell'intestazione del `try-with-resources`: 
+	- ==Java li chiuderà automaticamente al termine del blocco, senza bisogno di un `finally` esplicito.== 
+	- ==È l'approccio più sicuro perché non si può dimenticare di chiudere le risorse.==
+2. La query usa i segnaposto `?` per i tre valori variabili. 
+	- Si noti che `id` non compare nella query; 
+	- non lo forniamo noi, lo genera il database automaticamente come un `SERIAL` in PostgreSQL. 
+	- Difatti Il secondo argomento `Statement.RETURN_GENERATED_KEYS` istruisce il driver a rendere disponibile l'`id` generato dopo l'insert.
+3. **`executeUpdate()` restituisce il numero di righe inserite:** 
+	-  ==Se è `0`, significa che l'insert non ha avuto effetto — si lancia una `SQLException` per segnalarlo esplicitamente.==
+4. Tramite `getGeneratedKeys()` si recupera l'`id` generato dal database e lo si imposta sul `LibroDTO` con `l.setId()` 
+	- ==In questo modo l'oggetto Java viene **aggiornato con lo stato reale del database** — dopo l'insert, il `LibroDTO` ha un `id` valido e può essere usato nel resto dell'applicazione.==
+
+
+#####  4. Il `main` — Mettere tutto insieme
+
+Il `main` è il punto di ingresso dell'applicazione e rappresenta bene il vantaggio del DAO pattern: 
+- ==non c'è una sola riga di SQL, non c'è nessuna connessione al database — parla solo con oggetti Java.== 
+```java
+LibroDAO libroDao = new LibroDAO();
+LibroDTO libro1 = new LibroDTO("Informatica per tutti", "Rob del", 9.9);
+LibroDTO libro2 = new LibroDTO("Fluent FratemScript", "Ciro Gates", 6.66);
+
+boolean ok = libroDao.insert(libro1);
+boolean ok2 = libroDao.insert(libro2);
+
+if (ok && ok2) {
+    System.out.println("Libro inserito con id: " + libro1.getId() + "\nLibro inserito con id: " + libro2.getId());
+} else {
+    System.out.println("Libro non inserito");
+}
+
+StampaLibri();
+```
+
+**Analisi passo per passo:**
+
+1. Si istanzia un oggetto `LibroDAO`: 
+	- ==necessario perché `insert()` è un metodo **d'istanza**, non statico.==
+2. Si creano due oggetti `LibroDTO` usando il costruttore **senza `id`:**
+	- ==i libri non esistono ancora nel database, quindi l'`id` non è ancora noto.==
+3. Si invoca `libroDao.insert()` per ognuno dei due libri. 
+	- ==Il metodo restituisce un `boolean` che viene salvato in `ok` e `ok2` — `true` se l'inserimento è andato a buon fine, `false` altrimenti.==
+4. Se entrambi gli inserimenti sono riusciti, si stampa l'`id` di ciascun libro.
+   
+> [!NOTE] **Nota**
+> 
+  > `libro1.getId()` e `libro2.getId()` restituiscono un valore valido — perché ricordi che nel metodo `insert()` del `LibroDAO`, dopo aver recuperato la chiave generata dal database tramite `getGeneratedKeys()`, abbiamo aggiornato il DTO con `l.setId(chiave)`. In questo modo il `LibroDTO` riflette lo stato reale del database.
+
+5. Infine viene invocato `StampaLibri()`, definito come metodo separato:
+```java
+public static void StampaLibri() {
+    try {
+        List<LibroDTO> libri = LibroDAO.findAll();
+        System.out.println("=========LISTA LIBRI============");
+        if (libri.isEmpty()) {
+            System.out.println("Lista vuota");
+        } else {
+            for (LibroDTO l : libri) {
+                System.out.println("id: " + l.getId() + " titolo: " + l.getTitolo() +
+                                   " autore: " + l.getAutore() + " prezzo: " + l.getPrezzo());
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+```
+
+`findAll()` è: 
+- ==un metodo **statico** del `LibroDAO`, quindi viene chiamato direttamente sulla classe senza istanziare nulla.== 
+Il `try-catch` è obbligatorio perché: 
+- ==`findAll()` dichiara `throws SQLException` nella sua firma== 
+
+> [!remember]  **`SQLException` è una checked exception e il compilatore ci obbliga a gestirla esplicitamente.**
+> ==L'eccezione si propaga da `Database.getConnection()` fino a `findAll()` e infine fino a `StampaLibri()`, dove viene finalmente catturata e gestita.==

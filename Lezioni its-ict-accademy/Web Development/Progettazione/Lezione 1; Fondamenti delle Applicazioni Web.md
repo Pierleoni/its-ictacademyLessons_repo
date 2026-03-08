@@ -16,7 +16,7 @@ Per organizzare questa collaborazione, le applicazioni distribuite vengono gener
 Il modello multilivello più diffuso è l’**architettura a tre livelli (three-tier)**, che suddivide l’applicazione in:
 
 
-1. **Client Layer (Presentazione)**
+1. **Client Layer (Presentazione)** ^clientLayer
     
     - ==È il livello che **interagisce direttamente con l’utente**.==
         

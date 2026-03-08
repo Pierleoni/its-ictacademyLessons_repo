@@ -1,54 +1,145 @@
-# Introduzione applicazioni web 
-Le applicazioni distribuite sono applicazioni in cui vari componenti che compongono il sstema si trovano su macchine destinte. 
-Quindi i vari processi cooperano scambiandosi dati e messaggi 
-
-Un applicazione distribuita è strutturata solitamente con un archiettetura multi layer 
-Ongi laye è costituito da u n set di componenti 
-ongi set di componenti un set di funzionalità. 
-Quindi prima si aveva l'applicazione web dove il client vi accedeva digitanfo il nome di dominio sulla ricerca di browser ma ad oggi questw applicazioni web hanno esteso alla applicazioni mobile, cio non significa che quando si scarica l'app mobile di amazon si scaricano tutte le dipendenze di amazon, ma si scarica solo l'interfaccia utente con le sue funzionalità che comunica con i server amazon sparsi in diverse parti nel mondo. 
-QUindi data la complessita di questa struttura si suddivide in layer, questo perché i server possono essere più di 1 fino ad esempio 30 server sparsi in giro per il globo. 
-Ma a che pro? Per utilità e scalabilità del sistema. 
-Come si stratifica? 
-L'archittetura più diffusa è l'archittettura three-tier. 
-Essa prevede: 
-1. Client Layer 
-2. Logic Layer 
-3. Data Layer 
-Ci occuperemo principalmente del logic Layer, per queste lelzioni simuleremo questi tre attori sul nostro host. 
-#### Client layer 
-Scopo principale : visualizzare le informazioni e raccogliere dati dall'utente → interazioni con l'utente 
-Questo tier di livello superiore, ad esempio, può essere eseguito su un browser web, come applicazione o come GUI (finestra grafica). 
-Generalmente, i tier presentazione web sono svilluapti utilizzando HTML, CSS e JS. 
-
-#### Logic Layer 
-Lo scopo è recupeare informazioni dal client tier elaborale e metterle in relazione con il data tier 
-Questo tier è il livello intermedio contiene la logica di bussiness, un insieme specifico di regole e comportamenti che il sistema fornisce. 
-Il tier applicativo può aggiungere, eliminare o modificare i dati nel data tier 
-
-Il tier applicativo è tipicamente sviluppato utilizzando Python, Java, Perl, PHP o Ruby e comunica con il data Tier tramite API. 
-
-#### Data tier Livello persistenza 
-Scopo principale: archiviare e gestire i dati persistenti dell'applicazione, solitamente attraverso un database 
-QUesto tier è il livello più basso e interagisce con il livello applicativo. 
-Questo livello si realizza con database relazionali come PostgresSQL, MySQL, Oracle, MariaDB. 
-
-JDBC è vecchia ma è utile per capire come funziona questa cosa. JDBC sconfina con SLQ ma con Hybernet non sconfina più cpn SQL ma perché con Hybernet si scrivono le classi e gli oggetti e poi le query le fai lui di background, usando JDBC, ma il programmatore non deve scriverle lui. 
-In questo corso la persistenza verrà simulata tramite le mappe java perché sono costituite da coppie chiave-valore che ricordano la struttura di un JSON ma soprattutto le tabelle SQL. 
-Ovviamente le tabelle sono più potenti delle mappe java. 
 
 
-### Applicazioni client - server 
-Un sistema client-server è un contesto applicativo di rete dove un programma detto CLIENT richiede servizi ad un altro programma detto SERVER
- Il programma cliente e il programma server girano tipicamente su macchine distinte collegate in rete.
-Il Client potrebbe usare differenti dispositivi per collegarsi al Server
- Regole generali:
-1. Il server eroga servizi (su richiesta) per i client
-2. I client si collegano ai server e richiedono servizi
-3. Client e server devono aver concordato un protocollo di comunicazione e scambio dati
-Possiamo simulare un client - server sulla nostra macchina ad esempio 
+# Introduzione : da JDBC a Spring
 
-Un esempio è GMAIL: quando si sta su gmail e arriva un email si ha la sensazione che il server abbia agito di sua iniziativa ma in relata è l'applicazione GMAIL che di backgorund continua ad interrogare un server di continuo, quindi anche quando si ha la sensazione che il server agisca di sua iniziattiva in realta è il client che di bakground continua ad interrogarla fino a che non eroga la richiesta.
+Fino ad ora abbiamo visto come [[Lezione 21 - JDBC(Java Database Connectivity)#JDBC — Java Database Connectivity|JDBC]] permetta di comunicare con un database in modo diretto ed esplicito: 
+- si apre una connessione, 
+- si scrive la query SQL, 
+- si itera sul `ResultSet`, 
+- si chiude tutto. 
+Funziona, ma in un'applicazione reale questo approccio diventa rapidamente **verboso e ripetitivo** — ==ogni operazione richiede decine di righe di codice per gestire connessioni, eccezioni e risorse.==
 
+Inoltre JDBC lavora a **basso livello**: 
+- ==sei tu a scrivere ogni query SQL, a mappare ogni riga del `ResultSet` su un oggetto Java, a gestire le transazioni manualmente.== 
+In un'applicazione enterprise con decine di entità e centinaia di operazioni, questo diventa insostenibile.
+
+È qui che entra in gioco **Spring**: 
+- ==un framework che astrae tutta questa complessità, permettendo di concentrarsi sulla logica applicativa invece che sulla gestione dell'infrastruttura.== 
+**Spring non sostituisce JDBC completamente:**
+- ==lo usa internamente  sollevandoci dalla responsabilità di gestirlo direttamente.== 
+Studiare JDBC prima di Spring non è quindi tempo sprecato: 
+- ==è esattamente la base concettuale su cui Spring costruisce le sue astrazioni.==
+
+## Le Applicazioni Distribuite
+Prima di entrare in Spring, è necessario capire il contesto architetturale in cui opera. 
+Le applicazioni moderne non sono più monolitiche — sono **applicazioni distribuite**: 
+- ==sistemi in cui i vari componenti si trovano su macchine distinte e cooperano scambiandosi dati e messaggi.==
+
+> [!example] **Un esempio concreto:**
+>  quando si scarica l'app mobile di Amazon, non si scaricano tutte le dipendenze di Amazon — si scarica solo l'interfaccia utente, che comunica con server sparsi in diverse parti del mondo. Questa separazione non è casuale, ma risponde a esigenze di **scalabilità e disponibilità**: se un server è sovraccarico, se ne aggiunge un altro; se uno cade, gli altri continuano a funzionare.
+
+Per gestire questa complessità, le applicazioni distribuite vengono organizzate in **layer** — strati con responsabilità separate. L'architettura più diffusa è la **[[Lezione 1; Fondamenti delle Applicazioni Web#Architettura multilivello|three-tier]]**:
+
+1. **[[Lezione 1; Fondamenti delle Applicazioni Web#^clientLayer|Client Layer]]** — ==l'interfaccia utente (browser, app mobile)==
+2. **[[Lezione 1; Fondamenti delle Applicazioni Web#^logicLayer|Logic Layer]]** — ==la logica applicativa, ovvero il cuore dell'applicazione==
+3. **[[Lezione 1; Fondamenti delle Applicazioni Web#^dataLayer|Data Layer]]** — ==il database e la persistenza dei dati==
+
+Nelle prossime lezioni ci occuperemo principalmente del **Logic Layer**, simulando tutti e tre gli strati sulla nostra macchina locale.
+[![Screenshot-2026-03-08-at-16-34-58-Microsoft-Power-Point-Spring-e-Servizi-REST-Spring-e-Servizi-RE.png|381x173](https://i.postimg.cc/tCgPhWq2/Screenshot-2026-03-08-at-16-34-58-Microsoft-Power-Point-Spring-e-Servizi-REST-Spring-e-Servizi-RE.png)](https://postimg.cc/Z01Cm9yd)
+
+### 1. Client Layer — Il Livello di Presentazione
+
+Il Client Layer è il livello più vicino all'utente: 
+- ==il suo scopo principale è **visualizzare le informazioni e raccogliere i dati** tramite l'interazione con l'utente.==
+
+Può assumere forme diverse:
+
+- **Browser web** — ==l'utente accede all'applicazione tramite un URL==
+- **Applicazione desktop** — ==una GUI (interfaccia grafica a finestre) installata sulla macchina==
+- **Applicazione mobile** — ==come nell'esempio di Amazon che abbiamo visto==
+
+In tutti i casi, il Client Layer non contiene logica applicativa né accede direttamente al database — ==si limita a **presentare i dati** che riceve dal Logic Layer e a **inviare le richieste** dell'utente verso di esso.==
+
+Nel contesto delle applicazioni web, questo livello è tipicamente sviluppato con il trio classico:
+
+- **[[HTML|HTML]]** — ==struttura della pagina==
+- **[[CSS|CSS]]** — ==stile e presentazione visiva==
+- **[[Lezione 1 I fondamenti Javascript#Javascript|JavaScript]]** — ==interattività lato client==
+
+> [!remember] È importante sottolineare che il Client Layer è l'unico strato con cui l'utente interagisce direttamente — tutto ciò che accade nei layer sottostanti (logica e dati) è completamente trasparente per lui.
+
+### 2. Logic Layer — Il Livello Applicativo
+
+Il Logic Layer è il **cuore dell'applicazione**: 
+- ==riceve le richieste dal Client Layer, le elabora applicando la logica di business, e interagisce con il Data Layer per leggere o modificare i dati.==
+
+> [!tldr] **La logica di business è l'insieme delle regole e dei comportamenti specifici del sistema**
+>  ad esempio: "un utente non può acquistare un prodotto se non è autenticato", oppure "il prezzo finale deve includere l'IVA". 
+>  Queste regole non appartengono né all'interfaccia utente né al database — **vivono nel Logic Layer.**
+
+Le operazioni che può compiere sul Data Layer sono:
+
+- ==**Leggere** dati per restituirli al client==
+- ==**Aggiungere** nuovi dati==
+- ==**Modificare** dati esistenti==
+- ==**Eliminare** dati==
+
+La comunicazione con il Data Layer avviene tramite **librerie e [[Lezione 6 - API#API (Application Programming Interface)|API]]** — ed è esattamente il ruolo che abbiamo visto svolgere a JDBC e, come vedremo, a Spring.
+
+Questo livello è tipicamente sviluppato con linguaggi come **Java, Python, PHP, Ruby o Perl**. Nel nostro caso useremo **Java con Spring**.
+
+> [!link] **È importante notare il collegamento con quanto già visto:** 
+> il [[Lezione 21 - JDBC(Java Database Connectivity)#3. Componente `LibroDAO`|`LibroDAO`]] che abbiamo scritto con JDBC è a tutti gli effetti un componente del Logic Layer — ==contiene la logica di accesso ai dati e fa da ponte tra l'applicazione e il database.==
+
+### 3. Data Layer — Il Livello di Persistenza
+
+Il Data Layer è il livello più basso dell'architettura three-tier: 
+- ==il suo scopo è **archiviare e gestire i dati persistenti** dell'applicazione.== 
+
+Interagisce esclusivamente con il Logic Layer — non comunica mai direttamente con il Client Layer.
+
+Questo livello si realizza tipicamente con:
+
+- **Database relazionali** — PostgreSQL, MySQL, MariaDB, Oracle, Microsoft SQL Server
+- **Database NoSQL** — Cassandra, CouchDB, MongoDB (per strutture dati più flessibili)
+#### JDBC, Hibernate e Spring — L'evoluzione della persistenza
+
+JDBC, come abbiamo visto, opera a **basso livello**: 
+- ==il programmatore scrive direttamente le query SQL e gestisce manualmente la mappatura tra righe del database e oggetti Java.==
+**Questo lo rende didatticamente prezioso — capire JDBC significa capire cosa succede "sotto il cofano"** — ma in un'applicazione enterprise diventa rapidamente verboso e ripetitivo.
+
+**Hibernate** risolve questo problema: 
+- ==il programmatore scrive le classi Java e Hibernate si occupa di generare le query SQL in background, usando JDBC internamente.== 
+- ==Non si "sconfina" più nel SQL — si lavora esclusivamente con oggetti Java.== 
+- ==Questo approccio si chiama **ORM** (Object Relational Mapping).==
+
+**Spring** va ancora oltre, integrando Hibernate e aggiungendo un'infrastruttura completa per lo sviluppo enterprise.
+
+>[!Note] **Nota sul corso:** 
+> ==Per simulare il Data Layer nelle prossime lezioni useremo le **mappe Java** (`Map<K,V>`) al posto di un database reale.== 
+> [[Lezione 13 - Le map in Java#Introduzione alle Map in Java|Le mappe]], come abbiamo già visto, sono strutture chiave-valore che ricordano sia la struttura di un JSON che quella di una tabella SQL — ovviamente con molta meno potenza, ma sufficienti per simulare la persistenza dei dati durante lo sviluppo del Logic Layer con Spring.
+
+
+### Applicazioni Client-Server
+
+Un sistema **[[Reti di computer#1. Modello Client/Server|client-server]],** [[Lezione 1; Fondamenti delle Applicazioni Web#Architettura Client- Server|come abbiamo già visto diverse volte]],  è: 
+- un modello di rete in cui un programma detto **CLIENT** richiede servizi a un altro programma detto **SERVER**. 
+Client e server girano tipicamente su macchine distinte collegate in rete, anche se — come faremo durante il corso — è possibile simulare entrambi sulla stessa macchina locale.
+
+Le regole generali sono tre:
+
+1. Il **server** eroga servizi su richiesta
+2. Il **client** si collega al server e richiede servizi
+3. Client e server devono aver concordato un **protocollo di comunicazione**
+
+> [!example] Un esempio chiarificatore è **Gmail**: 
+> quando arriva una nuova email si ha la sensazione che sia il server ad agire di sua iniziativa. 
+> In realtà è l'applicazione Gmail che, in background, continua ad interrogare il server a intervalli regolari fino a quando non riceve nuovi dati. Il server non "spinge" mai dati al client — è sempre il client che li va a chiedere.
+
+### Le Applicazioni Web
+
+Le applicazioni web sono **particolari applicazioni distribuite** che adottano l'architettura client-server e comunicano tramite il protocollo **TCP/IP**. Si dividono in due famiglie principali:
+
+**1. Applicazioni a pagine:**
+- il client è l'utente che, tramite browser, richiede un servizio al server e riceve in risposta una **pagina web**. Esempio: l'utente si collega al sito di Ryanair, naviga tra le pagine e visualizza i voli disponibili.
+
+**2. Applicazioni a servizi:**
+- il client è un **programma** che richiede un servizio al server e riceve in risposta **dati strutturati** (tipicamente JSON), non pagine web. Esempio: Skyscanner non ha i voli di Ryanair, EasyJet o altre compagnie nel suo database — fa da intermediario, interrogando i server delle singole compagnie e aggregando i risultati per mostrarli all'utente. In questo caso Skyscanner è esso stesso un client che parla con altri server.
+
+>[!important] Questa distinzione è fondamentale per capire cosa costruiremo con Spring: 
+>-  ==non applicazioni a pagine, ma **applicazioni a servizi** — componenti del Logic Layer che espongono dati in formato JSON e comunicano con altri programmi, non direttamente con l'utente finale.==
+
+%% Contiunare da qui in giù %%
 Quindi le applicazioni web sono particolari applicazioni dsitruite che usano il client - server 
 Caratterisctiche 
 Utilizzano il protocollo TCP/IP 
