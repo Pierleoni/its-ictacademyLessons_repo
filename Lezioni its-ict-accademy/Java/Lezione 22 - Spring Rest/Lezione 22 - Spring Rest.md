@@ -28,7 +28,7 @@ Le applicazioni moderne non sono più monolitiche — sono **applicazioni distri
 > [!example] **Un esempio concreto:**
 >  quando si scarica l'app mobile di Amazon, non si scaricano tutte le dipendenze di Amazon — si scarica solo l'interfaccia utente, che comunica con server sparsi in diverse parti del mondo. Questa separazione non è casuale, ma risponde a esigenze di **scalabilità e disponibilità**: se un server è sovraccarico, se ne aggiunge un altro; se uno cade, gli altri continuano a funzionare.
 
-Per gestire questa complessità, le applicazioni distribuite vengono organizzate in **layer** — strati con responsabilità separate. L'architettura più diffusa è la **[[Lezione 1; Fondamenti delle Applicazioni Web#Architettura multilivello|three-tier]]**:
+Per gestire questa complessità, le applicazioni distribuite vengono organizzate in **layer** — strati con responsabilità separate. L'architettura più diffusa è la **[[Lezione 1; Fondamenti delle Applicazioni Web#Architettura multilivello|three-tier]]**: 
 
 1. **[[Lezione 1; Fondamenti delle Applicazioni Web#^clientLayer|Client Layer]]** — ==l'interfaccia utente (browser, app mobile)==
 2. **[[Lezione 1; Fondamenti delle Applicazioni Web#^logicLayer|Logic Layer]]** — ==la logica applicativa, ovvero il cuore dell'applicazione==
@@ -128,290 +128,285 @@ Le regole generali sono tre:
 
 ### Le Applicazioni Web
 
-Le applicazioni web sono **particolari applicazioni distribuite** che adottano l'architettura client-server e comunicano tramite il protocollo **TCP/IP**. Si dividono in due famiglie principali:
+Le applicazioni web sono **particolari applicazioni distribuite** che adottano l'architettura client-server e comunicano tramite il protocollo **[[Modello TCP-IP|TCP/IP]]**. 
+Si dividono in due famiglie principali:
 
 **1. Applicazioni a pagine:**
-- il client è l'utente che, tramite browser, richiede un servizio al server e riceve in risposta una **pagina web**. Esempio: l'utente si collega al sito di Ryanair, naviga tra le pagine e visualizza i voli disponibili.
+- il client è l'utente che, tramite browser, richiede un servizio al server e riceve in risposta una **pagina web**. 
+
+> [!example] **Esempio:**
+>  l'utente si collega al sito di Ryanair, naviga tra le pagine e visualizza i voli disponibili.
 
 **2. Applicazioni a servizi:**
-- il client è un **programma** che richiede un servizio al server e riceve in risposta **dati strutturati** (tipicamente JSON), non pagine web. Esempio: Skyscanner non ha i voli di Ryanair, EasyJet o altre compagnie nel suo database — fa da intermediario, interrogando i server delle singole compagnie e aggregando i risultati per mostrarli all'utente. In questo caso Skyscanner è esso stesso un client che parla con altri server.
+- il client è un **programma** che richiede un servizio al server e riceve in risposta **dati strutturati** (tipicamente JSON), non pagine web. 
+
+> [!example] **Esempio:**
+>  Skyscanner non ha i voli di Ryanair, EasyJet o altre compagnie nel suo database — fa da intermediario, interrogando i server delle singole compagnie e aggregando i risultati per mostrarli all'utente. In questo caso Skyscanner è esso stesso un client che parla con altri server.
+
+[![Screenshot-2026-03-09-at-09-51-30-Microsoft-Power-Point-Spring-e-Servizi-REST-Spring-e-Servizi-RE.png](https://i.postimg.cc/m2kMjwgP/Screenshot-2026-03-09-at-09-51-30-Microsoft-Power-Point-Spring-e-Servizi-REST-Spring-e-Servizi-RE.png)](https://postimg.cc/9r3rFyT2)
 
 >[!important] Questa distinzione è fondamentale per capire cosa costruiremo con Spring: 
 >-  ==non applicazioni a pagine, ma **applicazioni a servizi** — componenti del Logic Layer che espongono dati in formato JSON e comunicano con altri programmi, non direttamente con l'utente finale.==
 
-%% Contiunare da qui in giù %%
-Quindi le applicazioni web sono particolari applicazioni dsitruite che usano il client - server 
-Caratterisctiche 
-Utilizzano il protocollo TCP/IP 
-si dividono in 2 famiglie principali 
-- Applicazioni a pagine → il client è l'utente, attraverso il browser, chiede un servizio al server in risposta una pagina web 
-- Applicazioni a servizi → il client è un programma che cihede un serivzio al server e riceve in risposta 
-Esempio: a pagine 
-Il client si collega si collega via browser con il sito di rynaair per vedere i voli, ovviamente interagisco e visualizzo con le diverse pagine del sito 
-Esempio : a servizi 
-Il client si collega via browser a skyscanner che restituisce in modo un po statisco le varie compagnie che offrono il volo per quella località.
-Questo perché per questi servizi fanno da consulente/ intermediaro client per te per scambiare JSON tra i vari server ryanair, easyjet, etc. 
-### Caratteristiche di un’applicazione a servizi
-1. Il client è un programma (come il server)
-	-  Applicazione Android
-	-  Applicazione IOS
-	-  Browser che esegue codice Javascript in una pagina web
-2. Client e server si scambiano SOLO dati
-3. Il sistema client-server è interoperabile
-	- Client e Server possono essere scritti con infrastruttura tecnologica e linguaggi indipendenti
-4. La realizzazione segue uno di questi 2 stili principali:
-	-  SOAP (stile classico)
-	-  REST (nuovo stile)
-### Protocollo TCP/IP
- Un protocollo è un insieme di regole per dialogare.
- Il protocollo TCP/IP è il protocollo utilizzato sul web
- Le figure base sono Client e Server
- Principio base: Il client invoca il server (mai il contrario)
- Il protocollo TCP/IP è una famiglia di protocolli composta da 4 livelli
- Ogni livello si occupa di un aspetto e prevede un set di regole
- I livelli sono: applicazione, trasporto, rete, fisico
-
-#### Livelli del protocollo
- Il dialogo avviene correttamente solo se per ciascuno dei 4 livelli viene
-utilizzato lo stesso sotto protocollo.
- Livello fisico  protocollo nativo
- Livello rete  IP
- Livello trasporto  TCP e UDP
- Livello applicazione 
-vari protocolli specifici per varie esigenze
- HTTP  hyper text
- FTP  file di grandi dimensioni
- SMTP  mail
- ecc
 
 
-### Protocollo HTTP: descrizione
- Il server offre servizi ed è in attesa del client
- Il client chiede un servizio indicando:
- URL → protocollo, ip, porta e path verso la risorsa da agganciare
+#### Caratteristiche di un'Applicazione a Servizi
+
+Ora che abbiamo capito cosa distingue un'applicazione a servizi da una a pagine, vale la pena analizzarne le caratteristiche nel dettaglio.
+
+**1. Il client è un programma:**
+- Quindi nelle applicazioni a pagine il client è l'utente che interagisce tramite browser. 
+- Nelle applicazioni a servizi invece il client è sempre un **programma;**
+	-  ==può essere un'app Android o iOS, un browser che esegue codice JavaScript, o addirittura un altro server.== 
+	- Questo è esattamente il caso di Skyscanner che abbiamo visto prima: Skyscanner è allo stesso tempo server per il browser dell'utente e client per i server di Ryanair e EasyJet.
+
+**2. Client e server si scambiano solo dati:**
+- Non vengono scambiate pagine HTML, né  vengono scambiate interfacce grafiche:
+	- ==solo **dati puri**, tipicamente in formato **[[Lezione 5 - Il Formato JSON#Cos’è il JSON e perché viene utilizzato|JSON]]**.== 
+	- ==È il client che decide come presentare quei dati all'utente finale.== 
+	- Questo è il motivo per cui la stessa applicazione [[Lezione 2; Applicazioni Web, Caratteristiche di un’applicazione a servizi, Frontend vs. Backend, il ruolo del Browser e del Server Web, differenza tra siti Web Statici e Applicazioni Dinamiche#Backend|backend]] può servire contemporaneamente un'app Android, un'app iOS e un browser web: tutti ricevono gli stessi dati JSON e ognuno li visualizza a modo suo.
+
+**3. Il sistema è interoperabile:**
+- ==Poiché client e server si scambiano solo dati tramite protocolli standard, possono essere scritti con **linguaggi e tecnologie completamente diverse** e funzionare comunque insieme.== 
+- Il server può essere scritto in Java con Spring, il client in JavaScript, Swift o Kotlin — non importa. ==Questa interoperabilità è uno dei motivi principali per cui le applicazioni a servizi hanno dominato lo sviluppo moderno.==
+
+**4. SOAP vs REST:**
+- Esistono due stili principali per realizzare applicazioni a servizi. 
+- **[[Lezione 6 - API#SOAP (Simple Object Access Protocol)|SOAP:]]**
+	- ==è lo stile classico, più rigido e verboso, basato su XML — ancora presente in sistemi legacy ma sempre meno usato nelle nuove applicazioni.== 
+- **REST:**
+	- ==è il nuovo stile, più leggero e flessibile, basato su [[Lezione 4 - Protocollo HTTP 2 parte#HTTPS – HyperText Transfer Protocol Secure|HTTP]] e [[Lezione 5 - Il Formato JSON#Cos’è il JSON e perché viene utilizzato|JSON]] — ed è diventato lo standard de facto per le applicazioni moderne.==
+
+>[!info] Noi useremo **REST con Spring** — è lo stile che vedremo nel dettaglio nelle prossime sezioni.
+
+
+### Il Protocollo TCP/IP
+
+Un **protocollo** è: 
+- ==semplicemente un insieme di regole concordate per dialogare== 
+- ==esattamente come nella comunicazione tra client e server che abbiamo visto, dove entrambi devono parlare la stessa lingua per capirsi.==
+
+Il **[[Modello TCP-IP|TCP/IP]]** è il protocollo fondamentale del web. Il suo principio base è semplice ma fondamentale: 
+- ==**è sempre il client ad invocare il server, mai il contrario**== — abbiamo già visto questo concetto con l'esempio di Gmail.
+
+TCP/IP non è un protocollo singolo, ma una **famiglia di protocolli** [[Modello TCP-IP#Struttura del modello TCP/IP|organizzata in 4 livelli]]. 
+==Ogni livello si occupa di un aspetto specifico della comunicazione e prevede un proprio set di regole.== 
+La comunicazione funziona correttamente solo se **entrambi i lati usano lo stesso sotto-protocollo per ciascun livello** — esattamente come due persone che devono parlare la stessa lingua a ogni livello della conversazione.
+
+**I 4 livelli**, dal più basso al più alto, sono:
+
+1. **[[Modello TCP-IP#Network Access Layer|Livello fisico]]** — ==gestisce la trasmissione dei dati sul mezzo fisico (cavi, onde radio, ecc.) tramite il protocollo nativo dell'infrastruttura di rete.==
+
+2. **[[Modello TCP-IP#Internet Layer|Livello rete]]** — si occupa dell'instradamento dei dati tra macchine diverse tramite il protocollo **IP** (Internet Protocol). È qui che vivono gli indirizzi IP.
+
+3. **[[Modello TCP-IP#TransportLayer Transport Layer|Livello trasporto]]** — ==gestisce la trasmissione affidabile dei dati tramite **[[Modello TCP-IP#TCP (Transmission Control Protocol)|TCP]]** (affidabile, garantisce la consegna) o **[[Modello TCP-IP#UDP (User Datagram Protocol)|UDP]]** (più veloce ma senza garanzie di consegna).== 
+
+4. **[[Modello TCP-IP#Application layer|Livello applicazione]]** — ==è il livello più vicino al programmatore e prevede diversi protocolli specifici per esigenze diverse==:
+
+	- **[[Lezione 4 - Protocollo HTTP 2 parte#HTTPS – HyperText Transfer Protocol Secure|HTTP]]** — ==per il trasferimento di ipertesto, ovvero le pagine web e i dati [[Lezione 5 - Il Formato JSON#Cos’è il JSON e perché viene utilizzato|JSON]]==
+	- **[[Modello TCP-IP#ftp File Transfer Protocol (FTP)|FTP]]** — ==per il trasferimento di file di grandi dimensioni==
+	- **[[Modello TCP-IP#Cos'è il protocollo SMTP (Simple Mail Transfer Protocol)|SMTP]]** — ==per l'invio di email==
+
+
+[![Screenshot-2026-03-09-at-10-17-56-Microsoft-Power-Point-Spring-e-Servizi-REST-Spring-e-Servizi-RE.png](https://i.postimg.cc/7ZZkfKwf/Screenshot-2026-03-09-at-10-17-56-Microsoft-Power-Point-Spring-e-Servizi-REST-Spring-e-Servizi-RE.png)](https://postimg.cc/bsWM5HGh)
+
+>[!info] Noi lavoreremo principalmente a livello applicazione con **HTTP** — il protocollo su cui si basa [[Lezione 7 - Sistemi REST#Sistemi REST|REST]] e quindi tutto ciò che costruiremo con Spring.
+
+
+#### Il Livello Applicazione e HTTP
+
+==Quando si sviluppa un'applicazione web, ci si occupa esclusivamente del **[[Modello TCP-IP#Application layer|livello applicazione]]**== — **i livelli sottostanti (fisico, rete, trasporto) sono gestiti dall'infrastruttura di rete e sono trasparenti al programmatore.**
+
+Per le applicazioni a pagine esiste da sempre il protocollo **HTTP**. 
+Per le applicazioni a servizi non esisteva un protocollo dedicato — si è quindi deciso di riutilizzare HTTP anche per questo scopo. È per questo che sia le pagine web che le [[Lezione 7 - Sistemi REST#Sistemi REST|API REST]] usano lo stesso protocollo.
+
+### Il Protocollo HTTP
+
+Come abbiamo già detto, il funzionamento di HTTP è semplice: 
+- ==il **server** è in ascolto in attesa di richieste, il **client** invia una richiesta specificando due elementi fondamentali:==
+
+**1. L'[[Lezione 4 - Protocollo HTTP 2 parte#^url|URL]]** — ==identifica la risorsa con cui si vuole interagire==, seguendo questo formato:
 ```http
 http://IP:port/path/resource
 ```
- VERB  sono parole codificate dal protocollo che servono a indicare il tipo di
-azione che si vuole compiere sulla risorsa indicata dalla URL
-In ambito REST si considerano solo le seguenti:
- GET  lettura
- POST  inserimento
- PUT  modifica totale
- PATCH  modifica parziale
- DELETE  cancellazione
 
-### Traposto dei dati 
-Il dato chie viene trasposrto nel body della richiesta, 
-Se si fa una richiesta request il dato viene messo nel body. 
-Il client ha 3 modi di inviare dati al server:
- Utilizzando la query string che si accoda alla URL
+Ad esempio:
 ```http
-http://ip:port/path/resource?var1=aaa&var2=bbb
+http://localhost:8080/api/libri
 ```
- Inserendoli direttamente nella URL
+**2. Il VERB** — una parola codificata dal protocollo che indica il **tipo di azione** che si vuole compiere sulla risorsa. 
+In ambito [[Lezione 7 - Sistemi REST#Livello 2 Verbi HTTP(HTTP Verbs)|REST]] si usano i seguenti:
+
+| Verb     | Operazione        |
+| -------- | ----------------- |
+| `GET`    | Lettura           |
+| `POST`   | Inserimento       |
+| `PUT`    | Modifica totale   |
+| `PATCH`  | Modifica parziale |
+| `DELETE` | Cancellazione     |
+
+
+> [!link] Nota: 
+> il parallelismo con le operazioni che abbiamo già visto in [[Lezione 21 - JDBC(Java Database Connectivity)#JDBC — Java Database Connectivity|JDBC]]: 
+> - [[Lezione 21 - JDBC(Java Database Connectivity)#`executeQuery()`|`executeQuery()`]] corrisponde a `GET`, 
+> - mentre [[Lezione 21 - JDBC(Java Database Connectivity)#`executeUpdate()`|`executeUpdate()`]] copre `POST`, `PUT`, `PATCH` e `DELETE`. 
+> In REST questi concetti prendono un nome standard e vengono esposti tramite HTTP.
+> 
+
+
+
+
+
+
+## Trasporto dei Dati — Request e Response
+
+Ogni comunicazione HTTP è composta da: 
+1. una **[[Lezione 4 - Protocollo HTTP 2 parte#Struttura delle Request e delle Response HTTP|request]]** (==richiesta del client==) 
+2. una **[[Lezione 4 - Protocollo HTTP 2 parte#Struttura delle Request e delle Response HTTP|response]]** (==risposta del server==). 
+Entrambe hanno la stessa struttura:
+
+- **[[Lezione 7 - Sistemi REST#Gli header HTTP informazioni aggiuntive|Header]]** — ==contiene i **metadati** della comunicazione (tipo di contenuto, autenticazione, ecc.). È strutturato e segue regole precise.==
+- **[[Lezione 4 - Protocollo HTTP 2 parte#^body|Body]]** — ==contiene i **dati veri e propri**.== 
+	- Non segue regole di formato rigide: in passato si usava XML, oggi in ambito REST si usa **JSON**.
+
+[![Screenshot-2026-03-09-at-11-12-40-Microsoft-Power-Point-Spring-e-Servizi-REST-Spring-e-Servizi-RE.png](https://i.postimg.cc/Y9gMfj4q/Screenshot-2026-03-09-at-11-12-40-Microsoft-Power-Point-Spring-e-Servizi-REST-Spring-e-Servizi-RE.png)](https://postimg.cc/VrYxzfB3)
+
+#### Come il Client Invia Dati al Server
+
+Il client ha **tre modi** per inviare dati al server:
+
+**1. Query string** — i dati vengono accodati direttamente all'URL dopo il carattere `?`, come coppie chiave-valore separate da `&`:
 ```http
-http://ip:port/path/resource/aaa/bbb
+http://ip:porta/path/risorsa?var1=aaa&var2=bbb
 ```
- Inserendoli nel body della richiesta
- Il server invece ha un solo modo di inviare dati:
- Inserendoli nel body della risposta
 
-In uscita (Response object): se si hanno un oggetto pcon più valori lo si mette nel body del json. 
+Tipicamente usata per parametri di filtro o ricerca, ad esempio `?autore=tolkien&prezzo=20`
 
-### Il formato JSON 
-È simile all'XML, ma moto più leggero 
-Questo è un oggetto rappresentato in formato JSON
-Le proprietà sono racchiuse da {…} e separate da virgole.
-Sono indicate con
-nome (stringa) : valore (in base al tipo di variabile)
-Il valore può essere numerico, testo oppure un oggetto strutturato in json
- Sia client che server possono inviare dati in formato JSON e devono
-specificarlo nel content-type dell’header (della richiesta/risposta) in
-questo modo:
+**2. Path variable** — i dati vengono inseriti direttamente nel percorso dell'URL:
+```http
+http://ip:porta/path/risorsa/aaa/bbb
+```
+
+Tipicamente usata per identificare una risorsa specifica, ad esempio `/libri/42` per identificare il libro con `id = 42`.
+
+**3. Body della richiesta** — i dati vengono inseriti nel body della request in formato JSON. È il metodo usato quando si devono inviare oggetti complessi con più campi, ad esempio per una `POST` di inserimento o una `PUT` di modifica.
+#### Come il Server Invia Dati al Client
+
+Il server ha **un solo modo** per inviare dati: inserendoli nel **body della response** in formato JSON.
 ```json
-content-type=‘application/JSON’
-```
-Inoltre un JSON può contenere un oggetti basta mettere un alra chiave il cui valore è un oggetto json. 
-
-## Spring 
-Spring è un framework: 
-un framework implementa l'inversione di controllo. 
-Cioè fai una classe o un metodo e poi fai in modo che non venga mai chiamato in modo esplictito( il `.start()` dei Thread o il `toString()`). 
-Questa cosa funziona meglio con l'ovverriding: ad esempio se stampiamao un oggetto che non implementa il `toString()` viene comunque stampato perché lo ovverrida da Object (seguendo il concetto di binding dinamico e  VMI). 
-Quindi Spring andremo a creare una nostra classe, sapere come fa ad istanziarle (perché non abbiamo più il main) e sarà spring ad istanziarle e fare partire i metodi di quella classe al momento giusto.
-Il framework è una librearia che gestisce i tui componenti tramite l'inversione di controllo.
-Mentre una librearia fa il lavoro inverso: fino ad oggi abbiamo usato librerie come `ArrayList`; ovvero componenti passivi che noi istanziavamo, popolovamo e richiamavamo i suoi metodi e li facevamo partire. 
-
-Spring è uno dei framework più famosi utilizzati in java.
-E’ composto da una serie di progetti che aiutano
-nella gestione delle principali problematiche nello
-sviluppo di applicazioni:
--  Spring Web Flow per applicazioni web a pagine o a servizi
-- Spring Data per la gestione della persistenza
-- Spring Mobile, estensione di spring web per applicazioni mobile
-- Spring Integration per l’integrazione di applicazioni aziendali
-- Spring Security per gestire autenticazioni e autorizzazioni
-Ognuno di questi sono dei framework che fanno l'inversione di controllo. 
-Possiamo immaginarli come dei pacchetti ognuno con l proprie peculiarità 
-Spring boot è: si occuppa della gesgione dei jar nel pom.xml 
-Mentre un progetto maven è: un progetto che dipendera in questo caso dallo spring boot e serve per organizzare e gestire le diepndenze di un progetto Spring 
-E dipende da uno Spring Boot. 
-### Spring web
-Spring web è il modulo di Spring che offre il supporto alla
-realizzazione di applicazioni web con architettura MVC
- Il pattern MVC è un pattern architetturale
-che propone di scomporre il sistema in 3 livelli:
-1. Model → logica business (Backend)
-2. View → strato presentazione (Frontend)
-3. Controller → coordinamento Model/View 
-	- Il controller serve per coordinare e dissacoppiere model e view. 
-	- Questo perché in questo design pattern non si devono mai parlare quindi tutte le chiamate tra view e model rimbalzano su di lui.
-	- Quindi il controller è una sorta di centralino e mediatore tra model e view ed è anche quello che si interfaccia con l'esterno quindi fa anche da punta di ingresso con i client. 
-e rispettare lo schema di comunicazione
-v → C → M → C → V
-
-È un desgin pattern strutturale.
-### Spring Boot
- Per utilizzare Spring web è necessario scaricare le librerie relative a questo modulo
- Le librerie si possono ottenere in questi modi:
--  scaricarle a mano → scelta sconsigliata, bisogna anche scaricare tutte le sottodipendenze
-	- Aprire Eclipse > Menu Help>Eclipse Marketplace > Cercare Spring Tools (aka Spring Tool Suite) 5.0.1 Realease > Installare il plugin> Una volta finito l'installazione > Menu File> Project... > Cartella Spring Boot>Spring Starter Project>mettere il nome del progetto > Voce Type (stavbilisce in che modo gestire le dipendenze)> segliere la voce Maven > Java Version > Dalla versione 17 in su > Package > `com.nomeSocieta. nomePachetto`. 
-	 Cliccakre su next> ora dobbiamo dire che dipebdenze usare > cercare nella casella di testo "Spring web" > flaggare la casella > cliccare su  "finish"
- creare un progetto Maven  scelta consigliata, perché gestisce tutte le sottodipendenze
- creare un progetto Spring Boot  scelta ottimale, perché configura Maven e lo attiva
- Spring Boot è un tool che aiuta nella
-configurazione di un progetto spring.
- Se si lavora con Eclipse è possibile
-scaricare il plugin per la creazione
-di progetti Spring Boot.
-il plugin 4.x funziona con versioni di Eclipse >= 2021
-
-
-### Scomporre il Model 
-Il pattern MVC sfferma che i componenti controller dovrebbero fare il coordinamento dei componenti model e NON devono contenere logica di business. 
-Quindi l'esercizio della calcolatrive per quanto banali i metodi contenevano logica di bussiness, in realta il controller dovrebbe fare da centralino tra la view e il client. 
-Tipicamente si usa scomporre il model in 3 layer principali: 
-1. Layer service → classi che contengono la logica di bussiness ad alto livello. 
-2. Layer dao → classi che contengono la logica di basso livello e quindi i meccanismi per l'accesso ai dati persistenti
-	- QUeste classi dialogano col database o con gli ORM 
-3. Layer entity → classi che modellano le entità del dominio ai dati sakvati nelle tabelle del db.
-Cosa c'entra con la stratificazione del web server? 
-Il dao verra invocato dal layer service, il layer service incapsula il DataSource e tra il layer service e il layer dao si scambiano le entità.
-COme il dao incapsula ed usa il data source a noi non interessa. 
-
-
-### IL DTO 
-Le classi controller scambiano dati con il client con il client.
-Questi oggetti vengono trasformati da Spring da java in JSON e viceversa
-Le classi DTO(DATA Transfer Object) sono le classi che rappresentano gli oggetti da inviare al client (o da ricevere dal client).
-I DTO sono simili alle classi entity ma posso raggrupare anche dati diversi entity(es. studenti con gli esami superati).
-Perché non usare direttamente gli entity? 
-1. Gli entity sono mappatti sulle tabelle(se si vuole tirare fuori i dati di una join l'entity non c'è l'ha, devi fare un DTO)
-2. Gli entity sono disaccopiati dallo strato controller(In questo modo lo strato controller non li vede gli entity.) 
-3. Gli entity pottebbero essere collegati ad un ORM (es. Hibernate) e nn devono essere toccatti fuori dal model(tipicamente i sistemi che usano spring usano Hibernate che permette di non scirvere il DAO perché lo fai lui; quindi quando si modifica l'entity Hibernate aggiorna autamaticamente il DAO).
-Possiamo pensare ai DTO come le possibili queery/incroci tra le tabelle ma anche le query sulla singola tabella.
-Gli entity sono le classi che corrispondono alle tabelle del DB, e gli oggetti corrispondono alle riga della tabella. 
-
-### Le conversioni
-Detto questo le classi Service scambiano DTO con le Controller e entity con i DAO e saranno quindi responsabili delle conversioni di tipo.
-È preferibile creare delle funzioni di conversione riusabili che si possono poiszionare in una classe di utility separata.
-```java
-// metodi di trasformazione 
-public static Utente daDTOAEntity(UtenteDTO dto){
-	return new Utente(dto.getIdUtente(), dto.getNome(), dto.getCognome(), dto.getMail(), dto.getTelefono());
-}
-
-public static UtenteDTO daEntityADto(Utente ut){
-	return new UtenteDTO(ut.getIdUtente(), ut.getNome(), ut.getCognome(), ut.getMail())
-} 
-```
-
-
-### Inversione di controllo 
-
-Una delle più famose caratteristiche di Spring framework è quella di
-fornire un’implementazione dell’IoC principle.
- Il principio IoC – Inversion of Control - è un pattern per cui un
-componente di livello applicativo riceve il controllo da un componente
-appartenente a una libreria riusabile (solitamente un framework.
-
-Quindi ci troviamo nel IoC quando abbiamo la nostra classe che viene invocata da un framework (es: il main) e la mia classe non parte finche non viene avviato il framework(in questo esempio il main).
-Quindi finora è spring che ha chiamato le nostre classi nel controller. 
-QUindi le classi sono passive e il frmaework è la parte passiva (Il Ioc viene detto anche il principio di hollywood). 
-Inoltre se il controller che invoca le nostri classi non si trova nel pacchetto base il framework non lo trova.
-Ad esempio quando abbiamo la notra applicazione e volgiamo istanziare un arrayList dal JSE Library in quel caso sarà la nostra applicazione ad essrre attiva perché basta importate la libreria degli arrayList mentre in questo caso con Spring sarà la nostra classe a diventare passiva e verrà chiamata dal framework.
-Pensiamo al metodo run() dei thread: questo metodo non andrebbe mai chiamato direttamente perché non utilizza il multithreading ma va chiamato il metodo start() che invoca anche il run(). Questo è un esempio di IoC 
-### Dependecy Injection 
-La Dependency Injection è una forma di IoC
- Consiste nella capacità di un framework (detto Container) di creare
-oggetti, in inversione di controllo, creando e settando anche gli
-oggetti di cui sono composti (detti dipendenze).
- Esempio: il musicista
- Supponiamo di avere una classe Player che ha una dipendenza da Instrument
-e di voler decidere il tipo di strumento dinamicamente.
- Per disaccoppiare musicista e strumenti devo creare l’interfaccia Instrument e gli
-strumenti concreti che la implementano
- Infine posso chiedere a Spring Core di creare un player e di abbinargli
-dinamicamente lo strumento che intendo fargli suonare
-Ad esempio l'esercizio fatto della cartoleria: 
-Avevamo la classe Magazzino e gli articoli che erano gomme e penne. 
-Benchè la classe Magazzino non nominasse mai questi due prodotti nello specifico ma lavorava con entrambi perché lavorava con classe padre articolo.
-é un particolare tipo di IoC ovverro: 
-quando lo IoC instanzia l'oggetto può gestire le sue sotto- dipendenze : ovvero in questo caso si intendono le classi che dipendono dalla classe principale. 
-
-Quindi per chiarrire se al Controller si danno le giuste cordinate è in grado di creare da solo il service, il DAO, i DTO e le entità. 
-
-### Digramma delle classi delle esempio player
-Abbiamo la classe player che ha un atttributo dell'interfaccia  instruments. 
-L'interfaccia instruments ha un meotdo astratto play() che verra ereditato delle sotto- classi concrete Guitar, Violin e Drum
-Inoltre la classe Player implementa anche un meytodo void playInstrument. 
-Per usare l'attributo al fine di fare chiamate polimorifche all metodo play delle varie sottoclassi: 
-quindi si usa una refenrce dell'interfaccia Instruemnt ma il tipo concreto dell'oggetto sarà un oggetto Guitar, Violin e Drum
-
-
-### @Component e @AutoWired
-
-L’annotation @Component si pone sulla classe che desidero venga
-istanziata da Spring
- Un Component dovrebbe essere un javabean, cioè avere:
- costruttore 0-args
- getters/setters per le proprietà
- Se un Component ha una proprietà oggetto (non primitiva o String)
-è possibile farla creare e iniettare da Spring usando l’annotazione
-@Autowired sulla proprietà da iniettare
- La classe relativa all’oggetto da iniettare dovrà essere annotata
-con @Component
-
-
-#### Uso delle annotation
-Classe Player: 
-```java
-@Component
-public class Player{
-	@Autowired
-	private Instrument instrument; 
-	
-	public Player(){}; 
-	
-	public void playMyInstrument(){
-		this.instrument.play();
-	}
+{
+    "id": 1,
+    "titolo": "Informatica per tutti",
+    "autore": "Rob del",
+    "prezzo": 9.9
 }
 ```
 
+> [!link] **Nota - il collegamento con quanto già visto:**
+>   il [[Lezione 21 - JDBC(Java Database Connectivity)#2. Componente `LibroDTO`|`LibroDTO`]] che abbiamo costruito con JDBC ==è esattamente la struttura che verrà serializzata in [[Lezione 5 - Il Formato JSON#Cos’è il JSON e perché viene utilizzato|JSON]] e inserita nel [[Lezione 6 - API#Response Payload|body della response]].== 
+>   Spring si occuperà di questa conversione automaticamente.
+
+
+> [!caution] **Terminologia: Body vs Payload**
+> **Payload** e **body** vengono spesso usati come sinonimi nel contesto HTTP — entrambi indicano i dati trasportati nel corpo della richiesta o della risposta.
+>
+>La distinzione, se vogliamo essere precisi, è sottile:
+>
+>- **Body:**
+>	- **è il termine tecnico HTTP** 
+>	- ==si riferisce alla parte della struttura del messaggio HTTP che contiene i dati==
+>- **Payload:**
+>	- ==è un termine più generico che indica "il dato utile trasportato"==
+>	- ==viene usato in molti contesti diversi (non solo HTTP) per indicare la parte significativa di un messaggio, escludendo i metadati==
+>
+>In pratica, quando un programmatore dice "metti i dati nel payload" o "metti i dati nel body" sta dicendo la stessa cosa. 
+>Nel contesto di Spring e REST sentirai usare entrambi i termini in modo intercambiabile.
+
+###  Status Code HTTP
+Come abbiamo già visto nella lezione [[Lezione 4 - Protocollo HTTP 2 parte#Status Code HTTP|Lezione 4 - Protocollo HTTP 2 parte al paragrafo "Status code" ]]:
+- ==il server è tenuto a restituire uno **status code** per ogni richiesta ricevuta, indicando l'esito dell'operazione.== 
+I codici sono organizzati in famiglie da 100:
+
+
+| Famiglia | Significato                                                                   | Esempi                                                 |
+| -------- | ----------------------------------------------------------------------------- | ------------------------------------------------------ |
+| `1xx`    | Informazionale — la richiesta è in elaborazione                               | `100 Continue`                                         |
+| `2xx`    | Successo — la richiesta è andata a buon fine                                  | `200 OK`, `201 Created`                                |
+| `3xx`    | Reindirizzamento — il client deve fare un'altra richiesta                     | `301 Moved Permanently`                                |
+| `4xx`    | Errore lato client — la richiesta è malformata o non autorizzata              | `400 Bad Request`, `401 Unauthorized`, `404 Not Found` |
+| `5xx`    | Errore lato server — il server ha fallito nell'elaborare una richiesta valida | `500 Internal Server Error`                            |
+
+> [!warning] La distinzione tra **4xx** e **5xx** è fondamentale:
+> -  ==un errore 4xx significa che il problema è nella richiesta del client (dati mancanti, risorsa inesistente, mancanza di autenticazione)==, 
+>  - ==mentre un errore 5xx significa che la richiesta era corretta ma qualcosa è andato storto lato server — tipicamente un bug nel codice o un problema di infrastruttura==.
+
+[![Screenshot-2026-03-09-at-11-13-04-Microsoft-Power-Point-Spring-e-Servizi-REST-Spring-e-Servizi-RE.png](https://i.postimg.cc/XYJW1sZw/Screenshot-2026-03-09-at-11-13-04-Microsoft-Power-Point-Spring-e-Servizi-REST-Spring-e-Servizi-RE.png)](https://postimg.cc/N5WZ57kM)
+
+
+Inoltre come ben sappiamo, questa regola che il server debba sempre restituire uno status code segue uno dei principi RESTful: 
+- ==ogni risposta HTTP deve essere autodescrittiva, cioè deve contenere tutte le informazioni necessarie per capire l'esito dell'operazione senza dover guardare altro.== 
+- ==Lo status code è esattamente questo — un modo standardizzato e univoco per comunicare l'esito di ogni operazione.==
+In altri termini: un'API REST non dovrebbe mai restituire `200 OK` con un messaggio di errore nel body — sarebbe contraddittorio e violerebbe questo principio. Se qualcosa è andato storto, lo status code deve rifletterlo.
+
+> [!NOTE] **Nota — [[Lezione 7 - Sistemi REST#La Scala di Maturità REST (Richardson Maturity Model)|Richardson Maturity Model]]:** 
+> Gli status code, insieme ai verbi HTTP, vengono introdotti formalmente al **[[Lezione 7 - Sistemi REST#Livello 2: Verbi HTTP(HTTP Verbs)|livello 2]]** del Richardson Maturity Model: 
+> - ==il modello che misura il grado di maturità di una API REST==. 
+>-  ==I verbi descrivono **cosa vuoi fare** sulla risorsa, gli status code descrivono **com'è andata**.== 
+> Insieme formano il linguaggio standard di una API REST. 
+> Raggiungere il livello 2 è considerato il minimo indispensabile per parlare di una vera API REST — il [[Lezione 7 - Sistemi REST#Livello 3 – Controlli Ipermediali (HATEOAS)|livello 3 (HATEOAS)]] rappresenta invece la cosiddetta **"Glory of REST"**
+
+### Il Formato JSON
+
+**[[Lezione 5 - Il Formato JSON#Cos’è il JSON e perché viene utilizzato|JSON]]** (JavaScript Object Notation) è: 
+- ==il formato standard per lo scambio di dati nelle applicazioni REST.== 
+È simile all'XML ma molto più **leggero e leggibile**.
+
+Un oggetto JSON è racchiuso tra `{}` e le sue proprietà sono coppie **nome : valore** separate da virgole:
+```json
+{
+    "id": 1,
+    "titolo": "Informatica per tutti",
+    "autore": "Rob del",
+    "prezzo": 9.9
+}
+```
+
+Il valore di una proprietà può essere:
+
+- **Numerico** — `"prezzo": 9.9`
+- **Testo** — `"titolo": "Informatica per tutti"`
+- **Booleano** — `"disponibile": true`
+- **Array** — `"generi": ["informatica", "didattica"]`
+- **Oggetto JSON annidato** — una chiave il cui valore è a sua volta un oggetto JSON:
+```json
+{
+    "id": 1,
+    "titolo": "Informatica per tutti",
+    "autore": {
+        "nome": "Rob",
+        "cognome": "Del",
+        "nazionalità": "italiana"
+    }
+}
+```
+
+#### Negoziazione del Formato
+
+Sia client che server devono **dichiararsi reciprocamente** il formato dei dati che stanno usando o che si aspettano, tramite l'[[Lezione 7 - Sistemi REST#Gli header HTTP informazioni aggiuntive|header]] della richiesta/risposta:
+
+- Chi **invia** dati JSON deve specificare nell'header:
+```json
+content-type: application/json
+```
+
+- Chi **si aspetta** dati JSON deve specificare nell'header:
+```json
+accept: application/json
+```
 
 
 
+> [!info]
+> ==Se il client indica più formati accettabili e il server ne supporta almeno uno, il server sceglie il formato più appropriato tra quelli indicati.== 
+> Questo meccanismo si chiama **[[Lezione 7 - Sistemi REST#Cos’è la Content Type Negotiation|content negotiation]]**.
 
-### Component primario
- Posso utilizzare l’annotation @Primary sotto l’annotation
-@Component per indicare che quel componente è prioritario rispetto
-agli altri dello stesso tipo.
- Quindi potrei impostare tutti gli strumenti come @Component e poi
-aggiungere @Primary solo su di uno.
-
-### Spring core 
-Lo spring core è un IoC Container ed è responsabile di creare oggetti e iniettare le dipendenze, secondo le configurazione 
-
-#### L'applicationContext 

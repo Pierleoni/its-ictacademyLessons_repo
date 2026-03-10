@@ -652,7 +652,7 @@ In Java, e anche in Python e JavaScript, il **binding è dinamico**, ovvero vien
 
 - ==Quando viene chiamato un metodo su un oggetto, la **[[Lezione 1 - Introduzione a Java#La JVM e l’indipendenza dalla piattaforma|Java Virtual Machine (JVM)]]** determina **in quel momento** quale implementazione del metodo deve essere eseguita.==
     
-- Questo comportamento è essenziale per l’**ereditarietà e il polimorfismo**, perché permette a un oggetto di una sottoclasse di **sostituire** ([[Java/Lezione 5 Le classi/Le classi#Overriding dei metodi|override]]) metodi della superclasse e farli eseguire al posto della versione eredita­ta, anche se il riferimento è di tipo generico.
+- Questo comportamento è essenziale per l’**ereditarietà e il polimorfismo**, ==perché permette a un oggetto di una sottoclasse di **sostituire** ([[Java/Lezione 5 Le classi/Le classi#Overriding dei metodi|override]]) metodi della superclasse e farli eseguire al posto della versione eredita­ta, anche se il riferimento è di tipo generico.==
 **Esempio concettuale:**
 ```java
 Impiegato imp = new Manager("Luca", 2500.0, new Date(), "Giulia");

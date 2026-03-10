@@ -58,13 +58,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Java/Lezione 22 - Spring Rest/Lezione 22 - Spring Rest.md",
+                "file": "Java/Lezione 22 - Spring Rest/Lezione 22 parte 2 - Spring framework.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Lezione 22 - Spring Rest"
+              "title": "Lezione 22 parte 2 - Spring framework"
             }
           },
           {
@@ -73,13 +73,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Java/Lezione 22 - Spring Rest/Lezione 22 - Spring Rest.md",
+                "file": "Java/Lezione 22 - Spring Rest/Lezione 22 parte 3 - Dependency Injection.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Lezione 22 - Spring Rest"
+              "title": "Lezione 22 parte 3 - Dependency Injection"
             }
           }
         ],
@@ -140,7 +140,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 224.5
+    "width": 287.5
   },
   "right": {
     "id": "8ef8bc59cd79fc10",
@@ -270,8 +270,15 @@
   },
   "active": "c5de04cefd2e1914",
   "lastOpenFiles": [
-    "Web Development/Progettazione/Lezione 1; Fondamenti delle Applicazioni Web.md",
+    "Java/Lezione 22 - Spring Rest/Lezione 22 parte 3 - Dependency Injection.md",
+    "Java/Lezione 22 - Spring Rest/Lezione 22 parte 2 - Spring framework.md",
     "Java/Lezione 22 - Spring Rest/Lezione 22 - Spring Rest.md",
+    "Web Development/Progettazione/Lezione 8 - Chiamate Curl.md",
+    "Web Development/Progettazione/Lezione 7 - Sistemi REST.md",
+    "Sistemi digitali/Lezione 19/Modello TCP-IP.md",
+    "Web Development/Progettazione/Lezione 3; Protocollo HTTP; il Modello TCP- IP, il Modello ISO-OSI e la comunicazione tra livelli.md",
+    "Web Development/Progettazione/Lezione 4 - Protocollo HTTP 2 parte.md",
+    "Web Development/Progettazione/Lezione 1; Fondamenti delle Applicazioni Web.md",
     "Java/Lezione 21 - JDBC/Lezione 21 - JDBC(Java Database Connectivity).md",
     "Java/Lezione 17 GLi Stream/Lezione 17 - Gli Streams.md",
     "Java/Lezione 9 Ereditarietà e Poliforfismo/Ereditarietà e polimorfismo.md",
@@ -290,15 +297,8 @@
     "Java/Lezione 12 Collection/Lezione 12 parte 2 - L'interfaccia Set.md",
     "Sistemi digitali/Lezione 12/I fundamentals di un Sistema Operativo.md",
     "Java/Lezione 18 MultiTheading/Lezione 18 - MultiThreading.md",
-    "Sistemi digitali/Lezione 17/Servizi e funzioni del Sistema Operativo.md",
-    "README.md",
-    "SQL/Il linguaggio SQL.md",
     "Java/Lezione 21 - JDBC",
-    "Sinta.md",
-    "Java/Lezione 16 Lambda Expression/Lambda.md",
     "Java/Lezione 19 Design Patterns",
-    "Java/Lezione 14 JUnit/Lezione 14 parte 2 - Preparare un Test di unità.md",
-    "Java/Lezione 14 JUnit/Lezione 14 - Il Framework JUnit.md",
     "Java/Esportazioni",
     "Java/Nuova cartella",
     "Java/Lezione 14 JUnit",

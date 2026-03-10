@@ -547,7 +547,8 @@ void setDate(int index, Date value) throws SQLException;
 ### Il progetto Maven
 Finora abbiamo visto come JDBC funzioni concettualmente, ma per usarlo in un progetto reale serve aggiungere il driver come **dipendenza esterna** — ed è qui che entra in gioco **Maven**.
 
-Maven è uno strumento di **gestione delle dipendenze**: permette di dichiarare le librerie di cui il progetto ha bisogno e si occupa automaticamente di scaricarle dal suo repository centrale, insieme a tutte le loro **sottodipendenze**.
+Maven è uno strumento di **gestione delle dipendenze**: 
+- ==permette di dichiarare le librerie di cui il progetto ha bisogno e si occupa automaticamente di scaricarle dal suo repository centrale, insieme a tutte le loro **sotto-dipendenze**.==
 
 Le dipendenze si dichiarano nel file **`pom.xml`** (Project Object Model), il file di configurazione di ogni progetto Maven:
 ```xml
@@ -687,7 +688,7 @@ public class Database {
 
 
 #### 2. Componente `LibroDTO`
-Come abbiamo già detto il `DTO` è lo strato che rappresenta l'entità nel database. 
+==Come abbiamo già detto il `DTO` è lo strato che rappresenta l'entità nel database.== 
 Il componente `LibroDTO`, quindi rappresenta l'entità `Libro` nel Database. 
 ```java
 package jdbcFullStack.dto;

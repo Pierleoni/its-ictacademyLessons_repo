@@ -1,4 +1,4 @@
-  # Introduzione 
+# Introduzione 
 Nelle lezioni precedenti abbiamo analizzato i meccanismi fondamentali alla base della comunicazione tra client e server: il funzionamento del [[Lezione 3; Protocollo HTTP; il Modello TCP- IP, il Modello ISO-OSI e la comunicazione tra livelli|protocollo HTTP]], la struttura delle richieste e delle risposte, il ruolo degli [[Lezione 4 - Protocollo HTTP 2 parte#^header|header]] e del [[Lezione 4 - Protocollo HTTP 2 parte#^body|body]], fino ad arrivare al [[Lezione 5 - Il Formato JSON|formato JSON]] come standard moderno per lo scambio dei dati. 
 Abbiamo inoltre introdotto il concetto di [[Lezione 6 - API|API]] e visto come queste espongano risorse accessibili tramite [[Lezione 6 - API#Endpoint|endpoint]] ben definiti, utilizzando [[Lezione 6 - API#Payload|payload]] strutturati per trasmettere informazioni in modo chiaro e interoperabile.
 
@@ -381,7 +381,7 @@ Tuttavia, non sempre è necessario o conveniente implementarlo integralmente: ==
 
 Approfondiamo ogni livello 
 
-### [[#Livello 0 – Il “Far West”|Livello 0 – La “Palude” del POX (The Swamp of POX)]]
+### [[#Livello 0 – Il “Far West” Livello 0 – La “Palude” del POX (The Swamp of POX) Livello 0 – Il “Far West”|Livello 0 – La “Palude” del POX (The Swamp of POX)]]
 Il Livello 0 rappresenta il punto di partenza della Scala di Maturità REST: 
 - ==è il gradino più basso, quello in cui un sistema utilizza il [[Lezione 3; Protocollo HTTP; il Modello TCP- IP, il Modello ISO-OSI e la comunicazione tra livelli|protocollo HTTP]] nel modo più semplice (e più limitato) possibile.== 
 - L’acronimo **POX** significa **_Plain Old XML_** – anche se oggi potremmo parlare indifferentemente di _Plain Old JSON_ – e ==descrive un approccio in cui il server e il client si scambiano semplici messaggi strutturati senza alcuna attenzione ai principi del web.==
@@ -855,6 +855,8 @@ In altre parole, l’URI risponde sempre alla domanda:
 Un aspetto fondamentale è che gli URI sono strettamente legati al protocollo **[[Modello TCP-IP#Http-https HyperText Transfer Protocol (HTTP)|HTTP]]**, che fornisce meccanismi avanzati per la gestione della comunicazione, tra cui la **Content Type Negotiation** (negoziazione del contenuto).
 
 ### Cos’è la Content Type Negotiation
+
+^ff37d9
 
 La negoziazione del contenuto consente a ==**client e server di “parlare la stessa lingua”**,== 
 ==scegliendo il formato più adatto per rappresentare una risorsa.==

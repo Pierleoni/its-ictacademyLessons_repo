@@ -111,7 +111,7 @@
       "tip": [
         {
           "changes": {
-            "icon": "lucide-eye"
+            "icon": "lucide-biceps-flexed"
           }
         }
       ],
@@ -150,6 +150,29 @@
         {
           "changes": {
             "icon": "lucide-biceps-flexed"
+          }
+        }
+      ],
+      "info": [
+        {
+          "changes": {
+            "icon": "lucide-eye"
+          }
+        },
+        {
+          "condition": {
+            "colorScheme": "light"
+          },
+          "changes": {
+            "color": "0, 255, 225"
+          }
+        },
+        {
+          "condition": {
+            "colorScheme": "dark"
+          },
+          "changes": {
+            "color": "127, 190, 9"
           }
         }
       ]

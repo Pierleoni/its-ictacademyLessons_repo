@@ -13,12 +13,12 @@ Difatti è progettato per garantire uno scambio dati **standardizzato, affidabil
 
 1. **[[#Application layer|Application Layer]]** – ==fornisce i protocolli per applicazioni e servizi di rete (HTTP, FTP, SMTP, DNS, ecc.)==.   ^applicationLayer
     
-2. **[[#Transport Layer|Transport Layer]]** – ==gestisce la comunicazione tra processi con protocolli come **TCP** (affidabile, orientato alla connessione) e **UDP** (veloce, non affidabile)==.   
+2. **[[#TransportLayer Transport Layer|Transport Layer]]** – ==gestisce la comunicazione tra processi con protocolli come **TCP** (affidabile, orientato alla connessione) e **UDP** (veloce, non affidabile)==.   
    
      ^0f712f
-1. **[[#Livello Internet|Internet Layer]]** – ==si occupa dell’indirizzamento e dell’instradamento dei pacchetti tramite l’**IP**==.   ^InternetLayer
+3. **[[#Internet Layer|Internet Layer]]** – ==si occupa dell’indirizzamento e dell’instradamento dei pacchetti tramite l’**IP**==.   ^InternetLayer
     
-2. **[[#Network Access|Network Access (Link) Layer]]** – ==definisce come i dati vengono trasmessi fisicamente sulla rete== (Ethernet, Wi-Fi, ARP).   ^NetworkLayer
+4. **[[#Network Access Layer|Network Access (Link) Layer]]** – ==definisce come i dati vengono trasmessi fisicamente sulla rete== (Ethernet, Wi-Fi, ARP).   ^NetworkLayer
 
 #### Confronto con il modello ISO/OSI
 [[#^iso-osiANDtcp-ip|Guardando l'immagine soprastante]] possiamo notare come i 4 livelli del TCP/IP coprono le stesse funzionalità dei 7 livelli del modello ISO/OSI. 
@@ -360,13 +360,13 @@ Come anticipato all'inizio del file, la comunicazione tra processi avviene trami
 
 **Caratteristiche principali:**
 
-- **Affidabilità:** garantisce che i dati arrivino corretti e nell’ordine giusto.
+- **Affidabilità:** ==garantisce che i dati arrivino corretti e nell’ordine giusto.==
     
-- **Error checking:** controlla la presenza di errori nei pacchetti.
+- **Error checking:** ==controlla la presenza di errori nei pacchetti.==
     
-- **Flow control:** regola il flusso di dati tra mittente e destinatario per evitare sovraccarichi.
+- **Flow control:** ==regola il flusso di dati tra mittente e destinatario per evitare sovraccarichi.==
     
-- **Acknowledgment:** conferma la ricezione di pacchetti, evitando perdite o duplicazioni.
+- **Acknowledgment:** ==conferma la ricezione di pacchetti, evitando perdite o duplicazioni.==
     
 
 **Sintesi:** ==TCP assicura che la comunicazione sia **affidabile e ordinata**, rendendolo ideale per applicazioni come web, email e trasferimento file.==
