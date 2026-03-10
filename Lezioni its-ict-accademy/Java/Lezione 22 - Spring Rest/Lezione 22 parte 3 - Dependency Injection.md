@@ -345,3 +345,106 @@ I'm playing drum
 Questo è il valore concreto della Dependency Injection: 
 - ==cambiare il comportamento dell'applicazione modificando **solo la configurazione** — senza toccare il codice della classe che usa la dipendenza.== 
 - `Player` non sa e non gli importa quale strumento suona — è Spring a decidere.
+
+### Tecniche di Injection
+
+Spring offre tre modi diversi per iniettare una dipendenza tramite [[#2. `@Autowired`|`@Autowired`]]:
+
+**1. Via attributo privato:** 
+- ==è il modo più compatto e quello che abbiamo usato negli esempi. Si annota direttamente il campo con `@Autowired`:==
+
+
+```java
+@Autowired
+private Instrument instrument;
+```
+
+Questo modo pero comporta il rischio del `NullPointerException` nella finestra tra costruzione e iniezione:
+```java
+@Component
+public class Player {
+    @Autowired
+    private Instrument instrument; // Spring inietta DOPO la costruzione
+
+    public Player() { } // in questo momento instrument è ancora null
+
+    public void playInstruments() {
+        this.instrument.play(); // se chiamato troppo presto → NullPointerException
+    }
+}
+```
+
+
+**2. Via setter:**
+- ==si annota il metodo setter dell'attributo con `@Autowired`.== 
+Spring chiama il setter dopo aver istanziato l'oggetto tramite il costruttore vuoto:
+
+java
+
+```java
+@Autowired
+public void setInstrument(Instrument instrument) {
+    this.instrument = instrument;
+}
+```
+
+Anche qui si presenta lo stesso rischio del primo modo: 
+- Se Spring prima chiama il costruttore vuoto per creare l'oggetto e **poi** chiama il setter per iniettare la dipendenza
+- E tra questi due momenti viene chiamato un metodo della classe il rischio è che l'oggetto esiste ma la dipendenza è ancora `null`. 
+Quindi nel caso del player, se qualcuno chiama `player.playInstruments()` in quel momento, ottieni un `NullPointerException`.
+```java
+@Component
+public class Player {
+    private Instrument instrument;
+
+    public Player() { } // instrument è null
+
+    @Autowired
+    public void setInstrument(Instrument instrument) {
+        this.instrument = instrument; // Spring chiama questo dopo il costruttore
+    }
+
+    public void playInstruments() {
+        this.instrument.play();
+    }
+}
+```
+
+**3. Via costruttore:** 
+- ==si annota il costruttore che riceve la dipendenza come parametro.== 
+- Spring lo chiama al momento dell'istanziazione passando automaticamente l'oggetto corretto:
+
+java
+
+```java
+@Autowired
+public Player(Instrument instrument) {
+    this.instrument = instrument;
+}
+```
+
+In questo caso invece, ll'injection via costruttore invece questo problema non esiste — la dipendenza viene iniettata **nel momento stesso** in cui l'oggetto viene creato, quindi non può mai esistere un `Player` senza uno strumento.
+```java
+@Component
+public class Player {
+    private Instrument instrument;
+
+    @Autowired
+    public Player(Instrument instrument) {
+        this.instrument = instrument; // Spring inietta DURANTE la costruzione
+    } // quando l'oggetto esiste, instrument è già valorizzato
+
+    public void playInstruments() {
+        this.instrument.play(); // instrument non può mai essere null
+    }
+}
+```
+
+
+
+>[!Note] Le tre tecniche producono lo stesso risultato: Spring inietta la dipendenza in tutti e tre i casi. 
+>La differenza è **quando** avviene l'iniezione: 
+>- ==via attributo e via setter avvengono **dopo** l'istanziazione,== 
+>- ==via costruttore avviene **durante** l'istanziazione.== 
+>- Per questo motivo l'injection via costruttore è considerata la più robusta: 
+>	- ==garantisce che l'oggetto non esista mai in uno stato in cui la dipendenza è `null`.==
