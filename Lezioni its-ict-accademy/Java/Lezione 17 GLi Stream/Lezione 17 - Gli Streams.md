@@ -500,7 +500,7 @@ La sorgente può essere:
 Inoltre i dati nello Stream sono sequenziali nel senso che: 
 - ==vengono letti in un ordine definito dalla sorgente==
     
-- ==lo Stream non altera l’ordine originale (a meno che non venga applicata un’operazione esplicita come `sorted()`)==
+- ==lo Stream non altera l’ordine originale (a meno che non venga applicata un’operazione esplicita come [[#Operazione intermedia `sorted`|`sorted()`]])==
     
 
 In altre parole, lo Stream lavora sui dati senza modificarne la struttura originaria.

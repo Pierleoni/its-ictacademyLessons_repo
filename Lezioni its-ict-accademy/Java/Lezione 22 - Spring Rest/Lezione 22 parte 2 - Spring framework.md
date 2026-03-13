@@ -208,10 +208,10 @@ public class UtenteController {
 - **`@RestController`:** ^cc5395
 	- ==segnala a Spring che questa classe è un Controller.== 
 	- ==Spring la istanzierà automaticamente allo startup del server, senza che tu debba mai chiamare `new UtenteController()`==: 
-		- è l'**[[#Inversione di controllo|inversione di controllo]]** in azione.
+		- è l'**[[Lezione 22 parte 3 - Dependency Injection#Inversione di controllo|Inversione di controllo]]** in azione.
 - **`@RequestMapping(path = "")`:**
-	- definisce il path base del Controller. 
-	- Tutte le richieste che iniziano con `/gestioneutenti` verranno gestite da questa classe.
+	- ==definisce il path base del Controller.== 
+	- ==Tutte le richieste che iniziano con `/gestioneutenti` verranno gestite da questa classe.==
 
 >[!note] **Nota:** 
 >la classe non ha dipendenze esplicite da Spring se non per le annotazioni — è codice Java puro, reso "speciale" solo dalle annotation.
@@ -376,13 +376,13 @@ Ora che abbiamo spiegato in generale questa architettura  , possiamo finalmente 
 - ==Il client invia una richiesta HTTP con un payload in formato **[[Lezione 5 - Il Formato JSON#Cos’è il JSON e perché viene utilizzato|JSON]]**.== 
 - Spring — tramite la sua Servlet Controller interna — ==riceve la richiesta, deserializza il JSON in un oggetto **DTO** e lo passa al Controller corretto in base all'URL e al verbo HTTP.==
 
-**2. Spring invoca il Controller:**
-- Il Controller riceve il **DTO** dal layer Spring e lo usa per capire cosa fare. 
+**2. Spring invoca il [[#La Classe Controller|Controller]]:**
+- Il Controller riceve il **[[#Il DTO — Data Transfer Object|DTO]]** dal layer Spring e lo usa per capire cosa fare. 
 - Come abbiamo detto, **il Controller è solo un centralino — non contiene logica di business:** 
-	- ==Si limita a delegare l'operazione al **Service** corretto, passandogli il DTO.==
+	- ==Si limita a delegare l'operazione al **Service** corretto, passandogli il [[#Il DTO — Data Transfer Object|DTO]].==
 
-**3. Il Controller invoca il Service scambiando DTO:**
-- Tra Controller e Service viaggiano i **DTO:**
+**3. Il [[#La Classe Controller|Controller]] invoca il [[#Il Service|Service]] scambiando [[#Il DTO — Data Transfer Object|DTO]]:**
+- ==Tra Controller e Service viaggiano i **[[#Il DTO — Data Transfer Object|DTO]]:**== 
 	- gli oggetti che rappresentano i dati così come li vede il client. 
 	- ==Il Service riceve il DTO, applica la logica di business, e quando ha bisogno di accedere ai dati delega al **DAO**.==
 
@@ -400,10 +400,10 @@ Ora che abbiamo spiegato in generale questa architettura  , possiamo finalmente 
 
 Ogni freccia nell'immagine rappresenta un confine preciso con un tipo di oggetto ben definito:
 
-- **Spring ↔ Controller** — ==viaggiano **DTO** (JSON deserializzato)==
-- **Controller ↔ Service** — ==viaggiano **DTO**==
-- **Service ↔ DAO** — ==viaggiano **Entity**==
-- **DAO ↔ Database** — ==viaggiano **dati grezzi** (righe SQL)==
+- **Spring ↔ [[#La Classe Controller|Controller]]** — ==viaggiano **[[#Il DTO — Data Transfer Object|DTO]]** (JSON deserializzato)==
+- **[[#La Classe Controller|Controller]] ↔ [[#Il Service|Service]]** — ==viaggiano **[[#Il DTO — Data Transfer Object|DTO]]**==
+- **[[#Il Service|Service]] ↔ [[#Il DAO nel contesto Spring|DAO]]** — ==viaggiano **Entity**==
+- **[[#Il DAO nel contesto Spring|DAO]] ↔ Database** — ==viaggiano **dati grezzi** (righe SQL)==
 
 ==Questo significa che ogni layer conosce solo i layer adiacenti e parla solo il loro linguaggio.== 
 - Il Controller non sa nulla del database, il DAO non sa nulla del client. 
@@ -411,12 +411,13 @@ Ogni freccia nell'immagine rappresenta un confine preciso con un tipo di oggetto
 - Se cambia il formato dei dati verso il client, si tocca solo il DTO. 
 Il resto rimane invariato.
 
-> Ritroviamo ancora una volta il principio di **Single Responsibility** e il **pattern Adapter** che abbiamo visto fin dall'inizio con JDBC — solo ora applicati su scala architetturale completa.
+> Ritroviamo ancora una volta il principio di **[[Lezione 21 - JDBC(Java Database Connectivity)#^0dcf95|Single Responsibility]]** e il **[[Lezione 21 - JDBC(Java Database Connectivity)#^913bcf|pattern Adapter]]** che abbiamo visto fin dall'inizio con [[Lezione 21 - JDBC(Java Database Connectivity)#JDBC — Java Database Connectivity|JDBC]] — solo ora applicati su scala architetturale completa.
 
 
 ### Il DTO — Data Transfer Object
 
-Le classi Controller scambiano dati con il client tramite oggetti Java che Spring trasforma automaticamente **da Java a JSON e viceversa**. Le classi usate per questo scopo sono i **DTO** (Data Transfer Object).
+==[[#La Classe Controller|Le classi Controller]] scambiano dati con il client tramite oggetti Java che Spring trasforma automaticamente **da Java a JSON e viceversa**.== 
+Le classi usate per questo scopo sono i **DTO (Data Transfer Object)**.
 
 #### DTO vs Entity
 
@@ -468,7 +469,7 @@ Queste sono regole di business — appartengono al Service.
 
 **2. Fare da traduttore tra Controller e DAO:**
 Come abbiamo già visto nell'architettura completa, ==il Service è l'unico componente che conosce sia i DTO che le Entity.== 
-Riceve i DTO dal Controller, li converte in Entity per il DAO, e fa il percorso inverso quando restituisce i dati. 
+==Riceve i DTO dal Controller, li converte in Entity per il DAO, e fa il percorso inverso quando restituisce i dati.== 
 Questo lo rende il **fulcro** dell'intera architettura.
 
 In Spring il Service è una semplice classe Java annotata con `@Service`, ==che segnala a Spring di istanziarla e gestirla tramite inversione di controllo — esattamente come `@RestController` per il Controller.== ^e0d891

@@ -13,8 +13,10 @@ Non si tratta di nuovi costrutti sintattici, ma di **[[Lezione 6 - API#API (Appl
 **DBC** è un'[[Lezione 6 - API|API]] standard di Java per la comunicazione con [[Lezione 1; Introduzione e modello relazionale|database relazionali]]. 
 Il suo ruolo non è implementare la connessione, ma **definire un contratto**: 
 - ==un insieme di [[Lezione 10 - Classi astratte e interfaccie#Le interfacce|interfacce]] e regole che qualsiasi driver per qualsiasi DBMS (PostgreSQL, MariaDB, Oracle, MySQL...) deve rispettare.==
+
+
 >[!link] È un'applicazione diretta del **[[Lezione 19 - Design Pattern#Adapter (Pattern Strutturale)|pattern Adapter]]**
->==JDBC astrae le differenze tra i vari database esponendo un'unica interfaccia uniforme verso il codice Java, mentre ogni driver si occupa di tradurre quella interfaccia nel protocollo specifico del suo DBMS==.
+>==JDBC astrae le differenze tra i vari database esponendo un'unica interfaccia uniforme verso il codice Java, mentre ogni driver si occupa di tradurre quella interfaccia nel protocollo specifico del suo DBMS==. ^913bcf
 
 La comunicazione è però **parzialmente** standardizzata. 
 La struttura delle chiamate Java è sempre la stessa, ma il **dialetto SQL** sottostante può variare: 
@@ -633,8 +635,8 @@ Immagina di scrivere tutto il codice SQL direttamente nel `main`:
 L'idea è semplice: 
 - ==**separare la logica di accesso ai dati dal resto dell'applicazione**.== 
 Il resto del codice non deve sapere nulla di SQL, di connessioni, di driver — parla solo con oggetti Java. 
-È un'applicazione diretta del principio di **Single Responsibility**: 
-- ==ogni componente ha una sola ragione per cambiare.==
+È un'applicazione diretta del principio di **Single Responsibility**:  
+- ==ogni componente ha una sola ragione per cambiare.== ^0dcf95
 
 Questa separazione si realizza attraverso due figure chiave:
 
