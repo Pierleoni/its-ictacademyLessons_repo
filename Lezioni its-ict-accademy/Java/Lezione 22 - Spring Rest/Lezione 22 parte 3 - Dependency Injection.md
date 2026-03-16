@@ -1112,8 +1112,9 @@ public interface ProdottoService {
 // implementazione concreta 
 @Service 
 public class ProdottoServiceImpl implements ProdottoService { 
-	@Autowired private DAOProdotti dao; // Spring inietta 
-	DAOProdottiImpl @Override 
+	@Autowired 
+	private DAOProdotti dao; // Spring inietta DAOProdottiImpl 
+	@Override 
 	public void carica(ProdottoDTO dto) { 
 		Prodotto p = Mapper.daDTOaEntity(dto); dao.insert(p); 
 	} 

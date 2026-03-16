@@ -14,7 +14,7 @@ Questi strumenti ci permettono di modellare gli oggetti in modo **chiaro, modula
 Per garantire che gli attributi siano sempre coerenti e accessibili solo in modi controllati, interviene il concetto di **incapsulamento**, uno dei principi fondamentali della programmazione orientata agli oggetti.
 
 L’**incapsulamento** consiste nel: 
-- **nascondere i dettagli interni di una classe**, esponendo solo ciò che è necessario tramite **metodi pubblici controllati** (getter e setter). 
+- ==**nascondere i dettagli interni di una classe**, esponendo solo ciò che è necessario tramite **metodi pubblici controllati** (getter e setter).== 
 In questo modo, la classe diventa più sicura, manutenibile e meno soggetta a errori derivanti da manipolazioni esterne indesiderate.
 
 ##  Incapsulamento e consistenza degli oggetti
@@ -69,7 +69,8 @@ Questo schema garantisce che **qualsiasi accesso o modifica ai dati sia controll
 
 ## Modificatori di accesso e incapsulamento
 
-Per garantire la **consistenza e la sicurezza degli oggetti**, Java mette a disposizione i **modificatori di accesso**, che stabiliscono **chi può vedere o modificare le classi e i loro membri**.
+Per garantire la **consistenza e la sicurezza degli oggetti**, Java mette a disposizione i **[[Costruttori e modificatori#Modificatori di accesso (visibilità)|modificatori di accesso]]:**
+- ==stabiliscono **chi può vedere o modificare le classi e i loro membri**.==
 
 In pratica, ogni attributo e metodo può avere un livello di visibilità: 
 - ==che determina **da dove può essere letto o scritto**==. 
@@ -116,7 +117,8 @@ public class Main {
 ```
 
 > [!warning] **Importante:** 
-> questo comportamento è uno dei pilastri dell’**incapsulamento**, perché protegge lo stato interno dell’oggetto e costringe a utilizzare metodi pubblici controllati (getter e setter) per leggere o modificare gli attributi.
+> questo comportamento è uno dei pilastri dell’**incapsulamento:**
+> -  ==protegge lo stato interno dell’oggetto e costringe a utilizzare metodi pubblici controllati (getter e setter) per leggere o modificare gli attributi.==
 
 Un’eccezione riguarda le **inner class**: 
 - ==è possibile definire una classe **`private` all’interno di un’altra classe**.== 
@@ -209,7 +211,7 @@ impiegato.salario = -1000; // stato incoerente
 
 - ==Sono **sempre visibili** da qualsiasi classe che possieda un riferimento all’oggetto==.
     
-- Rappresentano l’**interfaccia pubblica** dell’oggetto, cioè il modo corretto e controllato per interagire con esso.
+- ==Rappresentano l’**interfaccia pubblica** dell’oggetto, cioè il modo corretto e controllato per interagire con esso.==
 ```java
 public void aumentaSalario(double incremento) {
     if (incremento > 0) {

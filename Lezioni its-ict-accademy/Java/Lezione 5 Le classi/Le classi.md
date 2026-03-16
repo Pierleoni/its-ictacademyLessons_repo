@@ -486,7 +486,7 @@ In altre parole:
     
 2. ==Il **tipo di ritorno** deve essere compatibile== (può essere lo stesso o un sottotipo, con il cosiddetto _covariant return type_).
     
-3. ==Il metodo della superclasse non può essere `final` (perché i metodi finali non si possono sovrascrivere)==.
+3. ==[[Costruttori e modificatori#2. Metodi `final`|Il metodo della superclasse non può essere `final`]] (perché i metodi finali non si possono sovrascrivere)==.
     
 4. ==La visibilità della sottoclasse deve essere **uguale o più permissiva** di quella del metodo della superclasse.==
 **Esempio:**

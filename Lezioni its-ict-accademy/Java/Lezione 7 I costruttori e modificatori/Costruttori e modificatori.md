@@ -165,7 +165,7 @@ per rendere esplicito che si sta lavorando sugli attributi dell’oggetto.
 >
 >Questo concetto diventerà ancora più importante quando si parlerà di:
 >
->- **[[Java/Lezione 5 Le classi/Le classi#Overloading dei metodi|overloading]] dei costruttori** (`this(...)`)
+>- **[[#Overloading dei costruttori|overloading]] dei costruttori** (`this(...)`)
   >  
 >- **[[Ereditarietà e polimorfismo#Concetto di ereditarietà|ereditarietà]]** (`super`)
  >   
@@ -216,11 +216,11 @@ Come già anticipato nella lezione [[Java/Lezione 5 Le classi/Le classi#Il costr
 
 Il costruttore di default ha le seguenti caratteristiche:
 
-- **non ha parametri**
+- ==**non ha parametri**==
     
-- **inizializza tutti gli attributi con i valori di default**
+- ==**inizializza tutti gli attributi con i valori di default**==
     
-- esiste solo nel **bytecode (`.class`)**, non è visibile nel file `.java`
+- ==esiste solo nel **bytecode (`.class`)**, non è visibile nel file `.java`==
     
 
 Esempio:
@@ -297,15 +297,17 @@ In questo esempio:
 > 
 > L’overloading dei costruttori è spesso utilizzato per:
 > 
-> - consentire diverse modalità di creazione dell’oggetto;
+> - ==consentire diverse modalità di creazione dell’oggetto;==
 >     
-> - inizializzare solo una parte degli attributi;
+> - ==inizializzare solo una parte degli attributi;==
 >     
-> - lasciare alcuni attributi ai **valori di default** quando non sono disponibili informazioni complete.
+> - ==lasciare alcuni attributi ai **valori di default** quando non sono disponibili informazioni complete.==
 
 
 > [!faq] **Perché mettere più costruttori nella stessa classe**
->L’idea chiave è che **non tutti gli oggetti devono essere creati nello stesso modo**, perché spesso le informazioni disponibili al momento della creazione sono **diverse**.  
+>L’idea chiave è: 
+>-  ==**non tutti gli oggetti devono essere creati nello stesso modo**, perché spesso le informazioni disponibili al momento della creazione sono **diverse**.==  
+>
 >In altre parole, un oggetto della classe che vogliamo rappresentare nel [[Analisi dei requisiti mediante UML#^0241e6|dominio]] può nascere in modi differenti, e sta a noi decidere **come modellarlo e inizializzarlo**.
 >Prendiamo l'esempio della classe `Impiegato`: 
 >```java
@@ -402,18 +404,19 @@ In questo caso:
 Dopo aver visto che una classe può definire **[[#Overloading dei costruttori|più costruttori in overloading]]**, è importante chiarire alcune regole fondamentali sul loro utilizzo in Java.
 
 - **Un oggetto può essere costruito una sola volta**.  
-    - Il costruttore viene invocato esclusivamente al momento della **creazione dell’oggetto** tramite l’operatore `new`.  
-    - Una volta che l’oggetto è stato istanziato, **non è possibile richiamare nuovamente un costruttore** sullo stesso oggetto: l’inizializzazione avviene una sola volta.
+    - ==Il costruttore viene invocato esclusivamente al momento della **creazione dell’oggetto** tramite l’operatore `new`.==  
+    - Una volta che l’oggetto è stato istanziato, **non è possibile richiamare nuovamente un costruttore** sullo stesso oggetto: 
+	    - ==l’inizializzazione avviene una sola volta.==
     
 - **Un costruttore può chiamare un altro costruttore della stessa classe**.  
     - Java mette a disposizione questo meccanismo, detto **cross calling dei costruttori**, tramite la keyword `this`.  
     - In questo caso `this(...)` non fa riferimento all’oggetto, ma viene utilizzato per:
     
-    - riutilizzare codice di inizializzazione già scritto;
+	    - ==riutilizzare codice di inizializzazione già scritto;==
         
-    - evitare duplicazioni;
+	    - ==evitare duplicazioni;==
         
-    - centralizzare la logica di costruzione dell’oggetto.
+	    - ==centralizzare la logica di costruzione dell’oggetto.==
         
 
 > [!important] **La chiamata a `this(...)` deve essere sempre la prima istruzione del costruttore.**
@@ -611,7 +614,7 @@ final int giorniSettimana = 7;
 >```java
 > final List<String> nomi = new ArrayList<>();
 nomi.add("Marco"); // OK, modifico l’oggetto
-// nomi = new ArrayList<>(); // ERRORE, non posso cambiare il riferimento
+nomi = new ArrayList<>(); // ERRORE, non posso cambiare il riferimento
 >
 >```
 
@@ -647,7 +650,7 @@ public final class Utility {
 > - `final` sulle **classi** → la classe non può essere estesa
 >     
 
-Questa distinzione è importante perché **`final` non significa sempre “costante” nel senso assoluto**, ma **“immutabile” rispetto alla struttura a cui viene applicato**.
+Questa distinzione è importante perché **`final` non significa sempre “costante” nel senso assoluto**, ==ma **“immutabile” rispetto alla struttura a cui viene applicato**.==
 
 ### Uso di `static`
 
@@ -703,7 +706,7 @@ int risultato = MathUtil.quadrato(5); // Output: 25
 
 - In Java **solo le [[Java/Lezione 5 Le classi/Le classi#Inner Class (Classi annidate)|inner class]] possono essere dichiarate `static`**.
     
-- Una inner class statica non è legata a un’istanza della classe esterna, quindi può essere istanziata senza creare un oggetto esterno.
+- ==Una inner class statica non è legata a un’istanza della classe esterna, quindi può essere istanziata senza creare un oggetto esterno.==
 
 > [!example] **In sintesi:**
 > 
@@ -718,7 +721,7 @@ int risultato = MathUtil.quadrato(5); // Output: 25
 
 ### Costanti di classe (`static final`)
 
-In Java, è possibile creare delle **costanti di classe**, cioè variabili **condivise da tutte le istanze** della classe e **immutabili**.  
+In Java, è possibile creare delle **costanti di classe**, ==cioè variabili **condivise da tutte le istanze** della classe e **immutabili**.==  
 Per farlo, si combinano i modificatori `static` e `final`:
 ```java
 public class CostantiMatematiche {

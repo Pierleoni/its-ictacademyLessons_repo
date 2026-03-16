@@ -13,13 +13,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Java/Lezione 18 MultiTheading/Lezione 18 - MultiThreading.md",
+                "file": "Java/Lezione 9 Ereditarietà e Poliforfismo/Ereditarietà e polimorfismo.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Lezione 18 - MultiThreading"
+              "title": "Ereditarietà e polimorfismo"
             }
           },
           {
@@ -43,13 +43,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Java/Lezione 17 GLi Stream/Lezione 17 - Gli Streams.md",
+                "file": "Java/Lezione 22 - Spring Rest/Lezione 22 parte 3 - Dependency Injection.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Lezione 17 - Gli Streams"
+              "title": "Lezione 22 parte 3 - Dependency Injection"
             }
           },
           {
@@ -97,8 +97,7 @@
               "title": "Lezione 22 parte 3 - Dependency Injection"
             }
           }
-        ],
-        "currentTab": 5
+        ]
       }
     ],
     "direction": "vertical"
@@ -283,15 +282,19 @@
       "vscode-editor:Create Code File": false
     }
   },
-  "active": "c5de04cefd2e1914",
+  "active": "a3c89a053243abbf",
   "lastOpenFiles": [
+    "Java/Lezione 8 Incapsulamento/Lezione 8 - L'incapsulamento.md",
+    "Java/Lezione 17 GLi Stream/Lezione 17 - Gli Streams.md",
+    "Java/Lezione 18 MultiTheading/Lezione 18 - MultiThreading.md",
+    "Java/Lezione 22 - Spring Rest/Lezione 22 parte 3 - Dependency Injection.md",
+    "Java/Lezione 22 - Spring Rest/Lezione 22 parte 2 - Spring framework.md",
+    "Java/Lezione 7 I costruttori e modificatori/Costruttori e modificatori.md",
+    "Java/Lezione 11 Gli Errori in Java/Lezione 11 - Gestire gli Errori.md",
     "img/Java/Lezione 22/Parte 3/Screenshot 2026-03-13 at 11-44-16 Microsoft PowerPoint - Spring e Servizi REST - Spring e Servizi REST.pdf.png",
     "img/Java/Lezione 22/Parte 3",
     "img/Java/Lezione 22",
-    "Java/Lezione 22 - Spring Rest/Lezione 22 parte 2 - Spring framework.md",
     "Java/Lezione 21 - JDBC/Lezione 21 - JDBC(Java Database Connectivity).md",
-    "Java/Lezione 22 - Spring Rest/Lezione 22 parte 3 - Dependency Injection.md",
-    "Java/Lezione 17 GLi Stream/Lezione 17 - Gli Streams.md",
     "Java/Lezione 4 Oggetti e Classi/Oggetti e Classi.md",
     "Java/Lezione 22 - Spring Rest/Lezione 22 - Spring Rest.md",
     "Web Development/Progettazione/Lezione 8 - Chiamate Curl.md",
@@ -311,9 +314,6 @@
     "Java/Lezione 19 Design Patterns/Lezione 19 - Design Pattern.md",
     "Java/Lezione 22 - Spring Rest",
     "Progettazione/Analisi concettuale/Lezione 2/Analisi dei requisiti mediante UML.md",
-    "Java/Lezione 12 Collection/Lezione 12 - Collection.md",
-    "Java/Lezione 12 Collection/Lezione 12 parte 2 - L'interfaccia Set.md",
-    "Sistemi digitali/Lezione 12/I fundamentals di un Sistema Operativo.md",
     "Java/Lezione 21 - JDBC",
     "Java/Lezione 19 Design Patterns",
     "Java/Esportazioni",
@@ -330,7 +330,6 @@
     "img/Java/Lezione 1/Esempio linguaggio compilato in C.png",
     "img/Java/Lezione 1/Linguaggio macchina e linguaggi ad alto livello.png",
     "img/Java/Lezione 7/ImpiegatoJava.png",
-    "Progettazione/Base dati/Combinazione del On Delete e On Update.png",
     "Untitled.canvas"
   ]
 }

@@ -35,9 +35,9 @@ I principali vantaggi dell’ereditarietà sono:
 
 L’**ereditarietà** permette di creare nuove classi che **riutilizzano**, **estendono** e, se necessario, **modificano** (tramite [[Java/Lezione 5 Le classi/Le classi#Overriding dei metodi|overriding]]) il comportamento di altre classi già esistenti.
 
-- La classe i cui membri (attributi e metodi) vengono ereditati è detta **classe base** o **classe padre**.
+- ==La classe i cui membri (attributi e metodi) vengono ereditati è detta **classe base** o **classe padre**.==
     
-- La classe che eredita questi membri è detta **classe derivata** o **classe figlia**.
+- ==La classe che eredita questi membri è detta **classe derivata** o **classe figlia**.==
     
 
 Si parla di **superclasse** perché nei [[Generalizzazioni#Il concetto di generalizzazione|diagrammi UML]] viene rappresentata **sopra** alla sottoclasse.
@@ -224,9 +224,9 @@ Questa osservazione ci conduce direttamente al concetto di **polimorfismo intrin
 
 Un oggetto, infatti, **non appartiene a una sola categoria**, ma può essere visto e trattato come istanza di:
 
-- una classe specifica;
+- ==una classe specifica;==
     
-- una o più classi più generali nella gerarchia di ereditarietà.
+- ==una o più classi più generali nella gerarchia di ereditarietà.==
     
 
 In Java, questo significa che **un oggetto può essere referenziato tramite il tipo della superclasse**, mantenendo comunque il proprio comportamento specifico.  
