@@ -313,7 +313,7 @@ Poiché `Manager` è una sottoclasse di `Impiegato`, è possibile:
     
 - ==invocare metodi comuni tramite riferimenti alla superclasse;==
     
-- ==lasciare che sia il **tipo reale dell’oggetto** a determinare il comportamento effettivo (binding dinamico).==
+- ==lasciare che sia il **tipo reale dell’oggetto** a determinare il comportamento effettivo ([[#Binding dinamico in Java|binding dinamico]]).==
     
 
 Questo aspetto verrà approfondito quando si analizzerà il **polimorfismo in Java a livello di codice**.
@@ -550,9 +550,9 @@ Esempio concettuale:
 
 Tutte le sottoclassi:
 
-- **ereditano** struttura e comportamento comuni dalla superclasse;
+- ==**ereditano** struttura e comportamento comuni dalla superclasse;==
     
-- **aggiungono** o **specializzano** ciò che le distingue.
+- ==**aggiungono** o **specializzano** ciò che le distingue.==
     
 
 Questo tipo di ereditarietà è molto utile per modellare **insiemi e sottoinsiemi di oggetti**, in linea con la relazione _is-a_ vista in precedenza.
@@ -590,7 +590,8 @@ Qui:
 
 ### La classe cosmica: `Object`
 
-In Java, come in Python e in JavaScript **tutte le classi ereditano per default dalla classe padre `Object`**, fatta eccezione per `Object` stessa.
+In Java, come in Python e in JavaScript: 
+- ==**tutte le classi ereditano per default dalla classe padre `Object`**, fatta eccezione per `Object` stessa.==
 
 La classe `java.lang.Object` rappresenta quindi la **radice di tutte le classi**:
 
@@ -746,23 +747,23 @@ imp.incrementaSalario(100);    // 2
 ```java
 Impiegato imp = new Manager();
 ```
-- La reference `imp` è di tipo `Impiegato`.
+- ==La reference `imp` è di tipo `Impiegato`.==
     
-- L’oggetto creato è di tipo `Manager`.
+- ==L’oggetto creato è di tipo `Manager`.==
     
-- Il compilatore verifica che `Impiegato` abbia il metodo `incrementaSalario`, quindi la riga è corretta.
+- ==Il compilatore verifica che `Impiegato` abbia il metodo `incrementaSalario`, quindi la riga è corretta.==
 2. **Invocazione del metodo**
 ```java
 imp.incrementaSalario(100);
 ```
 
-- Il compilatore sa solo che `imp` è un `Impiegato` e che il metodo `incrementaSalario` esiste, quindi compila senza errori.
+- ==Il compilatore sa solo che `imp` è un `Impiegato` e che il metodo `incrementaSalario` esiste, quindi compila senza errori.==
     
-- Durante l’esecuzione, la JVM legge il tipo reale dell’oggetto (`Manager`).
+- ==Durante l’esecuzione, la JVM legge il tipo reale dell’oggetto (`Manager`).==
     
-- Cerca il metodo `incrementaSalario` nella classe `Manager`.
+- ==Cerca il metodo `incrementaSalario` nella classe `Manager`.==
     
-- Lo trova e lo esegue, **ignorando la reference di tipo `Impiegato`**.
+- ==Lo trova e lo esegue, **ignorando la reference di tipo `Impiegato`**.==
 **Output atteso:**
 ```yaml
 Salario manager incrementato di: 150.0
@@ -784,7 +785,7 @@ Poiché i due concetti sono strettamente collegati, è naturale chiedersi:
 >    
 >- In che modo interagiscono tra loro?
 >1. **Binding dinamico:**
->    - È il ==principio secondo cui la [[Lezione 1 - Introduzione a Java#La JVM e l’indipendenza dalla piattaforma|JVM]] decide a run-time quale implementazione di un metodo eseguire.==
+>    - È il ==*principio* secondo cui la [[Lezione 1 - Introduzione a Java#La JVM e l’indipendenza dalla piattaforma|JVM]] decide a run-time quale implementazione di un metodo eseguire.==
  >   
 >- Il collegamento tra la ==**chiamata al metodo** e la **sua implementazione concreta** viene stabilito **durante l’esecuzione del programma**, non in fase di compilazione.==
  >   
@@ -801,7 +802,7 @@ Poiché i due concetti sono strettamente collegati, è naturale chiedersi:
 >    
 >
 > 2. **Virtual Method Invocation (VMI)**
->   - ==È il **meccanismo operativo utilizzato dalla [[Lezione 1 - Introduzione a Java#La JVM e l’indipendenza dalla piattaforma|JVM]] quando un metodo viene invocato su un oggetto**.==
+>   - ==È il *meccanismo operativo* utilizzato dalla [[Lezione 1 - Introduzione a Java#La JVM e l’indipendenza dalla piattaforma|JVM]] quando un metodo viene invocato su un oggetto.==
  >   
 >- Consiste nel:
   >  
@@ -908,7 +909,7 @@ Qui entra in gioco il **polimorfismo**:
 
 Questo significa che:
 
-- Non è necessario scrivere condizioni o controlli aggiuntivi per distinguere tra impiegati, manager o executive.
+- Non è necessario scrivere condizioni o controlli aggiuntivi per distinguere tra `impiegati`, `manager` o `executive`.
     
 - Il comportamento corretto di `incrementaSalario` viene applicato **automaticamente** per ciascun oggetto, rispettando la sua natura specifica.
     
@@ -944,7 +945,7 @@ Quindi:
 - **Tipo reale dell’oggetto** → `Manager`
 
 #### Regola fondamentale 
-Un riferimento può essere di tipo più generico **solo se quel tipo appartiene alla gerarchia dell’oggetto**.
+==Un riferimento può essere di tipo più generico **solo se quel tipo appartiene alla gerarchia dell’oggetto**.==
 
 > [!done] **Valido**
 >```java

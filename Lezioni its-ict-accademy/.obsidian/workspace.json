@@ -13,13 +13,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Java/Lezione 9 Ereditarietà e Poliforfismo/Ereditarietà e polimorfismo.md",
+                "file": "Java/Lezione 11 Gli Errori in Java/Lezione 11 - Gestire gli Errori.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Ereditarietà e polimorfismo"
+              "title": "Lezione 11 - Gestire gli Errori"
             }
           },
           {
@@ -58,13 +58,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Java/Lezione 17 GLi Stream/Lezione 17 - Gli Streams.md",
+                "file": "Java/Progettazione 3/Lezione 1 - Applicazioni cloud a microservizi.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Lezione 17 - Gli Streams"
+              "title": "Lezione 1 - Applicazioni cloud a microservizi"
             }
           },
           {
@@ -73,13 +73,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Java/Lezione 22 - Spring Rest/Lezione 22 parte 2 - Spring framework.md",
+                "file": "Web Development/Cloud/Lezione 4 - Modelli dei servizi di cloud.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Lezione 22 parte 2 - Spring framework"
+              "title": "Lezione 4 - Modelli dei servizi di cloud"
             }
           },
           {
@@ -282,45 +282,45 @@
       "vscode-editor:Create Code File": false
     }
   },
-  "active": "a3c89a053243abbf",
+  "active": "4b4c9d8ee5c5e1af",
   "lastOpenFiles": [
-    "Java/Lezione 8 Incapsulamento/Lezione 8 - L'incapsulamento.md",
+    "Java/Lezione 16 Lambda Expression/Lambda.md",
+    "Java/Lezione 19 Design Patterns/Lezione 19 - Design Pattern.md",
     "Java/Lezione 17 GLi Stream/Lezione 17 - Gli Streams.md",
+    "Java/Lezione 22 - Spring Rest/Lezione 22 - Spring Rest.md",
+    "Java/Progettazione 3/Lezione 1 - Applicazioni cloud a microservizi.md",
+    "Web Development/Cloud/Lezione 4 - Modelli dei servizi di cloud.md",
+    "Web Development/Cloud/Lezione 1 - Introduzione al Cloud Computing.md",
+    "Web Development/Cloud/Lezione 2 - Data center astratto.md",
+    "Web Development/Cloud/Lezione 3 - Modelli di deployment del cloud.md",
+    "Web Development/Progettazione/Lezione 10 - Proxy in React.md",
+    "Web Development/Progettazione/Lezione 9 - Same Origin Policy e CORS.md",
+    "Web Development/Progettazione/Lezione 6 - API.md",
+    "Web Development/Progettazione/Lezione 7 - Sistemi REST.md",
+    "Web Development/Progettazione/Lezione 8 - Chiamate Curl.md",
+    "Java/Lezione 22 - Spring Rest/Lezione 22 parte 2 - Spring framework.md",
+    "Java/Progettazione 3",
+    "Java/Lezione 11 Gli Errori in Java/Lezione 11 - Gestire gli Errori.md",
+    "Java/Lezione 10 Classi Astratte e Interfacce/Lezione 10 - Classi astratte e interfaccie.md",
+    "Java/Lezione 9 Ereditarietà e Poliforfismo/Ereditarietà e polimorfismo.md",
+    "Java/Lezione 8 Incapsulamento/Lezione 8 - L'incapsulamento.md",
     "Java/Lezione 18 MultiTheading/Lezione 18 - MultiThreading.md",
     "Java/Lezione 22 - Spring Rest/Lezione 22 parte 3 - Dependency Injection.md",
-    "Java/Lezione 22 - Spring Rest/Lezione 22 parte 2 - Spring framework.md",
     "Java/Lezione 7 I costruttori e modificatori/Costruttori e modificatori.md",
-    "Java/Lezione 11 Gli Errori in Java/Lezione 11 - Gestire gli Errori.md",
     "img/Java/Lezione 22/Parte 3/Screenshot 2026-03-13 at 11-44-16 Microsoft PowerPoint - Spring e Servizi REST - Spring e Servizi REST.pdf.png",
     "img/Java/Lezione 22/Parte 3",
     "img/Java/Lezione 22",
     "Java/Lezione 21 - JDBC/Lezione 21 - JDBC(Java Database Connectivity).md",
     "Java/Lezione 4 Oggetti e Classi/Oggetti e Classi.md",
-    "Java/Lezione 22 - Spring Rest/Lezione 22 - Spring Rest.md",
-    "Web Development/Progettazione/Lezione 8 - Chiamate Curl.md",
-    "Web Development/Progettazione/Lezione 7 - Sistemi REST.md",
     "Sistemi digitali/Lezione 19/Modello TCP-IP.md",
     "Web Development/Progettazione/Lezione 3; Protocollo HTTP; il Modello TCP- IP, il Modello ISO-OSI e la comunicazione tra livelli.md",
-    "Web Development/Progettazione/Lezione 4 - Protocollo HTTP 2 parte.md",
-    "Web Development/Progettazione/Lezione 1; Fondamenti delle Applicazioni Web.md",
-    "Java/Lezione 9 Ereditarietà e Poliforfismo/Ereditarietà e polimorfismo.md",
-    "Java/Lezione 5 Le classi/Le classi.md",
-    "Java/Lezione 10 Classi Astratte e Interfacce/Lezione 10 - Classi astratte e interfaccie.md",
-    "Java/Lezione 13 - Map/Lezione 13 - Le map in Java.md",
-    "Java/Lezione 6 Le stringhe/Le stringhe.md",
-    "Java/Lezione 3 Array/Array in Java.md",
-    "Java/Lezione 2/Lezione 2 - Sintassi e costrutti di base.md",
-    "Java/Lezione 1/Lezione 1 - Introduzione a Java.md",
-    "Java/Lezione 19 Design Patterns/Lezione 19 - Design Pattern.md",
     "Java/Lezione 22 - Spring Rest",
-    "Progettazione/Analisi concettuale/Lezione 2/Analisi dei requisiti mediante UML.md",
     "Java/Lezione 21 - JDBC",
     "Java/Lezione 19 Design Patterns",
     "Java/Esportazioni",
     "Java/Nuova cartella",
     "Java/Lezione 14 JUnit",
     "Java/Lezione 18 MultiTheading",
-    "Java/Lezione 17 GLi Stream",
     "img/Java/Lezione 10/Esempio.png",
     "img/Java/Lezione 10/Interfacce(diagramma).png",
     "img/Java/Lezione 1/Linguaggio e tecnologie.png",

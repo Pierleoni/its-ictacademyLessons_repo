@@ -531,7 +531,7 @@ Qualunque operazione venga eseguita tramite uno Stream:
   >  
 >- ricerca (`findFirst`, `anyMatch`)
     >
->- aggregazione (`count`, `reduce`)
+>- aggregazione ([[#`count()`|`count`]], [[#Operazione finale riduzione con `reduce()`|`reduce`]])
   >  
 >
 >Tali operazioni possono essere eseguite:
@@ -1297,7 +1297,7 @@ long count()
 ==Questo metodo restituisce il numero totale di elementi presenti nello stream.==  
 È una forma di riduzione che non richiede alcuna funzione di accumulo esplicita: ==il framework si occupa internamente del conteggio.==
 **Esempio:**
-Dato il seguente codice :
+	Dato il seguente codice :
 ```java
 List<String> lista = Arrays.asList("", "Red", "", "Green", "Black");
 long val = lista.stream()

@@ -137,8 +137,8 @@ Si dividono in due famiglie principali:
 > [!example] **Esempio:**
 >  l'utente si collega al sito di Ryanair, naviga tra le pagine e visualizza i voli disponibili.
 
-**2. Applicazioni a servizi:**
-- il client è un **programma** che richiede un servizio al server e riceve in risposta **dati strutturati** (tipicamente JSON), non pagine web. 
+**2. Applicazioni a servizi:**  ^applicazioneAServizi
+- ==il client è un **programma** che richiede un servizio al server e riceve in risposta **dati strutturati** (tipicamente JSON), non pagine web.== 
 
 > [!example] **Esempio:**
 >  Skyscanner non ha i voli di Ryanair, EasyJet o altre compagnie nel suo database — fa da intermediario, interrogando i server delle singole compagnie e aggregando i risultati per mostrarli all'utente. In questo caso Skyscanner è esso stesso un client che parla con altri server.
@@ -155,7 +155,7 @@ Si dividono in due famiglie principali:
 Ora che abbiamo capito cosa distingue un'applicazione a servizi da una a pagine, vale la pena analizzarne le caratteristiche nel dettaglio.
 
 **1. Il client è un programma:**
-- Quindi nelle applicazioni a pagine il client è l'utente che interagisce tramite browser. 
+- ==Quindi nelle applicazioni a pagine il client è l'utente che interagisce tramite browser.== 
 - Nelle applicazioni a servizi invece il client è sempre un **programma;**
 	-  ==può essere un'app Android o iOS, un browser che esegue codice JavaScript, o addirittura un altro server.== 
 	- Questo è esattamente il caso di Skyscanner che abbiamo visto prima: Skyscanner è allo stesso tempo server per il browser dell'utente e client per i server di Ryanair e EasyJet.
@@ -164,7 +164,8 @@ Ora che abbiamo capito cosa distingue un'applicazione a servizi da una a pagine,
 - Non vengono scambiate pagine HTML, né  vengono scambiate interfacce grafiche:
 	- ==solo **dati puri**, tipicamente in formato **[[Lezione 5 - Il Formato JSON#Cos’è il JSON e perché viene utilizzato|JSON]]**.== 
 	- ==È il client che decide come presentare quei dati all'utente finale.== 
-	- Questo è il motivo per cui la stessa applicazione [[Lezione 2; Applicazioni Web, Caratteristiche di un’applicazione a servizi, Frontend vs. Backend, il ruolo del Browser e del Server Web, differenza tra siti Web Statici e Applicazioni Dinamiche#Backend|backend]] può servire contemporaneamente un'app Android, un'app iOS e un browser web: tutti ricevono gli stessi dati JSON e ognuno li visualizza a modo suo.
+	- Questo è il motivo per cui la stessa applicazione [[Lezione 2; Applicazioni Web, Caratteristiche di un’applicazione a servizi, Frontend vs. Backend, il ruolo del Browser e del Server Web, differenza tra siti Web Statici e Applicazioni Dinamiche#Backend|backend]] può servire contemporaneamente un'app Android, un'app iOS e un browser web:
+		- ==tutti ricevono gli stessi dati JSON e ognuno li visualizza a modo suo.==
 
 **3. Il sistema è interoperabile:**
 - ==Poiché client e server si scambiano solo dati tramite protocolli standard, possono essere scritti con **linguaggi e tecnologie completamente diverse** e funzionare comunque insieme.== 
@@ -174,7 +175,7 @@ Ora che abbiamo capito cosa distingue un'applicazione a servizi da una a pagine,
 - Esistono due stili principali per realizzare applicazioni a servizi. 
 - **[[Lezione 6 - API#SOAP (Simple Object Access Protocol)|SOAP:]]**
 	- ==è lo stile classico, più rigido e verboso, basato su XML — ancora presente in sistemi legacy ma sempre meno usato nelle nuove applicazioni.== 
-- **REST:**
+- **[[Lezione 7 - Sistemi REST#Sistemi REST|REST]]:**
 	- ==è il nuovo stile, più leggero e flessibile, basato su [[Lezione 4 - Protocollo HTTP 2 parte#HTTPS – HyperText Transfer Protocol Secure|HTTP]] e [[Lezione 5 - Il Formato JSON#Cos’è il JSON e perché viene utilizzato|JSON]] — ed è diventato lo standard de facto per le applicazioni moderne.==
 
 >[!info] Noi useremo **REST con Spring** — è lo stile che vedremo nel dettaglio nelle prossime sezioni.

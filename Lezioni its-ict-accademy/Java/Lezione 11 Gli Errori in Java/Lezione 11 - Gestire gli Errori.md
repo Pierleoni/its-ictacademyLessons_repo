@@ -51,7 +51,8 @@ Nella programmazione tradizionale, **la gestione degli errori avveniva tramite u
 - ==quando un metodo rilevava un problema, restituiva un **codice di errore speciale** che il metodo chiamante doveva controllare e interpretare.== 
 Questo approccio, tuttavia, rendeva il codice meno leggibile e più difficile da mantenere, poiché obbligava a verificare costantemente i valori di ritorno.
 
-Java introduce un meccanismo più strutturato ed espressivo: invece di restituire un valore “anomalo”, un metodo può terminare la propria esecuzione attraverso un **percorso alternativo**, lanciando un oggetto che rappresenta l’errore verificatosi. 
+Java introduce un meccanismo più strutturato ed espressivo: 
+- ==invece di restituire un valore “anomalo”, un metodo può terminare la propria esecuzione attraverso un **percorso alternativo**, lanciando un oggetto che rappresenta l’errore verificatosi.== 
 Questo oggetto appartiene alla gerarchia delle **eccezioni**.
 
 ==Le **eccezioni** sono infatti oggetti derivati dalla classe `Exception` e modellano situazioni anomale che si verificano durante l’esecuzione del programma==.
@@ -106,8 +107,8 @@ Un esempio tipico è:
 OutOfMemoryError
 ```
 
-Questi errori non sono normalmente gestibili dall’applicazione, poiché indicano condizioni che compromettono il corretto funzionamento della JVM stessa. 
-In altre parole, quando si verifica un `Error`, il problema non riguarda la logica del programma, ma l’infrastruttura su cui esso sta girando.
+Questi errori non sono normalmente gestibili dall’applicazione, ==poiché indicano condizioni che compromettono il corretto funzionamento della JVM stessa.== 
+==In altre parole, quando si verifica un `Error`, il problema non riguarda la logica del programma, ma l’infrastruttura su cui esso sta girando.==
 #### La gerarchia `Exception`
 
 La classe `Exception`, invece: 
@@ -141,7 +142,7 @@ Questa organizzazione gerarchica consente a Java di distinguere chiaramente tra:
 [![Screenshot-2026-02-12-at-11-35-41-Microsoft-Power-Point-Java-11-Eccezioni-Compatibility-Mode-Java.png](https://i.postimg.cc/Fs3dtB7p/Screenshot-2026-02-12-at-11-35-41-Microsoft-Power-Point-Java-11-Eccezioni-Compatibility-Mode-Java.png)](https://postimg.cc/F7Fs3Gbk)
 Analizziamo la struttura rappresentata nell’immagine.
 
-Il concetto fondamentale è che **tutte le classi che possono essere lanciate tramite `throw` derivano da `Throwable`**.  
+==Il concetto fondamentale è che **tutte le classi che possono essere lanciate tramite `throw` derivano da `Throwable`**.==  
 `Throwable` costituisce quindi la radice dell’intera gerarchia delle eccezioni in Java.
 
 Da questa classe derivano direttamente due rami principali
@@ -160,7 +161,7 @@ Si tratta di una relazione di ereditarietà (_is-a_), per cui:
 Proseguendo lungo l’albero gerarchico si incontrano le sottoclassi dei due rami principali.
 
 ##### 1. Ramo `Error`
-Nell’immagine non sono riportate le sottoclassi di `Error`, ma anche questa classe possiede diverse specializzazioni che rappresentano errori gravi della JVM o dell’ambiente di esecuzione, ad esempio:
+Nell’immagine non sono riportate le sottoclassi di `Error`, ma anche questa classe possiede diverse specializzazioni che rappresentano ==errori gravi della JVM o dell’ambiente di esecuzione==, ad esempio:
 ```css
 Error
  ├── OutOfMemoryError
@@ -221,7 +222,7 @@ Sono chiamate “controllate” perché il compilatore obbliga il programmatore 
 
 - ==intercettarle tramite `try-catch`, oppure==
     
-- ==dichiararle nel metodo con la clausola `throws`.==
+- ==dichiararle nella firma del metodo con la clausola `throws`.==
     
 
 Se ciò non avviene, il codice **non compila**.
@@ -700,7 +701,7 @@ catch (IOException e3) {
 ### Meccanismo vincolante delle eccezioni
 
 In Java, la gestione delle eccezioni non è soltanto una questione di sintassi: 
-- esiste un **meccanismo vincolante** che garantisce la robustezza e la prevedibilità del codice. 
+- ==esiste un **meccanismo vincolante** che garantisce la robustezza e la prevedibilità del codice.== 
 Questo meccanismo si basa su due aspetti principali: 
 1. **gestione diretta** 
 2. **propagazione** delle eccezioni.
@@ -713,7 +714,7 @@ Quando un metodo potrebbe generare un’eccezione, ==possiamo **intercettarla di
     
 - Se l’eccezione si verifica, ==l’esecuzione salta al blocco `catch` corrispondente, che contiene le istruzioni per gestire la situazione.==
     
-- Questo permette di **prevenire l’interruzione del programma** e di reagire in modo controllato a situazioni impreviste, come errori di input, file non trovati o divisioni per zero.
+- ==Questo permette di **prevenire l’interruzione del programma** e di reagire in modo controllato a situazioni impreviste, come errori di input, file non trovati o divisioni per zero.==
     
 
 Esempio:
@@ -832,7 +833,7 @@ try {
 
 #### Interazione con `break`, `continue` e `return`
 
-- Anche se nel `try` o nel `catch` sono presenti istruzioni `break`, `continue` o `return`, **il blocco `finally` viene comunque eseguito prima** che il flusso venga effettivamente interrotto o restituito.
+- Anche se nel `try` o nel `catch` sono presenti istruzioni `break`, `continue` o `return`, ==**il blocco `finally` viene comunque eseguito prima** che il flusso venga effettivamente interrotto o restituito.==
 Esempio pratico:
 ```java
 BufferedReader reader = null;

@@ -262,7 +262,7 @@ Osservando l’esempio precedente sul filtraggio delle mele, si nota che:
 - ==l’unica differenza è la **condizione** che determina se una mela deve essere aggiunta alla lista.==
     
 
-Questa condizione restituisce un valore booleano.
+==Questa condizione restituisce un valore booleano.==
 
 In matematica, una funzione che restituisce **true o false** si chiama **predicato**.
 ####  Dal Java 7 al Java 8

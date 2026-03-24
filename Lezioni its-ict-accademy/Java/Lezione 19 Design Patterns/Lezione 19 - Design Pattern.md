@@ -31,7 +31,8 @@ Quando si parla di Design Pattern, si fa riferimento in particolare ai pattern d
 
 I Design Pattern non sono pezzi di codice pronti, ==ma **soluzioni ricorrenti a problemi di progettazione ricorrenti**.==
 
-Non definiscono _come scrivere una singola istruzione_, ma **come strutturare le classi e le loro relazioni** in modo corretto.
+Non definiscono **_come scrivere una singola istruzione:_**
+- ==ma **come strutturare le classi e le loro relazioni** in modo corretto.==
 ### Un problema di design
 
 La fase di design di un sistema è quella cruciale tra:
@@ -242,15 +243,15 @@ Richiede:
 
 Ogni scelta architetturale è un compromesso tra:
 
-- flessibilità
+- ==flessibilità==
     
-- semplicità
+- ==semplicità==
     
-- performance
+- ==performance==
     
-- riuso
+- ==riuso==
     
-- complessità strutturale
+- ==complessità strutturale==
     
 
 Tuttavia, **non è un’arte arbitraria o puramente intuitiva**.
@@ -279,13 +280,13 @@ I pattern non impongono una soluzione, ma orientano le scelte.
 
 > [!example] **In sintesi:**
 >
->- Scrivere codice corretto è necessario.
+>- ==Scrivere codice corretto è necessario.==
   >  
->- Scrivere codice ben progettato è ciò che rende il sistema sostenibile nel tempo.
+>- ==Scrivere codice ben progettato è ciò che rende il sistema sostenibile nel tempo.==
  >   
->- Le metriche aiutano a valutare il codice.
+>- ==Le metriche aiutano a valutare il codice.==
   >  
->- I Design Pattern aiutano a strutturare l’architettura.
+>- ==I Design Pattern aiutano a strutturare l’architettura.==
 
 
 #### Un processo induttivo
@@ -324,8 +325,8 @@ Si riusa ciò che si è già dimostrato efficace.
 
 I Design Pattern funzionano esattamente allo stesso modo.
 
-Non sono invenzioni rivoluzionarie.  
-Non introducono concetti completamente nuovi.
+==Non sono invenzioni rivoluzionarie.==  
+==Non introducono concetti completamente nuovi.==
 
 Sono piuttosto:
 
@@ -383,7 +384,7 @@ In questo modo forniscono:
 Quindi il ==meccanismo che porta alla nascita di un pattern è di tipo **induttivo**.==
 
 Non si parte dalla teoria per poi applicarla alla pratica.  
-Si parte dalla pratica ripetuta e si generalizza.
+==Si parte dalla pratica ripetuta e si generalizza.==
 
 Il processo è il seguente:
 
@@ -439,22 +440,22 @@ Un pattern non dice solo “come fare”, ma anche:
 >
 >I Design Pattern non sono formule magiche.
 >
->Sono il risultato di un processo induttivo basato sull’esperienza collettiva.
+>==Sono il risultato di un processo induttivo basato sull’esperienza collettiva.==
 >
->Il loro valore sta nel fatto che ci permettono di:
+>**Il loro valore sta nel fatto che ci permettono di:**
 >
->- riconoscere strutture ricorrenti
+>- ==riconoscere strutture ricorrenti==
   >  
->- evitare di reinventare soluzioni già validate
+>- ==evitare di reinventare soluzioni già validate==
   >  
->- progettare in modo più consapevole
+>- ==progettare in modo più consapevole==
    > 
 >
 >E questo segna il passaggio da “scrivere codice che funziona” a “progettare sistemi che evolvono nel tempo”.
 
 
 ### Ruolo dei pattern 
-Dal punto di vista delle architetture software, i Design Pattern non sono semplicemente “schemi eleganti”, ma strumenti concreti che incidono sulla qualità complessiva del sistema.
+Dal punto di vista delle architetture software, i Design Pattern non sono semplicemente “schemi eleganti”, ma ==strumenti concreti che incidono sulla qualità complessiva del sistema.==
 
 Essi:
 
@@ -491,7 +492,7 @@ Si sta utilizzando:
 >     
 > - ==compromettere l’evoluzione futura del sistema==
 
-In altre parole, si riduce il rischio architetturale.
+>In altre parole, si riduce il rischio architetturale.
 
 #### Incrementano la produttività
 
@@ -511,7 +512,7 @@ Questo rende il processo di design più rapido e più mirato.
 La produttività aumenta non perché si scrive più codice, ma perché si prende una decisione progettuale più velocemente e con maggiore sicurezza.
 #### Aumentano la standardizzazione
 
-I pattern forniscono un linguaggio comune.
+==I pattern forniscono un linguaggio comune.==
 
 Se in un team si dice:
 
@@ -530,7 +531,7 @@ Questo permette:
 - ==maggiore coerenza tra sviluppatori==
     
 
-La standardizzazione non significa rigidità, ma condivisione di modelli comuni.
+==La standardizzazione non significa rigidità, ma condivisione di modelli comuni.==
 
 
 #### Favoriscono un più alto livello di qualità
@@ -560,7 +561,7 @@ Un’architettura costruita seguendo pattern consolidati tende ad avere:
 >
 >I Design Pattern non servono solo a “scrivere meglio il codice”.
 >
->Servono a progettare sistemi più solidi, più comunicabili e più sostenibili.
+>==Servono a progettare sistemi più solidi, più comunicabili e più sostenibili.==
 >
 >E questo li rende strumenti fondamentali nella fase di design, dove le decisioni prese oggi influenzeranno tutto il ciclo di vita del software.
 
@@ -690,7 +691,7 @@ Infatti, anche nei Design Pattern software troviamo sempre:
 
 Il pattern non è codice pronto, ma una struttura concettuale riusabile.
 
-### Desgin pattern (in archittetura)
+### Design pattern (in architettura)
 Quindi, secondo **Christopher Alexander**,  la definizione di pattern è:
 
 > ==descrive il **nucleo di una soluzione** relativa a un problema che compare frequentemente in un determinato contesto.==
@@ -956,7 +957,7 @@ Il sistema è diviso in:
     
 
 È alla base del web e delle applicazioni distribuite.
-###### 2. [[Lezione 22 - Spring Rest#Spring web|Model–View–Controller (MVC)]]
+###### 2. [[Lezione 22 parte 2 - Spring framework#Spring Web e il Pattern MVC|Model–View–Controller (MVC)]]
 [![Screenshot-2026-02-27-at-10-40-28-Operazioni-su-stream-Java.png](https://i.postimg.cc/d0DxsCZ4/Screenshot-2026-02-27-at-10-40-28-Operazioni-su-stream-Java.png)](https://postimg.cc/KKSNQRNM)
 
 Separa il sistema in:
@@ -1020,7 +1021,7 @@ Esempi tipici sono i pattern catalogati nel libro della GoF:
 - Observer
     
 
-Questi pattern non impongono una tecnologia specifica, ma forniscono una **struttura concettuale riutilizzabile** che può essere adattata ai diversi contesti.
+Questi pattern non impongono una tecnologia specifica, ==ma forniscono una **struttura concettuale riutilizzabile** che può essere adattata ai diversi contesti.==
 ### Idiomi
 
 Gli **idiomi** ==rappresentano il livello più basso tra le categorie di pattern.==
@@ -1047,7 +1048,7 @@ Gli idiomi descrivono quindi:
     
 
 #### Esempio: implementazione del Singleton in Java
-
+Questo pattern fa parte della famiglia dei [[#GoF Pattern Creational|Creational Pattern]]
 Problema:  
 come garantire che una classe abbia una sola istanza?
 
@@ -1103,7 +1104,8 @@ In questo senso, pattern e idiomi non sono in contrapposizione, ==ma operano su 
 
 ### Elementi chiave di un Design Pattern
 
-Un design pattern non è semplicemente un’idea informale, ma viene descritto secondo una **struttura standardizzata**. Questo schema descrittivo è uno degli aspetti che hanno reso il lavoro della GoF così influente.
+Un design pattern non è semplicemente un’idea informale, ma v==iene descritto secondo una **struttura standardizzata**==. 
+Questo schema descrittivo è uno degli aspetti che hanno reso il lavoro della GoF così influente.
 
 Gli elementi fondamentali sono:
 
@@ -1123,9 +1125,6 @@ Il nome è molto più di un’etichetta:
     
 - ==un riferimento a una soluzione consolidata==
     
-
-
-
 #### 2️⃣ Problema
 
 Descrive:
@@ -1160,7 +1159,7 @@ Specifica:
 - ==come collaborano tra loro==
     
 
-> [!deep] **Il livello è strutturale e concettuale:** 
+> [!deep] **Il livello è strutturale è concettuale:** 
 >  
 > - ==non entra nei dettagli implementativi, che dipendono dal linguaggio e dal contesto.==
 
@@ -1232,7 +1231,7 @@ Si occupano di:
 
 - [[#Adapter (Pattern Strutturale)|Adapter (Class)]]
     
-- Adapter (Object)
+- [[#Implementazione dell’Adapter (versione Object)|Adapter (Object)]]
     
 - Bridge
     
@@ -1269,7 +1268,7 @@ Descrivono ==**come gli oggetti comunicano tra loro** e come vengono distribuite
     
 - State
     
-- Strategy
+- [[#Pattern Strategy|Strategy]]
     
 - Visitor
 
@@ -1281,7 +1280,7 @@ Quindi abbiamo detto che i pattern creazionali hanno uno **scopo generale molto 
 > ==Astrarre l’istanziazione degli oggetti.==
 
 ==Significa che il sistema diventa **indipendente dal modo in cui gli oggetti vengono creati**.==  
-Quindi, chi usa l’oggetto (client) non deve necessariamente sapere _come_ e _quale classe concreta_ viene istanziata.
+Quindi, chi usa l’oggetto (client) non deve necessariamente sapere ==_come_ e _quale classe concreta_ viene istanziata.==
 #####  Quando si usano?
 
 I pattern creazionali sono particolarmente utili quando:
@@ -1339,7 +1338,7 @@ Il loro scopo generale è:
 
 > ==Comporre classi e oggetti in strutture più complesse senza aumentare inutilmente le dipendenze.==
 
-In pratica, aiutano a collegare componenti già esistenti in modo elegante, evitando modifiche invasive.
+In pratica, ==aiutano a collegare componenti già esistenti in modo elegante, evitando modifiche invasive.==
 
 ####  Quando si utilizzano?
 
@@ -1351,7 +1350,7 @@ I pattern strutturali risultano utili quando:
     
 - ==si desidera **fornire un’interfaccia semplificata** verso un sottosistema complesso==
     
-- ==si devono **aggiungere responsabilità senza modificare il codice esistente** (principio Open/Closed)==
+- ==si devono **aggiungere responsabilità senza modificare il codice esistente** (principio [[Ereditarietà e polimorfismo#^openClose|Open/Closed]])==
     
 
 > [!attention] **Sono quindi fondamentali quando il sistema cresce e si rischia di creare dipendenze rigide tra moduli.**
@@ -1605,11 +1604,11 @@ Supponiamo di avere:
 
 Ora nasce un nuovo progetto `PRJ2` che deve riutilizzare la logica di `Impiegato`, ma:
 
-- l’interfaccia richiesta da `PRJ2` è diversa
+- ==l’interfaccia richiesta da `PRJ2` è diversa==
     
-- non vogliamo copiare il codice
+- ==non vogliamo copiare il codice==
     
-- non vogliamo modificare la classe originale
+- ==non vogliamo modificare la classe originale==
     
 
 Il problema è quindi di **incompatibilità di interfacce**, non di logica.
@@ -1627,7 +1626,7 @@ La soluzione consiste nel creare una **classe Adapter** che:
 
 Concettualmente:
 ```css
-Client (PRJ2) → Adapter → Impiegato (PRJ1)
+Client o Target (PRJ2) → Adapter → Impiegato o Adaptee (PRJ1)
 ```
 L’Adapter fa da **ponte** tra:
 
@@ -1847,7 +1846,10 @@ I ruoli in queste versione non cambiano rispetto alla versione Adapter Class, ab
 - `Adapter`
 Ma cambia la relazione tra `Adapter` e `Adaptee`.
 ###### Differenza fondamentale rispetto alla versione Class
-Nella versione class abbiamo la classe `Adapter` che estende la classe `Adaptee`, mentre nella versione Object abbiamo la classe `Adapter` che partecipa ad un link di associazione con responsabilità singola verso `Adaptee`.
+Nella versione class: 
+- ==abbiamo la classe `Adapter` che estende la classe `Adaptee`,== 
+mentre nella versione Object: 
+- ==abbiamo la classe `Adapter` che partecipa ad un link di associazione con responsabilità singola verso `Adaptee`.==
 **Quindi non eredita ma incapsula.**
 ###### Struttura tipica 
 **Interfaccia Target**
@@ -2006,7 +2008,7 @@ L’applicazione del **pattern Adapter** comporta una serie di effetti struttura
 ##### Vantaggi
 
 - **Riutilizzo di classi esistenti**  
-    ==Permette di integrare classi già sviluppate (legacy o di terze parti) senza modificarne il codice sorgente, rispettando il principio di _Open/Closed_.==
+    ==Permette di integrare classi già sviluppate (legacy o di terze parti) senza modificarne il codice sorgente, rispettando il principio di _[[Ereditarietà e polimorfismo#^openClose|Open/Closed]]_.==
     
 - **Separazione tra client e implementazione concreta**  
     ==Il client dipende esclusivamente dall’interfaccia `Target` e non conosce la struttura interna della classe adattata (`Adaptee`).==  
@@ -2026,7 +2028,7 @@ L’applicazione del **pattern Adapter** comporta una serie di effetti struttura
     Se mal progettato, può trasformarsi in un punto di accoppiamento eccessivo.
     
 - **Limitazioni nella versione Class Adapter**  
-    Poiché utilizza l’ereditarietà, non può adattare contemporaneamente più classi (nei linguaggi a singola ereditarietà come Java).
+    ==Poiché utilizza l’ereditarietà, non può adattare contemporaneamente più classi (nei linguaggi a singola ereditarietà come Java).==
 
 
 ### Esempio concreto di caso d'uso del pattern Adapter
@@ -2535,14 +2537,14 @@ E lavorare solo con `Dipendente`.
 >
 >Questo rispetta:
 >
->- ==Open/Closed Principle==
+>- ==[[Ereditarietà e polimorfismo#^openClose|Open/Closed Principle]]==
  >   
 >- ==Single Responsibility Principle==
 
 
 
 ### Pattern Strategy
-Il pattern **Strategy** nasce quando un sistema deve offrire **più varianti di uno stesso algoritmo o comportamento**, senza che tali varianti vengano inglobate rigidamente dentro la classe che le utilizza.
+Il pattern **Strategy** nasce quando un ==sistema deve offrire **più varianti di uno stesso algoritmo o comportamento**, senza che tali varianti vengano inglobate rigidamente dentro la classe che le utilizza.==
 
 Immaginiamo un programma che debba:
 
@@ -2557,7 +2559,7 @@ Un approccio ingenuo consisterebbe nell’inserire all’interno della classe pr
 Tuttavia, questa soluzione presenta diversi problemi: 
 - ==il codice diventa meno leggibile,== 
 - ==aumenta l’accoppiamento tra le componenti== 
-- ==e ogni nuova variante richiede la modifica della classe esistente, violando il principio **Open/Closed**.==
+- ==e ogni nuova variante richiede la modifica della classe esistente, violando il principio **[[Ereditarietà e polimorfismo#^openClose|Open/Closed]]**.==
 
 Il cuore del problema è questo:  
 - ==i comportamenti devono poter variare, ma **senza modificare continuamente la classe che li utilizza**.==
@@ -2583,7 +2585,7 @@ Il Context non conosce i dettagli dell’algoritmo:
 - ==conosce solo l’interfaccia.==
 ##### Il ruolo del Client
 
-È il **Client** a decidere quale strategia utilizzare, impostandola dinamicamente nel Context.
+==È il **Client** a decidere quale strategia utilizzare, impostandola dinamicamente nel Context.==
 
 Questo significa che il comportamento dell’oggetto può cambiare a runtime, senza modificare il codice della classe principale.
 

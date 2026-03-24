@@ -32,6 +32,7 @@
       "attention": [
         {
           "changes": {
+            "icon": "lucide-bell-dot",
             "color": "176, 81, 17"
           }
         }
@@ -173,6 +174,13 @@
           },
           "changes": {
             "color": "127, 190, 9"
+          }
+        }
+      ],
+      "caution": [
+        {
+          "changes": {
+            "icon": "lucide-shield-alert"
           }
         }
       ]
