@@ -68,9 +68,10 @@ Si basa sul pattern architetturale **[[Introduzione a Flask#Model View Controlle
 
 
 
-**2. View — Lo Strato di Presentazione (Frontend):**  ^view
+**2. View — Lo Strato di Presentazione (Frontend):**   ^af0ea2
 -  È l'interfaccia con cui l'utente interagisce — pagine HTML, app mobile, o qualsiasi altro client. 
-- Non contiene logica applicativa: ==si limita a presentare i dati che riceve e a raccogliere gli input dell'utente.==
+- Non contiene logica applicativa: ==si limita a presentare i dati che riceve e a raccogliere gli input dell'utente.==  
+	^view
 
 **3. Controller — Il Coordinatore:**  ^controller
 - È il componente più importante dal punto di vista architetturale: 

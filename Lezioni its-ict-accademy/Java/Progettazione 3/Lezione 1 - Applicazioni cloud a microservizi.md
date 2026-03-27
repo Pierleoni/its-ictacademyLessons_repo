@@ -118,6 +118,8 @@ I microservizi comunicano tra loro in due modi:
 > Il servizio email non sa perché o a chi deve inviare — riceve solo il messaggio e lo invia. 
 > La transazione non è considerata completa finché tutti e tre i servizi non hanno terminato il loro lavoro.
 
+^fdb296
+
 >[!info] **Nota:** 
 >==Non tutti i microservizi hanno un'interfaccia grafica — alcuni sono servizi **interni** che vengono interpellati solo da altri microservizi.== 
 >Ad esempio quando acquistiamo un prodotto online, il servizio che gestisce la spedizione e assegna il corriere è un micro-servizio interno — noi non lo vediamo mai direttamente.
@@ -142,8 +144,8 @@ L'immagine mette a confronto le due architetture in modo molto chiaro.
 
 Ogni microservizio ha:
 
-- Il proprio **ingranaggio** — la propria logica e il proprio ciclo di vita
-- Il proprio **database** — indipendente dagli altri
+- Il proprio **ingranaggio** — ==la propria logica e il proprio ciclo di vita==
+- Il proprio **database** — ==indipendente dagli altri==
 
 >[!ticket] **Il vantaggio è evidente:** 
 >>[!success] se si vuole aggiornare il microservizio dei pagamenti, si tocca solo quello — la UI e tutti gli altri microservizi continuano a funzionare indisturbati. 
@@ -341,11 +343,11 @@ Non esiste un unico modo per scalare — esistono tre approcci principali, ognun
 
 #### Lo Scenario
 
-In un'applicazione a microservizi, ogni microservizio non lavora in isolamento — per realizzare le proprie funzionalità di business deve interfacciarsi con altri microservizi. 
+In un'applicazione a microservizi, ogni microservizio non lavora in isolamento — **per realizzare le proprie funzionalità di business deve interfacciarsi con altri microservizi.** 
 Guardando l'immagine, il flusso è il seguente:
 [![Screenshot-2026-03-19-at-17-06-26-Microsoft-Power-Point-Applicazioni-cloud-a-microservizi-Microse.png](https://i.postimg.cc/52DtnkQB/Screenshot-2026-03-19-at-17-06-26-Microsoft-Power-Point-Applicazioni-cloud-a-microservizi-Microse.png)](https://postimg.cc/xXyYd5R8)
 
-1. Il **Client** invia una richiesta al **Gateway:**
+1. Il **Client** invia una richiesta al **Gateway:** ^8e68e0
 	- ==il punto di ingresso unico dell'applicazione, che fa da "portiere" smistando le richieste ai microservizi corretti==
 2. Il **Gateway:**
 	- inoltra la richiesta al **Microservizio** principale
@@ -367,10 +369,12 @@ Nella [[#^comunicazioneSincrona|comunicazione sincrona]] il chiamante aspetta �
 In un sistema monolitico questo problema non esiste — tutto è nello stesso processo. 
 In un sistema a microservizi invece un singolo punto di fallimento può propagarsi a cascata e bloccare l'intera applicazione.
 
-> È esattamente per rispondere a questo problema che nasce il concetto di **resilienza** — la capacità del sistema di continuare a funzionare anche in presenza di guasti parziali. Lo vedremo nella sezione successiva.
+> È esattamente per rispondere a questo problema che nasce il concetto di **resilienza:**
+> -  ==la capacità del sistema di continuare a funzionare anche in presenza di guasti parziali.== 
+> Lo vedremo nella sezione successiva.
 
 
-### Resilienza di un'Applicazione a Microservizi
+#### Resilienza di un'Applicazione a Microservizi
 
 La resilienza è la risposta al problema che abbiamo appena posto: cosa succede se un microservizio non risponde? Un sistema resiliente non crolla — si adatta. 
 Si traduce in tre sotto-caratteristiche:
@@ -426,17 +430,5 @@ Un'applicazione a microservizi è facilmente evolvibile perché ogni servizio:
 
 >[!exmaple] **Conclusione:** 
 >le modifiche restano **localizzate** e non impattano l'intero sistema. Questo è l'esatto opposto dell'architettura monolitica — dove una modifica anche piccola richiede di testare e ridistribuire l'intera applicazione. Nei microservizi si modifica, si testa e si deploya **un servizio alla volta**, in modo rapido e sicuro
-## Architteture dei microservizi 
-### Esempio di struttura 
-### La DMZ
-### Il boundary 
-### Il gateway 
 
-### 3 microservizi infrastrutturale 
-Tutte le applicazioni a microservizi necessitano dei seguenti servizi infrastrutturali che sono realizzati anch'essi come microservizi: 
-1. Configurazione centralizzata
-	- centralizza la config di tutti i microservizi → file properites/yaml
-2. Registry
-	- Gestisce una lista aggiornata dei servizi disponibili (DNS)
-3. Gateway 
-	- Fornisce il routing delle richieste di microservizi 
+

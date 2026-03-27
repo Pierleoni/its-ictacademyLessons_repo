@@ -46,6 +46,7 @@ Gli errori che possono verificarsi in un’applicazione possono essere classific
 - **Errori di codice**  
     ==Errori logici o di programmazione, come accesso a un indice fuori dai limiti di un array, divisione per zero, utilizzo di un riferimento `null`==.
 [![Gli Errori in Java](https://i.postimg.cc/yxPBGc8c/Screenshot-2026-01-29-at-14-57-31-Microsoft-Power-Point-Java-11-Eccezioni-Compatibility-Mode-Java.png)](https://postimg.cc/bSsKDGbw)
+
 ### Gestione degli Errori
 Nella programmazione tradizionale, **la gestione degli errori avveniva tramite una tecnica piuttosto semplice**:  
 - ==quando un metodo rilevava un problema, restituiva un **codice di errore speciale** che il metodo chiamante doveva controllare e interpretare.== 

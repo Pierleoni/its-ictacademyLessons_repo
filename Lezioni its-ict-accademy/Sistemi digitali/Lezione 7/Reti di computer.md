@@ -351,7 +351,7 @@ Oltre all’architettura e alla topologia, le reti possono essere classificate i
 1. **PAN (Personal Area Network)** :
 	-   ==connessioni molto locali (pochi metri, es. Bluetooth)==.
     
-2. **LAN (Local Area Network)** :
+2. **LAN (Local Area Network)** : ^bc9db9
 	-   ==reti locali in ambienti limitati (uffici, case, scuole)==.
     
 3. **MAN (Metropolitan Area Network)** :

@@ -49,7 +49,7 @@ Questo livello è il più vicino all’utente ed è responsabile della gestione 
 #### Protocolli principali
  ![[Application Layer.png]]
 
-- **[[#Domain Name System (DNS)|DNS (Domain Name System)]]:**
+- **[[#DNS Domain Name System (DNS)|DNS (Domain Name System)]]:**
 	-  ==risoluzione dei nomi di dominio==.   ^DNS
     
 - **[[#Http-https HyperText Transfer Protocol (HTTP)|HTTP/HTTPS (HyperText Transfer Protocol)]]:** 
