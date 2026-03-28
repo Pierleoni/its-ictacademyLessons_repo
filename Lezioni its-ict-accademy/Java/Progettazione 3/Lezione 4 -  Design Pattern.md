@@ -92,3 +92,45 @@ L'idioma Java per implementare il pattern del SIngleton prevede di dichiarare
 1. Costruttore privato
 2. Un metodo pubblico e statico che restituisce l'istanza richiesta (agendo all'occorenza sul costruttore o sull'attributo)
 3. Un Attributo privato e statico del tipo della classe. 
+### Diagramma Singleton 
+Il Client usa il metodo statico getInstance per ottenere l’istanza unica dell’oggetto (poiché 
+non ha accesso al costruttore)
+Il metodo getInstance potrà avere un comportamento lazy (crea alla prima richiesta) oppure 
+crea al caricamento della class
+[![Screenshot-2026-03-27-at-15-11-22-Microsoft-Power-Point-Design-Pattern-ITS-Compatibility-Mode-Des.png](https://i.postimg.cc/q7tB7DZ7/Screenshot-2026-03-27-at-15-11-22-Microsoft-Power-Point-Design-Pattern-ITS-Compatibility-Mode-Des.png)](https://postimg.cc/McSJP5wk)
+
+### Composite (Da portare all'esame)
+Pattern molto particolare, risolvere problemi specifici
+Quando abbiamo fatto gli algoritmi a inizio corso abbiamo parlato degli algoritmi ricorsivi(es: l'algoritmo ricorsivo). 
+Non tutti gli algo possono essere fatti in maniera ricorsiva ma in alcuni casi è la soluzione più elegante. 
+Questo pattern è la ricorsione a livello di progettazione. 
+Serve per risolvere problemi quando c'è una ricorsione a livello delgi oggetti.
+Problema: 
+- VOlgiao rappresentare un oggetto con una struttura ricorsiva, ad albero, senza aver ridondanza nel diagramma e di conseguenza nel codice (es: struttura di directories di un file system)
+- VOgliamo agire sulle folgie e sulla struttura in modo unifomre, senza conoscere a priori la parte su cui stiamo agendo → accesso tramite un interfaccia comune. 
+**Soluzione:**
+- Realizzare un interfaccia generica Componente, che modella gli elementi della composizione e la composizione stessa
+- L'interfaccia viene implementata salla folgia e dalla composizione.
+[![Screenshot-2026-03-27-at-15-25-49-Microsoft-Power-Point-Design-Pattern-ITS-Compatibility-Mode-Des.png](https://i.postimg.cc/Gp7CvF6d/Screenshot-2026-03-27-at-15-25-49-Microsoft-Power-Point-Design-Pattern-ITS-Compatibility-Mode-Des.png)](https://postimg.cc/R3HyBHMD)
+Guardando il diagramma abbiamo una relazzione is-a e una relazione has-a.
+Il componete fornisce l'interfaccia d'uso con operazioni di business. 
+La classe Composite fornisce le operazioni di business deleganfdo i suoi sotto componenti a realizzarle, fino ad arrivare all'elemento singolo Leaf. 
+Guardando questo diagramma non si puo sapere quanto è profonda la ricorsione. 
+Composite ha una relazione has-a con component quindi aggregga component.
+Come in un file system possiamo aggragere più branch e foglie costituite da direcotry e files nel nostro file system. 
+Il generico Component ha la sua operazione di bussiness `Operation()`, gli altri metodi non sono operativi ma serovno per gestire i sotto componenti.
+Component è di base una classe Astratta. 
+
+### Observer
+Problema: 
+- Si vuole gestire un oggetto per cui un cambiamento interno produce delle azioni sull'oggetto stesso che si volgiono configurare dinamicamente 
+- Classico contesto della programmazione ad eventi 
+**Soluzione:**
+- Creare 2 classi: 
+	- L'osservato → registra gli Osservatori e li avvisa (registrs gli osservatori e li avvisa)
+	- L'osservatore → esegue comportamenti in funzione dell'evento generatorsi sull'Osservato(non è un guardone )
+Questo pattern l'abbimao riscontrato ad esempio con i bottoni htlm a cui associavamo un event listener di JS 
+Con questa selezione il numero e il tipo degli osservoatori può anche non essere noto a priori. 
+
+
+### Proxy 
