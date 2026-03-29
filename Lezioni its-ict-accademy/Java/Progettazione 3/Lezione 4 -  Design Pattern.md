@@ -1,125 +1,480 @@
-Abbiamo già visto il concetto di Design Pattern, le categorie dei DP e ne abbiamo descritti alcuni(Singleton, Adapter e Strategy). 
 
-Ora vedremo 
-Il singleton
-Il Factory 
-Il Proxy 
-L'Observer 
+# Design Pattern — Ripasso e Nuovi Pattern
 
-In realte il pattern proxy è stato accenato con la dependency injection(con le annotation di Spring). 
+Abbiamo già visto cosa sono i [[Lezione 19 - Design Pattern#Design Pattern|Design Pattern]], le loro categorie e alcuni esempi concreti — in particolare il **[[Lezione 19 - Design Pattern#Esempio implementazione del Singleton in Java|Singleton]]**, l'**[[Lezione 19 - Design Pattern#Adapter (Pattern Strutturale)|Adapter]]** e lo **[[Lezione 19 - Design Pattern#Pattern Strategy|Strategy]]**. 
+Ora ampliamo il repertorio con quattro nuovi pattern: il **Singleton** (che riprendiamo), il **Factory Method**, il **Proxy** e l'**Observer** e il **Composite**.
 
-I Desgin pattern sono uno struemnto di progettazione, il bravo sviluppatore dovrebbere conscerne almeno un po almeno quelli elencati dal GoF. 
+Vale la pena ricordare una cosa fondamentale prima di procedere: 
+- ==i Design Pattern sono uno **strumento di progettazione**, non una soluzione da applicare meccanicamente.== 
+Un buon sviluppatore dovrebbe conoscerne almeno i principali — quelli catalogati dal **[[Lezione 19 - Design Pattern#Classificazione dei Pattern del GoF|GoF (Gang of Four)]]** — e soprattutto sapere **quando** usarli. 
+==Il modo migliore per ricordare e riconoscere un pattern è legarlo al **tipo di scenario** che risolve.==
 
-Per ricordare/riconoscere un pattern dobbiamo legarlo al tipo di scenario che deve risolvere. 
+>[!note] **Nota:** 
+>il pattern **Proxy** non è del tutto nuovo — lo abbiamo già incontrato indirettamente con la **[[Lezione 22 parte 3 - Dependency Injection#Dependency Injection|Dependency Injection]]** di Spring. Quando Spring usa le annotation come [[Lezione 22 parte 3 - Dependency Injection#2. `@Autowired`|`@Autowired`]] per iniettare le dipendenze, crea internamente un oggetto proxy che "avvolge" il bean da iniettare. Ora vedremo il pattern in modo esplicito e formale.
 
-Esistono le famiglie dei DP: 
-Arcihetteturali
+### Le Famiglie dei Design Pattern
+
+I Design Pattern si dividono in famiglie in base al **tipo di problema** che risolvono. Abbiamo già visto:
+
+- **[[Lezione 19 - Design Pattern#GoF Pattern Structural|Pattern Strutturali]]:**
+	- ==riguardano la composizione delle classi e degli oggetti.== 
+	- Abbiamo visto l'**[[Lezione 19 - Design Pattern#Adapter (Pattern Strutturale)|Adapter]]**.
+	- E aggiungeremo il **Composite** e il **Proxy**
+- **[[Lezione 19 - Design Pattern#GoF Pattern Behavioral|Pattern Comportamentali]]:** 
+	- riguardano la comunicazione e il comportamento tra gli oggetti. 
+	- Abbiamo visto lo **[[Lezione 19 - Design Pattern#Pattern Strategy|Strategy]]**.
+Oggi aggiungiamo:
+
+- **[[Lezione 19 - Design Pattern#GoF Pattern Creational|Pattern Creazionali]]:** 
+	- ==riguardano il **momento della creazione** degli oggetti, fornendo meccanismi per crearli in modo flessibile e disaccoppiato.== 
+	- In questa famiglia troviamo il **Singleton** e il **Factory Method**.
 
 
-Abbiamo gia visto lo strategy e l'adapter.
-Oggi vedremo il Factory method e il Singleton che appartengono alla famiglia dei creazionali(quindi al momento della creazione dell'oggetto)
+## Pattern Creational
+### 1. Factory Method
 
+**Il problema che risolve:** ==A volte si ha la necessità di creare un oggetto di cui si conosce **staticamente** l'interfaccia o la superclasse, ma la classe concreta effettiva viene decisa **dinamicamente** a runtime.== 
+È una situazione tipica dei framework — e non a caso è un pattern che abbiamo già incontrato indirettamente con Spring.
 
-### Pattern Creational
-Factory method: 
-SI vuole creare un oggetto di cui staticamente si conosce l'interfaccia (o la super clase ) mentre la classe effettiva viene decisa dinamicamente. 
-Tipicamente situazioni che compare nei Framework.
+**La soluzione:** ==L'idea è semplice ma potente: **separare chi crea gli oggetti da chi li usa**.== 
+È come con i vestiti — non li produciamo noi, li compriamo e li usiamo. Qualcuno si occupa della fabbricazione, qualcun altro del consumo. Applicato al codice, questo si traduce in:
 
-Il meccanismo di facotry l'abbiamo già visto nei progetti di Spring 
-Vuole separare chi fabbrica l'oggetto da chi lo usa. 
-Analogalmente i vestiti che indossiamo non li fabbrichiamo noi ma li compriamo e li utilizziamo, quindi anche qui c'è chi fabbrica gli oggetti che usiamo e i consumatori che li usano. 
-- Separare chi crea l'oggetto da chi li usa 
-- Definire l'interfaccia degli oggetti da creare 
-- Incapsulare la logica di creazione ini iiuna classe Factory che crea oggetti specifici(che concretizzano l'interfaccia)
-- Si ottiene che ci usa gli oggetti non deve conoscere il tipo esatto dell'oggetto. 
+- **Definire l'interfaccia** degli oggetti da creare — ==chi usa l'oggetto conosce solo l'interfaccia, non la classe concreta==
+- **Incapsulare la logica di creazione** i==n una classe **Factory** dedicata, che si occupa di istanziare gli oggetti specifici che implementano quell'interfaccia==
+- **Chi usa gli oggetti non deve conoscere il tipo esatto** — ==sa solo che l'oggetto rispetta il contratto dell'interfaccia==
 
-QUesto pattern sta dietro a tutti i framework che utilizzano il IoC: in spring le annotation collegano(fanno da interfaccia) e si occupa di istanziare l'oggetto.
+> [!link] **Il collegamento con Spring:**
+>  Questo pattern sta alla base di tutti i framework che usano l'[[Lezione 22 parte 3 - Dependency Injection#Inversione di controllo|IoC]] — e Spring ne è l'esempio perfetto. 
+>  Le annotation come [[Lezione 22 parte 3 - Dependency Injection#1. `@Component`|`@Component`]], `@Service` e `@Repository` fungono da **interfaccia** verso Spring: 
+>  - ==dicono al framework quale tipo di oggetto creare, mentre Spring — tramite il suo Container — si occupa di istanziare la classe concreta nel momento giusto.== 
+>  - ==Chi usa l'oggetto (ad esempio il Controller che riceve il Service tramite `@Autowired`) non sa e non gli importa come è stato creato — sa solo che rispetta il contratto dell'interfaccia.==
+
+>[!summary] **In sintesi:** 
+>il Factory Method ==è il pattern che permette di **disaccoppiare la creazione degli oggetti dal loro utilizzo** — esattamente il principio che abbiamo visto con la Dependency Injection di Spring.==
 
 ### Diagramma Facotry Method
-C'è il consumer che invoca la Facotry e gli chiede di 
-La facotry istanzia un oggetto di COncreteProduct che implementa l'interfaccia Product. 
-Chi consuma deve sapere solo come usarla 
 
+Il diagramma mostra chiaramente la separazione dei ruoli che abbiamo descritto:
+[![Screenshot-2026-03-29-at-15-10-03-Microsoft-Power-Point-Design-Pattern-ITS-Compatibility-Mode-Des.png](https://i.postimg.cc/TwttyFvP/Screenshot-2026-03-29-at-15-10-03-Microsoft-Power-Point-Design-Pattern-ITS-Compatibility-Mode-Des.png)](https://postimg.cc/FdJy8PRt)
 
-Vantaggi: 
-Grazie al polimorfismo, ogni oggetto conreto opera seconda la sua "natura" senza debba essere nota a priori 
-La struttura è facilmente estensibile aggiungendo COnreteProduct.
-La classe Facotry potrebbe incapsulare politche di creazione(un solo oggetto(quello che fa Spring ad esempio sull'oggetto della classe Controller, un pool di oggetti(ad esempio quando si opera con le connessioni con un db tramite classe che gestisce un pool di conn e le presta alla DAO), ecc)
+1. ==Il **Consumer** invoca la **Factory** chiedendole di creare un oggetto==
+2. ==La **Factory** istanzia un oggetto di **ConcreteProduct** — la classe concreta che implementa l'interfaccia `Product`==
+3. ==Il **Consumer** ottiene e usa l'oggetto, ma lo vede solo attraverso il tipo astratto **`Product`** — non sa e non gli importa che sia un `ConcreteProduct`==
+Il punto chiave è: 
+- ==il **Consumer è completamente disaccoppiato dal `ConcreteProduct`** — conosce solo l'interfaccia `Product`.== 
+- ==È la Factory a fare da intermediario tra chi crea e chi usa==
 
-#### Java Reflection 
-Io voglio poter istanziare una classe senza sapere il nome delal classe da istanziare? 
-2 metodi: 
-1. Tramite `Class`: 
-	- Immaginiamo di fare la new di una certa classe, quello che si vuole fare moralmente è `new x()` ma java non premette di fae cio 
-	- Permette di istanziare una classe a partire dal nome: 
+> [!done] **Vantaggi del Factory Method**
+> 
+> 
+> 1. **Polimorfismo trasparente:**
+> 	-  ==grazie al polimorfismo, ogni oggetto concreto opera secondo la sua "natura" senza che questa debba essere nota a priori a chi lo usa.== 
+> 	- ==Il Consumer chiama i metodi dell'interfaccia `Product` e il comportamento corretto viene eseguito automaticamente in base al tipo concreto dell'oggetto.==
+> 
+> 2. **Facilmente estensibile:**
+> 	- ==aggiungere un nuovo tipo di prodotto significa semplicemente creare un nuovo `ConcreteProduct` che implementa `Product` e aggiornare la Factory.== 
+> 	- ==Il Consumer non va toccato — non sa nulla della nuova classe concreta.==
+> 
+> 3. **Incapsulamento delle politiche di creazione:**
+> 	- la Factory può implementare logiche di creazione più sofisticate, ad esempio:
+> 
+> 	- **Un solo oggetto** — è quello che fa Spring con i bean annotati con [[Lezione 22 parte 3 - Dependency Injection#1. `@Component`|`@Component`]]: 
+> 		- ==crea una sola istanza della classe Controller e la riusa per tutte le richieste==
+> 	- **Un pool di oggetti** — è quello che succede tipicamente con le connessioni al database: 
+> 		- ==invece di creare e distruggere una connessione per ogni operazione, una classe gestisce un **pool di connessioni** già pronte che vengono "prestate" al [[Lezione 22 parte 2 - Spring framework#Il DAO nel contesto Spring|DAO]] quando ne ha bisogno e restituite al pool una volta terminate.==
+
+#### Esempio pratico — Factory Method in Java
+Supponiamo di dover sviluppare un sistema di creazione di prodotti per un e-commerce.
+Vediamo come le classi si mappano sui ruoli del diagramma che abbiamo visto:
+1. **L'interfaccia `Prodotto`:**
 ```java
+package designPattern.factoryMethod;
 
-String s = "....";
-Class cl = Class.forName("java.lang.String")
+public interface Prodotto {
+	public double getCosto();
+	public double getPrezzo();
+}
 ```
-Ti importa dinamicamente la classe che vogliamo istanziare ma non consosciamo.
-Quindi questo metodo carica la classe per nome. 
-Torna un oggetto `Class`. 
-Ora che ho `cl:Class`
+
+
+1. **La classe `TShirt`**
+```java
+package designPattern.factoryMethod;
+
+public class TShirt implements Prodotto {
+	private String taglia;
+	private double costo, prezzo;
+	public TShirt() {}
+	
+	public TShirt(double costo, double prezzo, String taglia) {
+	this.costo = costo;
+	
+	this.prezzo = prezzo;
+	
+	this.taglia = taglia;
+	
+	}
+	@Override
+	public double getCosto() {	
+		return costo;
+	}
+	
+	@Override
+	public double getPrezzo() {	
+	return prezzo;
+	}
+
+	@Override
+	public String toString() {
+	
+		return "TShirt [taglia=" + taglia + ", costo=" + costo + ", prezzo=" + prezzo + "]";
+	}
+}
+```
+
+
+2. **La classe `Zaino`**
+```java
+package designPattern.factoryMethod;
+
+public class Zaino implements Prodotto {
+	private double costo, prezzo;
+	private String marca;
+	public Zaino() {}
+	public Zaino(double costo, double prezzo, String marca) {
+		this.costo = costo;
+		this.prezzo = prezzo;
+		this.marca = marca;
+	}
+	public String getMarca() {
+	return marca;
+	}
+	public void setMarca(String marca) {
+		this.marca = marca;
+	}
+	public void setCosto(double costo) {	
+	this.costo = costo;
+	}
+
+	public void setPrezzo(double prezzo) {
+		this.prezzo = prezzo;
+	}
+
+	@Override
+	
+	public double getCosto() {
+		return costo;
+	}
+
+	@Override
+	public double getPrezzo() {
+		return prezzo;
+	}
+
+	@Override
+	public String toString() {
+	return "Zaino [costo=" + costo + ", prezzo=" + prezzo + ", marca=" + marca + "]";
+	}
+}
+```
+
+3. **Classe `Libro`**
+```java
+package designPattern.factoryMethod;
+
+public class Libro implements Prodotto {
+	private String titolo;
+	private double costo, prezzo;
+	public Libro() {}
+	public Libro(String titolo, double costo, double prezzo) {
+		this.titolo = titolo;
+		this.costo = costo;
+		this.prezzo = prezzo;
+	}
+	@Override
+	public double getCosto() {
+		return costo;
+	}
+	@Override
+	public double getPrezzo() {
+		return prezzo;
+	}
+
+	@Override
+	public String toString() {
+	return "Libro [titolo=" + titolo + ", costo=" + costo + ", prezzo=" + prezzo + "]";
+	}
+}
+```
+
+Quindi l'interfaccia  `Prodotto` è il contratto che tutti i prodotti devono rispettare. Il Consumer conosce solo questa interfaccia — non sa nulla delle classi concrete.
+
+**`Zaino`, `TShirt`, `Libro` — i prodotti concreti (`ConcreteProduct`)** Sono le tre implementazioni concrete dell'interfaccia `Prodotto`. 
+Ognuna ha i propri campi specifici — `Zaino` ha `marca`, `TShirt` ha `taglia`, `Libro` ha `titolo` — ma tutti espongono `getCosto()` e `getPrezzo()` come richiesto dal contratto. 
+Il Consumer non sa quale di questi tre oggetti sta usando — vede solo `Prodotto`.
+
+4. **La classe `FactoryMethod`**
+```java
+package designPattern.factoryMethod;
+public class FactoryProdotto {
+
+// qui imposto la logica creazionale
+	@SuppressWarnings("deprecation")
+	public static Prodotto getProdotto(String tipoProdotto) {
+
+ if(tipoProdotto.equals("Libro")) {
+	 return new Libro("titolo del libro", 10, 15);
+}else {
+	 return new TShirt(10,25, "M");
+ }
+}
+```
+
+È il cuore del pattern. 
+Il metodo `getProdotto()` è statico — ==non si istanzia mai la Factory, la si usa direttamente==. 
+==Riceve in input una **stringa** con il nome del tipo di prodotto da creare e restituisce un oggetto di tipo `Prodotto` — il tipo astratto, non quello concreto.== 
+Il Consumer non vede mai `new Zaino()` o `new TShirt()` — quella logica è incapsulata qui dentro.
+Da notare come in questo caso si usi il modo "classico" di implementare la factory
+un `if/else` che in base alla stringa in input crea l'oggetto corretto. Funziona, ma è rigido: 
+- ==ogni volta che aggiungi un nuovo `ConcreteProduct` devi modificare la Factory.==
+
+5. **La classe `Consumer`— il consumatore**
+```java
+package designPattern.factoryMethod;
+
+public class Consumer {
+
+public static void main(String[] args) {
+	// chiedo alla factory di produrre un prodotto concreto,senza chiamare il costruttore
+	Prodotto product = FactoryProdotto.getProdotto("designPattern.factory.Zaino");
+	System.out.println(product);
+	System.out.println(product.getPrezzo());
+	}
+}
+```
+**Il Consumer chiede alla Factory di creare un prodotto passando il nome della classe come stringa.** 
+==Riceve un oggetto di tipo `Prodotto` e lo usa tramite l'interfaccia — chiama `getPrezzo()` senza sapere se sta parlando con uno `Zaino`, una `TShirt` o un `Libro`.==
+
+> [!NOTE] **Nota il disaccoppiamento totale:**
+>  ==il Consumer non importa nessuna delle classi concrete — non vede `Zaino`, non vede `TShirt`, non vede `Libro`. Vede solo `Prodotto` e `FactoryProdotto`.== 
+>  **Se domani aggiungiamo un nuovo prodotto `Scarpa`, il Consumer non va toccato.**
+
+##### Java Reflection 
+Abbiamo visto che il modo "classico" di implementare la Factory con un `if/else` è rigido: 
+- ==ogni volta che aggiungi un nuovo `ConcreteProduct` devi modificare la Factory.== 
+La **Java Reflection** risolve questo problema permettendo di istanziare una classe **senza conoscerne il nome a compile time**.
+Il concetto è semplice: 
+- ==normalmente per istanziare una classe scriviamo `new Zaino()` — ma questo significa che il nome della classe deve essere noto a compile time.== 
+- ==Con la Reflection invece possiamo fare la "new" di una classe il cui nome lo scopriamo solo a runtime, ad esempio leggendolo da una stringa.==
+
+1. Caricare la classe per nome — `Class.forName()`
+```java
+Class cl = Class.forName("designPattern.factoryMethod.Zaino");
+```
+- ==Questo metodo importa dinamicamente la classe il cui nome è contenuto nella stringa==
+- ==restituisce un oggetto di tipo `Class` che rappresenta la classe caricata.== 
+2. **Istanziare l'oggetto — `newInstance()`**
+
+Ora che abbiamo l'oggetto `cl:Class`
 ```java
 Object obj = cl.newInstance(); 
 ```
-questo metodo istanzia la classe che ha appena importato tramite il metodo precedente.
-Quindi istanzia l'oggetto della classe. 
-Ora di solito le factory sono sviluppate in questo modo. 
-Gli oggetti della classe da istanziare in questo modo deve avere un costruttore a 0 args(quello di default), al 99% dei casi va bene. 
-`newIstance` torna un `Object`, quindi quando provo a fare 
-```
-obj.
-```
-Potro utilizzare solo i metodi di object.
-Pero adesso vlogliamo che qualsiasi classe passiamo istanzia l'oggetto senza dover rimettee mano ogni volta al codice della factory
-```
-String s = "..."; // implementazione di Prodotto
+Questo metodo istanzia la classe appena caricata invocando il **costruttore a zero argomenti:**
+- ==per questo motivo tutte le classi che vogliamo istanziare tramite Reflection devono avere un costruttore vuoto.== 
+- ==`newInstance()` restituisce un `Object` generico, quindi da solo permette di usare solo i metodi di `Object`.==
 
-Class cl = Class.forName(s); // carico la classe per nome 
-Prodotto p = (Prodotto) cl.newInstance(); //istanzio l'oggetto delal classe 
-p.getPrezzo(); 
-p.getCosto(); 
+**Il problema del tipo generico — il cast all'interfaccia:**
+- Se `newInstance()` restituisce un `Object`, come facciamo a chiamare `getPrezzo()` e `getCosto()`? La soluzione è il **cast all'interfaccia** `Prodotto`:
+```java
+String nomeClasse = "designPattern.factoryMethod.Zaino"; // nome della classe da istanziare
+
+Class cl = Class.forName(nomeClasse); // carico la classe per nome
+Prodotto p = (Prodotto) cl.newInstance(); // istanzio e casto all'interfaccia
+
+p.getPrezzo(); // ora posso usare i metodi dell'interfaccia
+p.getCosto();
+```
+**Sappiamo che la classe passata implementa `Prodotto` — quindi il cast è sicuro.** 
+==A questo punto possiamo chiamare tutti i metodi dell'interfaccia sull'oggetto, indipendentemente da quale classe concreta è stata istanziata.==
+
+**Il risultato nella Factory** Applicando la Reflection alla `FactoryProdotto`, il metodo `getProdotto()` diventa completamente generico:
+```java
+public static Prodotto getProdotto(String tipoProdotto) {
+    try {
+        Class classe = Class.forName(tipoProdotto);
+        Prodotto ob = (Prodotto) classe.newInstance();
+        return ob;
+    } catch (ClassNotFoundException e) {
+        e.printStackTrace();
+    } catch (InstantiationException | IllegalAccessException e) {
+        e.printStackTrace();
+    }
+    return null;
+}
+```
+**Non c'è più nessun `if/else` — la Factory non conosce `Zaino`, `TShirt` o `Libro`.** 
+1. ==Riceve una stringa,== 
+2. ==carica la classe corrispondente,==
+3. ==la istanzia e la restituisce come `Prodotto`.== 
+Se domani aggiungiamo `Scarpa` al sistema, la Factory non va toccata — basta passare la stringa `"designPattern.factoryMethod.Scarpa"` e la Reflection pensa al resto.
+
+> [!link] **Nota il collegamento con Spring:**
+>  quando Spring legge l'annotation [[Lezione 22 parte 3 - Dependency Injection#1. `@Component`|`@Component`]] su una classe, fa esattamente la stessa cosa — ==carica la classe per nome tramite Reflection, la istanzia tramite il costruttore a zero argomenti (ecco perché è obbligatorio!) e la registra nel Container.== 
+>  La Java Reflection è il meccanismo che sta sotto a tutta la magia dell'[[Lezione 22 parte 3 - Dependency Injection#Inversione di controllo|IoC]].
+
+
+### 2. Singleton
+
+**Il problema che risolve:** 
+- ==A volte è necessario garantire che esista **una ed una sola istanza** di una certa classe in tutto il sistema.== 
+- Pensiamo alla classe `Database` che abbiamo scritto nell'esercizio JDBC: 
+	- ==non ha senso creare più istanze di quella classe — ogni istanza aprirebbe una nuova connessione al database, sprecando risorse e rischiando comportamenti inconsistenti.== 
+	- ==Lo stesso vale per i Logger, i Config Server e in generale per tutti i componenti che gestiscono risorse condivise.==
+
+**La soluzione:** 
+- ==L'idea è impedire che chiunque possa creare liberamente oggetti di quella classe tramite `new`.== 
+In Java questo si implementa con tre elementi che lavorano insieme:
+
+1. **Costruttore privato:**
+	- ==nessuno può chiamare `new MiaClasse()` dall'esterno.== 
+	- ==L'unico modo per ottenere un'istanza è attraverso il metodo dedicato.==
+2. **Attributo privato e statico del tipo della classe:**
+	- ==è qui che viene conservata l'unica istanza.== 
+	- ==Essendo `static`, appartiene alla classe e non a nessun oggetto specifico — esiste una sola volta in memoria per tutta la durata del programma.==
+3. **Metodo pubblico e statico che restituisce l'istanza:**
+	- ==è l'unico punto di accesso all'istanza.== 
+	- ==Se l'istanza non esiste ancora la crea, altrimenti restituisce quella già esistente.==
+```java
+public class Database {
+    // 2. attributo privato e statico — conserva l'unica istanza
+    private static Database istanza = null;
+
+    // 1. costruttore privato — nessuno può fare new Database() dall'esterno
+    private Database() { }
+
+    // 3. metodo pubblico e statico — unico punto di accesso all'istanza
+    public static Database getInstance() {
+        if(istanza == null) {
+            istanza = new Database(); // crea l'istanza solo la prima volta
+        }
+        return istanza; // restituisce sempre la stessa istanza
+    }
+}
 ```
 
+**Il meccanismo è semplice:** 
+- ==la prima volta che qualcuno chiama `Database.getInstance()`, `istanza` è `null` — quindi viene creata.== 
+- ==Tutte le volte successive, `istanza` non è più `null` — quindi viene restituita quella già esistente==. 
+In questo modo è **fisicamente impossibile** avere più di un'istanza di `Database` in tutto il sistema.
 
-### Singleton 
-SI usa per garantire che eisista una ed sola istnaza di una certa classe 
-Soluzione 
-Impedire la possibilità di creare liberamente oggetti di una certa classe tramite costruttore 
-L'idioma Java per implementare il pattern del SIngleton prevede di dichiarare 
-1. Costruttore privato
-2. Un metodo pubblico e statico che restituisce l'istanza richiesta (agendo all'occorenza sul costruttore o sull'attributo)
-3. Un Attributo privato e statico del tipo della classe. 
-### Diagramma Singleton 
-Il Client usa il metodo statico getInstance per ottenere l’istanza unica dell’oggetto (poiché 
-non ha accesso al costruttore)
-Il metodo getInstance potrà avere un comportamento lazy (crea alla prima richiesta) oppure 
-crea al caricamento della class
+>[!link] **Nota il collegamento con Spring:** 
+>i bean annotati con [[Lezione 22 parte 3 - Dependency Injection#1. `@Component`|`@Component`]], `@Service` e `@Repository` sono **Singleton per default** — ==Spring crea una sola istanza di ogni bean e la riusa per tutte le richieste.== 
+>È esattamente il Singleton pattern applicato su scala architetturale.
+#### Diagramma Singleton 
+Il diagramma mostra una struttura molto semplice — il Singleton è uno dei pattern più compatti da implementare, ma uno dei più potenti in termini di impatto architetturale.
+Per capire questo pattern analizziamo l'immagine del diagramma: 
 [![Screenshot-2026-03-27-at-15-11-22-Microsoft-Power-Point-Design-Pattern-ITS-Compatibility-Mode-Des.png](https://i.postimg.cc/q7tB7DZ7/Screenshot-2026-03-27-at-15-11-22-Microsoft-Power-Point-Design-Pattern-ITS-Compatibility-Mode-Des.png)](https://postimg.cc/McSJP5wk)
+1. Abbiamo una classe `Client` che partecipa a un link di associazione con la responsabilità verso la classe `Singleton`
 
-### Composite (Da portare all'esame)
-Pattern molto particolare, risolvere problemi specifici
-Quando abbiamo fatto gli algoritmi a inizio corso abbiamo parlato degli algoritmi ricorsivi(es: l'algoritmo ricorsivo). 
-Non tutti gli algo possono essere fatti in maniera ricorsiva ma in alcuni casi è la soluzione più elegante. 
-Questo pattern è la ricorsione a livello di progettazione. 
-Serve per risolvere problemi quando c'è una ricorsione a livello delgi oggetti.
-Problema: 
-- VOlgiao rappresentare un oggetto con una struttura ricorsiva, ad albero, senza aver ridondanza nel diagramma e di conseguenza nel codice (es: struttura di directories di un file system)
-- VOgliamo agire sulle folgie e sulla struttura in modo unifomre, senza conoscere a priori la parte su cui stiamo agendo → accesso tramite un interfaccia comune. 
-**Soluzione:**
-- Realizzare un interfaccia generica Componente, che modella gli elementi della composizione e la composizione stessa
-- L'interfaccia viene implementata salla folgia e dalla composizione.
+> [!remember] Il Client inteso come colui che ha l'oggetto della classe o interfaccia di cui è responsabile
+> Nei casi dei Design Pattern, quando si parla di **Client**, non ci si riferisce a un Client inteso nella accezione canonica del termine(es: il Client nell'architettura **[[Reti di computer#1. Modello Client/Server|Client - Server]]** ), ma alla classe (può essere anche la classe con il `Main` di Java) che implementa l'oggetto della classe o interfaccia da cui parte il Design Pattern
+
+1. La classe `Singleton`: 
+	- ha un attributo `instance` tipizzato a se stesso
+	- un  metodo `Singleton()` senza parametri e senza ritorno
+	- E un metodo `getInstance()` che ritorna un oggetto della classe `Singleton`
+	- Difatti questa classe ha un link di associazione che richiama se stessa
+Cosa significa tutto ciò? 
+==Il **Client** non può creare oggetti della classe direttamente — il costruttore è privato.== 
+L'unico modo per ottenere l'istanza è chiamare il metodo statico `getInstance()`.
+
+Il metodo `getInstance()` può avere due comportamenti:
+
+1. **Lazy initialization:**
+	- ==l'istanza viene creata **solo alla prima richiesta**.== 
+	- ==È il comportamento che abbiamo visto nell'esempio precedente con il controllo `if(istanza == null)`.== 
+	- ==Il vantaggio è che se nessuno chiede mai l'istanza, non viene mai creata — risparmio di risorse.== 
+	- **È l'approccio più comune.** 
+```java
+public static Database getInstance() {
+    if(istanza == null) {
+        istanza = new Database(); // creata solo alla prima chiamata
+    }
+    return istanza;
+}
+```
+
+2. **Eager initialization:**
+	- ==l'istanza viene creata **al caricamento della classe**, prima ancora che qualcuno la richieda.== 
+	- ==È più semplice da implementare e non ha problemi di [[Lezione 18 - MultiThreading#A prova di Thread (Thread safe)|thread safety]], ma crea l'oggetto anche se non verrà mai usato.==
+```java
+private static Database istanza = new Database(); // creata subito al caricamento
+
+public static Database getInstance() {
+    return istanza; // restituisce sempre quella già creata
+}
+```
+
+
+> [!info] **La scelta tra i due approcci dipende dal contesto:**
+> se l'oggetto è pesante da creare e potrebbe non essere necessario, si preferisce la **lazy initialization**. 
+> Se invece l'oggetto è leggero e sarà sicuramente usato, la **eager initialization** è più semplice e sicura.
+
+## Pattern Strutturali
+
+### 3. Composite ⚠️ Da portare all'esame
+
+Il Composite è un pattern molto particolare che risolve una categoria specifica di problemi — ==quelli in cui gli oggetti hanno una **struttura ricorsiva ad albero**.==
+
+Ricordi gli algoritmi ricorsivi che abbiamo visto a inizio corso? 
+La ricorsione è la soluzione più elegante per certi problemi — quando un problema può essere scomposto in sotto-problemi della stessa natura. 
+==Il Composite è esattamente questo, ma applicato a livello di **progettazione degli oggetti**: è la ricorsione a livello di design.==
+**Il problema che risolve:**
+
+Immagina di dover modellare la struttura di un **filesystem**: 
+- ==hai cartelle che contengono file, ma anche cartelle che contengono altre cartelle, che a loro volta contengono altri file e altre cartelle.== 
+- ==È una struttura ad albero naturalmente ricorsiva.==
+
+Il problema è duplice:
+
+- **Ridondanza nel codice** — ==senza questo pattern dovresti scrivere codice diverso per gestire le foglie (i file) e i nodi compositi (le cartelle), creando duplicazione e complessità inutile==
+- **Accesso non uniforme** — ==vorresti poter chiamare `calcola()` o `stampa()` su qualsiasi elemento dell'albero — sia su una singola foglia che su un intero sottoalbero — senza dover sapere a priori su quale dei due stai agendo==
+**La soluzione:**
+
+==Si realizza un'**interfaccia generica `Componente`** che modella sia gli elementi singoli (le foglie) che la composizione (i nodi).== 
+**L'interfaccia viene implementata da due classi:**
+
+- **`Foglia`(Leaf)** — ==rappresenta gli elementi terminali dell'albero, quelli che non contengono altri elementi (es. un file).==  ^foglia
+
+- **`Composizione` (Composite)** — ==rappresenta i nodi che possono contenere altri nodi.==  ^composizione
+
+- **`Componente` (Componente)**  — ==sia foglie che altre composizioni (es. una cartella).==  ^componente
+
+Il punto chiave è: 
+- ==la [[#^composizione|`Composizione`]] contiene una lista di [[#^componente|`Componente`]] — non di [[#^foglia|`Foglia`]] o di `Composizione` specificamente, ma dell'**interfaccia generica**.== 
+Questo è ciò che rende il pattern ricorsivo: una `Composizione` può contenere altre `Composizione`, che a loro volta ne contengono altre, formando un albero di profondità arbitraria.
+#### Diagramma del Composite
+Il diagramma del Composite mostra due relazioni fondamentali che lavorano insieme:
 [![Screenshot-2026-03-27-at-15-25-49-Microsoft-Power-Point-Design-Pattern-ITS-Compatibility-Mode-Des.png](https://i.postimg.cc/Gp7CvF6d/Screenshot-2026-03-27-at-15-25-49-Microsoft-Power-Point-Design-Pattern-ITS-Compatibility-Mode-Des.png)](https://postimg.cc/R3HyBHMD)
-Guardando il diagramma abbiamo una relazzione is-a e una relazione has-a.
-Il componete fornisce l'interfaccia d'uso con operazioni di business. 
-La classe Composite fornisce le operazioni di business deleganfdo i suoi sotto componenti a realizzarle, fino ad arrivare all'elemento singolo Leaf. 
-Guardando questo diagramma non si puo sapere quanto è profonda la ricorsione. 
-Composite ha una relazione has-a con component quindi aggregga component.
-Come in un file system possiamo aggragere più branch e foglie costituite da direcotry e files nel nostro file system. 
-Il generico Component ha la sua operazione di bussiness `Operation()`, gli altri metodi non sono operativi ma serovno per gestire i sotto componenti.
-Component è di base una classe Astratta. 
+1. **Relazione is-a:**
+	- sia [[#^foglia|`Leaf`]] che [[#^composizione|`Composite`]] implementano l'interfaccia `Component`. Entrambi **sono** un [[#^componente|`Component`]] — questo è ciò che permette al Client di trattarli in modo uniforme senza sapere con quale dei due sta interagendo.
+
+2. **Relazione has-a:**
+	- `Composite` aggrega una collezione di `Component`. 
+	- Non aggrega specificamente `Leaf` o altri `Composite`, ma il tipo astratto `Component` — ed è esattamente questa la chiave della ricorsione. 
+		- Una `Composite` può contenere foglie, altre composizioni, o entrambe, senza limiti di profondità. 
+**Guardando il diagramma non si può sapere quanto è profonda la ricorsione** — dipende interamente da come viene costruito l'albero a runtime.
+
+I ruoli dei tre elementi sono:
+
+**`Component`** — è l'interfaccia generica, di base una **classe astratta**, che definisce il contratto comune per tutti gli elementi dell'albero. Dichiara il metodo di business `Operation()` che verrà implementato sia dalle foglie che dalle composizioni. Gli altri metodi presenti nell'interfaccia — come `add()`, `remove()`, `getChild()` — non sono operativi ma servono a **gestire i sottocomponenti** e hanno senso solo per `Composite`, non per `Leaf`.
+
+**`Leaf`** — è l'elemento terminale dell'albero, quello che non può contenere altri elementi. Implementa `Operation()` con la sua logica specifica — è qui che avviene il lavoro concreto.
+
+**`Composite`** — è il nodo dell'albero che può contenere altri `Component`. Implementa `Operation()` **delegando** la chiamata a tutti i suoi sottocomponenti, che a loro volta la delegano ai propri, fino ad arrivare alle foglie. È una chiamata ricorsiva che scende lungo l'albero fino agli elementi terminali.
+
+>[!example] **Analogia con il filesystem:** 
+>`Component` è il concetto generico di "elemento del filesystem", `Leaf` è un file, `Composite` è una cartella. Una cartella può contenere file e altre cartelle — esattamente come `Composite` può contenere `Leaf` e altri `Composite`. Quando chiedi la dimensione totale di una cartella, il sistema delega il calcolo a tutti gli elementi contenuti, che a loro volta delegano ai propri, fino ad arrivare ai singoli file che restituiscono la loro dimensione. È il Composite pattern in azione.
 
 ### Observer
 Problema: 

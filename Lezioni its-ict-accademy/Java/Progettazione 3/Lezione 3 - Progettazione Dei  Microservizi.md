@@ -203,6 +203,9 @@ La replica può essere implementata in diversi modi:
 > 	- ==il database Replica può esporre una vista ristretta dei dati, escludendo campi sensibili==
 >     
 
+
+
+
 > [!summary] **In sintesi:**  
 > Quando un dominio di business ha carichi di lettura e scrittura molto sbilanciati:
 > 
@@ -217,40 +220,185 @@ La replica può essere implementata in diversi modi:
 > 
 > In questo modo si ottiene il meglio di entrambi i mondi: autonomia dei microservizi, scalabilità orizzontale, e consistenza dei dati.
 
+
+> [!deep] #### Transazioni ACID (Atomicity, Consistency, Isolation, Durability)
+> 
+> Quando parliamo di database e microservizi, il termine **ACID** torna continuamente. 
+> **È uno di quei concetti fondamentali che devi avere ben chiari per capire perché i microservizi complicano la gestione dei dati.**
+> 
+> ACID è un acronimo che descrive le **proprietà che una transazione su database deve garantire** per essere affidabile. Sta per:
+> 
+>
+>
+> | Lettera   | Proprietà                     | Significato                                                                                                                                               |
+> | --------- | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+> | **A**     | **Atomicity** (Atomicità)     | ==O la transazione viene completata **tutta**, oppure non viene eseguita **per niente**. Non esiste uno stato intermedio.==                               |
+> | **C**<br> | **Consistency** (Consistenza) | ==La transazione porta il database da uno stato valido a **un altro stato valido**, rispettando tutte le regole (vincoli, foreign key, ecc.).==           |
+> | **I**     | **Isolation** (Isolamento     | ==Transazioni concorrenti vengono eseguite **come se fossero in sequenza**, una dopo l'altra. Una transazione non vede gli stati intermedi di un'altra.== |
+> | **D**     | **Durability** (Durabilità)   | ==Una volta che la transazione è stata confermata (commit), i dati rimangono **persistenti** anche in caso di crash del sistema.==                        |
+> 
+> ##### Esempio pratico  — Un Bonifico Bancario
+> Il modo migliore per capire ACID è con un esempio classico: **un bonifico di 100€ tra due conti correnti**.
+> 
+> **Dati iniziali:**
+> 
+> - **Conto di Alice: 200€**
+>     
+> - **Conto di Bob: 50€**
+>     
+> 
+> La transazione "trasferisci 100€ da Alice a Bob" richiede due operazioni:
+> 
+> 1. Preleva 100€ da Alice → Alice diventa 100€
+>     
+> 2. Deposita 100€ su Bob → Bob diventa 150€
+>     
+> 
+> Ecco come le proprietà ACID proteggono questa transazione.
+> 
+> 1. **Atomicità (A)**
+> 
+> - ==Se il prelievo da Alice riesce ma il deposito su Bob fallisce (per un errore di rete, un crash, ecc.), **l'intera transazione viene annullata**.==
+>     
+> - Il risultato? ==Alice torna a 200€, Bob resta a 50€. Nessun danno.==
+>     
+> - ==Senza atomicità, ti saresti ritrovato con Alice=100€ e Bob=50€ — 100€ spariti nel nulla.==
+> 
+> 2. **Consistenza (C)**
+> -==La consistenza si vede quando si tenta di violare una regola del database.==
+> 
+> ==Supponiamo che il database abbia un vincolo: **"Il saldo di un conto non può mai diventare negativo"** (un `CHECK` constraint).== 
+> ==Ora esegui una transazione diversa: **"trasferisci 300€ da Alice a Bob"**.==
+> 
+> - Alice ha 200€
+>     
+> - Bob ha 50€
+>     
+> 
+> Cosa succede?
+> 
+> 1. **Prelievo da Alice: 200€ - 300€ = -100€ → viola il vincolo `saldo ≥ 0`**
+>     
+> 
+> **Qui interviene la Consistenza ACID:**
+> 
+> - ==Il database **rileva la violazione del vincolo**.==
+>     
+> - ==La transazione viene **annullata (abortita)**.==
+>     
+> - ==Alice rimane a 200€, Bob rimane a 50€.==
+>     
+> - ==Il database **non viene mai portato in uno stato inconsistente** (con un saldo negativo).==
+>     
+> 
+> 
+> 3. **Isolamento (I)**
+> 
+> - ==Immagina che mentre fai il bonifico di 100€ da Alice a Bob, qualcun altro stia facendo un bonifico di 50€ da Alice a Carol.==
+>     
+> - ==L'isolamento garantisce che le due transazioni non si "intralcino". Il risultato finale sarà come se fossero avvenute una dopo l'altra, indipendentemente da quale sia partita prima.==
+>     
+> - ==Senza isolamento, potresti leggere uno stato intermedio (es. Alice=100€ prima che Bob venga aggiornato) e prendere decisioni sbagliate.==
+>     
+> 
+> **Durabilità (D)**
+> 
+> - ==Una volta che il bonifico è completato e il database ha detto "commit", i dati sono **salvi su disco**.==
+>     
+> - Se si stacca la corrente un millisecondo dopo, al riavvio troverai A=100€ e B=150€. La transazione non viene persa.
+> 
+> 
+> ###### Perché ACID è Importante nei Microservizi?
+> 
+> Nei sistemi monolitici, con un unico database, ACID è **scontato**. Fai una transazione che tocca più tabelle, e il database garantisce tutto.
+> 
+> **Nei microservizi, il problema è che ogni microservizio ha il proprio database indipendente.** ==Non esiste un "super-database" che possa garantire transazioni ACID che coinvolgono più servizi.==
+> 
+> Riprendiamo l'esempio del Food Delivery:
+> ```text
+> Ordine creato → aggiorna catalogo (scorta) → elabora pagamento
+> ```
+> 
+> Questo coinvolge:
+> 
+> - Database di `order-service`
+>     
+> - Database di `catalog-service`
+>     
+> - Database di `payment-service`
+>     
+> 
+> ==Una transazione ACID **non è possibile** attraverso tre database separati.== 
+> Se il pagamento fallisce dopo che hai già aggiornato la scorta, non puoi fare un semplice "rollback" — i database non parlano tra loro in quel modo.
+> 
+> Ecco perché nei microservizi si introducono:
+> 
+> - **Pattern Saga** — ==una sequenza di transazioni locali con compensazioni==
+>     
+> - **Eventual consistency** — ==accettare che il sistema sia coerente "alla fine", non immediatamente==
+>     
+> - **Code di messaggi** — ==per gestire operazioni asincrone senza bloccare==
+>     
+> 
+> Ma questa è una lezione successiva. 
+> Per ora, tieni a mente che **ACID è il gold standard della consistenza dei dati, ma nei microservizi devi imparare a convivere con vincoli meno rigidi**.
+> 
+> 
+> > [!example] **Analogia Rapida**
+> > Pensa a ACID come a un **distributore automatico**:
+> >
+> >- **Atomicità** — ==o esce lo snack e vengono scalati i soldi, o non succede nulla. Non puoi perdere i soldi senza ricevere lo snack.==
+>    > 
+> >- **Consistenza** — ==il distributore non può mai trovarsi con più snack fuori che soldi incassati (rispetta i suoi vincoli).==
+>   >  
+> >- **Isolamento** — ==se due persone comprano contemporaneamente l'ultimo snack, una sola riesce. Non possono "vedersi" a metà dell'operazione.==
+>    > 
+> >- **Durabilità** — ==una volta che lo snack è uscito, anche se si stacca la corrente, il distributore "ricorda" che i soldi sono stati scalati.==
+>   >  
+> 
+> 
+> >> [!summary] **In una frase:**  
+> >> ==ACID è l'insieme delle garanzie che un database ti dà quando fai una transazione.== 
+> >> Nei microservizi, queste garanzie non valgono più attraverso i confini dei servizi — ed è per questo che tutto diventa più complicato.
+> 
+
 ### Comunicazione tra Servizi — Sincrona vs Asincrona
 
 Abbiamo visto come dividere le responsabilità (CQRS) e come gestire i dati (Master/Replica). Ora affrontiamo la terza grande domanda della progettazione: **come fanno i microservizi a parlare tra loro?**
 
 #### Considerazione N.3: Due Tecniche, Due Scelte
 
-I microservizi hanno bisogno di comunicare tra loro — alcuni anche con i client esterni. Esistono due tecniche principali, con caratteristiche molto diverse:
+**I microservizi hanno bisogno di comunicare tra loro — alcuni anche con i client esterni.** 
+Esistono 2 tecniche principali, con caratteristiche molto diverse:
 
-| Modalità              | Esempio                                                                                            | Caratteristiche                                               |
-| --------------------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
-| Sincrona              | Un servizio chiama l'endpoint REST di un altro e attende la risposta                               | Semplice da implementare, ma crea accoppiamento temporale     |
-| Asincrona (broadcast) | Un servizio pubblica un evento su una coda (Kafka, RabbitMQ); altri servizi leggono quando possono | Disaccoppiamento forte, maggiore resilienza, ma più complessa |
+| Modalità              | Esempio                                                                                                                                           | Caratteristiche                                               |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| Sincrona              | ==Un servizio chiama l'[[Lezione 6 - API#Endpoint\|endpoint]] [[Lezione 7 - Sistemi REST#Sistemi REST\|REST]] di un altro e attende la risposta== | Semplice da implementare, ma crea accoppiamento temporale     |
+| Asincrona (broadcast) | ==Un servizio pubblica un evento su una coda (Kafka, RabbitMQ); altri servizi leggono quando possono==                                            | Disaccoppiamento forte, maggiore resilienza, ma più complessa |
 
 #### La Strategia: REST fuori, Code dentro
 
 Una strategia comune e consolidata è questa:
 
->Le chiamate esterne (client → Gateway → microservizi) usano chiamate REST. 
-> Le comunicazioni interne tra microservizi usano entrambe le tecniche, ma si preferiscono le code a messaggi perché consentono una gestione asincrona e una maggiore indipendenza tra i servizi.
+>==Le chiamate esterne (client → Gateway → microservizi) usano chiamate [[Lezione 7 - Sistemi REST#Sistemi REST|REST]].== 
+> ==Le comunicazioni interne tra microservizi usano entrambe le tecniche, ma si preferiscono le code a messaggi perché consentono una gestione asincrona e una maggiore indipendenza tra i servizi.==
 
 **Perché questa distinzione?**
 
-- **REST per le chiamate esterne** — i client (app mobile, browser, app desktop) si aspettano una risposta immediata. Una chiamata REST con richiesta-risposta è il modello più naturale per loro.
+- **REST per le chiamate esterne:**
+	- ==i client ([[Lezione 2 - Architetture dei microservizi#^client1|app mobile]], [[Lezione 2 - Architetture dei microservizi#^client3|browser]], [[Lezione 2 - Architetture dei microservizi#^client2|app desktop]]) si aspettano una risposta immediata.== 
+	- ==Una chiamata REST con richiesta-risposta è il modello più naturale per loro.==
     
 - **Code per le comunicazioni interne** — quando un microservizio deve notificare un evento a un altro servizio, una coda asincrona permette:
     
-    - **Disaccoppiamento temporale** — se il servizio destinatario è momentaneamente offline, il messaggio rimane nella coda e verrà processato al suo rientro
+    - **Disaccoppiamento temporale** — ==se il servizio destinatario è momentaneamente offline, il messaggio rimane nella coda e verrà processato al suo rientro==
         
-    - **Disaccoppiamento spaziale** — il servizio mittente non ha bisogno di sapere dove si trova il destinatario; pubblica su una coda e "se ne dimentica"
+    - **Disaccoppiamento spaziale** — ==il servizio mittente non ha bisogno di sapere dove si trova il destinatario; pubblica su una coda e "se ne dimentica"==
         
-    - **Broadcast naturale** — un solo messaggio può essere letto da più consumatori (es. `catalogo_WR` pubblica un evento "prodotto_aggiornato" che viene letto sia da `catalogo_RD` che dal servizio di ricerca)
+    - **Broadcast naturale** — ==un solo messaggio può essere letto da più consumatori (es. `catalogo_WR` pubblica un evento "`prodotto_aggiornato`" che viene letto sia da `catalogo_RD` che dal servizio di ricerca)==
 ##### Esempio: La Gestione del Catalogo con CQRS
 
-Ritorniamo al nostro esempio di Food Delivery con `catalogo_WR` e `catalogo_RD`. Come comunicano?
+Ritorniamo al nostro esempio di [[#Esempio Pratico Food Delivery (come Glovo)|Food Delivery]] con `catalogo_WR` e `catalogo_RD`. Come comunicano?
 ```text
 ┌─────────────────────────────────────────────────────────────────┐
 │                                                                 │
@@ -313,11 +461,11 @@ Le code non sono sempre la soluzione migliore. Ci sono casi in cui la comunicazi
 
 > [!tip] **Regola pratica:**
 > 
-> - Se un servizio deve **sapere con certezza** che qualcosa è successo prima di continuare → usa REST
+> - ==Se un servizio deve **sapere con certezza** che qualcosa è successo prima di continuare → usa REST==
 >     
-> - Se un servizio deve **notificare** che qualcosa è successo, senza aspettarsi una risposta → usa una coda
+> - ==Se un servizio deve **notificare** che qualcosa è successo, senza aspettarsi una risposta → usa una coda==
 >     
-> - Se più servizi devono **reagire** allo stesso evento → usa una coda (broadcast)
+> - ==Se più servizi devono **reagire** allo stesso evento → usa una coda (broadcast)==
 
 
 ##### Riepilogo delle Scelte di Comunicazione
