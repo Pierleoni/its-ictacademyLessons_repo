@@ -1152,7 +1152,7 @@ export default Button2;
 In questo caso l'attributo `onClick` è veramente collegato a un  **event listener**, perché è applicato a un elemento HTML (`<button>`).
 
 
-> [!remember] **Event Listeners vs. Event Handler**
+> [!remember]  **Event Listeners vs. Event Handler**
 > 1. Gli [[Lezione 6 - API#**API Asincrone**|event]] Listeners: 
 > 	==Un event listener (“ascoltatore di eventi”) è un meccanismo del browser (parte del DOM) che “ascolta” un determinato evento — ad esempio un click, un input da tastiera o il passaggio del mouse==.  
 > 	^eventListeners

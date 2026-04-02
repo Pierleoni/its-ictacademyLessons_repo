@@ -2,7 +2,7 @@
 # Design Pattern — Ripasso e Nuovi Pattern
 
 Abbiamo già visto cosa sono i [[Lezione 19 - Design Pattern#Design Pattern|Design Pattern]], le loro categorie e alcuni esempi concreti — in particolare il **[[Lezione 19 - Design Pattern#Esempio implementazione del Singleton in Java|Singleton]]**, l'**[[Lezione 19 - Design Pattern#Adapter (Pattern Strutturale)|Adapter]]** e lo **[[Lezione 19 - Design Pattern#Pattern Strategy|Strategy]]**. 
-Ora ampliamo il repertorio con quattro nuovi pattern: il **Singleton** (che riprendiamo), il **Factory Method**, il **Proxy** e l'**Observer** e il **Composite**.
+Ora ampliamo il repertorio con quattro nuovi pattern: il **[[#2. Singleton|Singleton]]** (che riprendiamo), il **[[#1. Factory Method|Factory Method]]**, il **Proxy** e l'**[[#4. Observer|Observe]]r** e il **[[#3. Composite ⚠️ Da portare all'esame|Composite]]**.
 
 Vale la pena ricordare una cosa fondamentale prima di procedere: 
 - ==i Design Pattern sono uno **strumento di progettazione**, non una soluzione da applicare meccanicamente.== 
@@ -21,7 +21,7 @@ I Design Pattern si dividono in famiglie in base al **tipo di problema** che ris
 	- Abbiamo visto l'**[[Lezione 19 - Design Pattern#Adapter (Pattern Strutturale)|Adapter]]**.
 	- E aggiungeremo il **Composite** e il **Proxy**
 - **[[Lezione 19 - Design Pattern#GoF Pattern Behavioral|Pattern Comportamentali]]:** 
-	- riguardano la comunicazione e il comportamento tra gli oggetti. 
+	- ==riguardano la comunicazione e il comportamento tra gli oggetti.== 
 	- Abbiamo visto lo **[[Lezione 19 - Design Pattern#Pattern Strategy|Strategy]]**.
 Oggi aggiungiamo:
 
@@ -52,13 +52,13 @@ Oggi aggiungiamo:
 >[!summary] **In sintesi:** 
 >il Factory Method ==è il pattern che permette di **disaccoppiare la creazione degli oggetti dal loro utilizzo** — esattamente il principio che abbiamo visto con la Dependency Injection di Spring.==
 
-### Diagramma Facotry Method
+### Diagramma Factory Method
 
 Il diagramma mostra chiaramente la separazione dei ruoli che abbiamo descritto:
 [![Screenshot-2026-03-29-at-15-10-03-Microsoft-Power-Point-Design-Pattern-ITS-Compatibility-Mode-Des.png](https://i.postimg.cc/TwttyFvP/Screenshot-2026-03-29-at-15-10-03-Microsoft-Power-Point-Design-Pattern-ITS-Compatibility-Mode-Des.png)](https://postimg.cc/FdJy8PRt)
 
 1. ==Il **Consumer** invoca la **Factory** chiedendole di creare un oggetto==
-2. ==La **Factory** istanzia un oggetto di **ConcreteProduct** — la classe concreta che implementa l'interfaccia `Product`==
+2. ==La **Factory** istanzia un oggetto di **`ConcreteProduct`** — la classe concreta che implementa l'interfaccia `Product`==
 3. ==Il **Consumer** ottiene e usa l'oggetto, ma lo vede solo attraverso il tipo astratto **`Product`** — non sa e non gli importa che sia un `ConcreteProduct`==
 Il punto chiave è: 
 - ==il **Consumer è completamente disaccoppiato dal `ConcreteProduct`** — conosce solo l'interfaccia `Product`.== 
@@ -380,9 +380,9 @@ Per capire questo pattern analizziamo l'immagine del diagramma:
 > Nei casi dei Design Pattern, quando si parla di **Client**, non ci si riferisce a un Client inteso nella accezione canonica del termine(es: il Client nell'architettura **[[Reti di computer#1. Modello Client/Server|Client - Server]]** ), ma alla classe (può essere anche la classe con il `Main` di Java) che implementa l'oggetto della classe o interfaccia da cui parte il Design Pattern
 
 1. La classe `Singleton`: 
-	- ha un attributo `instance` tipizzato a se stesso
-	- un  metodo `Singleton()` senza parametri e senza ritorno
-	- E un metodo `getInstance()` che ritorna un oggetto della classe `Singleton`
+	- ==ha un attributo `instance` tipizzato a se stesso==
+	- ==un  metodo `Singleton()` senza parametri e senza ritorno==
+	- ==E un metodo `getInstance()` che ritorna un oggetto della classe `Singleton`==
 	- Difatti questa classe ha un link di associazione che richiama se stessa
 Cosa significa tutto ciò? 
 ==Il **Client** non può creare oggetti della classe direttamente — il costruttore è privato.== 
@@ -452,40 +452,369 @@ Il problema è duplice:
 
 Il punto chiave è: 
 - ==la [[#^composizione|`Composizione`]] contiene una lista di [[#^componente|`Componente`]] — non di [[#^foglia|`Foglia`]] o di `Composizione` specificamente, ma dell'**interfaccia generica**.== 
-Questo è ciò che rende il pattern ricorsivo: una `Composizione` può contenere altre `Composizione`, che a loro volta ne contengono altre, formando un albero di profondità arbitraria.
+Questo è ciò che rende il pattern ricorsivo: 
+- ==una [[#^composizione|`Composizione`]] può contenere altre [[#^composizione|`Composizione`]], che a loro volta ne contengono altre, formando un albero di profondità arbitraria.==
 #### Diagramma del Composite
-Il diagramma del Composite mostra due relazioni fondamentali che lavorano insieme:
+Per capire meglio questo design pattern analizziamo l'immagine
 [![Screenshot-2026-03-27-at-15-25-49-Microsoft-Power-Point-Design-Pattern-ITS-Compatibility-Mode-Des.png](https://i.postimg.cc/Gp7CvF6d/Screenshot-2026-03-27-at-15-25-49-Microsoft-Power-Point-Design-Pattern-ITS-Compatibility-Mode-Des.png)](https://postimg.cc/R3HyBHMD)
+I ruoli dei tre elementi sono:
+1. **Classe `Client`:**
+	- ==Partecipa a un link di associazione con responsabilità verso l'interfaccia / classe astratta `Component`.==
+	- ==La classe client non sa nulla della struttura del design pattern, implementa l'oggetto della classe `Component`== 
+
+
+
+2. **Classe astratta/interfaccia [[#^componente|`Component`]]**
+	-  ==è l'interfaccia generica, di base una **classe astratta**, che definisce il contratto comune per tutti gli elementi dell'albero.== 
+	- ==Dichiara il metodo di business `Operation()` che verrà implementato sia dalle foglie che dalle composizioni.== 
+	- ==Gli altri metodi presenti nell'interfaccia — come `add()`, `remove()`, `getChild()` — non sono operativi ma servono a **gestire i sottocomponenti** e hanno senso solo per `Composite`, non per `Leaf`.== 
+> [!remember] **Ricorda:**
+> `Component` 9 volte su 10 è una [[Lezione 10 - Classi astratte e interfaccie#Classi astratte|classe astratta]], non un [[Lezione 10 - Classi astratte e interfaccie#Le interfacce|interfaccia]]
+
+3. **Classe [[#^composizione|`Composite`]]**
+	-  ==è il nodo dell'albero che può contenere altri `Component`.== 
+	- ==Implementa `Operation()` **delegando** la chiamata a tutti i suoi sottocomponenti, che a loro volta la delegano ai propri, fino ad arrivare alle foglie.== 
+	- ==È una chiamata ricorsiva che scende lungo l'albero fino agli elementi terminali.==
+4. **Classe [[#^foglia|`Leaf`]]:** 
+	- ==è l'elemento terminale dell'albero, quello che non può contenere altri elementi.== 
+	- ==Implementa `Operation()` con la sua logica specifica — è qui che avviene il lavoro concreto.==
+
+
+**Il diagramma del Composite mostra due relazioni fondamentali che lavorano insieme:**
 1. **Relazione is-a:**
-	- sia [[#^foglia|`Leaf`]] che [[#^composizione|`Composite`]] implementano l'interfaccia `Component`. Entrambi **sono** un [[#^componente|`Component`]] — questo è ciò che permette al Client di trattarli in modo uniforme senza sapere con quale dei due sta interagendo.
+	- ==sia [[#^foglia|`Leaf`]] che [[#^composizione|`Composite`]] implementano l'interfaccia [[#^componente|`Component`]].== 
+	- Entrambi **sono** un [[#^componente|`Component`]]: 
+		- ==questo è ciò che permette al Client di trattarli in modo uniforme senza sapere con quale dei due sta interagendo.==
 
 2. **Relazione has-a:**
-	- `Composite` aggrega una collezione di `Component`. 
+	- ==[[#^composizione|`Composite`]] aggrega una collezione di [[#^componente|`Component`]].== 
 	- Non aggrega specificamente `Leaf` o altri `Composite`, ma il tipo astratto `Component` — ed è esattamente questa la chiave della ricorsione. 
-		- Una `Composite` può contenere foglie, altre composizioni, o entrambe, senza limiti di profondità. 
-**Guardando il diagramma non si può sapere quanto è profonda la ricorsione** — dipende interamente da come viene costruito l'albero a runtime.
-
-I ruoli dei tre elementi sono:
-
-**`Component`** — è l'interfaccia generica, di base una **classe astratta**, che definisce il contratto comune per tutti gli elementi dell'albero. Dichiara il metodo di business `Operation()` che verrà implementato sia dalle foglie che dalle composizioni. Gli altri metodi presenti nell'interfaccia — come `add()`, `remove()`, `getChild()` — non sono operativi ma servono a **gestire i sottocomponenti** e hanno senso solo per `Composite`, non per `Leaf`.
-
-**`Leaf`** — è l'elemento terminale dell'albero, quello che non può contenere altri elementi. Implementa `Operation()` con la sua logica specifica — è qui che avviene il lavoro concreto.
-
-**`Composite`** — è il nodo dell'albero che può contenere altri `Component`. Implementa `Operation()` **delegando** la chiamata a tutti i suoi sottocomponenti, che a loro volta la delegano ai propri, fino ad arrivare alle foglie. È una chiamata ricorsiva che scende lungo l'albero fino agli elementi terminali.
+		- ==Una `Composite` può contenere foglie, altre composizioni, o entrambe, senza limiti di profondità.== 
+**Guardando il diagramma non si può sapere quanto è profonda la ricorsione** — ==dipende interamente da come viene costruito l'albero a runtime.==
 
 >[!example] **Analogia con il filesystem:** 
->`Component` è il concetto generico di "elemento del filesystem", `Leaf` è un file, `Composite` è una cartella. Una cartella può contenere file e altre cartelle — esattamente come `Composite` può contenere `Leaf` e altri `Composite`. Quando chiedi la dimensione totale di una cartella, il sistema delega il calcolo a tutti gli elementi contenuti, che a loro volta delegano ai propri, fino ad arrivare ai singoli file che restituiscono la loro dimensione. È il Composite pattern in azione.
+>`Component` è il concetto generico di "elemento del filesystem", `Leaf` è un file, `Composite` è una cartella. 
+>Una cartella può contenere file e altre cartelle — esattamente come `Composite` può contenere `Leaf` e altri `Composite`. Quando chiedi la dimensione totale di una cartella, il sistema delega il calcolo a tutti gli elementi contenuti, che a loro volta delegano ai propri, fino ad arrivare ai singoli file che restituiscono la loro dimensione. 
+>È il Composite pattern in azione.
 
-### Observer
-Problema: 
-- Si vuole gestire un oggetto per cui un cambiamento interno produce delle azioni sull'oggetto stesso che si volgiono configurare dinamicamente 
-- Classico contesto della programmazione ad eventi 
-**Soluzione:**
-- Creare 2 classi: 
-	- L'osservato → registra gli Osservatori e li avvisa (registrs gli osservatori e li avvisa)
-	- L'osservatore → esegue comportamenti in funzione dell'evento generatorsi sull'Osservato(non è un guardone )
-Questo pattern l'abbimao riscontrato ad esempio con i bottoni htlm a cui associavamo un event listener di JS 
-Con questa selezione il numero e il tipo degli osservoatori può anche non essere noto a priori. 
+#### Esempio Pratico — Composite in Java: Gestione di un Teatro
+
+L'esercizio modella la struttura di un teatro — un esempio perfetto di struttura ad albero ricorsiva: 
+- un teatro ha settori, i settori possono contenere altri settori, e alla fine della gerarchia ci sono le zone con i loro posti.
+
+Vediamo come le classi si mappano sui ruoli del pattern:
+**`SettoreComponent` — il `Component`**
+```java
+public abstract class SettoreComponent {
+    private int id;
+
+    public void add(SettoreComponent sc) throws LeafException {};
+    public boolean removeSettore(SettoreComponent sc) throws LeafException { return false; };
+}
+```
+
+- ==È la classe astratta che definisce il contratto comune per tutti gli elementi della gerarchia.== 
+- **Dichiara i metodi `add()` e `removeSettore()` con implementazioni vuote di default** — ==non astratti, perché la `Leaf` non dovrebbe implementarli ma solo lanciarli come eccezione.== 
+- Contiene l'`id` che identifica ogni settore, sia esso un nodo composito o una foglia.
+
+**`SettoreComposite` — il `Composite`**
+
+```java
+public class SettoreComposite extends SettoreComponent {
+    private List<SettoreComponent> contiene = new ArrayList<>();
+
+    @Override
+    public void add(SettoreComponent sc) throws LeafException {
+        this.getContiene().add(sc);
+    }
+
+    @Override
+    public boolean removeSettore(SettoreComponent sc) throws LeafException {
+        return this.getContiene().remove(sc);
+    }
+}
+```
+
+- **È il nodo dell'albero** — ==aggrega una `List<SettoreComponent>`, non una lista di `SettoreComposite` o di `Zona` specificamente, ma del tipo astratto `SettoreComponent`.== 
+- Questo è il cuore della ricorsione: 
+	- ==un `SettoreComposite` può contenere altri `SettoreComposite` o `Zona`, senza limiti di profondità.== 
+	- ==I metodi `add()` e `removeSettore()` aggiungono e rimuovono elementi dalla lista.==
+`Zona` — la `Leaf`
+```java
+public class Zona extends SettoreComponent {
+    private List<Posto> posti = new ArrayList<>();
+
+    @Override
+    public void add(SettoreComponent sc) throws LeafException {
+        throw new LeafException("Errore! La zona non può aggiungere zone o posti");
+    }
+
+    @Override
+    public boolean removeSettore(SettoreComponent sc) throws LeafException {
+        throw new LeafException("Errore! La zona non può rimuovere zone o posti");
+    }
+
+    public void addPosto(Posto p) { ... }
+    public boolean removePosto(Posto p) { ... }
+}
+```
+
+- ==È la foglia della gerarchia del pattern — non può contenere altri `SettoreComponent`.== 
+- ==Quando qualcuno tenta di chiamare `add()` o `removeSettore()` su una `Zona`, viene lanciata una `LeafException` — il meccanismo che impedisce alla foglia di comportarsi come un nodo composito.==
+- **`Zona` ha però una propria lista di `Posto` gestita con metodi dedicati `addPosto()` e `removePosto()`** — ==ma questi non fanno parte della gerarchia del Composite, sono una gestione interna della `Zona`.==
+
+`Posto` — oggetto a sé stante
+```java
+	public class Posto {
+	private int numeroPosto;
+	private char fila;
+	public Posto(int numeroPosto, char fila) {
+		this.setNumeroPosto(numeroPosto);
+		this.setFila(fila);
+	}
+	public Posto() {}
+	public int getNumeroPosto() {
+		return numeroPosto;
+	}
+	public void setNumeroPosto(int numeroPosto) {
+		this.numeroPosto = numeroPosto;
+	}
+	public char getFila() {
+		return fila;
+	}
+
+	public void setFila(char fila) {
+		this.fila = fila;
+	}
+	@Override
+	public String toString() {
+	return "Posto :{ numero posto : " + getNumeroPosto() + ", fila posto : " + getFila() + "}";
+	}
+}
+```
 
 
+- `Posto` non fa parte della gerarchia del Composite — non estende `SettoreComponent`. 
+- ==È un oggetto autonomo che rappresenta il dettaglio più granulare del sistema — un singolo posto in una zona.== 
+- La sua gestione è completamente delegata alla `Zona` tramite i suoi metodi `addPosto()` e `removePosto()`.
+
+**`LeafException` — la guardia della Leaf**
+
+```java
+public class LeafException extends Exception {
+    public LeafException(String msg) { super(msg); }
+}
+```
+
+È una **[[Lezione 11 - Gestire gli Errori#1. Eccezioni Checked|checked exception]]** custom che viene lanciata ogni volta che si tenta di usare i metodi strutturali del Composite su una `Zona`. 
+Essendo checked, ==il compilatore obbliga chi chiama `add()` o `removeSettore()` a gestirla con un `try-catch` — rendendo esplicito nel codice il fatto che queste operazioni possono fallire se invocate su una foglia.==
+**`test` — il Client**
+```java
+public class test {
+    public static void main(String[] args) throws LeafException {
+        // ...
+    }
+}
+```
+
+Il `main` costruisce la struttura ad albero del teatro passo per passo. Vale la pena seguire il flusso per capire come il pattern prende vita nel codice.
+
+**Prima parte — costruzione del primo settore:**
+```java
+Posto p = new Posto(1, 'C');
+Posto p2 = new Posto(2, 'A');
+Posto p3 = new Posto(3, 'D');
+
+Zona z = new Zona(2, new ArrayList<Posto>());
+z.addPosto(p);
+z.addPosto(p2);
+z.addPosto(p3);
+```
+
+Si creano tre posti e si aggiungono alla `Zona z` tramite `addPosto()` — il metodo interno della `Zona`, non quello del pattern.
+```java
+List<SettoreComponent> listaSC = new ArrayList<SettoreComponent>();
+SettoreComponent sc = new SettoreComposite(1, listaSC);
+sc.add(z);
+```
+Si crea un `SettoreComposite` e lo si referenzia con una reference di tipo `SettoreComponent` — il tipo astratto. Questo è il disaccoppiamento in azione: 
+- ==`sc` non sa di essere un `SettoreComposite`, vede solo l'interfaccia `SettoreComponent`.== 
+Si aggiunge poi `z` al settore tramite `sc.add(z)` — il metodo del pattern.
+```JAVA
+System.out.println(sc.toString());
+```
+Stampa la struttura del settore con la zona e i suoi posti.
+
+**Seconda parte — aggiunta di un secondo settore:**
+
+```java
+Posto p4 = new Posto(4, 'F');
+Posto p5 = new Posto(6, 'T');
+Posto p6 = new Posto(8, 'Z');
+
+Zona z2 = new Zona(3, new ArrayList<Posto>());
+z2.addPosto(p4);  
+z2.addPosto(p5);  
+z2.addPosto(p6);  
+sc.add(z2);
+System.out.println(sc.toString());
+```
+
+Si crea una seconda zona `z2` e si aggiunge al settore.
+
+>[!info] **Nota importante:** 
+>==il Client dichiara `sc` come `SettoreComponent` — non come `SettoreComposite`.== 
+>==Questo significa che quando chiama `sc.add(z)` non sa se sta aggiungendo a un `SettoreComposite` o a una `Zona`.== 
+>Se `sc` fosse una `Zona`, riceverebbe una `LeafException`. 
+>È il polimorfismo del Composite in azione — il Client opera sull'interfaccia senza sapere cosa c'è dietro.
+##### La Struttura ad Albero del Teatro
+
+Mettendo tutto insieme, la struttura che si può costruire con questo pattern è:
+```css
+Teatro (SettoreComposite)
+├── Settore A (SettoreComposite)
+│   ├── Zona A1 (Zona/Leaf)
+│   │   ├── Posto {1, 'A'}
+│   │   └── Posto {2, 'A'}
+│   └── Zona A2 (Zona/Leaf)
+│       └── Posto {1, 'B'}
+└── Settore B (SettoreComposite)
+    └── Zona B1 (Zona/Leaf)
+        └── Posto {1, 'C'}
+```
+==Il Client può navigare questa struttura chiamando i metodi di `SettoreComponent` senza sapere se sta interagendo con un `SettoreComposite` o con una `Zona` — è il polimorfismo applicato alla ricorsione.==
+
+> [!done] **Conseguenze del Pattern Composite**
+>  
+> 
+> **Accesso uniforme:**
+> 	 - ==foglie e nodi compositi vengono trattati in modo uniforme tramite l'interfaccia [[#^componente|`Component`]].== 
+> 	 - ==Il Client non deve sapere con quale dei due sta interagendo — chiama sempre gli stessi metodi e il polimorfismo pensa al resto.==
+> 
+> **Nessuna ripetizione nel diagramma:**  
+> 	- ==la struttura ad albero non genera ridondanza nel codice.== 
+> 	- ==Non esiste un metodo diverso per gestire le foglie e uno per gestire i nodi — esiste un'unica interfaccia che vale per entrambi.== 
+> 	- ==È la soluzione **[[Lezione 19 - Design Pattern#DRY Principle|DRY]]** (Don't Repeat Yourself) applicata alla progettazione.==
+> 
+> **Profondità dinamica:**
+>	- ==la profondità della struttura non è fissa a compile time ma si decide direttamente **al momento della creazione degli oggetti** a runtime.== 
+>	- Nell'esercizio del teatro, il Client costruisce l'albero aggiungendo settori e zone liberamente — il pattern non impone nessun limite sulla profondità o sul numero di nodi.
+> 
+
+>[!summary] **In sintesi:**
+> il Composite risolve elegantemente il problema della ricorsione a livello di design: 
+> - ==una sola interfaccia, nessuna ripetizione, profondità arbitraria.== 
+>
+>È uno dei pattern più potenti e allo stesso tempo più eleganti del catalogo GoF.
+## Pattern Comportamentali
+
+### 4. Observer
+
+**Il problema che risolve:** 
+==A volte si ha un oggetto il cui **cambiamento interno** deve produrre delle azioni — e si vuole che queste azioni siano configurabili dinamicamente, senza dover modificare l'oggetto stesso ogni volta.== 
+È il contesto classico della **programmazione ad eventi**: ==quando succede qualcosa, qualcun altro deve reagire.==
+
+> [!link] **[[Lezione 2 - Il Props Object#^eventHandlerVsEventListeners|Event Listener in JS]]**
+> Lo abbiamo già incontrato senza saperlo — quando in JavaScript associavamo un **event listener** a un bottone HTML:
+> ```js
+> button.addEventListener('click', () => { ... });
+> ```
+> Il bottone è l'osservato, l'event listener è l'osservatore. Quando il bottone viene cliccato — cambiamento interno — l'event listener reagisce eseguendo il suo comportamento.
+
+**La soluzione:** Si creano due classi con ruoli distinti:
+
+1. **L'Osservato** — ==è l'oggetto che subisce i cambiamenti.== 
+	- **Ha la responsabilità di:**
+
+		- ==**Registrare** gli osservatori interessati ai suoi cambiamenti==
+		- ==**Avvisarli** quando si verifica un evento==
+
+2. **L'Osservatore:** 
+ - ==è l'oggetto che reagisce ai cambiamenti dell'Osservato.== 
+ - ==Esegue comportamenti specifici in funzione dell'evento che si è verificato.==
+
+Il vantaggio fondamentale di questa soluzione è che il **numero e il tipo degli osservatori non deve essere noto a priori:**
+- ==si possono aggiungere o rimuovere osservatori dinamicamente a runtime, senza toccare il codice dell'osservato.== 
+L'osservato sa solo che esistono degli osservatori e che deve avvisarli — non sa quanti sono né cosa fanno.
+
+#### Diagramma dell'Observer
+Guardando il diagramma, il pattern si articola su quattro elementi:
+[![Screenshot-2026-03-30-at-10-41-21-Microsoft-Power-Point-Design-Pattern-ITS-Compatibility-Mode-Des.png](https://i.postimg.cc/xd5vZJRh/Screenshot-2026-03-30-at-10-41-21-Microsoft-Power-Point-Design-Pattern-ITS-Compatibility-Mode-Des.png)](https://postimg.cc/jWWnwjB4)
+1. **`Subject` — l'Osservato astratto:** 
+	- ==È la classe astratta che definisce il contratto per tutti gli osservati.== 
+	- Dichiara tre metodi fondamentali:
+
+		- `attach(observer: Observer)` — ==registra un nuovo osservatore==
+		- `detach(observer: Observer)` — ==rimuove un osservatore==
+		- `notify()` — ==avvisa tutti gli osservatori registrati==
+
+2. **`ConcreteSubject` — l'Osservato concreto:**
+	
+	- ==Estende `Subject` e contiene lo stato che può cambiare — `subjectState: State`.== 
+	- ==Espone `getState()` e `setState()` per leggere e modificare lo stato.== 
+	- ==Quando lo stato cambia, chiama `notify()` che scatena la reazione di tutti gli osservatori registrati.==
+
+3. **`Observer` — l'Osservatore astratto:**
+- **Partecipa a un link di associazione con `Subject`, la quale ha la responsabilità verso questa classe:** 
+	- ==Difatti `Subject` nel suo metodo `notify()` invoca il metodo `update()` di `Observer` tramite oggetto `o:Observer`== 
+- ==È un'interfaccia che dichiara un solo metodo: `update()`.== 
+- ==È il contratto che tutti gli osservatori concreti devono rispettare.==
+
+**`ConcreteObserver` — l'Osservatore concreto:**
+- **Implementa `Observer` e specializza il metodo `update()`** ==con il comportamento specifico da eseguire quando viene notificato.== 
+- Partecipa a un link di associazione con responsabilità verso `ConcreteSubject`: 
+	- ==per poterne leggere lo stato aggiornato tramite `getState()`.==
+
+
+> [!NOTE] Il cuore del pattern è il metodo `notify()`, che internamente fa:
+>```java
+> >void notify() {
+   > for(Observer o : observers) {
+  >      o.update(); // avvisa ogni osservatore registrato
+  >  }
+>}
+>```
+> ==Quando il `ConcreteSubject` cambia stato, chiama `notify()` che itera su tutti gli osservatori registrati e chiama `update()` su ognuno.== 
+> Ogni `ConcreteObserver` reagisce al cambiamento eseguendo il suo comportamento specifico — ==che può includere leggere il nuovo stato dell'osservato tramite `getState()` e modificarsi di conseguenza.==
+>
+
+> [!ticket] Il punto chiave è che il `Subject` non sa nulla dei `ConcreteObserver` — conosce solo l'interfaccia `Observer`. 
+> ==Questo significa che si possono aggiungere nuovi tipi di osservatori senza mai toccare il codice del `Subject` — esattamente come in JavaScript si possono aggiungere più event listener allo stesso bottone senza modificare il bottone stesso.==
+> 
+
+
+
+
+> [!done] **Conseguenze del Pattern Observer**
+>  
+> 
+> **L'Observer è esterno e indipendente:** 
+> - ==l'osservatore non è parte integrante del `Subject` ma un componente esterno che può essere configurato, aggiunto o rimosso dinamicamente senza toccare il codice dell'osservato.== 
+> - È esattamente il principio di **Single Responsibility**: 
+> 	- ==il `Subject` si occupa di gestire il proprio stato, gli `Observer` si occupano di reagire ai cambiamenti.==
+> 
+> **Un Observer può osservare più Subject:** 
+> - ==uno stesso osservatore può essere registrato su più oggetti osservati contemporaneamente==. 
+> - Ad esempio un logger che registra i cambiamenti di stato potrebbe essere registrato su tutti i microservizi del sistema.
+> 
+> **L'Observer è autorizzato ad agire sul Subject:**
+> -  ==l'osservatore non si limita a leggere lo stato dell'osservato tramite `getState()` — se necessario può anche modificarlo tramite `setState()`.== 
+> - ==Il `Subject` autorizza implicitamente questa possibilità nel momento in cui registra l'osservatore.==
+
+
+
+> [!tldr] **Observer vs Proxy — Una Distinzione Importante**
+>  
+> 
+> L'Observer può sembrare simile al **Proxy** — entrambi coinvolgono un oggetto che "si mette in mezzo" rispetto a un altro. 
+> La differenza fondamentale però è:
+> 
+> - Nel **Proxy:**
+> 	- ==il soggetto filtrato **non sa nulla** del proxy che lo avvolge.== 
+> 	- ==Il proxy intercetta le chiamate all'insaputa dell'oggetto originale.==
+> - Nell'**Observer** — l'osservato **sa dell'osservatore**: 
+> 	- ==è lui stesso a registrarlo tramite `attach()` e ad avvisarlo tramite `notify()`.== 
+> 	- ==Non c'è nulla di nascosto — è una relazione esplicita e bidirezionale.==
+
+>[!summary] In sintesi: il Proxy è trasparente all'oggetto originale, l'Observer è una relazione consapevole e dichiarata tra osservato e osservatore.
 ### Proxy 
