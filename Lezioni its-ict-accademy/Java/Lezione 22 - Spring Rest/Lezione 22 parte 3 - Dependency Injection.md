@@ -87,7 +87,7 @@ Quindi è la nostra applicazione ad aspettare che il framework la chiami, la ist
 
 ### Dependency Injection
 La **Dependency Injection** è una forma specifica di IoC: 
-- ==Consiste nella capacità di un framework — detto **Container** — di creare oggetti in inversione di controllo, occupandosi anche di creare e iniettare automaticamente gli oggetti di cui sono composti, detti **dipendenze**.==
+- ==Consiste nella capacità di un framework — detto **Container** — di creare oggetti in [[#Inversione di controllo|inversione di controllo]], occupandosi anche di creare e iniettare automaticamente gli oggetti di cui sono composti, detti **dipendenze**.==
 
 #### L'esempio del Musicista
 

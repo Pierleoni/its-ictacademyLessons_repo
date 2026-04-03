@@ -79,13 +79,12 @@ Quando un servizio rispetta i vincoli e i principi di questo modello, si dice ch
 >Analizzando ciò che aveva reso il web così efficace, Fielding estrasse una serie di principi che – se applicati correttamente – avrebbero permesso di creare sistemi semplici, prevedibili e facili da integrare.  
 >Da qui nasce REST, lo stile architetturale che oggi costituisce la base della maggior parte delle API web moderne.  
 
-### Le motivazione fondamentali di REST 
+### Le motivazioni fondamentali di REST 
 Alla luce di ciò le motivazioni fondamentali delle REST sono: 
 
-##### 1. Semplicità
-
-==Il principio guida di REST è eliminare la complessità superflua.==  
-Invece di inventare un nuovo protocollo di comunicazione, REST utilizza l’**HTTP**, che già governa il web, con vantaggi significativi:
+ 1. Semplicità:
+- ==Il principio guida di REST è eliminare la complessità superflua.==  
+- Invece di inventare un nuovo protocollo di comunicazione, REST utilizza l’**HTTP**, che già governa il web, con vantaggi significativi:
 
 > [!done] La semplicità di REST
 > 
@@ -96,15 +95,14 @@ Invece di inventare un nuovo protocollo di comunicazione, REST utilizza l’**HT
 > 	- ==A differenza di protocolli come SOAP, che avvolgono ogni messaggio in strutture XML complesse, le richieste REST sono dirette e leggibili.==
 >     
 > - **Debugging facilitato**: 
-> 	- ==Le richieste REST sono semplici messaggi di testo che possono essere facilmente ispezionati con strumenti di sviluppo di qualsiasi browser.==
+> 	- ==Le richieste REST sono semplici messaggi di testo che possono essere facilmente ispezionati con strumenti di sviluppo del browser, oppure con tool dedicati come Postman — che usi già per testare le tue API — o curl, uno strumento da riga di comando per inviare richieste HTTP.==
 >     
 
 _Esempio_: Una richiesta REST GET a `/utenti/123` è immediatamente comprensibile, mentre in SOAP sarebbe necessario costruire un intero documento XML.
 
-##### 2. Scalabilità
-
-==REST è progettato per gestire sistemi con **alto numero di utenti e richieste simultanee**.== 
-Alcuni principi chiave che permettono questa scalabilità sono:
+2. Scalabilità
+- ==REST è progettato per gestire sistemi con **alto numero di utenti e richieste simultanee**.== 
+- Alcuni principi chiave che permettono questa scalabilità sono:
 
 > [!done] Principi chiave
 > 
@@ -118,9 +116,8 @@ Alcuni principi chiave che permettono questa scalabilità sono:
 > 	- ==Tra client e server possono esserci più livelli intermedi, come proxy o bilanciatori di carico, senza che client o server debbano modificarne il comportamento.==
 >     
 
-##### 3. Indipendenza
-
-==REST favorisce **disaccoppiamento e interoperabilità** tra client e server==:
+3. Indipendenza
+- ==REST favorisce **disaccoppiamento e interoperabilità** tra client e server==:
 
 > [!done] Caratteristiche
 > - **Indipendenza di piattaforma e linguaggio**: 
@@ -278,7 +275,7 @@ In un’architettura **stateful**:
 > #### Perché i Servizi Stateless Sono Più Convenienti ed Efficienti
 > Uno dei motivi principali per cui i sistemi REST hanno avuto così grande successo è il **vantaggio economico** associato al modello **stateless**.
 >
->Nei sistemi **[[Lezione 7 - Sistemi REST#**Architettura Stateful (Con Stato)**|stateful]]**, ogni volta che un client interagisce con un server:
+>Nei sistemi [[Lezione 7 - Sistemi REST#**Architettura Stateful (Con Stato)**|stateful]], ogni volta che un client interagisce con un server:
 >==quest’ultimo deve mantenere una **sessione attiva**, cioè uno spazio di memoria dedicato in cui conservare informazioni sullo stato della conversazione (dati parziali, preferenze, step già completati, ecc.).==  
 >Questa gestione dello stato, però, ha un costo molto elevato:
 >
@@ -306,8 +303,8 @@ In un’architettura **stateful**:
 >    
 >
 >Il risultato è una scalabilità **più economica, lineare e affidabile**.
->
->2. Disaccoppiamento totale tra Client e Server
+>Ma il vantaggio non è solo economico — **cambia anche il modo in cui client e server si relazionano tra loro.**
+>1. Disaccoppiamento totale tra Client e Server
 >
 >	Nei servizi stateless, la gestione della “conversazione” viene spostata sul **client**, che è un programma eseguito su una macchina indipendente.
 >
@@ -325,7 +322,7 @@ In un’architettura **stateful**:
 
 ## La Scala di Maturità REST (Richardson Maturity Model)
 
-Roy Fielding, nel definire i principi architetturali dello stile REST, ha anche ispirato l’elaborazione di un modello che permette di classificare il grado di aderenza di un sistema a tali principi. 
+Roy Fielding, nel definire i principi architetturali dello stile REST, ha anche ispirato Leonard Richardson nell’elaborazione di un modello che permette di classificare il grado di aderenza di un sistema a tali principi. 
 Questo modello è conosciuto come **Scala di Maturità di Richardson** (Richardson Maturity Model):
 - ==suddivide le API in diversi livelli, dal più rudimentale al pienamente RESTful==.  ^richardsonMaturityLevel
 
@@ -415,7 +412,7 @@ Il risultato è un’API che “parla” con il server, ma che non utilizza ness
 > In pratica, l’API funziona… ma senza alcun ordine architetturale.
 > 
 >
->> [!example] **Esempio pratico**
+>> [!example]- **Esempio pratico**
 >>
 > >Immaginiamo un sistema che deve gestire utenti.  
 >> Una tipica API di Livello 0 espone un solo endpoint per tutte le operazioni:

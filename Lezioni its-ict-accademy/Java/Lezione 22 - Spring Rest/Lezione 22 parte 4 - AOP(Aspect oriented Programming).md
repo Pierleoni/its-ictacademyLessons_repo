@@ -361,6 +361,8 @@ L'AOP risolve entrambi i problemi raccogliendo ogni concern trasversale in un un
 >Nel contesto dell'AOP, il principio più rilevante è l'**SRP**: 
 >	- ==inserire logica trasversale come il logging direttamente nelle classi di business significa assegnare a quella classe più di una responsabilità, rendendo il codice più difficile da mantenere e modificare.==
 
+^023a88
+
 
 
 ##### Dimostrazione Cross-Cutting Concerns
@@ -400,7 +402,7 @@ Un **Aspect:**
 ### Advice
 
 Un **Advice** è: 
-- ==l'**implementazione effettiva** di un Aspect.== 
+- ==l'**implementazione effettiva** di un [[#Aspect|Aspect]].== 
 - ==È il codice concreto che viene eseguito quando l'aspetto entra in azione.== 
 - **I framework AOP — Spring incluso — implementano gli advice tramite degli interceptor:** 
 	- ==componenti che si interpongono nell'esecuzione del target e ne filtrano il lavoro.==
@@ -458,22 +460,22 @@ Spring mette a disposizione 5 tipi di joinpoint, ciascuno dei quali dà vita a u
 > [!example] **Tipico caso d'uso:**
 >  ==la sicurezza e l'autenticazione, dove vogliamo verificare le condizioni _prima_ di permettere l'esecuzione.==
 
-2. **After** — ==l'interceptor scatta **dopo** che il metodo del target va in esecuzione, **indipendentemente dall'esito** — che sia andato a buon fine o che abbia sollevato un'eccezione.== 
+2. **After** — ==l'interceptor scatta **dopo** che il metodo del target va in esecuzione, **indipendentemente dall'esito** — che sia andato a buon fine o che abbia sollevato un'eccezione.==  ^48d0e7
 
 > [!example] **Utile per operazioni di cleanup o rilascio di risorse.**
 > 
 
-3. **After Returning** — ==l'interceptor scatta dopo l'esecuzione del metodo, ma **solo se ha avuto successo**.== 
+3. **After Returning** — ==l'interceptor scatta dopo l'esecuzione del metodo, ma **solo se ha avuto successo**.==  ^4d51ec
 
 > [!example] **Tipico caso d'uso:**
 > il logging del risultato di un'operazione andata a buon fine.
 
-4. **After Throwing** — ==l'interceptor scatta dopo l'esecuzione del metodo, ma **solo se è stata sollevata un'eccezione**.== 
+4. **After Throwing** — ==l'interceptor scatta dopo l'esecuzione del metodo, ma **solo se è stata sollevata un'eccezione**.==  ^e1d7b1
 
 > [!Example] **Tipico caso d'uso:**
 >  il logging degli errori o la notifica di un fallimento.
 
-5. **Around** — ==l'interceptor scatta **sia prima che dopo** l'esecuzione del metodo. Combina le caratteristiche di Before e After, ed è il tipo più potente perché ha controllo completo sul flusso — può decidere se far proseguire l'esecuzione del target oppure no.==
+5. **Around** — ==l'interceptor scatta **sia prima che dopo** l'esecuzione del metodo. Combina le caratteristiche di Before e After, ed è il tipo più potente perché ha controllo completo sul flusso — può decidere se far proseguire l'esecuzione del target oppure no.== ^c16a37
 
 ### Weaving e Proxy
 
@@ -492,7 +494,7 @@ Nel contesto AOP:
 - il `RealSubject` corrisponde al **[[#Target|Target]]** — ==la classe di business==
 - il `Proxy` corrisponde all'**[[#Advice|Advice]]** — ==il componente che intercetta e aggiunge il comportamento trasversale==
 
-### Weaving
+#### Weaving
 
 Il **Weaving** è: 
 - ==il processo concreto con cui un framework AOP applica gli [[#Advice|advice]] alle classi [[#Target|target]] nei [[#JoinPoint|joinpoint ]] stabiliti, secondo la definizione dei [[#Pointcut|pointcut]].==
@@ -504,8 +506,31 @@ Quando il client chiama un metodo del target, in realtà sta chiamando il proxy:
 
 Entrambi — Proxy e `TargetObjectImpl`: 
 - ==implementano la stessa interfaccia Java (`TargetObject`), garantendo che il client non si accorga della differenza.==
+In termini pratici il weaving funziona così: 
+- quando l'applicazione si avvia, Spring legge le annotazioni `@Aspect`, `@Before`, `@After` e i pointcut definiti. 
+- A quel punto costruisce automaticamente il proxy — che rappresenta il punto di intreccio tra la logica di business del target e il comportamento trasversale dell'aspect. 
+- Da quel momento in poi ogni chiamata al target passa attraverso il proxy, che coordina target e advice nell'ordine stabilito.
+
+> [!summary] In sintesi il weaving è l'**applicazione pratica del Design Pattern Proxy nel contesto AOP**: 
+> 
+> - ==il Target viene avvolto dal proxy, l'Aspect viene iniettato al suo interno, e il client interagisce sempre e solo con il proxy — in modo completamente trasparente.==
 
 
+>[!example] Analogia: il casello autostradale 
+>Per capire concretamente il weaving, immagina un **casello autostradale**:
+>
+>- la **macchina** è il **Client** — ==percorre la strada senza sapere cosa lo aspetta==
+>- l'**autostrada** è il **[[#Target|Target]]** — ==contiene la logica di business e prosegue dritta, ignara del casello.==
+>- il **casello nella sua interezza** è il **Proxy** — ==si inserisce in un punto preciso del percorso e intercetta il transito==
+>- il **concetto del pedaggio** è l'**[[#Aspect|Aspect]]** — ==l'idea astratta del concern trasversale==
+>- lo **sportello che riscuote** è l'**[[#Advice|Advice]]** — ==l'implementazione concreta dell'Aspect==
+>- il **punto geografico preciso del casello** è il **[[#JoinPoint|JoinPoint]]** — ==il momento esatto in cui il proxy intercetta la chiamata==
+>- la **regola "tutti i veicoli che percorrono questa tratta devono fermarsi"** è il **[[#Pointcut|Pointcut]]** — ==l'espressione che stabilisce dove e quando l'advice si applica==
+>
+>La cosa fondamentale è che **l'autostrada non sa dell'esistenza del casello** — **è il casello che si inserisce nel percorso, non il contrario.** ==Esattamente come il Target non sa nulla dell'Aspect che lo circonda.==
+>
+>>[!attention] **Nota importante: il flusso è completamente sincrono — la macchina si ferma, paga, e solo dopo prosegue.** 
+>>==L'AOP è trasversale rispetto alla struttura del codice, ma non introduce alcuna forma di esecuzione asincrona o parallela.==
 #### AOP: Vantaggi
 
 ##### High Cohesion, Low Coupling
@@ -679,15 +704,16 @@ Non esiste più alcun legame diretto tra il servizio trasversale e la logica di 
 
 #### Come Spring collega Target e Advice
 
-Il motore AOP di Spring collega Target e Advice creando un **Proxy a runtime**. Questo avviene tramite la classe `ProxyFactoryBean`, che agisce esattamente come il Design Pattern Proxy che abbiamo già visto.
+==Il motore AOP di Spring collega Target e Advice creando un **Proxy a runtime**.== 
+Questo avviene tramite la classe `ProxyFactoryBean`, **che agisce esattamente come il Design Pattern Proxy che abbiamo già visto.**
 
 Il diagramma UML mostra la struttura nel caso in cui il target implementi una interfaccia — che è il caso più comune in Spring:
-
-- **`Cavaliere`** è l'interfaccia Java che dichiara il metodo `partiPerMissione()`
-- **`CavaliereTavolaRotonda`** è l'implementazione concreta — il Target — che implementa `Cavaliere`
+[![Screenshot-2026-04-02-at-16-23-09-Microsoft-Power-Point-Spring-Core-Aspect-oriented-programming-C.png](https://i.postimg.cc/CLjvF5LY/Screenshot-2026-04-02-at-16-23-09-Microsoft-Power-Point-Spring-Core-Aspect-oriented-programming-C.png)](https://postimg.cc/yk8hjVZr)
+- **`Cavaliere`** è ==[[Lezione 10 - Classi astratte e interfaccie#Le interfacce|l'interfaccia]] Java che dichiara il metodo `partiPerMissione()`==
+- **`CavaliereTavolaRotonda`** ==è l'implementazione concreta — [[#Target|il Target]] — che implementa `Cavaliere`==
 - **`ProxyFactoryBean`** implementa anch'essa `Cavaliere`, e al suo interno possiede:
-    - un'istanza di `CavaliereTavolaRotonda` — il Target
-    - un'istanza di `Menestrello` — l'Advice
+    - ==un'istanza di `CavaliereTavolaRotonda` — il [[#Target|Target]]==
+    - ==un'istanza di `Menestrello` — l'[[#Advice|Advice]]==
 
 ### Il flusso di esecuzione
 
@@ -703,7 +729,7 @@ Il diagramma chiarisce le relazioni tra i componenti con precisione:
 `ProxyFactoryBean` implementa anch'essa l'interfaccia `Cavaliere`, e al suo interno **aggrega** due attributi tramite composizione:
 
 - `-CavaliereTavolaRotonda k` — ==dove `k` sta per _knight_, il Target==
-- `-Menestrello adv` — ==dove `adv` sta per _advice_, l'Aspect==
+- `-Menestrello adv` — ==dove `adv` sta per _[[#Advice|advice]]_, l'Aspect==
 
 > [!link] I rombi vuoti nel diagramma, come sappiamo, indicano una **[[Responsabilità#Le responsabilità|aggregazione o responsabilità]]**: 
 > 
@@ -715,7 +741,7 @@ Il punto chiave è che sia `CavaliereTavolaRotonda` che `ProxyFactoryBean` imple
 
 ##### Implementazione in Java
 1. **Interfaccia `Cavaliere`** 
-```
+```java
 // Interfaccia comune 
 public interface Cavaliere { 
 	SantoGraal partiPerMissione(); 
@@ -771,9 +797,10 @@ public class ProxyFactoryBean implements Cavaliere {
 
 #### Il diagramma UML
 
-Questo secondo scenario mostra l'architettura nel caso in cui il target **non implementi una interfaccia** — `CavaliereTavolaRotonda` è una classe concreta senza contratto.
+Questo secondo scenario mostra l'architettura nel caso in cui il target **non implementi una interfaccia** — ==`CavaliereTavolaRotonda` è una classe concreta senza contratto.==
 [![Screenshot-2026-04-02-at-16-42-39-Microsoft-Power-Point-Spring-Core-Aspect-oriented-programming-C.png](https://i.postimg.cc/fLP9nc08/Screenshot-2026-04-02-at-16-42-39-Microsoft-Power-Point-Spring-Core-Aspect-oriented-programming-C.png)](https://postimg.cc/BLx621pF)
-In questo caso la `ProxyFactoryBean` non può implementare una interfaccia comune, quindi Spring adotta una strategia diversa: la `ProxyFactoryBean` **estende** direttamente `CavaliereTavolaRotonda` tramite ereditarietà (`<<extend>>`).
+In questo caso la `ProxyFactoryBean` non può implementare una interfaccia comune, quindi Spring adotta una strategia diversa: 
+- ==la `ProxyFactoryBean` **estende** direttamente `CavaliereTavolaRotonda` tramite ereditarietà (`<<extend>>`).==
 
 Le differenze rispetto al diagramma precedente sono due:
 
@@ -782,7 +809,8 @@ Le differenze rispetto al diagramma precedente sono due:
 
 - ==`ProxyFactoryBean` aggrega comunque il `Menestrello` tramite l'attributo `-Menestrello adv`, esattamente come nel caso precedente.==
 
-Il risultato per il client rimane lo stesso: vede una `CavaliereTavolaRotonda` — in questo caso la sottoclasse proxy — senza sapere di essere intercettato.
+**Il risultato per il client rimane lo stesso:** 
+- ==vede una `CavaliereTavolaRotonda` — in questo caso la sottoclasse proxy — senza sapere di essere intercettato.==
 
 ##### Implementazione in Java
 1. **Classe `CavaliereTavolaRotonda`(Target)**
@@ -830,83 +858,434 @@ public class ProxyFactoryBean extends CavaliereTavolaRotonda {
 ```
 ### Il flusso di esecuzione
 
-Quando il client chiama `partiPerMissione()`, in realtà sta chiamando il metodo della `ProxyFactoryBean` — non direttamente il Cavaliere. È la `ProxyFactoryBean` a coordinare l'ordine di esecuzione in base al tipo di advice configurato:
+==Quando il client chiama `partiPerMissione()`, in realtà sta chiamando il metodo della `ProxyFactoryBean` — non direttamente il Cavaliere.== 
+**È la `ProxyFactoryBean` a coordinare l'ordine di esecuzione in base al [[#Advice|tipo di advice]] configurato:**
 
-1. invoca `cantaGesta()` del Menestrello — perché il joinpoint è `@Before`
-2. invoca `partiPerMissione()` di `CavaliereTavolaRotonda` — la logica di business
+1. ==invoca `cantaGesta()` del Menestrello — perché il [[#JoinPoint|joinpoint]] è [[#^7d1682|`@Before`]]==
+2. ==invoca `partiPerMissione()` di `CavaliereTavolaRotonda` — la logica di business==
 
-Il client non si accorge di nulla. Questo è il **weaving a runtime** in azione.
-### AOP: filtraggio 
-Gli intercettori usati come filtri
-SI possono applicare anche più filtri
-Pensiamo a i filtri di un rubinetto: posso applicare il filtro per il calcare come applicare un ulteriore filtro subito dopo o prima 
-Ogni intercettore possiede riferimenti diretti al target, al metodo intercettato ed a tutti i suoi parametri che può utilizzare e/o modificare 
-In questo caso si dice che l'intercettore filtra il metodo target
-Questo meccanismo di filtraggio: al ritorno l'ordine si inverte 
-
-Gli intrecettori usati come filtri sono potenti al punto di poter alterare le funzioni target 
-Tipicamente gli intercettori dovrebbero incasulare solo funzionalità trasversali che non alterano le funzionalità principali. 
-Tutto questo permette di non modificare/sporcare la classe target 
-
-### Interceptor Aroudn 
-é possibile applicare più advices sullo stesso target, dove ogni adivce si occupa di implementare uno specifico apsetto.
-In questo caso si parla di catena di intercetori 
+Il client non si accorge di nulla. 
+Questo è il **[[#Weaving|weaving a runtime]]** in azione.
 
 
-### Configurazione per spirn boot
-Aggiungiamo due dipendenze al `pom.xml`: 
+>[!important] Questi due casi non sono semplicemente due sfumature progettuali — corrispondono a due **librerie diverse** che Spring usa internamente per creare il proxy a runtime.
+>
+>La scelta però non spetta a te come sviluppatore: 
+>- **è Spring che decide automaticamente in base a come hai progettato il tuo codice.**
+>
+>- Se il target **implementa una interfaccia** → ==Spring usa **JDK Dynamic Proxy**, integrato nativamente in Java nel package `java.lang.reflect`==
+>- Se il target **non implementa una interfaccia** → ==Spring usa **CGLIB**, una libreria esterna inclusa automaticamente tra le dipendenze di Spring==
+>
+>==La sola scelta progettuale che fai tu è quindi **usare o meno una interfaccia**.== 
+>**Tutto il resto è gestito da Spring in modo trasparente.**
+>
+>>[!attention] **Un dettaglio pratico importante:** 
+>**CGLIB ha una limitazione — non può creare proxy di classi o metodi dichiarati `final`, perché non può estendere ciò che è bloccato all'ereditarietà.** 
+>==Questa è un'ulteriore ragione per cui programmare verso le interfacce rimane la **best practice** in Spring.==
+Ecco la sezione riscritta:
+
+
+
+### AOP: Gli Intercettori come Filtri
+
+#### Il meccanismo di filtraggio
+
+==È possibile applicare **più intercettori in cascata** sullo stesso target== — esattamente come i filtri di un rubinetto: 
+- ==puoi montare un filtro per il calcare, e subito dopo un secondo filtro per altre impurità. L'acqua passa attraverso entrambi in sequenza prima di arrivare a destinazione.==
+
+Il diagramma mostra esattamente questo: 
+[![Screenshot-2026-04-03-at-11-37-48-Microsoft-Power-Point-Spring-Core-Aspect-oriented-programming-C.png](https://i.postimg.cc/JzsSnQs7/Screenshot-2026-04-03-at-11-37-48-Microsoft-Power-Point-Spring-Core-Aspect-oriented-programming-C.png)](https://postimg.cc/5XMsKL5D)
+
+- ==La chiamata del client viaggia verso il target attraversando prima `before1` poi `before2`, raggiunge il target, e al ritorno percorre il cammino inverso — prima `after2` poi `after1`. **L'ordine si inverte al ritorno.**==
+
+> [!example] **Questo è un dettaglio importante: gli intercettori si comportano come una cipolla:**
+> ==si avvolgono intorno al target a strati, e si "sbucciano" in ordine inverso al ritorno.==
+
+#### Cosa può fare un intercettore
+
+Ogni intercettore possiede riferimenti diretti a:
+
+- il **[[#Target|target]]** — ==la classe intercettata==
+- ==il **metodo** intercettato==
+- ==tutti i **parametri** del metodo==
+
+> [!caution] **Questo significa che l'intercettore non si limita a osservare — ==può utilizzare e modificare sia i parametri in ingresso che il valore di ritorno.==**
+>  
+> ==In questo senso si dice che l'intercettore **filtra** il metodo target.==
+> 
+
+##### Il limite progettuale
+
+Proprio perché gli intercettori sono così potenti da poter alterare il comportamento del target, vale una regola fondamentale: 
+- ==tipicamente un intercettore dovrebbe incapsulare solo funzionalità trasversali che non alterano le funzionalità principali.==
+
+**Il logging traccia, la sicurezza blocca o lascia passare, le statistiche contano** — ==ma nessuno di questi dovrebbe modificare il risultato di un calcolo o alterare i dati di business.== 
+**L'obiettivo dell'AOP è:** 
+- ==arricchire il comportamento del sistema senza sporcare o modificare le classi target.==
+
+
+### AOP: La Catena di Intercettori (Interceptor Around)
+
+==È possibile applicare **più advice sullo stesso target**, dove ogni advice si occupa di implementare uno specifico aspetto.== 
+In questo caso si parla di **catena di intercettori**.
+
+Il diagramma mostra una catena di 4 intercettori [[#^c16a37|Around]]. 
+
+[![Screenshot-2026-04-03-at-11-46-36-Microsoft-Power-Point-Spring-Core-Aspect-oriented-programming-C.png](https://i.postimg.cc/brzwc5Nt/Screenshot-2026-04-03-at-11-46-36-Microsoft-Power-Point-Spring-Core-Aspect-oriented-programming-C.png)](https://postimg.cc/LYbpjNP9)
+
+
+Il flusso di esecuzione segue questo ordine:
+
+1. `Interceptor1: before` → `Interceptor2: before` → `Interceptor3: before` → `Interceptor4: before`
+2. viene raggiunto il **Target** — la logica di business viene eseguita
+3. al ritorno l'ordine si inverte: `Interceptor4: after` → `Interceptor3: after` → `Interceptor2: after` → `Interceptor1: after`
+
+**Questo conferma quanto visto nella sezione precedente:** ==**al ritorno l'ordine si inverte**, come sbucciare una cipolla al contrario.==
+
+Due caratteristiche fondamentali di questa architettura:
+
+- ==ogni intercettore rappresenta un aspetto che può essere **aggiunto o rimosso** semplicemente modificando la configurazione== — **senza toccare il codice del target né degli altri intercettori** 
+- ==gli intercettori sono **indipendenti l'uno dall'altro**== — **ognuno incapsula il proprio concern trasversale senza sapere degli altri**
+
+**Questa indipendenza è la diretta conseguenza del principio di [[#^023a88|Single Responsibility]] applicato agli aspetti:** ==ogni intercettore fa una cosa sola, e la fa bene==
+### AOP: Configurazione per Spring Boot
+
+Per utilizzare il modulo AOP di Spring è necessario aggiungere due dipendenze al `pom.xml`:
 ```xml
-<dependecy>
-	<groupId>org.springframework</groupId>
-</dependecy>
-<dependecy></dependecy>
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-aop</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>org.aspectj</groupId>
+    <artifactId>aspectjweaver</artifactId>
+</dependency>
 ```
 
-### AOP via annotatiosn
-Le configurazione degli intercettori si realizzano mediante annotazioni 
+==La prima dipendenza fornisce il modulo AOP di Spring.== 
+La seconda — `aspectjweaver` — è la libreria di AspectJ: 
+- ==che Spring usa internamente per interpretare le annotazioni e realizzare il [[#Weaving e Proxy|weaving a runtime]].==
+#### AOP via Annotazioni
 
+Le configurazioni degli intercettori si realizzano mediante **[[Lezione 22 parte 3 - Dependency Injection#Annotation sugli Attributi e sulle Classi|annotazioni]]**. 
 
-#### Esempio advice con vari koinpoint
+Le annotazioni disponibili nel modulo AOP di Spring sono:
+
+- [[#Aspect|`@Aspect`]] — ==dichiara la classe come intercettore al motore AOP==
+- [[#^7d1682|`@Before`]] — ==[[#Advice|advice]] che scatta prima dell'esecuzione del [[#Target|target]]==
+- [[#^48d0e7|`@After`]] — ==[[#Advice|advice]] che scatta dopo, indipendentemente dall'esito==
+- [[#^4d51ec|`@AfterReturning`]] — ==advice che scatta dopo, solo in caso di successo==
+- [[#^e1d7b1|`@AfterThrowing`]] — ==advice che scatta dopo, solo in caso di eccezione==
+- [[#^c16a37|`@Around`]] — ==advice che scatta sia prima che dopo==
+
+==Le annotazioni da `@Before` ad `@Around` dichiarano il **[[#AOP I Tipi di JoinPoint in Spring|tipo di joinpoint]]** e quindi il tipo di intercettore.==
+Ciascuna di esse richiede la definizione di un **[[#Pointcut|pointcut]]** — ==l'espressione che individua i metodi target su cui l'advice deve agire.==
+
+- [[#Pointcut|`@Pointcut`]] — ==centralizza la dichiarazione del pointcut in un unico punto, evitando che ogni singolo [[#JoinPoint|joinpoint]] la ridichiari esplicitamente. È utile quando lo stesso pointcut viene riutilizzato da più advice.==
+
+#### AOP: Esempio con Più Joinpoint
 
 ```java
 @Aspect
 @Component
-public class Spettatore{
-	@Pointcut("execution(* esempio.Artista.perform())")
-	public void performance(){}; 
-	@Before("performance()")
-	public void prendePosto(){
-		System.out.println("Il pubblico prende posto");
-	}
-	
-	@Before("performance()")
-	public void spegneCellulari
+public class Spettatore {
+
+    @Pointcut("execution(* esempio.Artista.perform(..))")
+    public void performance() {}
+
+    @Before("performance()")
+    public void prendePosto() {
+        System.out.println("Il pubblico prende posto");
+    }
+
+    @Before("performance()")
+    public void spegneCellulari() {
+        System.out.println("Il pubblico spegne i cellulari");
+    }
+
+    @AfterReturning("performance()")
+    public void applaude() {
+        System.out.println("CLAP CLAP CLAP CLAP CLAP");
+    }
+
+    @AfterThrowing("performance()")
+    public void vieneRimborsato() {
+        System.out.println("Lo spettacolo è stato interrotto");
+    }
 }
 ```
 
+Questo esempio mostra come un unico [[#Aspect|Aspect]] — lo `Spettatore` — possa definire **[[#Advice|più advice]]** sullo stesso [[#Target|target]], ciascuno con il proprio [[#JoinPoint|joinpoint]].
 
-#### Esempio con Around
+Il punto più importante da notare è l'uso di [[#Pointcut|`@Pointcut`]]: 
+- ==invece di ripetere la stringa `execution(* esempio.Artista.perform(..))` in ogni singola annotazione, la si centralizza in un metodo dedicato chiamato `performance()`.== 
+- **In questo caso il corpo del metodo è vuoto — non fa nulla a runtime.** 
+	- ==Il suo unico scopo è dare un nome al pointcut, che poi viene richiamato da tutti gli advice tramite `"performance()"`.==
+
+Il flusso di esecuzione sarà quindi:
+
+1. `prendePosto()` e `spegneCellulari()` — ==eseguiti prima dello spettacolo (`@Before`)==
+2. `Artista.perform()` — ==la logica di business==
+3. `applaude()` — ==eseguito solo se lo spettacolo va a buon fine (`@AfterReturning`)==
+4. `vieneRimborsato()` — ==eseguito solo se viene sollevata una eccezione (`@AfterThrowing`)==
+
+#####  AOP: Regole Sintattiche dei Metodi Joinpoint
+
+I metodi che implementano i joinpoint seguono alcune regole precise:
+
+1. **[[Costruttori e modificatori#Modificatori di accesso (visibilità)|Visibilità:]]** ==devono essere dichiarati `public`.==
+
+2. **Parametri:** possono avere zero parametri oppure accettare tipi speciali che permettono di accedere al contesto del metodo intercettato:
+
+	- `JoinPoint` — ==disponibile per tutti i tipi di advice, permette di accedere a metadati sul metodo target come il nome del metodo e i suoi argomenti==
+	- `ProceedingJoinPoint` — **disponibile solo per `@Around`:** 
+		- ==permette di controllare se e quando far proseguire l'esecuzione del target tramite il metodo `proceed()`==
+
+3. **Tipo di ritorno:** ==generalmente è `void`.==
+	- ==l'intercettore non dovrebbe restituire un valore proprio, ma limitarsi a realizzare un servizio trasversale.== 
+	- **L'unica eccezione è `@Around`**, ==dove si valuta se restituire il valore originale del target oppure un valore diverso deciso dall'intercettore stesso.==
+#### AOP: Advice di tipo Around
+
+L'[[#Advice|advice]] [[#^c16a37|`@Around`]] permette di: 
+- ==sostituire tutti i singoli advice `@Before`, `@AfterReturning` e `@AfterThrowing` con un **unico metodo** che gestisce l'intero ciclo di esecuzione.==
 ```java
 @Around("performance()")
-// il metodo prende un oggetto ProceedingJoinPoint e torna void oppure
-public void guardaPerformance(ProceedingJoinPoint joinpoint){
-	try{
-		// pre-processing
-		System.out.println("Il pubblico prende posto"); 
-		System.out.println("Il pubblico spegne i cellulari");
-		long start = System.currentTimeMillis(); 
-	
-		// invocazione al prossimo advice oppure al metodo target
-	joinpoint.proceed(); 
-	
-		//post-processing
-		long end = System.currentMillis(); 
-		 System.out.println("CLAP CLAP CLAP CLAP CLAP");
-		 System.out.println("La performance è durata " + (end-start) + " millisecondi");
-	}catch(Throwable t){
-		System.out.println("Lo spettacolo è stato interroto"); 
-	}
+public void guardaPerformance(ProceedingJoinPoint joinpoint) {
+    try {
+        // pre-processing - equivalente a @Before
+        System.out.println("Il pubblico prende posto");
+        System.out.println("Il pubblico spegne i cellulari");
+        long start = System.currentTimeMillis();
+
+        // invocazione al prossimo advice oppure al metodo target
+        joinpoint.proceed();
+
+        // post-processing - equivalente a @AfterReturning
+        long end = System.currentTimeMillis();
+        System.out.println("CLAP CLAP CLAP CLAP CLAP");
+        System.out.println("La performance è durata " + (end - start) + " millisecondi.");
+
+    } catch (Throwable t) {
+        // equivalente a @AfterThrowing
+        System.out.println("Lo spettacolo è stato interrotto!");
+    }
 }
 ```
 
-Il parametro può essere il Target oppure l'elemento dopo che potrebbe non essere necessariamente il Target ma anche un altro intercettore (advice)
+###### Il ruolo di `ProceedingJoinPoint`
+
+Il metodo accetta come parametro un oggetto `ProceedingJoinPoint` e restituisce `void` oppure `Object`. 
+Il `ProceedingJoinPoint` è: 
+- ==il meccanismo con cui l'advice `@Around` **cede il controllo** al passo successivo della catena tramite `joinpoint.proceed()`.==
+
+> [!caution] **Un dettaglio importante :**
+>  abbiamo detto che il metodo invocato `.proceed()` cede il controllo al "passo successivo" della catena.
+> ==Questo pero non è necessariamente il Target — se nella catena ci sono più intercettori, `joinpoint.proceed()` invoca il **prossimo advice nella catena**, non direttamente il metodo target.== 
+> ==Solo l'ultimo intercettore della catena chiamerà effettivamente il target.== 
+> Questo è esattamente il meccanismo "a cipolla" che abbiamo visto nella sezione sulla catena di intercettori.
+
+> [!summary] **Il flusso in sintesi**
+>  
+> 
+> Tutto ciò che sta **prima** di `joinpoint.proceed()` equivale a `@Before`, tutto ciò che sta **dopo** equivale a `@AfterReturning`, e il blocco `catch` equivale a `@AfterThrowing` — il tutto in un unico metodo coeso.
+
+### AOP: L'oggetto ProceedingJoinPoint
+
+`ProceedingJoinPoint` è: 
+- ==l'oggetto che modella il **prossimo elemento nella catena degli intercettori**, oppure il target stesso se ci troviamo all'ultimo anello della catena.==
+
+Invocando `joinpoint.proceed()` si procede in avanti nella catena **senza sapere esattamente cosa c'è al passo successivo** — ==potrebbe essere un altro intercettore o il target finale, come abbiamo già anticipato.== 
+Questo è il meccanismo che garantisce l'**indipendenza tra gli elementi della catena**: 
+- ==ogni intercettore non conosce i suoi vicini, sa solo che può cedere il controllo al passo successivo.==
+
+`ProceedingJoinPoint` mette inoltre a disposizione metodi utili per recuperare informazioni sul metodo target intercettato:
+
+- `getSignature().getName()` — ==restituisce il **nome del metodo** target==
+- `getTarget()` — ==restituisce la **classe proxy** del metodo target==
+
+==Questi metodi tornano particolarmente utili nei servizi di logging, dove si vuole tracciare quale metodo è stato chiamato e su quale classe.==
+
+
+> [!faq] **Come si fa a sapere qual è il prossimo elemento della catena?**
+> La risposta breve è: **non lo sai, e non devi saperlo**.
+>
+>**Questo è esattamente il punto di forza del meccanismo.** 
+>Quando si chiama `joinpoint.proceed()` si sta dicendo a Spring "vai avanti" — ma non interessa dove. 
+>==Potrebbe essere un altro intercettore, potrebbe essere il target finale. Questa ignoranza è **voluta e progettata**.==
+>
+>>[!link] È lo stesso principio che abbiamo già visto con la [[Lezione 22 parte 3 - Dependency Injection#Dependency Injection|Dependency Injection]]: 
+>>- ==la `OperazioneController` non sa quale implementazione concreta di `OperazioneService` riceve — sa solo che ha un oggetto che rispetta quel contratto.== 
+>
+>**Qui è uguale:** 
+>- ==ogni intercettore sa solo che c'è un "passo successivo", non chi è.==
+>
+>**È Spring che conosce l'intera catena e gestisce l'ordine internamente.** 
+>==Ad esempio, Spring sa che dopo `Interceptor1` viene `Interceptor2`, e dopo `Interceptor2` viene il target.== 
+>**Lo sviluppatore vede solo il suo pezzo di catena.**
+>
+>**L'unico modo per influenzare questo ordine è [[#AOP Ordine degli Intercettori|`@Order`]]** — ==ma anche lì non si sta dicendo "dopo di me viene X", ma si sta solo dicendo "io sono il numero 11" e si lascia a Spring il compito di assemblare la sequenza corretta.==
+>
+>Questo è il **Low Coupling** in azione: ==ogni intercettore è completamente indipendente dagli altri.== 
+
+
+### AOP: Ordine degli Intercettori
+
+Quando più intercettori agiscono sullo stesso target, Spring segue un ordine preciso per gli advice dello stesso tipo:
+
+1. **prima gli intercettori `@Before`** — ==in ordine casuale tra loro==
+2. **poi gli eventuali `@Around`** — ==in ordine casuale tra loro==
+3. **poi gli intercettori `@After`** — ==in ordine casuale tra loro==
+
+==Se si hanno **advice diversi** applicati allo stesso target, l'ordine complessivo non è garantito.== 
+Per controllarlo esplicitamente si usa l'annotazione `@Order` posizionata sulla classe advice:
+```java
+@Aspect
+@Component
+@Order(value = 11)
+public class PrimoAspect { ... }
+
+@Aspect
+@Component
+@Order(value = 22)
+public class SecondoAspect { ... }
+
+@Aspect
+@Component
+@Order(value = 33)
+public class TerzoAspect { ... }
+```
+
+==l valore numerico stabilisce la sequenza — più basso è il numero, prima parte l'intercettore.== 
+**I valori non devono essere necessariamente consecutivi:** 
+- ==**quello che conta è la loro sequenza crescente.*==*
+
+> [!NOTE] ==**Gli intercettori senza `@Order` partiranno sempre in coda a quelli che ce l'hanno, in ordine casuale tra loro.**==
+
+
+### AOP: Il Linguaggio dei Pointcut
+
+Spring AOP offre una sintassi dedicata per la definizione dei pointcut, basata su un insieme di **operatori** che permettono di specificare con precisione quali metodi intercettare.
+
+| Operatore     | Descrizione                                                              |
+| ------------- | ------------------------------------------------------------------------ |
+| `execution()` | ==Definisce un joinpoint come l'esecuzione di un metodo.==               |
+| `args()`      | ==Definisce un joinpoint i cui argomenti sono di uno specifico tipo.==   |
+| `target()`    | ==Definisce un joinpoint dove l'oggetto target è di un tipo specifico.== |
+| `within()`    | ==Limita un joinpoint all'interno di specifici package.==                |
+L'operatore principale è `execution()` — è quello che abbiamo già usato in tutti gli esempi precedenti. Gli altri operatori servono a raffinare ulteriormente la selezione, ma spesso vengono usati in combinazione con `execution()`.
+
+#### Esempio 1 — Intercettare un metodo specifico
+```java
+execution(* esempio.Strumento.suona(..))
+```
+
+Analizziamo la sintassi pezzo per pezzo:
+
+- `execution` — ==indica che stiamo intercettando l'**esecuzione** di un metodo==
+- `*` — ==il tipo di ritorno è **qualunque**==
+- `esempio.Strumento` — ==il nome completo  della classe (o interfaccia), e del package dove risiede quella classe, che possiede il metodo==
+- `suona` — ==il nome del metodo da intercettare==
+- `(..)` — ==**qualunque lista di argomenti**==
+
+==Questo pointcut intercetta quindi qualsiasi chiamata al metodo `suona()` della classe `Strumento` nel package `esempio`, indipendentemente dal tipo di ritorno e dai parametri.==
+
+#### Esempio 2 — Combinare operatori con `&&`
+```java
+execution(* *.Strumento.suona(..)) && within(esempio.*)
+```
+
+Qui entrano in gioco due operatori combinati con l'operatore logico `&&`:
+
+- `execution(* *.Strumento.suona(..))` — ==intercetta il metodo `suona()` su qualsiasi classe `Strumento` in qualsiasi package (`*`)==
+- `within(esempio.*)` — ==**limita** l'intercettazione alle sole classi contenute nel package `esempio` e in tutti i suoi sotto-pacchetti==
+
+==Il risultato è che il metodo `suona()` viene intercettato **solo** se la classe `Strumento` appartiene al package `esempio` o a uno dei suoi sotto-package.==
+
+È possibile combinare gli operatori usando la stessa logica booleana di Java: 
+- ==`&&` (and),== 
+- ==`||` (or)== 
+- ==e `!` (not)== 
+**Permettendo di costruire pointcut molto precisi e selettivi.**
+
+##### AOP: Altri Esempi di Pointcut
+
+###### Esempi con `execution()`
+
+**Qualsiasi metodo pubblico:**
+
+```java
+execution(public * *(..))
+```
+
+- ==Il primo `*` indica qualsiasi tipo di ritorno,== 
+- ==il secondo `*` indica qualsiasi classe e qualsiasi metodo.==
+**Qualsiasi metodo che inizia con "set":**
+
+```java
+execution(* set*(..))
+```
+
+**L'asterisco dopo `set` funziona come wildcard** — ==intercetta `setNome()`, `setEtà()`, `setIndirizzo()` e qualsiasi altro setter, su qualsiasi classe.==
+
+
+##### **Qualsiasi metodo di una classe o interfaccia specifica:**
+
+```java
+execution(* com.xyz.service.AccountService.*(..))
+```
+
+**L'`*` finale indica qualsiasi metodo di `AccountService`** — ==utile quando vuoi applicare un aspect all'intera superficie di una classe senza specificare i singoli metodi.==
+
+
+
+##### **Qualsiasi metodo del package `service`:**
+
+```java
+execution(* com.xyz.service.*.*(..))
+```
+
+==Il primo `*` dopo `service.` indica qualsiasi classe del package, il secondo `*` indica qualsiasi metodo di quella classe.==
+
+
+
+##### **Qualsiasi metodo del package `service` e dei suoi sotto-package:**
+
+```java
+execution(* com.xyz.service..*.*(..))
+```
+
+==Il doppio punto `..` è la sintassi che indica "questo package e tutti i suoi sotto-package"== — una differenza sottile ma importante rispetto all'esempio precedente.
+
+
+
+#### Esempi con `within()` e `args()`
+
+##### **Qualsiasi metodo all'interno del package `service`:**
+
+```java
+within(com.xyz.service.*)
+```
+
+##### **Qualsiasi metodo all'interno del package `service` e dei suoi sottopackage:**
+
+```java
+within(com.xyz.service..*)
+```
+
+==Anche qui il doppio punto `..` estende la selezione ai sottopackage.==
+
+##### **Qualsiasi metodo che accetta un parametro di tipo `Serializable`:**
+
+```java
+args(java.io.Serializable)
+```
+
+Questo operatore non guarda il nome del metodo né la classe — ==guarda esclusivamente il **tipo del parametro** in ingresso==. 
+==Utile quando vuoi intercettare tutti i metodi che ricevono un certo tipo di dato, indipendentemente da dove si trovano.==
+
+
+
+> [!Info] Queste espressioni possono essere combinate con `&&`, `||` e `!` esattamente come negli esempi precedenti, permettendo di costruire pointcut molto precisi che selezionano esattamente i metodi che ti interessano.
+> 
+
