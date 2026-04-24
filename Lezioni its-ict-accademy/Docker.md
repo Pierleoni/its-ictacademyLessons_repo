@@ -12,7 +12,7 @@ La virtualizzazione è una tecnica che consente di:
 Quindi la  virtualizzazione **serve per astrarre il concetto di computer fisico:** 
 -  ==in concreto, permette di creare un ambiente virtuale dentro il SO della macchina.== 
 In altre parole: 
-- **un sistema che al suo interno ospita un altro sistema/ambiente virtuale.**
+- ==**un sistema che al suo interno ospita un altro sistema/ambiente virtuale.**==
   
 In altri termini, la virtualizzazione consente di creare al **di sopra del sistema operativo reale**, uno o più ambienti "simulati", ciascuno dei quali si comporta come un computer indipendente, dotato di proprie risorse (virtuali). 
 
@@ -25,7 +25,7 @@ Le tecnologie di virtualizzazione — come quelle che permettono di creare **mac
     
 - ==la **replicabilità** delle configurazioni.==
     
-- ==l’**ottimizzazione dei costi** (soprattutto in ambienti server e cloud).==
+- ==l’**ottimizzazione dei costi** ([[Lezione 1 - Introduzione al Cloud Computing|soprattutto in ambienti server e cloud]]).==
     
 - ==e in generale per **isolare i contesti di esecuzione**==.
 
@@ -60,12 +60,12 @@ Partendo da questa immagine possiamo vedere almeno **5 livelli:**
 	
    
 > [!info] Gli hypervisor si suddividono in 2 principali categorie:
-> 1.Bare metal: 
-> 	Direttamente sull'hardware senza SO host.
->     E sono VMware ESXi, Microsoft Hyper-V Server.
+> 1. Bare metal: 
+> 	- Direttamente sull'hardware senza SO host.
+>	- Esempio: VMware ESXi, Microsoft Hyper-V Server.
 > 2. Hosted: 
-> 	Sopra un sistema operativo host.
-> 	Ad esempio VirtualBox, VMware Workstation, Parallels  
+>	- Sopra un sistema operativo host.
+>	- Ad esempio: VirtualBox, VMware Workstation, Parallels  
 
 	   
 3. <mark style="background: #00FF02A6;">Guest OS(Sistema operativo ospite)</mark>: 
@@ -150,7 +150,7 @@ Nel mondo dei container, invece, il **sistema operativo è uno solo**:
 
 Questo approccio ha numerosi **vantaggi pratici**:
 
-- I container sono **più piccoli: ** 
+- I container sono **più piccoli:** 
 	- perché non contengono un intero sistema operativo.
     
 - Sono **più economici in termini di risorse**: 
@@ -234,10 +234,10 @@ Per installare docker su windows è necessario installare anche il docker deskto
 Questi due comandi sono utili per capire il flusso di lavoro con Docker.
 
 1. `docker run`: 
-	- Crea e avvia un **container** a partire da un’immagine.  
-	- Se l’immagine non è già presente in locale, **Docker la scarica automaticamente.**
+	- ==Crea e avvia un **container** a partire da un’immagine.==  
+	- ==Se l’immagine non è già presente in locale, **Docker la scarica automaticamente.**==
 2. `docker pull`: 
-	- Scarica un’immagine da un **registry** (di default Docker Hub) verso il tuo computer ma non la esegue.
+	- ==Scarica un’immagine da un **registry** (di default Docker Hub) verso il tuo computer ma non la esegue.==
 
 
 > [!example] **Esempio:**
@@ -296,17 +296,19 @@ Se eseguiamo più volte `docker run hello-world`, in **Containers** compariranno
 
 
 #### Relazione tra immagini e container 
-Le immagini, di fatto, sono come dei template per i containers: 
+**Le immagini, di fatto, sono come dei template per i containers:** 
 - Specificano: 
-	- Il contenuto di un file system
-	- che applicazioni ha installato l'utente 
-	- variabili di ambiente
-	- E il comando di default che farà partire il container.
-Quindi possiamo pensare a una immagine come un recipiente per eseguire una applicazione.
+	- ==Il contenuto di un file system==
+	- ==che applicazioni ha installato l'utente== 
+	- ==variabili di ambiente==
+	- ==E il comando di default che farà partire il container.==
+Quindi possiamo pensare a una immagine come: 
+- ==un recipiente per eseguire una applicazione.==
 
-I container dall'altro canto sono il gruppo di processi che vengono lanciati ed seguono le istruzioni specificate nell'immagine docker.
+I container dall'altro canto sono: 
+- ==il gruppo di processi che vengono lanciati ed seguono le istruzioni specificate nell'immagine docker.==
 
-Quindi ogni volta che si esegue un immagine docker essa crea in automatico un nuovo container basato sul quell'immagine. 
+Quindi ==ogni volta che si esegue un immagine docker essa crea in automatico un nuovo container basato sul quell'immagine.== 
 Quindi è possibile avere più container, anche basati sulla stessa immagine, in esecuzione in quel momento. 
 Come abbiamo detto sul docker desktop vi sono le tab images e containers che mostrano le immagini o i container, oppure per vedere solo le immagini presenti si può eseguire il CLI
 ```docker 

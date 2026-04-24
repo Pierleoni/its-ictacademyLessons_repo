@@ -183,6 +183,14 @@
             "icon": "lucide-shield-alert"
           }
         }
+      ],
+      "help": [
+        {
+          "changes": {
+            "icon": "lucide-badge-help",
+            "color": "229, 175, 118"
+          }
+        }
       ]
     }
   },

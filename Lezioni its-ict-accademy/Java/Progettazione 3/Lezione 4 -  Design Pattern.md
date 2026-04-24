@@ -817,4 +817,245 @@ Guardando il diagramma, il pattern si articola su quattro elementi:
 > 	- ==Non c'è nulla di nascosto — è una relazione esplicita e bidirezionale.==
 
 >[!summary] In sintesi: il Proxy è trasparente all'oggetto originale, l'Observer è una relazione consapevole e dichiarata tra osservato e osservatore.
-### Proxy 
+
+
+## Proxy 
+
+
+### Il problema che risolve:
+
+==A volte si ha un oggetto che **non può o non deve essere accessibile direttamente** dal client.==  
+Le ragioni possono essere molteplici:
+
+- **Sicurezza** — l'oggetto contiene dati sensibili che solo alcuni client possono vedere
+    
+- **Controllo accesso** — bisogna verificare chi fa cosa e quando
+    
+- **Lazy loading** — l'oggetto è "pesante" da creare e va inizializzato solo quando serve davvero
+    
+- **Logging** — si vuole tracciare ogni operazione eseguita sull'oggetto
+    
+- **Caching** — si vogliono memorizzare risultati di operazioni costose
+    
+
+In tutti questi casi, ==il problema comune è: **come si fa ad aggiungere questo comportamento extra senza modificare l'oggetto originale?** ==
+
+>[!example] **Esempio quotidiano** 
+>Pensiamo al bancomat: Non inseriamo la mano direttamente nel caveau della banca per prendere i soldi. 
+>Si inserisce la carta, si digita il PIN, e il **bancomat fa da proxy** — verifica che il cliente sia autorizzato, registra l'operazione, e solo allora consente l'accesso ai soldi. 
+>Tu interagisci con il bancomat (il proxy), non con il caveau (l'oggetto reale).
+
+
+### La soluzione:
+
+==Si crea una classe **Proxy** che si mette **tra il client e l'oggetto reale** (chiamato **Target**).==
+
+Il punto fondamentale è che ==**sia il Proxy che il Target devono implementare la stessa interfaccia**.==
+
+Perché? ==Così il client **non si accorge** di stare parlando con un proxy invece che con l'oggetto reale.==  
+Il proxy si "spaccia" per il target agli occhi del client — ma prima di passare la richiesta al target, **può fare operazioni extra** come controlli, logging, caching, ecc.
+
+> [!tip] **L'inganno trasparente**  
+> Il client chiama un metodo sull'interfaccia. 
+> Pensando di parlare con il Target, in realtà parla con il Proxy. Il Proxy fa le sue verifiche, poi (se tutto ok) chiama lo stesso metodo sul vero Target. 
+> Il client non sa nulla di tutto questo.
+
+
+#### Diagramma del Proxy
+```text
+┌─────────────────────────────────────────────────────────┐
+│                      <<interface>>                       │
+│                      `Subject`                           │
+│─────────────────────────────────────────────────────────│
+│              +request()                                  │
+└─────────────────────────────────────────────────────────┘
+         △                                    △
+         │                                    │
+         │                                    │
+┌─────────────────┐                  ┌─────────────────┐
+│    `Proxy`      │                  │   `RealSubject` │
+│─────────────────│                  │─────────────────│
+│ -realSubject    │─────────────────►│ +request()      │
+│─────────────────│                  │                 │
+│ +request()      │                  │                 │
+└─────────────────┘                  └─────────────────┘
+```
+Il diagramma mostra quattro elementi:
+
+1. **`Subject` — l'interfaccia comune:**
+    
+    - ==È l'interfaccia che sia il Proxy che il Target devono implementare.==
+        
+    - Dichiara i metodi che il client può chiamare (es. `request()`).
+        
+    - ==È ciò che permette al Proxy di "spacciarsi" per il Target.==
+        
+2. **`RealSubject` — il Target, l'oggetto reale:**
+    
+    - ==È l'oggetto che fa il lavoro vero.==
+        
+    - Contiene la logica di business — la cosa che il client vuole veramente ottenere.
+        
+    - ==Non sa nulla del Proxy che eventualmente lo avvolge.==
+        
+3. **`Proxy` — il filtro/intermediario:**
+    
+    - ==Mantiene un riferimento al `RealSubject`.==
+        
+    - ==Implementa la stessa interfaccia `Subject`.==
+        
+    - Nel suo metodo `request()`:
+        
+        1. Fa le operazioni **pre-request** (controllo accesso, logging, caching, ecc.)
+            
+        2. Se tutto ok, chiama `realSubject.request()`
+            
+        3. Fa le operazioni **post-request** (se necessario)
+            
+    - ==Può anche creare il `RealSubject` solo quando serve (lazy loading).==
+        
+4. **`Client` — chi usa l'oggetto:**
+    
+    - ==Interagisce solo con l'interfaccia `Subject`.==
+        
+    - **Non sa** se sta parlando con un Proxy o con il RealSubject.
+        
+    - ==Questa ignoranza è voluta — è ciò che rende il pattern trasparente.==
+
+>[!ticket] **Il punto chiave è la trasparenza**  
+>==Il `RealSubject` non sa nulla del `Proxy` che eventualmente lo avvolge.==  
+>==Il `Proxy` conosce il `RealSubject` e lo chiama dopo aver fatto i suoi controlli.==  
+>==Il `Client` interagisce solo con l'interfaccia `Subject` — quindi può usare indifferentemente un Proxy o un RealSubject senza modificare il suo codice.==
+
+**Questo significa che si possono aggiungere nuove funzionalità (sicurezza, logging, caching, lazy loading) senza toccare né il client né l'oggetto reale.**
+
+
+##### Conseguenze del Pattern Proxy
+
+> [!done] **Separazione delle responsabilità**
+> 
+> - ==Il `RealSubject` si occupa solo della sua logica di business (quello che deve fare).==
+>     
+> - ==Il `Proxy` si occupa delle "preoccupazioni trasversali" (controllo accessi, logging, caching, lazy loading).==
+>     
+> - ==È il principio di **Single Responsibility** applicato a livello di pattern.==
+>     
+
+> [!done] **Trasparenza per il client**
+> 
+> - ==Il client non sa se sta usando un Proxy o il RealSubject.==
+>     
+> - ==Questo significa che si può introdurre un Proxy senza modificare il codice del client.==
+>     
+> - ==Si può anche rimuovere il Proxy (tornare al RealSubject diretto) senza conseguenze.==
+>     
+
+> [!done] **Controllo sul ciclo di vita**
+> 
+> - ==Il Proxy può decidere **quando** creare il RealSubject (lazy loading).==
+>     
+> - ==Il Proxy può decidere **se** chiamare il RealSubject (in base ai controlli).==
+>     
+> - ==Il Proxy può decidere **quante volte** chiamarlo (caching).==
+>     
+
+> [!warning] **Possibile svantaggio: complessità aggiuntiva**
+> 
+> - ==Il Proxy introduce un ulteriore livello di indirezione.==
+>     
+> - ==Se usato ovunque senza criterio, può rendere il sistema più difficile da comprendere e debuggare.==
+
+>[!note] **Proxy in Spring** 
+>==Spring usa il pattern Proxy internamente per implementare l'[[Lezione 22 parte 4 - AOP(Aspect oriented Programming)|AOP]].== 
+>Quando annoti un metodo con `@Transactional` o un [[Lezione 22 parte 4 - AOP(Aspect oriented Programming)#Aspect|Aspect]] con [[Lezione 22 parte 4 - AOP(Aspect oriented Programming)#^c16a37|`@Around`]], Spring crea automaticamente un proxy dell'oggetto target. 
+>Il client (es. un [[Lezione 22 parte 2 - Spring framework#La Classe Controller|Controller]]) chiama il metodo pensando di parlare con il [[Lezione 22 parte 2 - Spring framework#Il Service|Service]] reale — in realtà parla con il proxy generato da Spring, che applica il comportamento trasversale (logging, transazione, ecc.) prima di delegare al metodo vero.
+
+> [!tldr] **Proxy vs Observer — La differenza fondamentale**
+> 
+> Entrambi coinvolgono un oggetto che si relaziona con un altro. Ma la direzione della consapevolezza è opposta:
+> 
+> - **Nel Proxy:**
+>     
+>     - ==Il `RealSubject` (l'oggetto reale) **non sa nulla** del Proxy che lo avvolge.==
+>         
+>     - ==Il Proxy è trasparente al Target.==
+>         
+>     - ==L'utente del Proxy (il client) non sa di stare usando un Proxy.==
+>         
+>     - **La trasparenza è totale in entrambe le direzioni.**
+>         
+> - **Nell'Observer:**
+>     
+>     - ==L'osservato **sa dell'osservatore** — lo registra esplicitamente con `attach()`.==
+>         
+>     - ==L'osservatore sa dell'osservato — lo interroga con `getState()`.==
+>         
+>     - **La relazione è consapevole e bidirezionale.**
+>         
+> 
+> ||**Proxy**|**Observer**|
+> |---|---|---|
+> |Il soggetto originale sa dell'altro?|❌ No|✅ Sì (attacca)|
+> |L'altro sa del soggetto originale?|✅ Sì (riferimento)|✅ Sì (getState)|
+> |Chi si mette in mezzo?|Proxy|Nessuno — è una collaborazione|
+> |Trasparenza|Totale (nessuno sa)|Esplicita (tutti sanno)|
+
+
+
+> [!summary] **In sintesi:** 
+> il Proxy è: 
+> - ==un **filtro invisibile** che si inserisce tra client e oggetto reale senza che nessuno dei due lo sappia.== 
+> L'Observer è: 
+>- ==una **relazione consapevole** dove osservato e osservatore collaborano esplicitamente.== 
+>>[!remember] **Ricorda:**
+>>Il Proxy risponde alla domanda **_"come aggiungo controlli senza modificare nulla?"_.** 
+>>L'Observer risponde alla domanda **_"come faccio reagire altri oggetti ai miei cambiamenti?"_.**
+
+#### Il ruolo della Factory
+
+==Questo pattern sottintende l'uso combinato di una **Factory**.==
+
+Perché? Perché il client **non deve sapere** se sta ricevendo un Proxy o un `RealSubject`. 
+==Deve ricevere sempre un oggetto che implementa `Subject`, senza dover decidere lui quale dei due creare.==
+
+**Il flusso è questo:**
+
+1. ==Il **Client** chiede alla **Factory** un oggetto di tipo `Subject`==
+    
+2. ==La **Factory** decide se restituire un `Proxy` o un `RealSubject` (spesso restituisce il Proxy) ==
+    
+3. ==Il **Client** riceve quello che crede sia un `RealSubject`, ma in realtà è un `Proxy`==
+    
+4. ==Il **Proxy** attua le sue politiche di filtro (controlli, logging, caching...)==
+    
+5. ==Se necessario, il **Proxy** invoca il `RealSubject`==
+```text
+┌─────────┐      richiede Subject       ┌─────────┐
+│ Client  │ ─────────────────────────► │ Factory │
+└─────────┘                             └─────────┘
+     │                                        │
+     │                                 restituisce
+     │                                   Proxy
+     │                                        │
+     │    ┌──────────────────────────────────┘
+     │    ▼
+     │  ┌───────┐
+     │  │ Proxy │
+     │  └───────┘
+     │      │
+     │      │ 1. politiche di filtro
+     │      │ 2. se ok, invoca
+     │      ▼
+     │  ┌────────────┐
+     │  │ RealSubject│
+     │  └────────────┘
+     │
+     └──────────────────────────────────────────►
+                          usa
+```
+
+>[!tip] **Perché la Factory è fondamentale**  
+>Senza Factory, il Client dovrebbe decidere da solo se creare un Proxy o un `RealSubject` — il che significherebbe che il Client **sa dell'esistenza del Proxy**, rompendo la trasparenza che il pattern vuole ottenere.
+>
+>Con la Factory, il Client chiede semplicemente "dammi un `Subject`" — e la Factory decide internamente se avvolgerlo in un Proxy o meno. Il Client non sa (e non gli interessa) cosa gli è stato dato.
+

@@ -1,6 +1,5 @@
 '''
 CODICE CON SPIEGAZIONE
-
 A.1 Scrivere in Python una funzione generaMAT(n: int) che generi una matrice di dimensione n x n. La matrice deve contenere tutte le tabelline di tutti i numeri da 1 a n. 
 
 A.2 Scrivere una funzione printMAT(mat: list[list[int]]), che data in input una matrice, la stampa in output, in modo tale che ogni elemento della matrice occupi in output 5 caratteri.

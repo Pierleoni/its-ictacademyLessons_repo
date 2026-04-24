@@ -4,37 +4,37 @@
     "type": "split",
     "children": [
       {
-        "id": "92b16acae5d2aad5",
+        "id": "15e5aeb8979ea7b0",
         "type": "tabs",
         "children": [
           {
-            "id": "4b4c9d8ee5c5e1af",
+            "id": "924449bcee259c75",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Java/Lezione 22 - Spring Rest/Lezione 22 parte 4 - AOP(Aspect oriented Programming).md",
+                "file": "Progettazione/Analisi concettuale/Lezione 2/Documenti di specifica.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Lezione 22 parte 4 - AOP(Aspect oriented Programming)"
+              "title": "Documenti di specifica"
             }
           },
           {
-            "id": "dce3e0452b1a198a",
+            "id": "0c085798391ec2fc",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Java/Lezione 22 - Spring Rest/Lezione 22 parte 4 - AOP(Aspect oriented Programming).md",
+                "file": "SQL/Introduzione a SQL e il DDL.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Lezione 22 parte 4 - AOP(Aspect oriented Programming)"
+              "title": "Introduzione a SQL e il DDL"
             }
           }
         ],
@@ -223,34 +223,36 @@
       "vscode-editor:Create Code File": false
     }
   },
-  "active": "dce3e0452b1a198a",
+  "active": "0c085798391ec2fc",
   "lastOpenFiles": [
-    "Java/Lezione 21 - JDBC/Lezione 21 - JDBC(Java Database Connectivity).md",
-    "Java/Lezione 22 - Spring Rest/Lezione 22 parte 4 - AOP(Aspect oriented Programming).md",
-    "Java/Lezione 9 Ereditarietà e Poliforfismo/Ereditarietà e polimorfismo.md",
-    "Java/Progettazione 3/Lezione 1 - Applicazioni cloud a microservizi.md",
-    "Web Development/Progettazione/Lezione 7 - Sistemi REST.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Operazioni di classe e Specializzazioni degli attributi, di associazioni e operazioni.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Generalizzazioni.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Analisi dei requisiti mediante UML.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Associazioni con attributi in UML.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Diagramma use-case.md",
+    "SQL/Senza nome.md",
+    "SQL/Introduzione a SQL e il DDL.md",
     "Progettazione/Analisi concettuale/Lezione 2/Documenti di specifica.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Tipi di dato concettuale.md",
-    "Progettazione/Analisi concettuale/Lezione 2/Vincoli di molteplicità sulle associazioni e sugli attributi.md",
-    "Progettazione/Design di applicazioni in Python/Associazione a responsabilità singola.md",
-    "Progettazione/Design di applicazioni in Python/Responsabilità.md",
-    "Java/Lezione 10 Classi Astratte e Interfacce/Lezione 10 - Classi astratte e interfaccie.md",
-    "Java/Lezione 8 Incapsulamento/Lezione 8 - L'incapsulamento.md",
-    "Java/Lezione 5 Le classi/Le classi.md",
-    "Java/Lezione 4 Oggetti e Classi/Oggetti e Classi.md",
-    "Java/Lezione 22 - Spring Rest/Lezione 22 parte 3 - Dependency Injection.md",
-    "Java/Lezione 22 - Spring Rest/Lezione 22 parte 2 - Spring framework.md",
-    "Java/Lezione 22 - Spring Rest/Lezione 22 - Spring Rest.md",
-    "Java/Lezione 22 - Spring Rest/Lezione 22 parte 5 - Sistemi Rest.md",
-    "Java/Progettazione 3/Lezione 4 -  Design Pattern.md",
-    "Web Development/Cloud/Lezione 4 - Modelli dei servizi di cloud.md",
-    "Java/Lezione 6 Le stringhe/Le stringhe.md",
+    "Progettazione/Base dati/Lezione 1; Introduzione e modello relazionale.md",
+    "Web Development/React/Lezione 4 - useEffect.md",
+    "Web Development/React/Lezione 1- Componenti Funzionali in React React.md",
+    "Web Development/Javascript/Lezione 8 - L'asincronia in JS.md",
+    "Python/Lezione 23 Flask/Docker.md",
+    "Python/Notazione async.md",
+    "Python/Lezione 18/Eccezioni in Python.md",
+    "Python/Lezione 18/Asserzioni.md",
+    "Python/Lezione 15/File in Python.md",
+    "Python/Lezione 14 PyTest/Testing in Python.md",
+    "Python/Lezione 13/Funzioni Ricorsive.md",
+    "Python/Lezione 9_Lambda & RegEX/RegEx.md",
+    "Python/Lezione 9_Lambda & RegEX/Lambda.md",
+    "Python/Lezione 8_Ereditarietà delle classi/Polimorfismo.md",
+    "Python/Lezione 8_Ereditarietà delle classi/Ereditarietà delle classi.md",
+    "Python/Lezione 8_Ereditarietà delle classi/Classi astratte.md",
+    "Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/I decoratori di Python.md",
+    "Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Public, Private and Class Attibutes, Class and Static Methods.md",
+    "Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi.md",
+    "Python/Lezione 5_ List Comprehensions/Capire la comprehensions in Python.md",
+    "Python/Lezione 4_FunzioniPython/Funzioni in Python.md",
+    "Python/Lezione 3/Ripasso if, if else e Loops.md",
+    "Python/Lezione 3/Match Statement.md",
+    "Python/Le matrici in Python/matrici_con_spiegazione.py",
+    "Python/Le matrici in Python/matrici_senza_commenti.py",
     "Java/Progettazione 3",
     "img/Java/Lezione 22/Parte 3/Screenshot 2026-03-13 at 11-44-16 Microsoft PowerPoint - Spring e Servizi REST - Spring e Servizi REST.pdf.png",
     "img/Java/Lezione 22/Parte 3",
@@ -260,8 +262,6 @@
     "Java/Lezione 19 Design Patterns",
     "Java/Esportazioni",
     "Java/Nuova cartella",
-    "Java/Lezione 14 JUnit",
-    "Java/Lezione 18 MultiTheading",
     "img/Java/Lezione 10/Esempio.png",
     "img/Java/Lezione 10/Interfacce(diagramma).png",
     "img/Java/Lezione 1/Linguaggio e tecnologie.png",

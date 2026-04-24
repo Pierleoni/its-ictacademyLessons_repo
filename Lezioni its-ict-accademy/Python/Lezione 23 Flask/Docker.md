@@ -1,6 +1,6 @@
 # Virtual Machine
 Le virtual machines (Vms) sono create attraverso un processo chiamata virtualizzazione:
-è una tecnologia che peremette di creare ambienti multpli simulati(es:server, storage o network) su una singola macchina fisica. 
+- è una tecnologia che peremette di creare ambienti multpli simulati(es:server, storage o network) su una singola macchina fisica. 
 In sostanza prendiamo un pezzo del nostro sistema operativo e la utilizziamo per la macchina virtuale.
 Le VMs virtualizzano l hardware. Questo semplificazione significa che una VM prende un sinoglo pezzo di hardware, o un server, e crea versioni virtuali di altri server per fa correre il proprio sistema operativo. Fisicamente è un piccolo pezzo di un hardware. 
 Logicamente, più macchine virtuali possono essere eseguite su un singolo hardware.

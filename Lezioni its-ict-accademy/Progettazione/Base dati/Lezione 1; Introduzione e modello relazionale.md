@@ -335,7 +335,7 @@ ad esempio nella tabella `Esame`:
 A sua volta i vincoli [[#^intra-tabella|intra-tabella]] si suddividono in due categorie:
 1. I vincoli di ennupla.  
 2. I vincoli di chiave o di colonna
-#### [[Il linguaggio SQL#Vincoli di dominio|Vincoli di ennupla]] 
+#### [[Introduzione a SQL e il DDL#Vincoli di dominio|Vincoli di ennupla]] 
 
 ==I **vincoli di ennupla** esprimono condizioni sui valori di ciascuna riga (ennupla) di una tabella, **considerata indipendentemente dalle altre**.==  
 
@@ -1177,7 +1177,7 @@ Quindi anche con `ON DELETE SET NULL`, l'operazione viene annullata.
 > ==**le azioni compensative devono essere compatibili con i vincoli della tabella** (es. chiavi primarie, `NOT NULL`, ecc.).==
 
 #### Significato di `ON DELETE SET NULL` nelle foreign key
-Quando si definisce una **foreign key** in [[Il linguaggio SQL|SQL]], è possibile specificare un **comportamento personalizzato** da eseguire nel caso in cui venga cancellata una riga dalla tabella referenziata.
+Quando si definisce una **foreign key** in [[Introduzione a SQL e il DDL|SQL]], è possibile specificare un **comportamento personalizzato** da eseguire nel caso in cui venga cancellata una riga dalla tabella referenziata.
 Uno di questi comportamenti è:
 ```postgresql
 ON DELETE SET NULL
@@ -1185,7 +1185,7 @@ ON DELETE SET NULL
 
 #### Cos'è `ON DELETE SET NULL`?
 Quindi il modificatore `ON DELETE SET NULL`: 
-==è una **clausola opzionale** che si può specificare **all'interno della definizione di una foreign key** in [[Il linguaggio SQL|SQL]].== 
+==è una **clausola opzionale** che si può specificare **all'interno della definizione di una foreign key** in [[Introduzione a SQL e il DDL|SQL]].== 
 Esempio di sintassi:
 ```postgresql
 FOREIGN KEY (campo_ref)

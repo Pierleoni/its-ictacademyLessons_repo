@@ -1243,7 +1243,7 @@ Si occupano di:
     
 - Flyweight
     
-- Proxy
+- [[Lezione 4 -  Design Pattern#Proxy|Proxy]]
     
 
 #### Pattern Behavioral (11)

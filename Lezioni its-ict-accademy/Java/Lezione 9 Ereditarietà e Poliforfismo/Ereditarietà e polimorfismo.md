@@ -6,7 +6,7 @@ L’ereditarietà permette di:
 - ==creare nuove classi a partire da classi esistenti, riutilizzandone attributi e metodi e specializzandoli secondo necessità.== 
 Questo apre la strada al **polimorfismo:** 
 - ==cioè alla capacità di trattare oggetti di classi diverse in modo uniforme e di far invocare automaticamente il comportamento corretto in base alla classe reale dell’oggetto.== 
-Alla base di questo meccanismo ci sono due concetti chiave della [[Lezione 1 - Introduzione a Java#La JVM e l’indipendenza dalla piattaforma|JVM]]: il **binding dinamico**, che determina a run-time quale metodo invocare, e la **Virtual Method Invocation**, che realizza concretamente l’invocazione del metodo corretto.
+Alla base di questo meccanismo ci sono due concetti chiave della [[Lezione 1 - Introduzione a Java#La JVM e l’indipendenza dalla piattaforma|JVM]]: il **[[#Binding dinamico in Java|binding dinamico]]**, che determina a run-time quale metodo invocare, e la **Virtual Method Invocation**, che realizza concretamente l’invocazione del metodo corretto.
 
 Questi concetti consentono di scrivere codice più flessibile, modulare e facilmente estendibile, permettendo di aggiungere nuove classi e comportamenti senza modificare il codice già esistente.
 

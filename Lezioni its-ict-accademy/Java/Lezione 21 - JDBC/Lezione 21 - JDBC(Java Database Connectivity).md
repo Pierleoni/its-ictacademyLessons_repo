@@ -20,7 +20,7 @@ Il suo ruolo non è implementare la connessione, ma **definire un contratto**:
 
 La comunicazione è però **parzialmente** standardizzata. 
 La struttura delle chiamate Java è sempre la stessa, ma il **dialetto SQL** sottostante può variare: 
-- Oracle, ad esempio, ha funzioni e sintassi che differiscono dallo standard SQL usato da PostgreSQL o MariaDB. JDBC non risolve questo problema — garantisce uniformità nell'**accesso**, non nella **query**.
+- Oracle, ad esempio, ha funzioni e sintassi che differiscono dallo standard SQL usato da PostgreSQL o MariaDB. ==JDBC non risolve questo problema — garantisce uniformità nell'**accesso**, non nella **query**.== 
 Il punto di ingresso è il **`DriverManager`**: 
 - ==il componente che, dato un URL di connessione (es. `jdbc:postgresql://localhost:5432/mydb`), individua il driver corretto tra quelli registrati e restituisce una `Connection`.==
 ### Obiettivo di JDBC
@@ -67,7 +67,7 @@ Mentre all'interno di `java.sql` vive il **`DriverManager`**:
 Quando gli si fornisce un URL di connessione come `jdbc:postgresql://localhost:5432/mydb`, il `DriverManager` ==legge il prefisso del protocollo e individua automaticamente il driver corretto tra quelli disponibili, restituendo una `Connection`.==
 
 I **driver** invece vivono **fuori** da `java.sql`: 
-- sono librerie fornite da terze parti (il team di PostgreSQL, Oracle, ecc.) e ognuno di essi è un'**implementazione concreta** delle interfacce di `java.sql`. 
+- ==sono librerie fornite da terze parti (il team di PostgreSQL, Oracle, ecc.) e ognuno di essi è un'**implementazione concreta** delle interfacce di `java.sql`.== 
 >[!link] È esattamente il **[[Lezione 19 - Design Pattern#Adapter (Pattern Strutturale)|pattern Adapter]]**: 
 >i driver adattano il protocollo specifico del loro DBMS al contratto comune definito da JDBC.
 
@@ -97,7 +97,7 @@ Il limite principale è la **dipendenza dalla piattaforma**:
 
 ####  Tipo 2 — API Nativa
 
-==Utilizza le **API native** disponibili direttamente sulla macchina client (quella dove risiede il database).== 
+==Utilizza le **API native,** disponibili direttamente sulla macchina client (quella dove risiede il database).== 
 ==Per questo motivo non è scritto interamente in Java e **dipende dal sistema operativo**== — ad esempio Oracle fornisce driver nativi di questo tipo. 
 
 > [!done] **Vantaggi**
@@ -155,12 +155,12 @@ Class.forName("sun.jdbc.odbc.JdbcOdbcDriver"); // driver bridge (obsoleto)
 
 ## I Tipi Chiave di JDBC
 
-| Tipo                                                           | Natura      | Ruolo                                                    |
-| -------------------------------------------------------------- | ----------- | -------------------------------------------------------- |
-| [[#`DriverManager` — Dal Concetto al Codice\|`DriverManager`]] | classe      | Gestore dei driver; fornisce la `Connection` dato un URL |
-| `Connection`                                                   | interfaccia | Rappresenta la connessione attiva al DB                  |
-| `Statement`                                                    | interfaccia | Wrapper per l'esecuzione di statement SQL                |
-| `ResultSet`                                                    | interfaccia | Accesso ai risultati di una query                        |
+| Tipo                                                           | Natura      | Ruolo                                                        |
+| -------------------------------------------------------------- | ----------- | ------------------------------------------------------------ |
+| [[#`DriverManager` — Dal Concetto al Codice\|`DriverManager`]] | classe      | ==Gestore dei driver; fornisce la `Connection` dato un URL== |
+| `Connection`                                                   | interfaccia | ==Rappresenta la connessione attiva al DB==                  |
+| `Statement`                                                    | interfaccia | ==Wrapper per l'esecuzione di statement SQL==                |
+| `ResultSet`                                                    | interfaccia | ==Accesso ai risultati di una query==                        |
 
 
 
@@ -170,14 +170,15 @@ Class.forName("sun.jdbc.odbc.JdbcOdbcDriver"); // driver bridge (obsoleto)
 
 
 ### `DriverManager` — Dal Concetto al Codice
-Come abbiamo visto, il `DriverManager` gestisce i driver registrati e crea le connessioni ai database. Dal punto di vista applicativo, il metodo principale che useremo è `getConnection()`:
+Come abbiamo visto, ==il `DriverManager` gestisce i driver registrati e crea le connessioni ai database.== 
+Dal punto di vista applicativo, il metodo principale che useremo è `getConnection()`:
 
 ```java
 Connection connection = DriverManager.getConnection(url, username, password);
 ```
 
 oppure, se il database non richiede autenticazione:
-```
+```java
 Connection connection = DriverManager.getConnection(url, "", "");
 ```
 
@@ -191,7 +192,7 @@ jdbc:nomeDriver:location
 ```
 
 Ad esempio:
-```java
+```http
 jdbc:postgresql://localhost:5432/mydb
 jdbc:mysql://localhost:3306/mydb
 ```
@@ -253,12 +254,13 @@ DriverManager.getConnection("jdbc:postgresql://localhost:5432/mydb", "", "");
 
 >[!note] Nel caso di ODBC (Tipo 1) non esiste una vera `location` di rete — al suo posto si usa una **etichetta** configurata a livello di sistema operativo durante la fase di setup del driver.
 ### Interfaccia `Connection` 
-Una `Connection` rappresenta una **sessione di dialogo attiva** con un database specifico. Non è solo un "canale aperto" — è il **contesto** entro cui avvengono tutte le operazioni SQL.
+==Una `Connection` rappresenta una **sessione di dialogo attiva** con un database specifico.== 
+Non è solo un "canale aperto" — è il **contesto** entro cui avvengono tutte le operazioni SQL.
 
 Le sue responsabilità principali sono due:
 
 **1. Creare gli Statement SQL** 
-- È attraverso la `Connection` che si creano gli oggetti per eseguire query e scritture sul DB:
+- ==È attraverso la `Connection` che si creano gli oggetti per eseguire query e scritture sul DB==:
 ```java
 java.sql.Connection interface
 void close() throws SQLException; 
@@ -268,7 +270,7 @@ CallableStatement prepareCall(String) throws SQLException;
 ```
 
 **2. Gestire le transazioni:**
--  La `Connection` controlla il ciclo di vita delle transazioni:
+-  ==La `Connection` controlla il ciclo di vita delle transazioni==:
 ```java
 boolean getAutoCommit() throws SQLException;
 
@@ -279,8 +281,9 @@ void rollback() throws SQLException; // annulla la transazione
 
 
 
-> [!NOTE] **Info:**
-> Di default, ogni operazione SQL viene committata automaticamente (`autoCommit = true`). Disabilitarlo permette di raggruppare più operazioni in un'unica transazione atomica — o tutto va a buon fine, o si annulla tutto.
+> [!info] **Info:**
+> **Di default, ogni operazione SQL viene committata automaticamente (`autoCommit = true`).** 
+> ==Disabilitarlo permette di raggruppare più operazioni in un'unica transazione atomica — o tutto va a buon fine, o si annulla tutto.==
 
 ###  Interfaccia `Statement`
 
@@ -395,8 +398,9 @@ Object getObject(String columnName) throws SQLException;
 
 > [!warning] **Perché farsi restituire un oggetto anziche un intero o un numero?**
 > Come possiamo vedere esistono due metodi che restituiscono un oggetto anziche una Stringa o un intero. 
-> Perché questo e a cosa ci può servire? 
-> Immaginiamo di dover farci restituire il valore di una singola colonna ma non sappiamo a compile-time che tipo ha quella colonna, questo perché magari stiamo scrivendo un tool generico che legge qualsiasi tabella. 
+> **Perché questo e a cosa ci può servire?** 
+> **Immaginiamo di dover farci restituire il valore di una singola colonna ma non sappiamo a compile-time che tipo ha quella colonna, questo perché magari stiamo scrivendo un tool generico che legge qualsiasi tabella.**
+>  
 > Far eseguire il `getString()` o il `getInt()` senza sapere il tipo di dato incastonato nella riga può essere rischioso perché ci obbliga a fare un cast specifico, che non sempre è il cast corretto, per questo si sceglie il `getObject()` perché ==è più generico e se non si sa che tipo di dato si sta estraendo dalla singola riga è la soluzione migliore.== 
 > Un altro motivo é quando si vuol gestire un qualsiasi tipo di colonna con lo stesso codice senza scrivere un `if` per ogni tipo possibile: 
 >```java
@@ -457,7 +461,7 @@ res.getString(1);       // per indice — più efficiente
 - È buona pratica chiudere esplicitamente `ResultSet` e `Statement` quando non servono più.
 
 **3. `ResultSetMetaData`**: 
-- Se non si conosce a priori la struttura della tabella (numero di colonne, nomi, tipi), si può recuperare questa informazione tramite `ResultSetMetaData`:
+- ==Se non si conosce a priori la struttura della tabella (numero di colonne, nomi, tipi), si può recuperare questa informazione tramite `ResultSetMetaData`==:
 ```java
 ResultSetMetaData meta = res.getMetaData();
 int numColonne = meta.getColumnCount();
@@ -500,7 +504,7 @@ ps.setString(3, "programmer");
 ps.executeUpdate();
 ```
 
-I setter gestiscono automaticamente i delimitatori per stringhe e date — non serve aggiungerli manualmente.
+**I setter gestiscono automaticamente i delimitatori per stringhe e date** — ==non serve aggiungerli manualmente.==
 
 Al termine si esegue l'istruzione con:
 
@@ -607,21 +611,22 @@ A quel punto sono disponibili sia `java.sql` che il driver di connessione, e il 
 ### Esempio pratico: Gestione di una libreria
 
 Ora che abbiamo visto la parte teorica del JDBC passiamo alla parte pratica; 
-ipotizziamo di dover mettere in piedi un sistema di gestione dei libri di una libreria o biblioteca a partire da un database scritto in PostgreSQL. 
+**ipotizziamo di dover mettere in piedi un sistema di gestione dei libri di una libreria o biblioteca a partire da un database scritto in PostgreSQL.** 
 Ora il codice in JDBC viene organizzato in 3 strati con responsabilità separate, seguendo il DAO pattern: 
 1. Il componente `Database`: 
-	- Centralizza la logica di connessione al database. Tutte le credenziali e l'URL sono in un unico posto — se cambiano, si modifica solo qui.
+	- ==Centralizza la logica di connessione al database.== 
+	- ==Tutte le credenziali e l'URL sono in un unico posto — se cambiano, si modifica solo qui.==
 2. `LibroDTO` — La Copia dell'Entità
-	- Il **DTO** (Data Transfer Object) è: 
+	- Il **[[Lezione 22 parte 2 - Spring framework#Il DTO — Data Transfer Object|DTO]]** (Data Transfer Object) è: 
 		- ==la rappresentazione Java dell'entità nel database.== 
 		- ==Non contiene logica — solo i campi della tabella con i relativi getter e setter.== 
 		- Ha **2** costruttori: 
-			- uno completo (con `id`, usato quando si legge dal DB) 
-			- e uno senza `id` (usato quando si vuole inserire un nuovo libro, perché l'`id` viene generato dal DB).
+			- ==uno completo (con `id`, usato quando si legge dal DB)== 
+			- ==e uno senza `id` (usato quando si vuole inserire un nuovo libro, perché l'`id` viene generato dal DB).==
 
 3. `LibroDAO` — L'Accesso ai Dati
 
-	- Il **DAO** (Data Access Object) è:
+	- Il **[[Lezione 22 parte 2 - Spring framework#Il DAO nel contesto Spring|DAO]]** (Data Access Object) è:
 		- ==il componente che mette in comunicazione il database con il resto dell'applicazione.== 
 	- ==Contiene tutti i metodi che eseguono query SQL, restituendo o ricevendo oggetti `DTO`.==
 #### Perché il DAO pattern?
@@ -641,8 +646,8 @@ Il resto del codice non deve sapere nulla di SQL, di connessioni, di driver — 
 Questa separazione si realizza attraverso due figure chiave:
 
 1. **Il DTO (Data Transfer Object):**
-	- è la rappresentazione Java di un'entità del database — in questo caso un libro. 
-	- Non contiene logica, solo i dati: 
+	- ==è la rappresentazione Java di un'entità del database — in questo caso un libro.== 
+	- **Non contiene logica, solo i dati:** 
 		- ==è il "contenitore" che viaggia tra i vari strati dell'applicazione al posto delle righe grezze del database.==
 
 2. **Il DAO (Data Access Object):** 
@@ -650,8 +655,8 @@ Questa separazione si realizza attraverso due figure chiave:
 	- ==Riceve e restituisce oggetti DTO, nascondendo completamente al resto dell'applicazione il fatto che ci sia un database dietro.==
 #### 1. Componente `Database`
  **Il componente `Database` è il terzo strato,** ed è il più semplice ma non meno importante:
--  Il suo unico compito è centralizzare la logica di connessione: 
-	-  URL, credenziali e tutto ciò che riguarda il "come connettersi" al database vive qui e solo qui.
+-  **Il suo unico compito è centralizzare la logica di connessione:** 
+	-  ==URL, credenziali e tutto ciò che riguarda il "come connettersi" al database vive qui e solo qui.==
 
 > [!tip] **Questo significa che se domani le credenziali cambiano, o si migra da PostgreSQL a MySQL, si tocca un solo file — senza dover cercare stringhe di connessione sparse nel codice.**
 >  È anche il motivo per cui le costanti `URL`, `USER` e `PSW` sono dichiarate `private static final`: 
@@ -685,7 +690,7 @@ public class Database {
 
 > [!warning] `SQLException` è una **[[Lezione 11 - Gestire gli Errori#1. Eccezioni Checked|checked exception]]:** 
 > - ==il compilatore ti obbliga a gestirla esplicitamente.== 
-> È il contrario delle **[[Lezione 11 - Gestire gli Errori#2. Eccezioni Unchecked|unchecked exception]]** (come `NullPointerException` o `IllegalArgumentException`) che non richiedono né `throws` né `try-catch`.
+> È il contrario delle **[[Lezione 11 - Gestire gli Errori#2. Eccezioni Unchecked|unchecked exception]]** (come `NullPointerException` o `IllegalArgumentException`) che non richiedono la dichiarazione del `throws` nella firma del metodo, né `try-catch`.
 > 
 
 
@@ -857,9 +862,9 @@ public boolean insert(LibroDTO l) {
 	- ==Java li chiuderà automaticamente al termine del blocco, senza bisogno di un `finally` esplicito.== 
 	- ==È l'approccio più sicuro perché non si può dimenticare di chiudere le risorse.==
 2. La query usa i segnaposto `?` per i tre valori variabili. 
-	- Si noti che `id` non compare nella query; 
-	- non lo forniamo noi, lo genera il database automaticamente come un `SERIAL` in PostgreSQL. 
-	- Difatti Il secondo argomento `Statement.RETURN_GENERATED_KEYS` istruisce il driver a rendere disponibile l'`id` generato dopo l'insert.
+	- ==Si noti che `id` non compare nella query;== 
+	- ==non lo forniamo noi, lo genera il database automaticamente come un `SERIAL` in PostgreSQL.== 
+	- ==Difatti Il secondo argomento `Statement.RETURN_GENERATED_KEYS` istruisce il driver a rendere disponibile l'`id` generato dopo l'insert.==
 3. **`executeUpdate()` restituisce il numero di righe inserite:** 
 	-  ==Se è `0`, significa che l'insert non ha avuto effetto — si lancia una `SQLException` per segnalarlo esplicitamente.==
 4. Tramite `getGeneratedKeys()` si recupera l'`id` generato dal database e lo si imposta sul `LibroDTO` con `l.setId()` 
