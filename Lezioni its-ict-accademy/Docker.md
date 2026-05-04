@@ -176,9 +176,9 @@ In questo modo, agli sviluppatori viene offerta la possibilità di **impacchetta
 ### Linux Building Blocks 
 Quindi abbiamo detto che i container Docker siano ottimizzati per gli ambienti Linux, ora vediamo come Docker si appoggia sui meccanismi del [[I fundamentals di un Sistema Operativo#Kernel|kernel]] Linux. 
 In Linux esistono 3 blocchi fondamentali su cui Docker si appoggia per far funzionare i container: 
-1. Namespace 
-2. Control Groups(cgroups)
-3. Union Filesystem
+1. [[#Namespace|Namespace]] 
+2. [[#Control Groups (cgroups)|Control Groups(cgroups)]]
+3. [[#Union Mount Filesystems (overlayfs)|Union Filesystem]]
 #### Namespace
 ==Il Namespace è il meccanismo per wrappare (racchiudere) una risorsa globale del sistema.== 
 ==In questo modo ogni processo di una risorsa in esecuzione che è racchiusa in un namespace non sarà a conoscenza degli altri processi in esecuzione al di fuori del suo namespace.== 
@@ -205,7 +205,7 @@ I namespace principali sono:
 
 #### Control Groups (cgroups)
 I **cgroups** risolvono un problema diverso rispetto ai namespace: 
-- mentre i namespace gestiscono l'**isolamento**, i cgroups gestiscono il **controllo delle risorse**.
+- ==mentre i namespace gestiscono l'**isolamento**, i cgroups gestiscono il **controllo delle risorse**.==
 In particolare: 
 - ==i cgroups sono una caratteristica del kernel Linux e permettono  di organizzare i processi in gruppi gerarchici i quali usano i vari tipi di risorse che possono essere limitate e monitorate.==
 
@@ -213,10 +213,10 @@ In altre parole: ==i cgroups permettono di **limitare, misurare e prioritizzare*
 
 Risorse controllabili tramite cgroups:
 
-- **CPU** → quanti core o quanta percentuale di CPU può usare il container
-- **RAM** → limite massimo di memoria utilizzabile
-- **I/O disco** → velocità massima di lettura/scrittura
-- **Rete** → banda disponibile
+- **CPU** → ==quanti core o quanta percentuale di CPU può usare il container==
+- **RAM** → ==limite massimo di memoria utilizzabile==
+- **I/O disco** → ==velocità massima di lettura/scrittura==
+- **Rete** → ==banda disponibile==
 Quindi usare i cgroups significa specificare una configurazione per un particolare processo o per un gruppo di processi su come essi dovrebbero essere in grado di accedere a quelle particolari risorse di sistema. 
 >[!example] **Analogia: Cgroups** 
 >I cgroups funzionano come i **cartelli del limite di velocità** su una strada: ==non impediscono alla macchina di esistere né di muoversi, ma stabiliscono un tetto massimo oltre il quale non può andare==. 
@@ -278,7 +278,7 @@ FROM ubuntu:22.04        # Layer 1: OS base
 RUN apt-get install java # Layer 2: installazione Java
 COPY app.jar /app/       # Layer 3: la tua applicazione
 ```
-Quando avvii un container, Docker aggiunge sopra questi layer read-only un **layer scrivibile** (detto _container layer_), che è l'unico modificabile durante l'esecuzione:
+Quando si avvia un container, ==Docker aggiunge sopra questi layer read-only un **layer scrivibile** (detto _container layer_), che è l'unico modificabile durante l'esecuzione==:
 ```text
 [ Container layer — scrivibile ]   ← modifiche runtime
 [ Layer 3 — app.jar ]   ← read-only
@@ -376,6 +376,14 @@ Come abbiamo visto nella sezione sull'[[#Union Mount Filesystems (overlayfs)|Uni
 
 Tutti i dati scritti durante l'esecuzione del container (file di log, dati salvati, modifiche al filesystem) finiscono in questo layer.
 [![Screenshot-2026-04-30-at-14-04-08-devops-directive-docker-course-04-using-3rd-party-containers-readm.png](https://i.postimg.cc/05VsGtFR/Screenshot-2026-04-30-at-14-04-08-devops-directive-docker-course-04-using-3rd-party-containers-readm.png)](https://postimg.cc/5jQTbmfn)
+```txt
+[ Container Layer — scrivibile ]   ← creato a runtime con docker run
+[ Build Layer 3               ]   ← RUN
+[ Build Layer 2               ]   ← COPY
+[ Build Layer 1               ]   ← RUN
+[ Base Image                  ]   ← FROM
+```
+
 >[!ticket] **I dati nei container sono effimeri (ephemeral)** 
 >==Quando un container viene fermato e rimosso con `docker rm`, il **Container Layer viene eliminato insieme a lui** — e tutti i dati scritti al suo interno vengono persi in modo permanente.==
 
@@ -384,7 +392,7 @@ Questo è un problema concreto:
 #### La soluzione: montare storage esterno
 
 Per rendere i dati **persistenti**, Docker offre 2 meccanismi che permettono di salvare i dati **al di fuori** del Container Layer effimero:
-1. **Bind Mount:** 
+1. **Bind Mount:**  ^a18577
 	-  ==Collega direttamente una cartella del container a una cartella **scelta da te** sul filesystem dell'host.==
 	- ==È l'utente a controllare il percorso, ad esempio `/home/users/dati`.==
 2. **Volume Mount:**
@@ -531,50 +539,76 @@ FROM ubuntu:22.04
 RUN apt update && apt install iputils-ping --yes
 ```
 
+- `FROM ubuntu:22.04` → definisce la **Base Image:**
+	- ==il punto di partenza dell'immagine.== 
+	- ==Crea il primo layer read-only dello stack==
+- `RUN apt update && apt install iputils-ping --yes` → ==esegue il comando durante la **build** dell'immagine, creando un secondo layer read-only.== 
+	- ==`&&`(AND) garantisce che `apt install` venga eseguito solo se `apt update` ha avuto successo==
+
 ```docker
 # Build dell'immagine
-docker build --tag my-ubuntu-image .
+docker build --tag my-ubuntu-image --<<EOF
+FROM ubuntu:22.04
+RUN apt update && apt install iputils-ping --yes
+EOF
 
 # Ogni container creato da questa immagine avrà già ping installato
 docker run -it --rm my-ubuntu-image
 ping google.com -c 1 # ✅ Funziona sempre!
 ```
 
+- `docker build` → ==legge il Dockerfile e costruisce l'immagine layer per layer==
+- `--tag my-ubuntu-image` → ==assegna un **nome** all'immagine prodotta, così puoi riferirtici facilmente==
+- `--<<EOF ... EOF` → ==sintassi alternativa(EOF = End Of File) per passare il Dockerfile **inline** direttamente nel comando, senza creare un file separato su disco.== 
+	- ==Tutto ciò che è tra `<<EOF` e `EOF` viene trattato come contenuto del Dockerfile==
+- `docker run -it --rm my-ubuntu-image` → ==crea un container dall'immagine appena costruita con terminale interattivo, eliminandolo dopo `exit`==
+- `ping google.com -c 1` → eseguito **dentro il container**, funziona ✅ 
+	- ==perché `ping` è stato installato nel layer read-only durante la build — non nel Container Layer effimero==
+
+> [!caution] **`--<<EOF` vs Dockerfile separato** 
+> ==Nella pratica reale si usa quasi sempre un **file Dockerfile separato**.== 
+> **La sintassi `<<EOF` è utile per esperimenti rapidi o demo, ma per progetti reali avere un Dockerfile dedicato è più leggibile e mantenibile.**
+
 >[!ticket] **Regola generale** 
 >==Tutto ciò di cui l'applicazione ha bisogno per funzionare deve essere **costruito nell'immagine**. L'unica eccezione sono le **configurazioni specifiche dell'ambiente** (variabili d'ambiente, file di config), che possono essere fornite a runtime.==
 
-####  Docker run, start, attach ed exec a confronto
+> [!info]
+> ####  Docker run, start, attach ed exec a confronto
+> 
+> Lavorando con i container, è importante distinguere questi quattro comandi che spesso vengono confusi tra loro.
+> 1. **`docker run`:**
+> 	- ==Crea **e** avvia un nuovo container da un'immagine.== 
+> 	- ==Ogni volta che lo usi, stai generando un Container Layer nuovo e separato.==
+> ```docker
+> docker run -it --name my-ubuntu-container ubuntu:22.04
+> ```
+> 2. **`docker start`** 
+> 	- ==Avvia un container **già esistente** ma fermo, preservando il suo Container Layer con tutte le modifiche precedenti. ==
+> 	- ==Il container riparte in background.==
+> ```docker
+> docker start my-ubuntu-container
+> ```
+> 
+> 3. **`docker attach`** 
+> 	- ==Si aggancia al **processo principale** (PID 1) di un container già in esecuzione, portandoti dentro il suo terminale.==
+> ```docker
+> docker attach my-ubuntu-container
+> ```
+> 
+> >[!warning] **Attenzione** 
+> >==Fare `exit` da una sessione `attach` **ferma il processo principale** del container, quindi lo ferma completamente.==
+> 
+> 4. **`docker exec`** 
+> 	- ==Lancia un **processo nuovo** all'interno di un container già in esecuzione, senza toccare il processo principale.==
+> ```docker
+> docker exec -it my-ubuntu-container bash
+> ```
+> 
+> >[!hint] **Quando usare `exec` invece di `attach`?** 
+> >==Quando il container sta già eseguendo un'applicazione (es. PostgreSQL, nginx) e lo si vuole **ispezionare o debuggare** senza interromperne il funzionamento.==
+> 
+> 
 
-Lavorando con i container, è importante distinguere questi quattro comandi che spesso vengono confusi tra loro.
-1. **`docker run`:**
-	- ==Crea **e** avvia un nuovo container da un'immagine.== 
-	- ==Ogni volta che lo usi, stai generando un Container Layer nuovo e separato.==
-```docker
-docker run -it --name my-ubuntu-container ubuntu:22.04
-```
-2. **`docker start`** 
-	- ==Avvia un container **già esistente** ma fermo, preservando il suo Container Layer con tutte le modifiche precedenti. ==
-	- ==Il container riparte in background.==
-```docker
-docker start my-ubuntu-container
-```
-
-3. **`docker attach`** 
-	- ==Si aggancia al **processo principale** (PID 1) di un container già in esecuzione, portandoti dentro il suo terminale.==
-```docker
-docker attach my-ubuntu-container
-```
-
->[!warning] **Attenzione** ==Fare `exit` da una sessione `attach` **ferma il processo principale** del container, quindi lo ferma completamente.==
-
-4. **`docker exec`** 
-	- ==Lancia un **processo nuovo** all'interno di un container già in esecuzione, senza toccare il processo principale.==
-```docker
-docker exec -it my-ubuntu-container bash
-```
-
->[!hint] **Quando usare `exec` invece di `attach`?** 
->==Quando il container sta già eseguendo un'applicazione (es. PostgreSQL, nginx) e lo si vuole **ispezionare o debuggare** senza interromperne il funzionamento.==
 
 
 | Comando         | Crea container | Avvia container | Entra nel container     |
@@ -604,132 +638,559 @@ docker run -it --rm ubuntu:22.04
 cat my-data/hello.txt # ❌ cat: my-data/hello.txt: No such file or directory
 ```
 
->[!fail] **Il file non esiste più** 
->==Il nuovo container ha un **Container Layer nuovo e vuoto** — il file scritto nel container precedente è andato perso insieme al suo layer.==
+- `docker run -it --rm ubuntu:22.04` → ==crea un nuovo container interattivo con terminale emulato.== 
+	- ==`--rm` lo eliminerà automaticamente dopo `exit`==
+- `mkdir my-data` → ==crea una cartella chiamata `my-data` nel **Container Layer** del container corrente==
+- `echo "Hello from the container!"` → ==stampa la stringa tra virgolette==
+- `>` → ==**redirige** l'output di `echo` nel file specificato invece di stamparlo a schermo==
+- `/my-data/hello.txt` → ==percorso assoluto del file da creare. Il file viene scritto nel **Container Layer**==
+- `cat my-data/hello.txt` → **legge e stampa il contenuto del file ✅** — ==il file esiste purché ci troviamo ancora nello stesso container==
+- `exit` → esce dal container. 
+	- ==Poiché c'è `--rm`, il container viene eliminato insieme al suo **Container Layer** — e quindi anche `my-data/hello.txt` viene perso==
+- `docker run -it --rm ubuntu:22.04` → ==crea un **nuovo** container dalla stessa immagine, con un Container Layer **nuovo e vuoto**==
+- `cat my-data/hello.txt` → **fallisce ❌** 
+	- ==perché questo container non ha mai visto quel file — è nato dopo che il container precedente è stato eliminato==
 
-Come abbiamo [[#La persistenza dei dati nei containers|anticipato sopra]], per garantire la persistenza dei dati , oltre il ciclo di vita di un container, Docker offre tre meccanismi:
+> [!warning] **Questo è il problema dell'efemeralità**
+>  ==Il file `hello.txt` non esisteva nell'immagine `ubuntu:22.04` — era stato creato nel Container Layer del primo container. Quando quel container è stato rimosso, il layer è stato eliminato insieme a lui.==
 
-| Tipo         | Dove vengono salvati i dati                         | Persistenti dopo `docker rm` |
-| ------------ | --------------------------------------------------- | ---------------------------- |
-| Volume Mount | Area gestita da Docker (`/var/lib/docker/volumes/`) | ✅                            |
-| Bind Mount   | Cartella scelta da te sul filesystem host           | ✅                            |
-| tmpfs Mount  | Memoria RAM                                         | ❌                            |
+
+Come abbiamo [[#La persistenza dei dati nei containers|anticipato sopra]], per garantire la persistenza dei dati , oltre il ciclo di vita di un container, Docker offre **3 meccanismi:**
+
+| Tipo                       | Dove vengono salvati i dati                         | Persistenti dopo `docker rm` |
+| -------------------------- | --------------------------------------------------- | ---------------------------- |
+| [[#^2254ce\|Volume Mount]] | Area gestita da Docker (`/var/lib/docker/volumes/`) | ✅                            |
+| [[#^3f26be\|Bind Mount]]   | Cartella scelta da te sul filesystem host           | ✅                            |
+| tmpfs Mount                | Memoria RAM                                         | ❌                            |
 >[!info] **tmpfs Mount** 
 >Questo tipo di Mount, che non abbiamo visto precedentemente,
 >==salva i dati temporaneamente in **RAM** invece che su disco.==
 >**Di conseguenza i dati spariscono quando il container si ferma.** 
 >==Viene usato per dati sensibili temporanei (es. credenziali) che non si vuole lasciare su disco.==
 
-i. Volume Mount
+##### **1. Volume Mount**
+Abbiamo dimostrato che i dati scritti nel Container Layer vengono persi quando il container viene rimosso. La soluzione è usare un **volume** — ==un'area di storage **esterna** al container, gestita direttamente da Docker.==
+
+Il primo passo è creare il volume:
 ```docker
 # Creiamo un volume named
 docker volume create my-volume
+```
 
-# Montiamo il volume nel container (sintassi estesa)
+==Una volta creato, lo montiamo nel container al momento dell'avvio.== 
+Docker offre due sintassi equivalenti:
+```docker
+# Montiamo il volume nel container (Sintassi estesa)
 docker run -it --rm --mount source=my-volume,destination=/my-data/ ubuntu:22.04
 
 # Sintassi breve equivalente
 docker run -it --rm -v my-volume:/my-data ubuntu:22.04
+```
 
-# Creiamo un file nel volume
+Ora tutto ciò che scriviamo in `/my-data/` non finisce nel Container Layer effimero, ma **nel volume**:
+```docker
 echo "Hello from the container!" > /my-data/hello.txt
 exit
-
-# Creiamo un NUOVO container con lo stesso volume montato
+```
+Anche dopo che il container viene eliminato, il file persiste. Possiamo verificarlo montando lo stesso volume in un nuovo container:
+```docker
 docker run -it --rm --mount source=my-volume,destination=/my-data/ ubuntu:22.04
 cat my-data/hello.txt # ✅ Il file esiste ancora!
 exit
 ```
 
->[!help] **Dove si trovano fisicamente i dati?** 
->==Su Linux i dati si trovano in `/var/lib/docker/volumes/`.==
-> **Su Docker Desktop (Windows/Mac), Docker gira su una VM Linux interna** — ==quindi i dati si trovano nel filesystem di quella VM, non direttamente sull'host.==
 
-Su Docker Desktop è possibile ispezionare fisicamente il filesystem della VM Linux interna usando un container privilegiato:
+>[!help] **Dove si trovano fisicamente i dati?** 
+>==Su Linux i dati si trovano in `/var/lib/docker/volumes/`.== 
+>Su **Docker Desktop (Windows/Mac)**, Docker gira su una VM Linux interna — ==quindi i dati si trovano nel filesystem di quella VM, non direttamente sull'host.==
+
+**È possibile ispezionare fisicamente il filesystem della VM Linux interna usando un container privilegiato:**
 ```docker
 docker run -it --rm --privileged --pid=host justincormack/nsenter1@sha256:5af0be5e42ebd55eea2c593e4622f810065c3f45bb805eaacf43f08f3d06ffd8
 ```
 
-Una volta dentro, si può navigare nel volume:
+Una volta dentro, si può navigare nel volume e verificare che i dati siano fisicamente lì:
 ```shell
 ls /var/lib/docker/volumes/my-volume/_data
 cat /var/lib/docker/volumes/my-volume/_data/hello.txt # ✅ I dati sono qui!
 ```
 
-> [!warning] **Attenzione** ==Questo container gira in modalità **privilegiata** con accesso root alla VM Linux di Docker. Usarlo solo quando strettamente necessario e solo con immagini di cui ci si fida.==
+> [!warning] **Attenzione** 
+> ==Questo container gira in modalità **privilegiata** con accesso root alla VM Linux di Docker. Usarlo solo quando strettamente necessario e solo con immagini di cui ci si fida.==
 
 > [!info] **Perché pinniamo l'hash dell'immagine?** 
 > ==Il flag `@sha256:...` garantisce che venga eseguita **esattamente** quella versione dell'immagine, non una versione aggiornata potenzialmente modificata. È una buona pratica di sicurezza per immagini privilegiate.==
 
-Un caso d'uso concreto che già conosci — **PostgreSQL**:
+Un caso d'uso concreto che già conosciamo è **PostgreSQL:** 
+- ==Finora avevamo sempre riavviato lo stesso container con `docker start` per non perdere i dati.== 
+- ==Con un volume, possiamo eliminare e ricreare il container quante volte vogliamo== — i dati del database sopravvivono:
 ```docker
 # Il volume pgdata persiste i dati del database anche se il container viene rimosso
 docker run -it --rm -v pgdata:/var/lib/postgresql/data -e POSTGRES_PASSWORD=foobarbaz postgres:15.1-alpine
 ```
+>[!info] **`-e POSTGRES_PASSWORD=foobarbaz`** 
+>==Il flag `-e` passa una **variabile d'ambiente** al container. In questo caso imposta la password dell'utente root di PostgreSQL — obbligatoria per avviare il container postgres.==
 
-**ii. Bind Mount**
+##### **2. Bind Mount**
+
+A differenza del Volume Mount — dove è **Docker** a gestire dove i dati vengono salvati — il Bind Mount ti permette di: 
+- ==scegliere **tu** una cartella specifica sul filesystem dell'host da collegare direttamente al container.==
+
+Anche qui Docker offre due sintassi equivalenti:
 ```docker
 # Sintassi estesa
 docker run -it --rm --mount type=bind,source="${PWD}"/my-data,destination=/my-data ubuntu:22.04
 
 # Sintassi breve equivalente
 docker run -it --rm -v ${PWD}/my-data:/my-data ubuntu:22.04
+```
 
+
+> [!NOTE] **Nota:**
+> Siccome con il Bind Mount è l'utente ha gestire tutta la configurazione è necessario la creazione della cartella `my-data`, prima di montare il volume in un qualsiasi container
+>```docker
+> mkdir my-data
+>```
+>Questo perché con il Volume Mount, come abbiamo già detto, la configurazione viene gestita interamente dalla VM di Docker Desktop mentre con il Bind Mount la cartella dei dati deve essere creata dall'utente prima che il container venga montato
+
+
+Tutto ciò che scriviamo in `/my-data/` dentro il container viene salvato **direttamente sul filesystem dell'host**:
+```docker
 echo "Hello from the container!" > /my-data/hello.txt
 exit
 
-# Il file è visibile direttamente sul filesystem host!
+# Il file è visibile direttamente sull'host!
 cat my-data/hello.txt # ✅
 ```
-
+Nota che l'ultimo `cat` viene eseguito **fuori dal container** — ==direttamente nel terminale dell'host.== 
+==Il file è visibile perché non è mai finito nel Container Layer, ma nella cartella dell'host che avevamo collegato.==
 >[!tip] **Volume Mount vs Bind Mount: quale usare?**
+>||Bind Mount|Volume Mount|
+|---|---|---|
+|**Gestito da**|Te|Docker|
+|**Percorso**|Scelto da te|`/var/lib/docker/volumes/`|
+|**Visibilità diretta dall'host**|✅|❌|
+|**Consigliato per**|Sviluppo|Produzione|
 >
->- ==Il **Bind Mount** è comodo quando vuoi **visibilità diretta** sui dati dall'host (es. durante lo sviluppo).==
->- ==Il **Volume Mount** è **preferibile in produzione**: è più veloce, più portabile e interamente gestito da Docker.==
+>Il **Bind Mount** è comodo durante lo **sviluppo** perché: 
+>- ==puoi vedere e modificare i file direttamente dall'host senza entrare nel container.==.
+>
+>Il **Volume Mount** è **preferibile in produzione**: 
+> - ==è più veloce, più portabile e interamente gestito da Docker.==
+
+
+### Use Cases: Database containerizzati
+Ora che abbiamo capito come funzionano volumi e mount, possiamo applicare questi concetti a uno dei casi d'uso più comuni nei container: i **database**.
+
+**Installare e configurare un database è notoriamente complesso — le istruzioni variano tra versioni e sistemi operativi, e mantenere più versioni dello stesso database sulla stessa macchina è spesso un problema.** 
+Con Docker, tutta la complessità di installazione è gestita dall'immagine: 
+- ==basta fornire alcune variabili di configurazione e il database è pronto.==
+
+Quando si esegue un database in un container, ci sono tre considerazioni fondamentali:
+
+1. **Volume Mount per i dati**: 
+	- ==i database salvano i propri dati in percorsi specifici del container. ==
+	- ==È necessario montare un volume su quei percorsi per garantire che i dati persistano anche se il container viene rimosso.==
+2. **Bind Mount per la configurazione**: 
+	- ==i database spesso usano file di configurazione per modificare il comportamento a runtime. ==
+	- ==Con un [[#^a18577|bind mount]] puoi creare il file sull'host e montarlo nel percorso corretto del container.==
+3. **Variabili d'ambiente**: 
+	- ==molti database usano variabili d'ambiente per la configurazione di base (es. la password dell'amministratore). ==
+	- ==Si passano con il flag `-e`.==
+
+Vediamo i comandi per i database più comuni:
+###### PostgreSQL
+**Commando base**
+```docker
+docker run -d --rm \
+  -v pgdata:/var/lib/postgresql/data \
+  -e POSTGRES_PASSWORD=foobarbaz \
+  -p 5432:5432 \
+  postgres:15.1-alpine
+```
+
+- `docker run -d` → ==avvia il container in **background** (detached mode) — il container gira ma non occupa il terminale==
+- `--rm` → ==elimina il container automaticamente quando viene fermato==
+- `-v pgdata:/var/lib/postgresql/data` → ==monta il volume `pgdata` nel percorso dove PostgreSQL salva fisicamente i dati del database==
+- `-e POSTGRES_PASSWORD=foobarbaz` → ==passa la **password dell'utente root** di PostgreSQL come variabile d'ambiente==
+- `-p 5432:5432` → ==espone la porta 5432 del container sulla porta 5432 dell'host — quella standard di PostgreSQL==
+- `postgres:15.1-alpine` → ==immagine di PostgreSQL versione 15.1 basata su **Alpine Linux**, una distribuzione Linux ultra-leggera pensata per i container==
+**Comando con file di configurazione custom:**
+
+```docker
+docker run -d --rm \
+  -v pgdata:/var/lib/postgresql/data \
+  -v "${PWD}/postgres.conf:/etc/postgresql/postgresql.conf" \
+  -e POSTGRES_PASSWORD=foobarbaz \
+  -p 5432:5432 \
+  postgres:15.1-alpine -c 'config_file=/etc/postgresql/postgresql.conf'
+```
+
+Come possiamo notare non cambia molto  al comando base, eccetto per due aggiunte:
+- `-v "${PWD}/postgres.conf:/etc/postgresql/postgresql.conf"` → ==**bind mount** che collega un file di configurazione custom creato sull'host nel percorso esatto dove PostgreSQL si aspetta di trovarlo dentro il container==
+- `-c 'config_file=/etc/postgresql/postgresql.conf'` → ==dice esplicitamente a PostgreSQL di **usare quel file di configurazione** all'avvio==
+
+###### MongoDB
+```docker
+docker run -d --rm \
+  -v mongodata:/data/db \
+  -e MONGO_INITDB_ROOT_USERNAME=root \
+  -e MONGO_INITDB_ROOT_PASSWORD=foobarbaz \
+  -p 27017:27017 \
+  mongo:6.0.4
+
+# Con file di configurazione custom
+docker run -d --rm \
+  -v mongodata:/data/db \
+  -v "${PWD}/mongod.conf:/etc/mongod.conf" \
+  -e MONGO_INITDB_ROOT_USERNAME=root \
+  -e MONGO_INITDB_ROOT_PASSWORD=foobarbaz \
+  -p 27017:27017 \
+  mongo:6.0.4 --config /etc/mongod.conf
+```
+
+###### Redis
+```docker
+docker run -d --rm \
+  -v redisdata:/data \
+  redis:7.0.8-alpine
+
+# Con file di configurazione custom
+docker run -d --rm \
+  -v redisdata:/data \
+  -v "${PWD}/redis.conf:/usr/local/etc/redis/redis.conf" \
+  redis:7.0.8-alpine redis-server /usr/local/etc/redis/redis.conf
+```
+
+###### MySQL
+```docker
+docker run -d --rm \
+  -v mysqldata:/var/lib/mysql \
+  -e MYSQL_ROOT_PASSWORD=foobarbaz \
+  -p 3306:3306 \
+  mysql:8.0.32
+```
+
+> [!warning] **Attenzione ai percorsi dei volumi**
+>  ==I percorsi dove ogni database salva i propri dati sono specifici per ciascun database e versione.== 
+>  **Prima di usare questi comandi in produzione, verifica sempre sulla documentazione ufficiale del database che il percorso del volume sia corretto**.
+
+> [!info] **Cambiare versione del database** 
+> ==Con Docker, passare da una versione all'altra del database è semplice come cambiare il **tag** dell'immagine.==
+>  Ad esempio per PostgreSQL:
+>```docker
+>  postgres:14.6  # versione 14
+>  postgres:15.1  # versione 15
+>```
+
+
+###  Ambienti di Test Interattivi
+
+Un altro caso d'uso molto comune dei container è la creazione di **ambienti di test interattivi** — ==container temporanei che si avviano, si usano e si eliminano senza lasciare traccia sul sistema host.==
+
+> [!done] **Questo è particolarmente utile quando vuoi testare qualcosa in un ambiente pulito senza installare nulla sulla tua macchina.**
+> 
+
+#### 1. Sistemi Operativi
+
+Puoi avviare un container con un sistema operativo completo e interagire con esso come se fosse una macchina virtuale, ma in modo molto più leggero:
+```docker
+# Ubuntu 22.04
+docker run -it --rm ubuntu:22.04
+
+# Debian in versione slim (più leggera)
+docker run -it --rm debian:bullseye-slim
+
+# Alpine Linux - distribuzione ultra-leggera pensata per i container
+docker run -it --rm alpine:3.17.1
+
+# BusyBox - immagine minimale con molte utility di sistema preinstallate
+docker run -it --rm busybox:1.36.0
+```
+
+
+>[!faq] **Perché `-it --rm`?** 
+>==Come abbiamo già visto, `-it` apre un terminale interattivo nel container, mentre `--rm` lo elimina automaticamente dopo `exit` — perfetto per sessioni di test temporanee che non devono lasciare traccia.==
+
+#### 2. Runtime di Programmazione
+
+Allo stesso modo, puoi avviare un container con un runtime di programmazione specifico — ==utile quando vuoi testare codice in una versione specifica di Python, Node.js o altri linguaggi senza installarli sull'host==:
+```docker
+# Python 3.11.1 - avvia direttamente il REPL interattivo
+docker run -it --rm python:3.11.1
+
+# Node.js 18.13.0 - avvia direttamente la console Node
+docker run -it --rm node:18.13.0
+
+# PHP 8.1
+docker run -it --rm php:8.1
+
+# Ruby su Alpine Linux - versione leggera
+docker run -it --rm ruby:alpine3.17
+```
+
+>[!hint] **Caso d'uso pratico** 
+>==Immagina di dover testare velocemente uno script Python 3.11 senza averlo installato sul tuo PC. Con Docker basta un `docker run -it --rm python:3.11.1` e hai immediatamente un REPL Python pronto all'uso — e quando esci, non rimane nulla sul tuo sistema.==
+
+###  CLI Utilities: eseguire strumenti a riga di comando senza installarli
+
+Dopo aver visto come creare **ambienti di test interattivi** con interi sistemi operativi o runtime di programmazione, esploriamo un caso d’uso ancora più leggero ma estremamente pratico: 
+- ==**eseguire singoli utility CLI all’interno di container usa‑e‑getta**.==
+
+Quante volte ti è capitato di dover usare un comando come `jq`, `yq`, `base64` o `sed` e scoprire che:
+
+- **la versione installata sul tuo sistema è troppo vecchia (o troppo nuova) e si comporta diversamente;**
+    
+- **il comando non è affatto installato e non vuoi ingombrare la tua macchina con strumenti che userai una sola volta;**
+    
+- **sei su Windows (WSL o non) e vorresti usare un’utility tipicamente Linux senza configurare nulla?**
+    
+
+Docker risolve elegantemente questi problemi: 
+- ==**puoi eseguire la utility dentro un container** – leggi i dati dallo stdin (o da un file) e ottieni l’output nel tuo terminale.== 
+==Il container viene creato al volo, esegue il comando e poi viene rimosso (`--rm`), lasciando il tuo sistema **perfettamente pulito**.==
+
+>[!important] **Il trucco sta nel reindirizzamento dell’input.** 
+>==Con `docker run -i` (o `--interactive`) lo stdin del container viene collegato al tuo terminale, quindi puoi **passare il contenuto di un file** usando `<` oppure **incollare direttamente l’output di un altro comando** tramite [[Linux#Pipeline|pipe]] (`|`).==
+
+#### 1. `jq` – l’elaboratore JSON da riga di comando
+
+`jq` è: 
+- ==uno strumento indispensabile per filtrare, trasformare e estrarre dati da file [[Lezione 5 - Il Formato JSON#**Struttura di un documento JSON**|JSON]].== 
+Invece di installarlo sulla tua macchina, lo lanci in un container.
+
+> [!warning] **Attenzione all’immagine `stedolan/jq`**  
+> L’immagine storica `stedolan/jq` su Docker Hub è ormai deprecata (usa lo schema 1, non più supportato dai Docker recenti). 
+> Quindi è consigliabile usare l’immagine ufficiale dal GitHub Container Registry: `ghcr.io/jqlang/jq`.
+
+**Esempio base:** 
+supponiamo di avere il file `sample-data/test.json` con questo contenuto:
+```json
+{"key1": "Ciao ", "key2": "Mondo"}
+```
+
+Per concatenare i due valori:
+```docker
+docker run --rm -i ghcr.io/jqlang/jq < sample-data/test.json '.key1 + .key2'
+```
+
+Output:
+```text
+"Ciao Mondo"
+```
+
+**Spiegazione del comando:**
+
+- `--rm` → ==il container viene eliminato dopo l’esecuzione.==
+    
+- `-i` → ==mantiene aperto lo stdin, così possiamo redigere il file.==
+    
+- `< sample-data/test.json` → ==il contenuto del file viene **iniettato** nello stdin del container.==
+    
+- `'.key1 + .key2'` → ==il filtro `jq` da applicare ai dati.==
+    
+
+Se vuoi passare i dati **via [[Linux#Pipeline|pipe]]** (ad esempio dall’output di un altro comando):
+```shell
+echo '{"key1": "Ciao ", "key2": "Mondo"}' | docker run --rm -i ghcr.io/jqlang/jq '.key1 + .key2'
+```
+
+>[!link] **Ricorda:** 
+>con la pipe non serve il ri-direzionamento `<`, perché `echo` scrive direttamente sullo stdout che viene incanalato nello stdin del container.
+
+#### 2. yq – per file YAML
+
+==`yq` è l’equivalente di `jq` ma per YAML.== 
+**L’immagine di riferimento è `mikefarah/yq`.**
+
+Esempio con `sample-data/test.yaml`:
+```yaml
+key_1: "Hello "
+key_2: "World"
+```
+
+```shell
+docker run --rm -i mikefarah/yq < sample-data/test.yaml '.key_1 + .key_2'
+```
+
+Output:
+```txt
+Hello World
+```
+
+
+#### 3. sed – attenzione alle differenze tra GNU sed e BSD sed
+
+==Molti sviluppatori che passano da Linux a macOS scoprono che `sed` si comporta in modo leggermente diverso (soprattutto con l’opzione `-i` per la modifica in-place).== 
+Per essere sicuri di usare la **versione GNU**, basta eseguirla dentro un container `busybox`.
+
+**Esempio:** 
+==**sostituire tutte le occorrenze di `file.` con `file!` in un file di testo.**==
+```docker
+docker run -i --rm busybox:1.36.0 sed 's/file./file!/g' < sample-data/test.txt
+```
+- ==`busybox` è un’immagine minimalissima (qualche MB) che contiene una corposa suite di utility UNIX, tra cui `sed`, `grep`, `awk`, `base64`, ecc.==
+
+#### 4. base64 – coerenza tra piattaforme
+
+==Anche `base64` ha piccole differenze tra GNU e BSD.== 
+Per esempio, **GNU `base64` va a capo dopo 76 caratteri, mentre la versione macOS non lo fa (di default).** 
+Per avere un comportamento **prevedibile**:
+```docker
+echo "Stringa sufficientemente lunga da andare a capo nel GNU base64" | docker run -i --rm busybox:1.36.0 base64
+```
+
+In alternativa, codificare il contenuto di un file:
+```docker
+docker run -i --rm busybox:1.36.0 base64 < sample-data/test.txt
+```
+
+
+#### 5. CLI dei cloud provider (AWS, GCP)
+
+Un caso d’uso molto diffuso è quello di eseguire i comandi `aws` o `gcloud` senza installare gli SDK sulla macchina locale. L’unico accorgimento è **montare le credenziali** (e la configurazione) dentro il container, usando un [[#^a18577|bind mount]].
+
+###### AWS CLI
+
+L’immagine ufficiale è `amazon/aws-cli`. 
+Supponendo che tu abbia già configurato `~/.aws` con le tue credenziali:
+```docker
+docker run --rm -v ~/.aws:/root/.aws amazon/aws-cli:2.9.18 s3 ls
+```
+
+- `-v ~/.aws:/root/.aws` → ==monta la cartella `.aws` dell’host nel percorso `/root/.aws` del container (dove `aws-cli` cerca le credenziali).==
+    
+- ==Il comando successivo (`s3 ls`) è il sottocomando AWS che vuoi eseguire.==
+    
+
+> [!info] Puoi usare qualsiasi comando AWS, ad esempio `aws ec2 describe-instances` – tutto funziona esattamente come se avessi installato l’AWS CLI.
+
+###### Google Cloud CLI
+
+L’immagine ufficiale è sul Google Container Registry: 
+- `gcr.io/google.com/cloudsdktool/google-cloud-cli`. 
+Anche qui monti la cartella delle credenziali:
+```docker
+docker run --rm -v ~/.config/gcloud:/root/.config/gcloud gcr.io/google.com/cloudsdktool/google-cloud-cli:415.0.0 gsutil ls
+```
+
+>[!caution] **Attenzione alla dimensione dell’immagine!**  
+>==L’immagine `google-cloud-cli` è **enorme** (~2,8 GB) perché contiene tutto l’SDK Google Cloud.== 
+>Se devi usarla spesso, considera di creare un’immagine più leggera su misura, oppure di installare `gcloud` nativamente. 
+>Per un uso occasionale, comunque, il container rimane una soluzione valida.
+
+
+### Migliorare l’esperienza d’uso (Ergonomics)
+
+Abbiamo visto come eseguire utility CLI all’interno di container usa‑e‑getta. 
+Il metodo funziona, ma digitare ogni volta un comando lungo come:
+```docker
+docker run --rm -i -v ${PWD}:/workdir mikefarah/yq < file.yaml '.chiave'
+```
+
+diventa rapidamente **tedioso**, specialmente se usi spesso `jq`, `yq` o `aws-cli`.
+
+L’obiettivo è **far sì che il programma dentro il container si comporti il più possibile come se fosse installato nativamente sulla tua macchina** – stesso nome, stessi argomenti, supporto a pipe e reindirizzamenti.
+
+La shell (bash, zsh, fish) ci offre due meccanismi per incapsulare il comando Docker in modo trasparente: 
+1. **funzioni** 
+2. **alias**.
+
+####  1. Funzione shell
+
+Una funzione può racchiudere qualsiasi comando. La sintassi generica per il nostro caso è:
+```shell
+nome-funzione() {
+  docker run --rm -i -v ${PWD}:/workdir immagine "$@"
+}
+```
+
+- `"$@"` → ==si espande in **tutti gli argomenti** passati alla funzione, preservando spazi e quoting.== 
+In pratica, ==tutto ciò che scrivi dopo il nome della funzione viene passato esattamente così al comando Docker.== 
+
+**Esempio concreto per `yq`**:
+```shell
+yq-shell-function() {
+  docker run --rm -i -v ${PWD}:/workdir mikefarah/yq "$@"
+}
+```
+
+Una volta definita, la usi esattamente come se fosse `yq` installato localmente:
+
+```shell
+yq-shell-function <sample-data/test.yaml '.key_1 + .key_2'
+```
+
+>[!info] **A cosa serve `-v ${PWD}:/workdir`?**  
+>==Monta la directory corrente dell’host (`$PWD`) dentro il container nel percorso `/workdir`.== 
+>==Se in futuro volessi passare un _file_ come argomento (invece di usare solo lo stdin), il programma lo troverà dentro `/workdir`.==  
+>>[!note] **Con il solo `<` (re-direzione dello stdin) non serve, ma per coerenza e flessibilità molti esempi lo includono.**
+
+####  2. Alias
+
+==Un alias è più semplice, ma anche più limitato rispetto a una funzione.== 
+Si definisce così:
+```shell
+alias 'yq-alias=docker run --rm -i -v ${PWD}:/workdir mikefarah/yq'
+```
+
+Uso:
+
+```shell
+yq-alias <sample-data/test.yaml '.key_1 + .key_2'
+```
+
+**Differenze sostanziali:**
+
+- ==L’alias viene **espanso testualmente** dalla shell prima di interpretare il resto della riga.==
+    
+- ==Non puoi inserire logica complessa (if, cicli, variabili locali).==
+    
+- ==Non sempre gestisce correttamente argomenti con spazi o caratteri speciali.==
+    
+
+> [!done] **Per il semplice wrapper di un comando Docker, l’alias _funziona_, ma la funzione è più robusta e consigliata.**
+> 
+
 ### Come si crea un container 
 
-Per comprendere come nasce un container, è necessario introdurre prima il concetto di **immagine container**.
-Un immagine container è, in sostanza, ==un file di testo che descrive staticamente **tutti i passaggi necessari per costruire un ambiente eseguibile** all’interno di un container.==
+Ora che abbiamo capito come funziona l'[[#Union Mount Filesystems (overlayfs)|Union Filesystem]] e la struttura a layer, possiamo capire concretamente come nasce un container.
 
+Il punto di partenza è sempre una **immagine container** — ==un file che descrive staticamente tutti i passaggi necessari per costruire un ambiente eseguibile.== 
 Contiene informazioni come:
 
 - ==il sistema operativo di base (es. Ubuntu 22.04, Alpine, Debian)==
-    
-- ==le dipendenze dell’applicazione (es. Node.js, Java, Python)==
-    
-- ==l’applicazione stessa (es. file `.jar`, `.py`, `.js` ecc.)==
-    
-- ==eventuali comandi da eseguire all'avvio== 
+- ==le dipendenze dell'applicazione (es. Node.js, Java, Python)==
+- ==l'applicazione stessa (es. file `.jar`, `.py`, `.js` ecc.)==
+- ==eventuali comandi da eseguire all'avvio==
 
-Questa immagine viene definita all’interno di un **Dockerfile**, un file di testo che funge da vera e propria **"ricetta"** per creare il container.
-Una volta scritto il Dockerfile, si può eseguire il comando di build:
+==Questa immagine viene definita all'interno di un **Dockerfile**, un file di testo che funge da vera e propria "ricetta" per creare il container.== 
+Una volta scritto il Dockerfile, si esegue il comando di build:
 ```docker
 docker build -t nome-immagine .
 ```
 
-==Il Docker engine leggerà il Dockerfile, lo interpreterà, e **costruirà l'immagine** sulla base delle istruzioni contenute.==
-Quando questa immagine viene "attivata", cioè **eseguita in un ambiente containerizzato**, essa diventa un **container**.
+Il Docker Engine leggerà il Dockerfile riga per riga, e **costruirà un layer read-only per ogni istruzione**, come abbiamo visto nella sezione sull'[[#Union Mount Filesystems (overlayfs)|Union Filesystem]]. 
+==Quando questa immagine viene eseguita con `docker run`, Docker aggiunge il **Container Layer scrivibile** in cima allo stack — ed è in quel momento che l'immagine diventa un container.==
 
 > [!example] Analogia con la programmazione OOP
-> Il Dockerfile è come una **[[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi|classe Python]]**,  
->	l'immagine è come la **definizione della classe**,  
->		e il container è **[[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi#Istanze di una classe|l'istanza reale]]**, ovvero l'oggetto in memoria.
+> Il Dockerfile è come una **[[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi|classe Python]]:**  
+>- l'immagine è come la **definizione della classe**,  
+>- e il container è **[[Python/Lezione 6_ Le Classi_ Gli attributi pubblici,privati, gli attributi di classe e i metodi di classe/Le Classi#Istanze di una classe|l'istanza reale]]**, ovvero l'oggetto in memoria.
 
-Inoltre, le immagini create localmente possono essere **pubblicate su repository remoti**, in modo da essere condivise o riutilizzate su altri ambienti.  
-Il più noto è il [Docker Hub](https://hub.docker.com/repositories), una **registry pubblica gratuita per uso personale**, dove si possono trovare migliaia di immagini ufficiali e di terze parti.
+Inoltre, le immagini create localmente possono essere **pubblicate su registry remoti**, in modo da essere condivise o riutilizzate su altri ambienti. Il più noto è [Docker Hub](https://hub.docker.com/repositories), una registry pubblica gratuita per uso personale, dove si possono trovare migliaia di immagini ufficiali e di terze parti.
+>[!info] **Le immagini sono immutabili**
+>==Una volta costruita, un'immagine **non cambia mai**. Se modifichi il Dockerfile e rifai la build, ottieni una **nuova immagine** — quella vecchia rimane intatta. Questo garantisce che lo stesso container si comporti sempre in modo identico su qualsiasi macchina.==
 
-> [!abstract]  WSL e container Docker
-> **WSL** (Windows Subsystem for Linux) **è un sottosistema che integra un [[I fundamentals di un Sistema Operativo#Kernel|kernel]] Linux reale all'interno di Windows**.
->  ==In pratica, vive **affiancato** al sistema operativo Windows e permette di eseguire ambienti Linux nativi senza la necessità di installare una macchina virtuale tradizionale==.
-> 
-> Sebbene **Windows supporti anche container nativi Windows**, nella pratica la **tecnologia di containerizzazione dà il meglio di sé in ambienti Linux**, perché è nata lì ed è ottimizzata per quel contesto.
-> 
-> Infatti, la **stragrande maggioranza dei container Docker** eseguiti nel mondo reale sono container **Linux**, anche quando vengono lanciati da un computer con sistema operativo Windows.
-> 
-> ==Per questa ragione, quando si  installa Docker Desktop su Windows, esso si **appoggia a WSL2** per offrire **un ambiente Linux** in cui i container possano funzionare **nativamente** e con prestazioni elevate==.
-> 
-> ![[La vera struttura di docker.png]]
->Questa immagine difatti mostra come docker si basi su un kernel linux
+>[!abstract] **WSL e container Docker** **WSL** (Windows Subsystem for Linux) 
+>==è un sottosistema che integra un [[I fundamentals di un Sistema Operativo#Kernel|kernel]] Linux reale all'interno di Windows.== 
+>In pratica, ==vive affiancato al sistema operativo Windows e permette di eseguire ambienti Linux nativi senza la necessità di installare una macchina virtuale tradizionale.==
+>
+>Sebbene Windows supporti anche container nativi Windows, nella pratica la tecnologia di containerizzazione dà il meglio di sé in ambienti Linux, perché è nata lì ed è ottimizzata per quel contesto. Infatti, la stragrande maggioranza dei container Docker eseguiti nel mondo reale sono container **Linux**, anche quando vengono lanciati da un computer con sistema operativo Windows.
+>
+>==Per questa ragione, quando si installa Docker Desktop su Windows, esso si **appoggia a WSL2** per offrire un ambiente Linux in cui i container possano funzionare nativamente e con prestazioni elevate.==
+>
+>![[La vera struttura di docker.png]]
 
 
 ### Docker run e Docker pull
