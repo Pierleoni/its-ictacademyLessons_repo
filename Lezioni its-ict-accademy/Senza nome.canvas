@@ -1,0 +1,7 @@
+{
+	"nodes":[
+		{"id":"b88d5c8e1f5d6c42","x":255,"y":-125,"width":250,"height":145,"type":"text","text":"Build Context \n\n"},
+		{"id":"89354ff2ed9012be","x":-80,"y":-126,"width":250,"height":60,"type":"text","text":"Dockerfile"}
+	],
+	"edges":[]
+}

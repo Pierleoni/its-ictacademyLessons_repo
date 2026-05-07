@@ -58,7 +58,7 @@ In questo modello:
         
     - **Google Cloud Platform (GCP)**;
         
-- ==l’infrastruttura è **condivisa** tra più clienti (multi-tenant), ma **logicamente isolata** grazie alla [[Docker#La virtualizzazione|virtualizzazione]].==
+- ==l’infrastruttura è **condivisa** tra più clienti (multi-tenant), ma **logicamente isolata** grazie alla [[Lezione 1 - Introduzione a Docker e ai container#La virtualizzazione|virtualizzazione]].==
     
 
 Quindi le risorse **non risiedono fisicamente presso l’azienda**, 
@@ -91,7 +91,7 @@ Il processo tipico è il seguente:
 
 1. ==si accede alla **[[Lezione 2 - Data center astratto#La soluzione dell’astrazione il Pannello di Controllo Unificato (console web del cloud provider)|console web del cloud provider]]** oppure si utilizzano le relative **[[Lezione 6 - API#API (Application Programming Interface)|API]]**;==
     
-2. ==si seleziona il **tipo di risorsa** da creare (ad esempio una **[[Docker#Le macchine virtuali (VM)|macchina virtuale]]**);==
+2. ==si seleziona il **tipo di risorsa** da creare (ad esempio una **[[Lezione 1 - Introduzione a Docker e ai container#Le macchine virtuali (VM)|macchina virtuale]]**);==
     
 3. **si configurano i principali parametri:**
     

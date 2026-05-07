@@ -234,7 +234,7 @@ I sistemi operativi possono essere classificati in base al modo in cui gestiscon
 > [!example] **Esempio**
 > sistemi operativi dei microcontrollori per automobili, Android Automotive, sistemi avionici, firmware delle smart TV
 
-5. **[[Docker#^hypervisor|Hypervisor Operating System]]**:     ^3cf241
+5. **[[Lezione 1 - Introduzione a Docker e ai container#^hypervisor|Hypervisor Operating System]]**:     ^3cf241
 	- Consentono la suddivisione delle risorse hardware in più macchine virtuali, permettendo l’esecuzione di più sistemi operativi contemporaneamente.
 	^hypervisorSO
 

@@ -288,7 +288,7 @@ Che sono impossibili da ottenere in un data center tradizionale.
 >**2. Con il cloud: guasto di un hard disk**
 >Nel cloud:
 >
->- ==l’[[Docker#^hypervisor|hypervisor]] rileva automaticamente l’anomalia;==
+>- ==l’[[Lezione 1 - Introduzione a Docker e ai container#^hypervisor|hypervisor]] rileva automaticamente l’anomalia;==
   >  
 >- ==la macchina virtuale viene **spostata su un host sano senza interruzioni**;==
    > 

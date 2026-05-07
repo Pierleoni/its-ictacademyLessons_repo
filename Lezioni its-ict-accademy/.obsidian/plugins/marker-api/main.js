@@ -22802,8 +22802,9 @@ var DEFAULT_SETTINGS = {
   useLLM: false,
   skipCache: false,
   imageLimit: 0,
-  imageMinSize: 0
+  imageMinSize: 0,
   // Default to 0 (no minimum size)
+  deleteFileFromMistralaiAfterConversion: false
 };
 var MarkerSettingTab = class extends import_obsidian2.PluginSettingTab {
   constructor(app, plugin) {
@@ -24041,8 +24042,9 @@ var MistralAIConverter = class extends BaseConverter {
       return false;
     }
     new import_obsidian10.Notice("Converting file with MistralAI OCR...", 4e3);
+    const client = new import_mistralai.Mistral({ apiKey: settings.mistralaiApiKey });
+    let uploadedFileId;
     try {
-      const client = new import_mistralai.Mistral({ apiKey: settings.mistralaiApiKey });
       const fileContent = await app.vault.readBinary(file);
       new import_obsidian10.Notice("Uploading file to MistralAI...", 2e3);
       const fileUpload = await client.files.upload({
@@ -24056,8 +24058,9 @@ var MistralAIConverter = class extends BaseConverter {
         new import_obsidian10.Notice("Failed to upload file to MistralAI");
         return false;
       }
+      uploadedFileId = fileUpload.id;
       const signedUrl = await client.files.getSignedUrl({
-        fileId: fileUpload.id
+        fileId: uploadedFileId
       });
       const includeImages = settings.extractContent !== "text";
       const imageLimit = ((_a = settings.imageLimit) != null ? _a : 0) > 0 ? settings.imageLimit : void 0;
@@ -24098,6 +24101,31 @@ var MistralAIConverter = class extends BaseConverter {
         `MistralAI conversion failed: ${error.message || "Network or server error"}`
       );
       return false;
+    } finally {
+      if (settings.deleteFileFromMistralaiAfterConversion && uploadedFileId) {
+        try {
+          const deleteResult = await client.files.delete({
+            fileId: uploadedFileId
+          });
+          if (!(deleteResult == null ? void 0 : deleteResult.deleted)) {
+            console.warn(
+              `MistralAI file deletion returned non-deleted status for file ${uploadedFileId}`,
+              deleteResult
+            );
+            new import_obsidian10.Notice(
+              "Warning: Uploaded MistralAI file may not have been deleted."
+            );
+          }
+        } catch (cleanupError) {
+          console.error(
+            `Failed to delete uploaded MistralAI file ${uploadedFileId}:`,
+            cleanupError
+          );
+          new import_obsidian10.Notice(
+            "Warning: Failed to delete uploaded file from MistralAI after conversion."
+          );
+        }
+      }
     }
   }
   parseOCRResults(pages, extractContent = "all") {
@@ -24177,6 +24205,13 @@ var MistralAIConverter = class extends BaseConverter {
         buttonAction: async (app, settings) => {
           await this.testConnection(settings, false);
         }
+      },
+      {
+        id: "deleteFileFromMistralaiAfterConversion",
+        name: "Delete file from mistralai after conversion",
+        description: "Delete uploaded files from the MistralAI API after each conversion.",
+        type: "toggle",
+        defaultValue: false
       },
       {
         id: "imageLimit",

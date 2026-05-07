@@ -85,7 +85,7 @@ Nel modello **IaaS** (ad esempio su AWS), il cloud provider si occupa **esclusiv
 
 - **Server virtuali**
     
-    - ==[[Docker#Le macchine virtuali (VM)|Macchine virtuali]] astratte, sulle quali l’utente può installare liberamente qualsiasi sistema operativo e software.==
+    - ==[[Lezione 1 - Introduzione a Docker e ai container#Le macchine virtuali (VM)|Macchine virtuali]] astratte, sulle quali l’utente può installare liberamente qualsiasi sistema operativo e software.==
         
 - **Storage (spazio di archiviazione virtuale)**
     

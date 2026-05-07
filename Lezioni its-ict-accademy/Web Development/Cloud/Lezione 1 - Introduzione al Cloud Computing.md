@@ -58,7 +58,7 @@ Il cloud computing si basa su tre componenti fondamentali, che rappresentano la 
 #### 1. Compute – Potenza di Calcolo Virtuale
 
 Il **Compute** rappresenta la capacità di elaborazione: 
-- [[Il modello di Von Neumann#CPU (Central Processing Unit)|CPU]] e [[Il modello di Von Neumann#RAM|memoria RAM]] [[Docker#La virtualizzazione|virtualizzate]].
+- [[Il modello di Von Neumann#CPU (Central Processing Unit)|CPU]] e [[Il modello di Von Neumann#RAM|memoria RAM]] [[Lezione 1 - Introduzione a Docker e ai container#La virtualizzazione|virtualizzate]].
 
 Nel cloud possiamo creare **server virtuali on-demand**, senza acquistare hardware fisico. 
 La potenza di calcolo può essere **scalata dinamicamente**:
@@ -126,7 +126,7 @@ La **virtualizzazione** rappresenta il vero **fondamento tecnologico del cloud c
 Senza virtualizzazione, il cloud moderno non sarebbe possibile: mancherebbero la flessibilità, la scalabilità e l’efficienza che caratterizzano i servizi cloud.
 ## Cosa si intende per Virtualizzazione
 
-==[[Docker#La virtualizzazione|La virtualizzazione]] è la tecnologia che consente di **suddividere un singolo computer fisico in più computer virtuali indipendenti**, chiamati **[[Docker#Le macchine virtuali (VM)|macchine virtuali (VM)]]**.==
+==[[Lezione 1 - Introduzione a Docker e ai container#La virtualizzazione|La virtualizzazione]] è la tecnologia che consente di **suddividere un singolo computer fisico in più computer virtuali indipendenti**, chiamati **[[Lezione 1 - Introduzione a Docker e ai container#Le macchine virtuali (VM)|macchine virtuali (VM)]]**.==
 
 Un’analogia efficace è quella di un **palazzo**:
 
@@ -186,7 +186,7 @@ Il cloud si basa su una forte **astrazione dell’hardware**:
 ```nginx
 Hardware fisico → Hypervisor → Macchine Virtuali → Applicazioni
 ```
-Al centro di questo processo c’è l’**[[Docker#^hypervisor|hypervisor]]**, ovvero il “cervello” della virtualizzazione.
+Al centro di questo processo c’è l’**[[Lezione 1 - Introduzione a Docker e ai container#^hypervisor|hypervisor]]**, ovvero il “cervello” della virtualizzazione.
 
 L’hypervisor è il software che:
 
@@ -218,13 +218,13 @@ Un’altra conseguenza diretta della virtualizzazione è la possibilità di otte
 Grazie alle VM, il cloud permette di:
 
 - **[[#Scaling Up (Scalabilità Verticale)|Scaling Up]]**: 
-	- ==aumentare le risorse di una [[Docker#Le macchine virtuali (VM)|VM]] esistente;==
+	- ==aumentare le risorse di una [[Lezione 1 - Introduzione a Docker e ai container#Le macchine virtuali (VM)|VM]] esistente;==
     
 - **[[#Scaling Out (Scalabilità Orizzontale) aggiungere nuove macchine|Scaling Out]]**: 
-	- ==creare nuove [[Docker#Le macchine virtuali (VM)|VM]] in pochi secondi;==
+	- ==creare nuove [[Lezione 1 - Introduzione a Docker e ai container#Le macchine virtuali (VM)|VM]] in pochi secondi;==
     
 - **[[#Auto-scaling il pilota automatico delle risorse|Auto-scaling]]**: 
-	- ==creare o distruggere automaticamente [[Docker#Le macchine virtuali (VM)|VM]] in base al carico.==
+	- ==creare o distruggere automaticamente [[Lezione 1 - Introduzione a Docker e ai container#Le macchine virtuali (VM)|VM]] in base al carico.==
     
 
 Questo trasforma la gestione delle risorse IT da un modello **statico e lento** a uno **dinamico e immediato**.
@@ -237,7 +237,7 @@ Lo **Scaling Up**, o scalabilità verticale, ==consiste nell’**aumentare la po
 
 ##### Come funziona
 
-Grazie all’[[Docker#^hypervisor|hypervisor]], che gestisce un pool condiviso di risorse fisiche:
+Grazie all’[[Lezione 1 - Introduzione a Docker e ai container#^hypervisor|hypervisor]], che gestisce un pool condiviso di risorse fisiche:
 
 - ==è possibile aumentare i **core CPU** assegnati a una VM;==
     
@@ -340,10 +340,10 @@ L’**Auto-scaling** rappresenta l’evoluzione naturale dello Scaling Up e dell
 Nel cloud è possibile definire **regole basate su metriche di performance**, ad esempio:
 
 - **Regola di [[#Scaling Out (Scalabilità Orizzontale) aggiungere nuove macchine|Scaling Out]]**  
-    - ==“Se l’utilizzo medio della [[Il modello di Von Neumann#CPU (Central Processing Unit)|CPU]] supera l’80% per più di 5 minuti, crea una nuova [[Docker#Le macchine virtuali (VM)|VM]]”.==
+    - ==“Se l’utilizzo medio della [[Il modello di Von Neumann#CPU (Central Processing Unit)|CPU]] supera l’80% per più di 5 minuti, crea una nuova [[Lezione 1 - Introduzione a Docker e ai container#Le macchine virtuali (VM)|VM]]”.==
     
 - **Regola di Scaling In**  
-    - ==“Se l’utilizzo medio della [[Il modello di Von Neumann#CPU (Central Processing Unit)|CPU]] scende sotto il 20% per più di 10 minuti, elimina una [[Docker#Le macchine virtuali (VM)|VM]]”.==
+    - ==“Se l’utilizzo medio della [[Il modello di Von Neumann#CPU (Central Processing Unit)|CPU]] scende sotto il 20% per più di 10 minuti, elimina una [[Lezione 1 - Introduzione a Docker e ai container#Le macchine virtuali (VM)|VM]]”.==
     
 
 Il sistema di orchestrazione del cloud monitora costantemente le metriche e applica queste regole in tempo reale.

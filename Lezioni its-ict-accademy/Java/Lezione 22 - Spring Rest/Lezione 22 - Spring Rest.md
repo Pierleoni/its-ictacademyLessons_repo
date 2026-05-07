@@ -1,5 +1,4 @@
 
-
 # Introduzione : da JDBC a Spring
 
 Fino ad ora abbiamo visto come [[Lezione 21 - JDBC(Java Database Connectivity)#JDBC — Java Database Connectivity|JDBC]] permetta di comunicare con un database in modo diretto ed esplicito: 
@@ -28,7 +27,7 @@ Le applicazioni moderne non sono più monolitiche — sono **applicazioni distri
 > [!example] **Un esempio concreto:**
 >  quando si scarica l'app mobile di Amazon, non si scaricano tutte le dipendenze di Amazon — si scarica solo l'interfaccia utente, che comunica con server sparsi in diverse parti del mondo. Questa separazione non è casuale, ma risponde a esigenze di **scalabilità e disponibilità**: se un server è sovraccarico, se ne aggiunge un altro; se uno cade, gli altri continuano a funzionare.
 
-Per gestire questa complessità, le applicazioni distribuite vengono organizzate in **layer** — strati con responsabilità separate. L'architettura più diffusa è la **[[Lezione 1; Fondamenti delle Applicazioni Web#Architettura multilivello|three-tier]]**: 
+Per gestire questa complessità, le applicazioni distribuite vengono organizzate in **layer** — strati con responsabilità separate. L'architettura più diffusa è la **[[Lezione 1; Fondamenti delle Applicazioni Web#Architettura multilivello|three-tier]]**:  ^f1e25b
 
 1. **[[Lezione 1; Fondamenti delle Applicazioni Web#^clientLayer|Client Layer]]** — ==l'interfaccia utente (browser, app mobile)==
 2. **[[Lezione 1; Fondamenti delle Applicazioni Web#^logicLayer|Logic Layer]]** — ==la logica applicativa, ovvero il cuore dell'applicazione==
