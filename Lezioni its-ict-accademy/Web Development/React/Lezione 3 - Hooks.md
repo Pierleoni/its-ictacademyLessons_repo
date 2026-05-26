@@ -1518,10 +1518,12 @@ export default const Login = () => {
 
 In questo codice possiamo notare alcune cose: 
 1. **Callback function nello state setter**  
-    - Utilizziamo `setFormState(prev => ...)` per aggiornare lo stato in base al valore corrente. In questo modo ci assicuriamo di non sovrascrivere accidentalmente altri valori già presenti nello stato.
+    - Utilizziamo `setFormState(prev => ...)` ==per aggiornare lo stato in base al valore corrente.== 
+	    - ==In questo modo ci assicuriamo di non sovrascrivere accidentalmente altri valori già presenti nello stato.==
     
 2. **Lo spread operator**  
-    - La sintassi `{ ...prev, [name]: value }` serve a copiare tutti i valori già presenti nello stato (`...prev`) e a sovrascrivere solo la chiave corrispondente all’input modificato.
+    - La sintassi `{ ...prev, [name]: value }`: 
+	    - ==serve a copiare tutti i valori già presenti nello stato (`...prev`) e a sovrascrivere solo la chiave corrispondente all’input modificato.==
     
 3. **Gestore unico per più input**  
     - Grazie all’attributo `name` degli input, possiamo usare una sola funzione `handleChange` per aggiornare qualsiasi campo del form, senza scrivere gestori separati per ciascun input.

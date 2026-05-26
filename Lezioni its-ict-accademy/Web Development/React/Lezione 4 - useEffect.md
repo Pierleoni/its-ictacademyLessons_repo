@@ -37,7 +37,7 @@ Questo esempio mostra tre concetti fondamentali:
     
 - come gestire un input controllato in React
 ```jsx
-eexport default function PageTitle() {
+export default function PageTitle() {
 
     // Stato locale: contiene il nome digitato dall’utente.
     const [name, setName] = useState('');
@@ -383,6 +383,7 @@ Finora abbiamo visto come restituire una **funzione di pulizia** per evitare bug
 
 #### Il dependency array
 
+
 L’Effect Hook ci permette di gestire questo comportamento in modo semplice:  
 - passando un **array vuoto** come secondo argomento di `useEffect()`.  
 
@@ -391,7 +392,7 @@ Questo array è chiamato **dependency array** (matrice di dipendenze):
 - ==Se l’array è vuoto `[]`, l’effetto viene eseguito **solo una volta**, al montaggio del componente.==
 - ==Se l’array contiene variabili di stato o props, l’effetto viene rieseguito **solo quando una di queste cambia**.==
     
-> In altre parole, l’array di dipendenze permette di **controllare con precisione il comportamento dell’effetto**.
+> In altre parole, ==l’array di dipendenze permette di **controllare con precisione il comportamento dell’effetto**.==
 
 ##### Esempio: effetto eseguito al primo render e pulizia al dismount
 
