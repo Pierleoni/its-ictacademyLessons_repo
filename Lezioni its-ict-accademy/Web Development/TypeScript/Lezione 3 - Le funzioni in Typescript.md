@@ -176,3 +176,258 @@ Il `?` dice a TypeScript che:
 
 >[!info] **Internamente, `name?: string` è equivalente a dichiarare `name: string | undefined`.** 
 >==TypeScript tratta i parametri opzionali esattamente come variabili che possono non avere un valore — coerentemente con tutto quello che abbiamo visto finora su `undefined` e [[Lezione 2 - Il tsconfig.json File#^8b9382|`strictNullChecks`]].==
+
+#### Dimostrazione pratica 
+```ts
+function proclaim(status?: string) {
+  console.log(`I'm ${status || 'not ready...'}`);
+}
+
+proclaim();          // ✅ Stampa: I'm not ready...
+proclaim('ready?');  // ✅ Stampa: I'm ready?
+proclaim('ready!');  // ✅ Stampa: I'm ready!
+```
+
+Senza il `?` su `status`, TypeScript avrebbe segnalato un errore sulla prima chiamata `proclaim()` — anche se il comportamento a runtime sarebbe stato corretto. 
+
+> [!rembember] ==Il `?` comunica esplicitamente al compilatore che l'assenza di quell'argomento è **intenzionale**, non un dimenticanza.==
+
+
+### Default Parameters
+
+Nella sezione precedente abbiamo usato `?` per rendere un parametro opzionale, gestendo il valore di default manualmente con `||`. 
+TypeScript offre un modo più pulito per ottenere lo stesso risultato: i **default parameters**.
+
+==Assegnando direttamente un valore di default al parametro, TypeScript inferisce automaticamente il tipo da quel valore== — esattamente come fa con le variabili inizializzate:
+```ts
+function greet(name = 'Anonymous') {
+  console.log(`Hello, ${name}!`);
+}
+
+greet();          // ✅ Stampa: Hello, Anonymous!
+greet('Anders');  // ✅ Stampa: Hello, Anders!
+greet(42);        // ❌ Argument of type 'number' is not assignable to parameter of type 'string'
+```
+
+**TypeScript inferisce che `name` è di tipo `string` dal valore `'Anonymous'`** — ==e da quel momento accetta solo `string` o `undefined` come argomento.==
+
+> [!NOTE] **Da notare che un parametro con default value non ha bisogno del `?`**
+> ==il fatto di avere un valore di default implica già che il parametro è opzionale. Aggiungere `?` sarebbe ridondante.==
+
+> [!example] **Ricapitolando le tre strade per gestire un parametro opzionale:**
+> 
+> 
+>
+>
+> | Approccio          | Sintassi             | Quando usarlo                                       |
+> | ------------------ | -------------------- | --------------------------------------------------- |
+> | Controllo manuale  | `name\|\| 'default'` | ==JavaScript puro, nessun controllo sui tipi==      |
+> | Optional parameter | `name?: string`      | ==Il parametro può essere assente, nessun default== |
+> | Default parameter  | `name = 'Anonymous'` | ==Il parametro può essere assente, con default==    |
+
+#### Dimostrazione pratica
+
+Partiamo dalla versione con optional parameters che abbiamo visto nell'esercizio precedente:
+```ts
+function proclaim(status?: string, repeat?: number) {
+  for (let i = 0; i < repeat || 0; i += 1) {
+    console.log(`I'm ${status || 'not ready...'}`);
+  }
+}
+```
+
+E la riscriviamo usando i default parameters — più pulita e leggibile:
+```ts
+function proclaim(status = 'not ready...', repeat = 1) {
+  for (let i = 0; i < repeat; i += 1) {
+    console.log(`I'm ${status}`);
+  }
+}
+
+proclaim();             // ✅ Stampa 1 volta:  I'm not ready...
+proclaim('ready?');     // ✅ Stampa 1 volta:  I'm ready?
+proclaim('ready!', 3);  // ✅ Stampa 3 volte: I'm ready!
+```
+
+**Notiamo tre miglioramenti rispetto alla versione precedente:**
+
+1. Il primo riguarda le **type annotations** — non servono più. 
+	- ==TypeScript inferisce `string` da `'not ready...'` e `number` da `1` automaticamente.==
+
+2. Il secondo riguarda i **valori di default nel corpo della funzione** — ==il `|| 0` su `repeat` e il `|| 'not ready...'` su `status` non servono più, perché i valori di default vengono già gestiti nella firma della funzione. Il codice nel corpo diventa più semplice e diretto.==
+
+3. Il terzo riguarda il **`?`** — ==non serve più su nessuno dei due parametri, perché avere un valore di default implica già che sono opzionali.==
+
+>[!abstract] **La logica del `for`:** 
+>==il ciclo parte da `i = 0` e incrementa di `1` ad ogni iterazione finché `i < repeat`.== 
+>**Con `repeat = 1` di default, senza argomento la funzione stampa esattamente una volta.**
+
+
+### Inferring Return Types
+
+Finora abbiamo visto come TypeScript inferisce il tipo delle variabili e dei parametri. 
+Lo stesso meccanismo si applica anche ai **valori restituiti dalle funzioni**: 
+- ==TypeScript analizza il `return` statement e deduce automaticamente il tipo di ritorno.== 
+
+```ts
+function createGreeting(name: string) {
+  return `Hello, ${name}!`;
+}
+
+const myGreeting = createGreeting('Aisle Nevertell');
+```
+
+La catena di inferenza funziona così:
+
+1. Il `return` di `createGreeting()` restituisce un template literal → ==TypeScript inferisce che la funzione ritorna una `string`==
+2. `createGreeting('Aisle Nevertell')` ==produce quindi un valore di tipo `string`==
+3. `myGreeting` viene inizializzata con quel valore → ==TypeScript la inferisce come `string`==
+
+> [!done] **Questo diventa particolarmente utile per individuare bug.**
+>  
+
+Se dichiariamo una variabile di un certo tipo e proviamo ad assegnarle il valore di ritorno di una funzione che restituisce un tipo diverso, TypeScript lo intercetta immediatamente:
+```ts
+function ouncesToCups(ounces: number) {
+  return `${ounces / 16} cups`; // restituisce una string
+}
+
+const liquidAmount: number = ouncesToCups(3);
+// ❌ Type 'string' is not assignable to type 'number'
+```
+
+`ouncesToCups()` restituisce una `string` — ==il valore numerico viene concatenato in un template literal — ma `liquidAmount` è dichiarata come `number`.== 
+**TypeScript individua l'incongruenza senza che sia necessario eseguire il codice.**
+
+>[!info] **L'inferenza del tipo di ritorno è un altro tassello del sistema che lavora silenziosamente in background**
+> senza annotazioni esplicite, TypeScript traccia i tipi attraverso l'intera catena di chiamate e assegnazioni.
+
+#### Dimostrazione pratica
+
+Un esempio che mette alla prova la comprensione dell'inferenza del tipo di ritorno. 
+L'obiettivo è dichiarare una variabile di tipo `number` **senza usare `:` né scrivere alcun numero nel codice**:
+```ts
+function getRandomNumber() {
+  return Math.random();
+}
+
+let myVar = getRandomNumber();
+```
+
+La soluzione sfrutta la catena di inferenza che abbiamo visto:
+
+1. `Math.random()` ==restituisce sempre un `number`==
+2. `getRandomNumber()` ==restituisce `Math.random()` → TypeScript inferisce che ritorna `number`==
+3. `myVar` ==viene inizializzata con il valore di ritorno → TypeScript la inferisce come `number`==
+
+> **Nessun `:`, nessun numero scritto esplicitamente** — ==eppure TypeScript sa perfettamente che `myVar` è di tipo `number`.==
+
+
+### Explicit Return Types
+
+Abbiamo visto che TypeScript inferisce automaticamente il tipo di ritorno di una funzione. 
+==Ma come per le variabili, a volte è preferibile dichiararlo **esplicitamente** — soprattutto quando si lavora in team o su codice scritto da altri, dove la chiarezza è fondamentale.==
+
+La sintassi è la stessa delle type annotations: `: tipo` dopo la parentesi chiusa dei parametri:
+```ts
+function createGreeting(name?: string): string {
+  if (name) {
+    return `Hello, ${name}!`;
+  }
+
+  return undefined;
+  // ❌ Type 'undefined' is not assignable to type 'string'
+}
+```
+
+==Dichiarando `: string` come tipo di ritorno, TypeScript verifica che **ogni** `return` statement della funzione restituisca effettivamente una `string`.== 
+Nel caso sopra, il secondo `return undefined` viola questa regola e viene segnalato come errore.
+
+La stessa sintassi funziona anche con le **arrow functions**, introdotte in ES2015:
+```ts
+const createArrowGreeting = (name?: string): string => {
+  if (name) {
+    return `Hello, ${name}!`;
+  }
+
+  return undefined;
+  // ❌ Type 'undefined' is not assignable to type 'string'
+};
+```
+
+Il comportamento è identico — TypeScript tratta le explicit return types allo stesso modo indipendentemente dal tipo di funzione.
+
+>[!faq] **Quando conviene usare le explicit return types invece di affidarsi all'inferenza?** 
+>>[!done] ==In generale quando la funzione ha **più return statement** con percorsi diversi, o quando si vuole rendere immediatamente chiaro a chi legge il codice cosa si aspetta di ricevere dalla funzione== — senza dover analizzare il corpo per dedurlo.
+
+
+#### Void Return Type
+
+Abbiamo visto come annotare il tipo di ritorno di funzioni che restituiscono un valore. Ma cosa succede con le funzioni che non restituiscono nulla — come quelle che si limitano a stampare qualcosa in console?
+
+In questi casi il tipo di ritorno è `void` — ==un tipo speciale che indica esplicitamente l'assenza di un valore restituito==:
+```ts
+function logGreeting(name: string): void {
+  console.log(`Hello, ${name}!`);
+}
+```
+
+Potrebbe sembrare ridondante annotare qualcosa che "non c'è", ma è considerata buona pratica farlo comunque — ==rende immediatamente chiaro a chi legge il codice che la funzione produce un **side effect** (come stampare in console) senza restituire nulla, e che questo è intenzionale.==
+
+>[!caution] **`void` e `undefined` non sono la stessa cosa.** 
+>1. ==`undefined` è un valore assente,== 
+>2. `void` ==è l'assenza dichiarata di un tipo di ritorno== 
+>>[!fail] Siccome comunicano due concetti diversi e non vanno usati in modo intercambiabile.
+
+
+#### Dimostrazione pratica
+
+```ts
+function makeFruitSalad(fruit1: string, fruit2: string): void {
+  let salad = fruit1 + fruit2 + fruit2 + fruit1 + fruit2 + fruit1 + fruit1;
+  console.log(salad);
+}
+
+makeFruitSalad('banana', 'pineapple');
+// ✅ Stampa: bananapineapplepineapplebananapineapplebananabanana
+```
+
+Il bug originale era dichiarare `: string` come tipo di ritorno — ma la funzione non restituisce nulla, si limita a stampare in console. 
+TypeScript lo segnalava come errore perché si aspettava un `return` con una `string` che non arrivava mai. La correzione è sostituire `: string` con `: void`.
+
+
+### Documenting Functions
+
+TypeScript supporta la sintassi dei commenti JavaScript classica — sia su singola riga con `//` che su più righe con `/* */`. 
+Ma in TypeScript è molto comune vedere un terzo stile: i **documentation comments**.
+
+Un documentation comment inizia con `/**` e termina con `*/`, con ogni riga interna che inizia con `*`:
+```ts
+/**
+ * Questo è un documentation comment
+ */
+```
+
+
+Vengono posizionati **direttamente sopra la dichiarazione della funzione** e supportano tag speciali per documentare i dettagli:
+
+- `@param` → ==descrive un parametro della funzione==
+- `@returns` → ==descrive il valore restituito==
+```ts
+/**
+ * Returns the sum of two numbers.
+ *
+ * @param x - The first input number
+ * @param y - The second input number
+ * @returns The sum of `x` and `y`
+ */
+function getSum(x: number, y: number): number {
+  return x + y;
+}
+```
+
+Il vantaggio pratico è che la maggior parte degli editor, incluso VS Code, legge questi commenti e li mostra come tooltip quando si passa il cursore sul nome della funzione — ==rendendo la documentazione accessibile direttamente durante lo sviluppo, senza dover aprire il file sorgente.==
+
+>[!abstract] **I documentation comments non sono specifici di TypeScript**
+>fanno parte dello standard **JSDoc**, usato anche in JavaScript puro. 
+> TypeScript li supporta nativamente e li integra con il suo sistema di tipi.

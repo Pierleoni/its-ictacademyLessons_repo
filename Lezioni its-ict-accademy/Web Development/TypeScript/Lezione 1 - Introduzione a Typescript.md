@@ -103,6 +103,27 @@ node nomefile.js
 
 >[!info] **Nota:** le versioni recenti di Node.js supportano l'esecuzione diretta di file `.ts` — li transpila al volo in memoria senza creare un `.js` su disco. Comodo durante lo sviluppo, ma in produzione si compila sempre separatamente con `tsc`.
 
+>[!important] **Importante: TypeScript esiste solo a compile time**. 
+>Il tipo system, le annotations, e tutti i controlli spariscono completamente nel file `.js` prodotto in output — JavaScript non conosce i tipi e non li applica. Questo significa che un errore segnalato da `tsc` non impedisce l'esecuzione del file `.js` già compilato: il codice gira comunque, ma potenzialmente con comportamenti inaspettati.
+> 
+> 
+> 
+> ```ts
+> let num: number = 5;
+> num = 'Ciao'; // ❌ errore a compile time
+> ```
+> 
+> 
+> 
+> ```js
+> // nel .js compilato:
+> let num = 5;
+> num = 'Ciao'; // JavaScript non si lamenta — esegue tutto
+> ```
+> 
+> TypeScript è uno strumento per lo **sviluppo**, non per il runtime.
+
+
 
 ### Type Inference
 

@@ -499,13 +499,13 @@ Questo perché una chiamata al server è un’operazione costosa e non dovrebbe 
 
 Ogni chiamata non necessaria al server comporta un costo in termini di:
 
-- elaborazione
+- ==elaborazione==
     
-- prestazioni
+- ==prestazioni==
     
-- consumo di dati (soprattutto su dispositivi mobili)
+- ==consumo di dati (soprattutto su dispositivi mobili)==
     
-- eventuali costi economici nel caso di API a pagamento
+- ==eventuali costi economici nel caso di API a pagamento==
     
 
 Per questo motivo, **non è quasi mai corretto eseguire un fetch dopo ogni render del componente**.
@@ -544,20 +544,20 @@ useEffect(() => {
 
 In questo modo:
 
-- il fetch viene eseguito **una sola volta**
+- ==il fetch viene eseguito **una sola volta**==
     
-- subito dopo il primo render del componente (fase di mount)
+- ==subito dopo il primo render del componente (fase di mount)==
     
-- i dati vengono poi riutilizzati nei render successivi
+- ==i dati vengono poi riutilizzati nei render successivi==
     
 
 Questo approccio è tipico per:
 
-- dati iniziali
+- ==dati iniziali==
     
-- configurazioni
+- ==configurazioni==
     
-- contenuti statici recuperati dal server
+- ==contenuti statici recuperati dal server==
 
 
 
@@ -581,13 +581,13 @@ useEffect(() => {
 
 In questo pattern:
 
-- `useEffect` si occupa del fetch dei dati
+- `useEffect` ==si occupa del fetch dei dati==
     
-- `setData` salva i dati nello stato locale del componente
+- `setData` ==salva i dati nello stato locale del componente==
     
-- React esegue un nuovo render usando i dati appena recuperati
+- ==React esegue un nuovo render usando i dati appena recuperati==
     
-- il fetch **non viene ripetuto inutilmente**
+- ==il fetch **non viene ripetuto inutilmente**==
     
 
 Questo è uno dei pattern più importanti in React per la gestione dei dati asincroni.
