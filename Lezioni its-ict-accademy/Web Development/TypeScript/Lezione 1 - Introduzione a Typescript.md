@@ -52,7 +52,7 @@ Ora che sappiamo _perché_ esiste TypeScript, vediamo _come si usa_ concretament
 	- ==uno strumento che legge il codice `.ts`, verifica che rispetti le regole del type system, e segnala eventuali errori.== 
 3. ==Se il codice è valido, il transpiler produce in output un file `.js` equivalente, pronto per essere eseguito ovunque giri JavaScript.==
 
-> **Transpiler vs Compiler** — un compiler traduce codice in linguaggio macchina, un transpiler traduce da un linguaggio sorgente a un altro. TypeScript → JavaScript è una transpilazione.
+> **Transpiler vs Compiler** — ==un compiler traduce codice in linguaggio macchina, un transpiler traduce da un linguaggio sorgente a un altro.== TypeScript → JavaScript è una transpilazione.
 
 ### TypeScript è un superset di JavaScript
 
