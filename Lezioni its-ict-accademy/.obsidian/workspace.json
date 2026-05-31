@@ -28,13 +28,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Web Development/Javascript/Lezione 6; DOM e ripasso JS.md",
+                "file": "Web Development/Javascript/Lezione 5; Le funzioni in Javascript.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Lezione 6; DOM e ripasso JS"
+              "title": "Lezione 5; Le funzioni in Javascript"
             }
           },
           {
@@ -239,11 +239,11 @@
   },
   "active": "cdf52a1b3cf34085",
   "lastOpenFiles": [
-    "Python/Lezione 4_FunzioniPython/Funzioni in Python.md",
-    "Web Development/TypeScript/Lezione 4 - Array e Custom Types.md",
-    "Web Development/TypeScript/Lezione 3 - Le funzioni in Typescript.md",
-    "Web Development/Javascript/Lezione 6; DOM e ripasso JS.md",
     "Web Development/Javascript/Lezione 5; Le funzioni in Javascript.md",
+    "Web Development/Javascript/Lezione 6; DOM e ripasso JS.md",
+    "Web Development/TypeScript/Lezione 4 - Array e Custom Types.md",
+    "Python/Lezione 4_FunzioniPython/Funzioni in Python.md",
+    "Web Development/TypeScript/Lezione 3 - Le funzioni in Typescript.md",
     "Web Development/Javascript/Lezione 4 ; Espressioni e operatori, statements e cicli.md",
     "Web Development/Javascript/Lezione 3; Array, Indexing, Attributo Length, Operatori, Conversione tra tipi di variabili.md",
     "Web Development/Javascript/Lezione 2 Le variabili in Javascript.md",

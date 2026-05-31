@@ -296,7 +296,7 @@ let somma = (a, b) => a + b;
 console.log(somma(2, 3)); //   5
 ```
 Quindi se si scrive una arrow function bisogna stare dentro un altra funzione:
-```
+```js
 let x = () => {
 	//istruzione da eseguire
 }
@@ -304,7 +304,7 @@ let x = () => {
 Questo esempio è banale ma non rispecchia la realta: le arrow function vengono utilizzate nella maggior parte dei casi come callback; 
 le callback è una funzione che viene passato come parametro ad un'altra funzione.
 Quindi 
-```
+```js
 let y = () => {
 	console.log("Funzione passata come parametro!");
 }

@@ -77,7 +77,9 @@ Esiste anche una sintassi alternativa:
 let names: Array<string> = ['Danny', 'Samantha'];
 ```
 
-Le due forme sono equivalenti — ==la prima è più comune e concisa, la seconda è utile da conoscere perché la ritroveremo quando studieremo i **generics**.==
+Le due forme sono equivalenti:
+1. ==la prima è più comune e concisa==, 
+2. ==la seconda è utile da conoscere perché la ritroveremo quando studieremo i **generics**.==
 
 La type annotation sugli array protegge da due categorie di errori. 
 
@@ -307,7 +309,7 @@ Questo rende la funzione **type safe** — ==chiunque provi a passare valori non
 > - ==in TypeScript si possono avere parametri normali **prima** del rest parameter,== 
 > - ==mentre in Python `*args` raccoglie tutto il variabile indipendentemente dalla posizione.==
 >
->> [!fail] Da non confondere con lo **spread operator** di JavaScript — usano entrambi `...` ma fanno l'opposto:
+>> [!fail] Da non confondere con lo **[[Lezione 6; DOM e ripasso JS#Spread operator|spread operator]]** di JavaScript — usano entrambi `...` ma fanno l'opposto:
 >> |Simbolo|Direzione|Esempio|
 |---|---|---|
 |Rest parameter|`...`|**raccoglie** argomenti in un array|`function f(...args: string[])`|
@@ -315,3 +317,430 @@ Questo rende la funzione **type safe** — ==chiunque provi a passare valori non
 >>
 >>Stesso simbolo, direzione opposta.
 
+#### Spread Syntax con le Tuple
+
+Nella nota precedente abbiamo visto che lo [[Lezione 6; DOM e ripasso JS#Spread operator|spread operator]] **espande** un array in argomenti separati — ed è esattamente qui che le tuple diventano particolarmente potenti. 
+Considera questa funzione con una firma molto lunga e difficile da leggere:
+```ts
+function gpsNavigate(
+  startLatitudeDegrees: number, startLatitudeMinutes: number, startNorthOrSouth: string,
+  startLongitudeDegrees: number, startLongitudeMinutes: number, startEastOrWest: string,
+  endLatitudeDegrees: number, endLatitudeMinutes: number, endNorthOrSouth: string,
+  endLongitudeDegrees: number, endLongitudeMinutes: number, endEastOrWest: string
+) { }
+```
+
+Chiamarla direttamente è un disastro in termini di leggibilità:
+```ts
+gpsNavigate(40, 43.2, 'N', 73, 59.8, 'W', 25, 0, 'N', 71, 0, 'W'); // 😱
+```
+
+**La soluzione elegante è:** 
+- ==usare le tuple per raggruppare i dati correlati, e poi lo spread operator per espanderle nella chiamata.==
+```ts
+let codecademyCoordinates: [number, number, string, number, number, string] = [40, 43.2, 'N', 73, 59.8, 'W'];
+let bermudaTCoordinates: [number, number, string, number, number, string] = [25, 0, 'N', 71, 0, 'W'];
+
+gpsNavigate(...codecademyCoordinates, ...bermudaTCoordinates); // ✅ molto più leggibile
+gpsNavigate(...bermudaTCoordinates, ...codecademyCoordinates); // ✅ e il ritorno è banale
+```
+
+==La [[Lezione 1 - Introduzione a Typescript#Type Annotations|type annotation]] della tupla garantisce che gli elementi siano esattamente del tipo corretto per i parametri di `gpsNavigate()`== — **se l'ordine o i tipi non corrispondono, TypeScript lo segnala a compile time.**
+
+>[!info] **Questo è uno dei casi in cui tuple e spread operator si combinano perfettamente:** 
+> ==la tupla garantisce la **correttezza dei tipi**, lo spread operator garantisce la **leggibilità del codice**.== 
+> Insieme risolvono un problema che in JavaScript puro richiederebbe controlli manuali e codice difficile da leggere.
+
+
+#### Dimostrazione pratica — Array di Tuple con Spread Syntax
+Un caso d'uso reale che combatte tre concetti insieme: array di tuple,
+spread syntax e funzioni tipizzate:
+```ts
+// Funzione che accetta una stringa, un numero e un booleano
+function performDanceMove(moveName: string, moveReps: number, hasFlair: boolean): void {
+  console.log(`I do the ${moveName} ${moveReps} times !`);
+  // Se hasFlair è truthy stampa una stringa aggiuntiva
+  if (hasFlair) {
+    console.log('I do it with flair!');
+  }
+}
+
+// Array di tuple — ogni elemento contiene esattamente gli argomenti di performDanceMove()
+let danceMoves: [string, number, boolean][] = [
+  ['chicken beak', 4, false],
+  ['wing flap', 4, false],
+  ['tail feather shake', 4, false],
+  ['clap', 4, false],
+  ['chicken beak', 4, true],
+  ['wing flap', 4, true],
+  ['tail feather shake', 4, true],
+  ['clap', 4, true],
+];
+
+// Iteriamo sull'array e usiamo lo spread operator per espandere ogni tupla
+// come argomenti separati della funzione
+danceMoves.forEach((move) => performDanceMove(...move));
+```
+
+La type annotation `[string, number, boolean][]` garantisce che ogni elemento dell'array sia una tupla compatibile con la firma di `performDanceMove()` — se qualcuno inserisse una tupla con tipi sbagliati o in ordine diverso, TypeScript lo intercetterebbe a compile time.
+
+
+
+---
+
+## Tipi Custom in TypeScript
+Fino ad ora abbiamo lavorato con i tipi predefiniti di TypeScript — primitivi come `string`, `number`, `boolean`, e strutture come array e tuple. 
+È già un ottimo arsenale, ma TypeScript offre qualcosa di ancora più potente: 
+- ==la possibilità di **creare tipi personalizzati**, costruiti sulle nostre esigenze specifiche.==
+
+In realtà abbiamo già incontrato un esempio di tipo custom senza saperlo — le **tuple**. 
+Una tupla come `[string, string, number, boolean]` è un tipo custom che descrive esattamente la struttura di un dato, ad esempio le informazioni di un utente: nome, cognome, età e se ha un account premium.
+
+
+
+>[!example] **Un modo utile per visualizzare la differenza:**
+>>[!done] I tipi predefiniti sono come ingredienti — utili da soli, ma limitati. 
+>
+>>[!done] I tipi custom sono come ricette complete — ingredienti combinati insieme per creare qualcosa di più preciso e significativo.
+
+La buona notizia è che i tipi custom si usano esattamente come quelli predefiniti — ==come type annotations su variabili e parametri, come return type delle funzioni, e con l'inferenza automatica==:
+
+```ts
+let myVar: compType;
+
+function testFn(param: compType): returnedCompType { }
+
+let inferredTypeVariable = testFn(myVar);
+// inferredTypeVariable → tipo inferito: returnedCompType
+```
+
+Nelle sezioni successive vedremo tutti gli strumenti che TypeScript mette a disposizione per costruire tipi custom — a partire dal primo e più fondamentale.
+### Enums
+
+Il primo tipo custom che esploriamo è anche uno dei più utili: gli **enum**. 
+Fino ad ora i tipi che abbiamo visto hanno un insieme di valori potenzialmente infinito — una `string` può essere qualsiasi stringa, un `number` qualsiasi numero. 
+Gli enum nascono per risolvere il problema opposto: 
+- ==quando vogliamo **limitare** i valori possibili di una variabile a un insieme predefinito e finito.==
+```ts
+enum Direction {
+  North,
+  South,
+  East,
+  West
+}
+```
+
+Questo enum definisce esattamente quattro valori possibili. 
+Una variabile di tipo `Direction` può essere solo uno di questi — qualsiasi altro valore genera un errore:
+```ts
+let whichWayToArcticOcean: Direction;
+
+whichWayToArcticOcean = Direction.North;     // ✅ ok
+whichWayToArcticOcean = Direction.Southeast; // ❌ Southeast non esiste nell'enum
+whichWayToArcticOcean = West;                // ❌ sintassi sbagliata, serve Direction.West
+```
+
+#### Come funzionano sotto il cofano
+
+**TypeScript processa gli enum usando i `number`:**
+- ==ogni valore viene associato a un numero in base all'ordine di dichiarazione, partendo da `0`== 
+```ts
+Direction.North  // 0
+Direction.South  // 1
+Direction.East   // 2
+Direction.West   // 3
+```
+
+Questo significa che `whichWayToArcticOcean = Direction.North` è equivalente a `whichWayToArcticOcean = 0`. 
+==Si può anche riassegnare direttamente un numero senza errori — TypeScript li considera equivalenti.==
+
+Si può cambiare il numero di partenza assegnando un valore al primo elemento — gli altri seguiranno in sequenza:
+```ts
+enum Direction {
+  North = 7, // 7
+  South,     // 8
+  East,      // 9
+  West       // 10
+}
+```
+
+Oppure assegnare valori specifici a ciascun elemento indipendentemente:
+```ts
+enum Direction {
+  North = 8,
+  South = 2,
+  East = 6,
+  West = 4
+}
+```
+
+> [!done] ==Gli enum sono particolarmente utili quando si lavora con valori che hanno un significato semantico preciso — stati di un'applicazione, direzioni, ruoli utente, categorie.== 
+> 
+> Invece di usare stringhe o numeri magici sparsi nel codice, gli enum raccolgono tutti i valori possibili in un unico posto con nomi significativi.
+
+##### Dimostrazione pratica
+
+Un caso d'uso reale: 
+il sistema di ordini di un negozio di animali che vende solo quattro tipi di animali. 
+Senza TypeScript, nulla impedisce di ordinare un animale che il negozio non ha in catalogo:
+```ts
+// ❌ Versione non type safe
+let petOnSale = 'chinchilla'; // potrebbe diventare 'Ox' o qualsiasi altra stringa
+let ordersArray = [
+  ['rat', 2],
+  ['chinchilla', 1],
+  ['hamster', 2],
+  ['chinchilla', 50]
+];
+```
+
+La versione type safe usa un enum per limitare i valori possibili a esattamente i quattro animali in catalogo:
+
+```ts
+enum Pet {
+  Hamster,    // 0
+  Rat,        // 1
+  Chinchilla, // 2
+  Tarantula   // 3
+}
+
+// Variabile type safe con annotation esplicita
+const petOnSaleTS: Pet = Pet.Chinchilla;
+
+// Array di tuple type safe — ogni ordine è [Pet, number]
+const ordersArrayTS: [Pet, number][] = [
+  [Pet.Rat, 2],
+  [Pet.Chinchilla, 1],
+  [Pet.Hamster, 2],
+  [Pet.Chinchilla, 50]
+];
+
+// Tentativo di ordinare un animale non in catalogo
+ordersArrayTS.push([Pet.Jerboa, 3]);
+// ❌ Type Error! Jerboa non esiste nell'enum Pet
+```
+
+L'enum garantisce che nessuno possa inserire un animale non previsto — né direttamente nella variabile, né nell'array degli ordini. TypeScript lo intercetta a compile time prima ancora che il codice venga eseguito.
+
+### String Enums vs Numeric Enums
+
+Gli enum che abbiamo visto finora sono **numeric enums:**
+- ==sotto il cofano usano numeri assegnati automaticamente.== 
+TypeScript supporta anche gli **string enums**, dove ogni valore è una stringa esplicita:
+```ts
+enum DirectionNumber { North, South, East, West }
+enum DirectionString { North = 'NORTH', South = 'SOUTH', East = 'EAST', West = 'WEST' }
+```
+
+==A differenza dei numeric enums, nei string enums i valori devono essere scritti **esplicitamente**==.
+==TypeScript non può assegnarli automaticamente.== 
+La convenzione più comune e consigliata è usare il nome del valore in maiuscolo (`North = 'NORTH'`), così i messaggi di errore e i log saranno molto più leggibili e informativi.
+
+> [!faq] **Perché preferire i String Enums**
+> 
+> 
+> I numeric enums hanno un comportamento permissivo che può far passare bug inosservati — accettano qualsiasi numero, anche arbitrario, senza protestare:
+> ```ts
+> let whichWayToAntarctica: DirectionNumber;
+> 
+> whichWayToAntarctica = 1;      // ✅ ok — equivalente a DirectionNumber.South
+> whichWayToAntarctica = 943205; // ✅ ok — nessun errore, numero arbitrario!
+> ```
+> 
+> I string enums sono molto più **strict** — ==l'unico modo per assegnare un valore è usare esplicitamente l'enum, anche se la stringa coincide esattamente con il valore dichiarato==:
+> ```ts
+> let whichWayToAntarctica: DirectionString;
+> 
+> whichWayToAntarctica = 'SOUTH';            // ❌ Type Error!
+> whichWayToAntarctica = 'stringa qualsiasi'; // ❌ Type Error!
+> whichWayToAntarctica = DirectionString.South; // ✅ unico modo valido
+> ```
+> 
+> 
+>
+>>[!hint] La raccomandazione è di usare **sempre string enums** — ==sono più sicuri, più leggibili nei log e negli errori, e non permettono assegnazioni numeriche arbitrarie che potrebbero introdurre bug silenziosi.==
+
+
+### Object Types
+
+Arriviamo ora a uno dei tipi custom più comuni e utili di TypeScript: gli **object types**. 
+==Permettono di descrivere con precisione la struttura di un oggetto — quali proprietà deve avere e di che tipo devono essere.==
+
+La sintassi è simile a un [[Lezione 6; DOM e ripasso JS#Gli oggetti in Javascript|oggetto letterale JavaScript]], ma al posto dei valori si specificano i tipi:
+```ts
+let aPerson: {name: string, age: number};
+```
+
+TypeScript verifica sia i **tipi** delle proprietà che i loro **nomi** — entrambi devono corrispondere esattamente:
+```ts
+aPerson = {name: 'Aisle Nevertell', age: "wouldn't you like to know"};
+// ❌ Type Error! age deve essere number, non string
+
+aPerson = {name: 'Kushim', yearsOld: 5000};
+// ❌ Type Error! la proprietà si chiama age, non yearsOld
+
+aPerson = {name: 'User McCodecad', age: 22};
+// ✅ ok — nome e tipo delle proprietà corretti
+```
+
+Le proprietà di un object type non si limitano ai primitivi — ==possono essere enum, array, e persino altri object types annidati==:
+```ts
+let aCompany: {
+  companyName: string,
+  boss: {name: string, age: number},
+  employees: {name: string, age: number}[],
+  employeeOfTheMonth: {name: string, age: number},
+  moneyEarned: number
+};
+```
+
+In questo esempio `boss` e `employeeOfTheMonth` sono object types annidati, mentre `employees` è un array di object types — TypeScript gestisce qualsiasi livello di complessità.
+
+> Gli object types che abbiamo visto qui sono dichiarati **inline** — direttamente dove vengono usati. Nelle prossime sezioni vedremo come dare un nome a questi tipi per poterli riutilizzare in tutto il progetto, evitando di riscriverli ogni volta.
+
+
+#### Dimostrazione pratica degli Object Types
+
+Un caso concreto dove gli object types rendono una funzione molto più leggibile e type safe. Senza type annotation, il parametro `personObject` è `any` — TypeScript non può aiutarci a verificare che l'oggetto passato abbia le proprietà giuste:
+```ts
+// Aggiungendo l'object type annotation al parametro
+function sayHappyBirthdayWithObject(personObject: {
+  name: string,
+  age: number,
+  giftWish: string,
+  success: boolean
+}) {
+  let output = '';
+  output += 'Happy Birthday ' + personObject.name + '! ';
+  output += 'You are now ' + personObject.age + ' years old! ';
+  output += 'Your birthday wish was to receive ' + personObject.giftWish
+         + '. And guess what? You will ';
+  if (!personObject.success) {
+    output += 'not ';
+  }
+  output += 'receive it! \n';
+  console.log(output);
+}
+
+// Array di oggetti con type annotation esplicita
+let birthdayBabies: {name: string, age: number, giftWish: string, success: boolean}[] = [
+  {name: 'Liam',   age: 0, giftWish: 'karate skills',   success: false},
+  {name: 'Olivia', age: 0, giftWish: 'a bright future', success: true},
+  {name: 'Ava',    age: 0, giftWish: '$0.25',            success: true}
+];
+
+birthdayBabies.forEach(sayHappyBirthdayWithObject);
+```
+
+>[!warning] **Da notare che la stessa object type annotation viene ripetuta sia nel parametro della funzione che nell'array `birthdayBabies`.** 
+>Questo è esattamente il problema che le prossime sezioni risolveranno — dare un **nome** a un object type per poterlo riutilizzare senza riscriverlo ogni volta.
+
+### Type Aliases
+
+Nella [[#Dimostrazione pratica degli Object Types|dimostrazione precedente]] abbiamo notato un problema: 
+- ==la stessa object type annotation veniva ripetuta più volte nel codice — nel parametro della funzione e nell'array. Più si ripete qualcosa, più aumenta il rischio di typo e il codice diventa difficile da mantenere.==
+
+I **type aliases** risolvono esattamente questo problema: 
+- ==permettono di dare un **nome** a qualsiasi tipo, per poi riutilizzarlo ovunque con quella parola chiave==:
+```ts
+type Person = {name: string, age: number};
+```
+
+Ora invece di riscrivere `{name: string, age: number}` ogni volta, usiamo semplicemente `Person`:
+```ts
+let aCompany: {
+  companyName: string,
+  boss: Person,              // invece di {name: string, age: number}
+  employees: Person[],       // invece di {name: string, age: number}[]
+  employeeOfTheMonth: Person, // invece di {name: string, age: number}
+  moneyEarned: number
+};
+```
+
+La sintassi per dichiarare un type alias è:
+```ts
+type <NomeAlias> = <tipo>;
+```
+
+==I type aliases funzionano con qualsiasi tipo — primitivi, array, tuple, object types, enum.== 
+
+> [!info] **Anche se creare un alias per un primitivo non è particolarmente utile:**
+> 
+> ```ts
+> type MyString = string;
+> let myVar: MyString = 'Hi'; // ✅ ok
+> ```
+
+> [!remember] **Un dettaglio importante:**
+>  i type aliases sono **solo nomi alternativi** — **non creano tipi distinti.** 
+>  ==Due alias che puntano allo stesso tipo sono completamente intercambiabili==:
+>```ts
+>  type MyString = string;
+>type MyOtherString = string;
+>
+>let firstString: MyString = 'test';
+>let secondString: MyOtherString = >firstString; // ✅ ok — sono lo stesso tipo
+>```
+
+**I type aliases sono uno degli strumenti più usati in TypeScript nella pratica** — ==soprattutto per gli object types e le tuple che vengono riutilizzati in più punti del codice.== 
+Nelle sezioni successive vedremo strumenti ancora più potenti per definire tipi custom riutilizzabili.
+
+#### Dimostrazione pratica dei Type Aliases
+
+Riprendiamo [[#Spread Syntax con le Tuple|l'esempio delle coordinate GPS che abbiamo visto nella sezione sullo spread syntax]]. 
+La versione originale aveva una type annotation lunga e ripetuta due volte:
+```ts
+// ❌ Prima — ripetizione della stessa lunga annotation
+let codecademyCoordinates: [number, number, string, number, number, string] = [40, 43.2, 'N', 73, 59.8, 'W'];
+let bermudaTCoordinates: [number, number, string, number, number, string] = [25, 0, 'N', 71, 0, 'W'];
+```
+
+Con un type alias la situazione migliora drasticamente — ==dichiariamo il tipo una volta sola e lo riutilizziamo ovunque==:
+```ts
+// ✅ Dopo — type alias riutilizzabile
+type Coord = [number, number, string, number, number, string];
+
+let codecademyCoordinates: Coord = [40, 43.2, 'N', 73, 59.8, 'W'];
+let bermudaTCoordinates: Coord = [25, 0, 'N', 71, 0, 'W'];
+```
+
+> [!done] Il codice è più leggibile, meno soggetto a typo, e se in futuro la struttura delle coordinate dovesse cambiare basterà aggiornare il type alias in un solo punto invece di cercarlo e modificarlo in tutto il progetto.
+
+### Function Types
+
+In JavaScript le funzioni possono essere assegnate a variabili come qualsiasi altro valore. 
+TypeScript estende questo concetto permettendo di ==tipizzare **esattamente** che tipo di funzione una variabile può contenere — specificando i tipi dei parametri e il tipo di ritorno.==
+
+La sintassi usa la notazione delle arrow function, ma al posto del corpo della funzione si scrive il tipo di ritorno:
+```ts
+type StringsToNumberFunction = (arg0: string, arg1: string) => number;
+```
+
+**Una variabile di questo tipo può contenere qualsiasi funzione compatibile** — ==ovvero qualsiasi funzione che accetta due `string` e restituisce un `number`.== I nomi dei parametri non contano, solo i loro tipi:
+```ts
+let myFunc: StringsToNumberFunction;
+
+myFunc = function(firstName: string, lastName: string) {
+  return firstName.length + lastName.length; // ✅ ok
+};
+
+myFunc = function(whatever: string, blah: string) {
+  return whatever.length - blah.length; // ✅ ok — i nomi non contano
+};
+
+myFunc = function(a: number, b: number) {
+  return a + b; // ❌ Type Error! I parametri devono essere string
+};
+```
+
+> [!ticket] **Una regola sintattica importante:**
+>  i nomi dei parametri e le parentesi sono **sempre obbligatori** nella type annotation di una funzione, anche con un solo parametro:
+>```ts
+> type StringToNumberFunction = (string) => number;    // ❌ NO
+>type StringToNumberFunction = arg: string => number; // ❌ NO
+>type StringToNumberFunction = (arg: string) => number; // ✅ ok
+>```
+
+
+I function types sono particolarmente utili con le **callback functions** — funzioni passate come argomenti ad altre funzioni. 
+==Tipizzare una callback garantisce che chiunque usi la funzione sappia esattamente che tipo di funzione deve passare come argomento.==
