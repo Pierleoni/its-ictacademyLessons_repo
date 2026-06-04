@@ -440,7 +440,7 @@ whichWayToArcticOcean = Direction.Southeast; // ❌ Southeast non esiste nell'en
 whichWayToArcticOcean = West;                // ❌ sintassi sbagliata, serve Direction.West
 ```
 
-#### Come funzionano sotto il cofano
+##### Come funzionano sotto il cofano
 
 **TypeScript processa gli enum usando i `number`:**
 - ==ogni valore viene associato a un numero in base all'ordine di dichiarazione, partendo da `0`== 
@@ -522,7 +522,7 @@ ordersArrayTS.push([Pet.Jerboa, 3]);
 
 L'enum garantisce che nessuno possa inserire un animale non previsto — né direttamente nella variabile, né nell'array degli ordini. TypeScript lo intercetta a compile time prima ancora che il codice venga eseguito.
 
-### String Enums vs Numeric Enums
+#### String Enums vs Numeric Enums
 
 Gli enum che abbiamo visto finora sono **numeric enums:**
 - ==sotto il cofano usano numeri assegnati automaticamente.== 
@@ -744,3 +744,219 @@ myFunc = function(a: number, b: number) {
 
 I function types sono particolarmente utili con le **callback functions** — funzioni passate come argomenti ad altre funzioni. 
 ==Tipizzare una callback garantisce che chiunque usi la funzione sappia esattamente che tipo di funzione deve passare come argomento.==
+
+
+---
+
+## Generic Types
+
+Arriviamo a uno dei concetti più potenti di TypeScript: i **generic types**. Li abbiamo già incontrati senza saperlo — ricordi la sintassi alternativa per gli array `Array<T>`? Quella `T` è esattamente un generic type.
+
+L'idea di fondo è semplice: 
+- ==invece di definire un tipo specifico, definiamo un **modello di tipo** con un segnaposto — una variabile di tipo — che verrà sostituita con un tipo concreto quando il generic viene usato.==
+```ts
+type Family<T> = {
+  parents: [T, T],
+  mate: T,
+  children: T[]
+};
+```
+
+`Family<T>` non è un tipo utilizzabile direttamente — è un _modello_. Per usarlo bisogna sostituire `T` con un tipo concreto:
+```ts
+// Family<string> → {parents: [string, string], mate: string, children: string[]}
+let aStringFamily: Family<string> = {
+  parents: ['stern string', 'nice string'],
+  mate: 'string next door',
+  children: ['stringy', 'stringo', 'stringina', 'stringolio']
+}; // ✅ ok
+
+// Family<number> → {parents: [number, number], mate: number, children: number[]}
+let aNumberFamily: Family<number> = {
+  parents: [1, 2],
+  mate: 3,
+  children: [4, 5, 6]
+}; // ✅ ok
+```
+
+> [!NOTE] **La `T` è solo una convenzione — si potrebbe usare qualsiasi nome come `S` o `GenericType`. L'importante è che il segnaposto sia consistente all'interno della definizione del tipo.**
+
+I generic types sono il modo in cui TypeScript permette di scrivere codice **riutilizzabile ma comunque type safe:**
+- invece di duplicare la stessa struttura per ogni tipo possibile, si definisce il modello una volta sola e lo si specializza secondo le necessità. 
+
+
+> [!LINK] **È lo stesso principio dei [[Lezione 12 - Collection#Il ruolo del generico `<E>`|generics ]]in Java, che abbiamo già incontrato nel tuo percorso ITS.**
+>
+
+#### Dimostrazione pratica dei Generics
+Un esempio che mostra la potenza dei generic types — lo stesso modello `Family<T>` utilizzato con quattro tipi diversi, dai primitivi agli object types custom:
+```ts
+type Human = {name: string, job: string};
+type Dog = {name: string, tailWagSpeed: number};
+
+type Family<T> = {
+  parents: [T, T],
+  mate: T,
+  children: T[]
+};
+```
+
+Con i primitivi — `T` viene sostituita con `number` e `boolean`:
+```ts
+let theFamily: Family<number> = {
+  parents: [3, 4], mate: 9, children: [5, 30, 121]
+};
+
+let someFamily: Family<boolean> = {
+  parents: [true, true], mate: false,
+  children: [false, false, true, true]
+};
+```
+
+Con i type aliases custom — `T` viene sostituita con `Human` e `Dog`:
+```ts
+let aFamily: Family<Human> = {
+  parents: [
+    {name: 'Mom', job: 'software engineer'},
+    {name: 'Dad', job: 'coding engineer'}
+  ],
+  mate: {name: 'Matesky', job: 'engineering coder'},
+  children: [{name: 'Babesky', job: 'none'}]
+};
+
+let anotherFamily: Family<Dog> = {
+  parents: [
+    {name: 'Momo', tailWagSpeed: 3},
+    {name: 'Dado', tailWagSpeed: 100}
+  ],
+  mate: {name: 'Cheems', tailWagSpeed: 7},
+  children: [
+    {name: 'Puppin', tailWagSpeed: 0.001},
+    {name: 'Puppenaut', tailWagSpeed: 0.0001},
+    {name: 'Puppenator', tailWagSpeed: 0.01}
+  ]
+};
+```
+
+Notiamo come `Family<T>` si adatti perfettamente a qualsiasi tipo — primitivo o custom. 
+==Senza i generics avremmo dovuto definire `FamilyOfNumbers`, `FamilyOfBooleans`, `FamilyOfHumans` e `FamilyOfDogs` separatamente, con la stessa identica struttura ripetuta quattro volte.==
+
+>[!info] **Questo esercizio mostra anche come type aliases e generic types si combinino naturalmente**
+> ==`Human` e `Dog` sono type aliases che vengono usati come argomenti di tipo per `Family<T>`. È la composizione di tutti i concetti visti in questa lezione.==
+
+
+>[!example] **Analogia con i Generics di Java:**
+> 
+> I generic types di TypeScript e i [[Lezione 12 - Collection#Collection e Generics|generics di Java]] condividono la stessa idea di fondo: 
+> ==definire un **modello riutilizzabile** che funziona con qualsiasi tipo, evitando di duplicare la stessa struttura per ogni tipo possibile.==
+> 
+> Tuttavia il loro ruolo nei due linguaggi è leggermente diverso:
+> 
+> >[!link] In **Java**, i generics sono quasi obbligatori per lavorare con le collezioni. 
+> >==Senza di essi non sarebbe possibile avere una `ArrayList` che funziona con qualsiasi tipo — il sistema fortemente tipizzato di Java lo impedirebbe.== 
+> >I generics sono quindi una necessità strutturale del linguaggio.
+> 
+>>[!done] In **TypeScript**, il sistema di tipi è già più flessibile di base — si potrebbe sempre ricadere su [[Lezione 1 - Introduzione a Typescript#Il tipo `any`|`any`]] per aggirare i controlli. 
+>>I generics non sono una necessità, ma uno strumento per ottenere il meglio dei due mondi: 
+>>- ==**riutilizzabilità** senza rinunciare alla **type safety**.== 
+>>- Come abbiamo visto con `Family<T>`, il generic garantisce che tutti i campi della struttura siano dello stesso tipo `T` — qualunque esso sia.
+> 
+> ||Java|TypeScript|
+> |---|---|---|
+> |Scopo principale|necessità strutturale per le collezioni|riutilizzabilità + type safety|
+> |Senza generics|collezioni non type safe|si ricade su `any`|
+> |Con generics|collezioni type safe|modelli type safe riutilizzabili|
+
+> [!faq] ##### Cos'è la Type Safety?
+> 
+> 
+> La **type safety** è: 
+> - ==la capacità del compilatore di verificare a **compile time** che i tipi siano usati in modo corretto e consistente — prevenendo errori prima ancora di eseguire il codice.==
+> 
+> La differenza concreta con `any` è questa:
+> 
+> - Con `any` → si rinuncia alla type safety. 
+> 	- ==La variabile accetta qualsiasi tipo di dato e TypeScript smette di controllare. Massima flessibilità, zero garanzie.==
+> - Con i **generics** → si mantiene la flessibilità senza rinunciare alla type safety. 
+> 	- ==Il tipo `T` è ancora "qualsiasi tipo", ma una volta scelto deve essere **consistente** in tutta la struttura — TypeScript lo verifica a compile time.==
+> ```ts
+> // Con any — nessuna garanzia
+> type Family = {parents: [any, any], mate: any, children: any[]};
+> // parents potrebbe essere [string, number], mate un boolean... nessun controllo
+> 
+> // Con generics — type safe
+> type Family<T> = {parents: [T, T], mate: T, children: T[]};
+> // Se T è string, TUTTO deve essere string — TypeScript lo garantisce
+> ```
+> I generics sono quindi il modo in cui TypeScript ottiene il meglio dei due mondi: 
+> - ==**riutilizzabilità** senza rinunciare alla **type safety**.==
+
+^82fb09
+
+
+### Generic Functions
+
+Abbiamo visto i generic types applicati ai type aliases. 
+Lo stesso concetto si applica anche alle **funzioni** — e risolve un problema molto concreto.
+
+Immagina una funzione che riempie un array con un valore ripetuto `n` volte:
+```ts
+function getFilledArray(value, n) {
+  return Array(n).fill(value);
+}
+
+getFilledArray('cheese', 3); // ['cheese', 'cheese', 'cheese']
+```
+
+
+> [!tldr] **Analisi del codice:**
+> `Array(n)` crea un array vuoto di lunghezza `n`, e `.fill(value)` riempie ogni elemento con il valore passato.
+>
+>Quindi `getFilledArray('cheese', 3)` crea un array vuoto di 3 elementi e lo riempie con `'cheese'` → `['cheese', 'cheese', 'cheese']`.
+
+
+In JavaScript funziona perfettamente, ma in TypeScript emerge un problema: 
+- **come tipizziamo il valore di ritorno?** 
+==Il tipo dell'array dipende dal tipo di `value` — che potrebbe essere `string`, `number`, `boolean`, o qualsiasi altro tipo.== 
+Dovremmo scrivere una funzione separata per ogni tipo possibile? No — i generic functions ci salvano:
+```ts
+function getFilledArray<T>(value: T, n: number): T[] {
+  return Array(n).fill(value);
+}
+```
+
+`etFilledArray<string>` è esattamente equivalente ad aver scritto `(value: string, n: number): string[]` — il generic sostituisce la necessità di duplicare la funzione per ogni tipo.
+
+>[!info] **La differenza tra generic types e generic functions è solo il contesto:** 
+>==i primi si applicano ai **type aliases**, i secondi alle **funzioni**. Il meccanismo è identico — un segnaposto `T` che viene sostituito con un tipo concreto al momento dell'uso.==
+
+
+#### Dimostrazione pratica Generic Functions
+Un esempio che mostra come `getFilledArray<T>()` si adatti a qualsiasi tipo — dai primitivi agli object types e alle tuple:
+```ts
+function getFilledArray<T>(value: T, n: number): T[] {
+  return Array(n).fill(value);
+}
+
+// T = string
+let stringArray: string[];
+stringArray = getFilledArray<string>('hi', 6);
+// → ['hi', 'hi', 'hi', 'hi', 'hi', 'hi']
+
+// T = number
+let numberArray: number[];
+numberArray = getFilledArray<number>(9, 6);
+// → [9, 9, 9, 9, 9, 9]
+
+// T = object type custom
+let personArray: {name: string, age: number}[];
+personArray = getFilledArray<{name: string, age: number}>({name: 'J. Dean', age: 24}, 6);
+// → [{name: 'J. Dean', age: 24}, ...]
+
+// T = tuple
+let coordinateArray: [number, number][];
+coordinateArray = getFilledArray<[number, number]>([3, 4], 6);
+// → [[3, 4], [3, 4], [3, 4], [3, 4], [3, 4], [3, 4]]
+```
+
+Notiamo come la stessa funzione gestisca correttamente tutti e quattro i casi — TypeScript verifica a compile time che il tipo passato come `T` sia consistente tra il valore passato e l'array restituito. Senza i generics avremmo dovuto scrivere `getFilledArrayOfStrings`, `getFilledArrayOfNumbers` e così via.

@@ -302,7 +302,7 @@ const liquidAmount: number = ouncesToCups(3);
 >[!info] **L'inferenza del tipo di ritorno è un altro tassello del sistema che lavora silenziosamente in background**
 > senza annotazioni esplicite, TypeScript traccia i tipi attraverso l'intera catena di chiamate e assegnazioni.
 
-#### Dimostrazione pratica
+#### Dimostrazione pratica Inferring Return Types
 
 Un esempio che mette alla prova la comprensione dell'inferenza del tipo di ritorno. 
 L'obiettivo è dichiarare una variabile di tipo `number` **senza usare `:` né scrivere alcun numero nel codice**:

@@ -4,7 +4,8 @@
       "deep",
       "remember",
       "ticket",
-      "link"
+      "link",
+      "difference"
     ],
     "settings": {
       "deep": [
@@ -189,6 +190,14 @@
           "changes": {
             "icon": "lucide-badge-help",
             "color": "229, 175, 118"
+          }
+        }
+      ],
+      "difference": [
+        {
+          "changes": {
+            "icon": "lucide-info",
+            "color": "124, 93, 49"
           }
         }
       ]
