@@ -1,3 +1,4 @@
+
 # Introduzione 
 Nella **[[Lezione 7 - Sistemi REST|lezione precedente]]** abbiamo analizzato i **sistemi REST** dal punto di vista architetturale, concentrandoci sui principi che regolano la comunicazione tra client e server nel Web moderno.
 
