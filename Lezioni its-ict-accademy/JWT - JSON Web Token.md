@@ -122,10 +122,11 @@ Quando il client invia il JWT al server in una richiesta protetta, il server non
 
 
 ### La decodifica dei JWT
-La parte più importante da comprendere dei JWT è che non sono realmente crittografati e decrittografati, ma sono in in realtà codificati. 
-Chiunque può visualizzare e modificare i JWT. 
-Come abbiamo già detto sono codificati utilizzando Base64, difatti è possibile prendere qualsiasi JWT copiarli e incollarli su [jwt.io](https://www.jwt.io/) e vedere tutti i claims. 
-Ed è proprio per questo che non si deve mai memorizzare informazioni sensibili nei JWT, anche perché non solo è possibile visualizzare il contenuto di questi JWT ma possiamo alterare i valori delle chiavi. 
+C'è una cosa fondamentale da capire sui JWT: **non sono crittografati, sono codificati**. Non è la stessa cosa.
+
+La codifica Base64URL non è una forma di protezione — è semplicemente un formato di trasporto. Chiunque può prendere un JWT, incollarlo su [jwt.io](https://jwt.io/) e leggere immediatamente tutti i claim in chiaro. È proprio per questo che, come abbiamo già detto, **non si devono mai inserire informazioni sensibili nel payload**.
+
+Ma c'è di più: non solo è possibile _leggere_ il contenuto di un JWT, ma è anche possibile _modificarlo_. Immaginiamo di intercettare questo token:
 ```json
 {
   "iss": "auth.miabanca.it",
@@ -138,34 +139,70 @@ Ed è proprio per questo che non si deve mai memorizzare informazioni sensibili 
 }
 ```
 
-Ad esempio in questo caso abbiamo cambiato il ruolo dell'utente da `"admin"` in `"user"`, in questo modo possiamo pensare di hackerare il sistema riscrivendo semplicemente il valore a nostro piacimento anche se in realtà questo non accadrebbe perché le firme non corrisponderebbero più.
+Un attaccante potrebbe provare a cambiare `"role": "user"` in `"role": "admin"` per ottenere privilegi elevati. In teoria sembra un attacco semplicissimo — in pratica **non funziona**, perché modificando il payload la firma non corrisponde più. Il server ricalcola l'hash, lo confronta con quello nel token e rileva immediatamente la manomissione, restituendo un `401 Unauthorized`.
+>[!info] **La firma non impedisce a nessuno di _leggere_ o _modificare_ il token — impedisce che una versione modificata venga accettata dal server.** 
+>==La sicurezza non sta nella segretezza del contenuto, ma nell'integrità garantita dalla firma.==
 
-### Lo statelessness dei JWT 
-I JWT sono [[Lezione 7 - Sistemi REST#**Vincolo “Stateless” (Senza Stato)** e Risorse|stateless]], esattamente come le API REST. 
-Per comprendere meglio partiamo da uno scenario: 
-Immaginiamo una piattaforma tipo Netflix; un azienda enorme con migliaia di servizi (fatturazione, streaming video, catalogo, etc.), l'utente deve ovviamente poter interagire con questi diversi servizi. 
-Ed è proprio qui che la stateless entra in gioco: 
-- Un JWT contiene tutte le informazioni di cui hanno bisogno questi servizi per elaborare la loro richiesta.
-Quindi quando l'utente sta recuperando (fetching) un video da Netflix sta anche inviando molte richieste per recuperare questi pacchetti. 
-Ad esempio il servizio di streaming non ha bisogno di prendere ogni singola richiesta dal client e convalidarla rispetto a qualche database. 
+### Lo statelessness dei JWT
 
-### Refresh Token 
-Ora che abbiamo capito come funzionano e cosa sono i JWTs potremo erroneamente pensare di costruire la nostra app, generare i JWT per i nostri utenti con una sola scadenza e basterà che li usino e andrà tutto bene . 
-In realtà ci troveremmo di fronte a due problemi: 
-1. I JWTS sono come i passaporti: se qualcuno riesce a rubare il JWT di qualcun altro e a fornirlo nell'intestazione di autorizzazione può accedere al profilo di quel utente senza che il sistema (e anche l'utente) se ne accorga.
-2. Le informazioni contenute nel token potrebbero cambiare: 
-	- supponiamo che il livello di accesso di un utente cambi da amministratore ad utente, e se il token scade tra un anno quell'utente potrebbe accedere ancora al servizio come amministratore fino alla scadenza del token.
-Questo perché come abbiamo detto i token JWT sono stateless, in questo caso contendo il ruolo, i servizi prenderanno quel ruolo come legittimo e a differenza delle normali e tradizionali  sessioni dei server:
-- I JWTs non possono essere essere invalidati dal server stesso. 
-Per ovviare a questo problema I JWTs hanno un ciclo di vita breve (in genere nell'ordine dei minuti).
-Ogni volta che il token scade, l'utente invierà una richiesta per aggiornare (refresh) quel token,  e se il nuovo token viene autenticato, viene salvato nel database e associato all'ID utente o a una determinata sessione o magari a un determinato dispositivo.
-Quindi l'utente ogni volta che il token web JSON di accesso scade può fornire il proprio token di aggiornamento.
+I JWT sono [[Lezione 7 - Sistemi REST#**Vincolo “Stateless” (Senza Stato)** e Risorse|stateless]], esattamente come le API REST — e non è una coincidenza, sono due concetti che lavorano molto bene insieme.
 
-Quindi fare il refresh mitiga due rischi: 
-1. Che qualcuno rubi i token utenti specifici, e se pure ci riuscisse il token viene aggiornato molto velocemente quindi diventerebbe inutilizzabile ben presto 
-2. I token non rappresentano lo stato reale delle cose: 
+Per capire perché questo è importante, immaginiamo una piattaforma come Netflix: un'azienda con migliaia di microservizi indipendenti (streaming video, catalogo, fatturazione, raccomandazioni, ecc.) che devono tutti essere in grado di riconoscere e servire l'utente.
 
-#### Refresh token rotation 
-In ogni caso per evitare che i token vengano comunque rubati, si usa ruotare i token di aggiornamento (refresh) ogni volta che il token viene utilizzato. 
-Quindi ad esempio, il token di accesso di un utente è scaduto e il client manda una richiesta di aggiornamento al server dicendogli che ha bisogno di un nuvo token di accesso fornendogli il proprio token di aggiornamento, e solo quando l'operazione ha successo il server elimina il vecchio refresh e ne rilascia uno nuovo.
-Quindi ogni volta che aggiornerò il token, ne riceverò uno nuovo, questo significa che se un hacker riuscisse ad accedere al mio refresh token al primo refresh quel token non varrà più nulla. 
+Senza i JWT, ogni servizio dovrebbe contattare un database centrale per verificare chi è l'utente e cosa può fare — migliaia di richieste al secondo, tutte che attendono una risposta dal database. Un collo di bottiglia enorme.
+
+Con i JWT invece ogni token **porta con sé tutte le informazioni necessarie**: 
+- chi è l'utente, 
+- il suo ruolo, 
+- quando il token scade. 
+Quando l'utente sta facendo lo streaming di un video, il client invia decine di richieste al secondo per recuperare i pacchetti video — il servizio di streaming non ha bisogno di validare ogni singola richiesta contro un database. 
+Gli basta verificare la firma del JWT localmente, in memoria, in pochi millisecondi.
+
+> [!info] **Questo è il vantaggio principale dello statelessness:** 
+> ==il server non deve ricordare nulla tra una richiesta e l'altra.== 
+> ==Ogni richiesta è autonoma e porta con sé tutto il contesto necessario per essere elaborata.==
+
+
+### Refresh Token
+
+Ora che abbiamo capito come funzionano i JWT, potremmo essere tentati di generare un token per ogni utente con una scadenza molto lunga — magari un anno — e non pensarci più. 
+In realtà ci troveremmo subito di fronte a due problemi seri.
+#### **Primo problema: il furto del token:** 
+- I JWT sono come i passaporti: ==se qualcuno riesce a intercettare il token di un utente e a includerlo nell'header `Authorization`, può accedere al suo profilo indisturbato — né il sistema né l'utente se ne accorgerebbero==.
+
+#### **Secondo problema: le informazioni nel token diventano obsolete.** 
+Supponiamo che il ruolo di un utente venga retrocesso da `"admin"` a `"user"`. 
+==Se il token scade tra un anno, quell'utente continuerà ad accedere come amministratore fino alla scadenza.== 
+Questo è un effetto diretto dello statelessness che abbiamo visto prima: 
+- ==i servizi si fidano ciecamente di quello che c'è scritto nel token, e a differenza delle sessioni tradizionali lato server, **un JWT non può essere invalidato dal server stesso**.==
+
+Per ovviare a entrambi i problemi, i JWT hanno un **ciclo di vita breve** — **in genere nell'ordine dei minuti.** 
+Quando il token scade, il client non costringe l'utente a fare di nuovo il login: 
+- ==invia invece il **Refresh Token:** (che avevamo visto essere rilasciato insieme all'Access Token al momento del login) per richiederne uno nuovo.== 
+**Il Refresh Token ha una durata molto più lunga:** 
+- ==viene salvato nel database e può essere associato all'ID utente, a una sessione specifica o persino a un determinato dispositivo==.
+
+> [!done] **Questo meccanismo mitiga entrambi i rischi:**
+> 
+> 
+> 1. **Furto del token** — ==anche se qualcuno intercetta un Access Token, questo diventa inutilizzabile in pochi minuti quando viene sostituito dal refresh.==
+> 2. **Token non aggiornati** — ==ad ogni refresh il server può emettere un nuovo token con le informazioni più recenti, ad esempio il ruolo aggiornato dell'utente==.
+
+> [!info] Il Refresh Token è l'unico elemento di questa architettura che richiede una verifica contro il database. L'Access Token invece viene validato localmente dal server tramite la firma — è esattamente questa separazione che rende il sistema scalabile.
+#### Refresh Token Rotation
+
+Anche i Refresh Token però possono essere rubati — e dato che hanno una durata molto più lunga degli Access Token, il rischio è maggiore. 
+Per mitigare questo problema si usa una tecnica chiamata **Refresh Token Rotation**: 
+- ==ogni volta che un Refresh Token viene utilizzato, viene immediatamente invalidato e sostituito con uno nuovo.==
+
+Il flusso funziona così:
+
+1. ==L'Access Token dell'utente scade==
+2. ==Il client invia il Refresh Token al server per richiederne uno nuovo==
+3. ==Il server verifica il Refresh Token, elimina quello vecchio dal database e rilascia contemporaneamente un nuovo Access Token **e** un nuovo Refresh Token==
+4. ==Il client salva il nuovo Refresh Token per il prossimo ciclo==
+
+In questo modo, anche se un attaccante riuscisse a rubare il Refresh Token, avrebbe una finestra di utilizzo brevissima: 
+- ==al primo refresh legittimo dell'utente, quel token viene invalidato e l'attaccante si ritrova con un token inutilizzabile==.
+
+> [!warning] Se il server riceve una richiesta con un Refresh Token già utilizzato in precedenza, questo è un segnale di allarme — significa che qualcuno potrebbe averlo rubato. In questo caso la best practice è invalidare **tutta la sessione** dell'utente e costringerlo a fare di nuovo il login.

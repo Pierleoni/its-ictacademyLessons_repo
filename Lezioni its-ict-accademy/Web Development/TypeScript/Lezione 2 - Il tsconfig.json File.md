@@ -107,3 +107,5 @@ progetto/
 >
 >>[!remember] **`dist/` è quello che viene effettivamente eseguito o distribuito.** 
 >>`src/` è quello che viene versionato e mantenuto dagli sviluppatori. Questa separazione è uno dei pattern più comuni in qualsiasi progetto TypeScript reale.
+
+
