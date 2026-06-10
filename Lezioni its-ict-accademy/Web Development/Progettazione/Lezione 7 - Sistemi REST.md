@@ -909,7 +909,7 @@ Content-Type: application/json
 Oltre a `Accept` e `Content-Type`, esistono molti altri header importanti, tra cui:
 
 - **Authorization**  
-    - ==Per inviare credenziali (token, API key) e autenticare il client.==
+    - ==Per inviare credenziali ([[JWT - JSON Web Token#^f35758|token]], API key) e [[JWT - JSON Web Token#Autenticazione|autenticare]] il client.==
     
 - **Cache-Control**  
     - ==Per indicare se e per quanto tempo una risposta può essere memorizzata in cache.==

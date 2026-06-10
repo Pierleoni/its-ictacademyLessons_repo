@@ -25,7 +25,7 @@ Nelle sezioni successive vedremo tutti gli strumenti che TypeScript mette a disp
 
 ## Type Guards
 
-Il modo più comune per fare type narrowing è il **type guard:**
+Il modo più comune per fare [[#Type Narrowing — Approfondimento|type narrowing]] è il **type guard:**
 - ==un controllo condizionale che verifica il tipo di una variabile in un punto specifico del codice.== 
 Lo strumento principale che abbiamo già visto è `typeof`:
 ```ts
@@ -76,9 +76,9 @@ I type guards forniscono quella certezza, e TypeScript permette di usare i metod
 
 Abbiamo visto che `typeof` funziona per i tipi primitivi. 
 Ma quando lavoriamo con object types custom, non possiamo usare `typeof` per distinguerli — restituirebbe semplicemente `'object'` in entrambi i casi. 
-Per questi scenari TypeScript riconosce l'operatore `in` come type guard.
+==Per questi scenari TypeScript riconosce l'operatore `in` come type guard.==
 
-L'operatore `in` verifica se una proprietà esiste su un oggetto — e TypeScript lo usa per restringere il tipo:
+==L'operatore `in` verifica se una proprietà esiste su un oggetto== — **e TypeScript lo usa per restringere il tipo**:
 ```ts
 type Tennis = {
   serve: () => void;
