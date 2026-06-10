@@ -13,31 +13,32 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Web Development/TypeScript/Lezione 2 - Il tsconfig.json File.md",
+                "file": "Docker/Lezione 3 - I container e le immagini dei container.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Lezione 2 - Il tsconfig.json File"
+              "title": "Lezione 3 - I container e le immagini dei container"
             }
           },
           {
-            "id": "e821d3d80534c3b8",
+            "id": "18c4257c9e23085a",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Web Development/TypeScript/Lezione 5 - Union Type.md",
+                "file": "Web Development/TypeScript/Lezione 7 - Tipi avanzati in TypeScript.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Lezione 5 - Union Type"
+              "title": "Lezione 7 - Tipi avanzati in TypeScript"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -159,8 +160,8 @@
             "state": {
               "type": "advanced-tables-toolbar",
               "state": {},
-              "icon": "lucide-ghost",
-              "title": "advanced-tables-toolbar"
+              "icon": "spreadsheet",
+              "title": "Advanced Tables"
             }
           },
           {
@@ -169,8 +170,8 @@
             "state": {
               "type": "code-execute-manage-executors",
               "state": {},
-              "icon": "lucide-ghost",
-              "title": "code-execute-manage-executors"
+              "icon": "command-glyph",
+              "title": "Execution Runtimes"
             }
           },
           {
@@ -212,52 +213,52 @@
       "zk-prefixer:Nuova nota univoca": false,
       "workspaces:Gestisci layout delle aree di lavoro": false,
       "bases:Crea nuova Base": false,
+      "callout-manager:Insert Callout": false,
+      "darlal-switcher-plus:Open Symbols for the active editor": false,
       "obsidian-importer:Open Importer": false,
+      "obsidian42-text-transporter:Text Transporter": false,
       "table-editor-obsidian:Advanced Tables Toolbar": false,
       "darlal-switcher-plus:Open in Headings Mode": false,
-      "darlal-switcher-plus:Open Symbols for the active editor": false,
-      "obsidian42-text-transporter:Text Transporter": false,
       "templater-obsidian:Templater": false,
-      "callout-manager:Insert Callout": false,
       "vscode-editor:Create Code File": false
     }
   },
-  "active": "cdf52a1b3cf34085",
+  "active": "18c4257c9e23085a",
   "lastOpenFiles": [
-    "Web Development/TypeScript/Lezione 1 - Introduzione a Typescript.md",
-    "Web Development/TypeScript/Lezione 2 - Il tsconfig.json File.md",
-    "Web Development/React Native/Lezione 1 - Introduzione a React Native.md",
-    "Web Development/React Native/Lezione 2 - Le basi di React Native.md",
-    "Web Development/React Native/Untitled.md",
-    "Web Development/TypeScript/Lezione 7 - Tipi avanzati in TypeScript.md",
-    "Web Development/TypeScript/Lezione 6 - Type Narrowing.md",
-    "Web Development/TypeScript/Lezione 5 - Union Type.md",
-    "Python/Lezione 4_FunzioniPython/Funzioni in Python.md",
     "Web Development/TypeScript/Lezione 4 - Array, Custom Types e Generic.md",
+    "Web Development/TypeScript/Lezione 6 - Type Narrowing.md",
+    "Web Development/React Native/Lezione 1 - Introduzione a React Native.md",
+    "Web Development/TypeScript/Lezione 7 - Tipi avanzati in TypeScript.md",
     "Web Development/TypeScript/Lezione 3 - Le funzioni in Typescript.md",
-    "Java/Lezione 12 Collection/Lezione 12 - Collection.md",
-    "Java/Lezione 12 Collection/Lezione 12 parte 2 - L'interfaccia Set.md",
-    "Web Development/Javascript/Lezione 5; Le funzioni in Javascript.md",
-    "Web Development/Javascript/Lezione 6; DOM e ripasso JS.md",
-    "Web Development/Javascript/Lezione 4 ; Espressioni e operatori, statements e cicli.md",
-    "Web Development/Javascript/Lezione 3; Array, Indexing, Attributo Length, Operatori, Conversione tra tipi di variabili.md",
-    "Web Development/Javascript/Lezione 2 Le variabili in Javascript.md",
-    "Web Development/Javascript/Lezione 1 I fondamenti Javascript.md",
-    "Web Development/Javascript/Gli oggetti in Javascript.md",
-    "Web Development/React/Lezione 1- Componenti Funzionali in React React.md",
-    "Web Development/React/Lezione 4 - useEffect.md",
-    "Web Development/React/Lezione 3 - Hooks.md",
+    "Web Development/TypeScript/Lezione 5 - Union Type.md",
+    "Web Development/TypeScript/Lezione 2 - Il tsconfig.json File.md",
+    "Web Development/TypeScript/Lezione 1 - Introduzione a Typescript.md",
     "Web Development/TypeScript",
+    "Web Development/React Native/Lezione 2 - Le basi di React Native.md",
     "Docker/Lezione 3 - I container e le immagini dei container.md",
+    "Untitled Diagram.svg",
+    "Sommario.md",
+    "Senza nome.canvas",
     "img/Docker/dockerignore.png",
     "img/Docker/Docker built context.png",
-    "Untitled Diagram.svg",
     "Untitled Diagram 1.svg",
-    "Senza nome.canvas",
     "Docker/Lezione 1 - Introduzione a Docker e ai container.md",
     "Senza nome.md",
+    "SQL/Introduzione a SQL e il DDL.md",
+    "Java/Lezione 22 - Spring Rest/Lezione 22 parte 3 - Dependency Injection.md",
+    "Docker/Lezione 2 - Demo Application.md",
+    "Java/Lezione 22 - Spring Rest/Lezione 22 - Spring Rest.md",
     "img/C__Users_Project Lead_OneDrive_Documents_Programmazione_Its-ict academy_Lezioni its-ict-accademy_img/Screenshot 2025-07-09 at 12-18-08 Meet - bmb-xnne-ahh.png",
     "Docker",
+    "Java/Progettazione 3/Lezione 2 - Architetture dei microservizi.md",
+    "Sistemi digitali/Lezione 17/Servizi e funzioni del Sistema Operativo.md",
+    "Sistemi digitali/Lezione 12/I fundamentals di un Sistema Operativo.md",
+    "Progettazione/Analisi concettuale/Lezione 2/Documenti di specifica.md",
+    "SQL/Senza nome.md",
+    "Progettazione/Base dati/Lezione 1; Introduzione e modello relazionale.md",
+    "Web Development/React/Lezione 4 - useEffect.md",
+    "Web Development/React/Lezione 1- Componenti Funzionali in React React.md",
+    "Web Development/Javascript/Lezione 8 - L'asincronia in JS.md",
     "Python/Le matrici in Python/matrici_con_spiegazione.py",
     "Python/Le matrici in Python/matrici_senza_commenti.py",
     "Java/Progettazione 3",
