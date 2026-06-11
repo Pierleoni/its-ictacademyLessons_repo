@@ -80,7 +80,8 @@ Oltre a questi, il payload può contenere claim personalizzati per l'applicazion
 >Chiunque intercetti il token può leggerne il contenuto — non inserire mai dati sensibili come password o numeri di carta di credito.
 
 #### 3. Signature (firma): 
-Quando il server di autenticazione emette un JWT, lo **firma**: è il modo in cui dichiara di essere l'autorità che ha emesso quel token.
+Quando il server di autenticazione emette un JWT, lo **firma**: 
+- ==è il modo in cui dichiara di essere l'autorità che ha emesso quel token.==
 
 La firma viene generata così:
 ```
@@ -90,13 +91,14 @@ HMACSHA256(
 )
 ```
 
-Il server prende header e payload, li fa passare attraverso una funzione di hashing insieme a un **valore segreto** (una stringa privata che solo il server conosce), e produce un hash univoco. 
+==Il server prende [[#1. Header|header]] e [[#2. Payload|payload]], li fa passare attraverso una funzione di hashing insieme a un **valore segreto** (una stringa privata che solo il server conosce), e produce un hash univoco.== 
 Questo hash è la firma, ed è inclusa nel token stesso.
 
 #### Come funzionano le firme 
 Ora che sappiamo cosa contiene un JWT, vediamo come il server garantisce che nessuno lo abbia manomesso.
 
-Quando emette il token, il server prende l'header e il payload e li fa passare attraverso una funzione di hashing insieme a un **valore segreto** — una stringa privata che solo il server conosce (es. `"mio_segreto_super_sicuro"`). Il risultato di questa operazione è la firma, che viene inclusa nel token stesso come terza parte.
+Quando emette il token, il server prende l'header e il payload e li fa passare attraverso una funzione di hashing insieme a un **valore segreto** — una stringa privata che solo il server conosce (es. `"mio_segreto_super_sicuro"`). 
+Il risultato di questa operazione è la firma, che viene inclusa nel token stesso come terza parte.
 ```
 firma = HMACSHA256(base64url(header) + "." + base64url(payload), secret)
 ```
@@ -122,9 +124,12 @@ Quando il client invia il JWT al server in una richiesta protetta, il server non
 
 
 ### La decodifica dei JWT
-C'è una cosa fondamentale da capire sui JWT: **non sono crittografati, sono codificati**. Non è la stessa cosa.
+C'è una cosa fondamentale da capire sui JWT: 
+- ==**non sono crittografati, sono codificati**.== 
+Non è la stessa cosa.
 
-La codifica Base64URL non è una forma di protezione — è semplicemente un formato di trasporto. Chiunque può prendere un JWT, incollarlo su [jwt.io](https://jwt.io/) e leggere immediatamente tutti i claim in chiaro. È proprio per questo che, come abbiamo già detto, **non si devono mai inserire informazioni sensibili nel payload**.
+La codifica Base64URL non è una forma di protezione — ==è semplicemente un formato di trasporto.== 
+Chiunque può prendere un JWT, incollarlo su [jwt.io](https://jwt.io/) e leggere immediatamente tutti i claim in chiaro. È proprio per questo che, come abbiamo già detto, **non si devono mai inserire informazioni sensibili nel payload**.
 
 Ma c'è di più: non solo è possibile _leggere_ il contenuto di un JWT, ma è anche possibile _modificarlo_. Immaginiamo di intercettare questo token:
 ```json

@@ -161,7 +161,7 @@ export default function Layout() {
 3. **Slot:** ^a43585
 	- ==un navigatore "trasparente", senza alcuno stile o chrome aggiunto.== 
 	- ==Mostra semplicemente la schermata corrente, utile quando si vuole gestire la navigazione manualmente==:
-```
+```tsx
 import {Slot} from 'expo-router';
 export default function Layout(){
 	return <Slot/>;
@@ -414,9 +414,10 @@ export default function HomeScreen() {
 <Link href="/settings/profile">Profilo</Link>
 ```
 
-2. **`push`:** 
-- ==forza l'aggiunta della schermata di destinazione in cima allo [[#I tre navigatori principali|Stack]], anche se la route è già presente nello stack.== 
-- Senza `push`, il comportamento di default è `replace` — ==la schermata corrente viene sostituita invece di impilata:==
+2. **`push`:**  
+- ==forza l'aggiunta della schermata di destinazione in cima allo [[#I tre navigatori principali|Stack]], anche se la route è già presente nello stack.==   ^30f337
+
+- Senza `push`, il comportamento di default è `replace` — ==la schermata corrente viene sostituita invece di impilata:==   ^replace
 ```tsx
 // sostituisce la schermata corrente (default)
 <Link href="/secondIndex">Vai a Second</Link>
@@ -488,7 +489,7 @@ STACK: [ Home, Lista ]      ← torna a Lista
 >- `push` si usa per la navigazione normale — ==lista → dettaglio, home → profilo, ecc.==
 
 #### `useRouter()`
-Un altro modo per navigare tra le schermate è il hook `useRouter()` di Expo Router. 
+Un altro modo per navigare tra le schermate è il [[Lezione 3 - Hooks#Cosa sono gli Hooks|hook]] `useRouter()` di Expo Router. 
 A differenza di `<Link>` che è un componente dichiarativo nel JSX, `useRouter()` è **imperativo** — ==si chiama nel codice TypeScript e si usa tipicamente dentro un `onPress` o dopo una logica asincrona.== 
 ```tsx
 import { Link, useRouter } from "expo-router";
