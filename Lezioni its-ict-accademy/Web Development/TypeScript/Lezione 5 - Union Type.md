@@ -85,7 +85,7 @@ In tutti i casi il principio è lo stesso:
 #### Dimostrazione pratica della type guard
 
 Un esempio concreto che usa due type guards per gestire `string` e `number` in modo diverso all'interno della stessa funzione:
-```
+```ts
 function formatValue(value: string | number) {
   // Type guard per string — toLowerCase() è disponibile solo su string
   if (typeof value === 'string') {

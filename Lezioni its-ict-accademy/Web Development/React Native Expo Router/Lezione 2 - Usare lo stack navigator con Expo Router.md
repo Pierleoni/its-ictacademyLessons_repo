@@ -14,14 +14,14 @@ Tuttavia fino ad ora abbiamo usato lo `<Stack />` in modo minimale — lo abbiam
 
 In questa lezione lo esploriamo in profondità. Partiremo dalla navigazione di base per poi affrontare scenari più complessi:
 
-- **Navigazione in uno stack** — come funziona la pila nel dettaglio e come controllarla
-- **Ritorno a una schermata già esistente** — cosa succede quando la schermata di destinazione è già presente nello stack
-- **Sostituzione della schermata corrente** — quando e come usare `replace` in modo consapevole
-- **Opzioni di navigazione** — come configurare le transizioni e il comportamento dello stack
-- **Passaggio di parametri tra le schermate** — come mandare dati da una schermata all'altra durante la navigazione
-- **Percorsi dinamici** — come creare route parametriche che si adattano ai dati, come `/products/[id]`
-- **Percorsi dinamici annidati** — come gestire route dinamiche a più livelli di profondità
-- **Opzioni di schermata** — come personalizzare header, titolo e stile di ogni singola schermata
+- **[[#Navigazione in uno stack|Navigazione in uno stack]]** — come funziona la pila nel dettaglio e come controllarla
+- **[[#Ritorno a una schermata esistente|Ritorno a una schermata già esistente]]** — cosa succede quando la schermata di destinazione è già presente nello stack
+- **[[#Sostituzione della schermata corrente|Sostituzione della schermata corrente]]** — quando e come usare `replace` in modo consapevole
+- **[[#L'opzione di navigazione|Opzioni di navigazione]]** — come configurare le transizioni e il comportamento dello stack
+- **[[#Passaggio di Parametri tra le schermate|Passaggio di parametri tra le schermate]]** — come mandare dati da una schermata all'altra durante la navigazione
+- **[[#Percorsi dinamici|Percorsi dinamici]]** — come creare route parametriche che si adattano ai dati, come `/products/[id]`
+- **[[#Rotte dinamiche annidate|Percorsi dinamici annidati]]** — come gestire route dinamiche a più livelli di profondità
+- **[[#Opzioni Schermata|Opzioni di schermata]]** — come personalizzare header, titolo e stile di ogni singola schermata
 
 ## Navigazione in uno stack 
 
@@ -614,7 +614,7 @@ Se il parametro `name` ==è presente viene visualizzato il messaggio di benvenut
 
 ##### `useLocalSearchParams`
 
- È un [[Lezione 3 - Hooks#Cosa sono gli Hooks|hook]] che permette di **leggere i parametri passati durante la navigazione** nella schermata corrente. 
+ È un [[Lezione 3 - Hooks#Cosa sono gli Hooks|hook]] che permette di ==**leggere i parametri passati durante la navigazione** nella schermata corrente.== 
  "Local" significa che: 
  - ==legge solo i parametri della schermata corrente, ignorando quelli di schermate parent nella gerarchia di navigazione.==
 
@@ -742,60 +742,16 @@ Quindi:
 
 
 ### Percorsi dinamici 
-È possibile rendere dinamico un segmento di un percorso racchiudendolo tra parentesi quadre. 
-Voglio creare una schermata che mostri alcuni proverbi, quindi voglio che il titolo sia "proverbi" e il proverbio sia indicato dall'ID; 
-creerò quindi una cartella chiamata "proverbi" e un file con l'ID tra parentesi quadre, in modo che questa parte sia dinamica. Non aggiungerò un file di layout qui perché voglio che questa schermata sia ancora gestita dallo Stack nel file `_layout.tsx` nella radice del progetto.
-Quindi faremo un'esportazione predefinita per la schermata "`ProverbsScreen.tsx`" e otterremo una visualizzazione a pagina intera con spazio per il proverbio e la fonte.
-```tsx
-const ProverbsScreen = () => {
 
-  return (
 
-    <View style={styles.container}>
+Fino ad ora i percorsi erano tutti statici: `/second`, `/third`, ecc. 
+Expo Router permette di: 
+- ==rendere **dinamico un segmento del percorso** racchiudendolo tra parentesi quadre nel nome del file.==
 
-      <Text style = {styles.header}>ProverbsScreen</Text>
+Ad esempio, per una schermata che mostra un proverbio in base all'ID, si crea una cartella `proverbs/` con un file chiamato `[id].tsx`. 
+**Quel segmento tra parentesi quadre diventa una variabile che cambia a seconda del percorso visitato:** ==`/proverbs/1`, `/proverbs/2`, ecc. — tutte puntano allo stesso file, ma con un `id` diverso.==
 
-      <Text>-Source</Text>
-
-    </View>
-
-  );
-
-};
-
-  
-
-export default ProverbsScreen;
-
-  
-
-const styles = StyleSheet.create({
-
-  container: {
-
-    flex: 1,
-
-    justifyContent: 'center',
-
-    alignItems: 'center',
-
-    padding: 16,
-
-    // gap: 8
-
-  },
-
-  header: {
-
-    fontSize: 24,
-
-    color: '#d21818ff'
-
-  }
-
-});
-```
-
+Non è necessario aggiungere un [[Lezione 1 - Introduzione a EXPO SDK 55 e Navigazione#`_layout.tsx`|`_layout.tsx`]] dentro la cartella se si vuole che la schermata continui ad essere gestita dallo Stack del layout radice.
 Generiamo alcuni dati per questo file : un elenco di 10 citazioni motivazionali
 ```tsx
 type Proverb = {
@@ -835,86 +791,447 @@ const proverbs: Proverb[] = [
 ];
 ```
 
-Ora dobbiamo accedere a questo ID per sapere quale proverbio mostrare, e lo facciamo utilizzando `useLocalSearchParams`, che possiamo anche tipizzare: 
+**Analisi del codice:**
+Con [[Lezione 4 - Array, Custom Types e Generic#Object Types|`type`]] stai definendo una **forma:**
+- stai dicendo a TypeScript: =="ogni oggetto di tipo `Proverb` deve avere esattamente questi tre campi, tutti di tipo `string`".== 
+- ==Non stai creando nessun dato, stai solo descrivendo la struttura che i dati dovranno rispettare.==
+Con `const proverbs: Proverb[] = [ ... ]`: 
+- Qui dichiari una costante `proverbs` e la tipizzi come `Proverb[]`, ovvero un **array di oggetti** che rispettano la forma descritta dal type. 
+- Il `[]` dopo il tipo è la sintassi di TypeScript per dire "array di".
+
+> [!fail] Se provassi ad aggiungere un campo extra o a ometterne uno, TypeScript ti segnalerebbe un errore a compile time — è esattamente il vantaggio di tipizzare l'array.
+> 
+> 
+
+Ogni elemento dentro l'array è un oggetto letterale con le tre chiavi dichiarate nel type:
 ```tsx
+{ id: "1", proverb: "Il momento migliore...", source: "Proverbio Cinese" }
+```
+##### Leggere il segmento dinamico
+
+==Per accedere al valore dell'`id` si usa [[#`useLocalSearchParams`|`useLocalSearchParams`]], esattamente come per i parametri passati manualmente.== 
+Expo Router tratta i segmenti dinamici come parametri:
+```tsx
+// dichiaro hooks che legge solo i parametri della schermata corrente
+// in particolare legge gli id della lista di oggetti 
+const params = useLocalSearchParams<{ id: string }>();
+// cerco nella array proverbs se l'id del parametro in input è uguale all'id di params restiuisce true, altrimenti restituisce undefined
+// lo salvo in una variabile per maggiore riusibilità
+const proverb = proverbs.find(p => p.id === params.id);
+```
+
+**Analisi del codice**
+`useLocalSearchParams`: 
+- ==legge i parametri presenti nell'URL della schermata corrente e li restituisce come oggetto.== 
+- Il `<{ id: string }>` tra i [[Lezione 4 - Array, Custom Types e Generic#Generic Types|generics]] ==dice a TypeScript che ti aspetti un parametro chiamato `id` di tipo `string`.==
+
+Quando navighi verso `/proverbs/1`, Expo Router trasforma quel `1` in un parametro e lo rende disponibile come `params.id`. Quindi dopo questa riga `params` è un oggetto del tipo:
+```tsx
+{ id: "1" } // se hai navigato verso /proverbs/1
+{ id: "2" } // se hai navigato verso /proverbs/2
+```
+
+- `const proverb = proverbs.find(p => p.id === params.id);`:
+	- `find()` è un metodo nativo degli array JavaScript: 
+		-  ==**scorre ogni elemento** e restituisce il primo per cui la condizione è `true`.== 
+		- ==Se non trova nulla restituisce `undefined`.==
+
+- La funzione freccia `p => p.id === params.id` è il **predicato**: 
+	- ==ovvero la condizione da verificare per ogni elemento.== 
+	- `p` è il nome arbitrario che dai ad ogni elemento dell'array durante l'iterazione — potevi chiamarlo `item`, `el`, o qualsiasi altra cosa.
+
+==Quindi per ogni oggetto nell'array controlla se il suo `id` corrisponde all'`id` letto dall'URL. Quando trova la corrispondenza si ferma e restituisce quell'oggetto, che viene salvato in `proverb`.==
+
+È importante gestire anche il caso in cui l'ID non corrisponda a nessun elemento, restituendo un messaggio di errore:
+```tsx
+// se la ricerca restituisce undefined quindi proverb è falsy
+if (!proverb) {
+    return (
+    // restiuisco un messaggio di errore
+        <View style={styles.container}>
+            <Text style={styles.txtError}>Error: Not Found</Text>
+        </View>
+    );
+}
+```
+
+**Analisi del codice:**
+
+> [!remember] Ricorda che `proverbs.find()` restituisce `undefined` se non trova nessun elemento che soddisfa la condizione. 
+> 
+> Quindi `proverb` può essere o un oggetto `Proverb` oppure `undefined`.
+
+`!proverb` sfrutta la **negazione logica** combinata con la **falsiness** di JavaScript: 
+- ==`undefined` è un valore falsy, quindi `!undefined` è `true`.== 
+- ==In altre parole, `if (!proverb)` si legge come "se proverb non esiste".==
+
+Questo blocco è un pattern chiamato **early return**:
+- ==se la condizione è vera, la funzione restituisce subito il JSX dell'errore e si ferma lì — il codice sotto non viene mai eseguito.== 
+
+> [!hint] Questo evita di dover annidare tutto il resto in un `else`.
+> 
+
+In assenza di questo controllo, TypeScript stesso ti avvertirebbe: 
+ sa che `proverb` potrebbe essere `undefined`, quindi non ti permetterebbe di accedere a `proverb.proverb` o `proverb.source` senza prima verificare che esista. 
+==Il blocco `if (!proverb)` serve quindi sia come **guardia logica** che come **soddisfazione del type checker**.==
+##### Navigare verso un percorso dinamico
+
+Da `index.tsx` ci sono due modi equivalenti per raggiungere una schermata con percorso dinamico:
+
+1. Il primo è il più diretto: 
+	- ==si passa l'ID direttamente nella stringa del percorso==.
+```tsx
+<Link href='/proverbs/1' push asChild>
+    <Button title="Push to /proverb/1" />
+</Link>
+```
+l'ID è scritto **hardcoded nella stringa** del percorso. 
+==Expo Router legge il segmento `1` e lo mappa automaticamente al parametro `[id]` definito nel nome del file.== 
+
+> [!fail] **Funziona perfettamente ma è poco flessibile**
+>  ==se vuoi navigare verso un ID diverso devi scrivere un altro `<Link>` con una stringa diversa.==
+
+2. Il secondo è più esplicito: 
+	- separa il pathname dai parametri, usando la notazione con le parentesi quadre:
+```tsx
+<Link href={{ pathname: '/proverbs/[id]', params: { id: '2' } }} push asChild>
+    <Button title="push to /proverb/2" />
+</Link>
+```
+
+Qui invece `href` riceve un oggetto con due campi separati: 
+- `pathname` ==contiene la struttura del percorso con il segmento dinamico esplicito tra parentesi quadre,==
+- `params` ==contiene i valori da iniettare in quei segmenti.==
+
+Il vantaggio reale di questa forma si vede quando l'ID non è un valore fisso ma una variabile, ad esempio quando stai renderizzando una lista:
+```tsx
+proverbs.map(p => (
+    <Link href={{ pathname: '/proverbs/[id]', params: { id: p.id } }} push asChild>
+        <Button title={p.proverb} />
+    </Link>
+))
+```
+Entrambi producono lo stesso risultato. 
+
+> [!hint] La seconda forma è preferibile quando l'ID è una variabile e non un valore hardcoded, perché rende più chiara la separazione tra struttura del percorso e dati.
+> 
+
+###### Codice completo
+`src/app/proverbs/[id].tsx`
+```tsx
+import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { useLocalSearchParams } from 'expo-router';
+
+// definisco la forma degli oggetti proverb
+type Proverb = {
+    id: string;
+    proverb: string;
+    source: string;
+};
+
+// array di dati statici tipizzato come Proverb[]
+const proverbs: Proverb[] = [
+    { id: "1", proverb: "Il momento migliore per piantare un albero era 20 anni fa. Il secondo momento migliore è adesso.", source: "Proverbio Cinese" },
+    { id: "2", proverb: "Non importa quanto vai piano, l'importante è non fermarsi.", source: "Confucio" },
+    // ...
+];
+
 const ProverbsScreen = () => {
+    // leggo il segmento dinamico dall'URL
+    const params = useLocalSearchParams<{ id: string }>();
+    // cerco il proverbio corrispondente all'id ricevuto
+    const proverb = proverbs.find(p => p.id === params.id);
 
-    const params = useLocalSearchParams<{id:string}>();
+    // early return: se l'id non corrisponde a nessun elemento mostro l'errore
+    if (!proverb) {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.txtError}>Error: {params.id} Not Found</Text>
+            </View>
+        );
+    }
 
-    return (
+    return (
+        <View style={styles.container}>
+            <Text style={styles.header}>"{proverb.proverb}"</Text>
+            <Text>- {proverb.source}</Text>
+        </View>
+    );
+};
 
-        <View style={styles.container}>
+export default ProverbsScreen;
+```
 
-            <Text style={styles.header}>ProverbsScreen</Text>
+`index.tsx` — i due link verso il percorso dinamico
 
-            <Text>-Source</Text>
+```tsx
+{/* forma diretta: ID hardcoded nella stringa */}
+<Link href='/proverbs/1' push asChild>
+    <Button title="Push to /proverb/1" />
+</Link>
 
-        </View>
+{/* forma esplicita: pathname e params separati */}
+<Link href={{ pathname: '/proverbs/[id]', params: { id: '2' } }} push asChild>
+    <Button title="push to /proverb/2" />
+</Link>
+```
 
-    );
+> [!abstract] **Il flusso completo è:**
+>  ==`index.tsx` naviga verso `/proverbs/1` → Expo Router mappa il segmento `1` al file `[id].tsx` → `useLocalSearchParams` lo legge come `params.id` → `proverbs.find()` cerca l'elemento corrispondente → il componente renderizza il proverbio o il messaggio di errore.==
 
+### Rotte dinamiche annidate 
+È possibile avere **più segmenti dinamici** all'interno dello stesso percorso. Per una schermata che mostra un prodotto filtrato per categoria, la struttura delle cartelle sarà:
+```css
+app/
+└── products/
+    └── [category]/
+        └── [product].tsx
+```
+
+Sia la categoria che l'ID del prodotto sono dinamici, quindi navigando verso `/products/shoes/1234` Expo Router mapperà automaticamente `shoes` a `category` e `1234` a `product`.
+
+##### Leggere più segmenti dinamici
+
+`useLocalSearchParams` funziona esattamente come nel caso singolo — restituisce un oggetto con tutti i segmenti dinamici come chiavi:
+
+
+
+```tsx
+const ProductScreen = () => {
+    const params = useLocalSearchParams();
+
+    return (
+        <View style={styles.container}>
+            {/* JSON.stringify converte l'oggetto params in stringa leggibile */}
+            <Text>{JSON.stringify(params, null, '')}</Text>
+        </View>
+    );
 };
 ```
 
-Quindi cerchiamo il proverbio dalla nostra lista
+`JSON.stringify(params, null, '')`: 
+- ==è usato qui solo a scopo dimostrativo per visualizzare il contenuto grezzo di `params`.== 
+- ==Il risultato sarà qualcosa come `{"category":"shoes","product":"1234"}`.==
+
+In un caso reale tipizzeresti e destruttureresti i parametri:
+```tsx
+const { category, product } = useLocalSearchParams<{ category: string; product: string }>();
+```
+quando tornerò alla pagina `index.tsx` e aggiungerò un link del tipo "`product/shoes/1234`", potremo vedere qui entrambi i segmenti dinamici del percorso
+
+##### Navigare verso una rotta annidata dinamica
+
+Da `index.tsx` si naviga esattamente come per una rotta dinamica semplice:
 
 ```tsx
-const ProverbsScreen = () => {
+<Link href='/products/shoes/1234' push asChild>
 
-    const params = useLocalSearchParams<{id:string}>();
+          <Button title="push to /products" />
 
-    const proverb = proverbs.find(p=>p.id === params.id)
-
-    return (
-
-        <View style={styles.container}>
-
-            <Text style={styles.header}>ProverbsScreen</Text>
-
-            <Text>-Source</Text>
-
-        </View>
-
-    );
-
-};
+        </Link>
 ```
+==Expo Router si occupa di scomporre il percorso e distribuire i segmenti ai parametri corrispondenti in base alla struttura delle cartelle.==
 
-e dovremo anche gestire il caso in cui non venga trovato, quindi nel caso in cui non ci sia il proverbio con l'ID specificato, altrimenti lo visualizzeremo: 
+### Opzioni Schermata  
+Fino ad ora lo Stack in `_layout.tsx` gestiva tutte le schermate automaticamente senza che fossero dichiarate esplicitamente. 
+È però possibile **elencare le schermate dentro lo Stack** tramite `<Stack.Screen>` per configurarle individualmente, passando il percorso tramite `name` e le opzioni tramite `options`.
+
+Il prop `name` deve corrispondere esattamente al percorso del file senza la barra iniziale — quindi `proverbs/[id]` e non `/proverbs/`
+
+##### Titolo statico
+
+Il caso più semplice è passare un oggetto fisso a `options`:
 ```tsx
-const ProverbsScreen = () => {
+<Stack.Screen
+    name='proverbs/[id]'
+    options={{ title: 'Proverb' }}
+/>
+```
+Questo sovrascrive il titolo di default, che altrimenti sarebbe il percorso grezzo — non molto leggibile.
 
-    const params = useLocalSearchParams<{ id: string }>();
+##### Titolo dinamico dal layout
 
-    const proverb = proverbs.find(p => p.id === params.id)
+Per le schermate con percorsi dinamici il titolo statico rimane sempre lo stesso. Si può trasformare `options` in una funzione che riceve il `route` e restituisce l'oggetto delle opzioni costruito dinamicamente:
 
-    if (!proverb) {
-
-        return (
-
-            <View style={styles.container}>
-
-                <Text style={styles.txtError}  >Error: {params.id} Not Found</Text>
-
-            </View>
-
-        )
-
-    }
-
-    return (
-
-        <View style={styles.container}>
-
-            <Text style={styles.header}>{proverb.proverb}</Text>
-
-            <Text>- {proverb.source}</Text>
-
-        </View>
-
-    );
-
-};
+```tsx
+<Stack.Screen
+    name='proverbs/[id]'
+    options={({ route }) => ({
+        title: 'Proverb ID: ' + route.params?.id
+    })}
+/>
 ```
 
-%% Continuare il video da min 7:29 %%
+Mostrare l'ID però non è molto elegante. Il problema è che dal layout non si ha accesso ai dati della schermata — solo ai parametri del percorso.
+
+
+
+##### Titolo dinamico dalla schermata
+
+Quando il titolo dipende da dati disponibili solo dentro la schermata, Expo Router permette di configurare le opzioni **dall'interno del componente stesso** usando `<Stack.Screen>` senza il prop `name`:
+
+```tsx
+return (
+    <View style={styles.container}>
+        <Stack.Screen options={{ title: proverb.source }} />
+        <Text style={styles.header}>"{proverb.proverb}"</Text>
+        <Text>- {proverb.source}</Text>
+    </View>
+);
+```
+
+In questo caso il titolo mostrerà la fonte del proverbio, che è un'informazione accessibile solo dentro `[id].tsx`.
+
+##### Precedenza delle opzioni
+
+Le opzioni definite in `_layout.tsx` e quelle definite dentro la schermata non si annullano a vicenda — si **fondono**. La regola è semplice: 
+- ==**più sei vicino alla schermata, più hai precedenza**.==
+
+`_layout.tsx` è: 
+- ==il posto dove si definiscono le opzioni di default per tutte le schermate dello stack — è necessariamente generico, perché non ha accesso ai dati delle singole schermate.==
+
+`[id].tsx`: invece è la schermata stessa: 
+- ha accesso a tutto — parametri, dati, stato locale. 
+- ==Quando si definisce `<Stack.Screen options={...} />` al suo interno, Expo Router capisce che quelle opzioni sono più specifiche e le applica sopra quelle del layout.==
+
+Immagina di avere nel layout:
+```TSX
+// _layout.tsx
+<Stack.Screen
+    name='proverbs/[id]'
+    options={{ title: 'Proverb', headerShown: true }}
+/>
+```
+
+E dentro la schermata:
+```TSX
+// proverbs/[id].tsx
+<Stack.Screen options={{ title: proverb.source }} />
+```
+
+Il risultato finale sarà:
+```TSX
+{ title: proverb.source, headerShown: true }
+```
+
+
+Applicando la regola per ogni proprietà:
+
+- `title` è definito in entrambi → ==vince quello della schermata: `proverb.source`==
+- `headerShown` è definito solo nel layout → ==viene applicato così com'è==
+
+> [!HELP] **Il caso pratico del tutorial segue esattamente questa logica:**
+> 
+> - nel layout si imposta `title: 'Proverb'` come fallback generico, e dentro `[id].tsx` lo si sovrascrive con `title: proverb.source` non appena i dati del proverbio sono disponibili.
+
+> [!hint] Per esplorare tutte le opzioni disponibili — titolo, stile dell'intestazione, pulsanti, animazioni, ecc. — si può usare `CTRL + Spazio` nell'editor per attivare l'autocomplete sui tipi TypeScript di `options`.
+
+##### Il prop `name`
+```tsx
+<Stack.Screen name='proverbs/[id]' />
+```
+`name` è :
+- ==il **riferimento al file** dentro la cartella `app/`.==
+- ==Expo Router usa il filesystem come sistema di routing, quindi il valore di `name` deve corrispondere esattamente al percorso del file relativo alla cartella `app/`, senza la barra iniziale e senza l'estensione `.tsx`.==
+
+Alcuni esempi:
+
+| File                                    | `name` corretto                 |
+| --------------------------------------- | ------------------------------- |
+| `app/index.tsx`                         | `index`                         |
+| `app/second.tsx`                        | `second`                        |
+| `app/proverbs/[id].tsx`                 | `proverbs/[id]`                 |
+| `app/products/[category]/[product].tsx` | `products/[category]/[product]` |
+
+> [!caution] **Se il valore di `name` non corrisponde a nessun file, la configurazione viene semplicemente ignorata.**
+> 
+
+##### Il prop `options`
+
+`options` è il [[Lezione 2 - Il Props Object#Il Props Object|prop]] che: 
+- ==permette di configurare l'aspetto e il comportamento della schermata.==
+Accetta due forme:
+
+1. **Oggetto statico** — quando le opzioni non dipendono da dati dinamici:
+```tsx
+<Stack.Screen
+    name='index'
+    options={{ title: 'Home' }}
+/>
+```
+
+2. **Funzione** — quando le opzioni dipendono dai parametri del percorso:
+```tsx
+<Stack.Screen
+    name='proverbs/[id]'
+    options={({ route }) => ({
+        title: 'Proverb ID: ' + route.params?.id
+    })}
+/>
+```
+
+La funzione riceve un oggetto con `route` destrutturato e restituisce l'oggetto delle opzioni. `route.params` contiene i parametri del percorso — nel caso di `proverbs/[id]`, conterrà `{ id: '1' }` o qualsiasi ID sia stato passato.
+
+###### I parametri di `options`
+
+Le proprietà più comuni che puoi passare dentro `options`:
+
+| Proprietà          | Tipo         | Descrizione                              |
+| ------------------ | ------------ | ---------------------------------------- |
+| `title`            | `string`     | testo mostrato nell'header               |
+| `headerShown`      | `boolean`    | mostra o nasconde l'header               |
+| `headerStyle`      | `object`     | stile del contenitore dell'header        |
+| `headerTintColor`  | `string`     | colore del titolo e della freccia Back   |
+| `headerTitleStyle` | ``object``   | stile del testo del titolo               |
+| `headerRight`      | ``function`` | componente custom a destra dell'header   |
+| `headerLeft`       | ``function`` | componente custom a sinistra dell'header |
+| `animation`        | `string`     | tipo di animazione di transizione        |
+Ad esempio per personalizzare l'header della schermata dei proverbi:
+```tsx
+<Stack.Screen
+    name='proverbs/[id]'
+    options={{
+        title: 'Proverbi',
+        headerStyle: { backgroundColor: '#d21818' },
+        headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: 'bold' }
+    }}
+/>
+```
+
+
+> [!hint] **Per l'elenco completo usa `CTRL + Spazio` dentro `options={{}}` nel tuo editor — TypeScript mostrerà tutte le proprietà disponibili con i relativi tipi.**
+
+
+### Configurare le animazioni della schermata
+
+Tra le opzioni configurabili c'è anche il modo in cui la schermata entra in scena. Il comportamento di default varia per piattaforma:
+
+- su **iOS** la schermata scivola da destra
+- su **Android** c'è un effetto di dissolvenza con scorrimento verso l'alto
+
+Tramite la proprietà `animation` dentro `options` è possibile sovrascrivere questo comportamento per tutte le piattaforme contemporaneamente:
+```tsx
+<Stack.Screen
+    name='proverbs/[id]'
+    options={({ route }) => ({
+        title: 'Proverb ID: ' + route.params?.id,
+        animation: 'slide_from_bottom'
+    })}
+/>
+```
+
+
+I valori più comuni per `animation` sono:
+
+| Valore              | Comportamento                        |
+| ------------------- | ------------------------------------ |
+| `default`           | comportamento nativo per piattaforma |
+| `slide_from_right`  | scivola da destra (default iOS)      |
+| `slide_from_bottom` | scivola dal basso                    |
+| `slide_from_left`   | scivola da sinistra                  |
+| `fade`              | dissolvenza                          |
+| `none`              | nessuna animazione                   |
+>[!hint] Usare `none` può essere utile durante lo sviluppo per velocizzare la navigazione mentre si testa, oppure in produzione per schermate che devono apparire istantaneamente come splash screen o loading screen.
+
