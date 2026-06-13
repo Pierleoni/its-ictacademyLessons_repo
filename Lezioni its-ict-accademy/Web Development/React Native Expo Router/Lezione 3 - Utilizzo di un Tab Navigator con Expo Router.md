@@ -109,6 +109,8 @@ Il prop `name` segue la stessa convenzione già vista con [[Lezione 2 - Usare lo
 >
 >>[!hint] `href: null` è ==utile per schermate di supporto come modali, dettagli, o navigatori annidati che non devono essere accessibili direttamente dalla barra delle schede, ma solo tramite navigazione programmatica.==
 
+^20317e
+
 ### Aggiungere icone alla barra delle schede
 Le icone placeholder generate automaticamente da Expo Router possono essere sostituite tramite le opzioni di `<Tabs.Screen>`. Possono essere qualsiasi componente React Native, ma la scelta più comune è usare le icone vettoriali di Expo( [icons]([https://docs.expo.dev/guides/icons/](https://icons.expo.fyi/Index)), installabili tramite:
 ```shell
@@ -240,4 +242,335 @@ Come già visto con lo [[Lezione 2 - Usare lo stack navigator con Expo Router#Pr
 
 
 ### Etichette e titoli 
-%% Continuare da qui %%
+Nella barra delle schede ogni tab ha un'etichetta testuale sotto l'icona. Per impostazione predefinita corrisponde al `name` della schermata, quindi una schermata chiamata `index` avrà l'etichetta "index".
+
+Ci sono tre modi per configurarla, in ordine di precedenza crescente:
+1. **`title`** — ==se impostato, viene usato sia come titolo dell'header che come etichetta della tab bar==:
+
+```tsx
+<Tabs.Screen name="index"
+    options={{
+        title: 'Home',
+        tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="dice-1-outline" size={size} color={color} />
+        )
+    }}
+/>
+```
+
+In questo caso la Label si chiamerà "Index".
+
+Mentre se assegniamo un titolo alla schermata, per impostazione predefinita tale titolo verrà utilizzato anche come etichetta:  
+```tsx
+<Tabs.Screen name="index"
+
+          options={{
+
+            title: 'Home',
+
+            tabBarIcon: ({ color, size }) => (
+
+              <MaterialCommunityIcons name="dice-1-outline" size={size} color={color} />
+
+            )
+
+          }}
+```
+
+In questo caso sia l'header che l'etichetta mostreranno "Home".
+
+
+**2. `tabBarLabel`** — proprietà **specifica** della tab bar: 
+- ==sovrascrive solo l'etichetta sotto l'icona, lasciando il titolo dell'header invariato. ==
+- ==Non appena viene impostato, `title` e `tabBarLabel` diventano completamente indipendenti:==
+```tsx
+<Tabs.Screen name="index"
+    options={{
+        title: 'Home',         // header → "Home"
+        tabBarLabel: 'Index',  // etichetta tab bar → "Index"
+        tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="dice-1-outline" size={size} color={color} />
+        )
+    }}
+/>
+```
+
+Ora la seconda schermata della tab-bar si chiamerà "`Map`"
+
+
+> [!NOTE] Nel primo tab screen la proprietà `tabBarLabel` sovrascrive la proprietà `name`
+
+**3. Nascondere le etichette** —   ==tramite `tabBarShowLabel: false` in `screenOptions` si nascondono le etichette su tutte le schede==:
+```tsx
+<Tabs screenOptions={{ tabBarActiveTintColor: 'blue', tabBarShowLabel: false }}>
+```
+
+
+| Proprietà     | Effetto                                                   |
+| ------------- | --------------------------------------------------------- |
+| `name`        | etichetta di default se non è impostato nient'altro       |
+| `title`       | sovrascrive sia header che etichetta                      |
+| `tabBarLabel` | sovrascrive solo l'etichetta, ha la precedenza su `title` |
+>[!hint] Come sempre, per esplorare tutte le opzioni disponibili usa `CTRL + Spazio` dentro `options={{}}` per vedere i tipi TypeScript completi.
+
+### Nascondere una schermata dalla barra delle schede
+
+[[#^20317e|Come abbiamo visto prima]] per nascondere una schermata dalla barra delle schede senza rimuoverla dal filesystem si passa `href: null` nelle opzioni:
+```tsx
+{/* questa rotta esiste ed è raggiungibile tramite navigazione, ma NON appare nella barra in basso */}
+<Tabs.Screen
+    name="(stackNavigator)"
+    options={{
+        href: null,        // rimuove la scheda dalla barra in basso
+        headerShown: false // nasconde anche l'header
+    }}
+/>
+```
+
+`href: null` dice al Tab Navigator: 
+- ==di non generare nessun link verso questa schermata nella barra==
+- ==la schermata continua ad esistere nel filesystem e ci si può navigare programmaticamente tramite `router.push()`, ma l'utente non la vedrà mai come scheda selezionabile.==
+
+>[!remember] **Questo pattern è utile per schermate di supporto come modali, dettagli, o navigatori annidati che devono essere accessibili solo tramite navigazione programmatica e non direttamente dalla barra delle schede.**
+
+
+### Badges
+
+I badge sono: 
+- ==indicatori visivi che appaiono sull'icona della scheda in alto a destra, comunemente usati per notifiche o contatori.== 
+Si aggiungono tramite la proprietà `tabBarBadge`:
+
+```tsx
+<Tabs.Screen name="fourth"
+    options={{
+        title: "fourth",
+        tabBarBadge: 2,
+        tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="dice-4-outline" size={size} color={color} />
+        )
+    }}
+/>
+```
+
+`tabBarBadge` accetta sia un numero che una stringa — in un caso reale il valore sarebbe dinamico, ad esempio il numero di notifiche non lette preso dallo stato dell'applicazione.
+
+
+##### Personalizzare lo stile del badge
+
+Lo stile del badge si personalizza tramite `tabBarBadgeStyle`:
+```tsx
+<Tabs.Screen name="fourth"
+    options={{
+        title: "fourth",
+        tabBarBadge: 2,
+        tabBarBadgeStyle: {
+            backgroundColor: 'tomato',
+            color: 'white'
+        },
+        tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="dice-4-outline" size={size} color={color} />
+        )
+    }}
+/>
+```
+
+>[!hint] In un'app reale `tabBarBadge` viene quasi sempre collegato allo stato globale dell'applicazione — ad esempio un context o uno store Redux — in modo che il contatore si aggiorni automaticamente al variare dei dati.
+
+#### Esempio reale 
+Per capire come i badge vengono aggiornati automaticamente prendiamo ad esempio una scheda "Notifica" il cui badge mostra il numero di notifiche non lette.
+```tsx
+// context/NotificationContext.tsx
+import React, { createContext, useContext, useState } from 'react';
+
+type NotificationContextType = {
+    unreadCount: number;
+    addNotification: () => void;
+    markAllAsRead: () => void;
+};
+
+const NotificationContext = createContext<NotificationContextType | null>(null);
+
+export const NotificationProvider = ({ children }: { children: React.ReactNode }) => {
+    const [unreadCount, setUnreadCount] = useState(0);
+
+    const addNotification = () => setUnreadCount(prev => prev + 1);
+    const markAllAsRead = () => setUnreadCount(0);
+
+    return (
+        <NotificationContext.Provider value={{ unreadCount, addNotification, markAllAsRead }}>
+            {children}
+        </NotificationContext.Provider>
+    );
+};
+
+export const useNotifications = () => useContext(NotificationContext)!;
+```
+
+Nel layout avvolgi tutto nel provider e leggi `unreadCount` per passarlo al badge:
+```tsx
+// _layout.tsx
+import { useNotifications, NotificationProvider } from '../context/NotificationContext';
+
+function Layout() {
+    const { unreadCount } = useNotifications();
+
+    return (
+        <Tabs screenOptions={{ tabBarActiveTintColor: 'blue' }}>
+            <Tabs.Screen name="index"
+                options={{
+                    title: 'Home',
+                    tabBarIcon: ({ color, size }) => (
+                        <MaterialCommunityIcons name="home" size={size} color={color} />
+                    )
+                }}
+            />
+            <Tabs.Screen name="notifications"
+                options={{
+                    title: 'Notifiche',
+                    // se unreadCount è 0 non mostra il badge, altrimenti mostra il numero
+                    tabBarBadge: unreadCount > 0 ? unreadCount : undefined,
+                    tabBarIcon: ({ color, size }) => (
+                        <MaterialCommunityIcons name="bell-outline" size={size} color={color} />
+                    )
+                }}
+            />
+        </Tabs>
+    );
+}
+
+// il provider deve stare fuori da Layout per rendere il context disponibile
+export default function RootLayout() {
+    return (
+        <NotificationProvider>
+            <Layout />
+        </NotificationProvider>
+    );
+}
+```
+
+
+Nella schermata delle notifiche puoi simulare l'arrivo di nuove notifiche e azzerarle:
+```tsx
+// app/notifications.tsx
+import { useNotifications } from '../context/NotificationContext';
+
+export default function NotificationsScreen() {
+    const { unreadCount, addNotification, markAllAsRead } = useNotifications();
+
+    return (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', gap: 16 }}>
+            <Text>Notifiche non lette: {unreadCount}</Text>
+            <Button title="Simula nuova notifica" onPress={addNotification} />
+            <Button title="Segna tutte come lette" onPress={markAllAsRead} />
+        </View>
+    );
+}
+```
+
+> [!todo] **Il flusso è:**
+>  `addNotification()` aggiorna `unreadCount` nel context → il layout rileva il cambiamento e aggiorna `tabBarBadge` → il badge si aggiorna automaticamente su tutte le istanze del navigator. Premendo "Segna tutte come lette" `unreadCount` torna a `0` e il badge sparisce perché `undefined` non viene renderizzato.ù
+
+### Utilizzare un navigatore di stack in una scheda 
+Fino ad ora ogni scheda corrisponde a una singola schermata. 
+==È però possibile trasformare una scheda in un **navigatore a pila**, permettendo di navigare in profondità all'interno di quella scheda senza abbandonarla==.
+
+L'obiettivo è trasformare la scheda `second` in uno Stack Navigator con tre schermate interne:
+```
+app/
+├── index.tsx
+├── second/
+│   ├── index.tsx        → schermata principale della scheda
+│   ├── nested.tsx       → prima schermata annidata
+│   └── also-nested.tsx  → seconda schermata annidata
+├── third.tsx
+└── fourth.tsx
+```
+
+La struttura dei percorsi risultante sarà:
+```
+/index
+/second          ← Stack Navigator
+    /second/index
+    /second/nested
+    /second/also-nested
+/third
+/fourth
+```
+
+Dalla prospettiva dell'utente, la scheda `second` si comporta come le altre — è sempre visibile nella barra in basso — ma ==al suo interno ha uno stack indipendente che permette di navigare tra `index`, `nested` e `also-nested` senza uscire dalla scheda.==
+
+> [!hint] Questa è la struttura più comune nelle app mobile reali: 
+> - ==il Tab Navigator gestisce le sezioni principali dell'app, mentre ogni sezione ha il suo Stack Navigator interno per gestire la navigazione in profondità.==
+
+
+#### Perché serve un `_layout.tsx`?
+
+Senza un file di layout dentro `second/`, Expo Router risale la gerarchia fino al layout radice, che restituisce un `<Tabs>`. Il risultato è che `nested.tsx` e `also-nested.tsx` vengono aggiunte come schede nella barra in basso — non è quello che vogliamo.
+
+Per risolvere si crea un `_layout.tsx` dentro `second/` che restituisce uno Stack Navigator:
+```tsx
+// app/second/_layout.tsx
+export default function StackLayout() {
+    return <Stack />;
+}
+```
+Da questo momento Expo Router usa questo layout per tutte le schermate dentro `second/`, che vengono gestite come una pila indipendente invece che come schede.
+
+
+
+
+##### Navigazione tra le schermate annidate
+
+`second/index.tsx` naviga verso `nested`:
+```tsx
+
+export default function SecondScreen() {
+    const router = useRouter();
+    return (
+        <View style={styles.container}>
+            <Text style={styles.heading}>Second Index Screen</Text>
+            <Pressable onPress={() => router.push('/second/nested')}>
+                <Text>Push to the nested screen</Text>
+            </Pressable>
+        </View>
+    );
+}
+```
+
+
+`second/nested.tsx` naviga verso `also-nested`:
+
+```tsx
+export default function NestedScreen() {
+    const router = useRouter();
+    return (
+        <View style={styles.container}>
+            <Text style={styles.heading}>Nested Screen</Text>
+            <Pressable onPress={() => router.push('/second/also-nested')}>
+                <Text>Push to the also nested screen</Text>
+            </Pressable>
+        </View>
+    );
+}
+```
+
+`second/also-nested.tsx` usa `dismissAll()` per tornare direttamente alla radice dello stack:
+
+```tsx
+export default function AlsoNestedScreen() {
+    const router = useRouter();
+    return (
+        <View style={styles.container}>
+            <Text style={styles.heading}>Also Nested Screen</Text>
+            {/* dismissAll chiude tutte le schermate nello stack e torna a second/index */}
+            <Pressable onPress={() => router.dismissAll()}>
+                <Text>Return to the second tab</Text>
+            </Pressable>
+        </View>
+    );
+}
+```
+
+`dismissAll()` è diverso da `back()`: mentre `back()` torna di un solo livello, `dismissAll()` chiude **tutto lo stack** e riporta direttamente alla prima schermata — in questo caso `second/index`.
+
+### Rimuovere i titoli duplicati 
