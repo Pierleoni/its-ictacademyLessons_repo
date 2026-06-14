@@ -571,6 +571,139 @@ export default function AlsoNestedScreen() {
 }
 ```
 
-`dismissAll()` è diverso da `back()`: mentre `back()` torna di un solo livello, `dismissAll()` chiude **tutto lo stack** e riporta direttamente alla prima schermata — in questo caso `second/index`.
+> [!NOTE] **`dismissAll()` è diverso da `back()`:**
+> -  `back()` ==torna di un solo livello,== 
+> - `dismissAll()` ==chiude **tutto lo stack** e riporta direttamente alla prima schermata — in questo caso `second/index`.==
 
-### Rimuovere i titoli duplicati 
+#### Rimuovere i titoli duplicati
+
+Quando si annida uno Stack Navigator dentro una scheda del Tab Navigator, si ottengono **due header sovrapposti**: 
+- ==quello del Tab Navigator in alto e quello dello Stack Navigator appena sotto.== 
+- ==Non è un comportamento desiderato.==
+
+La soluzione più comune è: 
+- ==nascondere l'header del Tab Navigator, lasciando quello dello Stack Navigator:==
+	-  ==in questo modo i titoli possono cambiare dinamicamente durante la navigazione all'interno dello stack.==
+
+Si imposta `headerShown: false` nelle opzioni della scheda `second` nel layout radice: 
+```tsx
+ // app/_layout.tsx
+<Tabs.Screen name="second"
+    options={{
+        title: 'second',
+        headerShown: false,  // nasconde l'header del Tab Navigator
+        tabBarLabel: 'Map',
+        tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="dice-2-outline" size={size} color={color} />
+        )
+    }}
+/>
+```
+
+A questo punto l'unico header visibile è quello dello Stack Navigator interno, che si configura nel `_layout.tsx` dentro `second/`:
+
+```tsx
+// app/second/_layout.tsx
+export default function StackLayout() {
+    return (
+        <Stack>
+            <Stack.Screen name="index" options={{ title: 'index' }} />
+            <Stack.Screen name="nested" options={{ title: 'nested' }} />
+            <Stack.Screen name="also-nested" options={{ title: 'also-nested' }} />
+        </Stack>
+    );
+}
+```
+
+>[!warning] **I valori di `name` qui sono relativi al file di layout corrente, non al percorso assoluto. Quindi si scrive `nested` e non `second/nested`.**
+
+
+### Aggiungere un navigatore di stack al percorso dell'indice 
+E se volessimo aggiungere anche un navigatore a pila nella scheda Home? Beh, la nostra scheda Home visualizza la route index, che è una route speciale. Quando si esegue la mappa del sito (`npx-expo-router-sitemap`), la route index è proprio questa (/). Ed è la schermata che si apre per prima all'avvio dell'app. Quindi il problema che abbiamo è che se creiamo una cartella in cui inserire la nostra schermata index, anche se la colleghiamo correttamente nel layout delle nostre schede, quando aggiorniamo l'app, otterremo questa pagina "non trovata": questo perché al primo avvio, il router sta cercando di visualizzare questa route index e in effetti non ce n'è una.
+
+Puoi verificarlo facilmente anche con il comando CLI, ma è qui che entrano in gioco le cartelle di raggruppamento, quindi quando aggiungi le parentesi intorno alla cartella home e, in questo caso, ho dovuto anche riavviare il bundler e aggiornare l'app. La nostra pagina indice viene nuovamente visualizzata
+
+Possiamo vederla anche qui nella mappa del sito. Ora non ci resta che duplicare questa schermata indice in un'altra schermata per lo stack
+Aggiungi un pulsante dalla schermata dell'indice alla schermata annidata.
+
+```tsx
+export default function IndexScreen() {
+
+  const routerToNestedHome = useRouter()
+
+  
+  
+
+  return (
+
+    <View style={styles.container}>
+
+      <Text style={styles.heading}>Index Screen</Text>
+
+      <Pressable style={styles.button} onPress={() => routerToNestedHome.push('/home-nested')}>
+
+        <Text>Push to the nested home </Text>
+
+      </Pressable>
+
+    </View >
+
+  );
+
+}
+```
+
+
+Aggiungere un layout alla cartella (home) che restituisca uno stack Navigator e nel 
+```
+import { View, Text } from 'react-native'
+
+import React from 'react'
+
+import { Stack } from 'expo-router'
+
+  
+
+const LayoutScreenHome = () => {
+
+    return (
+
+        <Stack />
+
+    )
+
+}
+
+  
+
+export default LayoutScreenHome
+```
+layout radice assicurarsi di puntare alla cartella home
+```tsx
+ <Tabs.Screen
+
+          name="(home)"
+
+          options={{
+
+            title: 'Home',
+
+            tabBarLabel: 'Home',
+
+            headerShown: false,
+
+            tabBarIcon: ({ color, size }) => (
+
+              <MaterialCommunityIcons name="home-outline" size={size} color={color} />
+
+            )
+
+          }}
+
+        />
+```
+
+E ora, quando aggiorniamo l'app, il nostro indice ha annidato un navigatore
+Come per la seconda schermata, è possibile nascondere questa intestazione con `headerShown: false`.
+
+### Prima schermata ad aprirsi
