@@ -575,7 +575,7 @@ export default function AlsoNestedScreen() {
 > -  `back()` ==torna di un solo livello,== 
 > - `dismissAll()` ==chiude **tutto lo stack** e riporta direttamente alla prima schermata — in questo caso `second/index`.==
 
-#### Rimuovere i titoli duplicati
+### Rimuovere i titoli duplicati
 
 Quando si annida uno Stack Navigator dentro una scheda del Tab Navigator, si ottengono **due header sovrapposti**: 
 - ==quello del Tab Navigator in alto e quello dello Stack Navigator appena sotto.== 
@@ -618,92 +618,331 @@ export default function StackLayout() {
 >[!warning] **I valori di `name` qui sono relativi al file di layout corrente, non al percorso assoluto. Quindi si scrive `nested` e non `second/nested`.**
 
 
-### Aggiungere un navigatore di stack al percorso dell'indice 
-E se volessimo aggiungere anche un navigatore a pila nella scheda Home? Beh, la nostra scheda Home visualizza la route index, che è una route speciale. Quando si esegue la mappa del sito (`npx-expo-router-sitemap`), la route index è proprio questa (/). Ed è la schermata che si apre per prima all'avvio dell'app. Quindi il problema che abbiamo è che se creiamo una cartella in cui inserire la nostra schermata index, anche se la colleghiamo correttamente nel layout delle nostre schede, quando aggiorniamo l'app, otterremo questa pagina "non trovata": questo perché al primo avvio, il router sta cercando di visualizzare questa route index e in effetti non ce n'è una.
+#### Aggiungere un navigatore di stack al percorso dell'indice
 
-Puoi verificarlo facilmente anche con il comando CLI, ma è qui che entrano in gioco le cartelle di raggruppamento, quindi quando aggiungi le parentesi intorno alla cartella home e, in questo caso, ho dovuto anche riavviare il bundler e aggiornare l'app. La nostra pagina indice viene nuovamente visualizzata
+Aggiungere uno Stack Navigator alla scheda Home è più complesso rispetto alle altre schede, perché [[Lezione 1 - Introduzione a EXPO SDK 55 e Navigazione#Index Route|`index`]] è una **rotta speciale**: 
+- ==è il punto di ingresso dell'app, il percorso che il router cerca per primo all'avvio== (`/`).
 
-Possiamo vederla anche qui nella mappa del sito. Ora non ci resta che duplicare questa schermata indice in un'altra schermata per lo stack
-Aggiungi un pulsante dalla schermata dell'indice alla schermata annidata.
+> [!bug] **Il problema è che se si crea semplicemente una cartella `home/` e si sposta `index.tsx` al suo interno, all'avvio il router non trova più la rotta `/` e mostra una pagina "Not Found".**
+> 
+
+##### La soluzione: cartella di raggruppamento
+
+Come abbiamo visto in precedenza, le [[Lezione 1 - Introduzione a EXPO SDK 55 e Navigazione#Cartelle di raggruppamento e percorsi|cartelle di raggruppamento]] risolvono esattamente questo problema. Racchiudendo il nome della cartella tra parentesi — `(home)` — ==il segmento non viene incluso nel percorso URL, quindi `(home)/index.tsx` continua a rispondere alla rotta `/`.==
+
+La struttura risultante è:
 
 ```tsx
+app/
+└── (home)/
+    ├── _layout.tsx      → Stack Navigator
+    ├── index.tsx        → schermata principale della scheda Home
+    └── home-nested.tsx  → schermata annidata
+```
+
+Il `_layout.tsx` dentro `(home)/` restituisce uno Stack Navigator:
+
+```tsx
+// app/(home)/index.tsx
 export default function IndexScreen() {
-
-  const routerToNestedHome = useRouter()
-
-  
-  
-
-  return (
-
-    <View style={styles.container}>
-
-      <Text style={styles.heading}>Index Screen</Text>
-
-      <Pressable style={styles.button} onPress={() => routerToNestedHome.push('/home-nested')}>
-
-        <Text>Push to the nested home </Text>
-
-      </Pressable>
-
-    </View >
-
-  );
-
+    const router = useRouter();
+    return (
+        <View style={styles.container}>
+            <Text style={styles.heading}>Index Screen</Text>
+            <Pressable style={styles.button} onPress={() => router.push('/home-nested')}>
+                <Text>Push to the nested home</Text>
+            </Pressable>
+        </View>
+    );
 }
 ```
 
-
-Aggiungere un layout alla cartella (home) che restituisca uno stack Navigator e nel 
-```
-import { View, Text } from 'react-native'
-
-import React from 'react'
-
-import { Stack } from 'expo-router'
-
-  
-
-const LayoutScreenHome = () => {
-
-    return (
-
-        <Stack />
-
-    )
-
-}
-
-  
-
-export default LayoutScreenHome
-```
-layout radice assicurarsi di puntare alla cartella home
+Nel layout radice si punta alla cartella di raggruppamento tramite il suo nome con le parentesi:
 ```tsx
- <Tabs.Screen
-
-          name="(home)"
-
-          options={{
-
-            title: 'Home',
-
-            tabBarLabel: 'Home',
-
-            headerShown: false,
-
-            tabBarIcon: ({ color, size }) => (
-
-              <MaterialCommunityIcons name="home-outline" size={size} color={color} />
-
-            )
-
-          }}
-
-        />
+ // app/_layout.tsx
+<Tabs.Screen
+    name="(home)"
+    options={{
+        title: 'Home',
+        tabBarLabel: 'Home',
+        headerShown: false,  // nasconde l'header del Tab Navigator
+        tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="home-outline" size={size} color={color} />
+        )
+    }}
+/>
 ```
 
-E ora, quando aggiorniamo l'app, il nostro indice ha annidato un navigatore
-Come per la seconda schermata, è possibile nascondere questa intestazione con `headerShown: false`.
+> [!warning] È necessario riavviare il bundler dopo aver creato la cartella di raggruppamento, altrimenti le modifiche alla struttura del filesystem potrebbero non essere rilevate correttamente.
 
+> [!hint] Il comando `npx expo-router sitemap` permette di visualizzare la mappa di tutte le rotte registrate dal router — utile per verificare che `index` risponda ancora a `/` dopo la riorganizzazione.
 ### Prima schermata ad aprirsi
+
+All'avvio dell'app, il Tab Navigator mostra sempre la **prima scheda nell'ordine dichiarato** dentro `<Tabs>` — ==indipendentemente da quale scheda l'utente stesse visualizzando prima di chiudere l'app.==
+
+==L'ordine delle schede è determinato dall'ordine in cui vengono dichiarati i `<Tabs.Screen>` nel layout==. 
+Ci sono due approcci per controllare quale schermata si apre per prima:
+#### **1. Riordinare i `<Tabs.Screen>`**
+==L'ordine delle schede è quindi determinato dall'ordine in cui vengono dichiarati i `<Tabs.Screen>` nel layout.== 
+Nel codice di esempio, spostando `(home)` al terzo posto, quella diventa la schermata iniziale:
+```tsx
+<Tabs screenOptions={{ tabBarActiveTintColor: 'blue' }}>
+    {/* prima scheda → prima schermata visualizzata all'avvio */}
+    <Tabs.Screen name="index" options={{ title: 'Home', tabBarLabel: 'Index', ... }} />
+    <Tabs.Screen name="second" options={{ title: 'second', headerShown: false, ... }} />
+    {/* (home) è ora la terza scheda → diventa la schermata iniziale se spostata prima */}
+    <Tabs.Screen name="(home)" options={{ title: 'Home', tabBarLabel: 'Home', ... }} />
+    <Tabs.Screen name="fourth" options={{ title: 'fourth', tabBarBadge: 2, ... }} />
+    {/* schermate nascoste dalla tab bar */}
+    <Tabs.Screen name="(stackNavigator)" options={{ href: null, headerShown: false }} />
+    <Tabs.Screen name="fifth" options={{ href: null, headerShown: false, ... }} />
+</Tabs>
+```
+
+##### 2. Redirect in `index.tsx`
+
+Quando la schermata iniziale dipende da logica dinamica — ad esempio mostrare la home se l'utente è autenticato, o il login se non lo è — si usa un redirect. In questo caso `index.tsx` non contiene nessuna UI, funge solo da "cancello" che smista l'utente verso la destinazione corretta:
+```tsx
+// app/index.tsx
+import { Redirect } from 'expo-router';
+
+export default function Index() {
+    return <Redirect href='/(home)' />;
+}
+```
+
+>[!warning] Non è possibile eliminare `index.tsx` dalla root di `app/`: 
+>- ==Expo Router ne ha bisogno come punto di ingresso obbligatorio.== 
+>- Se non vuoi mostrarci nessuna UI, usalo esclusivamente come redirect.
+
+> [!hint] Il redirect è la soluzione preferibile quando: 
+> 1. ==la schermata iniziale dipende da logica dinamica== — 
+> 	- ==ad esempio reindirizzare verso la home se l'utente è autenticato,== 
+> 	- ==o verso il login se non lo è.==
+
+| Approccio                    | Quando Usarlo                                     |
+| ---------------------------- | ------------------------------------------------- |
+| Riordinare i `<Tabs.Screen>` | schermata iniziale sempre la stessa               |
+| `<Redirect>` in `index.tsx`  | ==schermata iniziale dipende da logica dinamica== |
+
+#### Caso d'uso classico del `Redirect`
+
+Quindi abbiamo detto che il `Redirect` è ==utile quando la schermata iniziale dipende da logica dinamica si usa un redirect.==
+In questo caso `index.tsx` ==non contiene nessuna UI — funge solo da "cancello" che smista l'utente verso la destinazione corretta.==
+
+Il caso d'uso più classico è la gestione dell'autenticazione:
+```tsx
+// app/index.tsx
+import { Redirect } from 'expo-router';
+import { useAuth } from '../context/AuthContext';
+
+export default function Index() {
+    const { isAuthenticated } = useAuth();
+
+    if (isAuthenticated) {
+        return <Redirect href='/(home)' />;
+    }
+
+    return <Redirect href='/login' />;
+}
+```
+
+- utente già autenticato → reindirizzato direttamente alla home
+- utente non autenticato → reindirizzato alla schermata di login
+Dopo il login, si usa `router.replace('/(home)')` invece di `router.push` in modo che l'utente non possa tornare alla schermata di login premendo Back — come visto nella sezione [[Lezione 2 - Usare lo stack navigator con Expo Router#Sostituzione della schermata corrente|`replace`.]] 
+
+### Reimpostare la scheda in caso di sfocatura
+
+##### Comportamento predefinito
+
+Quando si naviga in profondità dentro uno stack annidato in una scheda — ad esempio `second/index` → `second/nested` → `second/also-nested` — ==e si preme il pulsante della scheda corrente nella tab bar, il Tab Navigator riporta automaticamente alla prima schermata dello stack==. Questo è il **comportamento predefinito**.
+
+C'è però una distinzione importante:
+
+- premere la **scheda corrente** → ==torna a `second/index`==
+- passare a **un'altra scheda** e tornare → ==lo stack viene **mantenuto** esattamente com'era==
+
+#### `popToTopOnBlur`
+
+==Per fare in modo che lo stack venga reimpostato anche quando si esce dalla scheda e ci si ritorna==, si imposta `popToTopOnBlur: true` nelle opzioni della scheda nel layout radice:
+
+```tsx
+<Tabs.Screen name="second"
+    options={{
+        title: 'second',
+        headerShown: false,
+        popToTopOnBlur: true,  // reimposta lo stack quando si esce dalla scheda
+        tabBarLabel: 'second',
+        tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="dice-2-outline" size={size} color={color} />
+        )
+    }}
+/>
+
+```
+
+Con questa opzione attiva: 
+- ==ogni volta che si abbandona la scheda `second` e ci si ritorna, lo stack viene riportato a `second/index` indipendentemente da dove ci si trovava.==
+
+
+#### Animazione condizionale con `usePathname`
+
+Attivando `popToTopOnBlur`, quando si torna alla scheda viene mostrata l'animazione di ritorno verso `second/index` — non particolarmente piacevole. 
+==Per disattivarla solo in quel caso si usa l'[[Lezione 3 - Hooks#Cosa sono gli Hooks|hook]] `usePathname()` nel `_layout.tsx` di `second/`, che restituisce il percorso corrente==: 
+
+
+```tsx
+// app/second/_layout.tsx
+import { Stack, usePathname } from "expo-router";
+
+export default function StackLayout() {
+    const pathname = usePathname();
+	console.log(pathname);
+    return (
+        <Stack screenOptions={{
+            // animazione attiva solo se siamo dentro /second, nessuna animazione al ritorno
+            animation: pathname.startsWith('/second') ? 'default' : 'none'
+        }}>
+            <Stack.Screen name="index" options={{ title: 'index' }} />
+            <Stack.Screen name="nested" options={{ title: 'nested' }} />
+            <Stack.Screen name="also-nested" options={{ title: 'also-nested' }} />
+        </Stack>
+    );
+}
+```
+
+La logica è:
+
+- `pathname.startsWith('/second')` è `true` → ==siamo dentro la scheda, l'animazione è quella predefinita==
+- `pathname.startsWith('/second')` è `false` → ==stiamo tornando da un'altra scheda, nessuna animazione==
+
+In questo modo:
+- ==la navigazione interna allo stack mantiene le animazioni naturali, mentre il ripristino automatico causato da `popToTopOnBlur` avviene in modo istantaneo e invisibile all'utente.==
+##### `usePathname`
+
+`usePathname` è un [[Lezione 3 - Hooks#Cosa sono gli Hooks|hook]] di Expo Router che: 
+- ==restituisce il **percorso corrente** come stringa.== 
+- ==Si aggiorna automaticamente ogni volta che la navigazione cambia, quindi il componente che lo usa si ri-renderizza ogni volta che il percorso cambia.==
+
+È un hook reattivo — funziona esattamente come [[Lezione 3 - Hooks#Lo `useState()`|`useState`]]: 
+- ==quando il valore cambia, React ri-renderizza il componente che lo usa.==
+
+
+###### Differenza con [[Lezione 2 - Usare lo stack navigator con Expo Router#`useLocalSearchParams`|`useLocalSearchParams`]]
+Può sembrare simile a `useLocalSearchParams` ma i due hook leggono cose diverse:
+
+| Hook                 | Cosa Legge           | Esempio          |
+| -------------------- | -------------------- | ---------------- |
+| `usePathname`        | il percorso dell'URL | `/second/nested` |
+| useLocalSearchParams |                      |                  |
+Su un URL come `/proverbs/1?lang=it`:
+
+- `usePathname` restituisce `/proverbs/1`
+- `useLocalSearchParams` restituisce `{ id: '1', lang: 'it' }`
+
+#####  Casi d'uso comuni
+
+**Animazione condizionale** — come visto nel tutorial:
+```tsx
+animation: pathname.startsWith('/second') ? 'default' : 'none'
+```
+
+**Evidenziare un link attivo** — utile per navbar custom:
+```tsx
+const pathname = usePathname();
+
+<Pressable style={{ opacity: pathname === '/home' ? 1 : 0.5 }}>
+    <Text>Home</Text>
+</Pressable>
+```
+
+**Logica condizionale in base alla sezione** — mostrare o nascondere elementi UI:
+```tsx
+const pathname = usePathname();
+const isInSettings = pathname.startsWith('/settings');
+
+{isInSettings && <SettingsToolbar />}
+```
+
+
+>[!hint] `usePathname()` è utile ogni volta che si vuole rendere il comportamento di un componente **condizionale al percorso corrente**
+> ==in questo caso per gestire l'animazione, ma può essere usato anche per evidenziare link attivi, mostrare/nascondere elementi UI, o eseguire logica diversa in base alla sezione dell'app in cui ci si trova.==
+
+
+> [!difference] `startsWith` vs `===`
+>
+>Nel tutorial si usa `pathname.startsWith('/second')` invece di `pathname === '/second'` perché vogliamo intercettare **tutte le schermate dentro `second/`**, non solo quella radice:
+>```tsx
+>pathname === '/second'          // true solo su /second
+>pathname.startsWith('/second')  // true su /second, /second/nested, /second/also-nested
+>```
+> `startsWith` è un metodo nativo delle [[Lezione 2 Le variabili in Javascript#Le stringhe in Javascript|stringhe JavaScript ]]che restituisce `true` se la stringa inizia con il prefisso specificato.
+
+
+### Azione di ritorno della barra delle schede 
+##### `router.canGoBack()`
+
+Aggiungendo un pulsante Back alle schermate principali del Tab Navigator e chiamando `router.back()` dalla prima schermata dello stack, si ottiene un errore in console — non c'è nessuna schermata a cui tornare. Per gestire questo caso si usa `router.canGoBack()`, che restituisce `true` solo se esiste una schermata precedente nello stack:
+```tsx
+// app/(home)/index.tsx
+export default function IndexScreen() {
+    const router = useRouter();
+    const canGoBack = router.canGoBack();
+
+    return (
+        <View style={styles.container}>
+            <Text style={styles.heading}>Index Screen</Text>
+            <Pressable onPress={() => router.push('/home-nested')}>
+                <Text>Push to the nested home</Text>
+            </Pressable>
+            {/* il pulsante Back appare solo se c'è qualcosa a cui tornare */}
+            {canGoBack ? (
+                <Pressable onPress={() => router.back()}>
+                    <Text>Back</Text>
+                </Pressable>
+            ) : null}
+        </View>
+    );
+}
+```
+
+>[!remember] L'errore generato da `router.back()` senza una schermata precedente è un avviso solo in sviluppo, 
+>>[!todo] ma è buona pratica proteggere sempre le chiamate a `back()` con `canGoBack()`.
+
+##### Comportamento predefinito del Back nel Tab Navigator
+
+Navigando tra le schede — ad esempio da `(home)` a `second`, poi a `third`, poi a `fourth` — e premendo Back, ci si aspetterebbe di tornare alla scheda precedente come in uno stack. In realtà il comportamento predefinito del Tab Navigator è diverso: **torna sempre alla prima scheda dichiarata** nel layout, indipendentemente dalla cronologia di navigazione.
+
+Questo significa che se si riordina il layout mettendo `second` come prima scheda, premendo Back da `fourth` si tornerà a `second` e non a `third`.
+
+###### `backBehavior`
+
+Per modificare questo comportamento si usa il prop `backBehavior` sul componente `<Tabs>`. I valori disponibili sono:
+
+
+| Valore         | Comportamento                                             |
+| -------------- | --------------------------------------------------------- |
+| `firstRoute`   | torna sempre alla prima scheda dichiarata (default)       |
+| `initialRoute` | torna alla scheda iniziale — generalmente non applicabile |
+| `order`        | torna alla scheda precedente nell'ordine dichiarato       |
+| `history`      | torna alla scheda visitata in precedenza                  |
+
+Impostando `backBehavior="order"`, il Tab Navigator si comporta come uno stack basato sull'ordine delle schede — navigando da `(home)` a `index`, poi a `second`, poi a `third`, poi a `fourth`, premendo Back si torna a `third`, poi a `second`, e così via:
+
+```tsx
+<Tabs
+    screenOptions={{ tabBarActiveTintColor: 'blue' }}
+    backBehavior="order"
+>
+    <Tabs.Screen name="(home)" options={{ ... }} />
+    <Tabs.Screen name="index" options={{ ... }} />
+    <Tabs.Screen name="second" options={{ ... }} />
+    <Tabs.Screen name="third" options={{ ... }} />
+    <Tabs.Screen name="fourth" options={{ ... }} />
+</Tabs>
+```
+
+>[!hint] `backBehavior="history"` è la scelta più intuitiva per l'utente in molti casi: 
+>==torna alla scheda effettivamente visitata in precedenza, indipendentemente dall'ordine dichiarato nel layout.== 
+>`order` invece è prevedibile ma rigido, ==segue sempre l'ordine dichiarato anche se l'utente non ha mai visitato quella scheda.==
+
