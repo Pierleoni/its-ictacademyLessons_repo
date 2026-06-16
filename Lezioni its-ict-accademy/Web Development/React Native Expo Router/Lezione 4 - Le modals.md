@@ -247,3 +247,249 @@ presentationStyle="formSheet"   // simile a pageSheet ma più stretto
 >>- Su **Web** → ==non ha effetto==
 
 ### Expo Router Modal 
+Quando la modal deve essere una **rotta effettiva** dell'app — raggiungibile tramite navigazione, con un proprio percorso e potenzialmente con navigazione interna — né `Alert` né il componente `Modal` di React Native sono la scelta giusta.
+In questo caso si usa Expo Router per definire la modal come schermata vera e propria.
+##### Riorganizzare la struttura
+
+Per far coesistere le schede in basso e la modal sotto lo stesso navigator, bisogna prima riorganizzare il filesystem. 
+Le schede vengono raggruppate dentro una [[Lezione 1 - Introduzione a EXPO SDK 55 e Navigazione#Cartelle di raggruppamento|cartella di raggruppamento]] `(tabs)`, e si aggiunge un nuovo layout radice che gestisce sia le schede che la modal:
+
+```scss
+app/
+├── (tabs)/
+│   ├── (home)/
+│   ├── second/
+│   ├── third.tsx
+│   ├── fourth.tsx
+│   └── _layout.tsx   ← restituisce <Tabs>
+├── modal.tsx
+└── _layout.tsx       ← restituisce <Stack> (nuovo layout radice)
+```
+
+Il nuovo `_layout.tsx` radice restituisce uno Stack Navigator e si occupa anche di `StatusBar` e Tailwind, che vengono spostati qui dal layout delle schede:
+```tsx
+// app/_layout.tsx
+import { Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+import React from 'react';
+import "../global.css";
+
+const RootLayout = () => {
+    return (
+        <>
+            <StatusBar style='auto' />
+            <Stack>
+                {/* nasconde l'header duplicato delle schede */}
+                <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+                {/* definisce la modal come schermata con presentazione modale */}
+                <Stack.Screen name='modal' options={{ presentation: 'modal' }} />
+            </Stack>
+        </>
+    );
+};
+
+export default RootLayout;
+```
+
+##### Creare e aprire la modal
+
+`modal.tsx` è un componente normale:
+```tsx
+// app/modal.tsx
+const Modal = () => {
+    return (
+        <View style={styles.container}>
+            <Text>Modal</Text>
+        </View>
+    );
+};
+```
+
+Si naviga verso di essa esattamente come verso qualsiasi altra schermata:
+```tsx
+// app/(tabs)/(home)/index.tsx
+<Link href='/modal' push asChild>
+    <Button title='Open router Modal' />
+</Link>
+```
+
+La differenza rispetto a una schermata normale è tutta nell'opzione `presentation: 'modal'` definita nel layout radice — ==quella singola proprietà trasforma la transizione in un'animazione modale nativa con supporto al gesto di scorrimento verso il basso per chiuderla.==
+```tsx
+const RootLayout = () => {
+
+    return (
+
+        <>
+
+            <StatusBar style='auto' />
+
+            <Stack>
+
+                <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+
+                <Stack.Screen name='modal' options={{
+
+                    presentation: 'modal'
+
+                }} />
+
+            </Stack>
+
+        </>
+
+    )
+
+  
+
+}
+```
+
+> [!hint] `presentation: 'modal'` 
+> - ==su iOS produce l'animazione nativa a foglio che sale dal basso con il gesto di dismissione.== 
+> - ==Su Android l'animazione è diversa ma comunque appropriata alla piattaform==a — Expo Router gestisce automaticamente le differenze.
+
+> [!warning] Dopo aver riorganizzato il filesystem è necessario riavviare il bundler con `npx expo start` — le modifiche alla struttura delle cartelle non vengono rilevate automaticamente.
+
+### Più schermate in una finestra modale 
+ome abbiamo visto con le schede, anche una modal può contenere al suo interno uno Stack Navigator — permettendo di navigare in profondità senza uscire dalla modal stessa.
+
+##### Struttura del filesystem
+
+Si crea una cartella `modal-with-stack/` dentro `app/` con tre file:
+```scss
+app/
+├── modal-with-stack/
+│   ├── _layout.tsx   ← Stack Navigator interno alla modal
+│   ├── index.tsx     ← schermata principale della modal
+│   └── nested.tsx    ← schermata annidata
+```
+
+Il `_layout.tsx` restituisce semplicemente uno Stack Navigator:
+```tsx
+// app/modal-with-stack/_layout.tsx
+import { Stack } from 'expo-router';
+
+const Layout = () => {
+    return <Stack />;
+};
+
+export default Layout;
+```
+
+
+Aggiungeremo anche un'altra schermata chiamata `nested.tsx`: 
+
+```tsx
+const NestedScreen = () => {
+
+  return (
+
+    <View style={styles.container}>
+
+      <Text>Nested Screen</Text>
+
+    </View>
+
+  );
+
+};
+```
+
+##### Configurare la modal nel layout radice
+
+Nel `_layout.tsx` radice si aggiunge la nuova schermata con `presentation: 'modal'`, esattamente come per la modal semplice:
+```tsx
+// app/_layout.tsx
+const RootLayout = () => {
+    return (
+        <>
+            <StatusBar style='auto' />
+            <Stack>
+                <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+                <Stack.Screen name='modal' options={{ presentation: 'modal' }} />
+                <Stack.Screen name='modal-with-stack' options={{ presentation: 'modal' }} />
+            </Stack>
+        </>
+    );
+};
+```
+
+
+##### Navigazione interna alla modal
+
+`modal-with-stack/index.tsx` naviga verso la schermata annidata tramite il suo percorso assoluto:
+```tsx
+// app/modal-with-stack/index.tsx
+const ModalWithStack = () => {
+    return (
+        <View>
+            <Text>ModalWithStack</Text>
+            <Link href='/modal-with-stack/nested' push asChild>
+                <Button title='Push to nested' />
+            </Link>
+        </View>
+    );
+};
+```
+
+##### Aprire la modal dalla homepage
+
+Dalla schermata `(home)/index.tsx` si aggiunge un link verso la nuova modal, esattamente come per qualsiasi altra schermata:
+```tsx
+import { Stack } from 'expo-router'
+<Link href='/modal-with-stack' push asChild>
+    <Button title="Apri la Router Modal con Stack" />
+</Link>
+```
+
+Il risultato è una modal che si apre con l'animazione nativa e al suo interno permette di navigare tra `index` e `nested` tramite il proprio Stack Navigator — il tutto senza abbandonare il contesto modale.
+
+> [!hint] Il pattern "modal con stack interno" è comune nelle app reali quando la modal rappresenta un flusso multi-step
+>  ==ad esempio un processo di checkout, un wizard di configurazione, o un form a più pagine.== 
+>  **L'utente percepisce l'intera sequenza come un'esperienza temporanea sovrapposta all'app principale.**
+
+### Deep Linking in una finestra modale 
+
+
+Aprendo la modal tramite deep link — cioè navigando direttamente verso `/modal` senza passare prima dalle schede — si nota un problema: 
+- ==la modal si apre correttamente, ma **le schede in background non vengono caricate**.== 
+Chiudendo la modal non c'è nulla a cui tornare.
+
+Il motivo è che il layout radice è uno Stack Navigator, e quando si accede direttamente a una schermata dello stack tramite deep link, quella schermata diventa la prima — e unica — nello stack. Le schede non vengono mai inizializzate perché non ci si è passati prima.
+
+##### `unstable_settings`
+
+La soluzione è esportare una costante speciale chiamata `unstable_settings` nel file del layout radice, impostando `initialRouteName` su `(tabs)`:
+```tsx
+// app/_layout.tsx
+export const unstable_settings = {
+    initialRouteName: '(tabs)'
+};
+
+const RootLayout = () => {
+    return (
+        <>
+            <StatusBar style='auto' />
+            <Stack>
+                <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+                <Stack.Screen name='modal' options={{ presentation: 'modal' }} />
+                <Stack.Screen name='modal-with-stack' options={{ presentation: 'modal', headerShown: false }} />
+            </Stack>
+        </>
+    );
+};
+```
+
+
+
+Questo dice allo Stack Navigator che:
+- ==`(tabs)` è sempre la schermata di base==
+- ==anche quando si accede direttamente a una schermata diversa tramite deep link.== 
+- ==Il navigator caricherà prima le schede in background e poi aprirà la modal sopra di esse. Chiudendo la modal, le schede sono già pronte.==
+
+> [!warning] Il nome `unstable_settings` può sembrare allarmante ma è perfettamente utilizzabile in produzione. 
+> ==Il prefisso `"unstable"` indica solo che il nome della proprietà potrebbe cambiare in future versioni di Expo Router — è già prevista la rinomina in `anchors`.== 
+> Il comportamento in sé è stabile e affidabile.
+
+> [!hint] `initialRouteName` non cambia la schermata che viene mostrata per prima all'utente — cambia solo quale schermata viene caricata come **base dello stack** quando si accede tramite deep link. L'utente vedrà comunque la modal aprirsi, ma con le schede già pronte in background
+

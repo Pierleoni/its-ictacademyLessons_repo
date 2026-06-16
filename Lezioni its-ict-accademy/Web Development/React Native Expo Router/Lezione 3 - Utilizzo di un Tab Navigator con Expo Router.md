@@ -1,3 +1,4 @@
+
 # Introduzione : Tab Navigator 
 Fino ad ora abbiamo lavorato con lo [[Lezione 1 - Introduzione a EXPO SDK 55 e Navigazione#^752b8b|Stack Navigator]], che organizza la navigazione come una pila di schermate: 
 - ==ogni nuova schermata si aggiunge sopra la precedente e si torna indietro tramite il pulsante Back.== 
@@ -699,7 +700,7 @@ Nel codice di esempio, spostando `(home)` al terzo posto, quella diventa la sche
 </Tabs>
 ```
 
-##### 2. Redirect in `index.tsx`
+#### 2. Redirect in `index.tsx`
 
 Quando la schermata iniziale dipende da logica dinamica — ad esempio mostrare la home se l'utente è autenticato, o il login se non lo è — si usa un redirect. In questo caso `index.tsx` non contiene nessuna UI, funge solo da "cancello" che smista l'utente verso la destinazione corretta:
 ```tsx
@@ -725,7 +726,7 @@ export default function Index() {
 | Riordinare i `<Tabs.Screen>` | schermata iniziale sempre la stessa               |
 | `<Redirect>` in `index.tsx`  | ==schermata iniziale dipende da logica dinamica== |
 
-#### Caso d'uso classico del `Redirect`
+##### Caso d'uso classico del `Redirect`
 
 Quindi abbiamo detto che il `Redirect` è ==utile quando la schermata iniziale dipende da logica dinamica si usa un redirect.==
 In questo caso `index.tsx` ==non contiene nessuna UI — funge solo da "cancello" che smista l'utente verso la destinazione corretta.==

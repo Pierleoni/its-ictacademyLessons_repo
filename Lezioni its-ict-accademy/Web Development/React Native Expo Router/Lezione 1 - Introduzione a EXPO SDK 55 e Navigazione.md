@@ -72,7 +72,7 @@ Ne parleremo meglio nella sezione sui [[#Navigatori e reindirizzamenti|redirect]
 #### Dove può stare `index.tsx`
 
 **Non è obbligatorio** ==che `index.tsx` si trovi direttamente nella root di `app/`.== 
-Grazie alle **cartelle di raggruppamento** — di cui parleremo in dettaglio più avanti — ==può essere annidato anche a più livelli di profondità, e Expo Router lo riconoscerà comunque come route di ingresso.==
+Grazie alle **[[#Cartelle di raggruppamento e percorsi|cartelle di raggruppamento]]** — di cui parleremo in dettaglio più avanti — ==può essere annidato anche a più livelli di profondità, e Expo Router lo riconoscerà comunque come route di ingresso.==
 
 **Esempio 1 — index dentro un gruppo:**
 ```txt
