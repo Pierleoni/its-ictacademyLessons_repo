@@ -17,3 +17,5 @@ In questa lezione vedremo come costruire questo flusso in Expo Router, affrontan
 - come aggiungere i redirect di autenticazione
 - come memorizzare e mantenere lo stato di autenticazione
 - come gestire il caso in cui lo stato di autenticazione non è ancora noto — il cosiddetto stato **indeciso** — evitando flash indesiderati di contenuto durante il caricamento iniziale
+
+
