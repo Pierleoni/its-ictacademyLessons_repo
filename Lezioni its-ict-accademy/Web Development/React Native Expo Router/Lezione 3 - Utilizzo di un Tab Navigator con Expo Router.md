@@ -1,4 +1,5 @@
 
+
 # Introduzione : Tab Navigator 
 Fino ad ora abbiamo lavorato con lo [[Lezione 1 - Introduzione a EXPO SDK 55 e Navigazione#^752b8b|Stack Navigator]], che organizza la navigazione come una pila di schermate: 
 - ==ogni nuova schermata si aggiunge sopra la precedente e si torna indietro tramite il pulsante Back.== 
