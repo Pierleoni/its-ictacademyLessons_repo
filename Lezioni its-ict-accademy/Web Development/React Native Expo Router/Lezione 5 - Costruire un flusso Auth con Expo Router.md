@@ -699,107 +699,285 @@ router.replace('/login')
 
 ### Mantenere lo stato di autenticazione nell'interazione nell'intera app 
 
-Ora abbiamo memorizzato il nostro stato di accesso in questa variabile `useState`,
+##### Il problema della memoria temporanea
+
+Lo `useState` che abbiamo usato finora è **memoria temporanea:** 
 ```tsx
 const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 ```
-il che significa che si tratta di memoria temporanea; quindi, quando aggiorniamo l'app, il valore viene reimpostato a quello iniziale. Non è l'esperienza utente ideale per un'applicazione reale; vorremmo invece rendere persistente questo valore, ovvero salvarlo nella memoria del dispositivo.
-Useremo un async storage 
+
+==ogni volta che l'app viene riavviata, `isLoggedIn` torna al suo valore iniziale `false`, costringendo l'utente a fare login ogni volta.== Non è l'esperienza utente ideale — in un'app reale ci si aspetta di rimanere autenticati finché non si effettua esplicitamente il logout.
+
+Per risolvere questo problema bisogna rendere persistente il valore nella memoria del dispositivo. La soluzione è **AsyncStorage**, installabile tramite:
 ```shell
 npx expo install @react-native-async-storage/ async-storage
 ```
-, supportato sia nelle build Expo che in quelle di sviluppo. Se state utilizzando una libreria di gestione dello stato come Relux Toolkit, YTI, Zustan o Legend State, tutte quelle moderne dispongono di adattatori per rendere persistente lo stato nella memoria del dispositivo.
-Ora installiamo l'async storage e riavviamo il bundler; d'ora in poi, ogni volta che lo stato "all" viene aggiornato al momento dell'accesso o dell'uscita, vogliamo che venga salvato anche nell'async storage. Il mio stato "all" conterrà semplicemente un valore booleano che indica se siamo connessi o meno, poiché in realtà non mi sto collegando al back-end; tuttavia, nella realtà potresti memorizzare qui la data di scadenza del token "all", la data di aggiornamento o altri metadati.
-```tsx
-const storeAuthState = async (newState:{isLogged:boolean}) =>{
 
-    }
-```
+>[!info] Se stai usando una libreria di gestione dello stato come Redux Toolkit, Zustand o Legend State, tutte le librerie moderne dispongono di adattatori nativi per la persistenza — in quel caso non hai bisogno di gestire AsyncStorage manualmente.
 
-Definiamo una chiave per il nostro storage: questa sarà la chiave con cui verrà memorizzato il nostro stato: 
+
+##### Salvare lo stato nell'AsyncStorage
+
+`AsyncStorage` funziona come un dizionario persistente sul dispositivo: 
+- ==salva e legge coppie chiave-valore, ma accetta **solo stringhe**.== 
+==Questo significa che qualsiasi oggetto va serializzato con `JSON.stringify` prima di salvarlo, e deserializzato con `JSON.parse` quando lo si rilegge.== 
+
+Definiamo una chiave univoca per identificare il nostro valore in storage e una funzione asincrona per il salvataggio:
 ```tsx
+// src/utils/authContext.tsx
 const authStorageKey: string = "auth-key";
+
+const storeAuthState = async (newState: { isLogged: boolean }) => {
+    try {
+        const jsonValue = JSON.stringify(newState);
+        await AsyncStorage.setItem(authStorageKey, jsonValue);
+    } catch (error) {
+        console.log(`Error saving: ${error}`);
+    }
+};
 ```
 
-È sempre consigliabile utilizzare un try-catch quando si interagisce con l’archiviazione asincrona. Ora dovremo convertire il nostro oggetto di stato di autenticazione in una stringa, poiché l’archiviazione asincrona accetta solo coppie chiave-valore di stringhe. Importeremo l’archiviazione asincrona e chiameremo `asyncStorage.setItem` con la chiave di archiviazione e il valore che vogliamo impostare.
-```tsx
-export const AuthProvider = ({ children }: PropsWithChildren): ReactElement => {
 
-    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-
-    const router = useRouter()
-
-    const storeAuthState = async (newState: { isLogged: boolean }) => {
-
-        try {
-
-            const jsonValue = JSON.stringify(newState);
-
-            await AsyncStorage.setItem(authStorageKey, jsonValue);
-
-        } catch (error) {
-
-            console.log(`Error saving: ${error}`);
-
-        }
-
-    }
-```
-
-Ora rendiamo asincrono l'archiviazione permanente dello stato di autenticazione ogni volta che si effettua l'accesso o l'uscita
+Si chiama `storeAuthState` ogni volta che lo stato cambia, sia dentro `logIn` che dentro `logOut`:
 ```tsx
 const logIn = () => {
+    setIsLoggedIn(true);
+    storeAuthState({ isLogged: true });
+    router.replace('/');
+};
 
-        setIsLoggedIn(true);
-
-        console.log(isLoggedIn)
-
-        storeAuthState({ isLogged: true })
-
-        router.replace("/")
-
-    };
-
-    const logOut = () => {
-
-        setIsLoggedIn(false)
-
-        console.log(isLoggedIn)
-
-        storeAuthState({ isLogged: false })
-
-        router.replace("/login")
-
-    }
+const logOut = () => {
+    setIsLoggedIn(false);
+    storeAuthState({ isLogged: false });
+    router.replace('/login');
+};
 ```
 
-Ora dobbiamo anche recuperare correttamente questo valore iniziale al primo avvio dell'app; per farlo useremo un [[Lezione 4 - useEffect#Lo `useEffect`|`useEffect`]] di React con [[Lezione 4 - useEffect#Il dependency array|un array di dipendenze vuoto]] per recuperare gli elementi dall'archiviazione asincrona in modo asincrono, ma la funzione passata a `useEffect` è sincrona, quindi il modo per aggirare il problema è definire una funzione costante asincrona `getAll` dall’archivio e chiamarla in `useEffect` senza attendere il completamento.
-Ora rendiamo asincrono l'accesso all'archivio persistente per lo stato di autenticazione ogni volta che si effettua l'accesso o l'uscita dall'app. Ora dobbiamo anche recuperare correttamente questo valore iniziale al primo avvio dell’app; per farlo useremo un `useEffect` di React con un array di dipendenze vuoto, che recupera gli elementi dall’archivio asincrono in modo asincrono, ma la funzione passata a `useEffect` è sincrona, quindi il modo per aggirare il problema è definire una funzione costante asincrona `getAll` dall’archivio e chiamarla in `useEffect` senza attendere il completamento. aggiungiamo un try-catch: è una buona pratica quando si lavora con l’archivio asincrono; chiameremo la funzione asincrona "getItem" dell’archivio e otterremo il valore memorizzato in corrispondenza della chiave che abbiamo impostato. Questo valore sarà `null` al primo avvio, ma in caso contrario ci aspettiamo che sia l’oggetto convertito in stringa che abbiamo salvato, quindi applicheremo il parsing JSON su di esso.
+In questo modo ogni cambio di stato viene immediatamente scritto su disco e sopravvive al riavvio dell'app.
+##### Recuperare lo stato al primo avvio
+
+Salvare non è sufficiente — bisogna anche **leggere** il valore salvato quando l'app si avvia. Si usa un [[Lezione 4 - useEffect#Lo `useEffect`|`useEffect`]] con [[Lezione 4 - useEffect#Il dependency array|array di dipendenze vuoto]] — ==viene eseguito una sola volta al montaggio del componente==, esattamente quello che vogliamo per l'inizializzazione.
+
+**`useEffect` accetta solo funzioni sincrone**, ==quindi si definisce una funzione asincrona interna e la si chiama immediatamente== — è il pattern standard per usare `async/await` dentro un `useEffect`:
+
 ```tsx
 useEffect(() => {
+    const getAuthFromStorage = async () => {
+        try {
+            const value = await AsyncStorage.getItem(authStorageKey);
+            if (value !== null) {
+                // JSON.parse riconverte la stringa nell'oggetto originale
+                const auth = JSON.parse(value);
+                setIsLoggedIn(auth.isLogged);
+            }
+        } catch (error) {
+            console.log(`Error fetching from storage: ${error}`);
+        }
+        // indipendentemente dal risultato, lo stato è ora determinato
+        setIsReady(true);
+    };
 
-        const getAuthFromStorage = async () => {
-
-            try {
-
-                const value = await AsyncStorage.getItem(authStorageKey);
-
-                if (value !==null){
-
-                    const auth = JSON.parse
-
-                }
-
-            } catch (error) {
-
-                console.log(`Error fetching from storage ${error}`)
-
-            }
-
-        };
-
-        getAuthFromStorage();
-
-    }, [])
+    getAuthFromStorage();
+}, []);
 ```
 
+`setIsReady(true)` viene chiamato **fuori dal blocco `if`**, dopo il `try-catch` — questo garantisce che `isReady` diventi `true` indipendentemente da ciò che è successo: 
+- ==sia che abbiamo trovato un valore salvato, sia che fosse il primo avvio, sia che ci sia stato un errore.==
+##### Il problema dello stato indeciso
+
+C'è però un problema sottile: ==la lettura da AsyncStorage è asincrona==. 
+Al primo render, `isLoggedIn` è `false` e `(protected)/_layout.tsx` eseguirebbe immediatamente il [[Lezione 3 - Utilizzo di un Tab Navigator con Expo Router#2. Redirect in `index.tsx`|redirect]] verso `/login` — prima ancora che AsyncStorage abbia restituito il valore reale. 
+Un utente già autenticato verrebbe rimandato al login ad ogni avvio.
+
+La soluzione è aggiungere una variabile `isReady` che segnala se lo stato di autenticazione è stato determinato o è ancora in corso di lettura:
+```tsx
+// src/utils/authContext.tsx
+type AuthState = {
+    isLoggedIn: boolean;
+    isReady: boolean;      // true solo dopo aver letto AsyncStorage
+    logIn: () => void;
+    logOut: () => void;
+};
+
+export const AuthContext = createContext<AuthState>({
+    isLoggedIn: false,
+    isReady: false,
+    logIn: () => {},
+    logOut: () => {}
+});
+
+export const AuthProvider = ({ children }: PropsWithChildren): ReactElement => {
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+    const [isReady, setIsReady] = useState<boolean>(false);
+    const router = useRouter();
+
+    // ...
+
+    return (
+        <AuthContext.Provider value={{ isLoggedIn, isReady, logIn, logOut }}>
+            {children}
+        </AuthContext.Provider>
+    );
+};
+```
+
+In `(protected)/_layout.tsx` si aggiunge un controllo su `isReady` **prima** del redirect — ==se lo stato non è ancora determinato, si restituisce `null` per non renderizzare nulla e attendere==:
+```tsx
+// app/(protected)/_layout.tsx
+const ProtectedLayout = () => {
+    const authState = useContext(AuthContext);
+
+    // stato ancora indeciso → non renderizzare nulla e aspettare
+    if (!authState.isReady) {
+        return null;
+    }
+
+    // stato determinato → controlla autenticazione
+    if (!authState.isLoggedIn) {
+        return <Redirect href='/login' />;
+    }
+
+    return (
+        <Stack>
+            <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+            <Stack.Screen name='modal' options={{ presentation: 'modal' }} />
+            <Stack.Screen name='model-with-stack' options={{ presentation: 'modal', headerShown: false }} />
+        </Stack>
+    );
+};
+```
+
+Il flusso al primo avvio diventa:
+```css
+App avviata
+    ↓
+isReady = false → return null (nessun redirect prematuro)
+    ↓
+AsyncStorage legge il valore salvato
+    ↓
+setIsLoggedIn(valore salvato) + setIsReady(true)
+    ↓
+re-render di ProtectedLayout
+    ↓                        ↓
+isLoggedIn = true      isLoggedIn = false
+    ↓                        ↓
+mostra le schede       redirect a /login
+```
+
+
+
+Per capire meglio la sequenza di render, aggiungendo dei `console.log` si vede chiaramente cosa succede:
+```tsx
+console.log(`isReady ${authState.isReady}`)
+console.log(`isReady ${authState.isReady}`)
+```
+
+```shell
+LOG  isReady: false   ← primo render, AsyncStorage non ha ancora risposto
+LOG  isLoggedIn: false
+LOG  isReady: true    ← secondo render, AsyncStorage ha risposto
+LOG  isLoggedIn: true ← ora il valore reale è disponibile
+```
+
+Senza `isReady`, al primo render il redirect verso `/login` verrebbe eseguito immediatamente e `ProtectedLayout` non verrebbe mai ri-renderizzato con il valore corretto. 
+Con `isReady`, invece, il layout aspetta che AsyncStorage abbia risposto prima di prendere qualsiasi decisione di navigazione.
+
+> [!hint] Restituire `null` da un componente React è perfettamente valido —  
+> ==dice a React di non renderizzare nulla per quel componente.==  
+> ==È la soluzione più pulita per gestire gli stati di caricamento iniziale senza mostrare flash di contenuto indesiderato.== In un'app reale, al posto di `null` si potrebbe restituire uno splash screen o un indicatore di caricamento.
+
+
+### Mostrare la schermata iniziale mentre l'autenticazione è indecisa
+
+##### Il problema
+
+Restituire `null` mentre `isReady` è `false` funziona correttamente — nessun redirect prematuro — ma produce un'esperienza visiva non ideale: 
+- ==l'utente vede una **schermata vuota** per il tempo necessario a determinare lo stato di autenticazione.==
+
+In uno scenario reale questo tempo potrebbe non essere trascurabile — ad esempio se bisogna effettuare una chiamata [[Lezione 6 - API#API (Application Programming Interface)|API]] per verificare o aggiornare un [[JWT - JSON Web Token#Cosa sono i JWT|token JWT]]. 
+Per simulare questo caso aggiungiamo un ritardo artificiale di 1 secondo nel `useEffect`: 
+
+```tsx
+useEffect(() => {
+    const getAuthFromStorage = async () => {
+        // simulo un'operazione lenta (es. chiamata API per refresh token)
+        await new Promise((res) => setTimeout(() => res(null), 1000));
+
+        try {
+            const value = await AsyncStorage.getItem(authStorageKey);
+            if (value !== null) {
+                const auth = JSON.parse(value);
+                setIsLoggedIn(auth.isLogged);
+            }
+        } catch (error) {
+            console.log(`Error fetching from storage: ${error}`);
+        }
+
+        setIsReady(true);
+    };
+
+    getAuthFromStorage();
+}, []);
+```
+
+Con questo ritardo, al riavvio dell'app si vede chiaramente il problema: 
+- ==la splash screen scompare, appare una schermata nera vuota per un secondo, e solo dopo compare l'app.== 
+Non è un'esperienza accettabile.
+
+##### La soluzione: mantenere la splash screen visibile
+
+Il pattern consolidato per gestire questa situazione è: 
+- ==**mantenere la splash screen visibile** finché lo stato di autenticazione non è determinato, nascondendola solo quando `isReady` diventa `true`.== 
+Expo mette a disposizione `SplashScreen` proprio per questo scopo.
+
+In cima ad `authContext.tsx` si chiama `SplashScreen.preventAutoHideAsync()` — questa istruzione va eseguita il prima possibile, fuori da qualsiasi componente, in modo che la splash screen rimanga visibile fin dall'avvio:
+Ora, nella parte superiore del contesto di autenticazione (`src/utils/authContext.tsx`), chiamiamo `SplashScreen.preventAutoHideAsync`: 
+```tsx
+// src/utils/authContext.tsx
+import * as SplashScreen from 'expo-splash-screen';
+
+// impedisce alla splash screen di nascondersi automaticamente
+SplashScreen.preventAutoHideAsync();
+```
+Poi si aggiunge un secondo `useEffect` con `isReady` nell'array delle dipendenze — ==viene eseguito ogni volta che `isReady` cambia, e nasconde la splash screen non appena lo stato è determinato==:
+```tsx
+useEffect(() => {
+    if (isReady) {
+        SplashScreen.hideAsync();
+    }
+}, [isReady]);
+```
+
+> [!FAQ] **Perché due `useEffect` separati?**
+>  
+> 
+> Si potrebbe pensare di chiamare `SplashScreen.hideAsync()` direttamente dentro `getAuthFromStorage`, subito dopo `setIsReady(true)`. Funzionerebbe, ma separare le responsabilità è una pratica migliore:
+> 
+> - il primo `useEffect` si occupa esclusivamente di **leggere lo stato da AsyncStorage**
+> - il secondo `useEffect` si occupa esclusivamente di **gestire la splash screen** in risposta al cambiamento di `isReady`
+> 
+> Questo rende il codice più leggibile e più facile da modificare in futuro — se in futuro `isReady` dipendesse da più condizioni, la logica della splash screen non andrebbe toccata.
+
+Il flusso completo al primo avvio diventa:
+```text
+App avviata
+    ↓
+SplashScreen.preventAutoHideAsync() → splash screen bloccata
+    ↓
+isReady = false → ProtectedLayout restituisce null
+    ↓
+AsyncStorage legge il valore (o attende la chiamata API)
+    ↓
+setIsLoggedIn(valore) + setIsReady(true)
+    ↓
+useEffect([isReady]) → SplashScreen.hideAsync()
+    ↓
+re-render di ProtectedLayout
+    ↓                        ↓
+isLoggedIn = true      isLoggedIn = false
+    ↓                        ↓
+mostra le schede       redirect a /login
+```
+
+>[!hint] `SplashScreen.preventAutoHideAsync()` va chiamato il prima possibile nel ciclo di vita dell'app — ==idealmente al livello più alto del modulo, fuori da qualsiasi componente o hook.== 
+>Se viene chiamato troppo tardi, la splash screen potrebbe già essersi nascosta automaticamente prima che l'istruzione venga eseguita.
