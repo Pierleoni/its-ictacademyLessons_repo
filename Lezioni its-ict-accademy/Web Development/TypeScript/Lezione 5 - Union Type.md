@@ -1,4 +1,5 @@
 
+
 # Union Types in TypeScript
 
 Nel nostro percorso con TypeScript abbiamo esplorato un ampio spettro di strumenti per tipizzare il codice — dai primitivi come `string` e `number`, agli [[Lezione 4 - Array, Custom Types e Generic#Array in TypeScript|array]] e tuple, fino ai [[Lezione 4 - Array, Custom Types e Generic#Tipi Custom in TypeScript|tipi custom]] come [[Lezione 4 - Array, Custom Types e Generic#Enums|enums]], [[Lezione 4 - Array, Custom Types e Generic#Object Types|object types]], [[Lezione 4 - Array, Custom Types e Generic#Type Aliases|type aliases]] e [[Lezione 4 - Array, Custom Types e Generic#Generic Types|generics]].

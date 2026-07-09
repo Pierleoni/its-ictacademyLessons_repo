@@ -54,8 +54,8 @@ La differenza sostanziale è nel **campo di applicazione**:
 | ----------------------------------------------------------- | ------ | ----------- |
 | oggetti                                                     | ✅      | ✅           |
 | primitivi                                                   | ✅      | ❌           |
-| [[Lezione 5 - Union Type#Definire le Union Types\|Union]]   |        | ❌           |
-| [[Lezione 4 - Array, Custom Types e Generic#Tuples\|Tuple]] |        | ❌           |
+| [[Lezione 5 - Union Type#Definire le Union Types\|Union]]   | ✅      | ❌           |
+| [[Lezione 4 - Array, Custom Types e Generic#Tuples\|Tuple]] | ✅      | ❌           |
 
 `type` è più versatile — può tipizzare qualsiasi cosa. `interface` può tipizzare **solo oggetti**. Allora perché usare `interface`?
 

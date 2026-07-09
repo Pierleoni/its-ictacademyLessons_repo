@@ -312,7 +312,7 @@ Qui `dismissTo` non risale fino alla root — si ferma alla **prima istanza di I
   <Button title="Dismiss to Index" />
 </Link>
 ```
-Sequenza di navigazione: I`ndex → Second → Third → **replace** → Index → Second → Third.`
+Sequenza di navigazione: `Index → Second → Third → **replace** → Index → Second → Third.`
 
 Usando `replace` da Third verso Index, Index sostituisce Third nello stack — e poi facendo push di nuovo verso Second e Third, otteniamo:
 ```txt
