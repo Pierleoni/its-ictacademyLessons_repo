@@ -97,7 +97,7 @@ function GroupItem() {
 L'utilizzo del Context in React richiede sempre **3 passaggi fondamentali**: 
 1. [[#1. Creare il Context|creazione]], 
 2. [[#2. Fornire il Context (Provider)|provisioning]] 
-3. consumo.
+3. [[#3. Consumare il Context|consumo]].
 
 #### 1. Creare il Context
 
@@ -521,7 +521,7 @@ Grazie a `useMemo`:
 
 Immagina di avere una scatola (l'oggetto `value`) con dentro alcuni oggetti (`groups`, `addGroup`). Ogni volta che il tuo componente si ri-renderizza:
 
-- **Senza `useMemo`**: prendi tutti gli oggetti e li rimetti dentro una **scatola nuova di zecca**, anche se gli oggetti dentro sono gli stessi di prima. Chi riceve la scatola (i consumer) vede "una scatola diversa da quella di prima" e reagisce come se qualcosa fosse cambiato.
+- **Senza `useMemo`**: ==prendi tutti gli oggetti e li rimetti dentro una **scatola nuova di zecca**, anche se gli oggetti dentro sono gli stessi di prima. Chi riceve la scatola (i consumer) vede "una scatola diversa da quella di prima" e reagisce come se qualcosa fosse cambiato.==
 - **Con `useMemo`**: prima di creare una scatola nuova, controlli se gli oggetti che ci andrebbero dentro sono gli stessi della scatola precedente. Se sì, **consegni di nuovo la stessa vecchia scatola**, senza nemmeno aprirla. Chi la riceve capisce subito "è la stessa scatola di prima, non c'è nulla di nuovo da controllare".
 ### Riepilogo: quando usare il Context
 
@@ -537,6 +537,80 @@ Immagina di avere una scatola (l'oggetto `value`) con dentro alcuni oggetti (`gr
 > - ==Per stati che cambiano molto frequentemente e coinvolgono aggiornamenti granulari (in questi casi il Context può causare troppi re-render, anche con `useMemo`; potrebbe convenire una libreria di state management dedicata)==
 
 
+### `useCallback`: spiegazione approfondita
+
+Abbiamo già incontrato `useCallback` nell'esempio del `GroupContext`, ma vediamo ora di capirlo a fondo, partendo dalle basi.
+
+#### Il problema di partenza: le funzioni sono oggetti
+
+Come abbiamo accennato parlando di [[#Come funziona `useMemo` nel dettaglio|`useMemo`]], in JavaScript **le funzioni sono un tipo speciale di oggetto**. 
+Questo ha una conseguenza che spesso sorprende:
+```js
+const a = () => console.log('ciao');
+const b = () => console.log('ciao');
+
+console.log(a === b); // false! Anche se fanno la stessa cosa, sono due funzioni diverse
+```
+
+Esattamente come per gli oggetti letterali `{}`, ==ogni volta che scriviamo una funzione (una arrow function, una function expression), JavaScript crea **un nuovo oggetto funzione**, con un nuovo indirizzo in memoria — anche se il codice al suo interno è identico a una funzione creata un istante prima.==
+
+
+#### Dove si presenta il problema in React
+
+Ogni volta che un componente si ri-renderizza, **il suo intero corpo viene rieseguito**. Questo significa che qualsiasi funzione dichiarata _dentro_ il componente viene **ricreata da zero ad ogni render**:
+```jsx
+function GroupProvider({ children }) {
+  const [groups, setGroups] = useState([]);
+
+  // ⚠️ Questa funzione viene ricreata ad ogni render di GroupProvider
+  const addGroup = (group) => {
+    setGroups((prev) => [...prev, group]);
+  };
+
+  return (
+    <GroupContext.Provider value={{ groups, addGroup }}>
+      {children}
+    </GroupContext.Provider>
+  );
+}
+```
+
+Anche se `addGroup` fa **esattamente la stessa cosa** ad ogni render (stessa logica, stesso comportamento), è comunque una **funzione nuova**, diversa in memoria dalla precedente.
+
+#### Perché questo è un problema concreto
+
+Ricordiamo cosa abbiamo imparato su `useMemo` nel contesto del `value` del Provider:
+```jsx
+const value = useMemo(
+  () => ({ groups, addGroup }),
+  [groups, addGroup]  // ← addGroup qui dentro
+);
+```
+
+==Se `addGroup` è sempre "nuova" ad ogni render, `useMemo` la vedrà sempre come una dipendenza _cambiata_ — anche quando in realtà `groups` non è cambiato affatto.== Questo significa che `useMemo` **rieseguirà sempre** la sua funzione di calcolo, ricreando un nuovo oggetto `value` ad ogni render — vanificando completamente l'ottimizzazione che avevamo introdotto.
+
+> [!warning] **Il punto centrale**  
+> ==`useMemo` da solo non basta a stabilizzare il `value` del Provider, se le funzioni al suo interno vengono ricreate ad ogni render. Serve uno strumento che memorizzi _anche le funzioni stesse_, non solo gli oggetti che le contengono.==
+
+#### Cos'è `useCallback`
+
+`useCallback` è, concettualmente, **l'equivalente di `useMemo`, ma specializzato per le funzioni**. La sua firma è molto simile:
+```jsx
+const memoizedFunction = useCallback(() => {
+  // corpo della funzione
+}, [dipendenze]);
+```
+
+==`useCallback` restituisce la **stessa istanza della funzione** (stesso riferimento in memoria) tra un render e l'altro, finché nessuna delle dipendenze nell'array cambia. Solo quando una dipendenza cambia, `useCallback` restituisce una nuova funzione.==
+
+###### Confronto diretto: `useMemo` vs `useCallback`
+
+> [!abstract] **La differenza in una frase**
+> 
+> - **`useMemo`** ==memorizza il **valore restituito** da una funzione di calcolo==
+> - **`useCallback`** ==memorizza **la funzione stessa**, senza eseguirla==
+
+La differenza pratica è che `useCallback(fn, deps)` è più diretto e leggibile quando l'obiettivo è specificamente memorizzare una funzione, senza dover scrivere una funzione-che-restituisce-una-funzione come richiederebbe `useMemo`.
 #### Esempio pratico completo: `FontSizeContext`
 
 ediamo ora un esempio pratico e completo che mette insieme tutti i concetti visti finora: creazione del context, provider, consumo tramite `useContext`, e integrazione in un progetto **Expo Router**.
@@ -742,3 +816,109 @@ Dato che `FontSizeContext` è stato creato con un **valore di default esplicito*
 > Dipende dall'obiettivo. Se l'idea è che il font size debba essere condiviso **ovunque nell'app**, la soluzione più corretta sarebbe spostare il `Provider` (cioè la logica di `UseContextHook`, senza il JSX di `PageOne`/`PageTwo` annidati) **nel `_layout.tsx`**, avvolgendo l'intero `<Tabs>`. In questo modo, indipendentemente da quale tab l'utente visita, tutte condividerebbero lo stesso `size` e gli stessi bottoni per modificarlo (magari posizionati in un punto fisso, come un header comune).
 > 
 > ==Questo esempio, così com'è strutturato, funziona correttamente **solo quando si passa dalla Home**, dato che è lì che vive sia il Provider che le istanze "condivise" di `PageOne`/`PageTwo`.== È un aspetto tipico da tenere a mente quando si integra un tutorial pensato per un progetto Expo "classico" (con `App.js` come unico entry point) in un progetto **Expo Router**, dove la navigazione stessa introduce più "punti di ingresso" verso lo stesso componente.
+
+##### Applicare `useCallback` al nostro esempio
+
+Riprendiamo il `GroupProvider` e applichiamo `useCallback` ad `addGroup`:
+```tsx
+import { useCallback, useMemo, useState } from 'react';
+
+function GroupProvider({ children }) {
+  const [groups, setGroups] = useState([]);
+
+  // ✅ addGroup mantiene lo stesso riferimento tra i render
+  const addGroup = useCallback((group) => {
+    setGroups((prev) => [...prev, group]);
+  }, []); // array vuoto: la funzione non dipende da nulla che cambia
+
+  const value = useMemo(
+    () => ({ groups, addGroup }),
+    [groups, addGroup]
+  );
+
+  return (
+    <GroupContext.Provider value={value}>
+      {children}
+    </GroupContext.Provider>
+  );
+}
+```
+
+###### Perché l'array di dipendenze è vuoto `[]`
+
+Guardiamo bene il corpo di `addGroup`:
+```tsx
+const addGroup = useCallback((group) => {
+  setGroups((prev) => [...prev, group]);
+}, []);
+```
+
+
+==Questa funzione non fa mai riferimento diretto a `groups` — usa invece la [[Lezione 3 - Hooks#Aggiornare lo stato precedente in React|forma funzionale del setter]] (`prev => [...prev, group]`), che riceve automaticamente lo stato più aggiornato da React stesso, senza bisogno di "catturare" `groups` dall'esterno.==
+
+Questo è un dettaglio molto importante: **se `addGroup` non dipende da nessuna variabile esterna che cambia**, allora non ha mai bisogno di essere ricreata — può rimanere sempre la stessa funzione, per tutta la vita del componente. Per questo l'array di dipendenze è vuoto.
+
+> [!ticket] **Regola pratica**  
+> ==Preferisci sempre la forma funzionale del setter (`setGroups(prev => ...)`) invece di quella diretta (`setGroups([...groups, newGroup])`) quando scrivi funzioni che finiranno dentro `useCallback`. Questo ti permette quasi sempre di lasciare l'array di dipendenze vuoto, rendendo la funzione stabile per l'intera vita del componente.==
+
+##### Un esempio in cui servono davvero delle dipendenze
+
+Non tutte le funzioni possono avere un array di dipendenze vuoto. Immaginiamo una funzione che filtra i gruppi in base a un testo di ricerca esterno:
+```tsx
+function GroupProvider({ children }) {
+  const [groups, setGroups] = useState([]);
+  const [searchText, setSearchText] = useState('');
+
+  // Questa funzione USA searchText direttamente, non tramite un setter funzionale
+  const getFilteredGroups = useCallback(() => {
+    return groups.filter((g) => g.name.includes(searchText));
+  }, [groups, searchText]); // ⚠️ deve rieseguirsi se groups O searchText cambiano
+
+  // ...
+}
+```
+
+Qui `getFilteredGroups` **legge direttamente** `groups` e `searchText` dal closure (dall'ambiente circostante), quindi **deve** essere ricreata ogni volta che uno di questi due valori cambia — altrimenti continuerebbe a filtrare usando dati "vecchi", intrappolati nella versione precedente della funzione (il problema dello _stale state_ che abbiamo visto parlando di `useState`).
+
+> [!faq] **Come decido quali dipendenze mettere nell'array?**  
+> ==La regola è semplice: ogni variabile (stato, prop, altra funzione memorizzata) che la funzione legge direttamente dal proprio "scope" esterno, e che può cambiare nel tempo, va inserita nell'array di dipendenze.== Se la funzione non legge nulla dall'esterno (o legge solo tramite `prev` nella forma funzionale del setter), l'array può restare vuoto.
+
+##### Un dettaglio sottile: quando `useCallback` "non serve"
+
+È importante essere onesti su un punto: **`useCallback` da solo non evita che la funzione venga ricreata al primo render**, né impedisce al componente di ri-renderizzarsi. Il suo unico scopo è: ==_"se la funzione non è cambiata rispetto all'ultimo render, restituisci quella vecchia invece di crearne una nuova"_==.
+
+> [!failure] **Un errore comune: usare `useCallback` "ovunque"**  
+> Avvolgere _ogni_ funzione in `useCallback` "per sicurezza" non è sempre una buona pratica. `useCallback` stesso ha un piccolo costo (deve confrontare le dipendenze ad ogni render). ==Ha senso usarlo quando la funzione:==
+> 
+> - ==viene passata come **dipendenza** ad un altro hook come `useMemo`, `useEffect` o un altro `useCallback`==
+> - ==viene passata come **prop** a un componente figlio ottimizzato con `React.memo` (che salta il re-render se le props non cambiano)==
+> 
+> ==Se una funzione viene usata solo internamente al componente (es. dentro un `onPress`, senza essere passata altrove né inserita in un array di dipendenze), avvolgerla in `useCallback` spesso non porta alcun beneficio reale.==
+
+#### Perché nel pattern Context lo usiamo quasi sempre
+
+Nel caso specifico del pattern Context che abbiamo visto, **`useCallback` è quasi sempre giustificato**, perché le funzioni del Provider (`addGroup`, `deleteGroup`, ecc.) rientrano esattamente nel primo caso sopra: **vengono sempre inserite come dipendenza di `useMemo`** per costruire il `value` del Provider.
+```tsx
+const addGroup = useCallback((group) => {
+  setGroups((prev) => [...prev, group]);
+}, []);
+
+const deleteGroup = useCallback((groupId) => {
+  setGroups((prev) => prev.filter((g) => g.id !== groupId));
+}, []);
+
+// Entrambe le funzioni sopra sono dipendenze di questo useMemo:
+const value = useMemo(
+  () => ({ groups, addGroup, deleteGroup }),
+  [groups, addGroup, deleteGroup]
+);
+```
+
+Senza `useCallback` su `addGroup` e `deleteGroup`, l'intera catena di ottimizzazione con `useMemo` **si romperebbe**, perché quelle funzioni sarebbero comunque "nuove" ad ogni render, forzando `useMemo` a ricreare sempre un nuovo oggetto `value`.
+
+>[!example] **In sintesi**
+>
+>- Le funzioni, come gli oggetti, vengono **ricreate ad ogni render** in JavaScript
+>- `useCallback(fn, deps)` ==**memorizza una funzione**, restituendo la stessa istanza finché le dipendenze non cambiano== — è l'equivalente di `useMemo` applicato specificamente alle funzioni
+>- Usare la **forma funzionale dei setter** (`setState(prev => ...)`) ==all'interno delle funzioni permette quasi sempre di lasciare l'array di dipendenze **vuoto**, rendendo la funzione stabile per tutta la vita del componente==
+>- Nel pattern Context, `useCallback` è quasi sempre necessario **in combinazione con `useMemo`**: ==senza di esso, l'intera ottimizzazione contro i re-render superflui non funzionerebbe==
