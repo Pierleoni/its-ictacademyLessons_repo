@@ -384,7 +384,7 @@ Con pochi componenti il costo è trascurabile. ==Ma in un'app reale, con decine 
 
 Il problema, come abbiamo visto, è che l'oggetto `value` viene **ricreato ad ogni render**, anche quando non serve. La soluzione naturale è quindi: _"ricrea l'oggetto solo quando i dati al suo interno cambiano davvero"_.
 
-Questo è esattamente ciò che fa `useMemo`: memorizza (in inglese, _"memoizes"_) il risultato di un calcolo, e lo ricalcola solo quando le sue dipendenze cambiano.
+Questo è esattamente ciò che fa `useMemo`: ==memorizza (in inglese, _"memoizes"_) il risultato di un calcolo, e lo ricalcola solo quando le sue dipendenze cambiano.==
 ```tsx
 import { useMemo } from 'react';
 
